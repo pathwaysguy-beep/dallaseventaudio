@@ -65,7 +65,8 @@ to `404.html` in staging.
 - [ ] Delete the staging block from `_headers` and replace `robots.txt`.
 - [ ] Add `sitemap.xml`, and leave `/thank-you` out of it.
 - [ ] Upload `llms.txt`.
-- [ ] Strip the palette switcher, it is a review tool.
+- [x] Palette switcher stays. It is a live feature, not a review tool: the
+      bottom-left pill on all 40 pages, with the choice remembered per visitor.
 - [ ] Confirm `form_submit_thankyou` fires on the real domain. The Google Ads
       conversion is a GA4 import and that event is the number that moves.
 - [ ] Check all 77 URLs resolve before switching DNS.

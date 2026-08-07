@@ -312,10 +312,10 @@ html{ scroll-behavior:auto; }
 .grain-overlay{ display:none; }
 }
 </style>
-  <title>DJ Equipment Rental Dallas | Rent DJ Gear, CDJs & Speakers | Dallas Event Audio</title>
+  <title>DJ Equipment &amp; CDJ Rental Dallas | Dallas Event Audio</title>
   <meta name="description" content="DJ equipment rental in Dallas-Fort Worth. CDJs, mixers, controllers, booths, speakers and subs, delivered, set up and run by a technician. Insured since 2001.">
   <link rel="canonical" href="https://www.dallaseventaudio.com/rent-sound-equipment/cdj-rental-dallas">
-  <meta property="og:title" content="DJ Equipment Rental Dallas | Rent DJ Gear, CDJs & Speakers | Dallas Event Audio">
+  <meta property="og:title" content="DJ Equipment &amp; CDJ Rental Dallas | Dallas Event Audio">
   <meta property="og:description" content="DJ equipment rental in Dallas-Fort Worth. CDJs, mixers, controllers, booths, speakers and subs, delivered, set up and run by a technician. Insured since 2001.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.dallaseventaudio.com/rent-sound-equipment/cdj-rental-dallas">
@@ -427,8 +427,22 @@ a.chip::after{ content:' \2192'; opacity:.55; }
     letter-spacing:.09em; text-transform:uppercase; color:var(--a1); opacity:.85; }
 .room p{ font-size:1rem; line-height:1.72; color:var(--dim); }
 .room p b{ color:var(--ink); font-weight:700; }
+.spec{
+    display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+    margin:0 0 14px; padding-bottom:12px;
+    border-bottom:1px solid var(--card-border);
+    font-family:var(--font-body); font-size:.92rem; color:var(--ink); line-height:1.5;
+  }
+.spec span{
+    font-family:var(--font-display); font-weight:900; font-size:.66rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1); flex:0 0 auto;
+  }
+.room .spec{ grid-column:2; font-size:.92rem; color:var(--ink); }
+.room > p{ grid-column:2; }
+.room:has(> .spec){ row-gap:0; }
 @media (max-width:860px){
 .room{ grid-template-columns:1fr; gap:12px; }
+.room .spec, .room > p{ grid-column:1; }
 }
 .addon{
     margin-top:24px; padding:28px 30px; border-radius:18px;
@@ -587,7 +601,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
     "name": "DJ Equipment Rental in Dallas-Fort Worth",
     "serviceType": "DJ Equipment Rental",
     "url": "https://www.dallaseventaudio.com/rent-sound-equipment/cdj-rental-dallas",
-    "description": "DJ equipment rental across Dallas-Fort Worth. Media players, mixers, controllers, DJ booths, speakers, subwoofers, monitors and microphones, delivered, set up, line-checked and run by an on-site technician. Nothing is dropped off and there is no customer pickup.",
+    "description": "DJ equipment rental across Dallas-Fort Worth. Media players, mixers, controllers, DJ booths, speakers, subwoofers, monitors and microphones, delivered, set up, line-checked and run by an on-site technician who stays for the event.",
     "category": "DJ Equipment Rental",
     "provider": {
       "@type": "Organization",
@@ -634,21 +648,21 @@ a.chip::after{ content:' \2192'; opacity:.55; }
       {"@type":"Question","name":"Do you offer DJ equipment rental in Dallas?",
        "acceptedAnswer":{"@type":"Answer","text":"Yes. We rent DJ equipment across Dallas, Fort Worth and the surrounding DFW area for weddings, private parties, clubs, nightlife events, corporate events and festival-style productions. Every rental is delivered, set up and run by an on-site technician rather than handed over at a counter."}},
       {"@type":"Question","name":"Can I pick the equipment up myself?",
-       "acceptedAnswer":{"@type":"Answer","text":"No, and it is worth explaining why rather than just saying no. We do not offer customer pickup or self-service rental of any kind. Everything is delivered, assembled, line-checked and staffed by our crew, because the setup and the person standing behind it are the part that decides whether the event actually sounds right. It also means nothing is your responsibility to transport, return or troubleshoot."}},
+       "acceptedAnswer":{"@type":"Answer","text":"We do not offer customer pickup or self-service rental of any kind. Everything is delivered, assembled, line-checked and staffed by our crew, because the setup and the person standing behind it are the part that decides whether the event sounds right. We transport it, build it, troubleshoot it and take it away again, so none of that lands on you or your venue."}},
       {"@type":"Question","name":"Do you offer CDJ rental and Pioneer DJ rental in Dallas?",
        "acceptedAnswer":{"@type":"Answer","text":"Yes. We keep current-generation club-standard media players and the Pioneer-family mixers normally paired with them, plus all-in-one systems for tighter booths. Tell us who is playing and what they are used to, or send their rider, and we will bring the configuration that matches and set it up before they arrive."}},
       {"@type":"Question","name":"Can I rent DJ equipment and a sound system together?",
-       "acceptedAnswer":{"@type":"Answer","text":"That is the normal booking. A DJ setup rental usually means players and a mixer, tops sized to the room, subwoofers under them, a booth monitor, microphones and all the cabling, delivered as one working system. Renting decks with nothing behind them is rarely what anyone actually needs."}},
+       "acceptedAnswer":{"@type":"Answer","text":"That is the normal booking. A DJ setup rental usually means players and a mixer, tops sized to the room, subwoofers under them, a booth monitor, microphones and all the cabling, delivered as one working system. Renting decks with nothing behind them is rarely what anyone needs."}},
       {"@type":"Question","name":"Can I rent DJ equipment for a wedding?",
-       "acceptedAnswer":{"@type":"Answer","text":"Regularly, and it is one of the most common reasons people call. A wedding is really three audio events - ceremony, dinner and dance floor - often across two or three spaces, so we normally set all of it in one visit and keep a technician on it for the evening. That way whoever is DJing gets to be at the wedding rather than behind a mixer."}},
+       "acceptedAnswer":{"@type":"Answer","text":"Regularly, and it is a common reason people call. A wedding is really three audio events (ceremony, dinner and dance floor) often across two or three spaces, so we normally set all of it in one visit and keep a technician on it for the evening. That way whoever is DJing gets to be at the wedding rather than behind a mixer."}},
       {"@type":"Question","name":"Do you rent DJ booths, tables and facades?",
        "acceptedAnswer":{"@type":"Answer","text":"Yes. A facade turns a folding table and a bundle of cabling into something that belongs in your photographs, and it hides power, cases and everything else nobody needs to see. Cable management is part of every setup whether you rent a facade or not."}},
       {"@type":"Question","name":"Can I add speakers and subwoofers to a DJ rental?",
-       "acceptedAnswer":{"@type":"Answer","text":"Yes, and most bookings do. We pair DJ equipment with powered tops, BassBoss subwoofers, booth monitors, wireless microphones and, in larger rooms, a line array. Lighting can go on the same booking and the same load-in, which is usually cheaper and always simpler than a second vendor."}},
+       "acceptedAnswer":{"@type":"Answer","text":"Yes, and most bookings do. We pair DJ equipment with powered tops, BassBoss subwoofers, booth monitors, wireless microphones and, in larger rooms, a line array. Lighting can go on the same booking and the same load-in, which is simpler than running a second vendor into the same room."}},
       {"@type":"Question","name":"What if I have already hired my own DJ?",
        "acceptedAnswer":{"@type":"Answer","text":"That is a very common arrangement. You hire the DJ, we supply and run the system underneath them. We build the booth, patch it, line-check it and stay on the room, so your DJ walks up to a working rig instead of spending their first hour as an installer. Send us their rider or a note about their preferred setup with your inquiry."}},
       {"@type":"Question","name":"How much does DJ equipment rental cost in Dallas?",
-       "acceptedAnswer":{"@type":"Answer","text":"We do not publish prices, because a small party rig and a full production system for four hundred guests are different jobs and one number would misprice both. Send the date, the venue and the headcount and you will get an itemised quote back, usually the same day, with the delivery, setup and on-site technician included rather than added later."}},
+       "acceptedAnswer":{"@type":"Answer","text":"We do not publish prices, because a small party rig and a full production system for four hundred guests are different jobs and one number would misprice both. Send the date, the venue and the headcount and you will get an itemized quote back, usually the same day, with the delivery, setup and on-site technician included rather than added later."}},
       {"@type":"Question","name":"How do I get a quote for DJ equipment rental?",
        "acceptedAnswer":{"@type":"Answer","text":"Send us your event date, venue and what you need, and tell us whether you have a DJ already. We can quote a standalone DJ equipment package or a complete event production package with sound, lighting and effects on one contract. Call or text 817-210-7957, or use the contact form."}}
     ]
@@ -1062,9 +1076,9 @@ body.nav-locked{ overflow:hidden; }
         <div class="split-copy">
           <span class="kicker">DJ Equipment Rental Dallas</span>
           <h2>Rent DJ equipment that arrives already working.</h2>
-          <p>Most searches for DJ equipment rental in Dallas end at a counter somewhere, where someone hands over a road case and wishes you luck. That is not what this is. <b>Everything we rent is delivered, assembled, powered, line-checked and staffed by an on-site AV technician</b>. There is no customer pickup and no self-service option, because the half of the job that actually decides whether the night sounds right is the half that happens after the gear is in the room.</p>
+          <p>Most searches for DJ equipment rental in Dallas end at a counter somewhere, where someone hands over a road case and wishes you luck. We work the other way. Everything we rent is delivered, assembled, powered, line-checked and staffed by an on-site AV technician. We do not offer customer pickup or a self-service option, because the part of the job that decides whether the night sounds right happens after the gear is in the room.</p>
           <p>The people who book DJ gear from us usually fall into two groups. Some have already hired a DJ, or they are the DJ, and they need the players, the mixer and a system underneath it that will hold up in a room this size. Others are hosting the event themselves and need the whole thing to exist without them thinking about it. Both get the same treatment: the right rig for the room, built by someone who has built it before.</p>
-          <p>We have been doing event audio in Dallas-Fort Worth since 2001 and we own what we send out. That matters more than it sounds. Nothing we deliver is sub-rented sight unseen from another warehouse, so the mixer that shows up is one we have already used, in rooms like yours, and we know what it does when a venue&rsquo;s power is not as clean as the floor plan suggested. If you also want us to supply the person on the decks, that is <a href="/services-dj">our DJ service</a>; this page is about the equipment.</p>
+          <p>We have been doing event audio in Dallas-Fort Worth since 2001 and we own what we send out. Every piece comes out of our own warehouse rather than a sub-rental, so the mixer that shows up is one we have already used, in rooms like yours, and we know what it does when a venue&rsquo;s power is not as clean as the floor plan suggested. If you also want us to supply the person on the decks, that is <a href="/services-dj">our DJ service</a>; this page is about the equipment.</p>
           <div class="chips">
             <a class="chip" href="/contact">Check your date</a>
             <a class="chip" href="/rent-sound-equipment">All sound equipment rental</a>
@@ -1082,33 +1096,33 @@ body.nav-locked{ overflow:hidden; }
     <div class="wrap">
       <div class="section-head" data-reveal style="max-width:840px;">
         <span class="kicker">What A DJ Setup Rental Includes</span>
-        <h2>Four things arrive, not one.</h2>
-        <p>A DJ setup rental is not a box of equipment, it is a working signal chain from the player to the room. These are the four parts of it, and we would rather you understood how they fit together than picked model numbers off a list.</p>
+        <h2>Four parts arrive as one working system.</h2>
+        <p>A DJ setup rental is a working signal chain from the player to the room. These are the four parts of it, and we would rather you understood how they fit together than picked model numbers off a list.</p>
       </div>
 
       <div class="dj-grid">
         <div class="dj-card" data-reveal>
           <div class="tag">Part 01</div>
           <h3>The players and the mixer</h3>
-          <p>Club-standard media players and a DJ mixer, cabled together the way a DJ expects to find them, with link cabling, USB where it is needed and a booth output that is already set. <b>Everything is patched and tested before we leave.</b> If your DJ prefers an all-in-one system or a controller instead, that is a substitution rather than a different conversation.</p>
+          <p>Club-standard media players and a DJ mixer, cabled together the way a DJ expects to find them, with link cabling, USB where it is needed and a booth output that is already set. Everything is patched and tested before we leave. If your DJ prefers an all-in-one system or a controller instead, that is a substitution rather than a different conversation.</p>
           <div class="best"><em>Why it matters</em>A guest DJ should be able to walk up and play, not rewire.</div>
         </div>
         <div class="dj-card" data-reveal>
           <div class="tag">Part 02</div>
           <h3>The sound system underneath it</h3>
-          <p>Decks with nothing behind them are a very expensive way to make no sound. A DJ sound system rental means tops sized to the room, <a href="/rent-bassboss-subwoofers">BassBoss subwoofers</a> when the music actually needs low end, and <b>a system tuned to the space rather than pointed at it</b>. In larger rooms that becomes a <a href="/rent-line-array-speaker-system">line array</a>.</p>
+          <p>Players and a mixer make no sound on their own. A DJ sound system rental means tops sized to the room, <a href="/rent-bassboss-subwoofers">BassBoss subwoofers</a> when the music needs low end, and a system tuned to the space rather than pointed at it. In larger rooms that becomes a <a href="/rent-line-array-speaker-system">line array</a>.</p>
           <div class="best"><em>Why it matters</em>Even coverage is what stops the back of the room shouting.</div>
         </div>
         <div class="dj-card" data-reveal>
           <div class="tag">Part 03</div>
           <h3>Microphones that behave</h3>
-          <p>Almost every event with a DJ also has someone talking, announcements, a toast, an owner thanking a room. Every <a href="/feedback-free-microphone-rentals">microphone we send out</a> carries our <b>AI-powered De-Feedback system</b> as standard, which catches the ring before a room full of people hears it. There is <a href="/post/what-is-de-feedback-for-live-events">a longer explanation of how it works</a> if you want it.</p>
+          <p>Almost every event with a DJ also has someone talking, announcements, a toast, an owner thanking a room. Every <a href="/feedback-free-microphone-rentals">microphone we send out</a> carries our AI-powered De-Feedback system as standard, which catches the ring before a room full of people hears it. There is <a href="/post/what-is-de-feedback-for-live-events">a longer explanation of how it works</a> if you want it.</p>
           <div class="best"><em>Why it matters</em>Speeches are the part nobody gets a second take on.</div>
         </div>
         <div class="dj-card" data-reveal>
           <div class="tag">Part 04</div>
           <h3>The technician standing behind it</h3>
-          <p>This is the part other rental companies leave out and then charge you for at the worst possible moment. <b>An AV technician delivers the rental, builds it, line-checks it and stays with it</b> for the event, so when something needs re-patching mid-night it is handled by someone whose entire job that is. Load-out is ours too.</p>
+          <p>This is the part other rental companies leave out. An AV technician delivers the rental, builds it, line-checks it and stays with it for the event, so when something needs re-patching mid-night it is handled by someone whose whole job that is. Load-out is ours too.</p>
           <div class="best"><em>Why it matters</em>Nobody on your side should be behind the booth with a flashlight.</div>
         </div>
       </div>
@@ -1121,9 +1135,9 @@ body.nav-locked{ overflow:hidden; }
         <div class="split-copy">
           <span class="kicker">CDJ Rental Dallas</span>
           <h2>CDJ rental and Pioneer DJ rental, for the DJs who ask by name.</h2>
-          <p>Plenty of the people who rent DJ equipment from us are professionals, and professionals ask for specifics. <b>CDJ rental in Dallas usually means club-standard media players and a matching Pioneer-family mixer</b>, the layout a touring DJ, a guest DJ or a wedding DJ can step onto without a briefing, because it is what is already installed in most rooms they play.</p>
+          <p>Plenty of the people who rent DJ equipment from us are professionals, and professionals ask for specifics. CDJ rental in Dallas usually means club-standard media players and a matching Pioneer-family mixer, the layout a touring DJ, a guest DJ or a wedding DJ can step onto without a briefing, because it is what is already installed in most rooms they play.</p>
           <p>We keep the current generation of Pioneer and AlphaTheta media players, the mixers that are normally paired with them, and all-in-one systems for setups where a smaller footprint makes more sense than a full multi-player booth. Cabling, link, stands and booth feeds come with it as a matter of course rather than as a list of extras.</p>
-          <p>What we will not do is print a spec sheet and let you assemble a rig from it. Tell us who is playing, what they are used to, and what the room is, and we will bring the configuration that matches, then set it up so it is ready before the DJ arrives. If your DJ has a rider, send it with your inquiry and we will read it properly.</p>
+          <p>We spec the rig with you rather than handing over a parts list to assemble. Tell us who is playing, what they are used to, and what the room is, and we will bring the configuration that matches, then set it up so it is ready before the DJ arrives. If your DJ has a rider, send it with your inquiry and we will read it properly.</p>
           <div class="chips">
             <span class="chip">Club-standard media players</span>
             <span class="chip">Pioneer-family DJ mixers</span>
@@ -1150,41 +1164,49 @@ body.nav-locked{ overflow:hidden; }
       <div class="room-list">
         <div class="room" data-reveal>
           <h3>Media players<span>CDJ rental</span></h3>
-          <p>Club-standard players for DJs who work from USB drives, in the layout they already know. Rented in pairs or larger booth configurations, always linked and tested before the DJ touches them. This is the setup most venues in Dallas and Fort Worth already have installed, which is exactly why guest DJs ask for it.</p>
+          <p class="spec"><span>Rig</span> 2 club-standard media players &middot; link cabling &middot; USB playback</p>
+          <p>Club-standard players for DJs who work from USB drives, in the layout they already know. Rented in pairs or larger booth configurations, always linked and tested before the DJ touches them. This is the setup most venues in Dallas and Fort Worth already have installed, which is why guest DJs ask for it.</p>
         </div>
         <div class="room" data-reveal>
           <h3>DJ mixers<span>DJ mixer rental</span></h3>
-          <p>The centre of the booth and the piece most likely to be wrong if you rent by price. We supply mixers matched to the players, with the channel count the set actually needs, effects on board, and a booth output that has already been set to a sensible level so nobody has to find it in the dark. <b>Send-and-return patching is done by us, not by your DJ on arrival.</b></p>
+          <p class="spec"><span>Rig</span> 1 club-standard DJ mixer &middot; onboard effects &middot; booth output</p>
+          <p>The center of the booth, and the piece worth getting right. We supply mixers matched to the players, with the channel count the set needs, effects on board, and a booth output that has already been set to a sensible level so nobody has to find it in the dark. We do the send-and-return patching before your DJ arrives.</p>
         </div>
         <div class="room" data-reveal>
           <h3>All-in-one systems and controllers<span>DJ controller rental</span></h3>
+          <p class="spec"><span>Rig</span> 1 all-in-one system or controller &middot; single-unit booth</p>
           <p>For smaller rooms, tighter booths and DJs who prefer a single unit, an all-in-one system or a controller does everything a separate-player setup does in a fraction of the space. Popular for house parties, corporate receptions and anywhere the DJ position is a compromise between the dance floor and a doorway.</p>
         </div>
         <div class="room" data-reveal>
           <h3>DJ booths, tables and facades<span>DJ booth rental</span></h3>
-          <p>The thing your photographs will actually show. A clean facade turns a folding table and a mess of cabling into part of the room, and it hides power, cases and everything else nobody needs to see. <b>Cable management is included whether you rent a facade or not</b>. We do not leave a run of cable across a dance floor.</p>
+          <p class="spec"><span>Rig</span> DJ booth, table or facade &middot; cable management</p>
+          <p>This is the part your photographs will show. A clean facade turns a folding table and a mess of cabling into part of the room, and it hides power, cases and everything else nobody needs to see. Cable management is included whether you rent a facade or not, and every run is dressed and taped down clear of the dance floor.</p>
         </div>
         <div class="room" data-reveal>
           <h3>Speakers for a DJ<span>DJ speaker rental</span></h3>
-          <p>Powered tops on stands for most rooms, scaled up to a larger system when the guest count or the ceiling demands it. The question is never how many speakers but where they point, a pair placed correctly beats four placed badly, and every rental is aimed and levelled as part of the setup.</p>
+          <p class="spec"><span>Rig</span> 2 powered tops on stands &middot; larger system for bigger rooms</p>
+          <p>Powered tops on stands for most rooms, scaled up to a larger system when the guest count or the ceiling demands it. Placement decides the result more than quantity does: a pair aimed correctly covers a room better than four boxes placed badly, and every rental is aimed and leveled as part of the setup.</p>
         </div>
         <div class="room" data-reveal>
           <h3>Subwoofers<span>DJ subwoofer rental</span></h3>
-          <p>Where a DJ event stops sounding like a presentation and starts sounding like a party. We run <a href="/rent-bassboss-subwoofers">BassBoss subwoofers</a>, which move enough air for a full dance floor without the mush that makes a venue ask you to turn down. Matched, placed and time-aligned with the tops rather than pushed into a corner.</p>
+          <p class="spec"><span>Rig</span> BassBoss subwoofers &middot; matched and time-aligned with the tops</p>
+          <p>Subwoofers are what make a dance floor sound like a party. We run <a href="/rent-bassboss-subwoofers">BassBoss subwoofers</a>, which move enough air for a full dance floor without the mush that makes a venue ask you to turn down. Matched, placed and time-aligned with the tops rather than pushed into a corner.</p>
         </div>
         <div class="room" data-reveal>
           <h3>Monitors and microphones<span>Booth monitors &middot; wireless mics</span></h3>
-          <p>A booth monitor so the DJ hears the room rather than guessing at it, and wireless handhelds or lavaliers for whoever is speaking. Every microphone carries our AI-powered De-Feedback system as standard, which is the difference between a clean announcement and the sound everyone in the room flinches at.</p>
+          <p class="spec"><span>Rig</span> 1 booth monitor &middot; wireless handhelds and lavaliers</p>
+          <p>A booth monitor so the DJ hears the room rather than guessing at it, and wireless handhelds or lavaliers for whoever is speaking. Every microphone carries our AI-powered De-Feedback system as standard, so an announcement sounds clean even when someone walks a handheld straight past a speaker.</p>
         </div>
         <div class="room" data-reveal>
           <h3>Backline and staging<span>Backline rental Dallas</span></h3>
-          <p>When the night has a band as well as a DJ, the changeover is where things go wrong. We handle backline alongside the DJ rig so both share one power plan, one set of hands and one line check, instead of two vendors discovering each other on a loading dock.</p>
+          <p class="spec"><span>Rig</span> backline &middot; staging &middot; one shared line check</p>
+          <p>When the night has a band as well as a DJ, the changeover is where things go wrong. We handle backline alongside the DJ rig so both share one power plan, one sound system, one set of hands and one line check, instead of two vendors discovering each other on a loading dock.</p>
         </div>
       </div>
 
       <div class="addon" data-reveal>
         <h3>Lighting on the same booking</h3>
-        <p>Dance-floor lighting is the most common thing added to a DJ equipment rental, and because it comes from the same warehouse it shares one load-in and one crew. From there people add <a href="/rent-uplighting">uplighting</a> to change the colour of the room, a monogram, <a href="/rent-laser-light-show">lasers</a>, or low-lying fog for a first dance. The full range is on the <a href="/services-lighting">lighting services</a> page.</p>
+        <p>Dance-floor lighting is a common addition to a DJ equipment rental, and because it comes from the same warehouse it shares one load-in and one crew. From there people add <a href="/rent-uplighting">uplighting</a> to change the color of the room, a monogram, <a href="/rent-laser-light-show">lasers</a>, or low-lying fog for a first dance. The full range is on the <a href="/services-lighting">lighting services</a> page.</p>
       </div>
     </div>
   </section>
@@ -1195,9 +1217,9 @@ body.nav-locked{ overflow:hidden; }
         <div class="split-copy">
           <span class="kicker">DJ Sound System Rental</span>
           <h2>Rent DJ speakers and the room stops fighting you.</h2>
-          <p>The most common mistake in a DJ speaker rental is buying quantity instead of coverage. Two well-placed tops with a subwoofer under them will fill a ballroom more evenly than four boxes stacked wherever there was space, and the room will be quieter at the front and louder at the back, which is the outcome everyone actually wants and nobody asks for by name.</p>
-          <p>We size a DJ sound system rental from three things: how many people are in the room, what the ceiling and walls are made of, and whether anyone has to speak over it. <b>A hard-surfaced venue with a high ceiling needs a completely different answer from a carpeted hotel ballroom of the same size</b>, and a tent needs a third answer again. Because we have worked most of the venues in the Metroplex, that is usually a short conversation rather than a survey.</p>
-          <p>Everything is delivered, positioned, aimed, levelled and tuned by our technician before the doors open. You never receive a system as a pile of boxes with a diagram, because the diagram is not the part that makes it sound right.</p>
+          <p>A common mistake in a DJ speaker rental is buying quantity instead of coverage. Two well-placed tops with a subwoofer under them will fill a ballroom more evenly than four boxes stacked wherever there was space, and the room will be quieter at the front and louder at the back, which is what most people want from a DJ speaker rental without asking for it by name.</p>
+          <p>We size a DJ sound system rental from three things: how many people are in the room, what the ceiling and walls are made of, and whether anyone has to speak over it. A hard-surfaced venue with a high ceiling needs a different answer from a carpeted hotel ballroom of the same size, and a tent needs a third answer again. Because we have worked most of the venues in the Metroplex, that is usually a short conversation rather than a survey.</p>
+          <p>Everything is delivered, positioned, aimed, leveled and tuned by our technician before the doors open. You walk into a room where the system is already playing and already sounding the way it will sound all night.</p>
           <div class="chips">
             <a class="chip" href="/rent-bassboss-subwoofers">BassBoss subwoofers</a>
             <a class="chip" href="/rent-line-array-speaker-system">Line array systems</a>
@@ -1218,10 +1240,10 @@ body.nav-locked{ overflow:hidden; }
         <h2>Renting DJ equipment for a wedding is a different job.</h2>
       </div>
       <div class="band" data-reveal>
-        <h3>A wedding is three audio events wearing one dress.</h3>
-        <p>People who want to rent DJ equipment for a wedding are usually solving for a friend or a family member who has offered to DJ, or for a professional wedding DJ who travels light. Either way the equipment list is not the hard part, <b>the ceremony, the dinner and the dance floor are three different systems with three different problems</b>, and they usually happen in two or three different spaces.</p>
+        <h3>A wedding is three audio events in one day.</h3>
+        <p>People who want to rent DJ equipment for a wedding are usually solving for a friend or a family member who has offered to DJ, or for a professional wedding DJ who travels light. Either way, the hard part is that the ceremony, the dinner and the dance floor are three different systems with three different problems, and they usually happen in two or three different spaces.</p>
         <p>The ceremony needs quiet, even coverage and microphones that pick up vows without a hint of feedback. Dinner needs music that sits underneath conversation rather than on top of it, plus a handheld that works for toasts from wherever someone decides to stand. The dance floor needs a system with real headroom and subwoofers under it. We normally set all of it in one visit so nothing has to be torn down and rebuilt while guests are moving between rooms.</p>
-        <p>This is also the point where we say the thing other rental companies do not: <b>we do not drop wedding equipment off.</b> A wedding has exactly one attempt at every moment in it, so a technician is there for the event, and whoever offered to DJ gets to enjoy the wedding instead of watching a mixer. If you would rather hand the whole evening over, our <a href="/weddings">wedding services</a> page covers that version.</p>
+        <p>This is also where we part company with most rental companies: wedding equipment is delivered, built, line-checked and staffed by us. A wedding gets one attempt at every moment in it, so a technician stays for the event, and whoever offered to DJ gets to enjoy the wedding instead of watching a mixer. If you would rather hand the whole evening over, our <a href="/weddings">wedding services</a> page covers that version.</p>
       </div>
     </div>
   </section>
@@ -1241,7 +1263,7 @@ body.nav-locked{ overflow:hidden; }
         <div class="flow-step" data-reveal>
           <div class="n">Step 02</div>
           <h3>We spec the rig</h3>
-          <p>We choose the players, mixer, tops and subs for that specific space and tell you what we are bringing and why, itemised. Nothing is hidden in a package name.</p>
+          <p>We choose the players, mixer, tops and subs for that specific space and tell you what we are bringing and why, itemized piece by piece so you can see what is in the package.</p>
         </div>
         <div class="flow-step" data-reveal>
           <div class="n">Step 03</div>
@@ -1251,7 +1273,7 @@ body.nav-locked{ overflow:hidden; }
         <div class="flow-step" data-reveal>
           <div class="n">Step 04</div>
           <h3>Technician on site, then out</h3>
-          <p>Our technician stays with the system for the event, then strikes it and loads out afterwards. You never carry anything, and you never return anything.</p>
+          <p>Our technician stays with the system for the event, then strikes it and loads out afterwards. Everything arrives with us and leaves with us.</p>
         </div>
       </div>
     </div>
@@ -1299,8 +1321,8 @@ body.nav-locked{ overflow:hidden; }
         <div class="split-copy">
           <span class="kicker">DJ Equipment Rental Near You</span>
           <h2>&ldquo;DJ equipment rental near me&rdquo;, if you are in the Metroplex, that is us.</h2>
-          <p>We are based in the mid-cities between Dallas and Fort Worth and we deliver across <b>roughly a forty-mile radius</b> from there. That covers Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Southlake, McKinney, Grapevine, Richardson, Denton and the towns folded in among them.</p>
-          <p>Being local is logistics, not a slogan. It means we have already been inside most of the venues you are considering, we know which ones have a freight elevator and which ones mean carrying a subwoofer up a staircase, and we know what the drive back out to your site costs at five o&rsquo;clock on a Friday. <b>Load-in gets scheduled around the real answer rather than the optimistic one.</b></p>
+          <p>We are based in the mid-cities between Dallas and Fort Worth and we deliver across roughly a forty-mile radius from there. That covers Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Southlake, McKinney, Grapevine, Richardson, Denton and the towns folded in among them.</p>
+          <p>Being local is a logistics advantage. It means we have already been inside most of the venues you are considering, we know which ones have a freight elevator and which ones mean carrying a subwoofer up a staircase, and we know how long the drive back out to your site takes at five o&rsquo;clock on a Friday. Load-in gets scheduled around the real answer rather than the optimistic one.</p>
           <p>If your venue sits outside that radius, ask anyway. We will tell you honestly whether it works instead of quoting a trip we should not be making.</p>
           <div class="chips">
             <span class="chip">Dallas</span>
@@ -1332,12 +1354,12 @@ body.nav-locked{ overflow:hidden; }
       </div>
       <div class="trust-grid">
         <div class="trust-card" data-reveal>
-          <h3>Nothing is dropped off</h3>
-          <p>Every rental is delivered, built, line-checked and staffed by an AV technician. There is no customer pickup and no self-service option, and that is deliberate.</p>
+          <h3>Delivered, built and staffed</h3>
+          <p>Every rental is delivered, built, line-checked and staffed by an AV technician. Delivery, setup and a technician on site are part of every booking, and that is deliberate.</p>
         </div>
         <div class="trust-card" data-reveal>
           <h3>We own what we send</h3>
-          <p>The players, mixers, speakers and subwoofers are ours, sitting in our warehouse in the mid-cities. Nothing is sub-rented sight unseen the week of your event.</p>
+          <p>The players, mixers, speakers and subwoofers are ours, sitting in our warehouse in the mid-cities. Every piece on your quote comes from that inventory rather than a sub-rental booked the week of your event.</p>
         </div>
         <div class="trust-card" data-reveal>
           <h3>De-Feedback on every mic</h3>
@@ -1373,7 +1395,7 @@ body.nav-locked{ overflow:hidden; }
         </details>
         <details class="faq-item" data-reveal>
           <summary>Can I pick the equipment up myself?</summary>
-          <div class="ans">No, and it is worth explaining why rather than just saying no. We do not offer customer pickup or self-service rental of any kind. Everything is delivered, assembled, line-checked and staffed by our crew, because the setup and the person standing behind it are the part that decides whether the event actually sounds right. It also means nothing is your responsibility to transport, return or troubleshoot.</div>
+          <div class="ans">We do not offer customer pickup or self-service rental of any kind. Everything is delivered, assembled, line-checked and staffed by our crew, because the setup and the person standing behind it are the part that decides whether the event sounds right. We transport it, build it, troubleshoot it and take it away again, so none of that lands on you or your venue.</div>
         </details>
         <details class="faq-item" data-reveal>
           <summary>Do you offer CDJ rental and Pioneer DJ rental in Dallas?</summary>
@@ -1381,11 +1403,11 @@ body.nav-locked{ overflow:hidden; }
         </details>
         <details class="faq-item" data-reveal>
           <summary>Can I rent DJ equipment and a sound system together?</summary>
-          <div class="ans">That is the normal booking. A DJ setup rental usually means players and a mixer, tops sized to the room, subwoofers under them, a booth monitor, microphones and all the cabling, delivered as one working system. Renting decks with nothing behind them is rarely what anyone actually needs.</div>
+          <div class="ans">That is the normal booking. A DJ setup rental usually means players and a mixer, tops sized to the room, subwoofers under them, a booth monitor, microphones and all the cabling, delivered as one working system. Renting decks with nothing behind them is rarely what anyone needs.</div>
         </details>
         <details class="faq-item" data-reveal>
           <summary>Can I rent DJ equipment for a wedding?</summary>
-          <div class="ans">Regularly, and it is one of the most common reasons people call. A wedding is really three audio events, ceremony, dinner and dance floor, often across two or three spaces, so we normally set all of it in one visit and keep a technician on it for the evening. That way whoever is DJing gets to be at the wedding rather than behind a mixer.</div>
+          <div class="ans">Regularly, and it is a common reason people call. A wedding is really three audio events (ceremony, dinner and dance floor) often across two or three spaces, so we normally set all of it in one visit and keep a technician on it for the evening. That way whoever is DJing gets to be at the wedding rather than behind a mixer.</div>
         </details>
         <details class="faq-item" data-reveal>
           <summary>Do you rent DJ booths, tables and facades?</summary>
@@ -1393,7 +1415,7 @@ body.nav-locked{ overflow:hidden; }
         </details>
         <details class="faq-item" data-reveal>
           <summary>Can I add speakers and subwoofers to a DJ rental?</summary>
-          <div class="ans">Yes, and most bookings do. We pair DJ equipment with powered tops, BassBoss subwoofers, booth monitors, wireless microphones and, in larger rooms, a line array. Lighting can go on the same booking and the same load-in, which is usually cheaper and always simpler than a second vendor.</div>
+          <div class="ans">Yes, and most bookings do. We pair DJ equipment with powered tops, BassBoss subwoofers, booth monitors, wireless microphones and, in larger rooms, a line array. Lighting can go on the same booking and the same load-in, which is simpler than running a second vendor into the same room.</div>
         </details>
         <details class="faq-item" data-reveal>
           <summary>What if I have already hired my own DJ?</summary>
@@ -1401,7 +1423,7 @@ body.nav-locked{ overflow:hidden; }
         </details>
         <details class="faq-item" data-reveal>
           <summary>How much does DJ equipment rental cost in Dallas?</summary>
-          <div class="ans">We do not publish prices, because a small party rig and a full production system for four hundred guests are different jobs and one number would misprice both. Send the date, the venue and the headcount and you will get an itemised quote back, usually the same day, with the delivery, setup and on-site technician included rather than added later.</div>
+          <div class="ans">We do not publish prices, because a small party rig and a full production system for four hundred guests are different jobs and one number would misprice both. Send the date, the venue and the headcount and you will get an itemized quote back, usually the same day, with the delivery, setup and on-site technician included rather than added later.</div>
         </details>
         <details class="faq-item" data-reveal>
           <summary>How do I get a quote for DJ equipment rental?</summary>
@@ -1414,7 +1436,7 @@ body.nav-locked{ overflow:hidden; }
   <section class="final-cta" id="quote">
     <div class="wrap">
       <h2 data-reveal>Tell us the date and the room. <span class="grad-text">We&rsquo;ll spec the rig.</span></h2>
-      <p data-reveal>The date, the venue, roughly how many guests and whether you already have a DJ is enough to get a real quote back, usually the same day. Tell us about your event and we will send you a straightforward quote the same day.</p>
+      <p data-reveal>The date, the venue, roughly how many guests and whether you already have a DJ is all we need to spec the rig. Tell us about your event and we&rsquo;ll send you a straightforward quote the same day.</p>
       <div data-reveal style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
         <a class="btn-primary" href="/contact">Get Your Quote</a>
         <a class="btn-secondary" href="tel:8172107957">Call or Text 817-210-7957</a>
