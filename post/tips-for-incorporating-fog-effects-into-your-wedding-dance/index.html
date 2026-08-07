@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="signal">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font-display:'Unbounded',sans-serif;
+    --font-body:'Space Grotesk',sans-serif;
+  }
+
+  /* ============ PALETTE A: Signal Chain (true DJ mixer peak-meter LEDs: green / yellow / red) ============ */
+  html[data-palette="signal"]{
+    --bg-0:#050706; --bg-1:#0a0f0c; --bg-2:#0e1512;
+    --ink:#f4f7f5; --dim:#b4c5ba;
+    --a1:#31ff6e; /* LED green */
+    --a2:#fff21c; /* LED yellow */
+    --a3:#ff1f3d; /* LED red */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 55%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(255,255,255,.08);
+    --glow: rgba(49,255,110,.35);
+  }
+  /* ============ PALETTE B: Stage Black and Amber (warm, premium, ties to existing chat widget gold) ============ */
+  html[data-palette="amber"]{
+    --bg-0:#070605; --bg-1:#0d0a06; --bg-2:#120e08;
+    --ink:#f8f3ea; --dim:#c3b7a5;
+    --a1:#e8b75c; /* gold */
+    --a2:#ffdfa0; /* warm white/spot */
+    --a3:#4fa3ff; /* cool counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 50%, var(--a2) 50%, var(--a2) 100%);
+    --card-border: rgba(232,183,92,.16);
+    --glow: rgba(232,183,92,.32);
+  }
+  /* ============ PALETTE C: DFW Night Rig (cool stage-lighting energy, distinct from EDM Wedding DJ's magenta) ============ */
+  html[data-palette="night"]{
+    --bg-0:#05060b; --bg-1:#090b16; --bg-2:#0c0f1e;
+    --ink:#f1f3fb; --dim:#aeb5cf;
+    --a1:#2f6fff; /* electric blue */
+    --a2:#8b5cf6; /* violet */
+    --a3:#ffb020; /* amber counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 65%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(139,92,246,.16);
+    --glow: rgba(47,111,255,.35);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-0);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  .grad-text{
+    background:var(--grad);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  /* ---------- palette switcher (review tool only, not part of the shipped site) ---------- */
+  #paletteBar{
+    position:fixed; top:0; left:0; right:0; z-index:999;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    padding:10px; background:#000; border-bottom:1px solid rgba(255,255,255,.12);
+    font-family:var(--font-body); font-size:0.881rem;
+  }
+  #paletteBar span{color:#8a8a8a; margin-right:4px;}
+  #paletteBar button{
+    font-family:var(--font-body); font-size:0.881rem; font-weight:600;
+    padding:7px 14px; border-radius:100px; border:1px solid rgba(255,255,255,.18);
+    background:rgba(255,255,255,.04); color:#eee; cursor:pointer; transition:.2s;
+  }
+  #paletteBar button.active{ background:#fff; color:#000; border-color:#fff; }
+  #paletteBar button:hover{ border-color:#fff; }
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky; top:40px; z-index:100;
+    background:rgba(5,6,5,.7); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--card-border);
+  }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1180px; margin:0 auto; }
+  .logo{ display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:900; font-size:1.15rem; letter-spacing:.02em; }
+  .logo .dial{ width:26px; height:26px; border-radius:50%; position:relative; background:conic-gradient(var(--a1) 0 26%, var(--a2) 26% 52%, var(--a3) 52% 78%, transparent 78%); }
+  .logo .dial::after{ content:''; position:absolute; inset:4px; border-radius:50%; background:var(--bg-0); }
+  .navlinks{ display:flex; gap:28px; font-size:0.994rem; color:var(--dim); }
+  .navlinks a:hover{ color:var(--ink); }
+  .navright{ display:flex; align-items:center; gap:18px; }
+  .phone{ font-size:0.96rem; color:var(--dim); }
+  .cta-btn{
+    font-family:var(--font-body); font-weight:700; font-size:0.96rem;
+    padding:11px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    display:inline-block; white-space:nowrap;
+  }
+  @media (max-width:860px){ .navlinks{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{ position:relative; padding:110px 0 90px; overflow:hidden; }
+  .hero::before{
+    content:''; position:absolute; inset:-20% -10% auto -10%; height:600px;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    opacity:.5; filter:blur(40px); pointer-events:none;
+  }
+
+  /* -- animated perspective floor grid -- */
+  .hero-grid{
+    position:absolute; left:0; right:0; bottom:-10%; height:70%;
+    perspective:400px; overflow:hidden; pointer-events:none; z-index:0;
+  }
+  .hero-grid::before{
+    content:''; position:absolute; inset:-50% -50% 0 -50%;
+    background-image:
+      repeating-linear-gradient(to right, var(--card-border) 0 1px, transparent 1px 68px),
+      repeating-linear-gradient(to top, var(--card-border) 0 1px, transparent 1px 68px);
+    transform:rotateX(62deg);
+    transform-origin:bottom;
+    animation: gridScroll 9s linear infinite;
+    opacity:.55;
+    mask-image:linear-gradient(to top, black 0%, transparent 75%);
+    -webkit-mask-image:linear-gradient(to top, black 0%, transparent 75%);
+  }
+  @keyframes gridScroll{ from{ background-position:0 0; } to{ background-position:0 136px; } }
+
+  /* -- sweeping laser beams -- */
+  .hero-lasers{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .laser{
+    position:absolute; top:-10%; width:2px; height:130%;
+    background:linear-gradient(to bottom, transparent, var(--a1), transparent);
+    opacity:0; filter:blur(.5px);
+    animation: laserSweep 6s ease-in-out infinite;
+  }
+  .laser:nth-child(1){ left:8%;  background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:0s; }
+  .laser:nth-child(2){ left:32%; background:linear-gradient(to bottom, transparent, var(--a2), transparent); animation-delay:1.6s; transform:rotate(6deg); }
+  .laser:nth-child(3){ left:63%; background:linear-gradient(to bottom, transparent, var(--a3), transparent); animation-delay:3.1s; transform:rotate(-8deg); }
+  .laser:nth-child(4){ left:85%; background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:4.3s; transform:rotate(4deg); }
+  @keyframes laserSweep{
+    0%{ opacity:0; transform:translateX(-10px) rotate(var(--rot,0deg)); }
+    8%{ opacity:.55; }
+    20%{ opacity:0; }
+    100%{ opacity:0; }
+  }
+
+  /* -- drifting fog -- */
+  .hero-fog{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .fog-blob{
+    position:absolute; width:60%; padding-top:60%; border-radius:50%;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    filter:blur(50px); opacity:.4;
+    animation: fogDrift 18s ease-in-out infinite alternate;
+  }
+  .fog-blob.b2{ left:50%; top:20%; animation-duration:24s; animation-delay:-6s; opacity:.28; }
+  @keyframes fogDrift{
+    from{ transform:translate(-8%, 0) scale(1); }
+    to{ transform:translate(8%, 6%) scale(1.15); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-grid::before, .laser, .fog-blob{ animation:none !important; }
+    .laser{ opacity:0; }
+  }
+
+  .hero-logo-wrap{ text-align:center; position:relative; z-index:1; margin-bottom:40px; }
+  .hero-logo-wrap img{
+    width:min(440px, 78vw); height:auto;
+    filter:drop-shadow(0 0 60px var(--glow));
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--card-border); border-radius:100px; padding:7px 16px;
+    font-size:0.881rem; color:var(--dim); letter-spacing:.04em; text-transform:uppercase;
+    margin-bottom:28px; position:relative; z-index:1;
+  }
+  .eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--a1); box-shadow:0 0 8px var(--a1); }
+  .hero h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.6rem, 6vw, 4.6rem); max-width:900px; position:relative; z-index:1;
+  }
+  .hero p.sub{
+    font-size:1.15rem; color:var(--dim); max-width:600px; margin-top:26px; position:relative; z-index:1;
+  }
+  .hero-ctas{ display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; position:relative; z-index:1; }
+  .btn-primary{
+    font-weight:700; padding:16px 30px; border-radius:100px; background:var(--grad); color:#0a0a0a; font-size:1.073rem;
+  }
+  .btn-secondary{
+    font-weight:600; padding:16px 30px; border-radius:100px; border:1px solid var(--card-border); color:var(--ink); font-size:1.073rem;
+  }
+  .trust-row{
+    display:flex; gap:40px; flex-wrap:wrap; margin-top:64px; padding-top:34px;
+    border-top:1px solid var(--card-border); position:relative; z-index:1;
+  }
+  .trust-item .num{ font-family:var(--font-display); font-weight:800; font-size:1.6rem; }
+  .trust-item .label{ font-size:0.904rem; color:var(--dim); margin-top:4px; }
+
+  /* ---------- services ---------- */
+  .section{ padding:90px 0; }
+  .section-head{ max-width:640px; margin-bottom:52px; }
+  .kicker{ font-size:0.881rem; letter-spacing:.08em; text-transform:uppercase; color:var(--a1); font-weight:700; margin-bottom:14px; display:block; }
+  .section-head h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.8rem,3.4vw,2.6rem); }
+  .section-head p{ color:var(--dim); margin-top:14px; font-size:1.153rem; }
+
+  .service-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; }
+  .service-card{
+    background:linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 55%, transparent), color-mix(in srgb, var(--bg-1) 45%, transparent));
+    backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:20px; padding:28px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 8px 30px -18px rgba(0,0,0,.6);
+    transition:.25s; position:relative; overflow:hidden;
+  }
+  .service-card:hover{ transform:translateY(-4px); border-color:var(--a1); box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 20px 50px -20px var(--glow); }
+  .service-card .icon{
+    width:44px; height:44px; border-radius:12px; margin-bottom:20px;
+    background:var(--grad); display:flex; align-items:center; justify-content:center;
+    font-size:1.2rem;
+  }
+  .service-card h3{ font-family:var(--font-display); font-size:1.186rem; font-weight:700; margin-bottom:10px; }
+  .service-card p{ font-size:0.994rem; color:var(--dim); margin-bottom:18px; }
+  .service-card .learn{ font-size:0.904rem; font-weight:700; color:var(--a1); }
+  .service-card.featured{ border-color:var(--a2); }
+  .tag-live{ position:absolute; top:20px; right:20px; font-size:0.82rem; text-transform:uppercase; letter-spacing:.06em; color:var(--a2); border:1px solid var(--a2); padding:3px 8px; border-radius:100px; }
+
+  /* ---------- differentiator ---------- */
+  .diff{ background:var(--bg-1); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border); }
+  .diff-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+  .diff-visual{
+    aspect-ratio:4/3; border-radius:24px; border:1px solid var(--card-border);
+    background:
+      radial-gradient(circle at 30% 20%, var(--glow), transparent 55%),
+      linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 50%, transparent), color-mix(in srgb, var(--bg-0) 40%, transparent));
+    backdrop-filter:blur(22px) saturate(150%); -webkit-backdrop-filter:blur(22px) saturate(150%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 20px 60px -30px rgba(0,0,0,.7);
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .diff-visual .badge{
+    font-family:var(--font-display); font-weight:800; text-align:center; font-size:1.073rem; color:var(--dim);
+    border:1px dashed var(--card-border); padding:20px; border-radius:16px;
+  }
+  .diff-copy h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.7rem,3vw,2.3rem); margin-bottom:20px; }
+  .diff-copy p{ color:var(--dim); margin-bottom:16px; font-size:1.13rem; }
+  .diff-copy strong{ color:var(--ink); }
+  @media (max-width:820px){ .diff-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- reviews ---------- */
+  .review-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
+  .review-card{
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:18px; padding:26px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -20px rgba(0,0,0,.6);
+  }
+  .stars{ color:var(--a2); letter-spacing:2px; margin-bottom:14px; font-size:1.017rem; }
+  .review-card p{ font-size:1.04rem; color:var(--ink); opacity:.9; margin-bottom:16px; }
+  .review-card .who{ font-size:0.904rem; color:var(--dim); font-weight:600; }
+
+  /* ---------- review proof badges ---------- */
+  .proof-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:16px; margin-bottom:36px; }
+  .proof-badge{
+    display:flex; align-items:center; gap:14px; padding:18px 20px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -22px rgba(0,0,0,.6);
+    transition:.22s;
+  }
+  .proof-badge:hover{ border-color:var(--a1); transform:translateY(-3px); box-shadow:0 16px 42px -24px var(--glow); }
+  .proof-mark{
+    flex:0 0 42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:1.2rem; letter-spacing:-.02em;
+  }
+  .proof-mark.g{ background:#ffffff; color:#4285f4; }
+  .proof-mark.y{ background:#d32323; color:#ffffff; }
+  .proof-mark.k{ background:#ffffff; color:#0f9aa0; }
+  .proof-mark.w{ background:#ffffff; color:#16181d; font-size:.98rem; }
+  .proof-meta .rate{
+    font-family:var(--font-display); font-weight:800; font-size:1.22rem; line-height:1.15;
+    display:flex; align-items:baseline; gap:9px;
+  }
+  .proof-meta .rate .s{ color:var(--a2); font-size:.92rem; letter-spacing:1px; font-weight:400; }
+  .proof-meta .cnt{ font-size:.92rem; color:var(--dim); margin-top:2px; }
+  .proof-badge.tbd{ border-style:dashed; border-color:var(--a2); }
+  .proof-badge.tbd .rate{ color:var(--a2); }
+  .proof-badge.tbd .cnt{ color:var(--a2); opacity:.8; }
+
+  /* compact sitewide footer strip */
+  .foot-proof{
+    display:flex; flex-wrap:wrap; align-items:center; gap:12px 26px;
+    margin-top:32px; padding-top:26px; border-top:1px solid var(--card-border);
+  }
+  .foot-proof .fp{ display:inline-flex; align-items:center; gap:9px; font-size:.94rem; color:var(--dim); }
+  .foot-proof .fp:hover{ color:var(--ink); }
+  .foot-proof .fp b{ color:var(--ink); font-weight:700; }
+  .foot-proof .fp .s{ color:var(--a2); letter-spacing:1px; }
+  .foot-proof .fp .m{
+    width:24px; height:24px; border-radius:7px; display:inline-flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:.76rem;
+  }
+  .foot-proof .fp .m.g{ background:#ffffff; color:#4285f4; }
+  .foot-proof .fp .m.y{ background:#d32323; color:#ffffff; }
+  .foot-proof .fp .m.k{ background:#ffffff; color:#0f9aa0; }
+  .foot-proof .fp .m.w{ background:#ffffff; color:#16181d; font-size:.62rem; }
+  @media (max-width:820px){ .foot-proof{ gap:12px 18px; } }
+
+  /* ---------- final CTA ---------- */
+  .final-cta{ text-align:center; padding:110px 0; position:relative; }
+  .final-cta h2{ font-family:var(--font-display); font-weight:900; font-size:clamp(2rem,5vw,3.2rem); max-width:760px; margin:0 auto 22px; }
+  .final-cta p{ color:var(--dim); max-width:520px; margin:0 auto 36px; }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:1px solid var(--card-border); padding:50px 0; }
+  .foot-grid{ display:grid; grid-template-columns:1.6fr repeat(5,1fr); gap:34px 26px; }
+  @media (max-width:1080px){ .foot-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:620px){ .foot-grid{ grid-template-columns:repeat(2,1fr); } }
+  .foot-grid .col.brand{ min-width:210px; }
+  @media (max-width:1080px){ .foot-grid .col.brand{ grid-column:1 / -1; } }
+  .foot-contact{ margin-top:16px; }
+  .foot-contact a{ display:block; margin-bottom:6px; font-size:1rem; color:var(--ink); opacity:.9; }
+  .foot-contact a:hover{ color:var(--a1); opacity:1; }
+  .foot-area{ font-size:.9rem; color:var(--dim); margin-top:12px; line-height:1.6; }
+  .foot-grid .col h4{ font-size:0.904rem; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin-bottom:14px; }
+  .foot-grid .col a, .foot-grid .col p{ display:block; font-size:0.972rem; color:var(--ink); opacity:.8; margin-bottom:8px; }
+  .foot-bottom{ margin-top:40px; padding-top:24px; border-top:1px solid var(--card-border); font-size:0.881rem; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+
+  /* ---------- chatbot bubble (visual placeholder for the AV Concierge) ---------- */
+  #chatBubble{
+    position:fixed; right:22px; bottom:22px; z-index:200;
+    display:flex; align-items:center; gap:8px;
+    padding:14px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    font-weight:700; font-size:0.96rem; box-shadow:0 14px 40px -12px var(--glow);
+    cursor:pointer;
+  }
+
+  [data-reveal]{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  [data-reveal].in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- film grain overlay ---------- */
+  .grain-overlay{
+    position:fixed; inset:0; z-index:999; pointer-events:none;
+    opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-repeat:repeat;
+  }
+
+  /* ---------- marquee strip ---------- */
+  .marquee{
+    border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);
+    background:var(--bg-1); overflow:hidden; padding:18px 0; position:relative;
+  }
+  .marquee-track{
+    display:flex; width:max-content; gap:48px;
+    animation:marqueeScroll 32s linear infinite;
+  }
+  .marquee-track span{
+    font-family:var(--font-display); font-weight:700; font-size:1.073rem;
+    letter-spacing:.04em; text-transform:uppercase; color:var(--dim);
+    display:flex; align-items:center; gap:48px; white-space:nowrap;
+  }
+  .marquee-track span::after{ content:'✦'; color:var(--a1); margin-left:48px; }
+  @keyframes marqueeScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  /* ---------- CO2 / particle burst ---------- */
+  .burst-particle{
+    position:fixed; top:0; left:0; width:6px; height:6px; border-radius:50%;
+    pointer-events:none; z-index:500; will-change:transform,opacity;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+    .marquee-track{ animation:none; }
+    .grain-overlay{ display:none; }
+  }
+</style>
+  <title>Wedding Fog Effects for Your Grand Entrance &amp; First Dance | Dallas Event Audio</title>
+  <meta name="description" content="How low-lying fog works for a wedding grand entrance and first dance - what it looks like, what venues ask about, and how the effect is run safely across Dallas-Fort Worth.">
+  <link rel="canonical" href="https://www.dallaseventaudio.com/post/tips-for-incorporating-fog-effects-into-your-wedding-dance">
+  <meta property="og:title" content="Wedding Fog Effects for Your Grand Entrance &amp; First Dance | Dallas Event Audio">
+  <meta property="og:description" content="How low-lying fog works for a wedding grand entrance and first dance - what it looks like, what venues ask about, and how the effect is run safely across Dallas-Fort Worth.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.dallaseventaudio.com/post/tips-for-incorporating-fog-effects-into-your-wedding-dance">
+<style>
+  /* ========== MICROPHONE & SPEAKER RENTAL, page-specific additions ========== */
+
+  section[id]{ scroll-margin-top:96px; }
+
+  .hero.hero-page{ padding:64px 0 62px; }
+  .breadcrumb{
+    font-size:.881rem; color:var(--dim); letter-spacing:.03em;
+    position:relative; z-index:1; margin-bottom:22px;
+  }
+  .breadcrumb a{ color:var(--dim); }
+  .breadcrumb a:hover{ color:var(--a1); }
+  .breadcrumb .sep{ opacity:.45; margin:0 8px; }
+  .breadcrumb .here{ color:var(--ink); opacity:.75; }
+
+  .hero-page h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.3rem, 5.2vw, 4rem); max-width:980px; position:relative; z-index:1;
+  }
+  .hero-page .sub{
+    font-size:1.18rem; color:var(--dim); max-width:720px; margin-top:24px;
+    position:relative; z-index:1;
+  }
+
+  .stat-row{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(158px,1fr)); gap:14px;
+    margin-top:40px; position:relative; z-index:1;
+  }
+  .stat{
+    padding:18px 20px; border-radius:14px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .stat .num{
+    font-family:var(--font-display); font-weight:900; font-size:1.7rem; line-height:1;
+    background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .stat .lbl{ margin-top:8px; font-size:.86rem; color:var(--dim); line-height:1.45; }
+
+  /* ---------- microphone type cards ---------- */
+  .mic-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:18px;
+    margin-top:38px;
+  }
+  .mic-card{
+    position:relative; overflow:hidden;
+    padding:30px 30px 28px; border-radius:20px;
+    background:color-mix(in srgb, var(--bg-2) 52%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s, box-shadow .3s;
+  }
+  .mic-card::before{
+    content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+    background:var(--grad); opacity:.5; transition:opacity .3s;
+  }
+  .mic-card:hover{
+    border-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transform:translateY(-3px);
+    box-shadow:0 24px 60px -34px var(--glow), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .mic-card:hover::before{ opacity:1; }
+
+  .mic-card .tag{
+    font-family:var(--font-display); font-weight:900; font-size:.7rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1);
+  }
+  .mic-card h3{
+    margin-top:12px; font-family:var(--font-display); font-weight:900; line-height:1.12;
+    font-size:clamp(1.3rem, 2.1vw, 1.6rem);
+  }
+  .mic-card p{ margin-top:14px; font-size:1rem; line-height:1.72; color:var(--dim); }
+  .mic-card p b, .mic-card p strong{ color:var(--ink); font-weight:700; }
+  .mic-card .best{
+    margin-top:18px; padding-top:15px; border-top:1px solid var(--card-border);
+    font-size:.87rem; line-height:1.6; color:var(--dim);
+  }
+  .mic-card .best em{ font-style:normal; font-weight:800; color:var(--a2); letter-spacing:.04em;
+    text-transform:uppercase; font-size:.72rem; display:block; margin-bottom:6px; }
+
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+  .chip{
+    display:inline-block; padding:6px 13px; border-radius:100px;
+    font-size:.79rem; font-weight:600; letter-spacing:.02em;
+    color:var(--dim); text-decoration:none;
+    border:1px solid var(--card-border);
+    background:color-mix(in srgb, var(--bg-0) 45%, transparent);
+    transition:.2s;
+  }
+  a.chip:hover{ color:var(--a1); border-color:color-mix(in srgb, var(--a1) 55%, transparent); }
+  a.chip::after{ content:' \2192'; opacity:.55; }
+
+  /* ---------- which microphone for which room ---------- */
+  .room-list{ margin-top:36px; border-top:1px solid var(--card-border); }
+  .room{
+    display:grid; grid-template-columns:290px 1fr; gap:30px;
+    padding:24px 0; border-bottom:1px solid var(--card-border);
+    transition:border-color .3s;
+  }
+  .room:hover{ border-bottom-color:color-mix(in srgb, var(--a1) 40%, transparent); }
+  .room h3{
+    font-family:var(--font-display); font-weight:800; font-size:1.1rem; line-height:1.35;
+  }
+  .room h3 span{ display:block; margin-top:6px; font-size:.76rem; font-weight:700;
+    letter-spacing:.09em; text-transform:uppercase; color:var(--a1); opacity:.85; }
+  .room p{ font-size:1rem; line-height:1.72; color:var(--dim); }
+  .room p b{ color:var(--ink); font-weight:700; }
+
+  @media (max-width:860px){
+    .room{ grid-template-columns:1fr; gap:12px; }
+  }
+
+  /* ---------- add-on strip ---------- */
+  .addon{
+    margin-top:24px; padding:28px 30px; border-radius:18px;
+    border:1px dashed color-mix(in srgb, var(--a1) 32%, var(--card-border));
+    background:color-mix(in srgb, var(--bg-1) 40%, transparent);
+  }
+  .addon h3{ font-family:var(--font-display); font-size:1.16rem; font-weight:800; }
+  .addon p{ margin-top:10px; font-size:.98rem; color:var(--dim); line-height:1.7; }
+
+  /* ---------- feature split ---------- */
+  .split{
+    display:grid; grid-template-columns:1.05fr .95fr; gap:44px; align-items:center;
+  }
+  .split.flip .split-copy{ order:2; }
+  .split.flip .split-vis{ order:1; }
+  .split-copy h2{
+    font-family:var(--font-display); font-weight:900; line-height:1.1;
+    font-size:clamp(1.85rem, 3.4vw, 2.7rem);
+  }
+  .split-copy p{ margin-top:18px; font-size:1.04rem; line-height:1.75; color:var(--dim); }
+  .split-copy p b{ color:var(--ink); font-weight:700; }
+
+  .split-vis{
+    position:relative; border-radius:20px; overflow:hidden;
+    aspect-ratio:4/3; border:1px solid var(--card-border);
+    background-color:var(--bg-2);
+    background-image:var(--img),
+      radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--a1) 22%, transparent), transparent 62%),
+      radial-gradient(circle at 76% 80%, color-mix(in srgb, var(--a2) 18%, transparent), transparent 60%);
+    background-size:cover; background-position:center; background-repeat:no-repeat;
+  }
+  .split-vis .slot{
+    position:absolute; left:0; right:0; bottom:0; padding:30px 16px 13px;
+    background:linear-gradient(to top, rgba(6,6,8,.9), transparent);
+    font-size:.72rem; color:var(--dim); letter-spacing:.03em;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  @media (max-width:860px){
+    .split{ grid-template-columns:1fr; gap:26px; }
+    .split.flip .split-copy{ order:1; }
+    .split.flip .split-vis{ order:2; }
+  }
+
+  /* ---------- how it works ---------- */
+  .flow{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-top:34px; }
+  .flow-step{
+    position:relative; padding:26px 22px 24px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    border:1px solid var(--card-border);
+    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  }
+  .flow-step .n{
+    font-family:var(--font-display); font-weight:900; font-size:.7rem;
+    letter-spacing:.15em; text-transform:uppercase; color:var(--a1);
+  }
+  .flow-step h3{ margin-top:12px; font-family:var(--font-display); font-size:1.06rem; font-weight:800; }
+  .flow-step p{ margin-top:9px; font-size:.92rem; color:var(--dim); line-height:1.62; }
+
+  /* ---------- trust strip ---------- */
+  .trust-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; margin-top:32px; }
+  .trust-card{
+    padding:24px 24px 22px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 45%, transparent);
+    border:1px solid var(--card-border);
+  }
+  .trust-card h3{ font-family:var(--font-display); font-size:1.02rem; font-weight:800; }
+  .trust-card p{ margin-top:9px; font-size:.92rem; color:var(--dim); line-height:1.62; }
+
+  /* ---------- FAQ ---------- */
+  .faq-list{ margin-top:32px; border-top:1px solid var(--card-border); }
+  .faq-item{ border-bottom:1px solid var(--card-border); }
+  .faq-item summary{
+    list-style:none; cursor:pointer; padding:22px 44px 22px 0; position:relative;
+    font-family:var(--font-display); font-weight:700; font-size:1.06rem; line-height:1.45;
+    transition:color .2s;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary:hover{ color:var(--a1); }
+  .faq-item summary::after{
+    content:'+'; position:absolute; right:6px; top:50%; transform:translateY(-50%);
+    font-size:1.5rem; font-weight:400; line-height:1; color:var(--a1); transition:transform .25s;
+  }
+  .faq-item[open] summary::after{ transform:translateY(-50%) rotate(45deg); }
+  .faq-item .ans{ padding:0 44px 24px 0; font-size:1rem; line-height:1.75; color:var(--dim); }
+  .faq-item .ans a{ color:var(--a1); }
+
+
+  /* ---------- blog post additions ---------- */
+  .postmeta{
+    display:block; margin-top:26px; position:relative; z-index:1;
+    font-size:.82rem; letter-spacing:.09em; text-transform:uppercase;
+    color:var(--dim); font-weight:700;
+  }
+  .postmeta .dot{ opacity:.4; margin:0 10px; }
+  .postmeta b{ color:var(--a1); font-weight:800; }
+
+  .prose{ max-width:820px; }
+  .prose p{ margin-top:20px; font-size:1.06rem; line-height:1.8; color:var(--dim); }
+  .prose p:first-child{ margin-top:0; }
+  .prose p b, .prose p strong{ color:var(--ink); font-weight:700; }
+  .prose p a{ color:var(--a1); }
+  .prose h2{
+    font-family:var(--font-display); font-weight:900; line-height:1.1;
+    font-size:clamp(1.85rem, 3.4vw, 2.6rem);
+  }
+  .prose h3{
+    margin-top:34px; font-family:var(--font-display); font-weight:800;
+    font-size:1.22rem; line-height:1.3; color:var(--ink);
+  }
+  .prose .lede{ font-size:1.16rem; line-height:1.72; color:var(--ink); }
+
+  .pull{
+    margin:38px 0 6px; padding:26px 30px; border-radius:18px;
+    border-left:3px solid var(--a1);
+    background:color-mix(in srgb, var(--bg-2) 46%, transparent);
+    backdrop-filter:blur(12px) saturate(140%); -webkit-backdrop-filter:blur(12px) saturate(140%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .pull p{ margin:0; font-family:var(--font-display); font-weight:800;
+    font-size:1.16rem; line-height:1.5; color:var(--ink); }
+  .pull span{ display:block; margin-top:10px; font-family:inherit; font-weight:600;
+    font-size:.9rem; letter-spacing:.02em; color:var(--dim); }
+
+  .coldstack{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-top:34px; }
+  .coldstep{
+    padding:24px 22px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    border:1px solid var(--card-border);
+    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  }
+  .coldstep .val{
+    font-family:var(--font-display); font-weight:900; font-size:1.35rem; line-height:1.1;
+    background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .coldstep h3{ margin-top:12px; font-family:var(--font-display); font-size:1.02rem; font-weight:800; }
+  .coldstep p{ margin-top:9px; font-size:.92rem; color:var(--dim); line-height:1.62; }
+
+  .postfig{
+    margin-top:36px; position:relative; border-radius:20px; overflow:hidden;
+    aspect-ratio:16/9; border:1px solid var(--card-border);
+    background-color:var(--bg-2);
+    background-image:var(--img),
+      radial-gradient(circle at 28% 28%, color-mix(in srgb, var(--a1) 20%, transparent), transparent 62%),
+      radial-gradient(circle at 78% 78%, color-mix(in srgb, var(--a2) 16%, transparent), transparent 60%);
+    background-size:cover; background-position:center; background-repeat:no-repeat;
+  }
+  .postfig .slot{
+    position:absolute; left:0; right:0; bottom:0; padding:30px 16px 13px;
+    background:linear-gradient(to top, rgba(6,6,8,.9), transparent);
+    font-size:.72rem; color:var(--dim); letter-spacing:.03em;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+
+  @media (max-width:820px){
+    .hero.hero-page{ padding:44px 0 50px; }
+    .mic-card{ padding:26px 22px 24px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .mic-card{ transition:none; }
+  }
+</style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Fog Effects for Your Wedding Grand Entrance and First Dance",
+    "description": "How low-lying dry ice fog works for a wedding grand entrance and a first dance, why the cloud stays on the floor, what venues ask about, and how the effect is cued and run by an on-site technician across the Dallas-Fort Worth Metroplex.",
+    "url": "https://www.dallaseventaudio.com/post/tips-for-incorporating-fog-effects-into-your-wedding-dance",
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.dallaseventaudio.com/post/tips-for-incorporating-fog-effects-into-your-wedding-dance" },
+    "inLanguage": "en-US",
+    "datePublished": "2025-03-31",
+    "dateModified": "2026-07-27",
+    "articleSection": "Weddings",
+    "keywords": "fog machine wedding entrance, low fog wedding dance, dancing on the clouds, dry ice fog wedding, low lying fog wedding dance floor",
+    "author": {
+      "@type": "Organization",
+      "name": "Dallas Event Audio",
+      "url": "https://www.dallaseventaudio.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Dallas Event Audio",
+      "url": "https://www.dallaseventaudio.com",
+      "telephone": "+1-817-210-7957",
+      "email": "info@dallaseventaudio.com",
+      "foundingDate": "2001"
+    },
+    "about": {
+      "@type": "Service",
+      "name": "Low-lying fog and Dancing on the Clouds effect",
+      "serviceType": "Wedding fog effect production",
+      "url": "https://www.dallaseventaudio.com/rent-dancing-on-the-clouds-low-lyin",
+      "provider": {
+        "@type": "Organization",
+        "name": "Dallas Event Audio",
+        "url": "https://www.dallaseventaudio.com",
+        "telephone": "+1-817-210-7957",
+        "email": "info@dallaseventaudio.com",
+        "foundingDate": "2001"
+      },
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": { "@type": "GeoCoordinates", "addressCountry": "US" },
+        "description": "Dallas-Fort Worth Metroplex, approximately 40 miles from Hurst, TX"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Wedding fog effects",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Low-lying dry ice fog for a first dance",
+              "description": "A dense ankle-height cloud held for the length of a song so the couple appears to dance on clouds, cued to the music and run by an on-site technician."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Fog effect for a wedding grand entrance",
+              "description": "A short heavier burst laid into the doorway and the floor in front of it so the couple walks out of a cloud when the doors open, timed against the entrance cue."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Haze for the dance floor lighting rig",
+              "description": "A fine, evenly dispersed haze that makes light beams visible across the room during the dancing portion of the reception."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Color-lit fog and uplighting",
+              "description": "Lighting the fog layer to match the wedding palette, since the cloud itself is white and takes its color from whatever is pointed at it."
+            }
+          }
+        ]
+      }
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can you use a fog machine indoors?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes, and indoors is where the low-lying dry ice effect works best. The cloud stays near the floor instead of rising through the room, so it does not fill the space or drift into the areas where people are eating and talking. What matters is that the venue has reasonable airflow and that any venue-specific protocol is confirmed in advance rather than discovered at load-in - which is a conversation we are happy to have directly with your venue." }
+      },
+      {
+        "@type": "Question",
+        "name": "Do fog machines set off smoke alarms?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A properly run low-lying dry ice effect is designed to stay at ankle height, well below ceiling-mounted detectors, which is a large part of why it is the indoor-friendly choice. Detection systems do vary between buildings, though, so we confirm the specifics with your venue before the date rather than assuming. Raising it early is the single most useful thing you can do." }
+      },
+      {
+        "@type": "Question",
+        "name": "How long does the fog last during a first dance?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A low-lying dry ice effect is set to hold for the length of a song - roughly three to four minutes - and then thin out on its own as it warms toward room temperature. It is cued rather than left running, so the cloud is at full depth the moment you step onto the floor and gone shortly after you step off it." }
+      },
+      {
+        "@type": "Question",
+        "name": "Will fog ruin our wedding photos?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The opposite, when it is set correctly. The whole point of keeping the cloud at ankle height is that your faces stay clear above it while the floor underneath you disappears - which is why the effect photographs so well. The failure mode is a cloud that is too high or lit from the wrong angle, and both of those are setup decisions made before anyone presses anything." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can we have fog for the grand entrance and the first dance?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes, and a lot of couples do. They are two separate cues on the same setup night: a heavier, shorter burst for the doors opening, and a sustained low layer for the song. Tell us both are on the timeline when you book so the room is prepared for each, rather than adding one on the night." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the fog leave the floor slippery?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. A dry ice effect is condensed water vapor carried on carbon dioxide gas, and it warms, thins and lifts rather than settling. There is no residue on the floor, nothing to mop and no gap in your reception while somebody deals with it." }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you serve venues outside Dallas?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The whole Metroplex - roughly a forty-mile radius from the mid-cities, covering Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Southlake, McKinney, Grapevine, Denton and everywhere between them. If your venue sits further out than that, ask anyway and we will tell you honestly whether it works." }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://www.dallaseventaudio.com/"},
+      {"@type":"ListItem","position":2,"name":"Weddings","item":"https://www.dallaseventaudio.com/weddings"},
+      {"@type":"ListItem","position":3,"name":"Fog Effects for Your Wedding Grand Entrance and First Dance","item":"https://www.dallaseventaudio.com/post/tips-for-incorporating-fog-effects-into-your-wedding-dance"}
+    ]
+  }
+  </script>
+
+</head>
+<body>
+<div id="paletteBar">
+    <span>Palette preview</span>
+    <button data-p="signal" class="active">A · Signal Chain</button>
+    <button data-p="amber">B · Stage Black &amp; Amber</button>
+    <button data-p="night">C · DFW Night Rig</button>
+  </div>
+
+  <header>
+    <nav>
+      <a class="logo" href="/" style="text-decoration:none;"><div class="dial"></div>DEA</a>
+      <div class="navlinks">
+        <a href="/services-lighting">Lighting</a>
+        <a href="/services-audio">Audio</a>
+        <a href="/our-work">Our Work</a>
+        <a href="/what-others-are-saying">Reviews</a>
+        <a href="/contact">Contact</a>
+      </div>
+      <div class="navright">
+        <span class="phone">817-210-7957</span>
+        <a class="cta-btn" href="/contact">Get a Quote</a>
+      </div>
+    </nav>
+  </header>
+  <section class="hero hero-page">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="breadcrumb" data-reveal>
+        <a href="/">Home</a><span class="sep">/</span><a href="/weddings">Weddings</a><span class="sep">/</span><span class="here">Wedding Fog Effects</span>
+      </div>
+      <h1 data-reveal>Fog effects for your wedding grand entrance <span class="grad-text">and your first dance.</span></h1>
+      <p class="sub" data-reveal>Two moments at a wedding reception get remembered by everyone in the room: the doors opening, and the first song. A low-lying fog effect changes both, but an entrance and a first dance are two different cues, two different densities and, usually, two different machines. Here is how the effect actually works, what your venue will ask about, and how it gets run so it lands on the beat instead of near it.</p>
+      <div class="postmeta" data-reveal>Dallas Event Audio <span class="dot">&middot;</span> Weddings <span class="dot">&middot;</span> <b>Updated 2026</b></div>
+
+      <div class="stat-row" data-reveal>
+        <div class="stat">
+          <div class="num">&minus;109&deg;F</div>
+          <div class="lbl">How cold dry ice is, the entire reason the cloud stays on the floor</div>
+        </div>
+        <div class="stat">
+          <div class="num">Ankle</div>
+          <div class="lbl">Where a properly set low fog layer sits, so your faces stay clear for photos</div>
+        </div>
+        <div class="stat">
+          <div class="num">2 cues</div>
+          <div class="lbl">Entrance and first dance are separate cues on the same setup night</div>
+        </div>
+        <div class="stat">
+          <div class="num">2001</div>
+          <div class="lbl">Running wedding audio, lighting and effects across Dallas-Fort Worth since 2001</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="why-fog-works">
+    <div class="wrap">
+      <div class="prose" data-reveal>
+        <span class="kicker">Why couples ask for it</span>
+        <h2>Fog is the cheapest way to change a room that isn&rsquo;t about the room at all.</h2>
+        <p class="lede">Most of what a couple can do to a reception space works on the walls: linens, florals, uplighting, drape. A low fog effect works on the floor, which is the one surface every guest is already looking at during the two moments that matter.</p>
+        <p>A cloud of fog sitting at ankle height does three things at once. It separates the two of you from everything behind you, so the eye goes where you are instead of to the buffet line. It gives the light something to land on, which is why a fog-lit dance floor photographs like a film still and a dry one photographs like a floor. And it moves, slowly, but it moves, so a static shot of two people standing still has motion in it anyway.</p>
+        <p>It also travels well across styles. A <a href="/weddings">wedding</a> going for a fairytale look and a wedding going for something sleek and modern can use the same effect and get completely different pictures out of it, because what the cloud looks like is decided almost entirely by what is lighting it.</p>
+      </div>
+
+      <div class="postfig" data-reveal style="--img:url('/images/fog/low-fog-first-dance-dallas-wedding.jpg')">
+        <span class="slot">/images/fog/low-fog-first-dance-dallas-wedding.jpg</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="fog-effect-types">
+    <div class="wrap">
+      <div class="prose" data-reveal>
+        <span class="kicker">Types of wedding fog</span>
+        <h2>Four things get called &ldquo;fog,&rdquo; and only one of them makes a cloud you can stand on.</h2>
+        <p>This is the single most common source of confusion when couples start comparing what different vendors are describing, because the same word covers effects that behave nothing like each other. Worth knowing which one you are actually asking for.</p>
+      </div>
+
+      <div class="mic-grid" data-reveal>
+        <div class="mic-card">
+          <div class="tag">The clouds look</div>
+          <h3>Low-lying dry ice fog</h3>
+          <p>A dense, ground-hugging cloud that sits at ankle height and holds its shape for the length of a song. This is the effect people mean when they say <b>&ldquo;dancing on the clouds&rdquo;</b>. It stays down, it does not drift into the rest of the room, and it keeps your faces clear above it for the photographer.</p>
+          <div class="best"><em>Best for</em> First dance, parent dances, a walk-out entrance across an open floor.</div>
+        </div>
+        <div class="mic-card">
+          <div class="tag">Fills the space</div>
+          <h3>Atmospheric fog</h3>
+          <p>Thicker output that disperses upward and fills a volume rather than hugging the floor. It reads dramatically in a doorway or across an outdoor aisle, and it thins out on its own fairly quickly, which is exactly what you want for a short burst rather than a sustained look.</p>
+          <div class="best"><em>Best for</em> Grand entrances, a reveal moment, outdoor ceremony exits.</div>
+        </div>
+        <div class="mic-card">
+          <div class="tag">You won&rsquo;t see it</div>
+          <h3>Haze</h3>
+          <p>A very fine particle that spreads evenly through the air and is essentially invisible on its own. Haze does not give you a cloud. It gives you a room where light beams become visible, so every moving light and every color in the rig suddenly has a shaft attached to it.</p>
+          <div class="best"><em>Best for</em> The dancing portion of the night, when the lighting rig is doing the work.</div>
+        </div>
+        <div class="mic-card">
+          <div class="tag">Not actually colored</div>
+          <h3>&ldquo;Colored&rdquo; fog</h3>
+          <p>Nothing tints the fog itself. The cloud is white and the color comes from what is pointed at it, which is good news, because it means the same cloud can be blush for your first dance and deep blue an hour later. Matching your palette is a <a href="/rent-uplighting">uplighting</a> decision, not a fog decision.</p>
+          <div class="best"><em>Best for</em> Anyone who has picked wedding colors and wants the floor to match them.</div>
+        </div>
+      </div>
+
+      <div class="addon" data-reveal>
+        <h3>If you only want one of these, it is almost always the first one.</h3>
+        <p>The low-lying dry ice effect is what the <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a> setup produces, and it is far and away the most requested wedding effect we run. The other three tend to get added around it once a couple has seen what the floor looks like.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="grand-entrance">
+    <div class="wrap">
+      <div class="split" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">Fog machine wedding entrance</span>
+          <h2>An entrance and a first dance want opposite things from the same machine.</h2>
+          <p>For an <b>entrance</b>, the fog is doing crowd work. It fills the doorway and the floor in front of it so that when the doors open you are walking out of a cloud rather than into an empty room. The cloud gets laid down in roughly the thirty seconds before the doors move, heavy enough to read on camera and thin enough that the guests craning to see you can still see you. Because it is a moving shot, the effect is run as a short burst and then allowed to thin as you cross the floor.</p>
+          <p>For a <b>first dance</b>, the fog is doing the opposite job. It sits still, it stays low, and it has to hold for three or four minutes so the two of you appear to be standing on a surface rather than in a haze. That is a different setup, a different density and, on most floors, a different machine from a doorway burst.</p>
+          <p>Plenty of couples want both, and there is no reason not to have both, same technician, same setup night, two cues instead of one. What matters is saying so early, so the room is prepared for each. On our events that goes into the timeline with your DJ or coordinator before anyone touches a machine.</p>
+          <div class="chips">
+            <a class="chip" href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+            <a class="chip" href="/weddings">Wedding production</a>
+            <a class="chip" href="/contact">Check your date</a>
+          </div>
+        </div>
+        <div class="split-vis" style="--img:url('/images/fog/fog-machine-wedding-entrance-doorway.jpg')">
+          <span class="slot">/images/fog/fog-machine-wedding-entrance-doorway.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="why-dry-ice-fog-stays-low">
+    <div class="wrap">
+      <div class="prose" data-reveal>
+        <span class="kicker">How the effect works</span>
+        <h2>Why dry ice fog stays on the floor.</h2>
+        <p class="lede">The whole &ldquo;clouds&rdquo; look comes down to one thing: temperature. Nothing is holding the cloud down, and nothing is being sprayed at the floor.</p>
+        <p>Dry ice is frozen carbon dioxide, and it sits at roughly a hundred and nine degrees below zero Fahrenheit. It never becomes a liquid. It goes straight from solid to gas. Lowered into a tank of heated water it sublimates fast, and the rush of carbon dioxide drags a load of condensed water vapor out with it. That mixture leaves the machine far colder and noticeably denser than the air in your reception room, so it does what any dense cold thing does: it sinks, then spreads sideways across the floor.</p>
+        <p>It disappears for the same reason it stays down. As the cloud warms toward room temperature it loses density, thins, and lifts. That is why the effect is cued to a specific song rather than left running, and it is why there is nothing to clean up afterwards.</p>
+      </div>
+
+      <div class="coldstack" data-reveal>
+        <div class="coldstep">
+          <div class="val">Solid</div>
+          <h3>Dry ice goes in</h3>
+          <p>Frozen carbon dioxide at roughly 109 degrees below zero Fahrenheit, loaded into a tank of heated water.</p>
+        </div>
+        <div class="coldstep">
+          <div class="val">Gas</div>
+          <h3>It skips the liquid stage</h3>
+          <p>The solid sublimates straight to gas, carrying a heavy load of condensed water vapor with it.</p>
+        </div>
+        <div class="coldstep">
+          <div class="val">Dense</div>
+          <h3>Colder than the room, so it sinks</h3>
+          <p>The mixture is heavier than the surrounding air, drops to the floor and spreads outward at ankle height.</p>
+        </div>
+        <div class="coldstep">
+          <div class="val">Gone</div>
+          <h3>It warms up and lifts</h3>
+          <p>As it reaches room temperature it loses density and dissipates on its own. No residue, no mopping, no film on the floor.</p>
+        </div>
+      </div>
+
+      <div class="pull" data-reveal>
+        <p>A ballroom at 78 degrees thins the cloud noticeably faster than the same ballroom at 68.</p>
+        <span>Which is why the venue, the season and the time of day get asked about before the effect is quoted, an outdoor floor on a July evening in Texas is a genuinely different problem from the same floor indoors in November.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="planning">
+    <div class="wrap">
+      <div class="prose" data-reveal>
+        <span class="kicker">Planning it in</span>
+        <h2>Four things worth settling early.</h2>
+        <p>None of these are difficult. All of them are annoying if they surface on the day instead of three months before it.</p>
+      </div>
+
+      <div class="room-list" data-reveal>
+        <div class="room">
+          <h3>Your venue<span>Ask first, not last</span></h3>
+          <p>Raise the effect with your venue coordinator as soon as it is on your list. Some venues have protocols around fog, and a handful of older buildings have detection systems that want a conversation in advance. Every one of these is straightforward to work around when it is known early and awkward when it turns up at load-in. We are used to having that conversation directly with venue staff if it is easier.</p>
+        </div>
+        <div class="room">
+          <h3>The floor itself<span>Where the cloud will go</span></h3>
+          <p>Low fog spreads across whatever surface it lands on, so a dance floor flush with the rest of the room behaves differently from a raised platform with a step down at the edge. Neither is a problem. They are just set up differently, and knowing which one you have decides where the machine sits.</p>
+        </div>
+        <div class="room">
+          <h3>Timing<span>Cued to the music</span></h3>
+          <p>The difference between a good fog effect and a forgettable one is almost entirely timing. The cloud should be at full depth the moment you step onto the floor, not building while you stand there waiting for it. That means the technician running the effect is cueing against the music with your DJ or band, which is the reason we keep someone on it all night rather than starting it and walking away.</p>
+        </div>
+        <div class="room">
+          <h3>Season and room temperature<span>Especially outdoors</span></h3>
+          <p>Warm air thins the cloud faster. An outdoor first dance in July needs a different approach from an indoor one in February, and a patio with any breeze across it is a different job again. Telling us the venue and the date is usually enough for us to tell you what to expect.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="equipment-and-lighting">
+    <div class="wrap">
+      <div class="prose" data-reveal>
+        <span class="kicker">Fog and light are one decision</span>
+        <h2>A cloud nobody lights is a cloud nobody sees.</h2>
+        <p>This is the part couples most often do not know until they have seen it go wrong somewhere else. Fog is only visible because something is illuminating it. Lit from a low angle it reads as a cloud with depth and edges; lit from directly overhead, or not lit at all, the same cloud barely registers on a phone camera and disappears entirely in a photograph.</p>
+        <p>So the fog and the <a href="/services-lighting">lighting</a> get planned together rather than bolted on at the end. A <a href="/rent-follow-spot-light">follow spot</a> on the two of you and a warm wash raking across the floor is what turns a machine running in the corner into the picture that was in your head when you asked for it. A <a href="/monogram-projector">custom monogram</a> projected onto the floor picks up a soft halo off the cloud that it never has on bare hardwood.</p>
+        <p>Everything we bring is delivered, set up and run by our own on-site technician. There is no drop-off and nothing for anyone in your wedding party to operate on the night.</p>
+        <div class="chips">
+          <a class="chip" href="/services-lighting">Lighting services</a>
+          <a class="chip" href="/rent-uplighting">Uplighting</a>
+          <a class="chip" href="/monogram-projector">Custom monogram</a>
+          <a class="chip" href="/rent-follow-spot-light">Follow spot</a>
+          <a class="chip" href="/rent-cold-sparks">Cold spark fountains</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="safety">
+    <div class="wrap">
+      <div class="prose" data-reveal>
+        <span class="kicker">Safety and comfort</span>
+        <h2>What people actually want to know before they say yes.</h2>
+        <p>Fog effects are safe when they are run properly, and most of the worry couples arrive with is about things that get handled in the setup rather than on the night.</p>
+      </div>
+
+      <div class="trust-grid" data-reveal>
+        <div class="trust-card">
+          <h3>Density is controlled, not maximal</h3>
+          <p>The cloud is set so it never obstructs visibility across the floor. That matters most for older guests and for children, who should be able to see where the edge of the dance floor is at all times.</p>
+        </div>
+        <div class="trust-card">
+          <h3>Ventilation and the room</h3>
+          <p>Indoor use depends on the room having sensible airflow, which the vast majority of reception spaces do. It is one of the first things we check when we look at your venue.</p>
+        </div>
+        <div class="trust-card">
+          <h3>Detection systems</h3>
+          <p>A low dry ice cloud stays near the floor rather than rising to ceiling-mounted detectors, which is part of why it is the indoor-friendly option. Venue-specific protocols still get confirmed in advance rather than assumed.</p>
+        </div>
+        <div class="trust-card">
+          <h3>Nothing left behind</h3>
+          <p>The cloud warms, thins and lifts on its own. There is no residue on the floor, nothing slippery, and no clean-up eating into your reception.</p>
+        </div>
+        <div class="trust-card">
+          <h3>Somebody is watching it</h3>
+          <p>A technician stays with the effect and adjusts it live, because rooms get warmer as they fill and entrances run late, and both of those change what the cloud does.</p>
+        </div>
+        <div class="trust-card">
+          <h3>Insured, and used to venues</h3>
+          <p>Dallas Event Audio is fully insured and has been working DFW venues since 2001. Certificates go straight to your venue when they need one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="why-a-technician">
+    <div class="wrap">
+      <div class="split flip" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">Why it is run, not rented</span>
+          <h2>There is more to this than owning a machine.</h2>
+          <p>The density has to suit the room you are actually in, which means reading the ceiling height, the temperature, the airflow and the floor before the first cue rather than after it. It has to be timed to the music, not to a guess. It has to clear at the right pace so the photographer gets the shot and the floor is workable a minute later.</p>
+          <p>And somebody has to be standing there, able to change it in real time, when the room turns out warmer than expected or the entrance runs three minutes late, which at a wedding, it very often does. <b>That is the difference an on-site technician makes,</b> and it is why the effect goes out as something we run rather than something anyone hands over.</p>
+          <p>We are based in Dallas-Fort Worth, we are insured, and we have been doing this since 2001. Load-in, setup, the cues themselves and strike are all ours. You never touch a cable.</p>
+          <div class="chips">
+            <a class="chip" href="/rent-dancing-on-the-clouds-low-lyin">See the clouds effect</a>
+            <a class="chip" href="/our-work">Our work</a>
+            <a class="chip" href="/what-others-are-saying">Reviews</a>
+          </div>
+        </div>
+        <div class="split-vis" style="--img:url('/images/fog/dancing-on-the-clouds-dallas-technician.jpg')">
+          <span class="slot">/images/fog/dancing-on-the-clouds-dallas-technician.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="prose" data-reveal>
+        <span class="kicker">Common questions</span>
+        <h2>Wedding fog effects, answered.</h2>
+      </div>
+      <div class="faq-list" data-reveal>
+        <details class="faq-item">
+          <summary>Can you use a fog machine indoors?</summary>
+          <div class="ans">Yes, and indoors is where the low-lying dry ice effect works best. The cloud stays near the floor instead of rising through the room, so it does not fill the space or drift into the areas where people are eating and talking. What matters is that the venue has reasonable airflow and that any venue-specific protocol is confirmed in advance rather than discovered at load-in, which is a conversation we are happy to have directly with your venue.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Do fog machines set off smoke alarms?</summary>
+          <div class="ans">A properly run low-lying dry ice effect is designed to stay at ankle height, well below ceiling-mounted detectors, which is a large part of why it is the indoor-friendly choice. Detection systems do vary between buildings, though, so we confirm the specifics with your venue before the date rather than assuming. Raising it early is the single most useful thing you can do.</div>
+        </details>
+        <details class="faq-item">
+          <summary>How long does the fog last during a first dance?</summary>
+          <div class="ans">A low-lying dry ice effect is set to hold for the length of a song, roughly three to four minutes, and then thin out on its own as it warms toward room temperature. It is cued rather than left running, so the cloud is at full depth the moment you step onto the floor and gone shortly after you step off it.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Will fog ruin our wedding photos?</summary>
+          <div class="ans">The opposite, when it is set correctly. The whole point of keeping the cloud at ankle height is that your faces stay clear above it while the floor underneath you disappears, which is why the effect photographs so well. The failure mode is a cloud that is too high or lit from the wrong angle, and both of those are setup decisions made before anyone presses anything.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Can we have fog for the grand entrance and the first dance?</summary>
+          <div class="ans">Yes, and a lot of couples do. They are two separate cues on the same setup night: a heavier, shorter burst for the doors opening, and a sustained low layer for the song. Tell us both are on the timeline when you book so the room is prepared for each, rather than adding one on the night.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Does the fog leave the floor slippery?</summary>
+          <div class="ans">No. A dry ice effect is condensed water vapor carried on carbon dioxide gas, and it warms, thins and lifts rather than settling. There is no residue on the floor, nothing to mop and no gap in your reception while somebody deals with it.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Do you serve venues outside Dallas?</summary>
+          <div class="ans">The whole Metroplex, roughly a forty-mile radius from the mid-cities, covering Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Southlake, McKinney, Grapevine, Denton and everywhere between them. If your venue sits further out than that, ask anyway and we will tell you honestly whether it works.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <div class="wrap">
+      <h2 data-reveal>Tell us what you&rsquo;re planning and we&rsquo;ll tell you what it takes.</h2>
+      <p data-reveal>Your venue, your date, and whether you want the effect for the entrance, the first dance or both. That is enough for us to give you a straight answer.</p>
+      <div class="hero-ctas" style="justify-content:center" data-reveal>
+        <a class="btn-primary" href="/contact">Get a quote</a>
+        <a class="btn-secondary" href="tel:8172107957">817-210-7957</a>
+      </div>
+      <p data-reveal style="margin-top:26px">Tell us about your event and we will send you a straightforward quote the same day.</p>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="col brand">
+          <div class="logo"><div class="dial"></div>DEA</div>
+          <p style="margin-top:14px; max-width:250px;">Full-service AV production for Dallas-Fort Worth since 2001. Delivered, set up, and run by our on-site technician.</p>
+          <div class="foot-contact">
+            <a href="tel:8172107957">817-210-7957</a>
+            <a href="mailto:info@dallaseventaudio.com">info@dallaseventaudio.com</a>
+          </div>
+          <p class="foot-area">Serving Dallas, Fort Worth, Southlake, Arlington, Frisco, McKinney, Richardson &amp; the wider Metroplex.</p>
+        </div>
+        <div class="col">
+          <h4>Events</h4>
+          <a href="/weddings">Weddings</a>
+          <a href="/corporate-events">Corporate Events</a>
+          <a href="/private-events">Private Events</a>
+          <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+          <a href="/college-school-university-events">College &amp; University</a>
+          <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+          <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+        </div>
+        <div class="col">
+          <h4>Services</h4>
+          <a href="/services-dj">DJ Services</a>
+          <a href="/services-audio">Audio Services</a>
+          <a href="/services-lighting">Lighting Services</a>
+          <a href="/services-photo-and-video">Photo &amp; Video</a>
+          <a href="/services-extra">Extra Services</a>
+        </div>
+        <div class="col">
+          <h4>Audio Rentals</h4>
+          <a href="/rent-sound-equipment">Sound Equipment</a>
+          <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+          <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+          <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+          <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+          <a href="/live-streaming-services">Live Streaming</a>
+        </div>
+        <div class="col">
+          <h4>Lighting &amp; FX</h4>
+          <a href="/rent-uplighting">Uplighting</a>
+          <a href="/rent-laser-light-show">Laser Light Show</a>
+          <a href="/rent-follow-spot-light">Follow Spot</a>
+          <a href="/monogram-projector">Monogram Projector</a>
+          <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+          <a href="/projector-screen-rental">Projector &amp; Screen</a>
+        </div>
+        <div class="col">
+          <h4>Company</h4>
+          <a href="/our-story">Our Story</a>
+          <a href="/our-work">Our Work</a>
+          <a href="/equipment-list">Equipment List</a>
+          <a href="/what-others-are-saying">Reviews</a>
+          <a href="/blog">Blog</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div class="foot-proof">
+        <a class="fp" href="https://www.google.com/maps?cid=11213015373496621898" target="_blank" rel="noopener"><span class="m g">G</span> <b>4.9</b> <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span> &middot; 41 Google reviews</a>
+        <a class="fp" href="https://www.yelp.com/biz/dallas-event-audio-dallas" target="_blank" rel="noopener"><span class="m y">Y</span> <b>Yelp</b> &middot; 13 reviews &middot; 134 photos</a>
+      </div>
+      <div class="foot-bottom">
+        <span>&copy; 2026 Dallas Event Audio. Fully insured, on-site AV production.</span>
+        <span>Blog post draft, wedding fog effects</span>
+      </div>
+    </div>
+  </footer>
+<div id="chatBubble">✦ AV Concierge</div>
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+<script>
+  // Palette switcher, review tool only
+  document.querySelectorAll('#paletteBar button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.documentElement.setAttribute('data-palette', btn.dataset.p);
+      document.querySelectorAll('#paletteBar button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // Scroll reveal
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.15});
+    document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el=>el.classList.add('in'));
+  }
+
+  // CO2 / particle burst on primary CTA click
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function burst(x, y){
+    if(reduceMotion) return;
+    const colors = ['var(--a1)','var(--a2)','var(--a3)','#ffffff'];
+    const count = 26;
+    for(let i=0;i<count;i++){
+      const p = document.createElement('span');
+      p.className = 'burst-particle';
+      const angle = (Math.PI * 2 * i) / count + Math.random()*0.4;
+      const dist = 60 + Math.random()*140;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist - 40;
+      const size = 4 + Math.random()*6;
+      p.style.width = p.style.height = size + 'px';
+      p.style.background = colors[i % colors.length];
+      p.style.boxShadow = '0 0 8px ' + colors[i % colors.length];
+      p.style.left = x + 'px';
+      p.style.top = y + 'px';
+      document.body.appendChild(p);
+      const anim = p.animate([
+        { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
+        { transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.3)`, opacity:0 }
+      ], { duration:700 + Math.random()*400, easing:'cubic-bezier(.2,.7,.3,1)' });
+      anim.onfinish = () => p.remove();
+    }
+  }
+  document.querySelectorAll('.btn-primary').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      burst(e.clientX, e.clientY);
+    });
+  });
+</script>
+
+</body>
+</html>

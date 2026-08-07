@@ -1,0 +1,1984 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="signal">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/unbounded-latin-800-normal.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/space-grotesk-latin-400-normal.woff2" crossorigin>
+<style>
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/unbounded-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/unbounded-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:800;font-display:swap;src:url('/fonts/unbounded-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:900;font-display:swap;src:url('/fonts/unbounded-latin-900-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/space-grotesk-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/space-grotesk-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/space-grotesk-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/space-grotesk-latin-700-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Unbounded-fb";src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:125.8%;ascent-override:79.1%;descent-override:19.5%;line-gap-override:0%}
+@font-face{font-family:"SpaceGrotesk-fb";src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:105%;ascent-override:93.7%;descent-override:27.8%;line-gap-override:0%}
+</style>
+<style>
+  :root{
+    --font-display:'Unbounded','Unbounded-fb',sans-serif;
+    --font-body:'Space Grotesk','SpaceGrotesk-fb',sans-serif;
+  }
+
+  /* ============ PALETTE A - Signal Chain (true DJ mixer peak-meter LEDs: green / yellow / red) ============ */
+  html[data-palette="signal"]{
+    --bg-0:#050706; --bg-1:#0a0f0c; --bg-2:#0e1512;
+    --ink:#f4f7f5; --dim:#b4c5ba;
+    --a1:#31ff6e; /* LED green */
+    --a2:#fff21c; /* LED yellow */
+    --a3:#ff1f3d; /* LED red */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 55%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(255,255,255,.08);
+    --glow: rgba(49,255,110,.35);
+  }
+  /* ============ PALETTE B - Stage Black & Amber (warm, premium, ties to existing chat widget gold) ============ */
+  html[data-palette="amber"]{
+    --bg-0:#070605; --bg-1:#0d0a06; --bg-2:#120e08;
+    --ink:#f8f3ea; --dim:#c3b7a5;
+    --a1:#e8b75c; /* gold */
+    --a2:#ffdfa0; /* warm white/spot */
+    --a3:#4fa3ff; /* cool counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 50%, var(--a2) 50%, var(--a2) 100%);
+    --card-border: rgba(232,183,92,.16);
+    --glow: rgba(232,183,92,.32);
+  }
+  /* ============ PALETTE C - DFW Night Rig (cool stage-lighting energy, distinct from EDM Wedding DJ's magenta) ============ */
+  html[data-palette="night"]{
+    --bg-0:#05060b; --bg-1:#090b16; --bg-2:#0c0f1e;
+    --ink:#f1f3fb; --dim:#aeb5cf;
+    --a1:#2f6fff; /* electric blue */
+    --a2:#8b5cf6; /* violet */
+    --a3:#ffb020; /* amber counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 65%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(139,92,246,.16);
+    --glow: rgba(47,111,255,.35);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-0);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  .grad-text{
+    background:var(--grad);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  /* ---------- palette dock (bottom left, shipped feature) ---------- */
+  #paletteBar{
+    position:fixed; left:20px; bottom:22px; z-index:200;
+    display:flex; flex-direction:column; align-items:flex-start;
+    font-family:var(--font-body);
+  }
+  #paletteBar .pal-toggle{
+    display:flex; align-items:center; gap:9px;
+    padding:11px 17px; border-radius:100px;
+    border:1px solid var(--card-border); background:rgba(8,9,10,.82);
+    -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+    color:var(--ink); font-family:var(--font-body); font-size:0.85rem; font-weight:600;
+    cursor:pointer; transition:border-color .2s, background .2s;
+  }
+  #paletteBar .pal-toggle:hover{ border-color:var(--a1); background:rgba(8,9,10,.94); }
+  #paletteBar .pal-toggle .dots{ display:flex; gap:3px; }
+  #paletteBar .pal-toggle .dots i{ width:8px; height:8px; border-radius:50%; display:block; }
+  #paletteBar .pal-opts{
+    display:none; flex-direction:column; gap:4px; margin-bottom:10px;
+    padding:10px; border-radius:16px; min-width:222px;
+    border:1px solid var(--card-border); background:rgba(8,9,10,.94);
+    -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px);
+    box-shadow:0 20px 50px -18px rgba(0,0,0,.9);
+  }
+  #paletteBar.open .pal-opts{ display:flex; }
+  #paletteBar .pal-opts .pal-head{
+    font-family:var(--font-display); font-weight:900; font-size:0.6rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--dim);
+    padding:4px 10px 8px;
+  }
+  #paletteBar .pal-opts button{
+    display:flex; align-items:center; gap:10px; text-align:left; width:100%;
+    padding:9px 11px; border-radius:11px; border:1px solid transparent;
+    background:transparent; color:var(--ink);
+    font-family:var(--font-body); font-size:0.87rem; font-weight:500;
+    cursor:pointer; transition:.18s;
+  }
+  #paletteBar .pal-opts button:hover{ background:rgba(255,255,255,.06); }
+  #paletteBar .pal-opts button.active{ border-color:var(--a1); background:rgba(255,255,255,.05); font-weight:700; }
+  #paletteBar .pal-opts button i{
+    width:22px; height:11px; border-radius:100px; flex:0 0 auto;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);
+  }
+  #paletteBar .sw-signal{ background:linear-gradient(90deg,#31ff6e,#fff21c 55%,#ff1f3d); }
+  #paletteBar .sw-amber { background:linear-gradient(90deg,#e8b75c,#ffdfa0); }
+  #paletteBar .sw-night { background:linear-gradient(90deg,#2f6fff,#8b5cf6 65%,#ffb020); }
+  @media(max-width:520px){
+    #paletteBar{ left:14px; bottom:16px; }
+    #paletteBar .pal-toggle{ padding:9px 13px; font-size:0.8rem; }
+    #paletteBar .pal-toggle .label{ display:none; }
+    #paletteBar .pal-opts{ min-width:198px; }
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(5,6,5,.7); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--card-border);
+  }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1180px; margin:0 auto; }
+  .logo{ display:flex; align-items:center; }
+  .logo img{
+    display:block; height:46px; width:auto;
+    filter:drop-shadow(0 0 9px rgba(255,255,255,.32)) drop-shadow(0 2px 3px rgba(0,0,0,.65));
+  }
+  .col.brand .logo img{ height:38px; }
+  @media (max-width:520px){ .logo img{ height:34px; } }
+  .navlinks{ display:flex; align-items:center; gap:2px; font-size:0.994rem; color:var(--dim); }
+  .navlinks a:hover{ color:var(--ink); }
+  .nl-item{ position:relative; }
+  .nl-top{
+    display:flex; align-items:center; gap:6px;
+    padding:10px 13px; border-radius:9px;
+    color:var(--dim); cursor:pointer; white-space:nowrap;
+    transition:color .15s ease, background .15s ease;
+  }
+  .nl-top:hover, .nl-item:hover .nl-top, .nl-item:focus-within .nl-top{
+    color:var(--ink); background:rgba(255,255,255,.05);
+  }
+  .nl-top:focus-visible{ outline:2px solid var(--a1); outline-offset:2px; }
+  .nl-car{ width:10px; height:6px; opacity:.65; transition:transform .18s ease; }
+  .nl-item:hover .nl-car, .nl-item:focus-within .nl-car{ transform:rotate(180deg); opacity:1; }
+  .nl-menu{
+    position:absolute; top:calc(100% + 8px); left:50%; transform:translateX(-50%) translateY(-6px);
+    min-width:238px; padding:8px;
+    background:var(--bg-1); border:1px solid var(--card-border); border-radius:14px;
+    box-shadow:0 18px 44px rgba(0,0,0,.6), 0 0 0 1px rgba(0,0,0,.35);
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity .16s ease, transform .16s ease, visibility .16s;
+    z-index:120;
+  }
+  .nl-menu::before{ content:""; position:absolute; top:-10px; left:0; right:0; height:10px; }
+  .nl-item:hover .nl-menu, .nl-item:focus-within .nl-menu{
+    opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0);
+  }
+  .nl-menu a{
+    display:block; padding:9px 12px; border-radius:8px;
+    font-size:0.93rem; color:var(--dim); white-space:nowrap;
+    transition:color .13s ease, background .13s ease;
+  }
+  .nl-menu a:hover{ color:var(--ink); background:rgba(255,255,255,.06); }
+  .nl-solo{ text-decoration:none; }
+  .navburger{
+    display:none; width:42px; height:42px; padding:0;
+    background:transparent; border:1px solid var(--card-border); border-radius:11px;
+    cursor:pointer; flex-direction:column; align-items:center; justify-content:center; gap:5px;
+  }
+  .navburger span{ display:block; width:19px; height:2px; border-radius:2px; background:var(--ink); }
+  .navburger:focus-visible{ outline:2px solid var(--a1); outline-offset:2px; }
+  .ndrawer{
+    position:fixed; inset:0; z-index:400;
+    background:var(--bg-0);
+    display:flex; flex-direction:column;
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity .2s ease, visibility .2s;
+    overflow-y:auto; -webkit-overflow-scrolling:touch;
+  }
+  .ndrawer.open{ opacity:1; visibility:visible; pointer-events:auto; }
+  .nd-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 22px; border-bottom:1px solid var(--card-border);
+    position:sticky; top:0; background:var(--bg-0); z-index:2;
+  }
+  .nd-close{
+    position:relative; width:42px; height:42px; padding:0;
+    background:transparent; border:1px solid var(--card-border); border-radius:11px; cursor:pointer;
+  }
+  .nd-close span{
+    position:absolute; top:50%; left:50%; width:19px; height:2px; border-radius:2px;
+    background:var(--ink); margin:-1px 0 0 -9.5px;
+  }
+  .nd-close span:first-child{ transform:rotate(45deg); }
+  .nd-close span:last-child{ transform:rotate(-45deg); }
+  .nd-body{ padding:8px 14px 20px; flex:1 0 auto; }
+  .nd-sec{ border-bottom:1px solid var(--card-border); }
+  .nd-trig{
+    width:100%; display:flex; align-items:center; justify-content:space-between;
+    padding:17px 8px; background:transparent; border:0; cursor:pointer;
+    font-family:var(--font-body); font-size:1.06rem; font-weight:600;
+    color:var(--ink); text-align:left; text-decoration:none;
+  }
+  .nd-trig .nl-car{ width:13px; height:8px; transition:transform .2s ease; }
+  .nd-sec.open .nd-trig .nl-car{ transform:rotate(180deg); }
+  .nd-panel{ display:none; padding:0 8px 14px; }
+  .nd-sec.open .nd-panel{ display:block; }
+  .nd-panel a{
+    display:block; padding:11px 12px; border-radius:9px;
+    font-size:0.99rem; color:var(--dim);
+  }
+  .nd-panel a:hover{ color:var(--ink); background:rgba(255,255,255,.05); }
+  .nd-foot{
+    display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
+    padding:20px 22px 34px; border-top:1px solid var(--card-border);
+  }
+  .nd-phone{ font-size:1.06rem; font-weight:600; color:var(--ink); }
+  body.nav-locked{ overflow:hidden; }
+  .navright{ display:flex; align-items:center; gap:18px; }
+  .phone{ font-size:0.96rem; color:var(--dim); }
+  .cta-btn{
+    font-family:var(--font-body); font-weight:700; font-size:0.96rem;
+    padding:11px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    display:inline-block; white-space:nowrap;
+  }
+  @media (max-width:1120px){
+    .navlinks{ gap:0; font-size:0.94rem; }
+    .nl-top{ padding:10px 9px; }
+  }
+  @media (max-width:980px){
+    header nav .phone{ display:none; }
+  }
+  @media (max-width:900px){
+    .navlinks{ display:none; }
+    .navburger{ display:flex; }
+    header nav .navright{ gap:12px; }
+  }
+  /* tablet: keep the drawer's content off the far edges while the bars stay
+     full bleed, so the sticky head and foot backgrounds still span the screen */
+  @media (min-width:600px){
+    .nd-head, .nd-foot{
+      padding-left:max(22px, calc((100% - 680px)/2));
+      padding-right:max(22px, calc((100% - 680px)/2));
+    }
+    .nd-body{
+      padding-left:max(14px, calc((100% - 700px)/2));
+      padding-right:max(14px, calc((100% - 700px)/2));
+    }
+  }
+
+  /* ---------- hero ---------- */
+  .hero{ position:relative; padding:110px 0 90px; overflow:hidden; }
+  .hero::before{
+    content:''; position:absolute; inset:-20% -10% auto -10%; height:600px;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    opacity:.5; filter:blur(40px); pointer-events:none;
+  }
+
+  /* -- animated perspective floor grid -- */
+  .hero-grid{
+    position:absolute; left:0; right:0; bottom:-10%; height:70%;
+    perspective:400px; overflow:hidden; pointer-events:none; z-index:0;
+  }
+  .hero-grid::before{
+    content:''; position:absolute; inset:-50% -50% 0 -50%;
+    background-image:
+      repeating-linear-gradient(to right, var(--card-border) 0 1px, transparent 1px 68px),
+      repeating-linear-gradient(to top, var(--card-border) 0 1px, transparent 1px 68px);
+    transform:rotateX(62deg);
+    transform-origin:bottom;
+    animation: gridScroll 9s linear infinite;
+    opacity:.55;
+    mask-image:linear-gradient(to top, black 0%, transparent 75%);
+    -webkit-mask-image:linear-gradient(to top, black 0%, transparent 75%);
+  }
+  @keyframes gridScroll{ from{ background-position:0 0; } to{ background-position:0 136px; } }
+
+  /* -- sweeping laser beams -- */
+  .hero-lasers{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .laser{
+    position:absolute; top:-10%; width:2px; height:130%;
+    background:linear-gradient(to bottom, transparent, var(--a1), transparent);
+    opacity:0; filter:blur(.5px);
+    animation: laserSweep 6s ease-in-out infinite;
+  }
+  .laser:nth-child(1){ left:8%;  background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:0s; }
+  .laser:nth-child(2){ left:32%; background:linear-gradient(to bottom, transparent, var(--a2), transparent); animation-delay:1.6s; transform:rotate(6deg); }
+  .laser:nth-child(3){ left:63%; background:linear-gradient(to bottom, transparent, var(--a3), transparent); animation-delay:3.1s; transform:rotate(-8deg); }
+  .laser:nth-child(4){ left:85%; background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:4.3s; transform:rotate(4deg); }
+  @keyframes laserSweep{
+    0%{ opacity:0; transform:translateX(-10px) rotate(var(--rot,0deg)); }
+    8%{ opacity:.55; }
+    20%{ opacity:0; }
+    100%{ opacity:0; }
+  }
+
+  /* -- drifting fog -- */
+  .hero-fog{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .fog-blob{
+    position:absolute; width:60%; padding-top:60%; border-radius:50%;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    filter:blur(50px); opacity:.4;
+    animation: fogDrift 18s ease-in-out infinite alternate;
+  }
+  .fog-blob.b2{ left:50%; top:20%; animation-duration:24s; animation-delay:-6s; opacity:.28; }
+  @keyframes fogDrift{
+    from{ transform:translate(-8%, 0) scale(1); }
+    to{ transform:translate(8%, 6%) scale(1.15); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-grid::before, .laser, .fog-blob{ animation:none !important; }
+    .laser{ opacity:0; }
+  }
+
+  .hero-logo-wrap{ text-align:center; position:relative; z-index:1; margin-bottom:40px; }
+  .hero-logo-wrap img{
+    width:min(440px, 78vw); height:auto;
+    filter:drop-shadow(0 0 60px var(--glow));
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--card-border); border-radius:100px; padding:7px 16px;
+    font-size:0.881rem; color:var(--dim); letter-spacing:.04em; text-transform:uppercase;
+    margin-bottom:28px; position:relative; z-index:1;
+  }
+  .eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--a1); box-shadow:0 0 8px var(--a1); }
+  .hero h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.6rem, 6vw, 4.6rem); max-width:900px; position:relative; z-index:1;
+  }
+  .hero p.sub{
+    font-size:1.15rem; color:var(--dim); max-width:600px; margin-top:26px; position:relative; z-index:1;
+  }
+  .hero-ctas{ display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; position:relative; z-index:1; }
+  .btn-primary{
+    font-weight:700; padding:16px 30px; border-radius:100px; background:var(--grad); color:#0a0a0a; font-size:1.073rem;
+  }
+  .btn-secondary{
+    font-weight:600; padding:16px 30px; border-radius:100px; border:1px solid var(--card-border); color:var(--ink); font-size:1.073rem;
+  }
+  .trust-row{
+    display:flex; gap:40px; flex-wrap:wrap; margin-top:64px; padding-top:34px;
+    border-top:1px solid var(--card-border); position:relative; z-index:1;
+  }
+  .trust-item .num{ font-family:var(--font-display); font-weight:800; font-size:1.6rem; }
+  .trust-item .label{ font-size:0.904rem; color:var(--dim); margin-top:4px; }
+
+  /* ---------- services ---------- */
+  .section{ padding:90px 0; }
+  .section-head{ max-width:640px; margin-bottom:52px; }
+  .kicker{ font-size:0.881rem; letter-spacing:.08em; text-transform:uppercase; color:var(--a1); font-weight:700; margin-bottom:14px; display:block; }
+  .section-head h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.8rem,3.4vw,2.6rem); }
+  .section-head p{ color:var(--dim); margin-top:14px; font-size:1.153rem; }
+
+  .service-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; }
+  .service-card{
+    background:linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 55%, transparent), color-mix(in srgb, var(--bg-1) 45%, transparent));
+    backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:20px; padding:28px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 8px 30px -18px rgba(0,0,0,.6);
+    transition:.25s; position:relative; overflow:hidden;
+  }
+  .service-card:hover{ transform:translateY(-4px); border-color:var(--a1); box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 20px 50px -20px var(--glow); }
+  .service-card .icon{
+    width:44px; height:44px; border-radius:12px; margin-bottom:20px;
+    background:var(--grad); display:flex; align-items:center; justify-content:center;
+    font-size:1.2rem;
+  }
+  .service-card h3{ font-family:var(--font-display); font-size:1.186rem; font-weight:700; margin-bottom:10px; }
+  .service-card p{ font-size:0.994rem; color:var(--dim); margin-bottom:18px; }
+  .service-card .learn{ font-size:0.904rem; font-weight:700; color:var(--a1); }
+  .service-card.featured{ border-color:var(--a2); }
+  .tag-live{ position:absolute; top:20px; right:20px; font-size:0.82rem; text-transform:uppercase; letter-spacing:.06em; color:var(--a2); border:1px solid var(--a2); padding:3px 8px; border-radius:100px; }
+
+  /* ---------- differentiator ---------- */
+  .diff{ background:var(--bg-1); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border); }
+  .diff-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+  .diff-visual{
+    aspect-ratio:4/3; border-radius:24px; border:1px solid var(--card-border);
+    background:
+      radial-gradient(circle at 30% 20%, var(--glow), transparent 55%),
+      linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 50%, transparent), color-mix(in srgb, var(--bg-0) 40%, transparent));
+    backdrop-filter:blur(22px) saturate(150%); -webkit-backdrop-filter:blur(22px) saturate(150%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 20px 60px -30px rgba(0,0,0,.7);
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .diff-visual .badge{
+    font-family:var(--font-display); font-weight:800; text-align:center; font-size:1.073rem; color:var(--dim);
+    border:1px dashed var(--card-border); padding:20px; border-radius:16px;
+  }
+  .diff-copy h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.7rem,3vw,2.3rem); margin-bottom:20px; }
+  .diff-copy p{ color:var(--dim); margin-bottom:16px; font-size:1.13rem; }
+  .diff-copy strong{ color:var(--ink); }
+  @media (max-width:820px){ .diff-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- reviews ---------- */
+  .review-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
+  .review-card{
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:18px; padding:26px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -20px rgba(0,0,0,.6);
+  }
+  .stars{ color:var(--a2); letter-spacing:2px; margin-bottom:14px; font-size:1.017rem; }
+  .review-card p{ font-size:1.04rem; color:var(--ink); opacity:.9; margin-bottom:16px; }
+  .review-card .who{ font-size:0.904rem; color:var(--dim); font-weight:600; }
+
+  /* ---------- review proof badges ---------- */
+  .proof-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:16px; margin-bottom:36px; }
+  .proof-badge{
+    display:flex; align-items:center; gap:14px; padding:18px 20px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -22px rgba(0,0,0,.6);
+    transition:.22s;
+  }
+  .proof-badge:hover{ border-color:var(--a1); transform:translateY(-3px); box-shadow:0 16px 42px -24px var(--glow); }
+  .proof-mark{
+    flex:0 0 42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:1.2rem; letter-spacing:-.02em;
+  }
+  .proof-mark.g{ background:#ffffff; color:#4285f4; }
+  .proof-mark.y{ background:#d32323; color:#ffffff; }
+  .proof-mark.k{ background:#ffffff; color:#0f9aa0; }
+  .proof-mark.w{ background:#ffffff; color:#16181d; font-size:.98rem; }
+  .proof-meta .rate{
+    font-family:var(--font-display); font-weight:800; font-size:1.22rem; line-height:1.15;
+    display:flex; align-items:baseline; gap:9px;
+  }
+  .proof-meta .rate .s{ color:var(--a2); font-size:.92rem; letter-spacing:1px; font-weight:400; }
+  .proof-meta .cnt{ font-size:.92rem; color:var(--dim); margin-top:2px; }
+  .proof-badge.tbd{ border-style:dashed; border-color:var(--a2); }
+  .proof-badge.tbd .rate{ color:var(--a2); }
+  .proof-badge.tbd .cnt{ color:var(--a2); opacity:.8; }
+
+  /* compact sitewide footer strip */
+  .foot-proof{
+    display:flex; flex-wrap:wrap; align-items:center; gap:12px 26px;
+    margin-top:32px; padding-top:26px; border-top:1px solid var(--card-border);
+  }
+  .foot-proof .fp{ display:inline-flex; align-items:center; gap:9px; font-size:.94rem; color:var(--dim); }
+  .foot-proof .fp:hover{ color:var(--ink); }
+  .foot-proof .fp b{ color:var(--ink); font-weight:700; }
+  .foot-proof .fp .s{ color:var(--a2); letter-spacing:1px; }
+  .foot-proof .fp .m{
+    width:24px; height:24px; border-radius:7px; display:inline-flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:.76rem;
+  }
+  .foot-proof .fp .m.g{ background:#ffffff; color:#4285f4; }
+  .foot-proof .fp .m.y{ background:#d32323; color:#ffffff; }
+  .foot-proof .fp .m.k{ background:#ffffff; color:#0f9aa0; }
+  .foot-proof .fp .m.w{ background:#ffffff; color:#16181d; font-size:.62rem; }
+  @media (max-width:820px){ .foot-proof{ gap:12px 18px; } }
+
+  /* ---------- final CTA ---------- */
+  .final-cta{ text-align:center; padding:110px 0; position:relative; }
+  .final-cta h2{ font-family:var(--font-display); font-weight:900; font-size:clamp(2rem,5vw,3.2rem); max-width:760px; margin:0 auto 22px; }
+  .final-cta p{ color:var(--dim); max-width:520px; margin:0 auto 36px; }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:1px solid var(--card-border); padding:50px 0; }
+  .foot-grid{ display:grid; grid-template-columns:1.6fr repeat(5,1fr); gap:34px 26px; }
+  @media (max-width:1080px){ .foot-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:620px){ .foot-grid{ grid-template-columns:repeat(2,1fr); } }
+  .foot-grid .col.brand{ min-width:210px; }
+  @media (max-width:1080px){ .foot-grid .col.brand{ grid-column:1 / -1; } }
+  .foot-contact{ margin-top:16px; }
+  .foot-contact a{ display:block; margin-bottom:6px; font-size:1rem; color:var(--ink); opacity:.9; }
+  .foot-contact a:hover{ color:var(--a1); opacity:1; }
+  .foot-area{ font-size:.9rem; color:var(--dim); margin-top:12px; line-height:1.6; }
+  .foot-grid .col h4{ font-size:0.904rem; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin-bottom:14px; }
+  .foot-grid .col a, .foot-grid .col p{ display:block; font-size:0.972rem; color:var(--ink); opacity:.8; margin-bottom:8px; }
+  .foot-bottom{ margin-top:40px; padding-top:24px; border-top:1px solid var(--card-border); font-size:0.881rem; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+
+  /* ---------- chatbot bubble (visual placeholder for the AV Concierge) ---------- */
+  #chatBubble{
+    position:fixed; right:22px; bottom:22px; z-index:200;
+    display:flex; align-items:center; gap:8px;
+    padding:14px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    font-weight:700; font-size:0.96rem; box-shadow:0 14px 40px -12px var(--glow);
+    cursor:pointer;
+  }
+
+  [data-reveal]{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  [data-reveal].in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- film grain overlay ---------- */
+  .grain-overlay{
+    position:fixed; inset:0; z-index:999; pointer-events:none;
+    opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-repeat:repeat;
+  }
+
+  /* ---------- marquee strip ---------- */
+  .marquee{
+    border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);
+    background:var(--bg-1); overflow:hidden; padding:18px 0; position:relative;
+  }
+  .marquee-track{
+    display:flex; width:max-content; gap:48px;
+    animation:marqueeScroll 32s linear infinite;
+  }
+  .marquee-track span{
+    font-family:var(--font-display); font-weight:700; font-size:1.073rem;
+    letter-spacing:.04em; text-transform:uppercase; color:var(--dim);
+    display:flex; align-items:center; gap:48px; white-space:nowrap;
+  }
+  .marquee-track span::after{ content:'✦'; color:var(--a1); margin-left:48px; }
+  @keyframes marqueeScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  /* ---------- CO2 / particle burst ---------- */
+  .burst-particle{
+    position:fixed; top:0; left:0; width:6px; height:6px; border-radius:50%;
+    pointer-events:none; z-index:500; will-change:transform,opacity;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+    .marquee-track{ animation:none; }
+    .grain-overlay{ display:none; }
+  }
+
+  [data-img]{--img:linear-gradient(transparent,transparent)}
+</style>
+  <title>Event Equipment List | Sound, Lighting and Video Gear</title>
+  <meta name="description" content="Our full event equipment list for Dallas-Fort Worth: PA speakers, subwoofers, line array, microphones, DJ equipment, lighting, fog and video.">
+  <link rel="canonical" href="https://www.dallaseventaudio.com/equipment-list">
+  <meta property="og:title" content="Event Equipment List | Sound, Lighting and Video Gear">
+  <meta property="og:description" content="Our full event equipment list for Dallas-Fort Worth: PA speakers, subwoofers, line array, microphones, DJ equipment, lighting, fog and video.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.dallaseventaudio.com/equipment-list">
+<style>
+  /* ========== SOUND & AV EQUIPMENT RENTAL (rent-sound-equipment) ========== */
+
+  section[id]{ scroll-margin-top:96px; }
+
+  .hero.hero-page{ padding:64px 0 62px; }
+  .breadcrumb{
+    font-size:.881rem; color:var(--dim); letter-spacing:.03em;
+    position:relative; z-index:1; margin-bottom:22px;
+  }
+  .breadcrumb a{ color:var(--dim); }
+  .breadcrumb a:hover{ color:var(--a1); }
+  .breadcrumb .sep{ opacity:.45; margin:0 8px; }
+  .breadcrumb .here{ color:var(--ink); opacity:.75; }
+
+  .hero-page h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.3rem, 5.2vw, 4rem); max-width:980px; position:relative; z-index:1;
+  }
+  .hero-page .sub{
+    font-size:1.18rem; color:var(--dim); max-width:720px; margin-top:24px;
+    position:relative; z-index:1;
+  }
+
+  .stat-row{
+    display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:14px;
+    margin-top:40px; position:relative; z-index:1;
+  }
+  .stat{
+    padding:18px 20px; border-radius:14px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .stat .num{
+    font-family:var(--font-display); font-weight:900; font-size:1.7rem; line-height:1;
+    background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .stat .lbl{ margin-top:8px; font-size:.86rem; color:var(--dim); line-height:1.45; }
+  @media (max-width:860px){ .stat-row{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:480px){ .stat-row{ grid-template-columns:1fr; } }
+
+  /* ---------- DJ service tier cards ---------- */
+  .dj-grid{
+    display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:18px;
+    margin-top:38px;
+  }
+  @media (max-width:860px){
+    .dj-grid{ grid-template-columns:1fr; }
+  }
+  .dj-card{
+    position:relative; overflow:hidden;
+    padding:30px 30px 28px; border-radius:20px;
+    background:color-mix(in srgb, var(--bg-2) 52%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s, box-shadow .3s;
+  }
+  .dj-card::before{
+    content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+    background:var(--grad); opacity:.5; transition:opacity .3s;
+  }
+  .dj-card:hover{
+    border-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transform:translateY(-3px);
+    box-shadow:0 24px 60px -34px var(--glow), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .dj-card:hover::before{ opacity:1; }
+
+  .dj-card .tag{
+    font-family:var(--font-display); font-weight:900; font-size:.7rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1);
+  }
+  .dj-card h3{
+    margin-top:12px; font-family:var(--font-display); font-weight:900; line-height:1.12;
+    font-size:clamp(1.3rem, 2.1vw, 1.6rem);
+  }
+  .dj-card p{ margin-top:14px; font-size:1rem; line-height:1.72; color:var(--dim); }
+  .dj-card p b, .dj-card p strong{ color:var(--ink); font-weight:700; }
+  .dj-card .best{
+    margin-top:18px; padding-top:15px; border-top:1px solid var(--card-border);
+    font-size:.87rem; line-height:1.6; color:var(--dim);
+  }
+  .dj-card .best em{ font-style:normal; font-weight:800; color:var(--a2); letter-spacing:.04em;
+    text-transform:uppercase; font-size:.72rem; display:block; margin-bottom:6px; }
+
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+  .chip{
+    display:inline-block; padding:6px 13px; border-radius:100px;
+    font-size:.79rem; font-weight:600; letter-spacing:.02em;
+    color:var(--dim); text-decoration:none;
+    border:1px solid var(--card-border);
+    background:color-mix(in srgb, var(--bg-0) 45%, transparent);
+    transition:.2s;
+  }
+  a.chip:hover{ color:var(--a1); border-color:color-mix(in srgb, var(--a1) 55%, transparent); }
+  a.chip::after{ content:' \2192'; opacity:.55; }
+
+  /* ---------- which setup for which room ---------- */
+  .room-list{ margin-top:36px; border-top:1px solid var(--card-border); }
+  .room{
+    display:grid; grid-template-columns:280px 1fr; gap:32px;
+    padding:24px 0; border-bottom:1px solid var(--card-border);
+    transition:border-color .3s;
+  }
+  .room:hover{ border-bottom-color:color-mix(in srgb, var(--a1) 40%, transparent); }
+  .room h3{
+    font-family:var(--font-display); font-weight:800; font-size:1.1rem; line-height:1.35;
+  }
+  .room h3 span{ display:block; margin-top:6px; font-size:.76rem; font-weight:700;
+    letter-spacing:.09em; text-transform:uppercase; color:var(--a1); opacity:.85; }
+  .room p{ font-size:1rem; line-height:1.72; color:var(--dim); }
+  .room p b{ color:var(--ink); font-weight:700; }
+
+  @media (max-width:860px){
+    .room{ grid-template-columns:1fr; gap:12px; }
+  }
+
+  /* ---------- add-on strip ---------- */
+  .addon{
+    margin-top:24px; padding:28px 30px; border-radius:18px;
+    border:1px dashed color-mix(in srgb, var(--a1) 32%, var(--card-border));
+    background:color-mix(in srgb, var(--bg-1) 40%, transparent);
+  }
+  .addon h3{ font-family:var(--font-display); font-size:1.16rem; font-weight:800; }
+  .addon p{ margin-top:10px; font-size:.98rem; color:var(--dim); line-height:1.7; }
+
+  /* ---------- feature split ---------- */
+  .split{
+    display:grid; grid-template-columns:1.05fr .95fr; gap:44px; align-items:center;
+  }
+  .split.flip .split-copy{ order:2; }
+  .split.flip .split-vis{ order:1; }
+  .split-copy h2{
+    font-family:var(--font-display); font-weight:900; line-height:1.1;
+    font-size:clamp(1.85rem, 3.4vw, 2.7rem);
+  }
+  .split-copy p{ margin-top:18px; font-size:1.04rem; line-height:1.75; color:var(--dim); }
+  .split-copy p b{ color:var(--ink); font-weight:700; }
+
+  .split-vis{
+    position:relative; border-radius:20px; overflow:hidden;
+    aspect-ratio:4/3; border:1px solid var(--card-border);
+    background-color:var(--bg-2);
+    background-image:var(--img),
+      radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--a1) 22%, transparent), transparent 62%),
+      radial-gradient(circle at 76% 80%, color-mix(in srgb, var(--a2) 18%, transparent), transparent 60%);
+    background-size:cover; background-position:center; background-repeat:no-repeat;
+  }
+  .split-vis .slot{
+    position:absolute; left:0; right:0; bottom:0; padding:30px 16px 13px;
+    background:linear-gradient(to top, rgba(6,6,8,.9), transparent);
+    font-size:.72rem; color:var(--dim); letter-spacing:.03em;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  @media (max-width:860px){
+    .split{ grid-template-columns:1fr; gap:26px; }
+    .split.flip .split-copy{ order:1; }
+    .split.flip .split-vis{ order:2; }
+  }
+
+  /* ---------- how it works ---------- */
+  .flow{ display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:16px; margin-top:34px; }
+  @media (max-width:1040px){ .flow{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:620px){ .flow{ grid-template-columns:1fr; } }
+  .flow-step{
+    position:relative; padding:26px 22px 24px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    border:1px solid var(--card-border);
+    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  }
+  .flow-step .n{
+    font-family:var(--font-display); font-weight:900; font-size:.7rem;
+    letter-spacing:.15em; text-transform:uppercase; color:var(--a1);
+  }
+  .flow-step h3{ margin-top:12px; font-family:var(--font-display); font-size:1.06rem; font-weight:800; }
+  .flow-step p{ margin-top:9px; font-size:.92rem; color:var(--dim); line-height:1.62; }
+
+  /* ---------- trust strip ---------- */
+  .trust-grid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:32px; }
+  @media (max-width:860px){ .trust-grid{ grid-template-columns:1fr; } }
+  .trust-card{
+    padding:24px 24px 22px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 45%, transparent);
+    border:1px solid var(--card-border);
+  }
+  .trust-card h3{ font-family:var(--font-display); font-size:1.02rem; font-weight:800; }
+  .trust-card p{ margin-top:9px; font-size:.92rem; color:var(--dim); line-height:1.62; }
+
+
+  /* ---------- event vertical link cards ---------- */
+  .vgrid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:34px; }
+  @media (max-width:1040px){ .vgrid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:860px){ .vgrid{ grid-template-columns:1fr; } }
+  .vcard{
+    display:block; position:relative; overflow:hidden; text-decoration:none;
+    padding:24px 24px 22px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    backdrop-filter:blur(12px) saturate(140%); -webkit-backdrop-filter:blur(12px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s, box-shadow .3s;
+  }
+  .vcard::before{
+    content:''; position:absolute; left:0; right:0; top:0; height:2px;
+    background:var(--grad); opacity:.45; transition:opacity .3s;
+  }
+  .vcard:hover{
+    border-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transform:translateY(-3px);
+    box-shadow:0 22px 54px -34px var(--glow), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .vcard:hover::before{ opacity:1; }
+  .vcard h3{
+    font-family:var(--font-display); font-weight:800; font-size:1.06rem; line-height:1.3;
+    color:var(--ink);
+  }
+  .vcard h3::after{ content:' \2192'; color:var(--a1); opacity:.7; }
+  .vcard p{ margin-top:10px; font-size:.93rem; color:var(--dim); line-height:1.64; }
+
+  /* ---------- vocabulary band (near-me / city phrasing) ---------- */
+  .band{
+    margin-top:34px; padding:30px 32px; border-radius:20px;
+    background:
+      radial-gradient(circle at 12% 18%, color-mix(in srgb, var(--a1) 12%, transparent), transparent 58%),
+      color-mix(in srgb, var(--bg-1) 55%, transparent);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .band h3{ font-family:var(--font-display); font-weight:900; font-size:clamp(1.2rem,2vw,1.5rem); line-height:1.18; }
+  .band p{ margin-top:14px; font-size:1.02rem; line-height:1.74; color:var(--dim); }
+  .band p b{ color:var(--ink); font-weight:700; }
+  @media (max-width:820px){ .band{ padding:24px 22px; } }
+
+
+  /* ---------- equipment catalogue cards ---------- */
+  .gear-grid{
+    display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:18px; margin-top:38px;
+  }
+  @media (max-width:1040px){ .gear-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:760px){ .gear-grid{ grid-template-columns:1fr; } }
+  .gear-card{
+    position:relative; overflow:hidden; display:flex; flex-direction:column;
+    padding:28px 26px 24px; border-radius:18px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s, box-shadow .3s;
+  }
+  .gear-card::before{
+    content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+    background:var(--grad); opacity:.42; transition:opacity .3s;
+  }
+  .gear-card:hover{
+    border-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transform:translateY(-3px);
+    box-shadow:0 22px 56px -34px var(--glow), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .gear-card:hover::before{ opacity:1; }
+  .gear-card .gn{
+    font-family:var(--font-display); font-weight:900; font-size:.68rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1);
+  }
+  .gear-card h3{
+    margin-top:11px; font-family:var(--font-display); font-weight:900; line-height:1.18;
+    font-size:clamp(1.14rem, 1.8vw, 1.34rem);
+  }
+  .gear-card p{ margin-top:12px; font-size:.97rem; line-height:1.7; color:var(--dim); }
+  .gear-card p b{ color:var(--ink); font-weight:700; }
+  .gear-card .chips{ margin-top:auto; padding-top:18px; }
+
+  /* ---------- what drives the number ---------- */
+  .cost-grid{
+    display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px; margin-top:34px;
+  }
+  @media (max-width:820px){ .cost-grid{ grid-template-columns:1fr; } }
+  .cost-factor{
+    padding:24px 26px 22px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-1) 46%, transparent);
+    border:1px solid var(--card-border);
+  }
+  .cost-factor h3{
+    font-family:var(--font-display); font-weight:800; font-size:1.04rem; line-height:1.3;
+  }
+  .cost-factor h3 span{
+    display:block; margin-bottom:7px; font-size:.68rem; font-weight:900;
+    letter-spacing:.15em; text-transform:uppercase; color:var(--a2); opacity:.9;
+  }
+  .cost-factor p{ margin-top:10px; font-size:.94rem; color:var(--dim); line-height:1.68; }
+
+  /* ---------- service area city grid ---------- */
+  .city-grid{
+    display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px; margin-top:32px;
+  }
+  @media (max-width:900px){ .city-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:520px){ .city-grid{ grid-template-columns:1fr; } }
+  .city{
+    padding:20px 22px 18px; border-radius:14px;
+    background:color-mix(in srgb, var(--bg-2) 44%, transparent);
+    border:1px solid var(--card-border);
+    transition:border-color .3s;
+  }
+  .city:hover{ border-color:color-mix(in srgb, var(--a1) 38%, transparent); }
+  .city h3{ font-family:var(--font-display); font-weight:800; font-size:1rem; }
+  .city p{ margin-top:8px; font-size:.9rem; color:var(--dim); line-height:1.6; }
+
+  /* ---------- FAQ ---------- */
+  .faq-list{ margin-top:32px; border-top:1px solid var(--card-border); }
+  .faq-item{ border-bottom:1px solid var(--card-border); }
+  .faq-item summary{
+    list-style:none; cursor:pointer; padding:22px 44px 22px 0; position:relative;
+    font-family:var(--font-display); font-weight:700; font-size:1.06rem; line-height:1.45;
+    transition:color .2s;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary:hover{ color:var(--a1); }
+  .faq-item summary::after{
+    content:'+'; position:absolute; right:6px; top:50%; transform:translateY(-50%);
+    font-size:1.5rem; font-weight:400; line-height:1; color:var(--a1); transition:transform .25s;
+  }
+  .faq-item[open] summary::after{ transform:translateY(-50%) rotate(45deg); }
+  .faq-item .ans{ padding:0 44px 24px 0; font-size:1rem; line-height:1.75; color:var(--dim); }
+  .faq-item .ans a{ color:var(--a1); }
+
+  @media (max-width:820px){
+    .hero.hero-page{ padding:44px 0 50px; }
+    .dj-card{ padding:26px 22px 24px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .dj-card, .vcard{ transition:none; }
+  }
+
+  .wrap p a:not(.chip):not(.btn-primary):not(.btn-secondary),
+  .addon a:not(.chip){
+    color:var(--a1);
+    text-decoration:underline;
+    text-decoration-thickness:1px;
+    text-underline-offset:3px;
+    text-decoration-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transition:color .2s ease, text-decoration-color .2s ease;
+  }
+  .wrap p a:not(.chip):not(.btn-primary):not(.btn-secondary):hover,
+  .addon a:not(.chip):hover{ color:var(--a2); text-decoration-color:var(--a2); }
+
+    .spec{
+      display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+      margin:0 0 14px; padding-bottom:12px;
+      border-bottom:1px solid var(--card-border);
+      font-family:var(--font-body); font-size:.92rem; color:var(--ink); line-height:1.5;
+    }
+    .spec span{
+      font-family:var(--font-display); font-weight:900; font-size:.66rem;
+      letter-spacing:.16em; text-transform:uppercase; color:var(--a1); flex:0 0 auto;
+    }
+</style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Event Equipment Rental and Production",
+    "serviceType": "Event sound, lighting and video equipment",
+    "url": "https://www.dallaseventaudio.com/equipment-list",
+    "description": "The equipment Dallas Event Audio owns and operates across the Dallas-Fort Worth Metroplex: PA speakers, subwoofers, line array, mixing consoles, microphones, DJ equipment, lighting, atmospheric effects, projection, screens and live streaming. Everything is delivered, set up, tuned and run by our crew as part of a production package.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Dallas Event Audio",
+      "url": "https://www.dallaseventaudio.com",
+      "telephone": "+1-817-210-7957",
+      "email": "info@dallaseventaudio.com",
+      "foundingDate": "2001"
+    },
+    "areaServed": {
+      "@type": "GeoCircle",
+      "geoMidpoint": { "@type": "GeoCoordinates", "addressCountry": "US" },
+      "description": "Dallas-Fort Worth Metroplex, approximately 40 miles from Hurst, TX"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Event equipment list",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "PA speakers and powered tops",
+            "description": "BassBoss DV12-MK3, Yamaha DZR15 and DZR12, Electro-Voice ZLX-12P-G2 and ZLX-8P-G2 and the Flat Panel Audio DML500, sized to the room and flown or stacked by our crew."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Line array systems",
+            "description": "Twelve DAS Audio Aero 12 boxes and ten DAS Audio LX218CA subwoofers with flying hardware and ground stack frames owned in house, for large rooms, ballrooms and outdoor stages."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Subwoofers",
+            "description": "BassBoss SSP118-MK3, VS21-MK3 and ZV28-MK3 plus DAS Audio LX218CA, including cardioid capable boxes for keeping low end off a stage or a neighboring room."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Mixing consoles and stage monitors",
+            "description": "Allen and Heath SQ-5, Soundcraft Ui24R and Ui16 rack digital mixers and a Yamaha MG12XU analog desk, with Electro-Voice ZLX-12P monitor wedges on the deck and a monitor engineer on larger shows."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Microphones and wireless systems",
+            "description": "Shure GLXD, SLXD and ULXD wireless with handheld, lapel and headset transmitters, wired SM57, SM58 and Beta 58, a podium SM58 on a podium stand and Pyle push-to-talk conference microphones, all running AI-powered De-Feedback."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "DJ equipment",
+            "description": "Pioneer CDJ-3000, DJM-900NXS2 and DJM-A9, AlphaTheta XDJ-AZ, Pioneer XDJ-RX3 and DDJ-FLX6, plus DJ booths, tables and facades."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Event lighting",
+            "description": "Battery powered RGBAW-UV uplighting on wireless DMX, moving head and effect lighting, strobes and blinders on 4 ft and 8 ft truss totems, a Chauvet DJ LED Followspot 75ST with an operator, custom monogram and gobo projection, pin spots, stage wash and laser systems."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Fog, haze and special effects",
+            "description": "Froggy's Fog Titan 1200 fog, Chauvet Hurricane Haze 2D and High Performance Haze, Chauvet Nimbus Jr, Chauvet Nimbus and ADJ Entour Ice dry ice machines for low lying dancing on the clouds fog, the Chauvet DJ Cumulus continuous water based low lying fog machine, CO2 cannons and handheld guns with LED, and cold sparks subject to venue and fire department approval."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Projection, screens and video",
+            "description": "Epson PowerLite 700U ultra short throw and Epson Pro EX10000 long throw projectors, front and rear projection screens, an ambient light rejecting screen and 32, 43 and 65 inch flat panel televisions."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Live streaming and cameras",
+            "description": "Sony 4K cameras from one to four, a Blackmagic Mini ISO Pro switcher and a MacBook Pro streaming station, run alongside the room audio by the same crew."
+          }
+        }
+      ]
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can I rent one item from the equipment list on its own?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Everything on this list goes out as part of a production package that includes delivery, setup, tuning, an operator for the event and strike afterward. That is because placement, gain structure and having someone on the system during the event are what decide whether a room sounds right, and none of that arrives in a road case. If you need a single item for an afternoon, tell us and we will point you toward a company that does counter rental."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I pick the equipment up myself?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No, there is no customer pickup. We deliver to the venue, build the system inside the load-in window, tune it to the room, run it for the event and take it away afterward. Your team does not touch a cable at any point in that."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why are there no quantities on this equipment list?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Because our inventory turns over as we buy, sell and replace boxes, so a number printed on a web page would be out of date within a season. We size the rig to your room on the quote instead. The one exception is the line array, where we own twelve DAS Audio Aero 12 boxes and ten LX218CA subwoofers, because the box count is part of what you are comparing when you get line array quotes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you own this equipment or sub-rent it?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We own it. The system that arrives has been used by our crew in rooms like yours, including the line array and its flying hardware, so we already know how it behaves when a venue's power is not what the floor plan promised. The two exceptions are LED video wall, which we coordinate through vendors we work with regularly, and large CO2 cylinders, which come from a gas supplier. We tell you which is which on the quote."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you rent inflatable or outdoor movie screens?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. We do not carry inflatable screens or outdoor movie screens in any size. Our projection equipment is built for indoor and covered spaces where we can control the ambient light, including an ambient light rejecting screen for rooms that cannot be made dark."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What if the equipment I need is not on this list?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ask anyway. This list is what we own, and we regularly bring in staging, backline and specialty items through vendors we have worked with for years, quoted and run as part of the same production. If it is genuinely outside what we do, we will say so the same day rather than let you wait on it."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you deliver across Dallas-Fort Worth?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. We are based in Hurst, roughly halfway between Dallas and Fort Worth, and work within about forty miles of it: Dallas, Fort Worth, Plano, Frisco, Arlington, Irving, Southlake, McKinney, Denton, Grapevine, Richardson, Garland and everywhere in between. If your venue is further out, ask anyway and we will tell you honestly whether it works."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is an operator included with the equipment?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, on every booking. A technician builds the system, line-checks it, sets the microphone levels and stays on it for the event, handling levels, music, microphone changes and the handoffs between segments. For larger events we add a monitor engineer, a stage hand and a lighting operator. The person who tuned the system in the afternoon is the person behind it in the evening."
+        }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://www.dallaseventaudio.com/"},
+      {"@type":"ListItem","position":2,"name":"Equipment List","item":"https://www.dallaseventaudio.com/equipment-list"}
+    ]
+  }
+  </script>
+
+</head>
+<body>
+<header>
+    <nav>
+      <a class="logo" href="/" style="text-decoration:none;" aria-label="Dallas Event Audio home"><img src="data:image/png;base64,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" alt="Dallas Event Audio" width="326" height="138"></a>
+      <div class="navlinks">
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Events<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/weddings">Weddings</a>
+            <a href="/wedding-av-rental-dallas">Wedding AV Rental</a>
+            <a href="/corporate-events">Corporate Events</a>
+            <a href="/private-events">Private Events</a>
+            <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+            <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+            <a href="/college-school-university-events">College &amp; University</a>
+            <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+          </div>
+        </div>
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Audio<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/services-audio">All Audio Services</a>
+            <a href="/rent-sound-equipment">Sound Equipment Rental</a>
+            <a href="/dj-speaker-rental">DJ &amp; Party Speakers</a>
+            <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+            <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+            <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+            <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+            <a href="/feedback-free-microphone-rentals">Microphone Rental</a>
+          </div>
+        </div>
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Lighting &amp; FX<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/services-lighting">All Lighting Services</a>
+            <a href="/rent-uplighting">Uplighting</a>
+            <a href="/rent-dj-lighting">DJ Lighting</a>
+            <a href="/rent-laser-light-show">Laser Light Show</a>
+            <a href="/rent-follow-spot-light">Follow Spot</a>
+            <a href="/monogram-projector">Monogram Projector</a>
+            <a href="/rent-fog-machine">Fog &amp; Haze</a>
+            <a href="/rent-cold-sparks">Cold Sparks</a>
+            <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+          </div>
+        </div>
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Services<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/services-dj">DJ Services</a>
+            <a href="/services-photo-and-video">Photo &amp; Video</a>
+            <a href="/live-streaming-services">Live Streaming</a>
+            <a href="/projector-screen-rental">Projector &amp; Screen</a>
+            <a href="/services-extra">Special Effects &amp; Extras</a>
+            <a href="/equipment-list">Equipment List</a>
+          </div>
+        </div>
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Our Work<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/our-work">Our Work</a>
+            <a href="/gallery">Photo Gallery</a>
+            <a href="/what-others-are-saying">Reviews</a>
+            <a href="/our-story">Our Story</a>
+            <a href="/blog">Blog</a>
+          </div>
+        </div>
+        <a class="nl-top nl-solo" href="/contact">Contact</a>
+      </div>
+      <div class="navright">
+        <span class="phone">817-210-7957</span>
+        <a class="cta-btn" href="/contact">Get a Quote</a>
+        <button class="navburger" id="navBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="ndrawer" id="navDrawer" aria-hidden="true">
+    <div class="nd-head">
+      <a class="logo" href="/" style="text-decoration:none;" aria-label="Dallas Event Audio home"><img src="data:image/png;base64,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" alt="Dallas Event Audio" width="326" height="138"></a>
+      <button class="nd-close" id="navClose" type="button" aria-label="Close menu"><span></span><span></span></button>
+    </div>
+    <div class="nd-body">
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Events<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/weddings">Weddings</a>
+          <a href="/wedding-av-rental-dallas">Wedding AV Rental</a>
+          <a href="/corporate-events">Corporate Events</a>
+          <a href="/private-events">Private Events</a>
+          <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+          <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+          <a href="/college-school-university-events">College &amp; University</a>
+          <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+        </div>
+      </div>
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Audio<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/services-audio">All Audio Services</a>
+          <a href="/rent-sound-equipment">Sound Equipment Rental</a>
+          <a href="/dj-speaker-rental">DJ &amp; Party Speakers</a>
+          <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+          <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+          <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+          <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+          <a href="/feedback-free-microphone-rentals">Microphone Rental</a>
+        </div>
+      </div>
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Lighting &amp; FX<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/services-lighting">All Lighting Services</a>
+          <a href="/rent-uplighting">Uplighting</a>
+          <a href="/rent-dj-lighting">DJ Lighting</a>
+          <a href="/rent-laser-light-show">Laser Light Show</a>
+          <a href="/rent-follow-spot-light">Follow Spot</a>
+          <a href="/monogram-projector">Monogram Projector</a>
+          <a href="/rent-fog-machine">Fog &amp; Haze</a>
+          <a href="/rent-cold-sparks">Cold Sparks</a>
+          <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+        </div>
+      </div>
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Services<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/services-dj">DJ Services</a>
+          <a href="/services-photo-and-video">Photo &amp; Video</a>
+          <a href="/live-streaming-services">Live Streaming</a>
+          <a href="/projector-screen-rental">Projector &amp; Screen</a>
+          <a href="/services-extra">Special Effects &amp; Extras</a>
+          <a href="/equipment-list">Equipment List</a>
+        </div>
+      </div>
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Our Work<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/our-work">Our Work</a>
+          <a href="/gallery">Photo Gallery</a>
+          <a href="/what-others-are-saying">Reviews</a>
+          <a href="/our-story">Our Story</a>
+          <a href="/blog">Blog</a>
+        </div>
+      </div>
+      <div class="nd-sec"><a class="nd-trig nd-solo" href="/contact">Contact</a></div>
+    </div>
+    <div class="nd-foot">
+      <a class="nd-phone" href="tel:8172107957">817-210-7957</a>
+      <a class="cta-btn" href="/contact">Get a Quote</a>
+    </div>
+  </div>
+
+  <section class="hero hero-page">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="breadcrumb" data-reveal>
+        <a href="/">Home</a><span class="sep">/</span><span class="here">Equipment List</span>
+      </div>
+      <h1 data-reveal>The Dallas Event Audio <span class="grad-text">equipment list.</span></h1>
+      <p class="sub" data-reveal>This is everything we own, grouped by category, with the model numbers listed where the model matters. It all goes out the same way: we deliver it, set it up, tune it to the room and run it for you, and every job is insured. We rent complete systems with a technician on site rather than individual items, so there is no customer pickup.</p>
+
+      <div class="stat-row" data-reveal>
+        <div class="stat">
+          <div class="num">2001</div>
+          <div class="lbl">Renting and running event equipment in Dallas-Fort Worth since 2001</div>
+        </div>
+        <div class="stat">
+          <div class="num">1</div>
+          <div class="lbl">Quote covers the gear, the delivery, the setup and the crew who run it</div>
+        </div>
+        <div class="stat">
+          <div class="num">40 mi</div>
+          <div class="lbl">Delivery radius from our warehouse in Hurst, between Dallas and Fort Worth</div>
+        </div>
+        <div class="stat">
+          <div class="num">COI</div>
+          <div class="lbl">Fully insured. Certificates sent straight to your venue before load-in</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Equipment List &middot; PA Speaker Rental &middot; Subwoofer Rental &middot; Line Array &middot; Wireless Microphones &middot; DJ Equipment Rental &middot; Uplighting &middot; Projection &middot; Fog And Haze &middot; Delivered And Operated &middot;&nbsp;</span>
+      <span>Equipment List &middot; PA Speaker Rental &middot; Subwoofer Rental &middot; Line Array &middot; Wireless Microphones &middot; DJ Equipment Rental &middot; Uplighting &middot; Projection &middot; Fog And Haze &middot; Delivered And Operated &middot;&nbsp;</span>
+    </div>
+  </div>
+
+  <section class="section" id="how-this-works">
+    <div class="wrap">
+      <div class="split" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">How To Read This</span>
+          <h2>How the equipment list works</h2>
+          <p>This page is the inventory behind every quote we send. It is here so you can see what we own before you call, and so you can tell whether we are the right company for the event you are planning. Each category links to the page that goes into detail on it.</p>
+          <p>Everything ships as a production package. We deliver it to your venue, build it inside the load-in window, dress the cabling, line-check it, tune it to the room and stay on it for the event, then strike it afterward. Placement, gain structure and having someone on the system during the event are what decide whether a room sounds right, and none of that fits in a road case.</p>
+          <p>You will notice there are no counts on this page. Our inventory turns over as we buy, sell and replace boxes, and a number printed here would be wrong within a season. So we size the rig to your room on the quote instead. The one exception is the line array, where the box count is part of what you are comparing, and that number is below.</p>
+          <div class="chips">
+            <a class="chip" href="/rent-sound-equipment">Sound &amp; AV equipment rental</a>
+            <a class="chip" href="/services-audio">Audio services</a>
+            <a class="chip" href="/contact">Ask about your event</a>
+          </div>
+        </div>
+        <div class="split-vis" style="--img:url('/images/equipment-list/dallas-event-audio-warehouse-inventory.jpg')">
+          <span class="slot">/images/equipment-list/dallas-event-audio-warehouse-inventory.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pa-speakers">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">Category 01</span>
+        <h2>PA speakers and powered tops</h2>
+        <p class="sub">The boxes that do the work in most rooms. We pick from this shelf by room size, throw distance and how loud the night gets, then add subwoofers underneath where the dance floor needs them. Full detail on <a href="/rent-sound-equipment">PA speaker rental in Dallas-Fort Worth</a>.</p>
+      </div>
+
+      <div class="gear-grid">
+        <div class="gear-card" data-reveal>
+          <div class="gn">01</div>
+          <h3>BassBoss DV12-MK3</h3>
+          <p class="spec"><span>Spec</span> 3,200W &middot; 12 in neodymium woofer + 3 in compression driver &middot; 134 dB peak &middot; 45 Hz to 19 kHz</p>
+          <p>Our loudest single-box top. The BassBoss DV12-MK3 gives you the clarity and the throw of a much bigger rig without the bulk of a full line array, which makes it the box we reach for when a mid-size room has to stay clean at volume. Weddings with a real dance floor, corporate general sessions and live bands all end up on these.</p>
+        </div>
+
+        <div class="gear-card" data-reveal>
+          <div class="gn">02</div>
+          <h3>Yamaha DZR15</h3>
+          <p class="spec"><span>Spec</span> 2,000W bi-amped &middot; 15 in LF + 2 in HF &middot; 139 dB max SPL &middot; 34 Hz to 20 kHz &middot; FIR-X DSP</p>
+          <p>The 15 inch version of our touring-grade workhorse, reaching down to 34 Hz on its own. A strong PA speaker rental for larger dance floors, live bands and outdoor events where you want headroom in reserve and deeper low end before a subwoofer joins in.</p>
+        </div>
+
+        <div class="gear-card" data-reveal>
+          <div class="gn">03</div>
+          <h3>Yamaha DZR12</h3>
+          <p class="spec"><span>Spec</span> 2,000W bi-amped &middot; 12 in LF + 2 in HF &middot; 139 dB max SPL &middot; 39 Hz to 20 kHz &middot; FIR-X DSP</p>
+          <p>Same output and the same FIR-X tuning in a 12 inch cabinet, so it flies up on a stick without giving much away. This is the PA speaker rental we quote most often for DFW weddings and corporate productions that want touring-grade sound in a package a venue will not argue about.</p>
+        </div>
+
+        <div class="gear-card" data-reveal>
+          <div class="gn">04</div>
+          <h3>Electro-Voice ZLX-12P-G2</h3>
+          <p class="spec"><span>Spec</span> 1,000W &middot; 12 in woofer + 1.4 in titanium driver &middot; 127 dB max SPL &middot; QuickSmart DSP &middot; Bluetooth</p>
+          <p>A dependable 1,000 watt powered speaker for corporate meetings, private parties and small to mid-size events across Dallas, Fort Worth and the surrounding metroplex. Onboard DSP and Bluetooth streaming make it quick to deploy for a breakout room or a ceremony that needs one clean source.</p>
+        </div>
+
+        <div class="gear-card" data-reveal>
+          <div class="gn">05</div>
+          <h3>Electro-Voice ZLX-8P-G2</h3>
+          <p class="spec"><span>Spec</span> 1,000W &middot; 8 in woofer + 1.4 in titanium driver &middot; 126 dB peak &middot; built-in 4-channel digital mixer</p>
+          <p>The compact one. It carries a 4-channel digital mixer inside the cabinet, which makes it a tidy PA speaker rental for smaller DFW events, breakout sessions, cocktail hour, or a fill speaker in a corner the mains do not reach.</p>
+        </div>
+
+        <div class="gear-card" data-reveal>
+          <div class="gn">06</div>
+          <h3>Flat Panel Audio DML500</h3>
+          <p class="spec"><span>Spec</span> Flat panel distributed mode loudspeaker &middot; wide even coverage &middot; low visual profile</p>
+          <p>A flat panel speaker for rooms where a box on a stick would be in the way or in the photographs. It spreads sound wide and even rather than firing it down a narrow line, which suits galleries, showrooms and ceremonies in tight architectural spaces. More on the <a href="/flat-panel-audio-dml500">Flat Panel Audio DML500</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="line-array">
+    <div class="wrap">
+      <div class="split flip" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">Category 02</span>
+          <h2>Line array systems</h2>
+          <p class="spec"><span>Owned</span> 12 x DAS Audio Aero 12 &middot; 10 x DAS Audio LX218CA subwoofers &middot; flying hardware and ground stack frames in house</p>
+          <p>This is the one category where the count matters, because when you are comparing line array quotes the number of boxes is part of what you are comparing. We own twelve DAS Audio Aero 12 cabinets and ten LX218CA subwoofers, plus the flying hardware and the ground stack frames, so nothing on a line array job is sub-rented from a warehouse we have never walked into.</p>
+          <p>A line array goes up when a room is long, tall or loud: ballrooms where the back tables are eighty feet from the stage, outdoor events with no walls to help, night club and festival rooms where the low end has to hold together at the barricade and at the bar. We hang it where the venue allows rigging and ground stack it where it does not.</p>
+          <div class="chips">
+            <a class="chip" href="/rent-line-array-speaker-system">Line array speaker system rental</a>
+            <a class="chip" href="/rave-and-night-club-events">Club &amp; festival events</a>
+          </div>
+        </div>
+        <div class="split-vis" style="--img:url('/images/equipment-list/das-audio-aero-12-line-array-dallas.jpg')">
+          <span class="slot">/images/equipment-list/das-audio-aero-12-line-array-dallas.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="subwoofers">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">Category 03</span>
+        <h2>Subwoofers</h2>
+        <p class="sub">All BassBoss, all self-powered, all bought because they hold their shape when the room is full. Detail and comparisons on <a href="/rent-bassboss-subwoofers">BassBoss subwoofer rental</a>.</p>
+      </div>
+
+      <div class="gear-grid">
+        <div class="gear-card" data-reveal>
+          <div class="gn">01</div>
+          <h3>BassBoss SSP118-MK3</h3>
+          <p class="spec"><span>Spec</span> 2,500W &middot; single 18 in neodymium woofer &middot; 130 dB continuous &middot; 30 Hz to 100 Hz</p>
+          <p>The compact one, and the one that goes out on the widest range of jobs. It is small enough to sit under a DJ booth or behind a plant and still puts 130 dB of continuous output down to 30 Hz into a room, so it is the subwoofer rental we pair with the DZR and ZLX tops for most weddings and parties.</p>
+        </div>
+
+        <div class="gear-card" data-reveal>
+          <div class="gn">02</div>
+          <h3>BassBoss VS21-MK3</h3>
+          <p class="spec"><span>Spec</span> 2,500W &middot; single 21 in neodymium woofer &middot; 138 dB peak &middot; 28 Hz to 100 Hz &middot; cardioid capable</p>
+          <p>A single 21 inch box built for low end you feel through the floor, down to 28 Hz. Paired up it runs in cardioid mode, which pushes the energy onto the dance floor and keeps it off the stage and the back wall. A favorite subwoofer rental for DFW weddings and parties where the dance floor has to hit.</p>
+        </div>
+
+        <div class="gear-card" data-reveal>
+          <div class="gn">03</div>
+          <h3>BassBoss ZV28-MK3</h3>
+          <p class="spec"><span>Spec</span> 5,000W &middot; dual 18 in neodymium woofers &middot; 137 dB peak &middot; 23 Hz to 90 Hz &middot; cardioid capable &middot; IP65 connectors</p>
+          <p>The deepest and highest-output subwoofer in our fleet, reaching 23 Hz with 5,000 watts behind it. IP65 rated connectors and cardioid capability make it the box for outdoor festivals, large weddings and high-capacity corporate productions across Dallas-Fort Worth.</p>
+        </div>
+
+        <div class="gear-card" data-reveal>
+          <div class="gn">04</div>
+          <h3>DAS Audio LX218CA</h3>
+          <p class="spec"><span>Spec</span> Dual 18 in powered subwoofer &middot; ground stack or flown &middot; matched to the Aero 12 array</p>
+          <p>The array subwoofer that goes with the DAS Audio line array, ground stacked in front of the stage or flown with the hangs. It is voiced to sit under the Aero 12 boxes rather than argue with them, which is why we keep the array and its subs as one system.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="mixing-consoles">
+    <div class="wrap">
+      <div class="split" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">Category 04</span>
+          <h2>Mixing consoles and stage monitors</h2>
+          <p class="spec"><span>Rig</span> Allen &amp; Heath SQ-5 &middot; Soundcraft Ui24R &middot; Soundcraft Ui16 &middot; Yamaha MG12XU &middot; Electro-Voice ZLX-12P monitor wedges</p>
+          <p>We size the desk to the input list rather than to a package tier. The Allen &amp; Heath SQ-5 is the big digital console, and it comes out when there is a band, a full input list or a show that needs scenes for each segment. The Soundcraft Ui24R and the smaller Soundcraft Ui16 are rack mixers driven from a tablet, which is what we want when front of house has to be a person walking the room instead of a table in the middle of it. The Yamaha MG12XU is the analog desk for simple rooms where a ceremony, a laptop and two microphones is the whole job.</p>
+          <p>Stage monitors go out with the consoles: Electro-Voice ZLX-12P wedges on the deck for bands and speakers who need to hear themselves, with monitor mixes built during line check and a monitor engineer on larger shows. Send us the stage plot with your inquiry and we will build the monitor world around it.</p>
+          <div class="chips">
+            <a class="chip" href="/live-music-and-band-events">Live music &amp; band events</a>
+            <a class="chip" href="/services-audio">On-site audio engineer</a>
+          </div>
+        </div>
+        <div class="split-vis" style="--img:url('/images/equipment-list/allen-heath-sq5-mixing-console-rental-dallas.jpg')">
+          <span class="slot">/images/equipment-list/allen-heath-sq5-mixing-console-rental-dallas.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="microphones">
+    <div class="wrap">
+      <div class="split flip" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">Category 05</span>
+          <h2>Microphones and wireless systems</h2>
+          <p class="spec"><span>Wireless</span> Shure GLXD &middot; SLXD &middot; ULXD &middot; handheld, lapel and headset transmitters</p>
+          <p>Shure throughout, across the GLXD, SLXD and ULXD families, so we can put the right tier of wireless into a room instead of the only one we own. Handheld transmitters for toasts and questions from the floor, lapel and lavalier for officiants and presenters who move, headset for anyone who needs both hands and a consistent level for an hour.</p>
+          <p class="spec"><span>Wired</span> Shure SM57 &middot; Shure SM58 &middot; Shure Beta 58 &middot; Behringer condenser stereo pair &middot; Pyle PTT tabletop</p>
+          <p>On the wired side, SM57s on drums, amps and instruments, SM58s for stage vocals, Beta 58s where a vocal needs more reach before feedback, and a Behringer condenser stereo pair for choirs and room capture. The podium rig is a Shure SM58 on a podium stand, so a speaker gets a familiar capsule and we can move the microphone to the person instead of asking the person to lean into a fixed gooseneck. Boardrooms and panels get Pyle push-to-talk tabletop microphones, one per seat, with a clean feed out for the recording. For drums we build the kit to the room, so contact us for custom drum mic kit options.</p>
+          <p>Every microphone we put in a room runs through our AI-powered De-Feedback system, which finds the frequency that is about to ring and pulls it down before anyone in the room hears a squeal. That is what lets an officiant walk, a presenter step out from the lectern and a panel sit close to the speakers. Detail on <a href="/feedback-free-microphone-rentals">feedback-free microphone rentals</a>.</p>
+          <div class="chips">
+            <a class="chip" href="/feedback-free-microphone-rentals">Microphone rental</a>
+            <a class="chip" href="/corporate-events">Corporate &amp; conference AV</a>
+          </div>
+        </div>
+        <div class="split-vis" style="--img:url('/images/equipment-list/shure-wireless-microphone-rental-dallas.jpg')">
+          <span class="slot">/images/equipment-list/shure-wireless-microphone-rental-dallas.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="dj-equipment">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">Category 06</span>
+        <h2>DJ equipment</h2>
+        <p class="sub">Club-standard players, mixers and all-in-one systems, plus the booths, tables and facades that go around them. Book it with a DJ from us or bring your own and use our rig. Detail on <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ and DJ equipment rental in Dallas</a>.</p>
+      </div>
+
+      <div class="gear-grid">
+        <div class="gear-card" data-reveal>
+          <div class="gn">01</div>
+          <h3>Pioneer CDJ-3000</h3>
+          <p class="spec"><span>Spec</span> 9 in HD touchscreen &middot; 96 kHz / 32-bit &middot; Pro DJ Link &middot; rekordbox Cloud &middot; 8 hot cues</p>
+          <p>The industry-standard multi player, and the same unit your DJ has been using in clubs and at festivals. If a rider asks for CDJs, this is what satisfies it.</p>
+        </div>
+
+        <div class="gear-card" data-reveal>
+          <div class="gn">02</div>
+          <h3>Pioneer DJM-A9</h3>
+          <p class="spec"><span>Spec</span> Flagship 4-channel mixer &middot; 32-bit ESS converters &middot; 14 Beat FX &middot; phantom-powered XLR mic input</p>
+          <p>Pioneer's current flagship mixer, with premium converters and the full Beat FX set. This is what goes out for high-end DFW weddings and corporate productions where the sound quality of the booth is part of the brief.</p>
+        </div>
+
+        <div class="gear-card" data-reveal>
+          <div class="gn">03</div>
+          <h3>Pioneer DJM-900NXS2</h3>
+          <p class="spec"><span>Spec</span> 4 channels + 2 mic inputs &middot; 64-bit mixing engine &middot; 14 Beat FX &middot; 6 Sound Color FX</p>
+          <p>The club standard that pairs with the CDJ-3000 players, and the mixer most visiting DJs already know without reading a manual. A dependable choice for DFW event and wedding DJ setups.</p>
+        </div>
+
+        <div class="gear-card" data-reveal>
+          <div class="gn">04</div>
+          <h3>AlphaTheta XDJ-AZ</h3>
+          <p class="spec"><span>Spec</span> 4-deck all-in-one &middot; 10.1 in touchscreen &middot; rekordbox + Serato DJ Pro &middot; SonicLink monitoring</p>
+          <p>A full club-grade system in one unit, with four decks of standalone playback and no laptop required. A flexible DJ equipment rental for events where booth space is tight and the sound still has to be right.</p>
+        </div>
+
+        <div class="gear-card" data-reveal>
+          <div class="gn">05</div>
+          <h3>Pioneer XDJ-RX3</h3>
+          <p class="spec"><span>Spec</span> 2-channel all-in-one &middot; 10.1 in touchscreen &middot; 14 Beat FX &middot; 2 mic inputs &middot; 4 aux inputs</p>
+          <p>Built on the same DNA as the CDJ and DJM pair, in a compact self-contained unit. Our usual DJ equipment rental for parties and private events that want a real system without a full club rig.</p>
+        </div>
+
+        <div class="gear-card" data-reveal>
+          <div class="gn">06</div>
+          <h3>Pioneer DDJ-FLX6</h3>
+          <p class="spec"><span>Spec</span> 4-channel controller &middot; rekordbox + Serato DJ Pro &middot; Merge FX &middot; Jog Cutter &middot; USB bus-powered</p>
+          <p>The lightweight laptop-based controller for smaller events, with Merge FX and Jog Cutter for DJs who want performance tools in a rig that fits behind a bar.</p>
+        </div>
+      </div>
+
+      <div class="addon" data-reveal>
+        <h3>Booths, tables and facades</h3>
+        <p>The furniture around the DJ comes from us as well: booths, tables, plain black and white scrim facades, and booth monitors so the DJ hears the room the way the room hears it. It arrives on the same truck as the speakers, which removes the conversation about whose gear caused a problem. See <a href="/services-dj">DJ services</a> if you want the DJ as well as the equipment.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="lighting">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">Category 07</span>
+        <h2>Event lighting</h2>
+        <p class="sub">Uplighting, dance floor lighting, follow spot, monogram projection and lasers, programmed and operated on the same booking as the audio. Overview on <a href="/services-lighting">event lighting services</a>.</p>
+      </div>
+
+      <div class="vgrid">
+        <a class="vcard" href="/rent-uplighting" data-reveal>
+          <h3>Uplighting</h3>
+          <p>Battery powered RGBAW-UV fixtures on wireless DMX. The amber, white and UV diodes reach true whites, warm ambers and rich pastels that a plain RGB uplight cannot, so we can match linens, florals and brand colors properly. No outlets and no cable runs, so they go in corners, on columns and outdoors.</p>
+        </a>
+        <a class="vcard" href="/rent-dj-lighting" data-reveal>
+          <h3>Dance floor lighting</h3>
+          <p>Moving head wash, spot and beam fixtures, effect lights, strobes and blinders, rigged on 4 ft or 8 ft truss totems or on truss depending on what the venue allows. Programmed to the night rather than left on an auto setting. Moving heads, strobes and blinders are a design conversation, so contact us for a custom lighting quote and we will set up a consultation with our lighting design team.</p>
+        </a>
+        <a class="vcard" href="/rent-follow-spot-light" data-reveal>
+          <h3>Follow spot</h3>
+          <p>Chauvet DJ LED Followspot 75ST, with an operator. For grand entrances, first dances, award presentations and any moment where the room needs to know where to look.</p>
+        </a>
+        <a class="vcard" href="/monogram-projector" data-reveal>
+          <h3>Monogram and gobo projection</h3>
+          <p>Custom monograms, logos and patterns projected onto a wall, a dance floor or a ceiling, run from our Epson projectors rather than a fixed gobo fixture, so the artwork is yours and can be changed up to the day of the event.</p>
+        </a>
+        <a class="vcard" href="/rent-laser-light-show" data-reveal>
+          <h3>Laser systems</h3>
+          <p>Laser lighting for club nights, festivals and large receptions, programmed and operated by our crew. Lasers carry venue rules and permit requirements that change from room to room and city to city, so we review the venue and the permitting before we quote a system. Bring us in early and we will tell you what your room allows.</p>
+        </a>
+        <a class="vcard" href="/services-lighting" data-reveal>
+          <h3>Pin spots and stage wash</h3>
+          <p>Pin spots on centerpieces and cake tables so the room photographs the way the planner drew it, and stage wash so speakers and bands are lit rather than silhouetted.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="effects">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">Category 08</span>
+        <h2>Fog, haze and special effects</h2>
+        <p class="sub">Atmospherics make lighting visible and make a first dance look like the photographs people booked it for. All of it is run by our crew and cleared with the venue before the date.</p>
+      </div>
+
+      <div class="gear-grid">
+        <div class="gear-card" data-reveal>
+          <div class="gn">01</div>
+          <h3>Froggy's Fog Titan 1200</h3>
+          <p class="spec"><span>Spec</span> 1,300W heater &middot; 20,000 CFM output &middot; under 10 second heat-up &middot; 5 liter tank &middot; wired remote</p>
+          <p>Our high output atmospheric fog machine, for filling a large room or a stage quickly. See <a href="/rent-fog-machine">fog machine rental</a> for how we set output and placement so a venue's smoke detectors stay happy.</p>
+        </div>
+
+        <div class="gear-card" data-reveal>
+          <div class="gn">02</div>
+          <h3>Chauvet haze machines</h3>
+          <p class="spec"><span>Spec</span> Hurricane Haze 2D &middot; High Performance Haze &middot; water based fluid</p>
+          <p>Haze is the thin, even suspension that makes beams and moving lights visible without anyone seeing a cloud. Water based fluid, which is what most DFW venues will approve when they will not approve fog.</p>
+        </div>
+
+        <div class="gear-card" data-reveal>
+          <div class="gn">03</div>
+          <h3>Dry ice and low lying fog</h3>
+          <p class="spec"><span>Spec</span> Chauvet Nimbus Jr &middot; Chauvet Nimbus &middot; ADJ Entour Ice &middot; Chauvet DJ Cumulus</p>
+          <p>The dancing on the clouds effect for a first dance. The Nimbus Jr, the Nimbus and the ADJ Entour Ice are dry ice machines, dropping ice into heated water for the dense white cloud that sits on the floor and disappears at knee height. The Chauvet DJ Cumulus gets the same look from distilled water and haze fluid instead of ice, so it runs continuously for photo and video work and for venues that will not allow dry ice on site. Which machine goes out depends on how many moments you want covered. See <a href="/rent-dancing-on-the-clouds-low-lyin">dancing on the clouds</a>.</p>
+        </div>
+
+        <div class="gear-card" data-reveal>
+          <div class="gn">04</div>
+          <h3>Cold sparks</h3>
+          <p class="spec"><span>Policy</span> Contact us &middot; venue approval and fire department approval required before we quote</p>
+          <p>Cold spark fountains for entrances, first dances and grand exits. We do not issue a quote for cold sparks until both your venue and the fire department have approved the effect, because that approval is what decides whether it can happen at all. Start the conversation early on <a href="/rent-cold-sparks">cold sparks</a>.</p>
+        </div>
+
+        <div class="gear-card" data-reveal>
+          <div class="gn">05</div>
+          <h3>CO2 cannons and guns</h3>
+          <p class="spec"><span>Spec</span> RGB LED cannons &middot; a pair of handheld LED guns &middot; 20 lb siphon tube cylinders in house</p>
+          <p>CO2 blasts on a drop, with LED color in the plume. We carry 20 lb siphon tube cylinders in house, and larger cylinders come from a third party gas vendor we coordinate with. See <a href="/services-extra">special effects and extras</a>.</p>
+        </div>
+
+        <div class="gear-card" data-reveal>
+          <div class="gn">06</div>
+          <h3>Power, cable and stands</h3>
+          <p class="spec"><span>Spec</span> Distribution &middot; cable and matting &middot; speaker and lighting stands &middot; venue supplied power</p>
+          <p>The unglamorous half of the truck, and the half that keeps a venue safe and a floor plan intact. The venue supplies the power, so we walk the room in advance and confirm the circuits are where the rig needs them, rather than finding out on the day. Cable gets dressed and matted instead of taped down in a hurry.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="video">
+    <div class="wrap">
+      <div class="split" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">Category 09</span>
+          <h2>Projection, screens and video</h2>
+          <p class="spec"><span>Projectors</span> Epson PowerLite 700U ultra short throw &middot; Epson Pro EX10000 long throw</p>
+          <p>Two projectors that cover opposite problems. The PowerLite 700U throws a large image from a few inches off the wall, which is how we get a monogram or a slide onto a surface in a room with no space for a throw distance. The Pro EX10000 is the long throw unit for ballrooms and general sessions where the projector lives at the back.</p>
+          <p class="spec"><span>Surfaces</span> Front and rear projection screens &middot; ambient light rejecting screen &middot; 32 in, 43 in and 65 in flat panel televisions</p>
+          <p>Screens sized to the room, including an ambient light rejecting surface for spaces we cannot make dark. Flat panel televisions in 32 in, 43 in and 65 in on stands for registration, sponsor loops, menu boards and breakout rooms. See <a href="/projector-screen-rental">projector and screen rental</a> and <a href="/monogram-projector">custom monogram projection</a>.</p>
+          <div class="chips">
+            <a class="chip" href="/projector-screen-rental">Projector &amp; screen rental</a>
+            <a class="chip" href="/monogram-projector">Monogram projection</a>
+          </div>
+        </div>
+        <div class="split-vis" style="--img:url('/images/equipment-list/projector-and-screen-rental-dallas-ballroom.jpg')">
+          <span class="slot">/images/equipment-list/projector-and-screen-rental-dallas-ballroom.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="streaming">
+    <div class="wrap">
+      <div class="split flip" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">Category 10</span>
+          <h2>Live streaming and cameras</h2>
+          <p class="spec"><span>Kit</span> Sony A7 cameras, stills and 4K video &middot; Blackmagic Mini ISO Pro switcher &middot; MacBook Pro streaming station</p>
+          <p>One camera on a tripod for a ceremony, or up to four cut live for a general session. The Blackmagic switcher records isolated feeds from every camera at the same time as it cuts the program, so an editor still has options afterward.</p>
+          <p>Audio for the stream comes off the same console that runs the room, so the people watching at home hear the microphone instead of a camera in row eight. Detail on <a href="/live-streaming-services">live streaming services</a>, and coverage of the event itself on <a href="/services-photo-and-video">photo and video</a>.</p>
+          <div class="chips">
+            <a class="chip" href="/live-streaming-services">Live streaming</a>
+            <a class="chip" href="/services-photo-and-video">Photo &amp; video</a>
+          </div>
+        </div>
+        <div class="split-vis" style="--img:url('/images/equipment-list/live-streaming-camera-setup-dallas-event.jpg')">
+          <span class="slot">/images/equipment-list/live-streaming-camera-setup-dallas-event.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="what-we-do-not-do">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">Straight Answers</span>
+        <h2>What we do not rent</h2>
+        <p class="sub">Four things we get asked for weekly and cannot help with. Saying so here saves you a phone call.</p>
+      </div>
+
+      <div class="trust-grid">
+        <div class="trust-card" data-reveal>
+          <h3>Individual items</h3>
+          <p>We quote production packages with a crew, so there is no line-item rental of a single speaker or a single microphone. If you need one box for an afternoon, we will tell you and point you somewhere that does it.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Customer pickup</h3>
+          <p>There is no counter to collect from and nothing goes out on the back of a truck you drove here. We deliver, set up, run and strike every booking ourselves.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Permanent installs</h3>
+          <p>Installed systems, building integration and AV consulting for a fixed room are a different trade with different licensing. We are an event company, and we leave installs to the firms that do them full time.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Inflatable and outdoor movie screens</h3>
+          <p>We do not carry inflatable screens or outdoor movie screens of any kind. Our projection is built for indoor and covered spaces where we can control the light.</p>
+        </div>
+      </div>
+
+      <div class="band" data-reveal>
+        <h3>Do not see what you need on the list?</h3>
+        <p>We build every package custom, and this list is what we own rather than the limit of what we can put in a room. Tell us what the event needs and we will either bring it, coordinate it with a vendor we work with regularly, or tell you straight away that it is outside what we do. All three of those answers are faster than a week of quotes.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">FAQ</span>
+        <h2>Equipment list questions</h2>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item" data-reveal>
+          <summary>Can I rent one item from the equipment list on its own?</summary>
+          <div class="ans">No. Everything on this list goes out as part of a production package that includes delivery, setup, tuning, an operator for the event and strike afterward. That is because placement, gain structure and having someone on the system during the event are what decide whether a room sounds right, and none of that arrives in a road case. If you need a single item for an afternoon, tell us and we will point you toward a company that does counter rental.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Can I pick the equipment up myself?</summary>
+          <div class="ans">No, there is no customer pickup. We deliver to the venue, build the system inside the load-in window, tune it to the room, run it for the event and take it away afterward. Your team does not touch a cable at any point in that.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Why are there no quantities on this equipment list?</summary>
+          <div class="ans">Because our inventory turns over as we buy, sell and replace boxes, so a number printed on a web page would be out of date within a season. We size the rig to your room on the quote instead. The one exception is the line array, where we own twelve DAS Audio Aero 12 boxes and ten LX218CA subwoofers, because the box count is part of what you are comparing when you get line array quotes.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do you own this equipment or sub-rent it?</summary>
+          <div class="ans">We own it. The system that arrives has been used by our crew in rooms like yours, including the line array and its flying hardware, so we already know how it behaves when a venue's power is not what the floor plan promised. The two exceptions are LED video wall, which we coordinate through vendors we work with regularly, and large CO2 cylinders, which come from a gas supplier. We tell you which is which on the quote.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do you rent inflatable or outdoor movie screens?</summary>
+          <div class="ans">No. We do not carry inflatable screens or outdoor movie screens in any size. Our projection equipment is built for indoor and covered spaces where we can control the ambient light, including an ambient light rejecting screen for rooms that cannot be made dark.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>What if the equipment I need is not on this list?</summary>
+          <div class="ans">Ask anyway. This list is what we own, and we regularly bring in staging, backline and specialty items through vendors we have worked with for years, quoted and run as part of the same production. If it is genuinely outside what we do, we will say so the same day rather than let you wait on it.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do you deliver across Dallas-Fort Worth?</summary>
+          <div class="ans">Yes. We are based in Hurst, roughly halfway between Dallas and Fort Worth, and work within about forty miles of it: Dallas, Fort Worth, Plano, Frisco, Arlington, Irving, Southlake, McKinney, Denton, Grapevine, Richardson, Garland and everywhere in between. If your venue is further out, ask anyway and we will tell you honestly whether it works.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Is an operator included with the equipment?</summary>
+          <div class="ans">Yes, on every booking. A technician builds the system, line-checks it, sets the microphone levels and stays on it for the event, handling levels, music, microphone changes and the handoffs between segments. For larger events we add a monitor engineer, a stage hand and a lighting operator. The person who tuned the system in the afternoon is the person behind it in the evening.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta" id="quote">
+    <div class="wrap">
+      <h2 data-reveal>Tell us the room and the date. <span class="grad-text">We'll spec the gear.</span></h2>
+      <p data-reveal>Tell us about your event and we'll send you a straightforward quote the same day.</p>
+      <div class="hero-ctas" data-reveal>
+        <a class="cta-btn btn-primary" href="/contact">Request a quote</a>
+        <a class="cta-btn btn-secondary" href="/our-work">See our work</a>
+      </div>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="col brand">
+          <div class="logo"><img src="data:image/png;base64,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" alt="Dallas Event Audio" width="326" height="138"></div>
+          <p style="margin-top:14px; max-width:250px;">Full-service AV production for Dallas-Fort Worth since 2001. Delivered, set up, and run by our on-site technician.</p>
+          <div class="foot-contact">
+            <a href="tel:8172107957">817-210-7957</a>
+            <a href="mailto:info@dallaseventaudio.com">info@dallaseventaudio.com</a>
+          </div>
+          <p class="foot-area">Serving Dallas, Fort Worth, Southlake, Arlington, Frisco, McKinney, Richardson &amp; the wider Metroplex.</p>
+        </div>
+        <div class="col">
+          <h4>Events</h4>
+          <a href="/weddings">Weddings</a>
+          <a href="/wedding-av-rental-dallas">Wedding AV Rental</a>
+          <a href="/corporate-events">Corporate Events</a>
+          <a href="/private-events">Private Events</a>
+          <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+          <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+          <a href="/college-school-university-events">College &amp; University</a>
+          <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+        </div>
+        <div class="col">
+          <h4>Audio</h4>
+          <a href="/services-audio">All Audio Services</a>
+          <a href="/rent-sound-equipment">Sound Equipment Rental</a>
+          <a href="/dj-speaker-rental">DJ &amp; Party Speakers</a>
+          <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+          <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+          <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+          <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+          <a href="/feedback-free-microphone-rentals">Microphone Rental</a>
+        </div>
+        <div class="col">
+          <h4>Lighting &amp; FX</h4>
+          <a href="/services-lighting">All Lighting Services</a>
+          <a href="/rent-uplighting">Uplighting</a>
+          <a href="/rent-dj-lighting">DJ Lighting</a>
+          <a href="/rent-laser-light-show">Laser Light Show</a>
+          <a href="/rent-follow-spot-light">Follow Spot</a>
+          <a href="/monogram-projector">Monogram Projector</a>
+          <a href="/rent-fog-machine">Fog &amp; Haze</a>
+          <a href="/rent-cold-sparks">Cold Sparks</a>
+          <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+        </div>
+        <div class="col">
+          <h4>Services</h4>
+          <a href="/services-dj">DJ Services</a>
+          <a href="/services-photo-and-video">Photo &amp; Video</a>
+          <a href="/live-streaming-services">Live Streaming</a>
+          <a href="/projector-screen-rental">Projector &amp; Screen</a>
+          <a href="/services-extra">Special Effects &amp; Extras</a>
+          <a href="/equipment-list">Equipment List</a>
+        </div>
+        <div class="col">
+          <h4>Company</h4>
+          <a href="/our-work">Our Work</a>
+          <a href="/gallery">Photo Gallery</a>
+          <a href="/what-others-are-saying">Reviews</a>
+          <a href="/our-story">Our Story</a>
+          <a href="/blog">Blog</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div class="foot-proof">
+        <a class="fp" href="https://www.google.com/maps?cid=11213015373496621898" target="_blank" rel="noopener"><span class="m g">G</span> <b>4.9</b> <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span> &middot; 41 Google reviews</a>
+        <a class="fp" href="https://www.yelp.com/biz/dallas-event-audio-dallas" target="_blank" rel="noopener"><span class="m y">Y</span> <b>Yelp</b> &middot; 13 reviews &middot; 134 photos</a>
+      </div>
+      <div class="foot-bottom">
+        <span>&copy; 2026 Dallas Event Audio. Fully insured, on-site AV production.</span>
+        <span>Service page draft: laser light show</span>
+      </div>
+    </div>
+  </footer>
+
+<div id="paletteBar">
+    <div class="pal-opts" id="palOpts" role="group" aria-label="Color palette">
+      <div class="pal-head">Color palette</div>
+      <button type="button" data-p="signal" class="active" aria-pressed="true"><i class="sw-signal"></i>Signal Chain</button>
+      <button type="button" data-p="amber" aria-pressed="false"><i class="sw-amber"></i>Stage Black &amp; Amber</button>
+      <button type="button" data-p="night" aria-pressed="false"><i class="sw-night"></i>DFW Night Rig</button>
+    </div>
+    <button type="button" class="pal-toggle" id="palToggle" aria-expanded="false" aria-controls="palOpts">
+      <span class="dots"><i style="background:#31ff6e"></i><i style="background:#fff21c"></i><i style="background:#ff1f3d"></i></span>
+      <span class="label">Palette</span>
+    </button>
+  </div>
+
+  <div id="chatBubble">✦ AV Concierge</div>
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+<script>
+  // Palette dock, bottom left
+  (function(){
+    const dock = document.getElementById('paletteBar');
+    const toggle = document.getElementById('palToggle');
+    const opts = Array.prototype.slice.call(document.querySelectorAll('#palOpts button'));
+    if(!dock || !toggle) return;
+
+    function store(v){ try{ window.localStorage.setItem('dea-palette', v); }catch(e){} }
+    function recall(){ try{ return window.localStorage.getItem('dea-palette'); }catch(e){ return null; } }
+
+    function apply(p){
+      document.documentElement.setAttribute('data-palette', p);
+      opts.forEach(b=>{
+        const on = b.dataset.p === p;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+
+    const saved = recall();
+    if(saved && opts.some(b=>b.dataset.p === saved)) apply(saved);
+
+    function open(state){
+      dock.classList.toggle('open', state);
+      toggle.setAttribute('aria-expanded', state ? 'true' : 'false');
+    }
+    toggle.addEventListener('click', e=>{ e.stopPropagation(); open(!dock.classList.contains('open')); });
+    opts.forEach(b=>{
+      b.addEventListener('click', ()=>{ apply(b.dataset.p); store(b.dataset.p); open(false); });
+    });
+    document.addEventListener('click', e=>{ if(!dock.contains(e.target)) open(false); });
+    document.addEventListener('keydown', e=>{ if(e.key === 'Escape') open(false); });
+  })();
+
+  // Scroll reveal
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.15});
+    document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el=>el.classList.add('in'));
+  }
+
+  // CO2 / particle burst on primary CTA click
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function burst(x, y){
+    if(reduceMotion) return;
+    const colors = ['var(--a1)','var(--a2)','var(--a3)','#ffffff'];
+    const count = 26;
+    for(let i=0;i<count;i++){
+      const p = document.createElement('span');
+      p.className = 'burst-particle';
+      const angle = (Math.PI * 2 * i) / count + Math.random()*0.4;
+      const dist = 60 + Math.random()*140;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist - 40;
+      const size = 4 + Math.random()*6;
+      p.style.width = p.style.height = size + 'px';
+      p.style.background = colors[i % colors.length];
+      p.style.boxShadow = '0 0 8px ' + colors[i % colors.length];
+      p.style.left = x + 'px';
+      p.style.top = y + 'px';
+      document.body.appendChild(p);
+      const anim = p.animate([
+        { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
+        { transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.3)`, opacity:0 }
+      ], { duration:700 + Math.random()*400, easing:'cubic-bezier(.2,.7,.3,1)' });
+      anim.onfinish = () => p.remove();
+    }
+  }
+  document.querySelectorAll('.btn-primary').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      burst(e.clientX, e.clientY);
+    });
+  });
+</script>
+
+<script>
+/* Mobile navigation drawer. Added 5 Aug 2026 - before this, nav links simply
+   vanished below 860px with nothing to replace them. */
+(function(){
+  var burger = document.getElementById('navBurger');
+  var drawer = document.getElementById('navDrawer');
+  var closeb = document.getElementById('navClose');
+  if(!burger || !drawer) return;
+
+  function open(){
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden','false');
+    burger.setAttribute('aria-expanded','true');
+    document.body.classList.add('nav-locked');
+  }
+  function close(){
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden','true');
+    burger.setAttribute('aria-expanded','false');
+    document.body.classList.remove('nav-locked');
+  }
+  burger.addEventListener('click', open);
+  if(closeb) closeb.addEventListener('click', close);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && drawer.classList.contains('open')) close();
+  });
+  drawer.querySelectorAll('a[href]').forEach(function(a){
+    a.addEventListener('click', function(){
+      var h = a.getAttribute('href') || '';
+      if(h.charAt(0) === '#') close();
+    });
+  });
+  drawer.querySelectorAll('.nd-sec > button.nd-trig').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var sec = btn.parentNode;
+      var isOpen = sec.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  });
+
+  /* Desktop dropdowns: hover and focus are handled in CSS. Keyboard users get
+     Enter/Space to pin a menu open, Escape to release it. */
+  document.querySelectorAll('.nl-item > .nl-top').forEach(function(top){
+    top.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        var menu = top.parentNode.querySelector('.nl-menu a');
+        if(menu) menu.focus();
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

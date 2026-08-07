@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="signal">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font-display:'Unbounded',sans-serif;
+    --font-body:'Space Grotesk',sans-serif;
+  }
+
+  /* ============ PALETTE A: Signal Chain (true DJ mixer peak-meter LEDs: green / yellow / red) ============ */
+  html[data-palette="signal"]{
+    --bg-0:#050706; --bg-1:#0a0f0c; --bg-2:#0e1512;
+    --ink:#f4f7f5; --dim:#b4c5ba;
+    --a1:#31ff6e; /* LED green */
+    --a2:#fff21c; /* LED yellow */
+    --a3:#ff1f3d; /* LED red */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 55%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(255,255,255,.08);
+    --glow: rgba(49,255,110,.35);
+  }
+  /* ============ PALETTE B: Stage Black and Amber (warm, premium, ties to existing chat widget gold) ============ */
+  html[data-palette="amber"]{
+    --bg-0:#070605; --bg-1:#0d0a06; --bg-2:#120e08;
+    --ink:#f8f3ea; --dim:#c3b7a5;
+    --a1:#e8b75c; /* gold */
+    --a2:#ffdfa0; /* warm white/spot */
+    --a3:#4fa3ff; /* cool counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 50%, var(--a2) 50%, var(--a2) 100%);
+    --card-border: rgba(232,183,92,.16);
+    --glow: rgba(232,183,92,.32);
+  }
+  /* ============ PALETTE C: DFW Night Rig (cool stage-lighting energy, distinct from EDM Wedding DJ's magenta) ============ */
+  html[data-palette="night"]{
+    --bg-0:#05060b; --bg-1:#090b16; --bg-2:#0c0f1e;
+    --ink:#f1f3fb; --dim:#aeb5cf;
+    --a1:#2f6fff; /* electric blue */
+    --a2:#8b5cf6; /* violet */
+    --a3:#ffb020; /* amber counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 65%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(139,92,246,.16);
+    --glow: rgba(47,111,255,.35);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-0);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  .grad-text{
+    background:var(--grad);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  /* ---------- palette switcher (review tool only, not part of the shipped site) ---------- */
+  #paletteBar{
+    position:fixed; top:0; left:0; right:0; z-index:999;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    padding:10px; background:#000; border-bottom:1px solid rgba(255,255,255,.12);
+    font-family:var(--font-body); font-size:0.881rem;
+  }
+  #paletteBar span{color:#8a8a8a; margin-right:4px;}
+  #paletteBar button{
+    font-family:var(--font-body); font-size:0.881rem; font-weight:600;
+    padding:7px 14px; border-radius:100px; border:1px solid rgba(255,255,255,.18);
+    background:rgba(255,255,255,.04); color:#eee; cursor:pointer; transition:.2s;
+  }
+  #paletteBar button.active{ background:#fff; color:#000; border-color:#fff; }
+  #paletteBar button:hover{ border-color:#fff; }
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky; top:40px; z-index:100;
+    background:rgba(5,6,5,.7); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--card-border);
+  }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1180px; margin:0 auto; }
+  .logo{ display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:900; font-size:1.15rem; letter-spacing:.02em; }
+  .logo .dial{ width:26px; height:26px; border-radius:50%; position:relative; background:conic-gradient(var(--a1) 0 26%, var(--a2) 26% 52%, var(--a3) 52% 78%, transparent 78%); }
+  .logo .dial::after{ content:''; position:absolute; inset:4px; border-radius:50%; background:var(--bg-0); }
+  .navlinks{ display:flex; gap:28px; font-size:0.994rem; color:var(--dim); }
+  .navlinks a:hover{ color:var(--ink); }
+  .navright{ display:flex; align-items:center; gap:18px; }
+  .phone{ font-size:0.96rem; color:var(--dim); }
+  .cta-btn{
+    font-family:var(--font-body); font-weight:700; font-size:0.96rem;
+    padding:11px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    display:inline-block; white-space:nowrap;
+  }
+  @media (max-width:860px){ .navlinks{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{ position:relative; padding:110px 0 90px; overflow:hidden; }
+  .hero::before{
+    content:''; position:absolute; inset:-20% -10% auto -10%; height:600px;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    opacity:.5; filter:blur(40px); pointer-events:none;
+  }
+
+  /* -- animated perspective floor grid -- */
+  .hero-grid{
+    position:absolute; left:0; right:0; bottom:-10%; height:70%;
+    perspective:400px; overflow:hidden; pointer-events:none; z-index:0;
+  }
+  .hero-grid::before{
+    content:''; position:absolute; inset:-50% -50% 0 -50%;
+    background-image:
+      repeating-linear-gradient(to right, var(--card-border) 0 1px, transparent 1px 68px),
+      repeating-linear-gradient(to top, var(--card-border) 0 1px, transparent 1px 68px);
+    transform:rotateX(62deg);
+    transform-origin:bottom;
+    animation: gridScroll 9s linear infinite;
+    opacity:.55;
+    mask-image:linear-gradient(to top, black 0%, transparent 75%);
+    -webkit-mask-image:linear-gradient(to top, black 0%, transparent 75%);
+  }
+  @keyframes gridScroll{ from{ background-position:0 0; } to{ background-position:0 136px; } }
+
+  /* -- sweeping laser beams -- */
+  .hero-lasers{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .laser{
+    position:absolute; top:-10%; width:2px; height:130%;
+    background:linear-gradient(to bottom, transparent, var(--a1), transparent);
+    opacity:0; filter:blur(.5px);
+    animation: laserSweep 6s ease-in-out infinite;
+  }
+  .laser:nth-child(1){ left:8%;  background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:0s; }
+  .laser:nth-child(2){ left:32%; background:linear-gradient(to bottom, transparent, var(--a2), transparent); animation-delay:1.6s; transform:rotate(6deg); }
+  .laser:nth-child(3){ left:63%; background:linear-gradient(to bottom, transparent, var(--a3), transparent); animation-delay:3.1s; transform:rotate(-8deg); }
+  .laser:nth-child(4){ left:85%; background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:4.3s; transform:rotate(4deg); }
+  @keyframes laserSweep{
+    0%{ opacity:0; transform:translateX(-10px) rotate(var(--rot,0deg)); }
+    8%{ opacity:.55; }
+    20%{ opacity:0; }
+    100%{ opacity:0; }
+  }
+
+  /* -- drifting fog -- */
+  .hero-fog{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .fog-blob{
+    position:absolute; width:60%; padding-top:60%; border-radius:50%;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    filter:blur(50px); opacity:.4;
+    animation: fogDrift 18s ease-in-out infinite alternate;
+  }
+  .fog-blob.b2{ left:50%; top:20%; animation-duration:24s; animation-delay:-6s; opacity:.28; }
+  @keyframes fogDrift{
+    from{ transform:translate(-8%, 0) scale(1); }
+    to{ transform:translate(8%, 6%) scale(1.15); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-grid::before, .laser, .fog-blob{ animation:none !important; }
+    .laser{ opacity:0; }
+  }
+
+  .hero-logo-wrap{ text-align:center; position:relative; z-index:1; margin-bottom:40px; }
+  .hero-logo-wrap img{
+    width:min(440px, 78vw); height:auto;
+    filter:drop-shadow(0 0 60px var(--glow));
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--card-border); border-radius:100px; padding:7px 16px;
+    font-size:0.881rem; color:var(--dim); letter-spacing:.04em; text-transform:uppercase;
+    margin-bottom:28px; position:relative; z-index:1;
+  }
+  .eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--a1); box-shadow:0 0 8px var(--a1); }
+  .hero h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.6rem, 6vw, 4.6rem); max-width:900px; position:relative; z-index:1;
+  }
+  .hero p.sub{
+    font-size:1.15rem; color:var(--dim); max-width:600px; margin-top:26px; position:relative; z-index:1;
+  }
+  .hero-ctas{ display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; position:relative; z-index:1; }
+  .btn-primary{
+    font-weight:700; padding:16px 30px; border-radius:100px; background:var(--grad); color:#0a0a0a; font-size:1.073rem;
+  }
+  .btn-secondary{
+    font-weight:600; padding:16px 30px; border-radius:100px; border:1px solid var(--card-border); color:var(--ink); font-size:1.073rem;
+  }
+  .trust-row{
+    display:flex; gap:40px; flex-wrap:wrap; margin-top:64px; padding-top:34px;
+    border-top:1px solid var(--card-border); position:relative; z-index:1;
+  }
+  .trust-item .num{ font-family:var(--font-display); font-weight:800; font-size:1.6rem; }
+  .trust-item .label{ font-size:0.904rem; color:var(--dim); margin-top:4px; }
+
+  /* ---------- services ---------- */
+  .section{ padding:90px 0; }
+  .section-head{ max-width:640px; margin-bottom:52px; }
+  .kicker{ font-size:0.881rem; letter-spacing:.08em; text-transform:uppercase; color:var(--a1); font-weight:700; margin-bottom:14px; display:block; }
+  .section-head h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.8rem,3.4vw,2.6rem); }
+  .section-head p{ color:var(--dim); margin-top:14px; font-size:1.153rem; }
+
+  .service-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; }
+  .service-card{
+    background:linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 55%, transparent), color-mix(in srgb, var(--bg-1) 45%, transparent));
+    backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:20px; padding:28px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 8px 30px -18px rgba(0,0,0,.6);
+    transition:.25s; position:relative; overflow:hidden;
+  }
+  .service-card:hover{ transform:translateY(-4px); border-color:var(--a1); box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 20px 50px -20px var(--glow); }
+  .service-card .icon{
+    width:44px; height:44px; border-radius:12px; margin-bottom:20px;
+    background:var(--grad); display:flex; align-items:center; justify-content:center;
+    font-size:1.2rem;
+  }
+  .service-card h3{ font-family:var(--font-display); font-size:1.186rem; font-weight:700; margin-bottom:10px; }
+  .service-card p{ font-size:0.994rem; color:var(--dim); margin-bottom:18px; }
+  .service-card .learn{ font-size:0.904rem; font-weight:700; color:var(--a1); }
+  .service-card.featured{ border-color:var(--a2); }
+  .tag-live{ position:absolute; top:20px; right:20px; font-size:0.82rem; text-transform:uppercase; letter-spacing:.06em; color:var(--a2); border:1px solid var(--a2); padding:3px 8px; border-radius:100px; }
+
+  /* ---------- differentiator ---------- */
+  .diff{ background:var(--bg-1); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border); }
+  .diff-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+  .diff-visual{
+    aspect-ratio:4/3; border-radius:24px; border:1px solid var(--card-border);
+    background:
+      radial-gradient(circle at 30% 20%, var(--glow), transparent 55%),
+      linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 50%, transparent), color-mix(in srgb, var(--bg-0) 40%, transparent));
+    backdrop-filter:blur(22px) saturate(150%); -webkit-backdrop-filter:blur(22px) saturate(150%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 20px 60px -30px rgba(0,0,0,.7);
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .diff-visual .badge{
+    font-family:var(--font-display); font-weight:800; text-align:center; font-size:1.073rem; color:var(--dim);
+    border:1px dashed var(--card-border); padding:20px; border-radius:16px;
+  }
+  .diff-copy h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.7rem,3vw,2.3rem); margin-bottom:20px; }
+  .diff-copy p{ color:var(--dim); margin-bottom:16px; font-size:1.13rem; }
+  .diff-copy strong{ color:var(--ink); }
+  @media (max-width:820px){ .diff-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- reviews ---------- */
+  .review-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
+  .review-card{
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:18px; padding:26px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -20px rgba(0,0,0,.6);
+  }
+  .stars{ color:var(--a2); letter-spacing:2px; margin-bottom:14px; font-size:1.017rem; }
+  .review-card p{ font-size:1.04rem; color:var(--ink); opacity:.9; margin-bottom:16px; }
+  .review-card .who{ font-size:0.904rem; color:var(--dim); font-weight:600; }
+
+  /* ---------- review proof badges ---------- */
+  .proof-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:16px; margin-bottom:36px; }
+  .proof-badge{
+    display:flex; align-items:center; gap:14px; padding:18px 20px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -22px rgba(0,0,0,.6);
+    transition:.22s;
+  }
+  .proof-badge:hover{ border-color:var(--a1); transform:translateY(-3px); box-shadow:0 16px 42px -24px var(--glow); }
+  .proof-mark{
+    flex:0 0 42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:1.2rem; letter-spacing:-.02em;
+  }
+  .proof-mark.g{ background:#ffffff; color:#4285f4; }
+  .proof-mark.y{ background:#d32323; color:#ffffff; }
+  .proof-mark.k{ background:#ffffff; color:#0f9aa0; }
+  .proof-mark.w{ background:#ffffff; color:#16181d; font-size:.98rem; }
+  .proof-meta .rate{
+    font-family:var(--font-display); font-weight:800; font-size:1.22rem; line-height:1.15;
+    display:flex; align-items:baseline; gap:9px;
+  }
+  .proof-meta .rate .s{ color:var(--a2); font-size:.92rem; letter-spacing:1px; font-weight:400; }
+  .proof-meta .cnt{ font-size:.92rem; color:var(--dim); margin-top:2px; }
+  .proof-badge.tbd{ border-style:dashed; border-color:var(--a2); }
+  .proof-badge.tbd .rate{ color:var(--a2); }
+  .proof-badge.tbd .cnt{ color:var(--a2); opacity:.8; }
+
+  /* compact sitewide footer strip */
+  .foot-proof{
+    display:flex; flex-wrap:wrap; align-items:center; gap:12px 26px;
+    margin-top:32px; padding-top:26px; border-top:1px solid var(--card-border);
+  }
+  .foot-proof .fp{ display:inline-flex; align-items:center; gap:9px; font-size:.94rem; color:var(--dim); }
+  .foot-proof .fp:hover{ color:var(--ink); }
+  .foot-proof .fp b{ color:var(--ink); font-weight:700; }
+  .foot-proof .fp .s{ color:var(--a2); letter-spacing:1px; }
+  .foot-proof .fp .m{
+    width:24px; height:24px; border-radius:7px; display:inline-flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:.76rem;
+  }
+  .foot-proof .fp .m.g{ background:#ffffff; color:#4285f4; }
+  .foot-proof .fp .m.y{ background:#d32323; color:#ffffff; }
+  .foot-proof .fp .m.k{ background:#ffffff; color:#0f9aa0; }
+  .foot-proof .fp .m.w{ background:#ffffff; color:#16181d; font-size:.62rem; }
+  @media (max-width:820px){ .foot-proof{ gap:12px 18px; } }
+
+  /* ---------- final CTA ---------- */
+  .final-cta{ text-align:center; padding:110px 0; position:relative; }
+  .final-cta h2{ font-family:var(--font-display); font-weight:900; font-size:clamp(2rem,5vw,3.2rem); max-width:760px; margin:0 auto 22px; }
+  .final-cta p{ color:var(--dim); max-width:520px; margin:0 auto 36px; }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:1px solid var(--card-border); padding:50px 0; }
+  .foot-grid{ display:grid; grid-template-columns:1.6fr repeat(5,1fr); gap:34px 26px; }
+  @media (max-width:1080px){ .foot-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:620px){ .foot-grid{ grid-template-columns:repeat(2,1fr); } }
+  .foot-grid .col.brand{ min-width:210px; }
+  @media (max-width:1080px){ .foot-grid .col.brand{ grid-column:1 / -1; } }
+  .foot-contact{ margin-top:16px; }
+  .foot-contact a{ display:block; margin-bottom:6px; font-size:1rem; color:var(--ink); opacity:.9; }
+  .foot-contact a:hover{ color:var(--a1); opacity:1; }
+  .foot-area{ font-size:.9rem; color:var(--dim); margin-top:12px; line-height:1.6; }
+  .foot-grid .col h4{ font-size:0.904rem; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin-bottom:14px; }
+  .foot-grid .col a, .foot-grid .col p{ display:block; font-size:0.972rem; color:var(--ink); opacity:.8; margin-bottom:8px; }
+  .foot-bottom{ margin-top:40px; padding-top:24px; border-top:1px solid var(--card-border); font-size:0.881rem; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+
+  /* ---------- chatbot bubble (visual placeholder for the AV Concierge) ---------- */
+  #chatBubble{
+    position:fixed; right:22px; bottom:22px; z-index:200;
+    display:flex; align-items:center; gap:8px;
+    padding:14px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    font-weight:700; font-size:0.96rem; box-shadow:0 14px 40px -12px var(--glow);
+    cursor:pointer;
+  }
+
+  [data-reveal]{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  [data-reveal].in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- film grain overlay ---------- */
+  .grain-overlay{
+    position:fixed; inset:0; z-index:999; pointer-events:none;
+    opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-repeat:repeat;
+  }
+
+  /* ---------- marquee strip ---------- */
+  .marquee{
+    border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);
+    background:var(--bg-1); overflow:hidden; padding:18px 0; position:relative;
+  }
+  .marquee-track{
+    display:flex; width:max-content; gap:48px;
+    animation:marqueeScroll 32s linear infinite;
+  }
+  .marquee-track span{
+    font-family:var(--font-display); font-weight:700; font-size:1.073rem;
+    letter-spacing:.04em; text-transform:uppercase; color:var(--dim);
+    display:flex; align-items:center; gap:48px; white-space:nowrap;
+  }
+  .marquee-track span::after{ content:'✦'; color:var(--a1); margin-left:48px; }
+  @keyframes marqueeScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  /* ---------- CO2 / particle burst ---------- */
+  .burst-particle{
+    position:fixed; top:0; left:0; width:6px; height:6px; border-radius:50%;
+    pointer-events:none; z-index:500; will-change:transform,opacity;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+    .marquee-track{ animation:none; }
+    .grain-overlay{ display:none; }
+  }
+</style>
+  <title>DJ Lighting Rental &amp; Dance Floor Lighting | Moving Heads | Dallas Event Audio</title>
+  <meta name="description" content="DJ lighting rental and dance floor lighting across Dallas-Fort Worth. Moving head and intelligent lighting rigs designed to your floor - wash, spot and beam fixtures, effects, haze and uplighting, delivered, rigged, programmed and run by our crew for weddings, quinceaneras, school dances, corporate parties and club nights. Insured, serving DFW since 2001.">
+  <link rel="canonical" href="https://www.dallaseventaudio.com/rent-dj-lighting">
+  <meta property="og:title" content="DJ Lighting Rental &amp; Dance Floor Lighting | Moving Heads | Dallas Event Audio">
+  <meta property="og:description" content="DJ lighting rental and dance floor lighting across Dallas-Fort Worth. Moving head and intelligent lighting rigs designed to your floor - wash, spot and beam fixtures, effects, haze and uplighting, delivered, rigged, programmed and run by our crew for weddings, quinceaneras, school dances, corporate parties and club nights. Insured, serving DFW since 2001.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.dallaseventaudio.com/rent-dj-lighting">
+<style>
+  /* ========== DJ, DANCE FLOOR & MOVING HEAD LIGHTING, page-specific additions ========== */
+
+  section[id]{ scroll-margin-top:96px; }
+
+  .hero.hero-page{ padding:64px 0 62px; }
+  .breadcrumb{
+    font-size:.881rem; color:var(--dim); letter-spacing:.03em;
+    position:relative; z-index:1; margin-bottom:22px;
+  }
+  .breadcrumb a{ color:var(--dim); }
+  .breadcrumb a:hover{ color:var(--a1); }
+  .breadcrumb .sep{ opacity:.45; margin:0 8px; }
+  .breadcrumb .here{ color:var(--ink); opacity:.75; }
+
+  .hero-page h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.3rem, 5.2vw, 4rem); max-width:980px; position:relative; z-index:1;
+  }
+  .hero-page .sub{
+    font-size:1.18rem; color:var(--dim); max-width:720px; margin-top:24px;
+    position:relative; z-index:1;
+  }
+
+  .stat-row{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(158px,1fr)); gap:14px;
+    margin-top:40px; position:relative; z-index:1;
+  }
+  .stat{
+    padding:18px 20px; border-radius:14px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .stat .num{
+    font-family:var(--font-display); font-weight:900; font-size:1.7rem; line-height:1;
+    background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .stat .lbl{ margin-top:8px; font-size:.86rem; color:var(--dim); line-height:1.45; }
+
+  /* ---------- microphone type cards ---------- */
+  .dj-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:18px;
+    margin-top:38px;
+  }
+  .dj-card{
+    position:relative; overflow:hidden;
+    padding:30px 30px 28px; border-radius:20px;
+    background:color-mix(in srgb, var(--bg-2) 52%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s, box-shadow .3s;
+  }
+  .dj-card::before{
+    content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+    background:var(--grad); opacity:.5; transition:opacity .3s;
+  }
+  .dj-card:hover{
+    border-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transform:translateY(-3px);
+    box-shadow:0 24px 60px -34px var(--glow), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .dj-card:hover::before{ opacity:1; }
+
+  .dj-card .tag{
+    font-family:var(--font-display); font-weight:900; font-size:.7rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1);
+  }
+  .dj-card h3{
+    margin-top:12px; font-family:var(--font-display); font-weight:900; line-height:1.12;
+    font-size:clamp(1.3rem, 2.1vw, 1.6rem);
+  }
+  .dj-card p{ margin-top:14px; font-size:1rem; line-height:1.72; color:var(--dim); }
+  .dj-card p b, .dj-card p strong{ color:var(--ink); font-weight:700; }
+  .dj-card .best{
+    margin-top:18px; padding-top:15px; border-top:1px solid var(--card-border);
+    font-size:.87rem; line-height:1.6; color:var(--dim);
+  }
+  .dj-card .best em{ font-style:normal; font-weight:800; color:var(--a2); letter-spacing:.04em;
+    text-transform:uppercase; font-size:.72rem; display:block; margin-bottom:6px; }
+
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+  .chip{
+    display:inline-block; padding:6px 13px; border-radius:100px;
+    font-size:.79rem; font-weight:600; letter-spacing:.02em;
+    color:var(--dim); text-decoration:none;
+    border:1px solid var(--card-border);
+    background:color-mix(in srgb, var(--bg-0) 45%, transparent);
+    transition:.2s;
+  }
+  a.chip:hover{ color:var(--a1); border-color:color-mix(in srgb, var(--a1) 55%, transparent); }
+  a.chip::after{ content:' \2192'; opacity:.55; }
+
+  /* ---------- which microphone for which room ---------- */
+  .room-list{ margin-top:36px; border-top:1px solid var(--card-border); }
+  .room{
+    display:grid; grid-template-columns:290px 1fr; gap:30px;
+    padding:24px 0; border-bottom:1px solid var(--card-border);
+    transition:border-color .3s;
+  }
+  .room:hover{ border-bottom-color:color-mix(in srgb, var(--a1) 40%, transparent); }
+  .room h3{
+    font-family:var(--font-display); font-weight:800; font-size:1.1rem; line-height:1.35;
+  }
+  .room h3 span{ display:block; margin-top:6px; font-size:.76rem; font-weight:700;
+    letter-spacing:.09em; text-transform:uppercase; color:var(--a1); opacity:.85; }
+  .room p{ font-size:1rem; line-height:1.72; color:var(--dim); }
+  .room p b{ color:var(--ink); font-weight:700; }
+
+  @media (max-width:860px){
+    .room{ grid-template-columns:1fr; gap:12px; }
+  }
+
+  /* ---------- add-on strip ---------- */
+  .addon{
+    margin-top:24px; padding:28px 30px; border-radius:18px;
+    border:1px dashed color-mix(in srgb, var(--a1) 32%, var(--card-border));
+    background:color-mix(in srgb, var(--bg-1) 40%, transparent);
+  }
+  .addon h3{ font-family:var(--font-display); font-size:1.16rem; font-weight:800; }
+  .addon p{ margin-top:10px; font-size:.98rem; color:var(--dim); line-height:1.7; }
+
+  /* ---------- feature split ---------- */
+  .split{
+    display:grid; grid-template-columns:1.05fr .95fr; gap:44px; align-items:center;
+  }
+  .split.flip .split-copy{ order:2; }
+  .split.flip .split-vis{ order:1; }
+  .split-copy h2{
+    font-family:var(--font-display); font-weight:900; line-height:1.1;
+    font-size:clamp(1.85rem, 3.4vw, 2.7rem);
+  }
+  .split-copy p{ margin-top:18px; font-size:1.04rem; line-height:1.75; color:var(--dim); }
+  .split-copy p b{ color:var(--ink); font-weight:700; }
+
+  .split-vis{
+    position:relative; border-radius:20px; overflow:hidden;
+    aspect-ratio:4/3; border:1px solid var(--card-border);
+    background-color:var(--bg-2);
+    background-image:var(--img),
+      radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--a1) 22%, transparent), transparent 62%),
+      radial-gradient(circle at 76% 80%, color-mix(in srgb, var(--a2) 18%, transparent), transparent 60%);
+    background-size:cover; background-position:center; background-repeat:no-repeat;
+  }
+  .split-vis .slot{
+    position:absolute; left:0; right:0; bottom:0; padding:30px 16px 13px;
+    background:linear-gradient(to top, rgba(6,6,8,.9), transparent);
+    font-size:.72rem; color:var(--dim); letter-spacing:.03em;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  @media (max-width:860px){
+    .split{ grid-template-columns:1fr; gap:26px; }
+    .split.flip .split-copy{ order:1; }
+    .split.flip .split-vis{ order:2; }
+  }
+
+  /* ---------- how it works ---------- */
+  .flow{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-top:34px; }
+  .flow-step{
+    position:relative; padding:26px 22px 24px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    border:1px solid var(--card-border);
+    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  }
+  .flow-step .n{
+    font-family:var(--font-display); font-weight:900; font-size:.7rem;
+    letter-spacing:.15em; text-transform:uppercase; color:var(--a1);
+  }
+  .flow-step h3{ margin-top:12px; font-family:var(--font-display); font-size:1.06rem; font-weight:800; }
+  .flow-step p{ margin-top:9px; font-size:.92rem; color:var(--dim); line-height:1.62; }
+
+  /* ---------- trust strip ---------- */
+  .trust-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; margin-top:32px; }
+  .trust-card{
+    padding:24px 24px 22px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 45%, transparent);
+    border:1px solid var(--card-border);
+  }
+  .trust-card h3{ font-family:var(--font-display); font-size:1.02rem; font-weight:800; }
+  .trust-card p{ margin-top:9px; font-size:.92rem; color:var(--dim); line-height:1.62; }
+
+  /* ---------- FAQ ---------- */
+  .faq-list{ margin-top:32px; border-top:1px solid var(--card-border); }
+  .faq-item{ border-bottom:1px solid var(--card-border); }
+  .faq-item summary{
+    list-style:none; cursor:pointer; padding:22px 44px 22px 0; position:relative;
+    font-family:var(--font-display); font-weight:700; font-size:1.06rem; line-height:1.45;
+    transition:color .2s;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary:hover{ color:var(--a1); }
+  .faq-item summary::after{
+    content:'+'; position:absolute; right:6px; top:50%; transform:translateY(-50%);
+    font-size:1.5rem; font-weight:400; line-height:1; color:var(--a1); transition:transform .25s;
+  }
+  .faq-item[open] summary::after{ transform:translateY(-50%) rotate(45deg); }
+  .faq-item .ans{ padding:0 44px 24px 0; font-size:1rem; line-height:1.75; color:var(--dim); }
+  .faq-item .ans a{ color:var(--a1); }
+
+  @media (max-width:820px){
+    .hero.hero-page{ padding:44px 0 50px; }
+    .dj-card{ padding:26px 22px 24px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .dj-card{ transition:none; }
+  }
+
+  .wrap p a:not(.chip):not(.btn-primary):not(.btn-secondary),
+  .addon a:not(.chip){
+    color:var(--a1);
+    text-decoration:underline;
+    text-decoration-thickness:1px;
+    text-underline-offset:3px;
+    text-decoration-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transition:color .2s ease, text-decoration-color .2s ease;
+  }
+  .wrap p a:not(.chip):not(.btn-primary):not(.btn-secondary):hover,
+  .addon a:not(.chip):hover{ color:var(--a2); text-decoration-color:var(--a2); }
+</style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "DJ Lighting and Dance Floor Lighting Rental",
+    "serviceType": "DJ lighting, dance floor lighting and moving head rental with crew",
+    "url": "https://www.dallaseventaudio.com/rent-dj-lighting",
+    "description": "DJ lighting rental and dance floor lighting design across the Dallas-Fort Worth Metroplex. Moving head and intelligent lighting rigs built around the size of the dance floor, the ceiling height, the available rigging positions and the power on site - combining moving head wash, moving head spot and beam fixtures, static color wash and uplighting, effect fixtures, strobes and blinders, atmospheric haze and low-lying fog, and ground-supported truss and totem structure. Delivered, rigged, focused, programmed and operated live by our own crew for wedding receptions, quinceaneras, school dances and proms, corporate and holiday parties, club and rave nights, and live bands and concerts.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Dallas Event Audio",
+      "url": "https://www.dallaseventaudio.com",
+      "telephone": "+1-817-210-7957",
+      "email": "info@dallaseventaudio.com",
+      "foundingDate": "2001"
+    },
+    "areaServed": {
+      "@type": "GeoCircle",
+      "geoMidpoint": { "@type": "GeoCoordinates", "addressCountry": "US" },
+      "description": "Dallas-Fort Worth Metroplex, approximately 40 miles from Hurst, TX"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "DJ lighting, dance floor lighting and moving head rental",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Moving head and intelligent lighting rental",
+            "description": "Motorised moving head fixtures that pan, tilt, mix color, change beam shape and dim on cue - patched, programmed and operated live rather than left running a built-in automatic mode, covering wash, spot and beam families."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Dance floor lighting design",
+            "description": "A lighting plot designed to the size and position of the dance floor, the ceiling height, the available rigging positions and the venue power, rather than a fixed package tier with a fixture count attached."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Wedding reception dance floor lighting",
+            "description": "Warm, still, low-level looks through dinner and toasts, transitioning live into full color and movement for the dance floor, run from the same moving fixtures and coordinated with the timeline."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "School dance, prom and homecoming lighting",
+            "description": "Dance floor lighting rigs for gymnasiums, cafeterias and multipurpose rooms, worked to school rules on strobes, fog and content, with load-in coordinated through staff."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Club, rave and EDM lighting",
+            "description": "Beam-heavy rigs with haze, strobe and blinder fixtures run live to the music rather than programmed and left, with laser systems added where the scale of the event calls for it."
+          }
+        },
+        {
+          "@type": "Offer",
+            "itemOffered": {
+            "@type": "Service",
+            "name": "Truss, totem and ground-supported rigging",
+            "description": "Ground-supported truss, uprights and totem stands that get fixtures into the air without attaching anything to the building, plus power distribution and routed, taped cable runs."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Uplighting and color wash",
+            "description": "Battery-powered wireless LED uplighting around a room perimeter, designed together with the dance floor rig so the house lights can come down without the room going black.",
+            "url": "https://www.dallaseventaudio.com/rent-uplighting"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Follow spot rental with operator",
+            "description": "An operated follow spotlight that tracks a person in real time for grand entrances, first dances and award presentations - the job a programmed moving head cannot do.",
+            "url": "https://www.dallaseventaudio.com/rent-follow-spot-light"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Haze, low-lying fog and atmospheric effects",
+            "description": "Light, even atmospheric haze so beam fixtures read as visible shafts of light, plus low-lying fog for first dances, with venue clearance and fire alarm coordination handled in advance.",
+            "url": "https://www.dallaseventaudio.com/rent-dancing-on-the-clouds-low-lyin"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Laser light show",
+            "description": "Staffed laser systems with audience-scanning safety planning, run live by a technician for concerts, festivals, club nights and major reveals.",
+            "url": "https://www.dallaseventaudio.com/rent-laser-light-show"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Monogram and gobo projection",
+            "description": "Custom monogram, initials, date, logo or sponsor mark cut as a gobo and projected onto a dance floor, wall or drape, focused on site.",
+            "url": "https://www.dallaseventaudio.com/monogram-projector"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "DJ services",
+            "description": "Professional DJ services where the lighting and the music are run by one crew from one cue sheet, so the rig responds to the set rather than to a clock.",
+            "url": "https://www.dallaseventaudio.com/services-dj"
+          }
+        }
+      ]
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a moving head light?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A moving head is a lighting fixture mounted in a motorised yoke, so it can pan, tilt, change color, change beam shape and dim on cue. It is the core of what the industry calls intelligent lighting. Because one fixture can produce many different looks over the course of a night, a handful of moving heads replaces a much larger number of static fixtures - and gives you variety a fixed rig cannot." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between wash, spot and beam moving heads?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A wash head produces a soft, wide pool of light for covering people and floor in color. A spot head produces a hard-edged beam that can project patterns. A beam head produces a very tight, concentrated shaft designed to be seen in the air rather than land on a surface. Most well-designed dance floor rigs use a combination, because they solve different problems." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can we rent DJ lighting without a DJ?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. We light plenty of dance floors where the music is somebody else's - another DJ, a band, or a venue's in-house system. We design and run the rig and coordinate directly with whoever is running the show. If we are also your DJ, the lighting and the music share one crew and one cue sheet, which is the tighter version." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can we pick the lighting up and set it up ourselves?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. We deliver, rig, focus, program, run and strike everything ourselves. That is partly about the result - fixtures aimed at the wrong angles produce none of the effect you are paying for - and partly about safety, since a dance floor rig involves elevated fixtures and real power draw in a room full of people." }
+      },
+      {
+        "@type": "Question",
+        "name": "Do we need haze or fog?",
+        "acceptedAnswer": { "@type": "Answer", "text": "If your rig includes beam fixtures, effectively yes. A beam of light is invisible until there is something in the air to reflect off it, so without haze you have paid for aerial effects nobody can see. Haze is a very light, even atmosphere that does not read as smoke. It does need venue clearance and sometimes fire-alarm coordination, and we handle both in advance." }
+      },
+      {
+        "@type": "Question",
+        "name": "Will the lighting work if our venue will not turn the house lights down?",
+        "acceptedAnswer": { "@type": "Answer", "text": "It works, but differently, and we would rather plan for it than be surprised by it. Where the house cannot dim, we lean toward higher-output fixtures, stronger color on the walls and effects that read against ambient light, and we set expectations honestly. In most DFW venues some level of dimming is available - the key is agreeing in advance who controls it and when." }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you have to attach anything to our venue?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Usually not. Most of our positions are ground-supported - truss, uprights and totem stands that touch nothing but the floor - which is what churches, historic venues and most hotels require. Where a venue has its own truss or rigging points and permits their use, we will use them. We confirm all of this with your venue before the day." }
+      },
+      {
+        "@type": "Question",
+        "name": "How much power does a dance floor rig need?",
+        "acceptedAnswer": { "@type": "Answer", "text": "More than the single circuit behind a DJ booth, which is usually already carrying the audio. We confirm the available circuits with your venue in advance and bring distribution and cable to reach them. It is a routine conversation when it happens weeks out, and a real problem when it happens at load-in on a Saturday afternoon." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can the lighting change between dinner and dancing?",
+        "acceptedAnswer": { "@type": "Answer", "text": "That is one of the main reasons to use moving fixtures rather than static ones. The same rig holds a warm, still, low-level look through dinner and toasts, then opens into full color and movement when the floor does. We build looks for each part of your timeline and run the transitions live, so the room changes when the night changes." }
+      },
+      {
+        "@type": "Question",
+        "name": "What areas of Dallas-Fort Worth do you cover?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The whole Metroplex - roughly a forty-mile radius from the mid-cities, covering Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Southlake, McKinney, Richardson, Grapevine, Denton and everywhere in between. If your venue is further out, ask anyway and we will tell you honestly whether it works." }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://www.dallaseventaudio.com/"},
+      {"@type":"ListItem","position":2,"name":"Lighting Services","item":"https://www.dallaseventaudio.com/services-lighting"},
+      {"@type":"ListItem","position":3,"name":"DJ & Dance Floor Lighting Rental","item":"https://www.dallaseventaudio.com/rent-dj-lighting"}
+    ]
+  }
+  </script>
+
+</head>
+<body>
+<div id="paletteBar">
+    <span>Palette preview</span>
+    <button data-p="signal" class="active">A · Signal Chain</button>
+    <button data-p="amber">B · Stage Black &amp; Amber</button>
+    <button data-p="night">C · DFW Night Rig</button>
+  </div>
+
+  <header>
+    <nav>
+      <a class="logo" href="/" style="text-decoration:none;"><div class="dial"></div>DEA</a>
+      <div class="navlinks">
+        <a href="/services-lighting">Lighting</a>
+        <a href="/services-audio">Audio</a>
+        <a href="/our-work">Our Work</a>
+        <a href="/what-others-are-saying">Reviews</a>
+        <a href="/contact">Contact</a>
+      </div>
+      <div class="navright">
+        <span class="phone">817-210-7957</span>
+        <a class="cta-btn" href="/contact">Get a Quote</a>
+      </div>
+    </nav>
+  </header>
+  <section class="hero hero-page">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="breadcrumb" data-reveal>
+        <a href="/">Home</a><span class="sep">/</span><a href="/services-lighting">Lighting Services</a><span class="sep">/</span><span class="here">DJ &amp; Dance Floor Lighting</span>
+      </div>
+      <h1 data-reveal>DJ lighting rental, <span class="grad-text">designed to the dance floor.</span></h1>
+      <p class="sub" data-reveal>Moving heads, wash, effects and haze, delivered, rigged, focused and run by our crew. Dance floor lighting for weddings, quincea&ntilde;eras, school dances, corporate parties and club nights across Dallas-Fort Worth. Designed for your room, not pulled off a shelf.</p>
+
+      <div class="stat-row" data-reveal>
+        <div class="stat">
+          <div class="num">2001</div>
+          <div class="lbl">Lighting DFW dance floors since</div>
+        </div>
+        <div class="stat">
+          <div class="num">360&deg;</div>
+          <div class="lbl">Moving heads pan, tilt and recolor on every cue</div>
+        </div>
+        <div class="stat">
+          <div class="num">40 mi</div>
+          <div class="lbl">Delivery radius around Dallas-Fort Worth</div>
+        </div>
+        <div class="stat">
+          <div class="num">COI</div>
+          <div class="lbl">Fully insured, certificates sent to your venue</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>DJ Lighting Rental &middot; Dance Floor Lighting &middot; Moving Heads &middot; Intelligent Lighting &middot; Wash &amp; Beam &middot; Haze &middot; Weddings &middot; Quincea&ntilde;eras &middot; School Dances &middot; Club Nights &middot; Delivered &amp; Run By Us &middot;&nbsp;</span>
+      <span>DJ Lighting Rental &middot; Dance Floor Lighting &middot; Moving Heads &middot; Intelligent Lighting &middot; Wash &amp; Beam &middot; Haze &middot; Weddings &middot; Quincea&ntilde;eras &middot; School Dances &middot; Club Nights &middot; Delivered &amp; Run By Us &middot;&nbsp;</span>
+    </div>
+  </div>
+
+  <section class="section" id="dj-lighting">
+    <div class="wrap">
+      <div class="split" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">What DJ Lighting Actually Is</span>
+          <h2>Dance floor lighting is a design, not a box of lights.</h2>
+          <p>&ldquo;DJ lighting&rdquo; usually gets pictured as a couple of fixtures on sticks either side of a booth, flashing to the beat. That is the version most people have seen, and it is also the version that makes a room look smaller than it is. <b>Real dance floor lighting is a rig aimed at a specific piece of floor</b>, in a specific room, with the fixtures chosen for the ceiling height and the crowd size in front of them.</p>
+          <p>The difference is easy to see and hard to describe in a quote line. A designed rig has layers: something covering the floor in color, something cutting through the air above it, something adding texture on the walls, and haze to make any of it visible. Take one layer away and the whole thing flattens out. Add all four and a hotel ballroom stops looking like a hotel ballroom.</p>
+          <p>We build the rig around your floor and we bring somebody to run it. It is part of the wider <a href="/services-lighting">event lighting</a> we do, and it works whether we are your <a href="/services-dj">DJ</a> or your DJ is somebody else entirely.</p>
+          <div class="chips">
+            <a class="chip" href="/services-lighting">All lighting services</a>
+            <a class="chip" href="/our-work">See past events</a>
+            <a class="chip" href="/contact">Ask about your room</a>
+          </div>
+        </div>
+        <div class="split-vis" style="--img:url('/images/dj-lighting/dance-floor-moving-heads.jpg')">
+          <span class="slot">/images/dj-lighting/dance-floor-moving-heads.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="moving-heads">
+    <div class="wrap">
+      <div class="split flip" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">Moving Heads</span>
+          <h2>One moving head does the work of six fixed lights.</h2>
+          <p>A moving head, the family of fixtures also called intelligent lighting, is a lamp mounted in a motorised yoke that pans, tilts, changes color, changes beam shape and dims on cue. A static fixture points at one thing all night. A moving head points at whatever the song needs at that moment, and then somewhere else eight bars later.</p>
+          <p>Practically, that is what buys the variety. <b>The same four fixtures can sit still and wash the floor in warm amber during dinner, then open into fast sweeping beams over the crowd an hour later</b>, then lock into a tight cone on a couple for a spotlight dance. You are not renting six different looks, you are renting fixtures that can produce all six.</p>
+          <p>They come in broad families: <em>wash</em> heads with soft wide output for covering people and floor, and <em>spot or beam</em> heads with a tight hard edge for cutting through air and projecting patterns. Most rooms want some of each. What we do not do is send them out to run a factory program in the corner. They are patched, programmed and operated as part of the show.</p>
+          <div class="chips">
+            <span class="chip">Pan &amp; tilt on cue</span>
+            <span class="chip">Full color mixing</span>
+            <span class="chip">Wash, spot &amp; beam</span>
+            <span class="chip">Gobo patterns</span>
+            <span class="chip">Programmed, not left on auto</span>
+          </div>
+        </div>
+        <div class="split-vis" style="--img:url('/images/dj-lighting/moving-head-beams.jpg')">
+          <span class="slot">/images/dj-lighting/moving-head-beams.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="fixtures">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">The Layers</span>
+        <h2>What actually goes into a dance floor rig.</h2>
+        <p>Not every event needs all of these, and part of our job is telling you which ones your room genuinely benefits from. But this is the vocabulary, and knowing it makes every lighting conversation you have, with us or anyone else, a shorter one.</p>
+      </div>
+
+      <div class="dj-grid">
+        <div class="dj-card" data-reveal>
+          <div class="tag">Layer One</div>
+          <h3>Moving head wash</h3>
+          <p>Soft-edged, wide-output moving fixtures that put color onto the floor and the people on it. This is the layer that makes a dance floor feel like a defined place rather than a patch of carpet, and because the heads move, <b>the same fixtures cover the cake table earlier in the night and the dance floor later</b>.</p>
+          <div class="best"><em>Best for</em> Every event. This is the foundation layer.</div>
+        </div>
+
+        <div class="dj-card" data-reveal>
+          <div class="tag">Layer Two</div>
+          <h3>Moving head spot &amp; beam</h3>
+          <p>Hard-edged, tight-output heads that throw a visible shaft of light instead of a soft pool. These are what produce the sweeping, crossing beams over a crowd, the aerial fans, and the sharp pattern work on floors and walls. They are also what most people are actually picturing when they say they want the room to look like a concert.</p>
+          <div class="best"><em>Best for</em> Receptions after dinner, school dances, club nights, live bands, reveals.</div>
+        </div>
+
+        <div class="dj-card" data-reveal>
+          <div class="tag">Layer Three</div>
+          <h3>Static color wash &amp; uplighting</h3>
+          <p>Fixed LED fixtures around the perimeter and along the walls, holding a color that the moving lights work against. Uplighting is doing a different job from the dance floor rig. It dresses the room, but the two are designed together, because <b>the biggest thing working against dance floor lighting is a room lit brightly by the venue</b>.</p>
+          <div class="best"><em>Best for</em> Ballrooms, barns, tents, anywhere with walls worth using.</div>
+        </div>
+
+        <div class="dj-card" data-reveal>
+          <div class="tag">Layer Four</div>
+          <h3>Effect fixtures</h3>
+          <p>Derby, wash-bar and multi-beam effect fixtures that fill air and floor with fast-moving color across a wide angle. They do something the moving heads cannot: cover everything at once. Used well they sit underneath the rest of the rig and give it energy; used alone they are the reason cheap DJ lighting looks like cheap DJ lighting.</p>
+          <div class="best"><em>Best for</em> Peak-of-the-night dancing, proms, quincea&ntilde;eras, party sets.</div>
+        </div>
+
+        <div class="dj-card" data-reveal>
+          <div class="tag">Punctuation</div>
+          <h3>Strobe &amp; blinder</h3>
+          <p>High-output white fixtures used in seconds, not minutes, a drop, a chorus, a countdown, a grand exit. Strobes point at the floor and blinders point back at the crowd. Both are entirely about restraint: they land because they are rare, and we always check photosensitivity concerns and venue rules before programming them in.</p>
+          <div class="best"><em>Best for</em> Club and rave nights, EDM sets, countdowns, high-energy receptions.</div>
+        </div>
+
+        <div class="dj-card" data-reveal>
+          <div class="tag">The Air</div>
+          <h3>Haze &amp; atmospheric effects</h3>
+          <p>A beam is invisible until there is something in the air for it to reflect off. A light, even haze is what turns moving heads from bright dots into visible shafts of light. It is the single cheapest upgrade to any rig and the one most often left out. <b>Without it you have paid for beams nobody can see.</b> Venue clearance and alarm coordination are ours to handle.</p>
+          <div class="best"><em>Best for</em> Any event with beam fixtures. Essentially mandatory for aerials.</div>
+        </div>
+
+        <div class="dj-card" data-reveal>
+          <div class="tag">Scale</div>
+          <h3>Lasers &amp; specialty effects</h3>
+          <p>Staffed laser systems with proper safety planning and audience-scanning discipline, for events where the rig alone is not the size of the moment. Run live by a person, never left unattended on a timer. There is a <a href="/rent-laser-light-show">dedicated page</a> on how we run them.</p>
+          <div class="best"><em>Best for</em> Concerts, festivals, after-parties, EDM and club events, major reveals.</div>
+        </div>
+
+        <div class="dj-card" data-reveal>
+          <div class="tag">Structure</div>
+          <h3>Truss, totems &amp; rigging</h3>
+          <p>Fixtures need to be up in the air to do anything useful, and how they get there changes with every venue. Ground-supported truss, uprights and totem stands cover most rooms without touching the building, which is what churches, historic venues and most hotels require. Cable is routed and taped so nothing crosses a guest path loose.</p>
+          <div class="best"><em>Best for</em> Everywhere. This is the part nobody thinks about until load-in.</div>
+        </div>
+      </div>
+
+      <div class="addon" data-reveal>
+        <h3>You do not have to know which of these you want</h3>
+        <p>Most people arrive knowing what they want the room to <em>feel</em> like and not which fixtures produce it. That is the normal starting point. Send a photo of the room, a link to the venue, or a picture off Instagram of a dance floor you liked. That is more useful than a fixture list, and we will work backwards to the rig from there. Start at <a href="/contact">our quote form</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="sizing">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:780px;">
+        <span class="kicker">Designing To The Room</span>
+        <h2>What decides the size of the rig.</h2>
+        <p>Two events on the same date with the same guest count can need completely different lighting. These are the six things we look at before proposing anything, and they are the reason we do not sell numbered packages.</p>
+      </div>
+
+      <div class="room-list">
+        <div class="room" data-reveal>
+          <h3>The dance floor<span>Not the room, the floor</span></h3>
+          <p>A rig is designed to cover a specific piece of floor from specific angles. A 20&times;20 floor in the middle of a 300-person ballroom needs a completely different plot from a 40-foot-wide floor along one wall, even though the guest count is identical. <b>Tell us the floor size and where it sits and half the design is already decided.</b></p>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Ceiling height<span>What the beams have room to do</span></h3>
+          <p>High ceilings let fixtures get up where beams can spread and cross overhead; low ceilings mean shorter throws, flatter angles and different fixture choices to avoid blinding people at eye level. A room with a nine-foot ceiling is not a small version of a room with a twenty-foot one. It is a different problem.</p>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Rigging &amp; positions<span>Where fixtures can physically live</span></h3>
+          <p>Some venues offer truss, catwalks or existing rigging points. Most offer nothing at all, in which case everything is ground-supported and needs floor space and clean sightlines. Historic and religious venues frequently prohibit attaching anything to the structure, which we plan around rather than argue with.</p>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Power<span>The most common surprise</span></h3>
+          <p>A real rig draws real power, and the circuit behind the DJ booth is often already carrying the audio. We confirm available circuits with the venue in advance and bring distribution and cable to reach them. <b>The worst time to discover a power limit is at load-in on a Saturday.</b></p>
+        </div>
+        <div class="room" data-reveal>
+          <h3>House lights<span>Your rig&rsquo;s main competition</span></h3>
+          <p>Nothing undoes a lighting design faster than a ballroom left at full brightness. Part of the plan is agreeing in advance who dims what and when, venues vary from full dimming control to a single switch to nothing at all. Where the house cannot go dark, we design differently rather than pretending it will.</p>
+        </div>
+        <div class="room" data-reveal>
+          <h3>The night itself<span>Dinner and peak are different events</span></h3>
+          <p>The same room needs warm, still, low-level light during dinner and something entirely different two hours later. A designed rig covers both from the same fixtures; that transition is a big part of what an operator is there to run. It also protects you from the classic mistake of full club lighting during salad.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="events">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">Where It Goes</span>
+        <h2>The events we light dance floors for.</h2>
+      </div>
+
+      <div class="dj-grid">
+        <div class="dj-card" data-reveal>
+          <div class="tag">Weddings</div>
+          <h3>Wedding receptions</h3>
+          <p>The lighting has to do two opposite jobs in one night: warm, still and photograph-friendly through dinner and toasts, then a genuine dance floor after. Moving heads handle both from the same positions. Paired with uplighting and a monogram, it is usually the change guests actually notice, and the one that shows up in every photo of the night.</p>
+          <div class="best"><em>Best for</em> Receptions, first dances, sparkler exits, after-parties.</div>
+        </div>
+
+        <div class="dj-card" data-reveal>
+          <div class="tag">Celebrations</div>
+          <h3>Quincea&ntilde;eras &amp; sweet sixteens</h3>
+          <p>Big guest counts, a long formal opening and then hours of serious dancing. These events lean hard on color and on the moment of transition from the presentation to the party. A rig with real moving heads and a proper haze layer is what makes the surprise entrance and the choreographed number land the way they were planned.</p>
+          <div class="best"><em>Best for</em> Quincea&ntilde;eras, sweet sixteens, milestone birthdays, anniversaries.</div>
+        </div>
+
+        <div class="dj-card" data-reveal>
+          <div class="tag">Schools</div>
+          <h3>Proms, homecomings &amp; school dances</h3>
+          <p>Usually a gym or a cafeteria, big flat rooms with overhead lighting that is either fully on or fully off and nothing in between. That is exactly where a designed rig makes the largest difference, because the baseline is so plain. We also work to school rules on strobes, fog and content, and coordinate with staff on load-in.</p>
+          <div class="best"><em>Best for</em> Proms, homecoming, winter formals, college events, after-grad parties.</div>
+        </div>
+
+        <div class="dj-card" data-reveal>
+          <div class="tag">Corporate</div>
+          <h3>Corporate parties &amp; holiday events</h3>
+          <p>Company holiday parties, sales celebrations, employee appreciation nights and brand activations. The rig can carry brand colors, sync with a program, and hold a general-session look before the room turns over to a party. Add a projected logo and the room reads as designed rather than rented.</p>
+          <div class="best"><em>Best for</em> Holiday parties, kickoffs, galas, launches, appreciation events.</div>
+        </div>
+
+        <div class="dj-card" data-reveal>
+          <div class="tag">Nightlife</div>
+          <h3>Club nights, raves &amp; EDM</h3>
+          <p>Where the lighting is not decoration. It is the show, and it is expected to be run live to the music rather than programmed and left. Heavy on beam fixtures, haze, strobe and, where it fits, lasers. This is the most demanding version of a dance floor rig and the one where an operator matters most.</p>
+          <div class="best"><em>Best for</em> Club nights, raves, EDM events, festival stages, after-parties.</div>
+        </div>
+
+        <div class="dj-card" data-reveal>
+          <div class="tag">Live Music</div>
+          <h3>Bands, concerts &amp; showcases</h3>
+          <p>A band needs the stage lit before it needs the room lit, front wash so faces read, then color and beam work behind and above for the show. Moving heads cover both without a separate rig for each. Where a solo needs picking out of the band, that is a <a href="/rent-follow-spot-light">follow spot</a> job and we run those too.</p>
+          <div class="best"><em>Best for</em> Live bands, concerts, tribute nights, showcases, festivals.</div>
+        </div>
+      </div>
+
+      <div class="chips" data-reveal>
+        <a class="chip" href="/weddings">Weddings</a>
+        <a class="chip" href="/corporate-events">Corporate events</a>
+        <a class="chip" href="/private-events">Private events</a>
+        <a class="chip" href="/college-school-university-events">Schools &amp; colleges</a>
+        <a class="chip" href="/live-music-and-band-events">Live music</a>
+        <a class="chip" href="/rave-and-night-club-events">Clubs &amp; raves</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="included">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:760px;">
+        <span class="kicker">What&rsquo;s Included</span>
+        <h2>What a DJ lighting rental should include.</h2>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-card" data-reveal>
+          <h3>A design, not a quantity</h3>
+          <p>We propose a rig for your floor, your ceiling and your night, not a tier with a fixture count attached to it. If a layer will not earn its place in your room, we say so instead of adding it.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Delivery, rigging and focus</h3>
+          <p>We bring it, build it, aim it and take it away. Nothing is dropped at a loading dock, nothing is collected from a counter, and nothing is left for you to return on Monday.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Programming</h3>
+          <p>Fixtures are patched and programmed to your room before doors, with looks built for each part of the night rather than a built-in auto mode running in the corner.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Someone running it</h3>
+          <p>Our crew runs the rig live, dinner looks, the transition, the peak of the night and the exit. Lighting that changes when the room changes is the whole point of moving fixtures.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Power and cable management</h3>
+          <p>Circuits confirmed with the venue in advance, distribution brought with us, and every run routed and taped so nothing crosses a guest path loose.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Venue coordination</h3>
+          <p>Load-in windows, rigging rules, fog and haze clearance and alarm coordination handled before the day. We have worked in most DFW venues already.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Insurance paperwork</h3>
+          <p>Certificates of insurance issued to your venue on request. We have been fully insured and working in this market since 2001.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>One vendor for sound and light</h3>
+          <p>Where we are also your DJ or your audio, the rig shares a load-in, a crew and one cue sheet, so the lighting hits with the music rather than a second behind it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:720px;">
+        <span class="kicker">How It Works</span>
+        <h2>From the first message to strike.</h2>
+      </div>
+      <div class="flow">
+        <div class="flow-step" data-reveal>
+          <div class="n">Step 01</div>
+          <h3>Tell us the room</h3>
+          <p>Date, venue, guest count and roughly where the dance floor sits. A photo of the room or a link to the venue tells us more than a fixture list would.</p>
+        </div>
+        <div class="flow-step" data-reveal>
+          <div class="n">Step 02</div>
+          <h3>We design the rig</h3>
+          <p>Fixture types, positions, rigging method and power, worked out for your floor and ceiling. You get a straightforward quote back, usually the same day.</p>
+        </div>
+        <div class="flow-step" data-reveal>
+          <div class="n">Step 03</div>
+          <h3>Looks off your timeline</h3>
+          <p>We take your run sheet and build looks for each part of the night, arrival, dinner, the formal dances, the transition and the peak, and agree who is calling the show.</p>
+        </div>
+        <div class="flow-step" data-reveal>
+          <div class="n">Step 04</div>
+          <h3>Load-in, build and focus</h3>
+          <p>We arrive inside your venue&rsquo;s window, build the positions, run and secure power, aim every fixture at the actual floor and check the room dark before doors.</p>
+        </div>
+        <div class="flow-step" data-reveal>
+          <div class="n">Step 05</div>
+          <h3>We run it and strike it</h3>
+          <p>Our crew runs the rig live all night, adapts when the timeline moves, and then everything comes out cleanly and quietly at the end.</p>
+        </div>
+      </div>
+
+      <div class="addon" data-reveal>
+        <h3>What actually drives the quote</h3>
+        <p>We will not put a number on a page, because a number on a page is wrong for somebody. What moves it is the room and the ask: the size of the floor, how high fixtures need to get and what they hang from, how many layers the room genuinely needs, how long the crew is on site, and whether we are already there for your sound or DJ. Send the date, the venue and a picture of a dance floor you liked and you will have a real quote back, not a range, and not a package tier.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pairs">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:800px;">
+        <span class="kicker">Pairs Well With</span>
+        <h2>What usually goes with a dance floor rig.</h2>
+        <p>The dance floor is one part of a room. These are the things most often booked alongside it, and each of them makes the rig itself work better.</p>
+      </div>
+
+      <div class="dj-grid">
+        <div class="dj-card" data-reveal>
+          <div class="tag">The Room</div>
+          <h3>Uplighting &amp; color wash</h3>
+          <p>Wireless battery uplights around the perimeter give the walls a color, which is what lets the house lights come down without the room going black. <b>Uplighting and dance floor lighting are the same design decision made in two places</b>, and they are far better planned together than added separately.</p>
+          <div class="best"><em>Best for</em> Ballrooms, barns, tents, receptions, galas.</div>
+        </div>
+
+        <div class="dj-card" data-reveal>
+          <div class="tag">The Moment</div>
+          <h3>Follow spot with an operator</h3>
+          <p>Moving heads run a programmed cue; they cannot adapt when a bride stops halfway down an aisle. A follow spot with a trained operator tracks a person in real time, grand entrances, first dances, award presentations. The two do genuinely different jobs and the best rooms have both.</p>
+          <div class="best"><em>Best for</em> Grand entrances, first dances, awards, pageants, keynotes.</div>
+        </div>
+
+        <div class="dj-card" data-reveal>
+          <div class="tag">Atmosphere</div>
+          <h3>Haze &amp; low-lying fog</h3>
+          <p>Haze makes beams visible; low-lying fog puts a first dance on a cloud of white that sits at ankle height and never rises. Different machines, different effects, both needing venue clearance and alarm coordination, both handled by us.</p>
+          <div class="best"><em>Best for</em> First dances, reveals, concerts, club nights, entrances.</div>
+        </div>
+
+        <div class="dj-card" data-reveal>
+          <div class="tag">Branding</div>
+          <h3>Monogram &amp; gobo projection</h3>
+          <p>Initials, a date, a company logo or a sponsor mark projected onto the dance floor, a wall or a drape. It is the still image the moving lights orbit around, and it is the detail most likely to end up as the photo people actually keep.</p>
+          <div class="best"><em>Best for</em> Wedding floors, sponsor walls, brand activations, award nights.</div>
+        </div>
+
+        <div class="dj-card" data-reveal>
+          <div class="tag">The Booth</div>
+          <h3>DJ services</h3>
+          <p>Lighting run by the same company running the music means the rig responds to what is actually happening in the set instead of to a clock. If you already have a DJ you love, that is fine too. We light plenty of floors for other people&rsquo;s DJs and coordinate directly with them.</p>
+          <div class="best"><em>Best for</em> Weddings, quincea&ntilde;eras, school dances, corporate parties.</div>
+        </div>
+
+        <div class="dj-card" data-reveal>
+          <div class="tag">Sound</div>
+          <h3>Audio &amp; microphones</h3>
+          <p>Most lighting cues are audio cues, an introduction, a song, an announcement. One vendor means both land together. Every microphone we send out runs our <b>AI-powered De-Feedback system</b>, so a toast or an introduction happens without anyone in the room bracing for a squeal. There is more in our <a href="/post/what-is-de-feedback-for-live-events">De-Feedback explainer</a>.</p>
+          <div class="best"><em>Best for</em> Receptions, ceremonies, corporate programs, live bands.</div>
+        </div>
+      </div>
+
+      <div class="chips" data-reveal>
+        <a class="chip" href="/rent-uplighting">Uplighting</a>
+        <a class="chip" href="/rent-follow-spot-light">Follow spot rental</a>
+        <a class="chip" href="/monogram-projector">Monogram projector</a>
+        <a class="chip" href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the clouds</a>
+        <a class="chip" href="/rent-laser-light-show">Laser light show</a>
+        <a class="chip" href="/rent-sound-equipment">Sound systems</a>
+        <a class="chip" href="/feedback-free-microphone-rentals">Microphone rental</a>
+        <a class="chip" href="/services-dj">DJ services</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="areas">
+    <div class="wrap">
+      <div class="split" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">Coverage</span>
+          <h2>DJ lighting rentals across the whole Metroplex.</h2>
+          <p>Based in the mid-cities, roughly a <b>forty-mile radius</b> covering Dallas, Fort Worth and everything between and around them. We have worked in most of the venues you are considering, which shortens the conversation about rigging positions, power and load-in windows considerably.</p>
+          <p>If your venue is further out, ask anyway. We will tell you honestly whether it works rather than quoting you a trip we should not make.</p>
+          <div class="chips">
+            <span class="chip">Dallas</span>
+            <span class="chip">Fort Worth</span>
+            <span class="chip">Arlington</span>
+            <span class="chip">Plano</span>
+            <span class="chip">Frisco</span>
+            <span class="chip">Irving</span>
+            <span class="chip">Southlake</span>
+            <span class="chip">Grapevine</span>
+            <span class="chip">McKinney</span>
+            <span class="chip">Denton</span>
+            <span class="chip">Richardson</span>
+            <span class="chip">Hurst &middot; Euless &middot; Bedford</span>
+          </div>
+        </div>
+        <div class="split-vis" style="--img:url('/images/dj-lighting/dfw-dance-floor-lighting.jpg')">
+          <span class="slot">/images/dj-lighting/dfw-dance-floor-lighting.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:720px;">
+        <span class="kicker">Questions</span>
+        <h2>DJ lighting rental, answered plainly.</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" data-reveal>
+          <summary>What is a moving head light?</summary>
+          <div class="ans">A moving head is a lighting fixture mounted in a motorised yoke, so it can pan, tilt, change color, change beam shape and dim on cue. It is the core of what the industry calls intelligent lighting. Because one fixture can produce many different looks over the course of a night, a handful of moving heads replaces a much larger number of static fixtures, and gives you variety a fixed rig cannot.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>What is the difference between wash, spot and beam moving heads?</summary>
+          <div class="ans">A wash head produces a soft, wide pool of light for covering people and floor in color. A spot head produces a hard-edged beam that can project patterns. A beam head produces a very tight, concentrated shaft designed to be seen in the air rather than land on a surface. Most well-designed dance floor rigs use a combination, because they solve different problems.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Can we rent DJ lighting without a DJ?</summary>
+          <div class="ans">Yes. We light plenty of dance floors where the music is somebody else&rsquo;s, another DJ, a band, or a venue&rsquo;s in-house system. We design and run the rig and coordinate directly with whoever is running the show. If we are also your DJ, the lighting and the music share one crew and one cue sheet, which is the tighter version.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Can we pick the lighting up and set it up ourselves?</summary>
+          <div class="ans">No. We deliver, rig, focus, program, run and strike everything ourselves. That is partly about the result, fixtures aimed at the wrong angles produce none of the effect you are paying for, and partly about safety, since a dance floor rig involves elevated fixtures and real power draw in a room full of people.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do we need haze or fog?</summary>
+          <div class="ans">If your rig includes beam fixtures, effectively yes. A beam of light is invisible until there is something in the air to reflect off it, so without haze you have paid for aerial effects nobody can see. Haze is a very light, even atmosphere that does not read as smoke. It does need venue clearance and sometimes fire-alarm coordination, and we handle both in advance.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Will the lighting work if our venue will not turn the house lights down?</summary>
+          <div class="ans">It works, but differently, and we would rather plan for it than be surprised by it. Where the house cannot dim, we lean toward higher-output fixtures, stronger color on the walls and effects that read against ambient light, and we set expectations honestly. In most DFW venues some level of dimming is available, the key is agreeing in advance who controls it and when.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do you have to attach anything to our venue?</summary>
+          <div class="ans">Usually not. Most of our positions are ground-supported, truss, uprights and totem stands that touch nothing but the floor, which is what churches, historic venues and most hotels require. Where a venue has its own truss or rigging points and permits their use, we will use them. We confirm all of this with your venue before the day.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How much power does a dance floor rig need?</summary>
+          <div class="ans">More than the single circuit behind a DJ booth, which is usually already carrying the audio. We confirm the available circuits with your venue in advance and bring distribution and cable to reach them. It is a routine conversation when it happens weeks out, and a real problem when it happens at load-in on a Saturday afternoon.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Can the lighting change between dinner and dancing?</summary>
+          <div class="ans">That is one of the main reasons to use moving fixtures rather than static ones. The same rig holds a warm, still, low-level look through dinner and toasts, then opens into full color and movement when the floor does. We build looks for each part of your timeline and run the transitions live, so the room changes when the night changes.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>What areas of Dallas-Fort Worth do you cover?</summary>
+          <div class="ans">The whole Metroplex, roughly a forty-mile radius from the mid-cities, covering Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Southlake, McKinney, Richardson, Grapevine, Denton and everywhere in between. If your venue is further out, ask anyway and we will tell you honestly whether it works.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta" id="quote">
+    <div class="wrap">
+      <h2 data-reveal>Tell us about the room. <span class="grad-text">We&rsquo;ll design the floor.</span></h2>
+      <p data-reveal>The date, the venue and a picture of a dance floor you liked is enough to get a real quote back, usually the same day. Tell us about your event and we will send you a straightforward quote the same day.</p>
+      <div data-reveal style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+        <a class="btn-primary" href="/contact">Get Your Quote</a>
+        <a class="btn-secondary" href="tel:8172107957">Call or Text 817-210-7957</a>
+      </div>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="col brand">
+          <div class="logo"><div class="dial"></div>DEA</div>
+          <p style="margin-top:14px; max-width:250px;">Full-service AV production for Dallas-Fort Worth since 2001. Delivered, set up, and run by our on-site technician.</p>
+          <div class="foot-contact">
+            <a href="tel:8172107957">817-210-7957</a>
+            <a href="mailto:info@dallaseventaudio.com">info@dallaseventaudio.com</a>
+          </div>
+          <p class="foot-area">Serving Dallas, Fort Worth, Southlake, Arlington, Frisco, McKinney, Richardson &amp; the wider Metroplex.</p>
+        </div>
+        <div class="col">
+          <h4>Events</h4>
+          <a href="/weddings">Weddings</a>
+          <a href="/corporate-events">Corporate Events</a>
+          <a href="/private-events">Private Events</a>
+          <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+          <a href="/college-school-university-events">College &amp; University</a>
+          <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+          <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+        </div>
+        <div class="col">
+          <h4>Services</h4>
+          <a href="/services-dj">DJ Services</a>
+          <a href="/services-audio">Audio Services</a>
+          <a href="/services-lighting">Lighting Services</a>
+          <a href="/services-photo-and-video">Photo &amp; Video</a>
+          <a href="/services-extra">Extra Services</a>
+        </div>
+        <div class="col">
+          <h4>Audio Rentals</h4>
+          <a href="/rent-sound-equipment">Sound Equipment</a>
+          <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+          <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+          <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+          <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+          <a href="/live-streaming-services">Live Streaming</a>
+        </div>
+        <div class="col">
+          <h4>Lighting &amp; FX</h4>
+          <a href="/rent-uplighting">Uplighting</a>
+          <a href="/rent-laser-light-show">Laser Light Show</a>
+          <a href="/rent-follow-spot-light">Follow Spot</a>
+          <a href="/monogram-projector">Monogram Projector</a>
+          <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+          <a href="/projector-screen-rental">Projector &amp; Screen</a>
+        </div>
+        <div class="col">
+          <h4>Company</h4>
+          <a href="/our-story">Our Story</a>
+          <a href="/our-work">Our Work</a>
+          <a href="/equipment-list">Equipment List</a>
+          <a href="/what-others-are-saying">Reviews</a>
+          <a href="/blog">Blog</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div class="foot-proof">
+        <a class="fp" href="https://www.google.com/maps?cid=11213015373496621898" target="_blank" rel="noopener"><span class="m g">G</span> <b>4.9</b> <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span> &middot; 41 Google reviews</a>
+        <a class="fp" href="https://www.yelp.com/biz/dallas-event-audio-dallas" target="_blank" rel="noopener"><span class="m y">Y</span> <b>Yelp</b> &middot; 13 reviews &middot; 134 photos</a>
+      </div>
+      <div class="foot-bottom">
+        <span>&copy; 2026 Dallas Event Audio. Fully insured, on-site AV production.</span>
+        <span>DJ lighting page draft</span>
+      </div>
+    </div>
+  </footer>
+<div id="chatBubble">✦ AV Concierge</div>
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+<script>
+  // Palette switcher, review tool only
+  document.querySelectorAll('#paletteBar button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.documentElement.setAttribute('data-palette', btn.dataset.p);
+      document.querySelectorAll('#paletteBar button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // Scroll reveal
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.15});
+    document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el=>el.classList.add('in'));
+  }
+
+  // CO2 / particle burst on primary CTA click
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function burst(x, y){
+    if(reduceMotion) return;
+    const colors = ['var(--a1)','var(--a2)','var(--a3)','#ffffff'];
+    const count = 26;
+    for(let i=0;i<count;i++){
+      const p = document.createElement('span');
+      p.className = 'burst-particle';
+      const angle = (Math.PI * 2 * i) / count + Math.random()*0.4;
+      const dist = 60 + Math.random()*140;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist - 40;
+      const size = 4 + Math.random()*6;
+      p.style.width = p.style.height = size + 'px';
+      p.style.background = colors[i % colors.length];
+      p.style.boxShadow = '0 0 8px ' + colors[i % colors.length];
+      p.style.left = x + 'px';
+      p.style.top = y + 'px';
+      document.body.appendChild(p);
+      const anim = p.animate([
+        { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
+        { transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.3)`, opacity:0 }
+      ], { duration:700 + Math.random()*400, easing:'cubic-bezier(.2,.7,.3,1)' });
+      anim.onfinish = () => p.remove();
+    }
+  }
+  document.querySelectorAll('.btn-primary').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      burst(e.clientX, e.clientY);
+    });
+  });
+</script>
+
+</body>
+</html>

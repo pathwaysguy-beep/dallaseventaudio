@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="signal">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5SVH2Y4BDS"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-5SVH2Y4BDS');
+  gtag('config', 'AW-966108887');
+</script>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/unbounded-latin-800-normal.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/space-grotesk-latin-400-normal.woff2" crossorigin>
+<style>
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/unbounded-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/unbounded-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:800;font-display:swap;src:url('/fonts/unbounded-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:900;font-display:swap;src:url('/fonts/unbounded-latin-900-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/space-grotesk-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/space-grotesk-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/space-grotesk-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/space-grotesk-latin-700-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Unbounded-fb";src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:125.8%;ascent-override:79.1%;descent-override:19.5%;line-gap-override:0%}
+@font-face{font-family:"SpaceGrotesk-fb";src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:105%;ascent-override:93.7%;descent-override:27.8%;line-gap-override:0%}
+</style>
+<style>
+  :root{
+    --font-display:'Unbounded','Unbounded-fb',sans-serif;
+    --font-body:'Space Grotesk','SpaceGrotesk-fb',sans-serif;
+  }
+
+  /* ============ PALETTE A - Signal Chain (true DJ mixer peak-meter LEDs: green / yellow / red) ============ */
+  html[data-palette="signal"]{
+    --bg-0:#050706; --bg-1:#0a0f0c; --bg-2:#0e1512;
+    --ink:#f4f7f5; --dim:#b4c5ba;
+    --a1:#31ff6e; /* LED green */
+    --a2:#fff21c; /* LED yellow */
+    --a3:#ff1f3d; /* LED red */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 55%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(255,255,255,.08);
+    --glow: rgba(49,255,110,.35);
+  }
+  /* ============ PALETTE B - Stage Black & Amber (warm, premium, ties to existing chat widget gold) ============ */
+  html[data-palette="amber"]{
+    --bg-0:#070605; --bg-1:#0d0a06; --bg-2:#120e08;
+    --ink:#f8f3ea; --dim:#c3b7a5;
+    --a1:#e8b75c; /* gold */
+    --a2:#ffdfa0; /* warm white/spot */
+    --a3:#4fa3ff; /* cool counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 50%, var(--a2) 50%, var(--a2) 100%);
+    --card-border: rgba(232,183,92,.16);
+    --glow: rgba(232,183,92,.32);
+  }
+  /* ============ PALETTE C - DFW Night Rig (cool stage-lighting energy, distinct from EDM Wedding DJ's magenta) ============ */
+  html[data-palette="night"]{
+    --bg-0:#05060b; --bg-1:#090b16; --bg-2:#0c0f1e;
+    --ink:#f1f3fb; --dim:#aeb5cf;
+    --a1:#2f6fff; /* electric blue */
+    --a2:#8b5cf6; /* violet */
+    --a3:#ffb020; /* amber counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 65%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(139,92,246,.16);
+    --glow: rgba(47,111,255,.35);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-0);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  .grad-text{
+    background:var(--grad);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  /* ---------- palette dock (bottom left, shipped feature) ---------- */
+  #paletteBar{
+    position:fixed; left:20px; bottom:22px; z-index:200;
+    display:flex; flex-direction:column; align-items:flex-start;
+    font-family:var(--font-body);
+  }
+  #paletteBar .pal-toggle{
+    display:flex; align-items:center; gap:9px;
+    padding:11px 17px; border-radius:100px;
+    border:1px solid var(--card-border); background:rgba(8,9,10,.82);
+    -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+    color:var(--ink); font-family:var(--font-body); font-size:0.85rem; font-weight:600;
+    cursor:pointer; transition:border-color .2s, background .2s;
+  }
+  #paletteBar .pal-toggle:hover{ border-color:var(--a1); background:rgba(8,9,10,.94); }
+  #paletteBar .pal-toggle .dots{ display:flex; gap:3px; }
+  #paletteBar .pal-toggle .dots i{ width:8px; height:8px; border-radius:50%; display:block; }
+  #paletteBar .pal-opts{
+    display:none; flex-direction:column; gap:4px; margin-bottom:10px;
+    padding:10px; border-radius:16px; min-width:222px;
+    border:1px solid var(--card-border); background:rgba(8,9,10,.94);
+    -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px);
+    box-shadow:0 20px 50px -18px rgba(0,0,0,.9);
+  }
+  #paletteBar.open .pal-opts{ display:flex; }
+  #paletteBar .pal-opts .pal-head{
+    font-family:var(--font-display); font-weight:900; font-size:0.6rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--dim);
+    padding:4px 10px 8px;
+  }
+  #paletteBar .pal-opts button{
+    display:flex; align-items:center; gap:10px; text-align:left; width:100%;
+    padding:9px 11px; border-radius:11px; border:1px solid transparent;
+    background:transparent; color:var(--ink);
+    font-family:var(--font-body); font-size:0.87rem; font-weight:500;
+    cursor:pointer; transition:.18s;
+  }
+  #paletteBar .pal-opts button:hover{ background:rgba(255,255,255,.06); }
+  #paletteBar .pal-opts button.active{ border-color:var(--a1); background:rgba(255,255,255,.05); font-weight:700; }
+  #paletteBar .pal-opts button i{
+    width:22px; height:11px; border-radius:100px; flex:0 0 auto;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);
+  }
+  #paletteBar .sw-signal{ background:linear-gradient(90deg,#31ff6e,#fff21c 55%,#ff1f3d); }
+  #paletteBar .sw-amber { background:linear-gradient(90deg,#e8b75c,#ffdfa0); }
+  #paletteBar .sw-night { background:linear-gradient(90deg,#2f6fff,#8b5cf6 65%,#ffb020); }
+  @media(max-width:520px){
+    #paletteBar{ left:14px; bottom:16px; }
+    #paletteBar .pal-toggle{ padding:9px 13px; font-size:0.8rem; }
+    #paletteBar .pal-toggle .label{ display:none; }
+    #paletteBar .pal-opts{ min-width:198px; }
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(5,6,5,.7); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--card-border);
+  }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1180px; margin:0 auto; }
+  .logo{ display:flex; align-items:center; }
+  .logo img{
+    display:block; height:46px; width:auto;
+    filter:drop-shadow(0 0 9px rgba(255,255,255,.32)) drop-shadow(0 2px 3px rgba(0,0,0,.65));
+  }
+  .col.brand .logo img{ height:38px; }
+  @media (max-width:520px){ .logo img{ height:34px; } }
+  .navlinks{ display:flex; align-items:center; gap:2px; font-size:0.994rem; color:var(--dim); }
+  .navlinks a:hover{ color:var(--ink); }
+  .nl-item{ position:relative; }
+  .nl-top{
+    display:flex; align-items:center; gap:6px;
+    padding:10px 13px; border-radius:9px;
+    color:var(--dim); cursor:pointer; white-space:nowrap;
+    transition:color .15s ease, background .15s ease;
+  }
+  .nl-top:hover, .nl-item:hover .nl-top, .nl-item:focus-within .nl-top{
+    color:var(--ink); background:rgba(255,255,255,.05);
+  }
+  .nl-top:focus-visible{ outline:2px solid var(--a1); outline-offset:2px; }
+  .nl-car{ width:10px; height:6px; opacity:.65; transition:transform .18s ease; }
+  .nl-item:hover .nl-car, .nl-item:focus-within .nl-car{ transform:rotate(180deg); opacity:1; }
+  .nl-menu{
+    position:absolute; top:calc(100% + 8px); left:50%; transform:translateX(-50%) translateY(-6px);
+    min-width:238px; padding:8px;
+    background:var(--bg-1); border:1px solid var(--card-border); border-radius:14px;
+    box-shadow:0 18px 44px rgba(0,0,0,.6), 0 0 0 1px rgba(0,0,0,.35);
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity .16s ease, transform .16s ease, visibility .16s;
+    z-index:120;
+  }
+  .nl-menu::before{ content:""; position:absolute; top:-10px; left:0; right:0; height:10px; }
+  .nl-item:hover .nl-menu, .nl-item:focus-within .nl-menu{
+    opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0);
+  }
+  .nl-menu a{
+    display:block; padding:9px 12px; border-radius:8px;
+    font-size:0.93rem; color:var(--dim); white-space:nowrap;
+    transition:color .13s ease, background .13s ease;
+  }
+  .nl-menu a:hover{ color:var(--ink); background:rgba(255,255,255,.06); }
+  .nl-solo{ text-decoration:none; }
+  .navburger{
+    display:none; width:42px; height:42px; padding:0;
+    background:transparent; border:1px solid var(--card-border); border-radius:11px;
+    cursor:pointer; flex-direction:column; align-items:center; justify-content:center; gap:5px;
+  }
+  .navburger span{ display:block; width:19px; height:2px; border-radius:2px; background:var(--ink); }
+  .navburger:focus-visible{ outline:2px solid var(--a1); outline-offset:2px; }
+  .ndrawer{
+    position:fixed; inset:0; z-index:400;
+    background:var(--bg-0);
+    display:flex; flex-direction:column;
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity .2s ease, visibility .2s;
+    overflow-y:auto; -webkit-overflow-scrolling:touch;
+  }
+  .ndrawer.open{ opacity:1; visibility:visible; pointer-events:auto; }
+  .nd-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 22px; border-bottom:1px solid var(--card-border);
+    position:sticky; top:0; background:var(--bg-0); z-index:2;
+  }
+  .nd-close{
+    position:relative; width:42px; height:42px; padding:0;
+    background:transparent; border:1px solid var(--card-border); border-radius:11px; cursor:pointer;
+  }
+  .nd-close span{
+    position:absolute; top:50%; left:50%; width:19px; height:2px; border-radius:2px;
+    background:var(--ink); margin:-1px 0 0 -9.5px;
+  }
+  .nd-close span:first-child{ transform:rotate(45deg); }
+  .nd-close span:last-child{ transform:rotate(-45deg); }
+  .nd-body{ padding:8px 14px 20px; flex:1 0 auto; }
+  .nd-sec{ border-bottom:1px solid var(--card-border); }
+  .nd-trig{
+    width:100%; display:flex; align-items:center; justify-content:space-between;
+    padding:17px 8px; background:transparent; border:0; cursor:pointer;
+    font-family:var(--font-body); font-size:1.06rem; font-weight:600;
+    color:var(--ink); text-align:left; text-decoration:none;
+  }
+  .nd-trig .nl-car{ width:13px; height:8px; transition:transform .2s ease; }
+  .nd-sec.open .nd-trig .nl-car{ transform:rotate(180deg); }
+  .nd-panel{ display:none; padding:0 8px 14px; }
+  .nd-sec.open .nd-panel{ display:block; }
+  .nd-panel a{
+    display:block; padding:11px 12px; border-radius:9px;
+    font-size:0.99rem; color:var(--dim);
+  }
+  .nd-panel a:hover{ color:var(--ink); background:rgba(255,255,255,.05); }
+  .nd-foot{
+    display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
+    padding:20px 22px 34px; border-top:1px solid var(--card-border);
+  }
+  .nd-phone{ font-size:1.06rem; font-weight:600; color:var(--ink); }
+  body.nav-locked{ overflow:hidden; }
+  .navright{ display:flex; align-items:center; gap:18px; }
+  .phone{ font-size:0.96rem; color:var(--dim); }
+  .cta-btn{
+    font-family:var(--font-body); font-weight:700; font-size:0.96rem;
+    padding:11px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    display:inline-block; white-space:nowrap;
+  }
+  @media (max-width:1120px){
+    .navlinks{ gap:0; font-size:0.94rem; }
+    .nl-top{ padding:10px 9px; }
+  }
+  @media (max-width:980px){
+    header nav .phone{ display:none; }
+  }
+  @media (max-width:900px){
+    .navlinks{ display:none; }
+    .navburger{ display:flex; }
+    header nav .navright{ gap:12px; }
+  }
+  /* tablet: keep the drawer's content off the far edges while the bars stay
+     full bleed, so the sticky head and foot backgrounds still span the screen */
+  @media (min-width:600px){
+    .nd-head, .nd-foot{
+      padding-left:max(22px, calc((100% - 680px)/2));
+      padding-right:max(22px, calc((100% - 680px)/2));
+    }
+    .nd-body{
+      padding-left:max(14px, calc((100% - 700px)/2));
+      padding-right:max(14px, calc((100% - 700px)/2));
+    }
+  }
+
+  /* ---------- hero ---------- */
+  .hero{ position:relative; padding:110px 0 90px; overflow:hidden; }
+  .hero::before{
+    content:''; position:absolute; inset:-20% -10% auto -10%; height:600px;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    opacity:.5; filter:blur(40px); pointer-events:none;
+  }
+
+  /* -- animated perspective floor grid -- */
+  .hero-grid{
+    position:absolute; left:0; right:0; bottom:-10%; height:70%;
+    perspective:400px; overflow:hidden; pointer-events:none; z-index:0;
+  }
+  .hero-grid::before{
+    content:''; position:absolute; inset:-50% -50% 0 -50%;
+    background-image:
+      repeating-linear-gradient(to right, var(--card-border) 0 1px, transparent 1px 68px),
+      repeating-linear-gradient(to top, var(--card-border) 0 1px, transparent 1px 68px);
+    transform:rotateX(62deg);
+    transform-origin:bottom;
+    animation: gridScroll 9s linear infinite;
+    opacity:.55;
+    mask-image:linear-gradient(to top, black 0%, transparent 75%);
+    -webkit-mask-image:linear-gradient(to top, black 0%, transparent 75%);
+  }
+  @keyframes gridScroll{ from{ background-position:0 0; } to{ background-position:0 136px; } }
+
+  /* -- sweeping laser beams -- */
+  .hero-lasers{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .laser{
+    position:absolute; top:-10%; width:2px; height:130%;
+    background:linear-gradient(to bottom, transparent, var(--a1), transparent);
+    opacity:0; filter:blur(.5px);
+    animation: laserSweep 6s ease-in-out infinite;
+  }
+  .laser:nth-child(1){ left:8%;  background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:0s; }
+  .laser:nth-child(2){ left:32%; background:linear-gradient(to bottom, transparent, var(--a2), transparent); animation-delay:1.6s; transform:rotate(6deg); }
+  .laser:nth-child(3){ left:63%; background:linear-gradient(to bottom, transparent, var(--a3), transparent); animation-delay:3.1s; transform:rotate(-8deg); }
+  .laser:nth-child(4){ left:85%; background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:4.3s; transform:rotate(4deg); }
+  @keyframes laserSweep{
+    0%{ opacity:0; transform:translateX(-10px) rotate(var(--rot,0deg)); }
+    8%{ opacity:.55; }
+    20%{ opacity:0; }
+    100%{ opacity:0; }
+  }
+
+  /* -- drifting fog -- */
+  .hero-fog{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .fog-blob{
+    position:absolute; width:60%; padding-top:60%; border-radius:50%;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    filter:blur(50px); opacity:.4;
+    animation: fogDrift 18s ease-in-out infinite alternate;
+  }
+  .fog-blob.b2{ left:50%; top:20%; animation-duration:24s; animation-delay:-6s; opacity:.28; }
+  @keyframes fogDrift{
+    from{ transform:translate(-8%, 0) scale(1); }
+    to{ transform:translate(8%, 6%) scale(1.15); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-grid::before, .laser, .fog-blob{ animation:none !important; }
+    .laser{ opacity:0; }
+  }
+
+  .hero-logo-wrap{ text-align:center; position:relative; z-index:1; margin-bottom:40px; }
+  .hero-logo-wrap img{
+    width:min(440px, 78vw); height:auto;
+    filter:drop-shadow(0 0 60px var(--glow));
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--card-border); border-radius:100px; padding:7px 16px;
+    font-size:0.881rem; color:var(--dim); letter-spacing:.04em; text-transform:uppercase;
+    margin-bottom:28px; position:relative; z-index:1;
+  }
+  .eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--a1); box-shadow:0 0 8px var(--a1); }
+  .hero h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.6rem, 6vw, 4.6rem); max-width:900px; position:relative; z-index:1;
+  }
+  .hero p.sub{
+    font-size:1.15rem; color:var(--dim); max-width:600px; margin-top:26px; position:relative; z-index:1;
+  }
+  .hero-ctas{ display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; position:relative; z-index:1; }
+  .btn-primary{
+    font-weight:700; padding:16px 30px; border-radius:100px; background:var(--grad); color:#0a0a0a; font-size:1.073rem;
+  }
+  .btn-secondary{
+    font-weight:600; padding:16px 30px; border-radius:100px; border:1px solid var(--card-border); color:var(--ink); font-size:1.073rem;
+  }
+  .trust-row{
+    display:flex; gap:40px; flex-wrap:wrap; margin-top:64px; padding-top:34px;
+    border-top:1px solid var(--card-border); position:relative; z-index:1;
+  }
+  .trust-item .num{ font-family:var(--font-display); font-weight:800; font-size:1.6rem; }
+  .trust-item .label{ font-size:0.904rem; color:var(--dim); margin-top:4px; }
+
+  /* ---------- services ---------- */
+  .section{ padding:90px 0; }
+  .section-head{ max-width:640px; margin-bottom:52px; }
+  .kicker{ font-size:0.881rem; letter-spacing:.08em; text-transform:uppercase; color:var(--a1); font-weight:700; margin-bottom:14px; display:block; }
+  .section-head h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.8rem,3.4vw,2.6rem); }
+  .section-head p{ color:var(--dim); margin-top:14px; font-size:1.153rem; }
+
+  .service-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; }
+  .service-card{
+    background:linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 55%, transparent), color-mix(in srgb, var(--bg-1) 45%, transparent));
+    backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:20px; padding:28px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 8px 30px -18px rgba(0,0,0,.6);
+    transition:.25s; position:relative; overflow:hidden;
+  }
+  .service-card:hover{ transform:translateY(-4px); border-color:var(--a1); box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 20px 50px -20px var(--glow); }
+  .service-card .icon{
+    width:44px; height:44px; border-radius:12px; margin-bottom:20px;
+    background:var(--grad); display:flex; align-items:center; justify-content:center;
+    font-size:1.2rem;
+  }
+  .service-card h3{ font-family:var(--font-display); font-size:1.186rem; font-weight:700; margin-bottom:10px; }
+  .service-card p{ font-size:0.994rem; color:var(--dim); margin-bottom:18px; }
+  .service-card .learn{ font-size:0.904rem; font-weight:700; color:var(--a1); }
+  .service-card.featured{ border-color:var(--a2); }
+  .tag-live{ position:absolute; top:20px; right:20px; font-size:0.82rem; text-transform:uppercase; letter-spacing:.06em; color:var(--a2); border:1px solid var(--a2); padding:3px 8px; border-radius:100px; }
+
+  /* ---------- differentiator ---------- */
+  .diff{ background:var(--bg-1); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border); }
+  .diff-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+  .diff-visual{
+    aspect-ratio:4/3; border-radius:24px; border:1px solid var(--card-border);
+    background:
+      radial-gradient(circle at 30% 20%, var(--glow), transparent 55%),
+      linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 50%, transparent), color-mix(in srgb, var(--bg-0) 40%, transparent));
+    backdrop-filter:blur(22px) saturate(150%); -webkit-backdrop-filter:blur(22px) saturate(150%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 20px 60px -30px rgba(0,0,0,.7);
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .diff-visual .badge{
+    font-family:var(--font-display); font-weight:800; text-align:center; font-size:1.073rem; color:var(--dim);
+    border:1px dashed var(--card-border); padding:20px; border-radius:16px;
+  }
+  .diff-copy h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.7rem,3vw,2.3rem); margin-bottom:20px; }
+  .diff-copy p{ color:var(--dim); margin-bottom:16px; font-size:1.13rem; }
+  .diff-copy strong{ color:var(--ink); }
+  @media (max-width:820px){ .diff-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- reviews ---------- */
+  .review-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
+  .review-card{
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:18px; padding:26px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -20px rgba(0,0,0,.6);
+  }
+  .stars{ color:var(--a2); letter-spacing:2px; margin-bottom:14px; font-size:1.017rem; }
+  .review-card p{ font-size:1.04rem; color:var(--ink); opacity:.9; margin-bottom:16px; }
+  .review-card .who{ font-size:0.904rem; color:var(--dim); font-weight:600; }
+
+  /* ---------- review proof badges ---------- */
+  .proof-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:16px; margin-bottom:36px; }
+  .proof-badge{
+    display:flex; align-items:center; gap:14px; padding:18px 20px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -22px rgba(0,0,0,.6);
+    transition:.22s;
+  }
+  .proof-badge:hover{ border-color:var(--a1); transform:translateY(-3px); box-shadow:0 16px 42px -24px var(--glow); }
+  .proof-mark{
+    flex:0 0 42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:1.2rem; letter-spacing:-.02em;
+  }
+  .proof-mark.g{ background:#ffffff; color:#4285f4; }
+  .proof-mark.y{ background:#d32323; color:#ffffff; }
+  .proof-mark.k{ background:#ffffff; color:#0f9aa0; }
+  .proof-mark.w{ background:#ffffff; color:#16181d; font-size:.98rem; }
+  .proof-meta .rate{
+    font-family:var(--font-display); font-weight:800; font-size:1.22rem; line-height:1.15;
+    display:flex; align-items:baseline; gap:9px;
+  }
+  .proof-meta .rate .s{ color:var(--a2); font-size:.92rem; letter-spacing:1px; font-weight:400; }
+  .proof-meta .cnt{ font-size:.92rem; color:var(--dim); margin-top:2px; }
+  .proof-badge.tbd{ border-style:dashed; border-color:var(--a2); }
+  .proof-badge.tbd .rate{ color:var(--a2); }
+  .proof-badge.tbd .cnt{ color:var(--a2); opacity:.8; }
+
+  /* compact sitewide footer strip */
+  .foot-proof{
+    display:flex; flex-wrap:wrap; align-items:center; gap:12px 26px;
+    margin-top:32px; padding-top:26px; border-top:1px solid var(--card-border);
+  }
+  .foot-proof .fp{ display:inline-flex; align-items:center; gap:9px; font-size:.94rem; color:var(--dim); }
+  .foot-proof .fp:hover{ color:var(--ink); }
+  .foot-proof .fp b{ color:var(--ink); font-weight:700; }
+  .foot-proof .fp .s{ color:var(--a2); letter-spacing:1px; }
+  .foot-proof .fp .m{
+    width:24px; height:24px; border-radius:7px; display:inline-flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:.76rem;
+  }
+  .foot-proof .fp .m.g{ background:#ffffff; color:#4285f4; }
+  .foot-proof .fp .m.y{ background:#d32323; color:#ffffff; }
+  .foot-proof .fp .m.k{ background:#ffffff; color:#0f9aa0; }
+  .foot-proof .fp .m.w{ background:#ffffff; color:#16181d; font-size:.62rem; }
+  @media (max-width:820px){ .foot-proof{ gap:12px 18px; } }
+
+  /* ---------- final CTA ---------- */
+  .final-cta{ text-align:center; padding:110px 0; position:relative; }
+  .final-cta h2{ font-family:var(--font-display); font-weight:900; font-size:clamp(2rem,5vw,3.2rem); max-width:760px; margin:0 auto 22px; }
+  .final-cta p{ color:var(--dim); max-width:520px; margin:0 auto 36px; }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:1px solid var(--card-border); padding:50px 0; }
+  .foot-grid{ display:grid; grid-template-columns:1.6fr repeat(5,1fr); gap:34px 26px; }
+  @media (max-width:1080px){ .foot-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:620px){ .foot-grid{ grid-template-columns:repeat(2,1fr); } }
+  .foot-grid .col.brand{ min-width:210px; }
+  @media (max-width:1080px){ .foot-grid .col.brand{ grid-column:1 / -1; } }
+  .foot-contact{ margin-top:16px; }
+  .foot-contact a{ display:block; margin-bottom:6px; font-size:1rem; color:var(--ink); opacity:.9; }
+  .foot-contact a:hover{ color:var(--a1); opacity:1; }
+  .foot-area{ font-size:.9rem; color:var(--dim); margin-top:12px; line-height:1.6; }
+  .foot-grid .col h4{ font-size:0.904rem; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin-bottom:14px; }
+  .foot-grid .col a, .foot-grid .col p{ display:block; font-size:0.972rem; color:var(--ink); opacity:.8; margin-bottom:8px; }
+  .foot-bottom{ margin-top:40px; padding-top:24px; border-top:1px solid var(--card-border); font-size:0.881rem; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+
+  /* ---------- chatbot bubble (visual placeholder for the AV Concierge) ---------- */
+  #chatBubble{
+    position:fixed; right:22px; bottom:22px; z-index:200;
+    display:flex; align-items:center; gap:8px;
+    padding:14px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    font-weight:700; font-size:0.96rem; box-shadow:0 14px 40px -12px var(--glow);
+    cursor:pointer;
+  }
+
+  [data-reveal]{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  [data-reveal].in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- film grain overlay ---------- */
+  .grain-overlay{
+    position:fixed; inset:0; z-index:999; pointer-events:none;
+    opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-repeat:repeat;
+  }
+
+  /* ---------- marquee strip ---------- */
+  .marquee{
+    border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);
+    background:var(--bg-1); overflow:hidden; padding:18px 0; position:relative;
+  }
+  .marquee-track{
+    display:flex; width:max-content; gap:48px;
+    animation:marqueeScroll 32s linear infinite;
+  }
+  .marquee-track span{
+    font-family:var(--font-display); font-weight:700; font-size:1.073rem;
+    letter-spacing:.04em; text-transform:uppercase; color:var(--dim);
+    display:flex; align-items:center; gap:48px; white-space:nowrap;
+  }
+  .marquee-track span::after{ content:'✦'; color:var(--a1); margin-left:48px; }
+  @keyframes marqueeScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  /* ---------- CO2 / particle burst ---------- */
+  .burst-particle{
+    position:fixed; top:0; left:0; width:6px; height:6px; border-radius:50%;
+    pointer-events:none; z-index:500; will-change:transform,opacity;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+    .marquee-track{ animation:none; }
+    .grain-overlay{ display:none; }
+  }
+
+  [data-img]{--img:linear-gradient(transparent,transparent)}
+</style>
+  <link rel="preconnect" href="https://widget.honeybook.com" crossorigin>
+  <link rel="dns-prefetch" href="https://widget.honeybook.com">
+  <title>Contact Us for a Dallas-Fort Worth Event Quote</title>
+  <meta name="description" content="Get a same-day quote for event sound, lighting and effects anywhere in Dallas-Fort Worth. Call or text 817-210-7957 or send your event details.">
+  <link rel="canonical" href="https://www.dallaseventaudio.com/contact">
+  <meta property="og:title" content="Contact Us for a Dallas-Fort Worth Event Quote">
+  <meta property="og:description" content="Get a same-day quote for event sound, lighting and effects anywhere in Dallas-Fort Worth. Call or text 817-210-7957 or send your event details.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.dallaseventaudio.com/contact">
+<style>
+  /* ========== CONTACT PAGE: page-specific additions ========== */
+
+  section[id]{ scroll-margin-top:96px; }
+
+  .hero.hero-page{ padding:64px 0 70px; }
+  .breadcrumb{
+    font-size:.881rem; color:var(--dim); letter-spacing:.03em;
+    position:relative; z-index:1; margin-bottom:22px;
+  }
+  .breadcrumb a{ color:var(--dim); }
+  .breadcrumb a:hover{ color:var(--a1); }
+  .breadcrumb .sep{ opacity:.45; margin:0 8px; }
+  .breadcrumb .here{ color:var(--ink); opacity:.75; }
+
+  .hero-page h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.3rem, 5.2vw, 4rem); max-width:940px; position:relative; z-index:1;
+  }
+  .hero-page .sub{
+    font-size:1.18rem; color:var(--dim); max-width:660px; margin-top:24px;
+    position:relative; z-index:1;
+  }
+
+  /* live/open pill */
+  .open-badge{
+    display:inline-flex; align-items:center; gap:10px; margin-bottom:20px;
+    border:1px solid var(--a1); border-radius:100px; padding:8px 18px;
+    font-size:.84rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--a1); background:color-mix(in srgb, var(--a1) 10%, transparent);
+    position:relative; z-index:1;
+  }
+  .open-badge .pulse{
+    width:8px; height:8px; border-radius:50%; background:var(--a1);
+    box-shadow:0 0 10px var(--a1); animation:pulseDot 2s ease-in-out infinite;
+  }
+  @keyframes pulseDot{ 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
+
+  /* --- three direct-contact cards in the hero --- */
+  .reach-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px;
+    margin-top:38px; position:relative; z-index:1;
+  }
+  .reach-card{
+    display:flex; flex-direction:column; text-decoration:none;
+    padding:22px 24px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 55%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:.22s;
+  }
+  .reach-card:hover{ border-color:var(--a1); transform:translateY(-3px); box-shadow:0 18px 44px -24px var(--glow); }
+  .reach-card .ico{ font-size:1.35rem; margin-bottom:12px; }
+  .reach-card .lbl{
+    font-size:.78rem; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--a1); font-weight:700; margin-bottom:6px;
+  }
+  .reach-card .val{
+    font-family:var(--font-display); font-weight:800; font-size:1.24rem; line-height:1.2;
+    word-break:break-word;
+  }
+  .reach-card .note{ font-size:.88rem; color:var(--dim); margin-top:8px; }
+
+  /* --- form layout --- */
+  .form-layout{ display:grid; grid-template-columns:1.55fr 1fr; gap:34px; align-items:start; }
+  @media (max-width:940px){ .form-layout{ grid-template-columns:1fr; } }
+
+  .form-card{
+    padding:34px; border-radius:20px;
+    background:color-mix(in srgb, var(--bg-2) 55%, transparent);
+    backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 24px 60px -34px rgba(0,0,0,.7);
+  }
+  @media (max-width:520px){ .form-card{ padding:24px 20px; } }
+
+  .fld{ margin-bottom:20px; }
+  .fld-row{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  @media (max-width:620px){ .fld-row{ grid-template-columns:1fr; gap:0; } }
+
+  .fld label, .fld .lgd{
+    display:block; font-size:.88rem; font-weight:700; letter-spacing:.02em;
+    margin-bottom:8px; color:var(--ink);
+  }
+  .fld label .req{ color:var(--a3); margin-left:3px; }
+  .fld .hint{ font-size:.82rem; color:var(--dim); font-weight:500; margin-top:6px; }
+
+  .fld input[type=text],
+  .fld input[type=email],
+  .fld input[type=tel],
+  .fld input[type=date],
+  .fld select,
+  .fld textarea{
+    width:100%; font:inherit; font-size:1rem; color:var(--ink);
+    background:color-mix(in srgb, var(--bg-0) 70%, transparent);
+    border:1px solid var(--card-border); border-radius:12px;
+    padding:13px 15px; transition:border-color .18s, box-shadow .18s;
+    -webkit-appearance:none; appearance:none;
+  }
+  .fld textarea{ min-height:130px; resize:vertical; line-height:1.6; }
+  .fld select{
+    background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);
+    background-position:calc(100% - 20px) calc(50% + 2px), calc(100% - 14px) calc(50% + 2px);
+    background-size:6px 6px, 6px 6px; background-repeat:no-repeat; padding-right:42px;
+  }
+  .fld input::placeholder, .fld textarea::placeholder{ color:var(--dim); opacity:.75; }
+  .fld input:focus, .fld select:focus, .fld textarea:focus{
+    outline:none; border-color:var(--a1);
+    box-shadow:0 0 0 3px color-mix(in srgb, var(--a1) 22%, transparent);
+  }
+  .fld input:user-invalid, .fld select:user-invalid, .fld textarea:user-invalid{
+    border-color:var(--a3);
+  }
+
+  /* checkbox chips */
+  .chk-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(168px,1fr)); gap:10px; }
+  .chk{
+    display:flex; align-items:center; gap:10px; cursor:pointer;
+    padding:12px 14px; border-radius:12px; font-size:.94rem;
+    background:color-mix(in srgb, var(--bg-0) 55%, transparent);
+    border:1px solid var(--card-border); transition:.18s;
+  }
+  .chk:hover{ border-color:var(--a1); }
+  .chk input{
+    -webkit-appearance:none; appearance:none; margin:0;
+    width:18px; height:18px; flex:0 0 18px; border-radius:5px;
+    border:1.5px solid var(--card-border); background:transparent;
+    display:grid; place-content:center; transition:.15s; cursor:pointer;
+  }
+  .chk input::after{
+    content:''; width:9px; height:9px; border-radius:2px;
+    transform:scale(0); transition:.15s; background:#0a0a0a;
+  }
+  .chk input:checked{ background:var(--a1); border-color:var(--a1); }
+  .chk input:checked::after{ transform:scale(1); }
+  .chk input:focus-visible{ outline:2px solid var(--a1); outline-offset:2px; }
+  .chk:has(input:checked){ border-color:var(--a1); background:color-mix(in srgb, var(--a1) 9%, transparent); }
+
+    /* .fld label{display:block} outranks .chk{display:flex} on specificity,
+     which stacks the box above its text. Restate it at label.chk. */
+  .fld label.chk{
+    display:flex; align-items:center; gap:10px; margin-bottom:0;
+    font-size:.94rem; font-weight:600; letter-spacing:0; line-height:1.35;
+  }
+
+  .form-submit{ margin-top:28px; display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+  .form-submit .btn-primary{ border:0; cursor:pointer; font:inherit; font-weight:700; }
+  .form-note{ font-size:.88rem; color:var(--dim); }
+
+  /* form success / error state */
+  .form-msg{
+    display:none; margin-top:22px; padding:18px 20px; border-radius:14px;
+    font-size:.98rem; line-height:1.6;
+    border:1px solid var(--a1); color:var(--ink);
+    background:color-mix(in srgb, var(--a1) 12%, transparent);
+  }
+  .form-msg.show{ display:block; }
+  .form-msg b{ font-family:var(--font-display); display:block; margin-bottom:4px; }
+
+  /* --- sidebar --- */
+  .side-card{
+    padding:28px; border-radius:18px; margin-bottom:18px;
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--card-border);
+  }
+  .side-card h3{
+    font-family:var(--font-display); font-size:1.12rem; font-weight:700; margin-bottom:16px;
+  }
+  .side-card p{ font-size:.95rem; color:var(--dim); line-height:1.65; }
+
+  .next-list{ counter-reset:nx; display:grid; gap:16px; }
+  .next{ display:flex; gap:14px; align-items:flex-start; }
+  .next .n{
+    flex:0 0 26px; height:26px; border-radius:8px; background:var(--grad); color:#0a0a0a;
+    font-family:var(--font-display); font-weight:800; font-size:.88rem;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .next p{ font-size:.95rem; color:var(--dim); margin:0; }
+  .next p b{ color:var(--ink); font-weight:600; display:block; margin-bottom:2px; }
+
+  .assure{ display:grid; gap:11px; }
+  .assure div{ display:flex; gap:10px; align-items:flex-start; font-size:.94rem; color:var(--dim); }
+  .assure .tick{ color:var(--a1); font-weight:800; flex:0 0 auto; }
+
+  /* --- FAQ --- */
+  .faq-list{ display:grid; gap:12px; max-width:880px; }
+  .faq-item{
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--card-border); border-radius:16px; overflow:hidden;
+    transition:border-color .2s;
+  }
+  .faq-item[open]{ border-color:var(--a1); }
+  .faq-item summary{
+    cursor:pointer; list-style:none; padding:20px 24px;
+    font-family:var(--font-display); font-weight:700; font-size:1.08rem;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary::after{
+    content:'+'; font-size:1.5rem; color:var(--a1); font-weight:400; line-height:1;
+    transition:transform .22s; flex:0 0 auto;
+  }
+  .faq-item[open] summary::after{ transform:rotate(45deg); }
+  .faq-item .ans{ padding:0 24px 22px; font-size:1.01rem; color:var(--dim); line-height:1.7; }
+
+  /* --- service area --- */
+  .area-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin-top:26px; }
+  .area-chip{
+    padding:12px 14px; border-radius:11px; font-size:.93rem; text-align:center;
+    background:color-mix(in srgb, var(--bg-2) 45%, transparent);
+    border:1px solid var(--card-border); color:var(--dim); transition:.18s;
+  }
+  .area-chip:hover{ border-color:var(--a1); color:var(--ink); }
+  .area-note{ margin-top:22px; font-size:.97rem; color:var(--dim); }
+
+  @media (max-width:820px){
+    .hero.hero-page{ padding:44px 0 56px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .open-badge .pulse{ animation:none !important; }
+  }
+
+  /* ---------- HoneyBook placement ---------- */
+  /* The form renders in HoneyBook's own iframe, so the only thing we control
+     is the box around it. min-height reserves the space so the page does not
+     jump when the iframe lands. */
+  .hb-lead{ font-size:.97rem; line-height:1.7; color:var(--dim); margin:0 0 22px; }
+  .hb-embed{ min-height:820px; }
+  .hb-embed iframe{ width:100% !important; border:0; display:block; }
+  @media (max-width:520px){ .hb-embed{ min-height:1000px; } }
+  .hb-fallback{ font-size:.95rem; line-height:1.7; color:var(--dim); }
+  .hb-fallback a{ color:var(--a1); font-weight:700; }
+
+  /* ---------- review badges (base styles live in the shared head) ---------- */
+  .proof-row{ margin-top:34px; }
+  a.proof-badge{ text-decoration:none; color:inherit; position:relative; }
+  a.proof-badge:focus-visible{ outline:2px solid var(--a1); outline-offset:3px; }
+  a.proof-badge .proof-meta{ flex:1 1 auto; }
+  a.proof-badge .go{ flex:0 0 auto; font-size:1rem; color:var(--dim); opacity:.55; transition:.22s; }
+  a.proof-badge:hover .go{ opacity:1; color:var(--a1); transform:translateX(2px); }
+  .proof-note{
+    margin-top:18px; font-size:.85rem; color:var(--dim); line-height:1.65;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace; opacity:.72; max-width:760px;
+  }
+  @media (prefers-reduced-motion: reduce){ a.proof-badge, a.proof-badge .go{ transition:none; } }
+
+  /* preview-only: shown when the page is opened off disk, never on the site */
+  .hb-local{
+    margin:0; padding:26px 24px; border-radius:14px; text-align:center;
+    border:1px dashed var(--card-border); color:var(--dim);
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.9rem; line-height:1.7;
+  }
+</style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact Dallas Event Audio",
+    "url": "https://www.dallaseventaudio.com/contact",
+    "description": "Request a same-day quote for event sound, lighting, effects and AV production across Dallas-Fort Worth.",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Dallas Event Audio",
+      "url": "https://www.dallaseventaudio.com",
+      "email": "info@dallaseventaudio.com",
+      "telephone": "+1-817-210-7957",
+      "foundingDate": "2001",
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": { "@type": "GeoCoordinates", "addressCountry": "US" },
+        "description": "Dallas-Fort Worth Metroplex, approximately 40 miles from Hurst, TX"
+      },
+      "contactPoint": [{
+        "@type": "ContactPoint",
+        "telephone": "+1-817-210-7957",
+        "email": "info@dallaseventaudio.com",
+        "contactType": "sales",
+        "areaServed": "US-TX",
+        "availableLanguage": "English",
+        "hoursAvailable": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+          "opens": "00:00",
+          "closes": "23:59"
+        }
+      }]
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"How fast will I hear back from Dallas Event Audio?",
+       "acceptedAnswer":{"@type":"Answer","text":"The same day. We are reachable around the clock, and a text with your date and venue usually gets an answer on availability within the hour. If the date is already booked we say so immediately."}},
+      {"@type":"Question","name":"What if I don't know what equipment I need?",
+       "acceptedAnswer":{"@type":"Answer","text":"That is most people, and working it out is our job. Tell us the room, the headcount and what is supposed to happen during the event, and we come back with what it takes."}},
+      {"@type":"Question","name":"Do you deliver and set up, or is it customer pickup?",
+       "acceptedAnswer":{"@type":"Answer","text":"We deliver, set up, run and strike everything ourselves. There is no customer pickup and no self-service rental. An insured technician is on-site for the whole event."}},
+      {"@type":"Question","name":"Can you provide a certificate of insurance for my venue?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes. Send the venue's requirements with your inquiry and we handle it. We are fully insured and used to venue paperwork."}},
+      {"@type":"Question","name":"How far in advance should I book event AV in Dallas-Fort Worth?",
+       "acceptedAnswer":{"@type":"Answer","text":"Earlier is better for peak spring and fall Saturdays, which get claimed a long way out. We do take short-notice events, so it is still worth asking if your date is close."}},
+      {"@type":"Question","name":"Can you work with a DJ, band or planner we already hired?",
+       "acceptedAnswer":{"@type":"Answer","text":"Regularly. Traveling DJs and live bands walk into a system that is already set up, line-checked and staffed, and we coordinate load-in directly with your planner."}}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://www.dallaseventaudio.com/"},
+      {"@type":"ListItem","position":2,"name":"Contact","item":"https://www.dallaseventaudio.com/contact"}
+    ]
+  }
+  </script>
+
+</head>
+<body>
+<header>
+    <nav>
+      <a class="logo" href="/" style="text-decoration:none;" aria-label="Dallas Event Audio home"><img src="data:image/png;base64,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" alt="Dallas Event Audio" width="326" height="138"></a>
+      <div class="navlinks">
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Events<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/weddings">Weddings</a>
+            <a href="/wedding-av-rental-dallas">Wedding AV Rental</a>
+            <a href="/corporate-events">Corporate Events</a>
+            <a href="/private-events">Private Events</a>
+            <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+            <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+            <a href="/college-school-university-events">College &amp; University</a>
+            <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+          </div>
+        </div>
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Audio<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/services-audio">All Audio Services</a>
+            <a href="/rent-sound-equipment">Sound Equipment Rental</a>
+            <a href="/dj-speaker-rental">DJ &amp; Party Speakers</a>
+            <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+            <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+            <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+            <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+            <a href="/feedback-free-microphone-rentals">Microphone Rental</a>
+          </div>
+        </div>
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Lighting &amp; FX<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/services-lighting">All Lighting Services</a>
+            <a href="/rent-uplighting">Uplighting</a>
+            <a href="/rent-dj-lighting">DJ Lighting</a>
+            <a href="/rent-laser-light-show">Laser Light Show</a>
+            <a href="/rent-follow-spot-light">Follow Spot</a>
+            <a href="/monogram-projector">Monogram Projector</a>
+            <a href="/rent-fog-machine">Fog &amp; Haze</a>
+            <a href="/rent-cold-sparks">Cold Sparks</a>
+            <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+          </div>
+        </div>
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Services<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/services-dj">DJ Services</a>
+            <a href="/services-photo-and-video">Photo &amp; Video</a>
+            <a href="/live-streaming-services">Live Streaming</a>
+            <a href="/projector-screen-rental">Projector &amp; Screen</a>
+            <a href="/services-extra">Special Effects &amp; Extras</a>
+            <a href="/equipment-list">Equipment List</a>
+          </div>
+        </div>
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Our Work<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/our-work">Our Work</a>
+            <a href="/gallery">Photo Gallery</a>
+            <a href="/what-others-are-saying">Reviews</a>
+            <a href="/our-story">Our Story</a>
+            <a href="/blog">Blog</a>
+          </div>
+        </div>
+        <a class="nl-top nl-solo" href="/contact">Contact</a>
+      </div>
+      <div class="navright">
+        <span class="phone">817-210-7957</span>
+        <a class="cta-btn" href="/contact">Get a Quote</a>
+        <button class="navburger" id="navBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="ndrawer" id="navDrawer" aria-hidden="true">
+    <div class="nd-head">
+      <a class="logo" href="/" style="text-decoration:none;" aria-label="Dallas Event Audio home"><img src="data:image/png;base64,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" alt="Dallas Event Audio" width="326" height="138"></a>
+      <button class="nd-close" id="navClose" type="button" aria-label="Close menu"><span></span><span></span></button>
+    </div>
+    <div class="nd-body">
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Events<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/weddings">Weddings</a>
+          <a href="/wedding-av-rental-dallas">Wedding AV Rental</a>
+          <a href="/corporate-events">Corporate Events</a>
+          <a href="/private-events">Private Events</a>
+          <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+          <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+          <a href="/college-school-university-events">College &amp; University</a>
+          <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+        </div>
+      </div>
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Audio<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/services-audio">All Audio Services</a>
+          <a href="/rent-sound-equipment">Sound Equipment Rental</a>
+          <a href="/dj-speaker-rental">DJ &amp; Party Speakers</a>
+          <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+          <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+          <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+          <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+          <a href="/feedback-free-microphone-rentals">Microphone Rental</a>
+        </div>
+      </div>
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Lighting &amp; FX<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/services-lighting">All Lighting Services</a>
+          <a href="/rent-uplighting">Uplighting</a>
+          <a href="/rent-dj-lighting">DJ Lighting</a>
+          <a href="/rent-laser-light-show">Laser Light Show</a>
+          <a href="/rent-follow-spot-light">Follow Spot</a>
+          <a href="/monogram-projector">Monogram Projector</a>
+          <a href="/rent-fog-machine">Fog &amp; Haze</a>
+          <a href="/rent-cold-sparks">Cold Sparks</a>
+          <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+        </div>
+      </div>
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Services<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/services-dj">DJ Services</a>
+          <a href="/services-photo-and-video">Photo &amp; Video</a>
+          <a href="/live-streaming-services">Live Streaming</a>
+          <a href="/projector-screen-rental">Projector &amp; Screen</a>
+          <a href="/services-extra">Special Effects &amp; Extras</a>
+          <a href="/equipment-list">Equipment List</a>
+        </div>
+      </div>
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Our Work<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/our-work">Our Work</a>
+          <a href="/gallery">Photo Gallery</a>
+          <a href="/what-others-are-saying">Reviews</a>
+          <a href="/our-story">Our Story</a>
+          <a href="/blog">Blog</a>
+        </div>
+      </div>
+      <div class="nd-sec"><a class="nd-trig nd-solo" href="/contact">Contact</a></div>
+    </div>
+    <div class="nd-foot">
+      <a class="nd-phone" href="tel:8172107957">817-210-7957</a>
+      <a class="cta-btn" href="/contact">Get a Quote</a>
+    </div>
+  </div>
+
+  <section class="hero hero-page">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="breadcrumb" data-reveal>
+        <a href="/">Home</a><span class="sep">/</span><span class="here">Contact</span>
+      </div>
+      <div data-reveal>
+        <div class="open-badge"><span class="pulse"></span> Open 24/7 &middot; Same-Day Reply</div>
+      </div>
+      <h1 data-reveal>Contact us. Tell us the date and <span class="grad-text">we&rsquo;ll tell you what it takes.</span></h1>
+      <p class="sub" data-reveal>Call, text, email, or send the form below. A person who works these events reads it and comes back to you the same day with a straightforward quote.</p>
+
+      <div class="reach-grid" data-reveal>
+        <a class="reach-card" href="tel:8172107957">
+          <span class="lbl">Call</span>
+          <span class="val">817-210-7957</span>
+          <span class="note">Answered 24 hours a day, 7 days a week.</span>
+        </a>
+        <a class="reach-card" href="sms:8172107957">
+          <span class="lbl">Text</span>
+          <span class="val">817-210-7957</span>
+          <span class="note">Fastest option if you&rsquo;re mid-planning. Send the date and venue.</span>
+        </a>
+        <a class="reach-card" href="mailto:info@dallaseventaudio.com">
+          <span class="lbl">Email</span>
+          <span class="val">info@dallaseventaudio.com</span>
+          <span class="note">Good for floor plans, run of show, and vendor threads on a Dallas event.</span>
+        </a>
+      </div>
+
+      <div class="proof-row" data-reveal>
+        <a class="proof-badge" href="https://maps.google.com/?cid=11213015373496621898" target="_blank" rel="noopener">
+          <div class="proof-mark g">G</div>
+          <div class="proof-meta">
+            <div class="rate">4.9 <span class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+            <div class="cnt">43 reviews on Google</div>
+          </div>
+          <div class="go" aria-hidden="true">&#8594;</div>
+        </a>
+        <a class="proof-badge" href="https://www.weddingwire.com/biz/dallas-event-audio-frisco/29690aa6325ab32b.html" target="_blank" rel="noopener">
+          <div class="proof-mark w">WW</div>
+          <div class="proof-meta">
+            <div class="rate">4.9 <span class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+            <div class="cnt">89 reviews on WeddingWire</div>
+          </div>
+          <div class="go" aria-hidden="true">&#8594;</div>
+        </a>
+        <a class="proof-badge" href="https://www.theknot.com/marketplace/dallas-event-audio-%F0%9F%94%88%F0%9F%8E%B6-hurst-tx-2022777" target="_blank" rel="noopener">
+          <div class="proof-mark k">K</div>
+          <div class="proof-meta">
+            <div class="rate">5.0 <span class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+            <div class="cnt">44 reviews on The Knot</div>
+          </div>
+          <div class="go" aria-hidden="true">&#8594;</div>
+        </a>
+        <a class="proof-badge" href="https://www.yelp.com/biz/dallas-event-audio-dallas" target="_blank" rel="noopener">
+          <div class="proof-mark y">Y</div>
+          <div class="proof-meta">
+            <div class="rate">4.6 <span class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div>
+            <div class="cnt">12 reviews on Yelp</div>
+          </div>
+          <div class="go" aria-hidden="true">&#8594;</div>
+        </a>
+      </div>
+      <p class="proof-note" data-reveal>Three years running as a The Knot Best of Weddings pick, insured on every job, and a certificate goes to your venue before load-in. Every profile above is public, so the numbers are checkable.</p>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Same-Day Reply &middot; Fully Insured &middot; Certificates Sent To Your Venue &middot; On-Site Technician Included &middot; Serving DFW Since 2001 &middot; Delivered And Run By Our Crew</span>
+      <span>Same-Day Reply &middot; Fully Insured &middot; Certificates Sent Without Being Chased &middot; On-Site Technician Included &middot; Serving DFW Since 2001 &middot; No Pickup, No Self-Service</span>
+    </div>
+  </div>
+
+  <section class="section" id="quote">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">Request a Quote</span>
+        <h2>The more you tell us, the more useful the quote.</h2>
+        <p>Your event date, the venue, and a rough headcount is enough to get a real quote back. Everything else makes it more accurate, and if you do not know yet, say so. Working out what an event needs is our job.</p>
+      </div>
+
+      <div class="form-layout">
+        <div class="form-card" data-reveal>
+          <p class="hb-lead">The form asks for your event date, the venue, a rough guest count and which services you are thinking about. It takes about a minute, and none of it has to be final.</p>
+          <div class="hb-embed" id="hbForm">
+            <div class="hb-p-5fa0efd5871510000d2893ba-9"></div>
+            <img height="1" width="1" style="display:none" src="https://www.honeybook.com/p.png?pid=5fa0efd5871510000d2893ba" alt="">
+            <p class="hb-local" hidden>The HoneyBook form loads here. It will not render from a file opened off disk, because the widget needs a real https origin. It appears as soon as this page is served from dallaseventaudio.com.</p>
+            <noscript>
+              <p class="hb-fallback">The quote form needs JavaScript. Call or text <a href="tel:8172107957">817-210-7957</a>, or email <a href="mailto:info@dallaseventaudio.com">info@dallaseventaudio.com</a> and we will come straight back to you.</p>
+            </noscript>
+          </div>
+        </div>
+
+        <div>
+          <div class="side-card" data-reveal>
+            <h3>What happens next</h3>
+            <div class="next-list">
+              <div class="next">
+                <div class="n">1</div>
+                <p>We read it the same day, and a person replies to you. If the date is already booked we tell you straight away.</p>
+              </div>
+              <div class="next">
+                <div class="n">2</div>
+                <p>We ask about the room. Ceiling height, power, load-in, noise limits, where the speeches happen. That is the part that decides what your event needs.</p>
+              </div>
+              <div class="next">
+                <div class="n">3</div>
+                <p>You get a written quote. Itemized, with the on-site technician included, because every job we do is delivered, set up and run by our crew.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="side-card" data-reveal>
+            <h3>What&rsquo;s always included</h3>
+            <div class="assure">
+              <div><span class="tick">&#10003;</span> <span>Delivery, setup, and strike by our own crew</span></div>
+              <div><span class="tick">&#10003;</span> <span>An insured technician on-site for the whole event, start to strike</span></div>
+              <div><span class="tick">&#10003;</span> <span>AI De-Feedback on every microphone rental, standard</span></div>
+              <div><span class="tick">&#10003;</span> <span>Certificates of insurance sent straight to your venue</span></div>
+              <div><span class="tick">&#10003;</span> <span>A line-checked, working system before your guests arrive</span></div>
+            </div>
+          </div>
+
+          <div class="side-card" data-reveal>
+            <h3>Rather just talk?</h3>
+            <p>Call or text <a href="tel:8172107957" style="color:var(--a1); font-weight:700;">817-210-7957</a>. We are reachable 24 hours a day, including the night before your event, which is when people need us most. Some events come together in a week and that is fine.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="area" style="background:var(--bg-1); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="kicker">Where We Work</span>
+        <h2>Dallas-Fort Worth, and the rooms we already know.</h2>
+        <p>We have been loading into Dallas and Fort Worth venues since 2001, which usually means we already know where the dock is, what the ceiling does to sound, and who to call about power.</p>
+      </div>
+      <div class="area-grid" data-reveal>
+        <div class="area-chip">Dallas</div>
+        <div class="area-chip">Fort Worth</div>
+        <div class="area-chip">Arlington</div>
+        <div class="area-chip">Frisco</div>
+        <div class="area-chip">Plano</div>
+        <div class="area-chip">McKinney</div>
+        <div class="area-chip">Southlake</div>
+        <div class="area-chip">Richardson</div>
+        <div class="area-chip">Irving</div>
+        <div class="area-chip">Denton</div>
+        <div class="area-chip">Rockwall</div>
+        <div class="area-chip">Waxahachie</div>
+      </div>
+      <p class="area-note" data-reveal>Holding your event outside that ring? Ask anyway. We travel for the right event and we will tell you honestly whether it makes sense.</p>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="kicker">Before You Send It</span>
+        <h2>The questions we get most before an event.</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" data-reveal open>
+          <summary>How fast will I hear back?</summary>
+          <div class="ans">The same day. We&rsquo;re reachable around the clock, and if you text us a date and a venue you&rsquo;ll usually have an answer on whether we&rsquo;re open within the hour. If we&rsquo;re already booked for your date, we&rsquo;ll say so immediately rather than letting you wait on a maybe.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>I don&rsquo;t know what equipment I need. Is that a problem?</summary>
+          <div class="ans">That is most people, and working it out is our job. Tell us the room, the headcount, and what is supposed to happen during the event, and we will come back with what it takes. You can book us without knowing the difference between a line array and a point source.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do you deliver and set up, or do we pick the gear up?</summary>
+          <div class="ans">We deliver, set up, run, and strike everything ourselves. There is no customer pickup and no self-service rental. An insured technician is on-site for the whole event, so nobody on your team ends up troubleshooting a mixing board in formalwear.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>My venue needs a certificate of insurance.</summary>
+          <div class="ans">Send us the venue&rsquo;s requirements with your inquiry and we&rsquo;ll handle it. We are fully insured and used to venue paperwork, so your coordinator gets it from us before they ask.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How far in advance should I reach out?</summary>
+          <div class="ans">Earlier is better for peak dates, because spring and fall Saturdays get claimed a long way out. We do take short-notice events, so if your date is close it is worth asking.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Can you work with the DJ, band, or planner we already have?</summary>
+          <div class="ans">Regularly. Traveling DJs and live bands walk into a system that&rsquo;s already set up, line-checked, and staffed. Planners get a load-in time and a technician who sticks to it. Just tell us who else is involved and we&rsquo;ll coordinate directly with them.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta" id="talk">
+    <div class="wrap">
+      <h2 data-reveal>Still easier to just <span class="grad-text">say it out loud?</span></h2>
+      <p data-reveal>Call or text and skip the form entirely. Nights and weekends included, because that is when events happen.</p>
+      <div data-reveal style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+        <a class="btn-primary" href="tel:8172107957">Call 817-210-7957</a>
+        <a class="btn-secondary" href="sms:8172107957">Text Us Instead</a>
+      </div>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="col brand">
+          <div class="logo"><img src="data:image/png;base64,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" alt="Dallas Event Audio" width="326" height="138"></div>
+          <p style="margin-top:14px; max-width:250px;">Full-service AV production for Dallas-Fort Worth since 2001. Delivered, set up, and run by our on-site technician.</p>
+          <div class="foot-contact">
+            <a href="tel:8172107957">817-210-7957</a>
+            <a href="mailto:info@dallaseventaudio.com">info@dallaseventaudio.com</a>
+          </div>
+          <p class="foot-area">Serving Dallas, Fort Worth, Southlake, Arlington, Frisco, McKinney, Richardson &amp; the wider Metroplex.</p>
+        </div>
+        <div class="col">
+          <h4>Events</h4>
+          <a href="/weddings">Weddings</a>
+          <a href="/wedding-av-rental-dallas">Wedding AV Rental</a>
+          <a href="/corporate-events">Corporate Events</a>
+          <a href="/private-events">Private Events</a>
+          <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+          <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+          <a href="/college-school-university-events">College &amp; University</a>
+          <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+        </div>
+        <div class="col">
+          <h4>Audio</h4>
+          <a href="/services-audio">All Audio Services</a>
+          <a href="/rent-sound-equipment">Sound Equipment Rental</a>
+          <a href="/dj-speaker-rental">DJ &amp; Party Speakers</a>
+          <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+          <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+          <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+          <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+          <a href="/feedback-free-microphone-rentals">Microphone Rental</a>
+        </div>
+        <div class="col">
+          <h4>Lighting &amp; FX</h4>
+          <a href="/services-lighting">All Lighting Services</a>
+          <a href="/rent-uplighting">Uplighting</a>
+          <a href="/rent-dj-lighting">DJ Lighting</a>
+          <a href="/rent-laser-light-show">Laser Light Show</a>
+          <a href="/rent-follow-spot-light">Follow Spot</a>
+          <a href="/monogram-projector">Monogram Projector</a>
+          <a href="/rent-fog-machine">Fog &amp; Haze</a>
+          <a href="/rent-cold-sparks">Cold Sparks</a>
+          <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+        </div>
+        <div class="col">
+          <h4>Services</h4>
+          <a href="/services-dj">DJ Services</a>
+          <a href="/services-photo-and-video">Photo &amp; Video</a>
+          <a href="/live-streaming-services">Live Streaming</a>
+          <a href="/projector-screen-rental">Projector &amp; Screen</a>
+          <a href="/services-extra">Special Effects &amp; Extras</a>
+          <a href="/equipment-list">Equipment List</a>
+        </div>
+        <div class="col">
+          <h4>Company</h4>
+          <a href="/our-work">Our Work</a>
+          <a href="/gallery">Photo Gallery</a>
+          <a href="/what-others-are-saying">Reviews</a>
+          <a href="/our-story">Our Story</a>
+          <a href="/blog">Blog</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div class="foot-proof">
+        <a class="fp" href="https://www.google.com/maps?cid=11213015373496621898" target="_blank" rel="noopener"><span class="m g">G</span> <b>4.9</b> <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span> &middot; 41 Google reviews</a>
+        <a class="fp" href="https://www.yelp.com/biz/dallas-event-audio-dallas" target="_blank" rel="noopener"><span class="m y">Y</span> <b>Yelp</b> &middot; 13 reviews &middot; 134 photos</a>
+      </div>
+      <div class="foot-bottom">
+        <span>&copy; 2026 Dallas Event Audio. Fully insured, on-site AV production.</span>
+        <span>Contact page draft v4</span>
+      </div>
+    </div>
+  </footer>
+
+<div id="paletteBar">
+    <div class="pal-opts" id="palOpts" role="group" aria-label="Color palette">
+      <div class="pal-head">Color palette</div>
+      <button type="button" data-p="signal" class="active" aria-pressed="true"><i class="sw-signal"></i>Signal Chain</button>
+      <button type="button" data-p="amber" aria-pressed="false"><i class="sw-amber"></i>Stage Black &amp; Amber</button>
+      <button type="button" data-p="night" aria-pressed="false"><i class="sw-night"></i>DFW Night Rig</button>
+    </div>
+    <button type="button" class="pal-toggle" id="palToggle" aria-expanded="false" aria-controls="palOpts">
+      <span class="dots"><i style="background:#31ff6e"></i><i style="background:#fff21c"></i><i style="background:#ff1f3d"></i></span>
+      <span class="label">Palette</span>
+    </button>
+  </div>
+
+  <div id="chatBubble">✦ AV Concierge</div>
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+<script>
+  // Palette dock, bottom left
+  (function(){
+    const dock = document.getElementById('paletteBar');
+    const toggle = document.getElementById('palToggle');
+    const opts = Array.prototype.slice.call(document.querySelectorAll('#palOpts button'));
+    if(!dock || !toggle) return;
+
+    function store(v){ try{ window.localStorage.setItem('dea-palette', v); }catch(e){} }
+    function recall(){ try{ return window.localStorage.getItem('dea-palette'); }catch(e){ return null; } }
+
+    function apply(p){
+      document.documentElement.setAttribute('data-palette', p);
+      opts.forEach(b=>{
+        const on = b.dataset.p === p;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+
+    const saved = recall();
+    if(saved && opts.some(b=>b.dataset.p === saved)) apply(saved);
+
+    function open(state){
+      dock.classList.toggle('open', state);
+      toggle.setAttribute('aria-expanded', state ? 'true' : 'false');
+    }
+    toggle.addEventListener('click', e=>{ e.stopPropagation(); open(!dock.classList.contains('open')); });
+    opts.forEach(b=>{
+      b.addEventListener('click', ()=>{ apply(b.dataset.p); store(b.dataset.p); open(false); });
+    });
+    document.addEventListener('click', e=>{ if(!dock.contains(e.target)) open(false); });
+    document.addEventListener('keydown', e=>{ if(e.key === 'Escape') open(false); });
+  })();
+
+  // Scroll reveal
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.15});
+    document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el=>el.classList.add('in'));
+  }
+
+  // CO2 / particle burst on primary CTA click
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function burst(x, y){
+    if(reduceMotion) return;
+    const colors = ['var(--a1)','var(--a2)','var(--a3)','#ffffff'];
+    const count = 26;
+    for(let i=0;i<count;i++){
+      const p = document.createElement('span');
+      p.className = 'burst-particle';
+      const angle = (Math.PI * 2 * i) / count + Math.random()*0.4;
+      const dist = 60 + Math.random()*140;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist - 40;
+      const size = 4 + Math.random()*6;
+      p.style.width = p.style.height = size + 'px';
+      p.style.background = colors[i % colors.length];
+      p.style.boxShadow = '0 0 8px ' + colors[i % colors.length];
+      p.style.left = x + 'px';
+      p.style.top = y + 'px';
+      document.body.appendChild(p);
+      const anim = p.animate([
+        { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
+        { transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.3)`, opacity:0 }
+      ], { duration:700 + Math.random()*400, easing:'cubic-bezier(.2,.7,.3,1)' });
+      anim.onfinish = () => p.remove();
+    }
+  }
+  document.querySelectorAll('.btn-primary').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      burst(e.clientX, e.clientY);
+    });
+  });
+</script>
+
+<script>
+/* Mobile navigation drawer. Added 5 Aug 2026 - before this, nav links simply
+   vanished below 860px with nothing to replace them. */
+(function(){
+  var burger = document.getElementById('navBurger');
+  var drawer = document.getElementById('navDrawer');
+  var closeb = document.getElementById('navClose');
+  if(!burger || !drawer) return;
+
+  function open(){
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden','false');
+    burger.setAttribute('aria-expanded','true');
+    document.body.classList.add('nav-locked');
+  }
+  function close(){
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden','true');
+    burger.setAttribute('aria-expanded','false');
+    document.body.classList.remove('nav-locked');
+  }
+  burger.addEventListener('click', open);
+  if(closeb) closeb.addEventListener('click', close);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && drawer.classList.contains('open')) close();
+  });
+  drawer.querySelectorAll('a[href]').forEach(function(a){
+    a.addEventListener('click', function(){
+      var h = a.getAttribute('href') || '';
+      if(h.charAt(0) === '#') close();
+    });
+  });
+  drawer.querySelectorAll('.nd-sec > button.nd-trig').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var sec = btn.parentNode;
+      var isOpen = sec.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  });
+
+  /* Desktop dropdowns: hover and focus are handled in CSS. Keyboard users get
+     Enter/Space to pin a menu open, Escape to release it. */
+  document.querySelectorAll('.nl-item > .nl-top').forEach(function(top){
+    top.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        var menu = top.parentNode.querySelector('.nl-menu a');
+        if(menu) menu.focus();
+      }
+    });
+  });
+})();
+</script>
+
+
+  <script>
+  (function(h,b,s,n,i,p,e,t) {
+    h._HB_ = h._HB_ || {};h._HB_.pid = i;;;;
+    t=b.createElement(s);t.type="text/javascript";t.async=!0;t.src=n;
+    e=b.getElementsByTagName(s)[0];e.parentNode.insertBefore(t,e);
+})(window,document,"script","https://widget.honeybook.com/assets_users_production/websiteplacements/placement-controller.min.js","5fa0efd5871510000d2893ba");
+  </script>
+  <script>
+  /* Google Ads imports a GA4 conversion action named contact_us_pageview.
+     It read Inactive because nothing was firing it. Pairing it with
+     form_submit_thankyou is what makes the view to submit ratio measurable. */
+  (function(){
+    if (typeof gtag === 'function') {
+      gtag('event', 'contact_us_pageview', { 'page_location': 'https://www.dallaseventaudio.com/contact' });
+    }
+    function showLocalNote(){
+      if (location.protocol !== 'file:') return;
+      var n = document.querySelector('.hb-local');
+      if (n) n.hidden = false;
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', showLocalNote);
+    } else { showLocalNote(); }
+  })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="signal">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laser Light Show Rental Dallas TX | Dallas Event Audio</title>
+<meta name="description" content="Professional laser light show rentals in Dallas-Fort Worth. Indoor and outdoor systems with staffed operation, safety planning and custom quotes.">
+<link rel="canonical" href="https://www.dallaseventaudio.com/rent-laser-light-show">
+<meta property="og:title" content="Laser Light Show Rental Dallas TX | Dallas Event Audio">
+<meta property="og:description" content="Professional laser light show rentals in Dallas-Fort Worth. Indoor and outdoor systems with staffed operation, safety planning and custom quotes.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.dallaseventaudio.com/rent-laser-light-show">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font-display:'Unbounded',sans-serif;
+    --font-body:'Space Grotesk',sans-serif;
+  }
+
+  /* ============ PALETTE A: Signal Chain (true DJ mixer peak-meter LEDs: green / yellow / red) ============ */
+  html[data-palette="signal"]{
+    --bg-0:#050706; --bg-1:#0a0f0c; --bg-2:#0e1512;
+    --ink:#f4f7f5; --dim:#b4c5ba;
+    --a1:#31ff6e; /* LED green */
+    --a2:#fff21c; /* LED yellow */
+    --a3:#ff1f3d; /* LED red */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 55%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(255,255,255,.08);
+    --glow: rgba(49,255,110,.35);
+  }
+  /* ============ PALETTE B: Stage Black and Amber (warm, premium, ties to existing chat widget gold) ============ */
+  html[data-palette="amber"]{
+    --bg-0:#070605; --bg-1:#0d0a06; --bg-2:#120e08;
+    --ink:#f8f3ea; --dim:#c3b7a5;
+    --a1:#e8b75c; /* gold */
+    --a2:#ffdfa0; /* warm white/spot */
+    --a3:#4fa3ff; /* cool counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 50%, var(--a2) 50%, var(--a2) 100%);
+    --card-border: rgba(232,183,92,.16);
+    --glow: rgba(232,183,92,.32);
+  }
+  /* ============ PALETTE C: DFW Night Rig (cool stage-lighting energy, distinct from EDM Wedding DJ's magenta) ============ */
+  html[data-palette="night"]{
+    --bg-0:#05060b; --bg-1:#090b16; --bg-2:#0c0f1e;
+    --ink:#f1f3fb; --dim:#aeb5cf;
+    --a1:#2f6fff; /* electric blue */
+    --a2:#8b5cf6; /* violet */
+    --a3:#ffb020; /* amber counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 65%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(139,92,246,.16);
+    --glow: rgba(47,111,255,.35);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-0);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  .grad-text{
+    background:var(--grad);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  /* ---------- palette switcher (review tool only, not part of the shipped site) ---------- */
+  #paletteBar{
+    position:fixed; top:0; left:0; right:0; z-index:999;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    padding:10px; background:#000; border-bottom:1px solid rgba(255,255,255,.12);
+    font-family:var(--font-body); font-size:0.881rem;
+  }
+  #paletteBar span{color:#8a8a8a; margin-right:4px;}
+  #paletteBar button{
+    font-family:var(--font-body); font-size:0.881rem; font-weight:600;
+    padding:7px 14px; border-radius:100px; border:1px solid rgba(255,255,255,.18);
+    background:rgba(255,255,255,.04); color:#eee; cursor:pointer; transition:.2s;
+  }
+  #paletteBar button.active{ background:#fff; color:#000; border-color:#fff; }
+  #paletteBar button:hover{ border-color:#fff; }
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky; top:40px; z-index:100;
+    background:rgba(5,6,5,.7); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--card-border);
+  }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1180px; margin:0 auto; }
+  .logo{ display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:900; font-size:1.15rem; letter-spacing:.02em; }
+  .logo .dial{ width:26px; height:26px; border-radius:50%; position:relative; background:conic-gradient(var(--a1) 0 26%, var(--a2) 26% 52%, var(--a3) 52% 78%, transparent 78%); }
+  .logo .dial::after{ content:''; position:absolute; inset:4px; border-radius:50%; background:var(--bg-0); }
+  .navlinks{ display:flex; gap:28px; font-size:0.994rem; color:var(--dim); }
+  .navlinks a:hover{ color:var(--ink); }
+  .navright{ display:flex; align-items:center; gap:18px; }
+  .phone{ font-size:0.96rem; color:var(--dim); }
+  .cta-btn{
+    font-family:var(--font-body); font-weight:700; font-size:0.96rem;
+    padding:11px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    display:inline-block; white-space:nowrap;
+  }
+  @media (max-width:860px){ .navlinks{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{ position:relative; padding:110px 0 90px; overflow:hidden; }
+  .hero::before{
+    content:''; position:absolute; inset:-20% -10% auto -10%; height:600px;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    opacity:.5; filter:blur(40px); pointer-events:none;
+  }
+
+  /* -- animated perspective floor grid -- */
+  .hero-grid{
+    position:absolute; left:0; right:0; bottom:-10%; height:70%;
+    perspective:400px; overflow:hidden; pointer-events:none; z-index:0;
+  }
+  .hero-grid::before{
+    content:''; position:absolute; inset:-50% -50% 0 -50%;
+    background-image:
+      repeating-linear-gradient(to right, var(--card-border) 0 1px, transparent 1px 68px),
+      repeating-linear-gradient(to top, var(--card-border) 0 1px, transparent 1px 68px);
+    transform:rotateX(62deg);
+    transform-origin:bottom;
+    animation: gridScroll 9s linear infinite;
+    opacity:.55;
+    mask-image:linear-gradient(to top, black 0%, transparent 75%);
+    -webkit-mask-image:linear-gradient(to top, black 0%, transparent 75%);
+  }
+  @keyframes gridScroll{ from{ background-position:0 0; } to{ background-position:0 136px; } }
+
+  /* -- sweeping laser beams -- */
+  .hero-lasers{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .laser{
+    position:absolute; top:-10%; width:2px; height:130%;
+    background:linear-gradient(to bottom, transparent, var(--a1), transparent);
+    opacity:0; filter:blur(.5px);
+    animation: laserSweep 6s ease-in-out infinite;
+  }
+  .laser:nth-child(1){ left:8%;  background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:0s; }
+  .laser:nth-child(2){ left:32%; background:linear-gradient(to bottom, transparent, var(--a2), transparent); animation-delay:1.6s; transform:rotate(6deg); }
+  .laser:nth-child(3){ left:63%; background:linear-gradient(to bottom, transparent, var(--a3), transparent); animation-delay:3.1s; transform:rotate(-8deg); }
+  .laser:nth-child(4){ left:85%; background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:4.3s; transform:rotate(4deg); }
+  @keyframes laserSweep{
+    0%{ opacity:0; transform:translateX(-10px) rotate(var(--rot,0deg)); }
+    8%{ opacity:.55; }
+    20%{ opacity:0; }
+    100%{ opacity:0; }
+  }
+
+  /* -- drifting fog -- */
+  .hero-fog{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .fog-blob{
+    position:absolute; width:60%; padding-top:60%; border-radius:50%;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    filter:blur(50px); opacity:.4;
+    animation: fogDrift 18s ease-in-out infinite alternate;
+  }
+  .fog-blob.b2{ left:50%; top:20%; animation-duration:24s; animation-delay:-6s; opacity:.28; }
+  @keyframes fogDrift{
+    from{ transform:translate(-8%, 0) scale(1); }
+    to{ transform:translate(8%, 6%) scale(1.15); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-grid::before, .laser, .fog-blob{ animation:none !important; }
+    .laser{ opacity:0; }
+  }
+
+  .hero-logo-wrap{ text-align:center; position:relative; z-index:1; margin-bottom:40px; }
+  .hero-logo-wrap img{
+    width:min(440px, 78vw); height:auto;
+    filter:drop-shadow(0 0 60px var(--glow));
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--card-border); border-radius:100px; padding:7px 16px;
+    font-size:0.881rem; color:var(--dim); letter-spacing:.04em; text-transform:uppercase;
+    margin-bottom:28px; position:relative; z-index:1;
+  }
+  .eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--a1); box-shadow:0 0 8px var(--a1); }
+  .hero h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.6rem, 6vw, 4.6rem); max-width:900px; position:relative; z-index:1;
+  }
+  .hero p.sub{
+    font-size:1.15rem; color:var(--dim); max-width:600px; margin-top:26px; position:relative; z-index:1;
+  }
+  .hero-ctas{ display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; position:relative; z-index:1; }
+  .btn-primary{
+    font-weight:700; padding:16px 30px; border-radius:100px; background:var(--grad); color:#0a0a0a; font-size:1.073rem;
+  }
+  .btn-secondary{
+    font-weight:600; padding:16px 30px; border-radius:100px; border:1px solid var(--card-border); color:var(--ink); font-size:1.073rem;
+  }
+  .trust-row{
+    display:flex; gap:40px; flex-wrap:wrap; margin-top:64px; padding-top:34px;
+    border-top:1px solid var(--card-border); position:relative; z-index:1;
+  }
+  .trust-item .num{ font-family:var(--font-display); font-weight:800; font-size:1.6rem; }
+  .trust-item .label{ font-size:0.904rem; color:var(--dim); margin-top:4px; }
+
+  /* ---------- services ---------- */
+  .section{ padding:90px 0; }
+  .section-head{ max-width:640px; margin-bottom:52px; }
+  .kicker{ font-size:0.881rem; letter-spacing:.08em; text-transform:uppercase; color:var(--a1); font-weight:700; margin-bottom:14px; display:block; }
+  .section-head h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.8rem,3.4vw,2.6rem); }
+  .section-head p{ color:var(--dim); margin-top:14px; font-size:1.153rem; }
+
+  .service-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; }
+  .service-card{
+    background:linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 55%, transparent), color-mix(in srgb, var(--bg-1) 45%, transparent));
+    backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:20px; padding:28px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 8px 30px -18px rgba(0,0,0,.6);
+    transition:.25s; position:relative; overflow:hidden;
+  }
+  .service-card:hover{ transform:translateY(-4px); border-color:var(--a1); box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 20px 50px -20px var(--glow); }
+  .service-card .icon{
+    width:44px; height:44px; border-radius:12px; margin-bottom:20px;
+    background:var(--grad); display:flex; align-items:center; justify-content:center;
+    font-size:1.2rem;
+  }
+  .service-card h3{ font-family:var(--font-display); font-size:1.186rem; font-weight:700; margin-bottom:10px; }
+  .service-card p{ font-size:0.994rem; color:var(--dim); margin-bottom:18px; }
+  .service-card .learn{ font-size:0.904rem; font-weight:700; color:var(--a1); }
+  .service-card.featured{ border-color:var(--a2); }
+  .tag-live{ position:absolute; top:20px; right:20px; font-size:0.82rem; text-transform:uppercase; letter-spacing:.06em; color:var(--a2); border:1px solid var(--a2); padding:3px 8px; border-radius:100px; }
+
+  /* ---------- differentiator ---------- */
+  .diff{ background:var(--bg-1); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border); }
+  .diff-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+  .diff-visual{
+    aspect-ratio:4/3; border-radius:24px; border:1px solid var(--card-border);
+    background:
+      radial-gradient(circle at 30% 20%, var(--glow), transparent 55%),
+      linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 50%, transparent), color-mix(in srgb, var(--bg-0) 40%, transparent));
+    backdrop-filter:blur(22px) saturate(150%); -webkit-backdrop-filter:blur(22px) saturate(150%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 20px 60px -30px rgba(0,0,0,.7);
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .diff-visual .badge{
+    font-family:var(--font-display); font-weight:800; text-align:center; font-size:1.073rem; color:var(--dim);
+    border:1px dashed var(--card-border); padding:20px; border-radius:16px;
+  }
+  .diff-copy h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.7rem,3vw,2.3rem); margin-bottom:20px; }
+  .diff-copy p{ color:var(--dim); margin-bottom:16px; font-size:1.13rem; }
+  .diff-copy strong{ color:var(--ink); }
+  @media (max-width:820px){ .diff-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- reviews ---------- */
+  .review-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
+  .review-card{
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:18px; padding:26px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -20px rgba(0,0,0,.6);
+  }
+  .stars{ color:var(--a2); letter-spacing:2px; margin-bottom:14px; font-size:1.017rem; }
+  .review-card p{ font-size:1.04rem; color:var(--ink); opacity:.9; margin-bottom:16px; }
+  .review-card .who{ font-size:0.904rem; color:var(--dim); font-weight:600; }
+
+  /* ---------- review proof badges ---------- */
+  .proof-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:16px; margin-bottom:36px; }
+  .proof-badge{
+    display:flex; align-items:center; gap:14px; padding:18px 20px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -22px rgba(0,0,0,.6);
+    transition:.22s;
+  }
+  .proof-badge:hover{ border-color:var(--a1); transform:translateY(-3px); box-shadow:0 16px 42px -24px var(--glow); }
+  .proof-mark{
+    flex:0 0 42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:1.2rem; letter-spacing:-.02em;
+  }
+  .proof-mark.g{ background:#ffffff; color:#4285f4; }
+  .proof-mark.y{ background:#d32323; color:#ffffff; }
+  .proof-mark.k{ background:#ffffff; color:#0f9aa0; }
+  .proof-mark.w{ background:#ffffff; color:#16181d; font-size:.98rem; }
+  .proof-meta .rate{
+    font-family:var(--font-display); font-weight:800; font-size:1.22rem; line-height:1.15;
+    display:flex; align-items:baseline; gap:9px;
+  }
+  .proof-meta .rate .s{ color:var(--a2); font-size:.92rem; letter-spacing:1px; font-weight:400; }
+  .proof-meta .cnt{ font-size:.92rem; color:var(--dim); margin-top:2px; }
+  .proof-badge.tbd{ border-style:dashed; border-color:var(--a2); }
+  .proof-badge.tbd .rate{ color:var(--a2); }
+  .proof-badge.tbd .cnt{ color:var(--a2); opacity:.8; }
+
+  /* compact sitewide footer strip */
+  .foot-proof{
+    display:flex; flex-wrap:wrap; align-items:center; gap:12px 26px;
+    margin-top:32px; padding-top:26px; border-top:1px solid var(--card-border);
+  }
+  .foot-proof .fp{ display:inline-flex; align-items:center; gap:9px; font-size:.94rem; color:var(--dim); }
+  .foot-proof .fp:hover{ color:var(--ink); }
+  .foot-proof .fp b{ color:var(--ink); font-weight:700; }
+  .foot-proof .fp .s{ color:var(--a2); letter-spacing:1px; }
+  .foot-proof .fp .m{
+    width:24px; height:24px; border-radius:7px; display:inline-flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:.76rem;
+  }
+  .foot-proof .fp .m.g{ background:#ffffff; color:#4285f4; }
+  .foot-proof .fp .m.y{ background:#d32323; color:#ffffff; }
+  .foot-proof .fp .m.k{ background:#ffffff; color:#0f9aa0; }
+  .foot-proof .fp .m.w{ background:#ffffff; color:#16181d; font-size:.62rem; }
+  @media (max-width:820px){ .foot-proof{ gap:12px 18px; } }
+
+  /* ---------- final CTA ---------- */
+  .final-cta{ text-align:center; padding:110px 0; position:relative; }
+  .final-cta h2{ font-family:var(--font-display); font-weight:900; font-size:clamp(2rem,5vw,3.2rem); max-width:760px; margin:0 auto 22px; }
+  .final-cta p{ color:var(--dim); max-width:520px; margin:0 auto 36px; }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:1px solid var(--card-border); padding:50px 0; }
+  .foot-grid{ display:grid; grid-template-columns:1.6fr repeat(5,1fr); gap:34px 26px; }
+  @media (max-width:1080px){ .foot-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:620px){ .foot-grid{ grid-template-columns:repeat(2,1fr); } }
+  .foot-grid .col.brand{ min-width:210px; }
+  @media (max-width:1080px){ .foot-grid .col.brand{ grid-column:1 / -1; } }
+  .foot-contact{ margin-top:16px; }
+  .foot-contact a{ display:block; margin-bottom:6px; font-size:1rem; color:var(--ink); opacity:.9; }
+  .foot-contact a:hover{ color:var(--a1); opacity:1; }
+  .foot-area{ font-size:.9rem; color:var(--dim); margin-top:12px; line-height:1.6; }
+  .foot-grid .col h4{ font-size:0.904rem; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin-bottom:14px; }
+  .foot-grid .col a, .foot-grid .col p{ display:block; font-size:0.972rem; color:var(--ink); opacity:.8; margin-bottom:8px; }
+  .foot-bottom{ margin-top:40px; padding-top:24px; border-top:1px solid var(--card-border); font-size:0.881rem; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+
+  /* ---------- chatbot bubble (visual placeholder for the AV Concierge) ---------- */
+  #chatBubble{
+    position:fixed; right:22px; bottom:22px; z-index:200;
+    display:flex; align-items:center; gap:8px;
+    padding:14px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    font-weight:700; font-size:0.96rem; box-shadow:0 14px 40px -12px var(--glow);
+    cursor:pointer;
+  }
+
+  [data-reveal]{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  [data-reveal].in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- film grain overlay ---------- */
+  .grain-overlay{
+    position:fixed; inset:0; z-index:999; pointer-events:none;
+    opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-repeat:repeat;
+  }
+
+  /* ---------- marquee strip ---------- */
+  .marquee{
+    border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);
+    background:var(--bg-1); overflow:hidden; padding:18px 0; position:relative;
+  }
+  .marquee-track{
+    display:flex; width:max-content; gap:48px;
+    animation:marqueeScroll 32s linear infinite;
+  }
+  .marquee-track span{
+    font-family:var(--font-display); font-weight:700; font-size:1.073rem;
+    letter-spacing:.04em; text-transform:uppercase; color:var(--dim);
+    display:flex; align-items:center; gap:48px; white-space:nowrap;
+  }
+  .marquee-track span::after{ content:'✦'; color:var(--a1); margin-left:48px; }
+  @keyframes marqueeScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  /* ---------- CO2 / particle burst ---------- */
+  .burst-particle{
+    position:fixed; top:0; left:0; width:6px; height:6px; border-radius:50%;
+    pointer-events:none; z-index:500; will-change:transform,opacity;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+    .marquee-track{ animation:none; }
+    .grain-overlay{ display:none; }
+  }
+</style>
+<style>
+  /* ========== LASER PAGE, page-specific additions ========== */
+
+  /* anchor jumps clear the sticky header */
+  section[id]{ scroll-margin-top:96px; }
+
+  /* interior-page hero: shorter than homepage, breadcrumb above H1 */
+  .hero.hero-page{ padding:64px 0 78px; }
+  .breadcrumb{
+    font-size:0.881rem; color:var(--dim); letter-spacing:.03em;
+    position:relative; z-index:1; margin-bottom:22px;
+  }
+  .breadcrumb a{ color:var(--dim); }
+  .breadcrumb a:hover{ color:var(--a1); }
+  .breadcrumb .sep{ opacity:.45; margin:0 8px; }
+  .breadcrumb .here{ color:var(--ink); opacity:.75; }
+
+  .hero-page h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.3rem, 5.2vw, 4rem); max-width:960px; position:relative; z-index:1;
+  }
+  .hero-page .sub{
+    font-size:1.12rem; color:var(--dim); max-width:660px; margin-top:24px;
+    position:relative; z-index:1;
+  }
+
+  /* -- laser fan: beams radiating from a fixture point, page-specific -- */
+  .laser-fan{
+    position:absolute; top:-40px; left:50%; width:0; height:0;
+    pointer-events:none; z-index:0;
+  }
+  .laser-fan .beam{
+    position:absolute; top:0; left:0; transform-origin:top center;
+    width:3px; height:150vh; border-radius:3px;
+    background:linear-gradient(to bottom, currentColor, transparent 78%);
+    opacity:.16; filter:blur(1px);
+    animation: fanSwing 11s ease-in-out infinite alternate;
+  }
+  .laser-fan .beam::after{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(to bottom, currentColor, transparent 30%);
+    filter:blur(7px); opacity:.7;
+  }
+  .laser-fan .beam:nth-child(1){ color:var(--a1); transform:rotate(-34deg); animation-delay:-1s; }
+  .laser-fan .beam:nth-child(2){ color:var(--a2); transform:rotate(-18deg); animation-delay:-3s; }
+  .laser-fan .beam:nth-child(3){ color:var(--a1); transform:rotate(-6deg);  animation-delay:-5s; }
+  .laser-fan .beam:nth-child(4){ color:var(--a3); transform:rotate(9deg);   animation-delay:-2s; }
+  .laser-fan .beam:nth-child(5){ color:var(--a2); transform:rotate(22deg);  animation-delay:-6s; }
+  .laser-fan .beam:nth-child(6){ color:var(--a1); transform:rotate(37deg);  animation-delay:-4s; }
+  @keyframes fanSwing{
+    from{ opacity:.10; }
+    50% { opacity:.26; }
+    to  { opacity:.13; }
+  }
+
+  /* -- power tier cards -- */
+  .tier-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:22px; }
+  .tier-card{
+    background:linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 55%, transparent), color-mix(in srgb, var(--bg-1) 45%, transparent));
+    backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:22px; padding:30px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 8px 30px -18px rgba(0,0,0,.6);
+    position:relative; overflow:hidden; transition:.25s;
+    display:flex; flex-direction:column;
+  }
+  .tier-card:hover{ transform:translateY(-4px); border-color:var(--a1); box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 22px 55px -22px var(--glow); }
+  .tier-card.featured{ border-color:var(--a2); }
+  .tier-card.featured::before{
+    content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--grad-hard);
+  }
+  .tier-watts{
+    font-family:var(--font-display); font-weight:900; font-size:2.6rem; line-height:1;
+    background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .tier-watts small{ font-size:1.13rem; font-weight:700; letter-spacing:.02em; }
+  .tier-name{ font-family:var(--font-display); font-weight:700; font-size:1.153rem; margin:12px 0 6px; }
+  .tier-cap{ font-size:0.949rem; color:var(--dim); margin-bottom:18px; }
+  .tier-meter{
+    display:flex; gap:4px; height:7px; margin-bottom:20px;
+  }
+  .tier-meter i{ flex:1; border-radius:2px; background:rgba(255,255,255,.07); }
+  .tier-meter i.on{ background:var(--a1); box-shadow:0 0 7px var(--a1); }
+  .tier-meter i.on.mid{ background:var(--a2); box-shadow:0 0 7px var(--a2); }
+  .tier-meter i.on.hot{ background:var(--a3); box-shadow:0 0 7px var(--a3); }
+  .tier-list{ list-style:none; margin:0 0 22px; padding:0; }
+  .tier-list li{
+    font-size:0.983rem; color:var(--dim); padding:7px 0 7px 20px; position:relative;
+    border-bottom:1px solid rgba(255,255,255,.04);
+  }
+  .tier-list li:last-child{ border-bottom:0; }
+  .tier-list li::before{
+    content:''; position:absolute; left:2px; top:14px; width:6px; height:6px; border-radius:50%;
+    background:var(--a1); box-shadow:0 0 6px var(--a1);
+  }
+  .tier-best{ font-size:0.904rem; color:var(--ink); opacity:.72; margin-top:auto; }
+  .tier-best b{ color:var(--a2); font-weight:700; }
+  .tag-live.tier-tag{ top:26px; right:26px; }
+
+  /* -- compliance / process steps -- */
+  .step-list{ counter-reset:step; display:grid; gap:14px; margin-top:26px; }
+  .step{
+    display:flex; gap:16px; align-items:flex-start;
+    background:color-mix(in srgb, var(--bg-2) 45%, transparent);
+    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    border:1px solid var(--card-border); border-radius:14px; padding:16px 18px;
+  }
+  .step .n{
+    flex:0 0 28px; height:28px; border-radius:8px; background:var(--grad); color:#0a0a0a;
+    font-family:var(--font-display); font-weight:800; font-size:0.927rem;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .step p{ font-size:0.994rem; color:var(--dim); margin:0; }
+  .step p b{ color:var(--ink); font-weight:600; }
+
+  .compliance-badge{
+    display:inline-flex; align-items:center; gap:10px; margin-bottom:20px;
+    border:1px solid var(--a1); border-radius:100px; padding:8px 18px;
+    font-size:0.859rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--a1); background:color-mix(in srgb, var(--a1) 10%, transparent);
+  }
+  .compliance-badge .pulse{
+    width:8px; height:8px; border-radius:50%; background:var(--a1);
+    box-shadow:0 0 10px var(--a1); animation:pulseDot 2s ease-in-out infinite;
+  }
+  @keyframes pulseDot{ 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
+
+  /* -- events grid -- */
+  .event-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:14px; }
+  .event-chip{
+    display:block; padding:22px 22px 20px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    backdrop-filter:blur(14px) saturate(130%); -webkit-backdrop-filter:blur(14px) saturate(130%);
+    border:1px solid var(--card-border); transition:.22s; position:relative; overflow:hidden;
+  }
+  .event-chip:hover{ border-color:var(--a1); transform:translateY(-3px); box-shadow:0 16px 40px -22px var(--glow); }
+  .event-chip .ico{ font-size:1.3rem; display:block; margin-bottom:12px; }
+  .event-chip h3{ font-family:var(--font-display); font-size:1.073rem; font-weight:700; margin-bottom:6px; }
+  .event-chip p{ font-size:0.927rem; color:var(--dim); }
+  .event-chip .go{ font-size:0.859rem; font-weight:700; color:var(--a1); margin-top:12px; display:block; }
+
+  /* -- pair-with strip -- */
+  .pair-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; }
+  .pair-card{
+    padding:24px; border-radius:18px; border:1px solid var(--card-border);
+    background:
+      radial-gradient(circle at 85% 10%, color-mix(in srgb, var(--glow) 55%, transparent), transparent 60%),
+      color-mix(in srgb, var(--bg-2) 45%, transparent);
+    backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+    transition:.22s;
+  }
+  .pair-card:hover{ border-color:var(--a2); transform:translateY(-3px); }
+  .pair-card h3{ font-family:var(--font-display); font-size:1.13rem; font-weight:700; margin-bottom:8px; }
+  .pair-card p{ font-size:0.96rem; color:var(--dim); margin-bottom:14px; }
+  .pair-card a.go{ font-size:0.893rem; font-weight:700; color:var(--a1); }
+
+  /* -- FAQ -- */
+  .faq-list{ display:grid; gap:12px; max-width:860px; }
+  .faq-item{
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--card-border); border-radius:16px; overflow:hidden;
+    transition:border-color .2s;
+  }
+  .faq-item[open]{ border-color:var(--a1); }
+  .faq-item summary{
+    cursor:pointer; list-style:none; padding:20px 24px;
+    font-family:var(--font-display); font-weight:700; font-size:1.085rem;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary::after{
+    content:'+'; font-size:1.3rem; color:var(--a1); font-weight:400; line-height:1;
+    transition:transform .22s; flex:0 0 auto;
+  }
+  .faq-item[open] summary::after{ transform:rotate(45deg); }
+  .faq-item .ans{ padding:0 24px 22px; font-size:1.017rem; color:var(--dim); line-height:1.7; }
+
+  /* -- service-area line -- */
+  .area-line{
+    margin-top:34px; padding-top:26px; border-top:1px solid var(--card-border);
+    font-size:0.972rem; color:var(--dim); line-height:1.8;
+  }
+  .area-line b{ color:var(--ink); font-weight:600; }
+
+  @media (max-width:820px){
+    .hero.hero-page{ padding:44px 0 60px; }
+    .step{ padding:14px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .laser-fan .beam, .compliance-badge .pulse{ animation:none !important; }
+  }
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "name": "Laser Light Show Rental",
+      "serviceType": "Laser light show rental and operation",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "Dallas Event Audio",
+        "telephone": "+1-817-210-7957",
+        "email": "info@dallaseventaudio.com",
+        "areaServed": "Dallas\u2013Fort Worth Metroplex"
+      },
+      "areaServed": [
+        "Dallas","Fort Worth","Plano","Frisco","Arlington","Irving","McKinney","Denton"
+      ],
+      "description": "Professional RGB laser light show rentals in Dallas\u2013Fort Worth. Indoor and outdoor systems in 5W, 10W and 40W tiers, operated on-site by an FDA-variance holder."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type":"Question","name":"Do I need a permit for a laser light show?","acceptedAnswer":{"@type":"Answer","text":"Laser light shows require an FDA/CDRH variance to operate legally in the United States. You do not need to obtain one yourself \u2014 Dallas Event Audio holds the variance and handles compliance as part of the booking."}},
+        {"@type":"Question","name":"Can laser light shows be used outdoors?","acceptedAnswer":{"@type":"Answer","text":"Yes. Our 40W systems are designed for festivals and large outdoor venues. Outdoor shows also require airspace coordination, which we handle ahead of the event date."}},
+        {"@type":"Question","name":"Is a laser light show safe for guests?","acceptedAnswer":{"@type":"Answer","text":"Yes, when operated by a trained technician with properly rated equipment, which is why we staff every laser rental with our own operator. Beam paths and audience scanning zones are planned before the event."}},
+        {"@type":"Question","name":"What is the difference between 5W, 10W, and 40W lasers?","acceptedAnswer":{"@type":"Answer","text":"Power determines brightness, beam visibility and how much space the show can cover. 5W suits indoor rooms up to about 200 guests, 10W handles receptions and galas up to roughly 1,000 guests, and 40W is for large venues and outdoor productions."}},
+        {"@type":"Question","name":"Do you deliver and set up the laser show?","acceptedAnswer":{"@type":"Answer","text":"We deliver, set up, run and strike everything ourselves. There is no customer pickup or self-service on laser rentals \u2014 an on-site technician is included with every laser booking."}}
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+  <div id="paletteBar">
+    <span>Palette preview</span>
+    <button data-p="signal" class="active">A · Signal Chain</button>
+    <button data-p="amber">B · Stage Black &amp; Amber</button>
+    <button data-p="night">C · DFW Night Rig</button>
+  </div>
+
+  <header>
+    <nav>
+      <a class="logo" href="/" style="text-decoration:none;"><div class="dial"></div>DEA</a>
+      <div class="navlinks">
+        <a href="/services-lighting">Lighting</a>
+        <a href="/services-audio">Audio</a>
+        <a href="/our-work">Our Work</a>
+        <a href="/what-others-are-saying">Reviews</a>
+        <a href="/contact">Contact</a>
+      </div>
+      <div class="navright">
+        <span class="phone">817-210-7957</span>
+        <a class="cta-btn" href="/contact">Get a Quote</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero hero-page">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="laser-fan" aria-hidden="true">
+      <span class="beam"></span><span class="beam"></span><span class="beam"></span>
+      <span class="beam"></span><span class="beam"></span><span class="beam"></span>
+    </div>
+    <div class="hero-lasers" aria-hidden="true">
+      <span class="laser"></span><span class="laser"></span>
+      <span class="laser"></span><span class="laser"></span>
+    </div>
+    <div class="hero-fog" aria-hidden="true">
+      <span class="fog-blob"></span>
+      <span class="fog-blob b2"></span>
+    </div>
+    <div class="wrap">
+      <div class="breadcrumb" data-reveal>
+        <a href="/">Home</a><span class="sep">/</span><a href="/services-lighting">Lighting</a><span class="sep">/</span><span class="here">Laser Light Show Rental</span>
+      </div>
+      <div data-reveal>
+        <div class="compliance-badge"><span class="pulse"></span> FDA Variance Holder · Operator Included</div>
+      </div>
+      <h1 data-reveal>Laser Light Show <span class="grad-text">Rental</span> in Dallas-Fort Worth</h1>
+      <p class="sub" data-reveal>Professional RGB laser systems, sized to your venue and your audience, with a technician on-site to run the show from setup to strike. Not a box on a stand. An actual show.</p>
+      <div class="hero-ctas" data-reveal>
+        <a class="btn-primary" href="/contact">Get Your Laser Quote</a>
+        <a class="btn-secondary" href="#tiers">Compare Power Tiers</a>
+      </div>
+      <div class="trust-row" data-reveal>
+        <div class="trust-item"><div class="num">FDA</div><div class="label">Variance Compliant</div></div>
+        <div class="trust-item"><div class="num">3</div><div class="label">Power Tiers Available</div></div>
+        <div class="trust-item"><div class="num">100%</div><div class="label">Staffed by Our Operator</div></div>
+        <div class="trust-item"><div class="num">2001</div><div class="label">Serving DFW Since</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>FDA Variance Compliant · Beam Path Planning · Audience Scanning Zones · Staffed Operator · Indoor &amp; Outdoor · Insured</span>
+      <span>FDA Variance Compliant · Beam Path Planning · Audience Scanning Zones · Staffed Operator · Indoor &amp; Outdoor · Insured</span>
+    </div>
+  </div>
+
+  <!-- ---------- intro / positioning ---------- -->
+  <section class="section" id="intro">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">Dallas' Laser Light Show Company</span>
+        <h2>Licensed, local, and sized to your room, not oversold.</h2>
+        <p>Most laser quotes hand you one system and hope it fits. We run multiple laser power tiers so you're not overpaying for more laser than your venue needs, and so a 150-guest ballroom doesn't get the same rig as an outdoor festival stage. We look at the room first, then tell you what it actually takes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- power tiers ---------- -->
+  <section class="section" id="tiers" style="padding-top:0;">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="kicker">Choose Your Output</span>
+        <h2>Three power tiers, one operator standard.</h2>
+        <p>Wattage determines brightness, how far the beams stay visible, and how much space the show can fill. Every tier ships with our technician. That part never changes.</p>
+      </div>
+
+      <div class="tier-grid">
+        <div class="tier-card" data-reveal>
+          <div class="tier-watts">5<small>W</small></div>
+          <div class="tier-name">Small Events &amp; Indoor Venues</div>
+          <div class="tier-cap">Up to approximately 200 guests</div>
+          <div class="tier-meter" aria-hidden="true">
+            <i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          </div>
+          <ul class="tier-list">
+            <li>Beam effects and liquid sky washes</li>
+            <li>Music-synced patterns timed to your set</li>
+            <li>Clean fit for lower ceilings and tighter rooms</li>
+          </ul>
+          <div class="tier-best"><b>Best for:</b> weddings, birthdays, quinceañeras, corporate mixers</div>
+        </div>
+
+        <div class="tier-card featured" data-reveal>
+          <span class="tag-live tier-tag">Most Booked</span>
+          <div class="tier-watts">10<small>W</small></div>
+          <div class="tier-name">Medium Events</div>
+          <div class="tier-cap">Up to approximately 1,000 guests</div>
+          <div class="tier-meter" aria-hidden="true">
+            <i class="on"></i><i class="on"></i><i class="on mid"></i><i class="on mid"></i><i class="on mid"></i><i></i><i></i><i></i>
+          </div>
+          <ul class="tier-list">
+            <li>Aerial tunnels and overhead beam canopies</li>
+            <li>Multi-laser choreography across the room</li>
+            <li>Enough output to hold up against stage wash</li>
+          </ul>
+          <div class="tier-best"><b>Best for:</b> receptions, corporate galas, proms, festivals</div>
+        </div>
+
+        <div class="tier-card" data-reveal>
+          <div class="tier-watts">40<small>W</small></div>
+          <div class="tier-name">Large &amp; Outdoor Shows</div>
+          <div class="tier-cap">Large venues and outdoor productions</div>
+          <div class="tier-meter" aria-hidden="true">
+            <i class="on"></i><i class="on"></i><i class="on mid"></i><i class="on mid"></i><i class="on mid"></i><i class="on hot"></i><i class="on hot"></i><i class="on hot"></i>
+          </div>
+          <ul class="tier-list">
+            <li>High-output systems built for open air</li>
+            <li>Large-scale aerial effects with no fallout or debris</li>
+            <li>A real alternative to conventional fireworks</li>
+          </ul>
+          <div class="tier-best"><b>Best for:</b> festivals, concerts, large outdoor productions</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- compliance ---------- -->
+  <section class="section diff" id="compliance">
+    <div class="wrap">
+      <div class="diff-grid">
+        <div class="diff-copy" data-reveal>
+          <span class="kicker">The Part Most People Skip</span>
+          <h2>Licensed, insured, and FDA variance compliant.</h2>
+          <p>Laser light shows are regulated. Every Dallas Event Audio laser show is operated by an <strong>approved FDA-variance holder</strong>. That isn't a checkbox on our website, it's the reason we can legally put beams over a crowd in the first place.</p>
+          <p>Before a single beam goes up, we work through the same review every time:</p>
+          <div class="step-list">
+            <div class="step"><div class="n">1</div><p><b>Venue review</b>, ceiling height, rigging points, sightlines, and where the beams can safely live.</p></div>
+            <div class="step"><div class="n">2</div><p><b>Audience area assessment</b>, mapping exactly where guests will be standing, sitting, and moving all night.</p></div>
+            <div class="step"><div class="n">3</div><p><b>Beam path planning</b>, scan zones and termination points set so the show stays well clear of eye level.</p></div>
+            <div class="step"><div class="n">4</div><p><b>Airspace coordination</b>, required for outdoor shows, handled by us before your event date.</p></div>
+          </div>
+        </div>
+        <div class="diff-visual" data-reveal>
+          <div class="badge">
+            [ real laser show photo/video<br>goes here, graded<br>to match this palette ]
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- events ---------- -->
+  <section class="section" id="events">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="kicker">Events We Light Up</span>
+        <h2>Where a laser show actually earns its place.</h2>
+        <p>Lasers aren't right for every moment of every event, they're right for the moment everyone remembers. Here's where we're asked for them most.</p>
+      </div>
+      <div class="event-grid">
+        <a class="event-chip" href="/weddings" data-reveal>
+          <span class="ico">💍</span>
+          <h3>Weddings &amp; Receptions</h3>
+          <p>Held back through dinner, then dropped the second the dance floor opens.</p>
+          <span class="go">Wedding production →</span>
+        </a>
+        <a class="event-chip" href="/corporate-events" data-reveal>
+          <span class="ico">🏢</span>
+          <h3>Corporate &amp; Product Launches</h3>
+          <p>A reveal moment with real production value, timed to your run of show.</p>
+          <span class="go">Corporate events →</span>
+        </a>
+        <a class="event-chip" href="/live-music-and-band-events" data-reveal>
+          <span class="ico">🎤</span>
+          <h3>Concerts &amp; Festivals</h3>
+          <p>Beam work that reads from the back of the field, not just the front row.</p>
+          <span class="go">Live music &amp; bands →</span>
+        </a>
+        <a class="event-chip" href="/private-events" data-reveal>
+          <span class="ico">🎉</span>
+          <h3>Private Parties</h3>
+          <p>Backyards, venues, warehouses, sized to whatever space you've got.</p>
+          <span class="go">Private events →</span>
+        </a>
+        <a class="event-chip" href="/rave-and-night-club-events" data-reveal>
+          <span class="ico">🔊</span>
+          <h3>Rave &amp; Nightclub</h3>
+          <p>Full aerial choreography synced to the set, run live all night.</p>
+          <span class="go">Rave &amp; club events →</span>
+        </a>
+        <a class="event-chip" href="/celebrity-and-luxury-events" data-reveal>
+          <span class="ico">✨</span>
+          <h3>Galas &amp; Luxury Events</h3>
+          <p>Restrained, elegant beam work, impressive without overwhelming the room.</p>
+          <span class="go">Celebrity &amp; luxury →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- pair with ---------- -->
+  <section class="section" id="pair" style="background:var(--bg-1); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="kicker">Pairs Well With</span>
+        <h2>What makes the beams actually show up.</h2>
+        <p>Lasers need something in the air to be seen. These are the add-ons we recommend most often alongside a laser show.</p>
+      </div>
+      <div class="pair-grid">
+        <div class="pair-card" data-reveal>
+          <h3>Haze &amp; Atmospheric Effects</h3>
+          <p>Beams are invisible in clean air. A light haze is what turns them into the tunnels and canopies you're picturing, it's the single biggest factor in how a laser show photographs.</p>
+          <a class="go" href="/services-lighting">See lighting services →</a>
+        </div>
+        <div class="pair-card" data-reveal>
+          <h3>Custom Monogram Projection</h3>
+          <p>Your names, logo, or date projected on the floor or wall, a quieter effect that plays well during the parts of the night lasers sit out.</p>
+          <a class="go" href="/monogram-projector">Monogram projector →</a>
+        </div>
+        <div class="pair-card" data-reveal>
+          <h3>Dancing on the Clouds</h3>
+          <p>Low-lying fog for the first dance. Different effect, different moment, but the two together give you a night with real range instead of one trick.</p>
+          <a class="go" href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds →</a>
+        </div>
+        <div class="pair-card" data-reveal>
+          <h3>Uplighting</h3>
+          <p>Wireless RGBAW-UV uplighting sets the room's base color so the lasers have something to cut through, matched to your linens, florals, or brand colors.</p>
+          <a class="go" href="/rent-uplighting">Uplighting rental →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- FAQ ---------- -->
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="kicker">Common Questions</span>
+        <h2>Laser show questions, answered straight.</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" data-reveal open>
+          <summary>Do I need a permit for a laser light show?</summary>
+          <div class="ans">Laser light shows require an FDA/CDRH variance to operate legally in the United States. You don't need to obtain one yourself. We hold the variance and handle the compliance side as part of the booking, including the paperwork your venue may ask for.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Can laser light shows be used outdoors?</summary>
+          <div class="ans">Yes. Our 40W systems are designed specifically for festivals and large outdoor venues. Outdoor shows add one step, airspace coordination, which we take care of ahead of your event date.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Is a laser light show safe for guests?</summary>
+          <div class="ans">Yes, when operated by a trained technician with properly rated equipment, which is exactly why we staff every laser rental with our own operator. Beam paths and audience scanning zones are planned before the event, not improvised during it.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>What's the difference between 5W, 10W, and 40W lasers?</summary>
+          <div class="ans">Power determines brightness, how far the beams stay visible, and how much space the show can cover. A 5W system is right for an indoor room of around 200 guests; 10W handles most receptions and galas up to roughly 1,000; 40W is for large venues and open-air productions where the beams have to travel.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do you deliver and set up, or do I pick the equipment up?</summary>
+          <div class="ans">We deliver, set up, run, and strike everything ourselves. There's no customer pickup and no self-service on laser rentals, an on-site technician is part of every laser booking, both for safety and because the show is programmed and run live.</div>
+        </details>
+      </div>
+
+      <div class="area-line" data-reveal>
+        <b>Service area:</b> Dallas, Fort Worth, Plano, Frisco, Arlington, Irving, McKinney, Denton, and the surrounding DFW metro. Not sure if you're in range? <a href="/contact" style="color:var(--a1); font-weight:600;">Ask us</a>. We travel for the right event.
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- final CTA ---------- -->
+  <section class="final-cta" id="contact">
+    <div class="wrap">
+      <h2 data-reveal>Tell us the venue. We'll tell you the <span class="grad-text">right laser.</span></h2>
+      <p data-reveal>Send us your date, your room, and roughly how many guests, we'll come back with the tier that fits and a straightforward quote. No spam, no pressure.</p>
+      <div data-reveal style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+        <a class="btn-primary" href="/contact">Get Your Laser Quote</a>
+        <a class="btn-secondary" href="tel:8172107957">Call 817-210-7957</a>
+      </div>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="col brand">
+          <div class="logo"><div class="dial"></div>DEA</div>
+          <p style="margin-top:14px; max-width:250px;">Full-service AV production for Dallas-Fort Worth since 2001. Delivered, set up, and run by our on-site technician.</p>
+          <div class="foot-contact">
+            <a href="tel:8172107957">817-210-7957</a>
+            <a href="mailto:info@dallaseventaudio.com">info@dallaseventaudio.com</a>
+          </div>
+          <p class="foot-area">Serving Dallas, Fort Worth, Southlake, Arlington, Frisco, McKinney, Richardson &amp; the wider Metroplex.</p>
+        </div>
+        <div class="col">
+          <h4>Events</h4>
+          <a href="/weddings">Weddings</a>
+          <a href="/corporate-events">Corporate Events</a>
+          <a href="/private-events">Private Events</a>
+          <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+          <a href="/college-school-university-events">College &amp; University</a>
+          <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+          <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+        </div>
+        <div class="col">
+          <h4>Services</h4>
+          <a href="/services-dj">DJ Services</a>
+          <a href="/services-audio">Audio Services</a>
+          <a href="/services-lighting">Lighting Services</a>
+          <a href="/services-photo-and-video">Photo &amp; Video</a>
+          <a href="/services-extra">Extra Services</a>
+        </div>
+        <div class="col">
+          <h4>Audio Rentals</h4>
+          <a href="/rent-sound-equipment">Sound Equipment</a>
+          <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+          <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+          <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+          <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+          <a href="/live-streaming-services">Live Streaming</a>
+        </div>
+        <div class="col">
+          <h4>Lighting &amp; FX</h4>
+          <a href="/rent-uplighting">Uplighting</a>
+          <a href="/rent-laser-light-show">Laser Light Show</a>
+          <a href="/rent-follow-spot-light">Follow Spot</a>
+          <a href="/monogram-projector">Monogram Projector</a>
+          <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+          <a href="/projector-screen-rental">Projector &amp; Screen</a>
+        </div>
+        <div class="col">
+          <h4>Company</h4>
+          <a href="/our-story">Our Story</a>
+          <a href="/our-work">Our Work</a>
+          <a href="/equipment-list">Equipment List</a>
+          <a href="/what-others-are-saying">Reviews</a>
+          <a href="/blog">Blog</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div class="foot-proof">
+        <a class="fp" href="https://www.google.com/maps?cid=11213015373496621898" target="_blank" rel="noopener"><span class="m g">G</span> <b>4.9</b> <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span> &middot; 41 Google reviews</a>
+        <a class="fp" href="https://www.yelp.com/biz/dallas-event-audio-dallas" target="_blank" rel="noopener"><span class="m y">Y</span> <b>Yelp</b> &middot; 13 reviews &middot; 134 photos</a>
+      </div>
+      <div class="foot-bottom">
+        <span>&copy; 2026 Dallas Event Audio. Fully insured, on-site AV production.</span>
+        <span>Service page draft, laser light show</span>
+      </div>
+    </div>
+  </footer>
+
+  <div id="chatBubble">✦ AV Concierge</div>
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+<script>
+  // Palette switcher, review tool only
+  document.querySelectorAll('#paletteBar button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.documentElement.setAttribute('data-palette', btn.dataset.p);
+      document.querySelectorAll('#paletteBar button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // Scroll reveal
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.15});
+    document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el=>el.classList.add('in'));
+  }
+
+  // CO2 / particle burst on primary CTA click
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function burst(x, y){
+    if(reduceMotion) return;
+    const colors = ['var(--a1)','var(--a2)','var(--a3)','#ffffff'];
+    const count = 26;
+    for(let i=0;i<count;i++){
+      const p = document.createElement('span');
+      p.className = 'burst-particle';
+      const angle = (Math.PI * 2 * i) / count + Math.random()*0.4;
+      const dist = 60 + Math.random()*140;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist - 40;
+      const size = 4 + Math.random()*6;
+      p.style.width = p.style.height = size + 'px';
+      p.style.background = colors[i % colors.length];
+      p.style.boxShadow = '0 0 8px ' + colors[i % colors.length];
+      p.style.left = x + 'px';
+      p.style.top = y + 'px';
+      document.body.appendChild(p);
+      const anim = p.animate([
+        { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
+        { transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.3)`, opacity:0 }
+      ], { duration:700 + Math.random()*400, easing:'cubic-bezier(.2,.7,.3,1)' });
+      anim.onfinish = () => p.remove();
+    }
+  }
+  document.querySelectorAll('.btn-primary').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      burst(e.clientX, e.clientY);
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="signal">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font-display:'Unbounded',sans-serif;
+    --font-body:'Space Grotesk',sans-serif;
+  }
+
+  /* ============ PALETTE A: Signal Chain (true DJ mixer peak-meter LEDs: green / yellow / red) ============ */
+  html[data-palette="signal"]{
+    --bg-0:#050706; --bg-1:#0a0f0c; --bg-2:#0e1512;
+    --ink:#f4f7f5; --dim:#b4c5ba;
+    --a1:#31ff6e; /* LED green */
+    --a2:#fff21c; /* LED yellow */
+    --a3:#ff1f3d; /* LED red */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 55%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(255,255,255,.08);
+    --glow: rgba(49,255,110,.35);
+  }
+  /* ============ PALETTE B: Stage Black and Amber (warm, premium, ties to existing chat widget gold) ============ */
+  html[data-palette="amber"]{
+    --bg-0:#070605; --bg-1:#0d0a06; --bg-2:#120e08;
+    --ink:#f8f3ea; --dim:#c3b7a5;
+    --a1:#e8b75c; /* gold */
+    --a2:#ffdfa0; /* warm white/spot */
+    --a3:#4fa3ff; /* cool counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 50%, var(--a2) 50%, var(--a2) 100%);
+    --card-border: rgba(232,183,92,.16);
+    --glow: rgba(232,183,92,.32);
+  }
+  /* ============ PALETTE C: DFW Night Rig (cool stage-lighting energy, distinct from EDM Wedding DJ's magenta) ============ */
+  html[data-palette="night"]{
+    --bg-0:#05060b; --bg-1:#090b16; --bg-2:#0c0f1e;
+    --ink:#f1f3fb; --dim:#aeb5cf;
+    --a1:#2f6fff; /* electric blue */
+    --a2:#8b5cf6; /* violet */
+    --a3:#ffb020; /* amber counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 65%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(139,92,246,.16);
+    --glow: rgba(47,111,255,.35);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-0);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  .grad-text{
+    background:var(--grad);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  /* ---------- palette switcher (review tool only, not part of the shipped site) ---------- */
+  #paletteBar{
+    position:fixed; top:0; left:0; right:0; z-index:999;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    padding:10px; background:#000; border-bottom:1px solid rgba(255,255,255,.12);
+    font-family:var(--font-body); font-size:0.881rem;
+  }
+  #paletteBar span{color:#8a8a8a; margin-right:4px;}
+  #paletteBar button{
+    font-family:var(--font-body); font-size:0.881rem; font-weight:600;
+    padding:7px 14px; border-radius:100px; border:1px solid rgba(255,255,255,.18);
+    background:rgba(255,255,255,.04); color:#eee; cursor:pointer; transition:.2s;
+  }
+  #paletteBar button.active{ background:#fff; color:#000; border-color:#fff; }
+  #paletteBar button:hover{ border-color:#fff; }
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky; top:40px; z-index:100;
+    background:rgba(5,6,5,.7); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--card-border);
+  }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1180px; margin:0 auto; }
+  .logo{ display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:900; font-size:1.15rem; letter-spacing:.02em; }
+  .logo .dial{ width:26px; height:26px; border-radius:50%; position:relative; background:conic-gradient(var(--a1) 0 26%, var(--a2) 26% 52%, var(--a3) 52% 78%, transparent 78%); }
+  .logo .dial::after{ content:''; position:absolute; inset:4px; border-radius:50%; background:var(--bg-0); }
+  .navlinks{ display:flex; gap:28px; font-size:0.994rem; color:var(--dim); }
+  .navlinks a:hover{ color:var(--ink); }
+  .navright{ display:flex; align-items:center; gap:18px; }
+  .phone{ font-size:0.96rem; color:var(--dim); }
+  .cta-btn{
+    font-family:var(--font-body); font-weight:700; font-size:0.96rem;
+    padding:11px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    display:inline-block; white-space:nowrap;
+  }
+  @media (max-width:860px){ .navlinks{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{ position:relative; padding:110px 0 90px; overflow:hidden; }
+  .hero::before{
+    content:''; position:absolute; inset:-20% -10% auto -10%; height:600px;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    opacity:.5; filter:blur(40px); pointer-events:none;
+  }
+
+  /* -- animated perspective floor grid -- */
+  .hero-grid{
+    position:absolute; left:0; right:0; bottom:-10%; height:70%;
+    perspective:400px; overflow:hidden; pointer-events:none; z-index:0;
+  }
+  .hero-grid::before{
+    content:''; position:absolute; inset:-50% -50% 0 -50%;
+    background-image:
+      repeating-linear-gradient(to right, var(--card-border) 0 1px, transparent 1px 68px),
+      repeating-linear-gradient(to top, var(--card-border) 0 1px, transparent 1px 68px);
+    transform:rotateX(62deg);
+    transform-origin:bottom;
+    animation: gridScroll 9s linear infinite;
+    opacity:.55;
+    mask-image:linear-gradient(to top, black 0%, transparent 75%);
+    -webkit-mask-image:linear-gradient(to top, black 0%, transparent 75%);
+  }
+  @keyframes gridScroll{ from{ background-position:0 0; } to{ background-position:0 136px; } }
+
+  /* -- sweeping laser beams -- */
+  .hero-lasers{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .laser{
+    position:absolute; top:-10%; width:2px; height:130%;
+    background:linear-gradient(to bottom, transparent, var(--a1), transparent);
+    opacity:0; filter:blur(.5px);
+    animation: laserSweep 6s ease-in-out infinite;
+  }
+  .laser:nth-child(1){ left:8%;  background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:0s; }
+  .laser:nth-child(2){ left:32%; background:linear-gradient(to bottom, transparent, var(--a2), transparent); animation-delay:1.6s; transform:rotate(6deg); }
+  .laser:nth-child(3){ left:63%; background:linear-gradient(to bottom, transparent, var(--a3), transparent); animation-delay:3.1s; transform:rotate(-8deg); }
+  .laser:nth-child(4){ left:85%; background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:4.3s; transform:rotate(4deg); }
+  @keyframes laserSweep{
+    0%{ opacity:0; transform:translateX(-10px) rotate(var(--rot,0deg)); }
+    8%{ opacity:.55; }
+    20%{ opacity:0; }
+    100%{ opacity:0; }
+  }
+
+  /* -- drifting fog -- */
+  .hero-fog{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .fog-blob{
+    position:absolute; width:60%; padding-top:60%; border-radius:50%;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    filter:blur(50px); opacity:.4;
+    animation: fogDrift 18s ease-in-out infinite alternate;
+  }
+  .fog-blob.b2{ left:50%; top:20%; animation-duration:24s; animation-delay:-6s; opacity:.28; }
+  @keyframes fogDrift{
+    from{ transform:translate(-8%, 0) scale(1); }
+    to{ transform:translate(8%, 6%) scale(1.15); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-grid::before, .laser, .fog-blob{ animation:none !important; }
+    .laser{ opacity:0; }
+  }
+
+  .hero-logo-wrap{ text-align:center; position:relative; z-index:1; margin-bottom:40px; }
+  .hero-logo-wrap img{
+    width:min(440px, 78vw); height:auto;
+    filter:drop-shadow(0 0 60px var(--glow));
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--card-border); border-radius:100px; padding:7px 16px;
+    font-size:0.881rem; color:var(--dim); letter-spacing:.04em; text-transform:uppercase;
+    margin-bottom:28px; position:relative; z-index:1;
+  }
+  .eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--a1); box-shadow:0 0 8px var(--a1); }
+  .hero h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.6rem, 6vw, 4.6rem); max-width:900px; position:relative; z-index:1;
+  }
+  .hero p.sub{
+    font-size:1.15rem; color:var(--dim); max-width:600px; margin-top:26px; position:relative; z-index:1;
+  }
+  .hero-ctas{ display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; position:relative; z-index:1; }
+  .btn-primary{
+    font-weight:700; padding:16px 30px; border-radius:100px; background:var(--grad); color:#0a0a0a; font-size:1.073rem;
+  }
+  .btn-secondary{
+    font-weight:600; padding:16px 30px; border-radius:100px; border:1px solid var(--card-border); color:var(--ink); font-size:1.073rem;
+  }
+  .trust-row{
+    display:flex; gap:40px; flex-wrap:wrap; margin-top:64px; padding-top:34px;
+    border-top:1px solid var(--card-border); position:relative; z-index:1;
+  }
+  .trust-item .num{ font-family:var(--font-display); font-weight:800; font-size:1.6rem; }
+  .trust-item .label{ font-size:0.904rem; color:var(--dim); margin-top:4px; }
+
+  /* ---------- services ---------- */
+  .section{ padding:90px 0; }
+  .section-head{ max-width:640px; margin-bottom:52px; }
+  .kicker{ font-size:0.881rem; letter-spacing:.08em; text-transform:uppercase; color:var(--a1); font-weight:700; margin-bottom:14px; display:block; }
+  .section-head h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.8rem,3.4vw,2.6rem); }
+  .section-head p{ color:var(--dim); margin-top:14px; font-size:1.153rem; }
+
+  .service-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; }
+  .service-card{
+    background:linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 55%, transparent), color-mix(in srgb, var(--bg-1) 45%, transparent));
+    backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:20px; padding:28px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 8px 30px -18px rgba(0,0,0,.6);
+    transition:.25s; position:relative; overflow:hidden;
+  }
+  .service-card:hover{ transform:translateY(-4px); border-color:var(--a1); box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 20px 50px -20px var(--glow); }
+  .service-card .icon{
+    width:44px; height:44px; border-radius:12px; margin-bottom:20px;
+    background:var(--grad); display:flex; align-items:center; justify-content:center;
+    font-size:1.2rem;
+  }
+  .service-card h3{ font-family:var(--font-display); font-size:1.186rem; font-weight:700; margin-bottom:10px; }
+  .service-card p{ font-size:0.994rem; color:var(--dim); margin-bottom:18px; }
+  .service-card .learn{ font-size:0.904rem; font-weight:700; color:var(--a1); }
+  .service-card.featured{ border-color:var(--a2); }
+  .tag-live{ position:absolute; top:20px; right:20px; font-size:0.82rem; text-transform:uppercase; letter-spacing:.06em; color:var(--a2); border:1px solid var(--a2); padding:3px 8px; border-radius:100px; }
+
+  /* ---------- differentiator ---------- */
+  .diff{ background:var(--bg-1); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border); }
+  .diff-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+  .diff-visual{
+    aspect-ratio:4/3; border-radius:24px; border:1px solid var(--card-border);
+    background:
+      radial-gradient(circle at 30% 20%, var(--glow), transparent 55%),
+      linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 50%, transparent), color-mix(in srgb, var(--bg-0) 40%, transparent));
+    backdrop-filter:blur(22px) saturate(150%); -webkit-backdrop-filter:blur(22px) saturate(150%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 20px 60px -30px rgba(0,0,0,.7);
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .diff-visual .badge{
+    font-family:var(--font-display); font-weight:800; text-align:center; font-size:1.073rem; color:var(--dim);
+    border:1px dashed var(--card-border); padding:20px; border-radius:16px;
+  }
+  .diff-copy h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.7rem,3vw,2.3rem); margin-bottom:20px; }
+  .diff-copy p{ color:var(--dim); margin-bottom:16px; font-size:1.13rem; }
+  .diff-copy strong{ color:var(--ink); }
+  @media (max-width:820px){ .diff-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- reviews ---------- */
+  .review-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
+  .review-card{
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:18px; padding:26px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -20px rgba(0,0,0,.6);
+  }
+  .stars{ color:var(--a2); letter-spacing:2px; margin-bottom:14px; font-size:1.017rem; }
+  .review-card p{ font-size:1.04rem; color:var(--ink); opacity:.9; margin-bottom:16px; }
+  .review-card .who{ font-size:0.904rem; color:var(--dim); font-weight:600; }
+
+  /* ---------- review proof badges ---------- */
+  .proof-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:16px; margin-bottom:36px; }
+  .proof-badge{
+    display:flex; align-items:center; gap:14px; padding:18px 20px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -22px rgba(0,0,0,.6);
+    transition:.22s;
+  }
+  .proof-badge:hover{ border-color:var(--a1); transform:translateY(-3px); box-shadow:0 16px 42px -24px var(--glow); }
+  .proof-mark{
+    flex:0 0 42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:1.2rem; letter-spacing:-.02em;
+  }
+  .proof-mark.g{ background:#ffffff; color:#4285f4; }
+  .proof-mark.y{ background:#d32323; color:#ffffff; }
+  .proof-mark.k{ background:#ffffff; color:#0f9aa0; }
+  .proof-mark.w{ background:#ffffff; color:#16181d; font-size:.98rem; }
+  .proof-meta .rate{
+    font-family:var(--font-display); font-weight:800; font-size:1.22rem; line-height:1.15;
+    display:flex; align-items:baseline; gap:9px;
+  }
+  .proof-meta .rate .s{ color:var(--a2); font-size:.92rem; letter-spacing:1px; font-weight:400; }
+  .proof-meta .cnt{ font-size:.92rem; color:var(--dim); margin-top:2px; }
+  .proof-badge.tbd{ border-style:dashed; border-color:var(--a2); }
+  .proof-badge.tbd .rate{ color:var(--a2); }
+  .proof-badge.tbd .cnt{ color:var(--a2); opacity:.8; }
+
+  /* compact sitewide footer strip */
+  .foot-proof{
+    display:flex; flex-wrap:wrap; align-items:center; gap:12px 26px;
+    margin-top:32px; padding-top:26px; border-top:1px solid var(--card-border);
+  }
+  .foot-proof .fp{ display:inline-flex; align-items:center; gap:9px; font-size:.94rem; color:var(--dim); }
+  .foot-proof .fp:hover{ color:var(--ink); }
+  .foot-proof .fp b{ color:var(--ink); font-weight:700; }
+  .foot-proof .fp .s{ color:var(--a2); letter-spacing:1px; }
+  .foot-proof .fp .m{
+    width:24px; height:24px; border-radius:7px; display:inline-flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:.76rem;
+  }
+  .foot-proof .fp .m.g{ background:#ffffff; color:#4285f4; }
+  .foot-proof .fp .m.y{ background:#d32323; color:#ffffff; }
+  .foot-proof .fp .m.k{ background:#ffffff; color:#0f9aa0; }
+  .foot-proof .fp .m.w{ background:#ffffff; color:#16181d; font-size:.62rem; }
+  @media (max-width:820px){ .foot-proof{ gap:12px 18px; } }
+
+  /* ---------- final CTA ---------- */
+  .final-cta{ text-align:center; padding:110px 0; position:relative; }
+  .final-cta h2{ font-family:var(--font-display); font-weight:900; font-size:clamp(2rem,5vw,3.2rem); max-width:760px; margin:0 auto 22px; }
+  .final-cta p{ color:var(--dim); max-width:520px; margin:0 auto 36px; }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:1px solid var(--card-border); padding:50px 0; }
+  .foot-grid{ display:grid; grid-template-columns:1.6fr repeat(5,1fr); gap:34px 26px; }
+  @media (max-width:1080px){ .foot-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:620px){ .foot-grid{ grid-template-columns:repeat(2,1fr); } }
+  .foot-grid .col.brand{ min-width:210px; }
+  @media (max-width:1080px){ .foot-grid .col.brand{ grid-column:1 / -1; } }
+  .foot-contact{ margin-top:16px; }
+  .foot-contact a{ display:block; margin-bottom:6px; font-size:1rem; color:var(--ink); opacity:.9; }
+  .foot-contact a:hover{ color:var(--a1); opacity:1; }
+  .foot-area{ font-size:.9rem; color:var(--dim); margin-top:12px; line-height:1.6; }
+  .foot-grid .col h4{ font-size:0.904rem; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin-bottom:14px; }
+  .foot-grid .col a, .foot-grid .col p{ display:block; font-size:0.972rem; color:var(--ink); opacity:.8; margin-bottom:8px; }
+  .foot-bottom{ margin-top:40px; padding-top:24px; border-top:1px solid var(--card-border); font-size:0.881rem; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+
+  /* ---------- chatbot bubble (visual placeholder for the AV Concierge) ---------- */
+  #chatBubble{
+    position:fixed; right:22px; bottom:22px; z-index:200;
+    display:flex; align-items:center; gap:8px;
+    padding:14px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    font-weight:700; font-size:0.96rem; box-shadow:0 14px 40px -12px var(--glow);
+    cursor:pointer;
+  }
+
+  [data-reveal]{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  [data-reveal].in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- film grain overlay ---------- */
+  .grain-overlay{
+    position:fixed; inset:0; z-index:999; pointer-events:none;
+    opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-repeat:repeat;
+  }
+
+  /* ---------- marquee strip ---------- */
+  .marquee{
+    border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);
+    background:var(--bg-1); overflow:hidden; padding:18px 0; position:relative;
+  }
+  .marquee-track{
+    display:flex; width:max-content; gap:48px;
+    animation:marqueeScroll 32s linear infinite;
+  }
+  .marquee-track span{
+    font-family:var(--font-display); font-weight:700; font-size:1.073rem;
+    letter-spacing:.04em; text-transform:uppercase; color:var(--dim);
+    display:flex; align-items:center; gap:48px; white-space:nowrap;
+  }
+  .marquee-track span::after{ content:'✦'; color:var(--a1); margin-left:48px; }
+  @keyframes marqueeScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  /* ---------- CO2 / particle burst ---------- */
+  .burst-particle{
+    position:fixed; top:0; left:0; width:6px; height:6px; border-radius:50%;
+    pointer-events:none; z-index:500; will-change:transform,opacity;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+    .marquee-track{ animation:none; }
+    .grain-overlay{ display:none; }
+  }
+</style>
+  <title>Follow Spot Rental &amp; Spotlight Rental with Operator | Dallas Event Audio</title>
+  <meta name="description" content="Follow spot rental with a trained operator included, across Dallas-Fort Worth. Follow spotlight and spotlight rental for grand entrances, first dances, award presentations, pageants, theater, concerts and keynotes - position, platform, power, cue list and operator all supplied. Insured, serving DFW since 2001.">
+  <link rel="canonical" href="https://www.dallaseventaudio.com/rent-follow-spot-light">
+  <meta property="og:title" content="Follow Spot Rental &amp; Spotlight Rental with Operator | Dallas Event Audio">
+  <meta property="og:description" content="Follow spot rental with a trained operator included, across Dallas-Fort Worth. Follow spotlight and spotlight rental for grand entrances, first dances, award presentations, pageants, theater, concerts and keynotes - position, platform, power, cue list and operator all supplied. Insured, serving DFW since 2001.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.dallaseventaudio.com/rent-follow-spot-light">
+<style>
+  /* ========== FOLLOW SPOT RENTAL, page-specific additions ========== */
+
+  section[id]{ scroll-margin-top:96px; }
+
+  .hero.hero-page{ padding:64px 0 62px; }
+  .breadcrumb{
+    font-size:.881rem; color:var(--dim); letter-spacing:.03em;
+    position:relative; z-index:1; margin-bottom:22px;
+  }
+  .breadcrumb a{ color:var(--dim); }
+  .breadcrumb a:hover{ color:var(--a1); }
+  .breadcrumb .sep{ opacity:.45; margin:0 8px; }
+  .breadcrumb .here{ color:var(--ink); opacity:.75; }
+
+  .hero-page h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.3rem, 5.2vw, 4rem); max-width:980px; position:relative; z-index:1;
+  }
+  .hero-page .sub{
+    font-size:1.18rem; color:var(--dim); max-width:720px; margin-top:24px;
+    position:relative; z-index:1;
+  }
+
+  .stat-row{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(158px,1fr)); gap:14px;
+    margin-top:40px; position:relative; z-index:1;
+  }
+  .stat{
+    padding:18px 20px; border-radius:14px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .stat .num{
+    font-family:var(--font-display); font-weight:900; font-size:1.7rem; line-height:1;
+    background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .stat .lbl{ margin-top:8px; font-size:.86rem; color:var(--dim); line-height:1.45; }
+
+  /* ---------- microphone type cards ---------- */
+  .fs-grid{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:18px;
+    margin-top:38px;
+  }
+  .fs-card{
+    position:relative; overflow:hidden;
+    padding:30px 30px 28px; border-radius:20px;
+    background:color-mix(in srgb, var(--bg-2) 52%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s, box-shadow .3s;
+  }
+  .fs-card::before{
+    content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+    background:var(--grad); opacity:.5; transition:opacity .3s;
+  }
+  .fs-card:hover{
+    border-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transform:translateY(-3px);
+    box-shadow:0 24px 60px -34px var(--glow), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .fs-card:hover::before{ opacity:1; }
+
+  .fs-card .tag{
+    font-family:var(--font-display); font-weight:900; font-size:.7rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1);
+  }
+  .fs-card h3{
+    margin-top:12px; font-family:var(--font-display); font-weight:900; line-height:1.12;
+    font-size:clamp(1.3rem, 2.1vw, 1.6rem);
+  }
+  .fs-card p{ margin-top:14px; font-size:1rem; line-height:1.72; color:var(--dim); }
+  .fs-card p b, .fs-card p strong{ color:var(--ink); font-weight:700; }
+  .fs-card .best{
+    margin-top:18px; padding-top:15px; border-top:1px solid var(--card-border);
+    font-size:.87rem; line-height:1.6; color:var(--dim);
+  }
+  .fs-card .best em{ font-style:normal; font-weight:800; color:var(--a2); letter-spacing:.04em;
+    text-transform:uppercase; font-size:.72rem; display:block; margin-bottom:6px; }
+
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+  .chip{
+    display:inline-block; padding:6px 13px; border-radius:100px;
+    font-size:.79rem; font-weight:600; letter-spacing:.02em;
+    color:var(--dim); text-decoration:none;
+    border:1px solid var(--card-border);
+    background:color-mix(in srgb, var(--bg-0) 45%, transparent);
+    transition:.2s;
+  }
+  a.chip:hover{ color:var(--a1); border-color:color-mix(in srgb, var(--a1) 55%, transparent); }
+  a.chip::after{ content:' \2192'; opacity:.55; }
+
+  /* ---------- which microphone for which room ---------- */
+  .room-list{ margin-top:36px; border-top:1px solid var(--card-border); }
+  .room{
+    display:grid; grid-template-columns:290px 1fr; gap:30px;
+    padding:24px 0; border-bottom:1px solid var(--card-border);
+    transition:border-color .3s;
+  }
+  .room:hover{ border-bottom-color:color-mix(in srgb, var(--a1) 40%, transparent); }
+  .room h3{
+    font-family:var(--font-display); font-weight:800; font-size:1.1rem; line-height:1.35;
+  }
+  .room h3 span{ display:block; margin-top:6px; font-size:.76rem; font-weight:700;
+    letter-spacing:.09em; text-transform:uppercase; color:var(--a1); opacity:.85; }
+  .room p{ font-size:1rem; line-height:1.72; color:var(--dim); }
+  .room p b{ color:var(--ink); font-weight:700; }
+
+  @media (max-width:860px){
+    .room{ grid-template-columns:1fr; gap:12px; }
+  }
+
+  /* ---------- add-on strip ---------- */
+  .addon{
+    margin-top:24px; padding:28px 30px; border-radius:18px;
+    border:1px dashed color-mix(in srgb, var(--a1) 32%, var(--card-border));
+    background:color-mix(in srgb, var(--bg-1) 40%, transparent);
+  }
+  .addon h3{ font-family:var(--font-display); font-size:1.16rem; font-weight:800; }
+  .addon p{ margin-top:10px; font-size:.98rem; color:var(--dim); line-height:1.7; }
+
+  /* ---------- feature split ---------- */
+  .split{
+    display:grid; grid-template-columns:1.05fr .95fr; gap:44px; align-items:center;
+  }
+  .split.flip .split-copy{ order:2; }
+  .split.flip .split-vis{ order:1; }
+  .split-copy h2{
+    font-family:var(--font-display); font-weight:900; line-height:1.1;
+    font-size:clamp(1.85rem, 3.4vw, 2.7rem);
+  }
+  .split-copy p{ margin-top:18px; font-size:1.04rem; line-height:1.75; color:var(--dim); }
+  .split-copy p b{ color:var(--ink); font-weight:700; }
+
+  .split-vis{
+    position:relative; border-radius:20px; overflow:hidden;
+    aspect-ratio:4/3; border:1px solid var(--card-border);
+    background-color:var(--bg-2);
+    background-image:var(--img),
+      radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--a1) 22%, transparent), transparent 62%),
+      radial-gradient(circle at 76% 80%, color-mix(in srgb, var(--a2) 18%, transparent), transparent 60%);
+    background-size:cover; background-position:center; background-repeat:no-repeat;
+  }
+  .split-vis .slot{
+    position:absolute; left:0; right:0; bottom:0; padding:30px 16px 13px;
+    background:linear-gradient(to top, rgba(6,6,8,.9), transparent);
+    font-size:.72rem; color:var(--dim); letter-spacing:.03em;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  @media (max-width:860px){
+    .split{ grid-template-columns:1fr; gap:26px; }
+    .split.flip .split-copy{ order:1; }
+    .split.flip .split-vis{ order:2; }
+  }
+
+  /* ---------- how it works ---------- */
+  .flow{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-top:34px; }
+  .flow-step{
+    position:relative; padding:26px 22px 24px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    border:1px solid var(--card-border);
+    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  }
+  .flow-step .n{
+    font-family:var(--font-display); font-weight:900; font-size:.7rem;
+    letter-spacing:.15em; text-transform:uppercase; color:var(--a1);
+  }
+  .flow-step h3{ margin-top:12px; font-family:var(--font-display); font-size:1.06rem; font-weight:800; }
+  .flow-step p{ margin-top:9px; font-size:.92rem; color:var(--dim); line-height:1.62; }
+
+  /* ---------- trust strip ---------- */
+  .trust-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; margin-top:32px; }
+  .trust-card{
+    padding:24px 24px 22px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 45%, transparent);
+    border:1px solid var(--card-border);
+  }
+  .trust-card h3{ font-family:var(--font-display); font-size:1.02rem; font-weight:800; }
+  .trust-card p{ margin-top:9px; font-size:.92rem; color:var(--dim); line-height:1.62; }
+
+  /* ---------- FAQ ---------- */
+  .faq-list{ margin-top:32px; border-top:1px solid var(--card-border); }
+  .faq-item{ border-bottom:1px solid var(--card-border); }
+  .faq-item summary{
+    list-style:none; cursor:pointer; padding:22px 44px 22px 0; position:relative;
+    font-family:var(--font-display); font-weight:700; font-size:1.06rem; line-height:1.45;
+    transition:color .2s;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary:hover{ color:var(--a1); }
+  .faq-item summary::after{
+    content:'+'; position:absolute; right:6px; top:50%; transform:translateY(-50%);
+    font-size:1.5rem; font-weight:400; line-height:1; color:var(--a1); transition:transform .25s;
+  }
+  .faq-item[open] summary::after{ transform:translateY(-50%) rotate(45deg); }
+  .faq-item .ans{ padding:0 44px 24px 0; font-size:1rem; line-height:1.75; color:var(--dim); }
+  .faq-item .ans a{ color:var(--a1); }
+
+  @media (max-width:820px){
+    .hero.hero-page{ padding:44px 0 50px; }
+    .fs-card{ padding:26px 22px 24px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .fs-card{ transition:none; }
+  }
+
+  .wrap p a:not(.chip):not(.btn-primary):not(.btn-secondary),
+  .addon a:not(.chip){
+    color:var(--a1);
+    text-decoration:underline;
+    text-decoration-thickness:1px;
+    text-underline-offset:3px;
+    text-decoration-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transition:color .2s ease, text-decoration-color .2s ease;
+  }
+  .wrap p a:not(.chip):not(.btn-primary):not(.btn-secondary):hover,
+  .addon a:not(.chip):hover{ color:var(--a2); text-decoration-color:var(--a2); }
+</style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Follow Spot Rental with Operator",
+    "serviceType": "Follow spot and spotlight rental with operator",
+    "url": "https://www.dallaseventaudio.com/rent-follow-spot-light",
+    "description": "Follow spot rental across the Dallas-Fort Worth Metroplex, supplied with a trained operator from our own crew. A follow spotlight is a high-output spotlight on a yoke that an operator aims by hand to keep the beam on a person as they move - used for grand entrances, first dances, award presentations, pageants and theatrical productions, concerts, keynotes and general sessions, church productions and school events. We supply the fixture, the position and platform, the power run, the cue list and the operator, and we load in and strike the whole thing ourselves.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Dallas Event Audio",
+      "url": "https://www.dallaseventaudio.com",
+      "telephone": "+1-817-210-7957",
+      "email": "info@dallaseventaudio.com",
+      "foundingDate": "2001"
+    },
+    "areaServed": {
+      "@type": "GeoCircle",
+      "geoMidpoint": { "@type": "GeoCoordinates", "addressCountry": "US" },
+      "description": "Dallas-Fort Worth Metroplex, approximately 40 miles from Hurst, TX"
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Follow spot and spotlight rental",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Follow spot rental with operator",
+            "description": "A high-output follow spotlight on a yoke with iris and frame, operated live by a trained technician who works from a cue list built off the event timeline, including position, platform or ground support, power run, load-in, focus and strike."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Grand entrance and first dance spotlight",
+            "description": "Operated follow spot for wedding and quinceanera grand entrances, first dances, father-daughter and mother-son dances and choreographed routines, picking up the subject at the door and travelling with them across the floor."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Award presentation follow spot",
+            "description": "Follow spot coverage for awards nights, galas, banquets and recognition programs - finding the recipient at their table, holding them as they stand and walking them to the stage."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Theatrical and pageant follow spot",
+            "description": "Follow spot operation for pageants, recitals, dance competitions, school and community theater and concert productions, run to a cue sheet with frame and color changes called from the booth, with single or opposite-side two-spot coverage."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Keynote and general session follow spot",
+            "description": "Follow spot for conference keynotes, general sessions, town halls and product reveals, keeping a presenter properly lit anywhere on stage for the room, for recording and for live streaming."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Stage and ceremony wash lighting",
+            "description": "Front light across a stage, altar or platform so faces read properly for the room, for photography and on camera - the layer that belongs underneath an operated follow spot."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Uplighting and color wash",
+            "description": "Battery-powered wireless LED uplighting around a room perimeter, so the house lights can come down and a follow spot has something to cut through.",
+            "url": "https://www.dallaseventaudio.com/rent-uplighting"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Monogram and gobo projection",
+            "description": "Custom monogram, initials, date, logo or sponsor mark cut as a gobo from client artwork and projected onto a wall, floor or drape, focused on site.",
+            "url": "https://www.dallaseventaudio.com/monogram-projector"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Haze, low-lying fog and specialty effects",
+            "description": "Atmospheric haze so a follow spot beam reads as a visible shaft of light, plus low-lying fog for first dances and staffed laser systems for larger moments.",
+            "url": "https://www.dallaseventaudio.com/rent-dancing-on-the-clouds-low-lyin"
+          }
+        }
+      ]
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a follow spot?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A follow spot is a high-output, hard-edged spotlight on a yoke that an operator aims by hand, keeping the beam on a person as they move. It has an iris to size the beam and a frame to shape it, and it is the only lighting fixture that genuinely tracks somebody in real time. That is what separates it from a pin spot, a wash or a programmed moving head." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the follow spot come with an operator?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Always, and it is not an optional extra. Every follow spot we send out goes with a trained operator from our own crew who works from your cue list, attends the rehearsal where there is one, and adapts live when the timeline moves. The fixture is the easy part - the operator is what you are actually renting." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can we pick one up and run it ourselves?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. We do not drop equipment off, and we do not hand a follow spot to a volunteer. Beyond the practical reasons - the position, the platform, the power run and the focus all have to be right - an operated spot is a skill, and a missed pickup on a grand entrance is not a mistake you can fix afterwards." }
+      },
+      {
+        "@type": "Question",
+        "name": "Where does the follow spot go in the room?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Usually at the back, elevated on a platform or ground support so the beam clears a room full of standing guests. Theaters and auditoriums often have a purpose-built booth, catwalk or balcony rail we can use instead. We work the position out from your venue in advance, because it decides the angle on faces and whether the sightline survives a full room." }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between a follow spot and a pin spot?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A follow spot is large, operated and moves with a person. A pin spot is small, fixed at load-in and aimed at one object - a centerpiece, a cake, a head table. People often say 'spotlight the cake' when they mean a pin spot, which is a much smaller undertaking. Tell us what you are picturing and we will tell you which one it is." }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you need to rig anything to our venue?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Usually not. Most of our positions are freestanding - a platform or ground support that touches nothing but the floor - which is what churches, historic venues and hotels generally require. Where a venue has its own catwalk or balcony position, we will use it. We confirm all of this with your venue before the day." }
+      },
+      {
+        "@type": "Question",
+        "name": "Do we need one spot or two?",
+        "acceptedAnswer": { "@type": "Answer", "text": "One covers most weddings, awards nights and corporate sessions. Two are worth it when a stage is wide enough that a single side angle would leave someone half-lit, when two people need to be picked up independently, or when a production calls for opposite-side coverage - pageants, dance competitions and theatrical shows most often. We will tell you which yours is." }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you know when the cues are?",
+        "acceptedAnswer": { "@type": "Answer", "text": "We build a cue list off your timeline or run sheet and agree who is calling the show, whether that is your planner, your DJ, a stage manager or our own audio position. Our operator is on comms with them, has a printed cue sheet at the position, and attends the rehearsal or soundcheck where there is one. Timelines always move, and a person on the spot can move with them." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can we add a follow spot to lighting or sound we have already booked?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes, and plenty of clients do. If you already have a DJ, a band or in-house AV, we supply the spot and the operator and coordinate directly with whoever is calling the show. If we are already handling your audio or lighting design, it shares a load-in, a crew and one cue sheet, which is the version where the light and the music land together." }
+      },
+      {
+        "@type": "Question",
+        "name": "What areas of Dallas-Fort Worth do you cover?",
+        "acceptedAnswer": { "@type": "Answer", "text": "The whole Metroplex - roughly a forty-mile radius from the mid-cities, covering Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Southlake, McKinney, Richardson, Grapevine, Denton and everywhere in between. If your venue is further out, ask anyway and we will tell you honestly whether it works." }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://www.dallaseventaudio.com/"},
+      {"@type":"ListItem","position":2,"name":"Lighting Services","item":"https://www.dallaseventaudio.com/services-lighting"},
+      {"@type":"ListItem","position":3,"name":"Follow Spot Rental","item":"https://www.dallaseventaudio.com/rent-follow-spot-light"}
+    ]
+  }
+  </script>
+
+</head>
+<body>
+<div id="paletteBar">
+    <span>Palette preview</span>
+    <button data-p="signal" class="active">A · Signal Chain</button>
+    <button data-p="amber">B · Stage Black &amp; Amber</button>
+    <button data-p="night">C · DFW Night Rig</button>
+  </div>
+
+  <header>
+    <nav>
+      <a class="logo" href="/" style="text-decoration:none;"><div class="dial"></div>DEA</a>
+      <div class="navlinks">
+        <a href="/services-lighting">Lighting</a>
+        <a href="/services-audio">Audio</a>
+        <a href="/our-work">Our Work</a>
+        <a href="/what-others-are-saying">Reviews</a>
+        <a href="/contact">Contact</a>
+      </div>
+      <div class="navright">
+        <span class="phone">817-210-7957</span>
+        <a class="cta-btn" href="/contact">Get a Quote</a>
+      </div>
+    </nav>
+  </header>
+  <section class="hero hero-page">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="breadcrumb" data-reveal>
+        <a href="/">Home</a><span class="sep">/</span><a href="/services-lighting">Lighting Services</a><span class="sep">/</span><span class="here">Follow Spot Rental</span>
+      </div>
+      <h1 data-reveal>Follow spot rental, <span class="grad-text">with the operator included.</span></h1>
+      <p class="sub" data-reveal>A follow spotlight is only as good as the person behind it. We supply the fixture, the position, the rigging and a trained operator who has rehearsed your cues, grand entrances, first dances, award presentations, pageants and full productions. Spotlight rental across Dallas-Fort Worth since 2001.</p>
+
+      <div class="stat-row" data-reveal>
+        <div class="stat">
+          <div class="num">2001</div>
+          <div class="lbl">Running spots at DFW events since</div>
+        </div>
+        <div class="stat">
+          <div class="num">1:1</div>
+          <div class="lbl">Every follow spot ships with an operator, never dropped off</div>
+        </div>
+        <div class="stat">
+          <div class="num">40 mi</div>
+          <div class="lbl">Delivery radius around Dallas-Fort Worth</div>
+        </div>
+        <div class="stat">
+          <div class="num">COI</div>
+          <div class="lbl">Fully insured, certificates sent to your venue</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Follow Spot Rental &middot; Spotlight Rental &middot; Grand Entrances &middot; First Dances &middot; Award Shows &middot; Pageants &middot; Theater &amp; Dance &middot; Concerts &middot; Keynotes &middot; Houses of Worship &middot; Operator Included &middot;&nbsp;</span>
+      <span>Follow Spot Rental &middot; Spotlight Rental &middot; Grand Entrances &middot; First Dances &middot; Award Shows &middot; Pageants &middot; Theater &amp; Dance &middot; Concerts &middot; Keynotes &middot; Houses of Worship &middot; Operator Included &middot;&nbsp;</span>
+    </div>
+  </div>
+
+  <section class="section" id="what-is-a-follow-spot">
+    <div class="wrap">
+      <div class="split" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">What A Follow Spot Is</span>
+          <h2>What is a follow spot, and where do you rent one?</h2>
+          <p>A follow spot is a high-output, hard-edged spotlight on a yoke, operated by a person who keeps its beam on someone as they move. It is the light that isolates a bride at the top of a staircase, holds a singer through a solo, or picks an award winner out of a table of ten and walks them to the stage. <b>The defining feature is not the fixture. It is that a human being is aiming it in real time.</b></p>
+          <p>That is also the answer to the second half of the question. A follow spotlight is not something you collect from a counter and figure out on the night: it needs a position with a clean sightline, a stable platform or truss, power run to it, a beam and frame size set for your room, and someone standing behind it who knows when the cue is coming. <b>We rent the whole thing as one job</b>, fixture, position, rigging, power and operator.</p>
+          <p>Everything else on this page is really about that one distinction. See the rest of what we do on the <a href="/services-lighting">lighting services</a> page, or tell us your venue and we will tell you where the spot needs to live in it.</p>
+          <div class="chips">
+            <a class="chip" href="/services-lighting">Lighting services</a>
+            <a class="chip" href="/our-work">See past events</a>
+            <a class="chip" href="/contact">Ask about your venue</a>
+          </div>
+        </div>
+        <div class="split-vis" style="--img:url('/images/follow-spot/follow-spot-grand-entrance.jpg')">
+          <span class="slot">/images/follow-spot/follow-spot-grand-entrance.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="operator">
+    <div class="wrap">
+      <div class="split flip" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">The Operator Is The Rental</span>
+          <h2>An unmanned spotlight is just a bright light pointed at a wall.</h2>
+          <p>The hard part of a follow spot has never been the fixture. It is knowing to pick someone up two seconds <em>before</em> the doors open rather than two seconds after, sizing the iris down as they come closer so the beam stays on their shoulders instead of swallowing the head table, and easing out under the last note instead of snapping to black.</p>
+          <p>Those are learned reflexes, and they are why every follow spotlight we send out goes with <b>an operator from our own crew</b>. They walk the room with you or your planner, take the cue list off your timeline, and sit through the rehearsal if there is one. If the timeline slips, and it always slips. There is a person on the spot adjusting rather than a fixture running a program that no longer matches the night.</p>
+          <p>It also means one less thing on your run sheet. Nobody from your side has to be recruited, briefed, or stationed on a platform in the dark for four hours.</p>
+          <div class="chips">
+            <span class="chip">Cue list from your timeline</span>
+            <span class="chip">Rehearsal attended</span>
+            <span class="chip">Live iris and frame</span>
+            <span class="chip">Comms to the booth</span>
+          </div>
+        </div>
+        <div class="split-vis" style="--img:url('/images/follow-spot/follow-spot-operator.jpg')">
+          <span class="slot">/images/follow-spot/follow-spot-operator.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="moments">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">What It Is For</span>
+        <h2>The moments a follow spot exists to serve.</h2>
+        <p>A follow spot is not room lighting and it is not on all night. It earns its place on a handful of cues, the ones people came to see, and the ones that end up in the video.</p>
+      </div>
+
+      <div class="fs-grid">
+        <div class="fs-card" data-reveal>
+          <div class="tag">The Doors Open</div>
+          <h3>Grand entrances</h3>
+          <p>A wedding party, a couple, a guest of honour or a CEO walking into a dark room. The spot picks them up at the door and travels with them to the floor, which does two things at once: it tells four hundred people where to look, and it <b>lights the faces that every phone in the room is already pointed at</b>. Without it, the entrance happens somewhere in a dim doorway and half the room misses it.</p>
+          <div class="best"><em>Best for</em> Weddings, quincea&ntilde;eras, galas, award dinners, milestone birthdays.</div>
+        </div>
+
+        <div class="fs-card" data-reveal>
+          <div class="tag">Three Minutes That Matter</div>
+          <h3>First dances &amp; spotlight dances</h3>
+          <p>House lights down, everything else off, one beam on two people in the middle of a floor. It is the single most photographed and filmed three minutes of a wedding, and it is also the moment most likely to be lit by nothing but a DJ booth and an exit sign. A follow spot <b>separates the couple from the room completely</b> and follows them if they move, which choreographed dances always do.</p>
+          <div class="best"><em>Best for</em> First dances, father-daughter and mother-son dances, choreographed routines.</div>
+        </div>
+
+        <div class="fs-card" data-reveal>
+          <div class="tag">Recognition</div>
+          <h3>Award presentations</h3>
+          <p>The classic use, and the one corporate clients ask for by name. The spot finds the recipient at their table, holds them while they stand, and walks them to the stage, so the applause has somewhere to go and the camera has someone to find. On a long awards program it is also the fastest way to keep the show moving without a stage manager shouting names.</p>
+          <div class="best"><em>Best for</em> Awards nights, galas, banquets, sales kickoffs, honours and recognition programs.</div>
+        </div>
+
+        <div class="fs-card" data-reveal>
+          <div class="tag">Production</div>
+          <h3>Theater, dance &amp; pageants</h3>
+          <p>Productions where the spot is written into the script rather than added to it: musical numbers, competition routines, crownings, solos and curtain calls. These need a real operator on a real cue sheet, sometimes two spots working opposite sides of a stage, with frame and color changes called from the booth. <b>This is the version of the job that is closest to theatrical practice</b>, and we run it that way.</p>
+          <div class="best"><em>Best for</em> Pageants, recitals, competitions, school and community theater, dance productions.</div>
+        </div>
+
+        <div class="fs-card" data-reveal>
+          <div class="tag">Stage</div>
+          <h3>Concerts, bands &amp; live music</h3>
+          <p>A wash lights a band; a follow spot lights a person. Vocal solos, a guitarist stepping forward, a front-of-stage moment that the fixed rig cannot reach, the spot is what tells an audience where the song is happening. Paired with stage wash and a designed rig it turns a lit stage into a show.</p>
+          <div class="best"><em>Best for</em> Live bands, concerts, festivals, tribute nights, showcases and battle-of-the-bands.</div>
+        </div>
+
+        <div class="fs-card" data-reveal>
+          <div class="tag">The Podium</div>
+          <h3>Keynotes &amp; general sessions</h3>
+          <p>Conference general sessions increasingly put the speaker in front of the lectern rather than behind it, and a fixed front wash cannot follow someone who walks. A spot keeps a presenter properly lit anywhere on the stage, which matters most when the session is being recorded or streamed, <b>a keynote that drifts out of the light is a keynote that cannot be used again</b>.</p>
+          <div class="best"><em>Best for</em> Conferences, general sessions, town halls, product reveals, streamed and recorded events.</div>
+        </div>
+
+        <div class="fs-card" data-reveal>
+          <div class="tag">Worship</div>
+          <h3>Church &amp; houses of worship</h3>
+          <p>Christmas and Easter productions, dramas, youth events, choir and worship-team features. Sanctuaries are usually lit for a fixed platform and nothing else, so anything staged outside that platform disappears. A spot from the back of the room covers the aisle, the floor and the balcony steps, and it goes in without touching the building.</p>
+          <div class="best"><em>Best for</em> Holiday productions, dramas, baptisms, youth nights, guest speakers.</div>
+        </div>
+
+        <div class="fs-card" data-reveal>
+          <div class="tag">School</div>
+          <h3>Schools, colleges &amp; graduations</h3>
+          <p>Homecoming courts, talent shows, dance team features, honours ceremonies and graduation walks in gymnasiums that were built for basketball and lit accordingly. The spot is usually the only lighting decision that changes the whole feel of the event, which is why it is often the one thing a school books.</p>
+          <div class="best"><em>Best for</em> Homecoming, prom, talent shows, graduations, honours assemblies, college productions.</div>
+        </div>
+
+        <div class="fs-card" data-reveal>
+          <div class="tag">Nightlife</div>
+          <h3>Club nights &amp; special reveals</h3>
+          <p>Bottle service arrivals, artist introductions, a car or product coming out from behind drape, a countdown moment. A hard beam cutting through haze is a different tool from wash and effect lighting, and it is what makes a reveal read as an event rather than a curtain being pulled.</p>
+          <div class="best"><em>Best for</em> Club and rave nights, artist intros, product reveals, launches, New Year countdowns.</div>
+        </div>
+      </div>
+
+      <div class="chips" data-reveal>
+        <a class="chip" href="/weddings">Weddings</a>
+        <a class="chip" href="/corporate-events">Corporate events</a>
+        <a class="chip" href="/private-events">Private events</a>
+        <a class="chip" href="/college-school-university-events">Schools &amp; colleges</a>
+        <a class="chip" href="/live-music-and-band-events">Live music</a>
+        <a class="chip" href="/rave-and-night-club-events">Clubs &amp; raves</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="spotlight-types">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:780px;">
+        <span class="kicker">Spotlight Rental, Sorted Out</span>
+        <h2>&ldquo;Spotlight rental&rdquo; means four different things. Here is which one you want.</h2>
+        <p>People arrive on this page asking for a spotlight and mean any one of these. They are genuinely different fixtures doing genuinely different jobs, and asking for the wrong one is the most common way an event ends up with lighting that does not do what was pictured.</p>
+      </div>
+
+      <div class="room-list">
+        <div class="room" data-reveal>
+          <h3>Follow spot<span>Moves with a person</span></h3>
+          <p>A large, high-output spotlight on a yoke with an operator behind it, an iris to size the beam and a frame to shape it. It is the only one of these that <b>tracks somebody as they move</b>. If the picture in your head involves a beam following a person across a floor, this is the one, and it is what the rest of this page is about.</p>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Pin spot<span>Aimed at an object, and it stays there</span></h3>
+          <p>A small fixture throwing a tight beam at one fixed thing, a centerpiece, the cake, the head table, a display case. It is set at load-in and never moves again, and there is no operator. People often say &ldquo;spotlight the cake&rdquo; when what they want is a pin spot, which is a much smaller undertaking. We cover pin spots as part of a <a href="/services-lighting">lighting design</a>.</p>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Stage or ceremony wash<span>Covers an area, not a person</span></h3>
+          <p>Front light across a defined space so faces read properly for the room, for photography and on camera. A wash is what stops a stage from being a silhouette; it is not dramatic and it is not supposed to be. Many events that ask for a follow spot actually need <b>a wash first and a spot second</b>, and we will say so.</p>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Moving head spot<span>Automated, programmed, not tracking a person</span></h3>
+          <p>A motorised intelligent fixture that pans, tilts and changes color on a programmed cue. It can hit a mark beautifully and it can sweep a room, but it is following a timeline rather than a human being, so it cannot adapt when a bride stops to hug her grandmother halfway down the aisle. Great for looks and reveals, not a substitute for an operated spot.</p>
+        </div>
+      </div>
+
+      <div class="addon" data-reveal>
+        <h3>Not sure which one your moment needs?</h3>
+        <p>Describe what you are picturing, who is moving, where they are going and how dark the room is, and we will tell you which fixture actually does it. Sometimes the honest answer is a pin spot and a wash rather than a follow spot, and that is a smaller conversation than the one you thought you were having. Start at <a href="/contact">our quote form</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="venues">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:780px;">
+        <span class="kicker">Venue By Venue</span>
+        <h2>Where the spot goes in a room like yours.</h2>
+        <p>Position is decided before anything else, because it determines the angle on faces, whether the beam clears the crowd, and what it lands on when it misses. This is the conversation we would have on a site visit.</p>
+      </div>
+
+      <div class="room-list">
+        <div class="room" data-reveal>
+          <h3>Hotel ballroom<span>Low ceiling, no rigging points</span></h3>
+          <p>The most common case and the most constrained one. Ceilings are often too low for a steep angle, so the spot goes on a platform at the back of the room and works at a flatter throw. That is workable, but it means <b>the beam has to clear standing guests and a stack of centerpieces</b>, which is exactly the calculation nobody makes until the night. We make it in advance.</p>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Theater &amp; auditorium<span>Purpose-built positions</span></h3>
+          <p>The easiest venues to work in, because someone already solved this: a booth, a catwalk or a balcony rail with power and sightlines. Our job here is mostly matching the house rig, working with the resident technician, and running cues to a stage manager&rsquo;s calls rather than a wedding timeline.</p>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Church &amp; sanctuary<span>Fixed lighting, protected surfaces</span></h3>
+          <p>Sanctuaries usually light one platform and nothing else, and most limit what may be attached to the building. We work from a freestanding position at the back or from an existing balcony, cover the aisle and the floor as well as the platform, and <b>leave the structure untouched</b>. Coordinating with the facilities team early settles most of it.</p>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Gymnasium &amp; multipurpose room<span>Height, but nothing to hang from</span></h3>
+          <p>Plenty of ceiling, no useful rigging, and overhead lighting that is either full-on or off. Ground-supported positions and a proper platform do the work. The gain is dramatic here precisely because the baseline is so flat, a single operated beam changes a gym more than anything else you could bring into it.</p>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Barn, ranch &amp; historic venue<span>Structure, sightlines and rules</span></h3>
+          <p>Exposed trusses and lofts sometimes give a genuinely excellent position, and sometimes give an obstructed one. Historic venues add rules about what can be placed where. We look at the actual room before committing to a position, because <b>a spot in the wrong place is worse than no spot at all</b>.</p>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Tent &amp; outdoor<span>Power, weather and no back wall</span></h3>
+          <p>Outdoors there is rarely power where the spot needs to be and rarely a structure to put it on, so the plan starts with a tower or platform and a power run. Wind, dew and temperature all get factored in. It is very doable. It is just a conversation that has to happen well before the week of.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="included">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:740px;">
+        <span class="kicker">What&rsquo;s Included</span>
+        <h2>What a follow spot rental should include, and usually does not.</h2>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-card" data-reveal>
+          <h3>A trained operator</h3>
+          <p>Someone from our crew runs the spot for the whole event. This is not an add-on and it is not optional. It is the part that makes the rest of it work.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Position and platform</h3>
+          <p>We work out where the spot lives, bring the platform or ground support to put it there, and check the sightline against a room full of standing people, not an empty one.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Power and cabling</h3>
+          <p>Power run to the position, routed and secured so nothing crosses a guest path untaped. We confirm the circuit with the venue rather than finding out at load-in.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>A cue list</h3>
+          <p>We take your timeline and turn it into cues, who, where, when, and what happens either side. Then we bring a printed copy to the position.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Rehearsal attendance</h3>
+          <p>Where there is a rehearsal or a soundcheck, our operator is at it. Blocking that only exists in someone&rsquo;s head is the main reason spots miss.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Comms</h3>
+          <p>The operator is on comms with whoever is calling the show, your planner, DJ, stage manager or our own audio position, so a late change reaches the spot.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Venue paperwork</h3>
+          <p>Certificates of insurance sent to your venue on request, and we work to their load-in windows and rules. We have been in most DFW venues before.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Load-in and strike</h3>
+          <p>We bring it, rig it, focus it, run it and take it away. There is no pickup counter, nothing dropped at a loading dock and nothing left for you to return.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>One vendor for lighting and sound</h3>
+          <p>If we are already handling your audio, DJ or full lighting design, the spot shares a load-in, a crew and a cue sheet, and the light lands when the music does.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:720px;">
+        <span class="kicker">How It Works</span>
+        <h2>From the first message to the last cue.</h2>
+      </div>
+      <div class="flow">
+        <div class="flow-step" data-reveal>
+          <div class="n">Step 01</div>
+          <h3>Tell us the moment</h3>
+          <p>Date, venue and what you want lit, an entrance, a first dance, an awards run, a full production. A photo of the room or a link to the venue is worth a page of description.</p>
+        </div>
+        <div class="flow-step" data-reveal>
+          <div class="n">Step 02</div>
+          <h3>We find the position</h3>
+          <p>Where the spot can live, what it needs to stand on, how the power gets there and whether the angle actually works with a full room. You get a straightforward quote back, usually the same day.</p>
+        </div>
+        <div class="flow-step" data-reveal>
+          <div class="n">Step 03</div>
+          <h3>Cues off your timeline</h3>
+          <p>We turn your run sheet into a cue list, agree who is calling it, and flag anything that needs a rehearsal, choreographed dances and award runs especially.</p>
+        </div>
+        <div class="flow-step" data-reveal>
+          <div class="n">Step 04</div>
+          <h3>Load-in and focus</h3>
+          <p>We arrive inside your venue&rsquo;s window, build the position, set beam and frame size for the room, and mark the spots that matter before doors open.</p>
+        </div>
+        <div class="flow-step" data-reveal>
+          <div class="n">Step 05</div>
+          <h3>We run it and strike it</h3>
+          <p>Our operator works the event, adapts when the timeline moves, and then everything comes out cleanly at the end of the night.</p>
+        </div>
+      </div>
+
+      <div class="addon" data-reveal>
+        <h3>What actually drives the quote</h3>
+        <p>We will not put a number on a page, because a number on a page is wrong for somebody. What moves it is the room and the ask: how long the operator is on site, whether the position needs a platform or a power run, whether one spot covers it or the stage needs two, and whether we are already there for your sound or lighting. Send the date, the venue and what you want lit and you will have a real quote back, not a range and not a package tier.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pairs">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:800px;">
+        <span class="kicker">Pairs Well With</span>
+        <h2>What usually goes with a follow spot.</h2>
+        <p>A spot works by contrast, so it is at its best when the rest of the room is designed rather than left to the house lights. These are the things most often booked alongside it.</p>
+      </div>
+
+      <div class="fs-grid">
+        <div class="fs-card" data-reveal>
+          <div class="tag">The Room</div>
+          <h3>Uplighting &amp; color wash</h3>
+          <p>Battery-powered wireless uplights around the perimeter give the room a color and a mood the spot can cut through. Bright house lights are the single biggest thing working against a follow spot, <b>uplighting is what lets you turn them down and still have a room</b>.</p>
+          <div class="best"><em>Best for</em> Receptions, galas, banquets, anywhere the walls are doing nothing for you.</div>
+        </div>
+
+        <div class="fs-card" data-reveal>
+          <div class="tag">Faces First</div>
+          <h3>Stage &amp; ceremony wash</h3>
+          <p>Front light across the stage or altar so faces read for the room, the photographer and the camera. A wash and a spot do opposite jobs and belong together: the wash makes people visible, the spot makes one of them the subject.</p>
+          <div class="best"><em>Best for</em> Ceremonies, keynotes, bands, award stages, anything filmed or streamed.</div>
+        </div>
+
+        <div class="fs-card" data-reveal>
+          <div class="tag">Atmosphere</div>
+          <h3>Haze &amp; low-lying fog</h3>
+          <p>A beam is invisible until there is something in the air for it to hit. A light haze is what turns a follow spot into a visible shaft of light rather than just a bright circle on the floor, and low-lying fog puts a first dance on a cloud. Both need clearance with the venue, which we handle.</p>
+          <div class="best"><em>Best for</em> First dances, reveals, concerts, club nights, dramatic entrances.</div>
+        </div>
+
+        <div class="fs-card" data-reveal>
+          <div class="tag">The Big Look</div>
+          <h3>Lasers &amp; specialty effects</h3>
+          <p>Staffed laser systems with proper safety planning, for events where a spot alone is not the scale of the moment. Different tool, same principle. It is run live by somebody, not left on a timer.</p>
+          <div class="best"><em>Best for</em> Concerts, festivals, after-parties, club and rave nights, major reveals.</div>
+        </div>
+
+        <div class="fs-card" data-reveal>
+          <div class="tag">Branding</div>
+          <h3>Monogram &amp; gobo projection</h3>
+          <p>Your initials, a date, a company logo or a sponsor mark cut as a gobo and projected onto a wall, a floor or a drape. It is a still image where the spot is a moving one, and the two together cover most of what a room needs to feel produced.</p>
+          <div class="best"><em>Best for</em> Wedding dance floors, sponsor walls, brand activations, award nights.</div>
+        </div>
+
+        <div class="fs-card" data-reveal>
+          <div class="tag">Sound</div>
+          <h3>Audio, microphones &amp; DJ</h3>
+          <p>Most spot cues are also audio cues, an introduction, a song, an announcement. Running both means the light and the sound arrive together instead of a second apart. Every microphone we send out runs our <b>AI-powered De-Feedback system</b>, so a presenter can walk into the spot without anyone bracing for a squeal. There is more on how that works in our <a href="/post/what-is-de-feedback-for-live-events">De-Feedback explainer</a>.</p>
+          <div class="best"><em>Best for</em> Awards, ceremonies, keynotes, live bands, anything with a microphone in it.</div>
+        </div>
+      </div>
+
+      <div class="chips" data-reveal>
+        <a class="chip" href="/rent-uplighting">Uplighting</a>
+        <a class="chip" href="/monogram-projector">Monogram projector</a>
+        <a class="chip" href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the clouds</a>
+        <a class="chip" href="/rent-laser-light-show">Laser light show</a>
+        <a class="chip" href="/feedback-free-microphone-rentals">Microphone rental</a>
+        <a class="chip" href="/rent-sound-equipment">Sound systems</a>
+        <a class="chip" href="/services-dj">DJ services</a>
+        <span class="chip">Stage wash</span>
+        <span class="chip">Pin spots</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="areas">
+    <div class="wrap">
+      <div class="split" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">Coverage</span>
+          <h2>Spotlight rentals across the whole Metroplex.</h2>
+          <p>Based in the mid-cities, roughly a <b>forty-mile radius</b> covering Dallas, Fort Worth and everything between and around them. We have worked in most of the venues you are considering, which shortens the conversation about positions, load-in windows and what a room will and will not allow.</p>
+          <p>If your venue is further out, ask anyway. We will tell you honestly whether it works rather than quoting you a trip we should not make.</p>
+          <div class="chips">
+            <span class="chip">Dallas</span>
+            <span class="chip">Fort Worth</span>
+            <span class="chip">Arlington</span>
+            <span class="chip">Plano</span>
+            <span class="chip">Frisco</span>
+            <span class="chip">Irving</span>
+            <span class="chip">Southlake</span>
+            <span class="chip">Grapevine</span>
+            <span class="chip">McKinney</span>
+            <span class="chip">Denton</span>
+            <span class="chip">Richardson</span>
+            <span class="chip">Hurst &middot; Euless &middot; Bedford</span>
+          </div>
+        </div>
+        <div class="split-vis" style="--img:url('/images/follow-spot/dfw-venue-follow-spot.jpg')">
+          <span class="slot">/images/follow-spot/dfw-venue-follow-spot.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:720px;">
+        <span class="kicker">Questions</span>
+        <h2>Follow spot rental, answered plainly.</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" data-reveal>
+          <summary>What is a follow spot?</summary>
+          <div class="ans">A follow spot is a high-output, hard-edged spotlight on a yoke that an operator aims by hand, keeping the beam on a person as they move. It has an iris to size the beam and a frame to shape it, and it is the only lighting fixture that genuinely tracks somebody in real time. That is what separates it from a pin spot, a wash or a programmed moving head.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Does the follow spot come with an operator?</summary>
+          <div class="ans">Always, and it is not an optional extra. Every follow spot we send out goes with a trained operator from our own crew who works from your cue list, attends the rehearsal where there is one, and adapts live when the timeline moves. The fixture is the easy part, the operator is what you are actually renting.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Can we pick one up and run it ourselves?</summary>
+          <div class="ans">No. We do not drop equipment off, and we do not hand a follow spot to a volunteer. Beyond the practical reasons, the position, the platform, the power run and the focus all have to be right, an operated spot is a skill, and a missed pickup on a grand entrance is not a mistake you can fix afterwards.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Where does the follow spot go in the room?</summary>
+          <div class="ans">Usually at the back, elevated on a platform or ground support so the beam clears a room full of standing guests. Theaters and auditoriums often have a purpose-built booth, catwalk or balcony rail we can use instead. We work the position out from your venue in advance, because it decides the angle on faces and whether the sightline survives a full room.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>What is the difference between a follow spot and a pin spot?</summary>
+          <div class="ans">A follow spot is large, operated and moves with a person. A pin spot is small, fixed at load-in and aimed at one object, a centerpiece, a cake, a head table. People often say &ldquo;spotlight the cake&rdquo; when they mean a pin spot, which is a much smaller undertaking. Tell us what you are picturing and we will tell you which one it is.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do you need to rig anything to our venue?</summary>
+          <div class="ans">Usually not. Most of our positions are freestanding, a platform or ground support that touches nothing but the floor, which is what churches, historic venues and hotels generally require. Where a venue has its own catwalk or balcony position, we will use it. We confirm all of this with your venue before the day.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do we need one spot or two?</summary>
+          <div class="ans">One covers most weddings, awards nights and corporate sessions. Two are worth it when a stage is wide enough that a single side angle would leave someone half-lit, when two people need to be picked up independently, or when a production calls for opposite-side coverage, pageants, dance competitions and theatrical shows most often. We will tell you which yours is.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How do you know when the cues are?</summary>
+          <div class="ans">We build a cue list off your timeline or run sheet and agree who is calling the show, whether that is your planner, your DJ, a stage manager or our own audio position. Our operator is on comms with them, has a printed cue sheet at the position, and attends the rehearsal or soundcheck where there is one. Timelines always move, and a person on the spot can move with them.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Can we add a follow spot to lighting or sound we have already booked?</summary>
+          <div class="ans">Yes, and plenty of clients do. If you already have a DJ, a band or in-house AV, we supply the spot and the operator and coordinate directly with whoever is calling the show. If we are already handling your audio or lighting design, it shares a load-in, a crew and one cue sheet, which is the version where the light and the music land together.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>What areas of Dallas-Fort Worth do you cover?</summary>
+          <div class="ans">The whole Metroplex, roughly a forty-mile radius from the mid-cities, covering Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Southlake, McKinney, Richardson, Grapevine, Denton and everywhere in between. If your venue is further out, ask anyway and we will tell you honestly whether it works.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta" id="quote">
+    <div class="wrap">
+      <h2 data-reveal>Tell us the moment. <span class="grad-text">We&rsquo;ll put a light on it.</span></h2>
+      <p data-reveal>The date, the venue and what you want lit is enough to get a real quote back, usually the same day. Tell us about your event and we will send you a straightforward quote the same day.</p>
+      <div data-reveal style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+        <a class="btn-primary" href="/contact">Get Your Quote</a>
+        <a class="btn-secondary" href="tel:8172107957">Call or Text 817-210-7957</a>
+      </div>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="col brand">
+          <div class="logo"><div class="dial"></div>DEA</div>
+          <p style="margin-top:14px; max-width:250px;">Full-service AV production for Dallas-Fort Worth since 2001. Delivered, set up, and run by our on-site technician.</p>
+          <div class="foot-contact">
+            <a href="tel:8172107957">817-210-7957</a>
+            <a href="mailto:info@dallaseventaudio.com">info@dallaseventaudio.com</a>
+          </div>
+          <p class="foot-area">Serving Dallas, Fort Worth, Southlake, Arlington, Frisco, McKinney, Richardson &amp; the wider Metroplex.</p>
+        </div>
+        <div class="col">
+          <h4>Events</h4>
+          <a href="/weddings">Weddings</a>
+          <a href="/corporate-events">Corporate Events</a>
+          <a href="/private-events">Private Events</a>
+          <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+          <a href="/college-school-university-events">College &amp; University</a>
+          <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+          <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+        </div>
+        <div class="col">
+          <h4>Services</h4>
+          <a href="/services-dj">DJ Services</a>
+          <a href="/services-audio">Audio Services</a>
+          <a href="/services-lighting">Lighting Services</a>
+          <a href="/services-photo-and-video">Photo &amp; Video</a>
+          <a href="/services-extra">Extra Services</a>
+        </div>
+        <div class="col">
+          <h4>Audio Rentals</h4>
+          <a href="/rent-sound-equipment">Sound Equipment</a>
+          <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+          <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+          <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+          <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+          <a href="/live-streaming-services">Live Streaming</a>
+        </div>
+        <div class="col">
+          <h4>Lighting &amp; FX</h4>
+          <a href="/rent-uplighting">Uplighting</a>
+          <a href="/rent-laser-light-show">Laser Light Show</a>
+          <a href="/rent-follow-spot-light">Follow Spot</a>
+          <a href="/monogram-projector">Monogram Projector</a>
+          <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+          <a href="/projector-screen-rental">Projector &amp; Screen</a>
+        </div>
+        <div class="col">
+          <h4>Company</h4>
+          <a href="/our-story">Our Story</a>
+          <a href="/our-work">Our Work</a>
+          <a href="/equipment-list">Equipment List</a>
+          <a href="/what-others-are-saying">Reviews</a>
+          <a href="/blog">Blog</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div class="foot-proof">
+        <a class="fp" href="https://www.google.com/maps?cid=11213015373496621898" target="_blank" rel="noopener"><span class="m g">G</span> <b>4.9</b> <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span> &middot; 41 Google reviews</a>
+        <a class="fp" href="https://www.yelp.com/biz/dallas-event-audio-dallas" target="_blank" rel="noopener"><span class="m y">Y</span> <b>Yelp</b> &middot; 13 reviews &middot; 134 photos</a>
+      </div>
+      <div class="foot-bottom">
+        <span>&copy; 2026 Dallas Event Audio. Fully insured, on-site AV production.</span>
+        <span>Follow spot page draft</span>
+      </div>
+    </div>
+  </footer>
+<div id="chatBubble">✦ AV Concierge</div>
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+<script>
+  // Palette switcher, review tool only
+  document.querySelectorAll('#paletteBar button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.documentElement.setAttribute('data-palette', btn.dataset.p);
+      document.querySelectorAll('#paletteBar button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // Scroll reveal
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.15});
+    document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el=>el.classList.add('in'));
+  }
+
+  // CO2 / particle burst on primary CTA click
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function burst(x, y){
+    if(reduceMotion) return;
+    const colors = ['var(--a1)','var(--a2)','var(--a3)','#ffffff'];
+    const count = 26;
+    for(let i=0;i<count;i++){
+      const p = document.createElement('span');
+      p.className = 'burst-particle';
+      const angle = (Math.PI * 2 * i) / count + Math.random()*0.4;
+      const dist = 60 + Math.random()*140;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist - 40;
+      const size = 4 + Math.random()*6;
+      p.style.width = p.style.height = size + 'px';
+      p.style.background = colors[i % colors.length];
+      p.style.boxShadow = '0 0 8px ' + colors[i % colors.length];
+      p.style.left = x + 'px';
+      p.style.top = y + 'px';
+      document.body.appendChild(p);
+      const anim = p.animate([
+        { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
+        { transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.3)`, opacity:0 }
+      ], { duration:700 + Math.random()*400, easing:'cubic-bezier(.2,.7,.3,1)' });
+      anim.onfinish = () => p.remove();
+    }
+  }
+  document.querySelectorAll('.btn-primary').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      burst(e.clientX, e.clientY);
+    });
+  });
+</script>
+
+</body>
+</html>

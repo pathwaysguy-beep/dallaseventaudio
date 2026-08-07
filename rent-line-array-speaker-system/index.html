@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="signal">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font-display:'Unbounded',sans-serif;
+    --font-body:'Space Grotesk',sans-serif;
+  }
+
+  /* ============ PALETTE A: Signal Chain (true DJ mixer peak-meter LEDs: green / yellow / red) ============ */
+  html[data-palette="signal"]{
+    --bg-0:#050706; --bg-1:#0a0f0c; --bg-2:#0e1512;
+    --ink:#f4f7f5; --dim:#b4c5ba;
+    --a1:#31ff6e; /* LED green */
+    --a2:#fff21c; /* LED yellow */
+    --a3:#ff1f3d; /* LED red */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 55%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(255,255,255,.08);
+    --glow: rgba(49,255,110,.35);
+  }
+  /* ============ PALETTE B: Stage Black & Amber (warm, premium, ties to existing chat widget gold) ============ */
+  html[data-palette="amber"]{
+    --bg-0:#070605; --bg-1:#0d0a06; --bg-2:#120e08;
+    --ink:#f8f3ea; --dim:#c3b7a5;
+    --a1:#e8b75c; /* gold */
+    --a2:#ffdfa0; /* warm white/spot */
+    --a3:#4fa3ff; /* cool counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 50%, var(--a2) 50%, var(--a2) 100%);
+    --card-border: rgba(232,183,92,.16);
+    --glow: rgba(232,183,92,.32);
+  }
+  /* ============ PALETTE C: DFW Night Rig (cool stage-lighting energy, distinct from EDM Wedding DJ's magenta) ============ */
+  html[data-palette="night"]{
+    --bg-0:#05060b; --bg-1:#090b16; --bg-2:#0c0f1e;
+    --ink:#f1f3fb; --dim:#aeb5cf;
+    --a1:#2f6fff; /* electric blue */
+    --a2:#8b5cf6; /* violet */
+    --a3:#ffb020; /* amber counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 65%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(139,92,246,.16);
+    --glow: rgba(47,111,255,.35);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-0);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  .grad-text{
+    background:var(--grad);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  /* ---------- palette dock (bottom left, shipped feature) ---------- */
+  #paletteBar{
+    position:fixed; left:20px; bottom:22px; z-index:200;
+    display:flex; flex-direction:column; align-items:flex-start;
+    font-family:var(--font-body);
+  }
+  #paletteBar .pal-toggle{
+    display:flex; align-items:center; gap:9px;
+    padding:11px 17px; border-radius:100px;
+    border:1px solid var(--card-border); background:rgba(8,9,10,.82);
+    -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+    color:var(--ink); font-family:var(--font-body); font-size:0.85rem; font-weight:600;
+    cursor:pointer; transition:border-color .2s, background .2s;
+  }
+  #paletteBar .pal-toggle:hover{ border-color:var(--a1); background:rgba(8,9,10,.94); }
+  #paletteBar .pal-toggle .dots{ display:flex; gap:3px; }
+  #paletteBar .pal-toggle .dots i{ width:8px; height:8px; border-radius:50%; display:block; }
+  #paletteBar .pal-opts{
+    display:none; flex-direction:column; gap:4px; margin-bottom:10px;
+    padding:10px; border-radius:16px; min-width:222px;
+    border:1px solid var(--card-border); background:rgba(8,9,10,.94);
+    -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px);
+    box-shadow:0 20px 50px -18px rgba(0,0,0,.9);
+  }
+  #paletteBar.open .pal-opts{ display:flex; }
+  #paletteBar .pal-opts .pal-head{
+    font-family:var(--font-display); font-weight:900; font-size:0.6rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--dim);
+    padding:4px 10px 8px;
+  }
+  #paletteBar .pal-opts button{
+    display:flex; align-items:center; gap:10px; text-align:left; width:100%;
+    padding:9px 11px; border-radius:11px; border:1px solid transparent;
+    background:transparent; color:var(--ink);
+    font-family:var(--font-body); font-size:0.87rem; font-weight:500;
+    cursor:pointer; transition:.18s;
+  }
+  #paletteBar .pal-opts button:hover{ background:rgba(255,255,255,.06); }
+  #paletteBar .pal-opts button.active{ border-color:var(--a1); background:rgba(255,255,255,.05); font-weight:700; }
+  #paletteBar .pal-opts button i{
+    width:22px; height:11px; border-radius:100px; flex:0 0 auto;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);
+  }
+  #paletteBar .sw-signal{ background:linear-gradient(90deg,#31ff6e,#fff21c 55%,#ff1f3d); }
+  #paletteBar .sw-amber { background:linear-gradient(90deg,#e8b75c,#ffdfa0); }
+  #paletteBar .sw-night { background:linear-gradient(90deg,#2f6fff,#8b5cf6 65%,#ffb020); }
+  @media(max-width:520px){
+    #paletteBar{ left:14px; bottom:16px; }
+    #paletteBar .pal-toggle{ padding:9px 13px; font-size:0.8rem; }
+    #paletteBar .pal-toggle .label{ display:none; }
+    #paletteBar .pal-opts{ min-width:198px; }
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(5,6,5,.7); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--card-border);
+  }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1180px; margin:0 auto; }
+  .logo{ display:flex; align-items:center; }
+  .logo img{
+    display:block; height:46px; width:auto;
+    filter:drop-shadow(0 0 9px rgba(255,255,255,.32)) drop-shadow(0 2px 3px rgba(0,0,0,.65));
+  }
+  .col.brand .logo img{ height:38px; }
+  @media (max-width:520px){ .logo img{ height:34px; } }
+  .navlinks{ display:flex; gap:28px; font-size:0.994rem; color:var(--dim); }
+  .navlinks a:hover{ color:var(--ink); }
+  .navright{ display:flex; align-items:center; gap:18px; }
+  .phone{ font-size:0.96rem; color:var(--dim); }
+  .cta-btn{
+    font-family:var(--font-body); font-weight:700; font-size:0.96rem;
+    padding:11px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    display:inline-block; white-space:nowrap;
+  }
+  @media (max-width:860px){ .navlinks{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{ position:relative; padding:110px 0 90px; overflow:hidden; }
+  .hero::before{
+    content:''; position:absolute; inset:-20% -10% auto -10%; height:600px;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    opacity:.5; filter:blur(40px); pointer-events:none;
+  }
+
+  /* -- animated perspective floor grid -- */
+  .hero-grid{
+    position:absolute; left:0; right:0; bottom:-10%; height:70%;
+    perspective:400px; overflow:hidden; pointer-events:none; z-index:0;
+  }
+  .hero-grid::before{
+    content:''; position:absolute; inset:-50% -50% 0 -50%;
+    background-image:
+      repeating-linear-gradient(to right, var(--card-border) 0 1px, transparent 1px 68px),
+      repeating-linear-gradient(to top, var(--card-border) 0 1px, transparent 1px 68px);
+    transform:rotateX(62deg);
+    transform-origin:bottom;
+    animation: gridScroll 9s linear infinite;
+    opacity:.55;
+    mask-image:linear-gradient(to top, black 0%, transparent 75%);
+    -webkit-mask-image:linear-gradient(to top, black 0%, transparent 75%);
+  }
+  @keyframes gridScroll{ from{ background-position:0 0; } to{ background-position:0 136px; } }
+
+  /* -- sweeping laser beams -- */
+  .hero-lasers{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .laser{
+    position:absolute; top:-10%; width:2px; height:130%;
+    background:linear-gradient(to bottom, transparent, var(--a1), transparent);
+    opacity:0; filter:blur(.5px);
+    animation: laserSweep 6s ease-in-out infinite;
+  }
+  .laser:nth-child(1){ left:8%;  background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:0s; }
+  .laser:nth-child(2){ left:32%; background:linear-gradient(to bottom, transparent, var(--a2), transparent); animation-delay:1.6s; transform:rotate(6deg); }
+  .laser:nth-child(3){ left:63%; background:linear-gradient(to bottom, transparent, var(--a3), transparent); animation-delay:3.1s; transform:rotate(-8deg); }
+  .laser:nth-child(4){ left:85%; background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:4.3s; transform:rotate(4deg); }
+  @keyframes laserSweep{
+    0%{ opacity:0; transform:translateX(-10px) rotate(var(--rot,0deg)); }
+    8%{ opacity:.55; }
+    20%{ opacity:0; }
+    100%{ opacity:0; }
+  }
+
+  /* -- drifting fog -- */
+  .hero-fog{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .fog-blob{
+    position:absolute; width:60%; padding-top:60%; border-radius:50%;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    filter:blur(50px); opacity:.4;
+    animation: fogDrift 18s ease-in-out infinite alternate;
+  }
+  .fog-blob.b2{ left:50%; top:20%; animation-duration:24s; animation-delay:-6s; opacity:.28; }
+  @keyframes fogDrift{
+    from{ transform:translate(-8%, 0) scale(1); }
+    to{ transform:translate(8%, 6%) scale(1.15); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-grid::before, .laser, .fog-blob{ animation:none !important; }
+    .laser{ opacity:0; }
+  }
+
+  .hero-logo-wrap{ text-align:center; position:relative; z-index:1; margin-bottom:40px; }
+  .hero-logo-wrap img{
+    width:min(440px, 78vw); height:auto;
+    filter:drop-shadow(0 0 60px var(--glow));
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--card-border); border-radius:100px; padding:7px 16px;
+    font-size:0.881rem; color:var(--dim); letter-spacing:.04em; text-transform:uppercase;
+    margin-bottom:28px; position:relative; z-index:1;
+  }
+  .eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--a1); box-shadow:0 0 8px var(--a1); }
+  .hero h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.6rem, 6vw, 4.6rem); max-width:900px; position:relative; z-index:1;
+  }
+  .hero p.sub{
+    font-size:1.15rem; color:var(--dim); max-width:600px; margin-top:26px; position:relative; z-index:1;
+  }
+  .hero-ctas{ display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; position:relative; z-index:1; }
+  .btn-primary{
+    font-weight:700; padding:16px 30px; border-radius:100px; background:var(--grad); color:#0a0a0a; font-size:1.073rem;
+  }
+  .btn-secondary{
+    font-weight:600; padding:16px 30px; border-radius:100px; border:1px solid var(--card-border); color:var(--ink); font-size:1.073rem;
+  }
+  .trust-row{
+    display:flex; gap:40px; flex-wrap:wrap; margin-top:64px; padding-top:34px;
+    border-top:1px solid var(--card-border); position:relative; z-index:1;
+  }
+  .trust-item .num{ font-family:var(--font-display); font-weight:800; font-size:1.6rem; }
+  .trust-item .label{ font-size:0.904rem; color:var(--dim); margin-top:4px; }
+
+  /* ---------- services ---------- */
+  .section{ padding:90px 0; }
+  .section-head{ max-width:640px; margin-bottom:52px; }
+  .kicker{ font-size:0.881rem; letter-spacing:.08em; text-transform:uppercase; color:var(--a1); font-weight:700; margin-bottom:14px; display:block; }
+  .section-head h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.8rem,3.4vw,2.6rem); }
+  .section-head p{ color:var(--dim); margin-top:14px; font-size:1.153rem; }
+
+  .service-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; }
+  .service-card{
+    background:linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 55%, transparent), color-mix(in srgb, var(--bg-1) 45%, transparent));
+    backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:20px; padding:28px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 8px 30px -18px rgba(0,0,0,.6);
+    transition:.25s; position:relative; overflow:hidden;
+  }
+  .service-card:hover{ transform:translateY(-4px); border-color:var(--a1); box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 20px 50px -20px var(--glow); }
+  .service-card .icon{
+    width:44px; height:44px; border-radius:12px; margin-bottom:20px;
+    background:var(--grad); display:flex; align-items:center; justify-content:center;
+    font-size:1.2rem;
+  }
+  .service-card h3{ font-family:var(--font-display); font-size:1.186rem; font-weight:700; margin-bottom:10px; }
+  .service-card p{ font-size:0.994rem; color:var(--dim); margin-bottom:18px; }
+  .service-card .learn{ font-size:0.904rem; font-weight:700; color:var(--a1); }
+  .service-card.featured{ border-color:var(--a2); }
+  .tag-live{ position:absolute; top:20px; right:20px; font-size:0.82rem; text-transform:uppercase; letter-spacing:.06em; color:var(--a2); border:1px solid var(--a2); padding:3px 8px; border-radius:100px; }
+
+  /* ---------- differentiator ---------- */
+  .diff{ background:var(--bg-1); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border); }
+  .diff-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+  .diff-visual{
+    aspect-ratio:4/3; border-radius:24px; border:1px solid var(--card-border);
+    background:
+      radial-gradient(circle at 30% 20%, var(--glow), transparent 55%),
+      linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 50%, transparent), color-mix(in srgb, var(--bg-0) 40%, transparent));
+    backdrop-filter:blur(22px) saturate(150%); -webkit-backdrop-filter:blur(22px) saturate(150%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 20px 60px -30px rgba(0,0,0,.7);
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .diff-visual .badge{
+    font-family:var(--font-display); font-weight:800; text-align:center; font-size:1.073rem; color:var(--dim);
+    border:1px dashed var(--card-border); padding:20px; border-radius:16px;
+  }
+  .diff-copy h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.7rem,3vw,2.3rem); margin-bottom:20px; }
+  .diff-copy p{ color:var(--dim); margin-bottom:16px; font-size:1.13rem; }
+  .diff-copy strong{ color:var(--ink); }
+  @media (max-width:820px){ .diff-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- reviews ---------- */
+  .review-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
+  .review-card{
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:18px; padding:26px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -20px rgba(0,0,0,.6);
+  }
+  .stars{ color:var(--a2); letter-spacing:2px; margin-bottom:14px; font-size:1.017rem; }
+  .review-card p{ font-size:1.04rem; color:var(--ink); opacity:.9; margin-bottom:16px; }
+  .review-card .who{ font-size:0.904rem; color:var(--dim); font-weight:600; }
+
+  /* ---------- review proof badges ---------- */
+  .proof-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:16px; margin-bottom:36px; }
+  .proof-badge{
+    display:flex; align-items:center; gap:14px; padding:18px 20px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -22px rgba(0,0,0,.6);
+    transition:.22s;
+  }
+  .proof-badge:hover{ border-color:var(--a1); transform:translateY(-3px); box-shadow:0 16px 42px -24px var(--glow); }
+  .proof-mark{
+    flex:0 0 42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:1.2rem; letter-spacing:-.02em;
+  }
+  .proof-mark.g{ background:#ffffff; color:#4285f4; }
+  .proof-mark.y{ background:#d32323; color:#ffffff; }
+  .proof-mark.k{ background:#ffffff; color:#0f9aa0; }
+  .proof-mark.w{ background:#ffffff; color:#16181d; font-size:.98rem; }
+  .proof-meta .rate{
+    font-family:var(--font-display); font-weight:800; font-size:1.22rem; line-height:1.15;
+    display:flex; align-items:baseline; gap:9px;
+  }
+  .proof-meta .rate .s{ color:var(--a2); font-size:.92rem; letter-spacing:1px; font-weight:400; }
+  .proof-meta .cnt{ font-size:.92rem; color:var(--dim); margin-top:2px; }
+  .proof-badge.tbd{ border-style:dashed; border-color:var(--a2); }
+  .proof-badge.tbd .rate{ color:var(--a2); }
+  .proof-badge.tbd .cnt{ color:var(--a2); opacity:.8; }
+
+  /* compact sitewide footer strip */
+  .foot-proof{
+    display:flex; flex-wrap:wrap; align-items:center; gap:12px 26px;
+    margin-top:32px; padding-top:26px; border-top:1px solid var(--card-border);
+  }
+  .foot-proof .fp{ display:inline-flex; align-items:center; gap:9px; font-size:.94rem; color:var(--dim); }
+  .foot-proof .fp:hover{ color:var(--ink); }
+  .foot-proof .fp b{ color:var(--ink); font-weight:700; }
+  .foot-proof .fp .s{ color:var(--a2); letter-spacing:1px; }
+  .foot-proof .fp .m{
+    width:24px; height:24px; border-radius:7px; display:inline-flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:.76rem;
+  }
+  .foot-proof .fp .m.g{ background:#ffffff; color:#4285f4; }
+  .foot-proof .fp .m.y{ background:#d32323; color:#ffffff; }
+  .foot-proof .fp .m.k{ background:#ffffff; color:#0f9aa0; }
+  .foot-proof .fp .m.w{ background:#ffffff; color:#16181d; font-size:.62rem; }
+  @media (max-width:820px){ .foot-proof{ gap:12px 18px; } }
+
+  /* ---------- final CTA ---------- */
+  .final-cta{ text-align:center; padding:110px 0; position:relative; }
+  .final-cta h2{ font-family:var(--font-display); font-weight:900; font-size:clamp(2rem,5vw,3.2rem); max-width:760px; margin:0 auto 22px; }
+  .final-cta p{ color:var(--dim); max-width:520px; margin:0 auto 36px; }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:1px solid var(--card-border); padding:50px 0; }
+  .foot-grid{ display:grid; grid-template-columns:1.6fr repeat(5,1fr); gap:34px 26px; }
+  @media (max-width:1080px){ .foot-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:620px){ .foot-grid{ grid-template-columns:repeat(2,1fr); } }
+  .foot-grid .col.brand{ min-width:210px; }
+  @media (max-width:1080px){ .foot-grid .col.brand{ grid-column:1 / -1; } }
+  .foot-contact{ margin-top:16px; }
+  .foot-contact a{ display:block; margin-bottom:6px; font-size:1rem; color:var(--ink); opacity:.9; }
+  .foot-contact a:hover{ color:var(--a1); opacity:1; }
+  .foot-area{ font-size:.9rem; color:var(--dim); margin-top:12px; line-height:1.6; }
+  .foot-grid .col h4{ font-size:0.904rem; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin-bottom:14px; }
+  .foot-grid .col a, .foot-grid .col p{ display:block; font-size:0.972rem; color:var(--ink); opacity:.8; margin-bottom:8px; }
+  .foot-bottom{ margin-top:40px; padding-top:24px; border-top:1px solid var(--card-border); font-size:0.881rem; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+
+  /* ---------- chatbot bubble (visual placeholder for the AV Concierge) ---------- */
+  #chatBubble{
+    position:fixed; right:22px; bottom:22px; z-index:200;
+    display:flex; align-items:center; gap:8px;
+    padding:14px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    font-weight:700; font-size:0.96rem; box-shadow:0 14px 40px -12px var(--glow);
+    cursor:pointer;
+  }
+
+  [data-reveal]{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  [data-reveal].in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- film grain overlay ---------- */
+  .grain-overlay{
+    position:fixed; inset:0; z-index:999; pointer-events:none;
+    opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-repeat:repeat;
+  }
+
+  /* ---------- marquee strip ---------- */
+  .marquee{
+    border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);
+    background:var(--bg-1); overflow:hidden; padding:18px 0; position:relative;
+  }
+  .marquee-track{
+    display:flex; width:max-content; gap:48px;
+    animation:marqueeScroll 32s linear infinite;
+  }
+  .marquee-track span{
+    font-family:var(--font-display); font-weight:700; font-size:1.073rem;
+    letter-spacing:.04em; text-transform:uppercase; color:var(--dim);
+    display:flex; align-items:center; gap:48px; white-space:nowrap;
+  }
+  .marquee-track span::after{ content:'✦'; color:var(--a1); margin-left:48px; }
+  @keyframes marqueeScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  /* ---------- CO2 / particle burst ---------- */
+  .burst-particle{
+    position:fixed; top:0; left:0; width:6px; height:6px; border-radius:50%;
+    pointer-events:none; z-index:500; will-change:transform,opacity;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+    .marquee-track{ animation:none; }
+    .grain-overlay{ display:none; }
+  }
+</style>
+  <title>Line Array and PA System Rental Dallas | Dallas Event Audio</title>
+  <meta name="description" content="Line array and PA system rental in Dallas-Fort Worth. DAS Aero 12 flown or ground stacked, tuned to the room and run by our engineer. Request a quote today.">
+  <link rel="canonical" href="https://www.dallaseventaudio.com/rent-line-array-speaker-system">
+  <meta property="og:title" content="Line Array and PA System Rental Dallas | Dallas Event Audio">
+  <meta property="og:description" content="Line array and PA system rental in Dallas-Fort Worth. DAS Aero 12 flown or ground stacked, tuned to the room and run by our engineer. Request a quote today.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.dallaseventaudio.com/rent-line-array-speaker-system">
+<style>
+  /* ========== LINE ARRAY & LARGE FORMAT PA (rent-line-array-speaker-system) ========== */
+
+  section[id]{ scroll-margin-top:96px; }
+
+  .hero.hero-page{ padding:64px 0 62px; }
+  .breadcrumb{
+    font-size:.881rem; color:var(--dim); letter-spacing:.03em;
+    position:relative; z-index:1; margin-bottom:22px;
+  }
+  .breadcrumb a{ color:var(--dim); }
+  .breadcrumb a:hover{ color:var(--a1); }
+  .breadcrumb .sep{ opacity:.45; margin:0 8px; }
+  .breadcrumb .here{ color:var(--ink); opacity:.75; }
+
+  .hero-page h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.3rem, 5.2vw, 4rem); max-width:980px; position:relative; z-index:1;
+  }
+  .hero-page .sub{
+    font-size:1.18rem; color:var(--dim); max-width:720px; margin-top:24px;
+    position:relative; z-index:1;
+  }
+
+  .stat-row{
+    display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:14px;
+    margin-top:40px; position:relative; z-index:1;
+  }
+  .stat{
+    padding:18px 20px; border-radius:14px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .stat .num{
+    font-family:var(--font-display); font-weight:900; font-size:1.7rem; line-height:1;
+    background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .stat .lbl{ margin-top:8px; font-size:.86rem; color:var(--dim); line-height:1.45; }
+  @media (max-width:860px){ .stat-row{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:480px){ .stat-row{ grid-template-columns:1fr; } }
+
+  /* ---------- DJ service tier cards ---------- */
+  .dj-grid{
+    display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:18px;
+    margin-top:38px;
+  }
+  @media (max-width:860px){
+    .dj-grid{ grid-template-columns:1fr; }
+  }
+  .dj-card{
+    position:relative; overflow:hidden;
+    padding:30px 30px 28px; border-radius:20px;
+    background:color-mix(in srgb, var(--bg-2) 52%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s, box-shadow .3s;
+  }
+  .dj-card::before{
+    content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+    background:var(--grad); opacity:.5; transition:opacity .3s;
+  }
+  .dj-card:hover{
+    border-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transform:translateY(-3px);
+    box-shadow:0 24px 60px -34px var(--glow), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .dj-card:hover::before{ opacity:1; }
+
+  .dj-card .tag{
+    font-family:var(--font-display); font-weight:900; font-size:.7rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1);
+  }
+  .dj-card h3{
+    margin-top:12px; font-family:var(--font-display); font-weight:900; line-height:1.12;
+    font-size:clamp(1.3rem, 2.1vw, 1.6rem);
+  }
+  .dj-card p{ margin-top:14px; font-size:1rem; line-height:1.72; color:var(--dim); }
+  .dj-card p b, .dj-card p strong{ color:var(--ink); font-weight:700; }
+  .dj-card .best{
+    margin-top:18px; padding-top:15px; border-top:1px solid var(--card-border);
+    font-size:.87rem; line-height:1.6; color:var(--dim);
+  }
+  .dj-card .best em{ font-style:normal; font-weight:800; color:var(--a2); letter-spacing:.04em;
+    text-transform:uppercase; font-size:.72rem; display:block; margin-bottom:6px; }
+
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+  .chip{
+    display:inline-block; padding:6px 13px; border-radius:100px;
+    font-size:.79rem; font-weight:600; letter-spacing:.02em;
+    color:var(--dim); text-decoration:none;
+    border:1px solid var(--card-border);
+    background:color-mix(in srgb, var(--bg-0) 45%, transparent);
+    transition:.2s;
+  }
+  a.chip:hover{ color:var(--a1); border-color:color-mix(in srgb, var(--a1) 55%, transparent); }
+  a.chip::after{ content:' \2192'; opacity:.55; }
+
+  /* ---------- which setup for which room ---------- */
+  .room-list{ margin-top:36px; border-top:1px solid var(--card-border); }
+  .room{
+    display:grid; grid-template-columns:280px 1fr; gap:32px;
+    padding:24px 0; border-bottom:1px solid var(--card-border);
+    transition:border-color .3s;
+  }
+  .room:hover{ border-bottom-color:color-mix(in srgb, var(--a1) 40%, transparent); }
+  .room h3{
+    font-family:var(--font-display); font-weight:800; font-size:1.1rem; line-height:1.35;
+  }
+  .room h3 span{ display:block; margin-top:6px; font-size:.76rem; font-weight:700;
+    letter-spacing:.09em; text-transform:uppercase; color:var(--a1); opacity:.85; }
+  .room p{ font-size:1rem; line-height:1.72; color:var(--dim); }
+  .room p b{ color:var(--ink); font-weight:700; }
+
+  @media (max-width:860px){
+    .room{ grid-template-columns:1fr; gap:12px; }
+  }
+
+  .room-body{ min-width:0; }
+  .room-body p + p{ margin-top:14px; }
+
+  /* ---------- spec line (dea-copy-standards, option C) ---------- */
+  .spec{
+    display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+    margin:0 0 14px; padding-bottom:12px;
+    border-bottom:1px solid var(--card-border);
+    font-family:var(--font-body); font-size:.92rem; color:var(--ink); line-height:1.5;
+  }
+  .spec span{
+    font-family:var(--font-display); font-weight:900; font-size:.66rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1); flex:0 0 auto;
+  }
+
+  /* ---------- add-on strip ---------- */
+  .addon{
+    margin-top:24px; padding:28px 30px; border-radius:18px;
+    border:1px dashed color-mix(in srgb, var(--a1) 32%, var(--card-border));
+    background:color-mix(in srgb, var(--bg-1) 40%, transparent);
+  }
+  .addon h3{ font-family:var(--font-display); font-size:1.16rem; font-weight:800; }
+  .addon p{ margin-top:10px; font-size:.98rem; color:var(--dim); line-height:1.7; }
+
+  /* ---------- feature split ---------- */
+  .split{
+    display:grid; grid-template-columns:1.05fr .95fr; gap:44px; align-items:center;
+  }
+  .split.flip .split-copy{ order:2; }
+  .split.flip .split-vis{ order:1; }
+  .split-copy h2{
+    font-family:var(--font-display); font-weight:900; line-height:1.1;
+    font-size:clamp(1.85rem, 3.4vw, 2.7rem);
+  }
+  .split-copy p{ margin-top:18px; font-size:1.04rem; line-height:1.75; color:var(--dim); }
+  .split-copy p b{ color:var(--ink); font-weight:700; }
+
+  .split-vis{
+    position:relative; border-radius:20px; overflow:hidden;
+    aspect-ratio:4/3; border:1px solid var(--card-border);
+    background-color:var(--bg-2);
+    background-image:var(--img),
+      radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--a1) 22%, transparent), transparent 62%),
+      radial-gradient(circle at 76% 80%, color-mix(in srgb, var(--a2) 18%, transparent), transparent 60%);
+    background-size:cover; background-position:center; background-repeat:no-repeat;
+  }
+  .split-vis img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  }
+  .split-vis .slot{
+    position:absolute; left:0; right:0; bottom:0; padding:30px 16px 13px;
+    background:linear-gradient(to top, rgba(6,6,8,.9), transparent);
+    font-size:.72rem; color:var(--dim); letter-spacing:.03em;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  @media (max-width:860px){
+    .split{ grid-template-columns:1fr; gap:26px; }
+    .split.flip .split-copy{ order:1; }
+    .split.flip .split-vis{ order:2; }
+  }
+
+  /* ---------- how it works ---------- */
+  .flow{ display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:16px; margin-top:34px; }
+  @media (max-width:1040px){ .flow{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:620px){ .flow{ grid-template-columns:1fr; } }
+  .flow-step{
+    position:relative; padding:26px 22px 24px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    border:1px solid var(--card-border);
+    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  }
+  .flow-step .n{
+    font-family:var(--font-display); font-weight:900; font-size:.7rem;
+    letter-spacing:.15em; text-transform:uppercase; color:var(--a1);
+  }
+  .flow-step h3{ margin-top:12px; font-family:var(--font-display); font-size:1.06rem; font-weight:800; }
+  .flow-step p{ margin-top:9px; font-size:.92rem; color:var(--dim); line-height:1.62; }
+
+  /* ---------- trust strip ---------- */
+  .trust-grid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:32px; }
+  @media (max-width:860px){ .trust-grid{ grid-template-columns:1fr; } }
+  .trust-card{
+    padding:24px 24px 22px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 45%, transparent);
+    border:1px solid var(--card-border);
+  }
+  .trust-card h3{ font-family:var(--font-display); font-size:1.02rem; font-weight:800; }
+  .trust-card p{ margin-top:9px; font-size:.92rem; color:var(--dim); line-height:1.62; }
+
+
+  /* ---------- event vertical link cards ---------- */
+  .vgrid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:34px; }
+  @media (max-width:1040px){ .vgrid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:860px){ .vgrid{ grid-template-columns:1fr; } }
+  .vcard{
+    display:block; position:relative; overflow:hidden; text-decoration:none;
+    padding:24px 24px 22px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    backdrop-filter:blur(12px) saturate(140%); -webkit-backdrop-filter:blur(12px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s, box-shadow .3s;
+  }
+  .vcard::before{
+    content:''; position:absolute; left:0; right:0; top:0; height:2px;
+    background:var(--grad); opacity:.45; transition:opacity .3s;
+  }
+  .vcard:hover{
+    border-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transform:translateY(-3px);
+    box-shadow:0 22px 54px -34px var(--glow), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .vcard:hover::before{ opacity:1; }
+  .vcard h3{
+    font-family:var(--font-display); font-weight:800; font-size:1.06rem; line-height:1.3;
+    color:var(--ink);
+  }
+  .vcard h3::after{ content:' \2192'; color:var(--a1); opacity:.7; }
+  .vcard p{ margin-top:10px; font-size:.93rem; color:var(--dim); line-height:1.64; }
+
+  /* ---------- vocabulary band (near-me / city phrasing) ---------- */
+  .band{
+    margin-top:34px; padding:30px 32px; border-radius:20px;
+    background:
+      radial-gradient(circle at 12% 18%, color-mix(in srgb, var(--a1) 12%, transparent), transparent 58%),
+      color-mix(in srgb, var(--bg-1) 55%, transparent);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .band h3{ font-family:var(--font-display); font-weight:900; font-size:clamp(1.2rem,2vw,1.5rem); line-height:1.18; }
+  .band p{ margin-top:14px; font-size:1.02rem; line-height:1.74; color:var(--dim); }
+  .band p b{ color:var(--ink); font-weight:700; }
+  @media (max-width:820px){ .band{ padding:24px 22px; } }
+
+  /* ---------- FAQ ---------- */
+  .faq-list{ margin-top:32px; border-top:1px solid var(--card-border); }
+  .faq-item{ border-bottom:1px solid var(--card-border); }
+  .faq-item summary{
+    list-style:none; cursor:pointer; padding:22px 44px 22px 0; position:relative;
+    font-family:var(--font-display); font-weight:700; font-size:1.06rem; line-height:1.45;
+    transition:color .2s;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary:hover{ color:var(--a1); }
+  .faq-item summary::after{
+    content:'+'; position:absolute; right:6px; top:50%; transform:translateY(-50%);
+    font-size:1.5rem; font-weight:400; line-height:1; color:var(--a1); transition:transform .25s;
+  }
+  .faq-item[open] summary::after{ transform:translateY(-50%) rotate(45deg); }
+  .faq-item .ans{ padding:0 44px 24px 0; font-size:1rem; line-height:1.75; color:var(--dim); }
+  .faq-item .ans a{ color:var(--a1); }
+
+  @media (max-width:820px){
+    .hero.hero-page{ padding:44px 0 50px; }
+    .dj-card{ padding:26px 22px 24px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .dj-card, .vcard{ transition:none; }
+  }
+
+
+
+
+  /* ---------- effect comparison strip ---------- */
+  .fx-grid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:34px; }
+  @media (max-width:1040px){ .fx-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:700px){ .fx-grid{ grid-template-columns:1fr; } }
+  .fx-card{
+    position:relative; overflow:hidden;
+    padding:26px 24px 24px; border-radius:18px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s;
+  }
+  .fx-card::after{
+    content:''; position:absolute; right:-30px; top:-30px; width:110px; height:110px;
+    border-radius:50%; opacity:.16; transition:opacity .3s;
+    background:radial-gradient(circle, var(--a2), transparent 68%);
+  }
+  .fx-card:hover{ border-color:color-mix(in srgb, var(--a2) 42%, transparent); transform:translateY(-3px); }
+  .fx-card:hover::after{ opacity:.34; }
+  .fx-card h3{ font-family:var(--font-display); font-weight:800; font-size:1.06rem; line-height:1.3; }
+  .fx-card p{ margin-top:10px; font-size:.94rem; line-height:1.66; color:var(--dim); }
+  .fx-card p b{ color:var(--ink); font-weight:700; }
+
+  @media (prefers-reduced-motion: reduce){
+    .arr-fx i{ animation:none; opacity:.3; }
+    .hang i{ animation:none; opacity:.8; }
+    .fx-card{ transition:none; }
+  }
+
+  /* ---------- hero coverage fan ---------- */
+  .arr-fx{
+    position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0;
+    mask-image:radial-gradient(115% 100% at 50% 0%, #000 26%, transparent 84%);
+    -webkit-mask-image:radial-gradient(115% 100% at 50% 0%, #000 26%, transparent 84%);
+  }
+  .arr-fx i{
+    position:absolute; left:50%; top:-140px;
+    width:520px; height:520px; margin-left:-260px;
+    border-radius:50%; opacity:0;
+    border:1px solid color-mix(in srgb, var(--a1) 50%, transparent);
+    box-shadow:0 0 40px color-mix(in srgb, var(--a1) 14%, transparent) inset;
+    animation:wavefront linear infinite;
+  }
+  @keyframes wavefront{
+    0%{   transform:scale(.16); opacity:0; }
+    14%{  opacity:.5; }
+    72%{  opacity:.14; }
+    100%{ transform:scale(2.6); opacity:0; }
+  }
+  .arr-fx i:nth-child(1){ animation-duration:7.2s; animation-delay:0s;   }
+  .arr-fx i:nth-child(2){ animation-duration:7.2s; animation-delay:1.2s; }
+  .arr-fx i:nth-child(3){ animation-duration:7.2s; animation-delay:2.4s; }
+  .arr-fx i:nth-child(4){ animation-duration:7.2s; animation-delay:3.6s;
+    border-color:color-mix(in srgb, var(--a2) 42%, transparent); }
+  .arr-fx i:nth-child(5){ animation-duration:7.2s; animation-delay:4.8s; }
+  .arr-fx i:nth-child(6){ animation-duration:7.2s; animation-delay:6.0s; }
+
+  /* ---------- the hang: splayed cabinet stack ---------- */
+  .hang{
+    display:flex; flex-direction:column; align-items:center; gap:4px;
+    margin:30px 0 84px; width:190px; opacity:.95;
+  }
+  @media (max-width:860px){
+    .hang{ margin:22px 0 64px; width:140px; }
+  }
+  .hang i{
+    display:block; width:100%; height:13px; border-radius:2px;
+    background:linear-gradient(to right,
+      color-mix(in srgb, var(--a1) 68%, transparent),
+      color-mix(in srgb, var(--a2) 26%, transparent));
+    border:1px solid color-mix(in srgb, var(--a1) 34%, transparent);
+    transform-origin:center left;
+    animation:hangbreathe ease-in-out infinite alternate;
+  }
+  @keyframes hangbreathe{ from{ opacity:.45; } to{ opacity:1; } }
+  .hang i:nth-child(1){ transform:rotate(0deg);   width:100%; animation-duration:2.6s; animation-delay:0s;   }
+  .hang i:nth-child(2){ transform:rotate(2deg);   width:97%;  animation-duration:2.6s; animation-delay:.18s; }
+  .hang i:nth-child(3){ transform:rotate(5deg);   width:94%;  animation-duration:2.6s; animation-delay:.36s; }
+  .hang i:nth-child(4){ transform:rotate(9deg);   width:91%;  animation-duration:2.6s; animation-delay:.54s; }
+  .hang i:nth-child(5){ transform:rotate(14deg);  width:88%;  animation-duration:2.6s; animation-delay:.72s; }
+  .hang i:nth-child(6){ transform:rotate(20deg);  width:85%;  animation-duration:2.6s; animation-delay:.90s; }
+
+  /* ---------- haze beam band ---------- */
+  .beams{
+    position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; opacity:.5;
+  }
+  .beams i{
+    position:absolute; top:-30%; width:2px; height:160%;
+    transform-origin:top center;
+    background:linear-gradient(to bottom, color-mix(in srgb, var(--a1) 55%, transparent), transparent 78%);
+    filter:blur(3px);
+  }
+  .beams i:nth-child(1){ left:12%; transform:rotate(9deg);   width:3px; }
+  .beams i:nth-child(2){ left:27%; transform:rotate(-6deg);  }
+  .beams i:nth-child(3){ left:44%; transform:rotate(12deg);  width:4px;
+    background:linear-gradient(to bottom, color-mix(in srgb, var(--a2) 46%, transparent), transparent 74%); }
+  .beams i:nth-child(4){ left:61%; transform:rotate(-11deg); }
+  .beams i:nth-child(5){ left:78%; transform:rotate(7deg);   width:3px; }
+  .beams i:nth-child(6){ left:91%; transform:rotate(-4deg);  }
+
+  .wrap p a:not(.chip):not(.btn-primary):not(.btn-secondary),
+  .addon a:not(.chip){
+    color:var(--a1);
+    text-decoration:underline;
+    text-decoration-thickness:1px;
+    text-underline-offset:3px;
+    text-decoration-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transition:color .2s ease, text-decoration-color .2s ease;
+  }
+  .wrap p a:not(.chip):not(.btn-primary):not(.btn-secondary):hover,
+  .addon a:not(.chip):hover{ color:var(--a2); text-decoration-color:var(--a2); }
+
+  .dj-card .spec, .room .spec, .split-copy .spec, .band .spec, .fx-card .spec, .addon .spec, .section-head .spec{
+    margin:0 0 14px; font-size:.92rem; color:var(--ink); line-height:1.5;
+  }
+  .dj-card .spec span, .room .spec span, .split-copy .spec span,
+  .band .spec span, .fx-card .spec span, .addon .spec span, .section-head .spec span{
+    font-family:var(--font-display); font-weight:900; font-size:.66rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1); flex:0 0 auto;
+  }
+</style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Line Array and PA System Rental in Dallas-Fort Worth",
+    "serviceType": "Line Array and PA System Rental",
+    "url": "https://www.dallaseventaudio.com/rent-line-array-speaker-system",
+    "description": "Line array and large format PA system rental across Dallas-Fort Worth. Systems are built on DAS Audio Aero 12 powered line array cabinets, up to six per side flown or four per side ground stacked, over a BASSBOSS subwoofer array for DJ driven events or a DAS Audio LX218CA subwoofer array for live bands and corporate general sessions. Every rental is full-service: delivery, rigging, system tuning, a digital console and wireless microphones, an engineer who stays for the event, and load out the same night. There is no customer pickup on line array systems.",
+    "category": "Line Array Rental",
+    "provider": {
+      "@type": "Organization",
+      "name": "Dallas Event Audio",
+      "url": "https://www.dallaseventaudio.com",
+      "email": "info@dallaseventaudio.com",
+      "telephone": "+1-817-210-7957",
+      "foundingDate": "2001",
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": { "@type": "GeoCoordinates", "addressCountry": "US" },
+        "description": "Dallas-Fort Worth Metroplex, approximately 40 miles from Hurst, TX"
+      }
+    },
+    "areaServed": {
+      "@type": "GeoCircle",
+      "geoMidpoint": { "@type": "GeoCoordinates", "addressCountry": "US" },
+      "description": "Dallas-Fort Worth Metroplex, approximately 40 miles from Hurst, TX"
+    },
+    "audience": { "@type": "Audience", "audienceType": "Corporate event planners, production companies, promoters, festivals, bands, universities, houses of worship and venues" },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Line array and large format PA rental",
+      "itemListElement": [
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Line array rental","description":"DAS Audio Aero 12 line array systems delivered, flown or ground stacked, tuned to the room and operated by our engineer across Dallas-Fort Worth.","url":"https://www.dallaseventaudio.com/rent-line-array-speaker-system#aero-12"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"PA system rental","description":"Large format PA system rental for rooms and crowds where a pair of speakers on poles runs out, sized to the venue and the head count.","url":"https://www.dallaseventaudio.com/rent-line-array-speaker-system#pa-system-rental"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Concert sound system rental","description":"Concert sound systems for stages, theaters and outdoor shows across the Metroplex, with delay towers and front fill where the site needs them.","url":"https://www.dallaseventaudio.com/rent-line-array-speaker-system#concert-and-festival"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Festival sound and lighting","description":"Festival scale audio with stage lighting advanced on the same schedule, one crew and one load in.","url":"https://www.dallaseventaudio.com/rent-line-array-speaker-system#concert-and-festival"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Flown line array rigging","description":"Up to six DAS Aero 12 per side flown where the venue has rigging points and load ratings, with a rigging plan and certificate of insurance supplied at intake.","url":"https://www.dallaseventaudio.com/rent-line-array-speaker-system#flown-or-ground"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Ground stacked line array","description":"Up to four DAS Aero 12 per side ground stacked on the subwoofer array or lift towers where flying is not possible.","url":"https://www.dallaseventaudio.com/rent-line-array-speaker-system#flown-or-ground"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Subwoofer array rental","description":"A BASSBOSS subwoofer array for electronic, hip hop and DJ driven events, or a DAS Audio LX218CA array for live bands and corporate general sessions.","url":"https://www.dallaseventaudio.com/rent-line-array-speaker-system#subwoofers"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Digital console and wireless microphone package","description":"A digital console, stage monitors and wireless microphones with AI-powered De-Feedback, run by an engineer for the length of the event.","url":"https://www.dallaseventaudio.com/rent-line-array-speaker-system#microphones"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Sound system rental","description":"Complete sound system rentals for smaller rooms that do not need an array, delivered and operated.","url":"https://www.dallaseventaudio.com/rent-sound-equipment"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"BASSBOSS subwoofer rental","description":"Powered BASSBOSS subwoofers rented on their own or as the low end under a line array.","url":"https://www.dallaseventaudio.com/rent-bassboss-subwoofers"}}
+      ]
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"Do you deliver and set up, or is this a pickup rental?",
+       "acceptedAnswer":{"@type":"Answer","text":"We deliver, install and operate. Dallas Event Audio is a full-service company, so our crew hangs or stacks the system, tunes it to the room, runs it during your event and loads out the same night. We do not do counter pickups on line array systems."}},
+      {"@type":"Question","name":"How much does it cost to rent a line array in Dallas?",
+       "acceptedAnswer":{"@type":"Answer","text":"It depends on the size of the hang, the venue, the labor call and how long you need it. A compact ballroom system and a festival main stage are different jobs. Send us the venue, the date and the head count and we will quote it the same day."}},
+      {"@type":"Question","name":"How many Aero 12 cabinets do you fly per side?",
+       "acceptedAnswer":{"@type":"Answer","text":"Up to six DAS Audio Aero 12 per side flown, and up to four per side ground stacked where the venue has no rigging points. Six a side covers a festival stage or a ballroom at capacity, and four a side covers most corporate general sessions and receptions."}},
+      {"@type":"Question","name":"Can you fly the system, or does it have to be ground stacked?",
+       "acceptedAnswer":{"@type":"Answer","text":"Both. If your venue has rigging points and the load ratings to support them we fly it, which usually sounds better because it gets the array above head height and lets us aim it down onto the audience. Where flying is not possible we ground stack on the subwoofer array or on lift towers."}},
+      {"@type":"Question","name":"Which subwoofer array will you bring?",
+       "acceptedAnswer":{"@type":"Answer","text":"It depends on the music. For electronic, hip hop and DJ driven events we bring a BASSBOSS array, which holds the bottom octave at level all night. For live bands, corporate general sessions and anything speech heavy we bring the DAS Audio LX218CA array, which stays tight under a kick drum and out of the way of a presenter."}},
+      {"@type":"Question","name":"Do you provide microphones and a mixing console too?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes. Most line array bookings go out with a digital console, a wireless microphone package, stage monitors and an engineer to run all of it. Every microphone includes our AI-powered De-Feedback system as standard, and we carry spare wireless channels."}},
+      {"@type":"Question","name":"How many guests can your line array cover?",
+       "acceptedAnswer":{"@type":"Answer","text":"A full hang with front fill and delay towers covers festival scale crowds. For anything above roughly 2,000 guests we want to walk the site or review a venue plan first, because at that size the room and the sight lines decide the design more than the head count does."}},
+      {"@type":"Question","name":"When do I need a line array instead of a regular PA system?",
+       "acceptedAnswer":{"@type":"Answer","text":"Below about 250 guests in a normal room, a good point source PA is the right tool and an array is more rig than the event needs. Above that, or outdoors, or in a long room with a balcony or hard surfaces, an array is what keeps every seat sounding the same."}},
+      {"@type":"Question","name":"How far do you travel?",
+       "acceptedAnswer":{"@type":"Answer","text":"The whole Dallas-Fort Worth metro is standard, which means Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Denton, McKinney and everything in between, roughly forty miles out from Hurst. We travel outside DFW for larger productions, so ask."}},
+      {"@type":"Question","name":"What happens if something fails during the event?",
+       "acceptedAnswer":{"@type":"Answer","text":"Our engineer is there the whole time and we carry redundancy on the critical path, which means spare wireless channels, a backup console and spare amp modules. That is the reason we do not rent these unattended."}}
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://www.dallaseventaudio.com/"},
+      {"@type":"ListItem","position":2,"name":"Audio Services","item":"https://www.dallaseventaudio.com/services-audio"},
+      {"@type":"ListItem","position":3,"name":"Line Array Rental","item":"https://www.dallaseventaudio.com/rent-line-array-speaker-system"}
+    ]
+  }
+  </script>
+
+</head>
+<body>
+<header>
+    <nav>
+      <a class="logo" href="/" style="text-decoration:none;"><img src="data:image/png;base64,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" alt="Dallas Event Audio" width="282" height="120"></a>
+      <div class="navlinks">
+        <a href="/services-lighting">Lighting</a>
+        <a href="/services-audio">Audio</a>
+        <a href="/our-work">Our Work</a>
+        <a href="/what-others-are-saying">Reviews</a>
+        <a href="/contact">Contact</a>
+      </div>
+      <div class="navright">
+        <span class="phone">817-210-7957</span>
+        <a class="cta-btn" href="/contact">Get a Quote</a>
+      </div>
+    </nav>
+  </header>
+  <section class="hero hero-page">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="arr-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="wrap">
+      <div class="breadcrumb" data-reveal>
+        <a href="/">Home</a><span class="sep">/</span><a href="/services-audio">Audio Services</a><span class="sep">/</span><span class="here">Line Array Rental</span>
+      </div>
+      <h1 data-reveal>Line array rental in Dallas-Fort Worth: <span class="grad-text">one system, every seat.</span></h1>
+      <p class="sub" data-reveal>We rent DAS Audio Aero 12 line array systems across Dallas, Fort Worth, Plano, Frisco, Arlington and the rest of the metro. Every line array rental is delivered by our crew, flown or ground stacked, tuned to the room and run by an on-site engineer for the length of your event. We load out the same night. Your production manager gets a certificate of insurance and a rigging plan before the truck leaves our shop.</p>
+
+      <div class="hang" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+      <div class="stat-row" data-reveal>
+        <div class="stat">
+          <div class="num">2001</div>
+          <div class="lbl">Running audio for Dallas-Fort Worth events since 2001</div>
+        </div>
+        <div class="stat">
+          <div class="num">6 / side</div>
+          <div class="lbl">Up to six Aero 12 cabinets per side flown, four per side ground stacked</div>
+        </div>
+        <div class="stat">
+          <div class="num">40 mi</div>
+          <div class="lbl">Delivery radius around Dallas and Fort Worth</div>
+        </div>
+        <div class="stat">
+          <div class="num">Full-service</div>
+          <div class="lbl">Delivery, rigging, system tuning, an engineer on site and load out</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Line Array Rental Dallas &middot; PA System Rental DFW &middot; DAS Aero 12 &middot; Concert Sound System Rental &middot; Festival Sound &middot; Flown Or Ground Stacked &middot; Tuned And Operated &middot; Insured Since 2001 &middot;&nbsp;</span>
+      <span>Line Array Rental Dallas &middot; PA System Rental DFW &middot; DAS Aero 12 &middot; Concert Sound System Rental &middot; Festival Sound &middot; Flown Or Ground Stacked &middot; Tuned And Operated &middot; Insured Since 2001 &middot;&nbsp;</span>
+    </div>
+  </div>
+
+  <section class="section" id="how-big">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:900px;">
+        <span class="kicker">Start here</span>
+        <h2>What size line array does your event need?</h2>
+        <p class="lede">Guest count is the first number we ask for, and the room is the second. A ballroom for 600 and an open field for 600 are two different rigs. These are the shapes most Dallas-Fort Worth events land in.</p>
+      </div>
+
+      <div class="room-list">
+        <div class="room" data-reveal>
+          <h3>Under about 250 guests<span>Point source PA, no array needed</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Rig</span> 2 powered tops &middot; 2 subs &middot; small console</p>
+            <p>Private dining rooms, boardrooms, ceremonies and small receptions. In a room this size a good point-source PA covers every seat and takes up less of the room doing it. We will tell you when this is the right call rather than sell you an array you do not need, and the gear comes off our <a href="/rent-sound-equipment">sound equipment rental</a> inventory.</p>
+          </div>
+        </div>
+
+        <div class="room" data-reveal>
+          <h3>250 to 800 guests<span>Ground stacked, four per side</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Rig</span> 4 Aero 12 per side ground stacked &middot; sub array &middot; digital console</p>
+            <p>Ballrooms, banquet halls, worship spaces and hotel general sessions. Four Aero 12 cabinets a side sitting on the sub array covers this comfortably, and it goes in without touching the venue rigging. This is the line array rental we do most often in the Metroplex.</p>
+          </div>
+        </div>
+
+        <div class="room" data-reveal>
+          <h3>800 to 1,500 guests<span>Flown, four to six per side</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Rig</span> 4 to 6 Aero 12 per side flown &middot; sub array &middot; front fill</p>
+            <p>Corporate general sessions, university events and large outdoor weddings. Getting the array in the air is what changes the result here. Flown boxes clear the standing crowd, and we can aim the bottom cabinets at the back of the room and the top ones short of the ceiling.</p>
+          </div>
+        </div>
+
+        <div class="room" data-reveal>
+          <h3>1,500 guests and up<span>Full hang, six per side</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Rig</span> 6 Aero 12 per side flown &middot; full sub array &middot; delays as needed</p>
+            <p>Festivals, concerts and main-stage productions. Six cabinets a side is the top of our hang, and past a certain depth of field we add delay positions rather than push the main array harder. For anything at this scale we want to walk the site or review a venue plan before we quote it.</p>
+          </div>
+        </div>
+
+        <div class="room" data-reveal>
+          <h3>Outdoors with no walls<span>Nothing to help you</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Rig</span> Flown or towers &middot; larger sub array &middot; wind and power plan</p>
+            <p>An outdoor show gives you no reflections to fill in the gaps, so everything the audience hears comes straight out of the boxes. Outdoor events get a bigger system than the same headcount indoors, plus a power plan and ballast or towers if there is no roof to fly from.</p>
+          </div>
+        </div>
+
+        <div class="room" data-reveal>
+          <h3>Long rooms, balconies and hard surfaces<span>Where directivity earns the rental</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Rig</span> Split hang &middot; balcony fill &middot; room tuning on site</p>
+            <p>Gymnasiums, atriums, hard-surfaced ballrooms and any venue with a balcony. These are the rooms where a pair of speakers on sticks turns into an echo, and where being able to angle each cabinet independently is the whole point of bringing an array.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="what-is-a-line-array">
+    <div class="wrap">
+      <div class="split">
+        <div class="split-copy" data-reveal>
+          <span class="kicker">The short version</span>
+          <h2>What is a line array PA system?</h2>
+          <p>A line array is a column of matched cabinets hung in a vertical curve so their outputs couple into one source instead of fighting each other. A traditional point-source system loses about 6 dB every time you double the distance from the speaker, which is why the front rows get blasted and the back of the room gets mush. A line array cuts that loss across its usable range, so the first row and the last row hear something much closer to the same thing.</p>
+          <p>Each cabinet in the hang can be angled on its own. That lets us point the array at the audience and away from the ceiling, the back wall and the glass. In a reflective venue such as a gymnasium, an atrium or a hard-surfaced ballroom, that directivity is what keeps a presenter intelligible instead of washing the room in reflections.</p>
+          <p>The working rule we use: below about 250 guests in a normal room, a point-source PA is the right tool. Above that, or outdoors, or in a long room, an array is what keeps every seat sounding the same.</p>
+        </div>
+        <div class="split-vis" data-reveal style="--img:url('/images/line-array-rental-dallas-flown.jpg')">
+          <span class="slot">/images/line-array-rental-dallas-flown.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pa-system-rental">
+    <div class="wrap">
+      <div class="split flip">
+        <div class="split-copy" data-reveal>
+          <span class="kicker">Large format PA</span>
+          <h2>PA system rental in DFW when two speakers will not cover the room</h2>
+          <p>Most PA system rental searches in Dallas-Fort Worth end at a pair of powered tops on sticks, and for a lot of events that is the correct answer. The calls that come to this page are the other ones: a general session for 900 where the CEO has to be understood in the back row, a festival stage where the sound has to carry past the barricade, a gymnasium where the last graduation turned into an echo.</p>
+          <p>The difference is not just volume. A bigger point-source system played louder makes the front rows uncomfortable before it makes the back rows clear. An array changes the shape of the coverage rather than the amount of it, which is why we reach for one as soon as the room gets long, tall or full.</p>
+          <p>If you are not sure which side of that line your event sits on, send us the venue name and the headcount. We quote both ways when it is genuinely close, and we will tell you if the smaller system is the better buy. For events that land on the smaller side, our <a href="/rent-sound-equipment">PA and sound system rental</a> page covers the whole range.</p>
+        </div>
+        <div class="split-vis" data-reveal style="--img:url('/images/pa-system-rental-dfw-general-session.jpg')">
+          <span class="slot">/images/pa-system-rental-dfw-general-session.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section" id="aero-12">
+    <div class="wrap">
+      <div class="split">
+        <div class="split-copy" data-reveal>
+          <span class="kicker">The system</span>
+          <h2>The DAS Audio Aero 12 line array we rent</h2>
+          <p class="spec"><span>Rig</span> DAS Audio Aero 12 tops &middot; up to 6 per side flown &middot; 4 per side ground stacked</p>
+          <p>Every line array rental we send out is built on DAS Audio Aero 12 powered cabinets. Amplification and processing live inside the box, which matters more on a rental than it sounds. There is no amp rack to fail in the middle of a set, and the tuning travels with the cabinet instead of with a rack somebody else built two jobs ago.</p>
+          <p>We fly up to six Aero 12 per side, and we ground stack up to four per side in venues with no rigging. Six a side covers a festival stage or a ballroom at capacity. Four a side covers most corporate general sessions and receptions in a DFW hotel. The room and the head count set that number.</p>
+          <p>Stage monitoring goes out with the array. DAS Action 12A wedges cover most stage plots, a digital console runs the house and the monitor mixes, and rigging, cabling and power distribution are on the same truck. You get one crew and one point of contact rather than three vendors meeting in a loading dock.</p>
+        </div>
+        <div class="split-vis" data-reveal style="--img:url('/images/das-aero-12-line-array-rental-dallas.jpg')">
+          <span class="slot">/images/das-aero-12-line-array-rental-dallas.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="subwoofers">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:900px;">
+        <span class="kicker">Low end</span>
+        <h2>Which subwoofer array goes under the line array</h2>
+        <p>The tops are the same on every job. The subwoofers are not. Which array we put under the Aero 12 comes down to what the music is, and it is the single decision that changes how the night feels on the floor. We carry both of these and we choose it at intake.</p>
+      </div>
+
+      <div class="dj-grid">
+        <div class="dj-card" data-reveal>
+          <span class="tag">Electronic</span>
+          <h3>BASSBOSS subwoofer array</h3>
+          <p class="spec"><span>Array</span> Powered 18 inch boxes &middot; ground stacked &middot; DJ driven rooms</p>
+          <p>For electronic music, hip hop and anything DJ driven, a BASSBOSS array goes under the Aero 12. These boxes reach lower and hold level longer than a typical rental sub, so the bottom octave is still there at midnight rather than turning into compressed thud. In a rave, a club takeover or a festival dance stage that is the reason the rental exists. There is more on the cabinets themselves on our <a href="/rent-bassboss-subwoofers">BASSBOSS subwoofer rental</a> page.</p>
+          <p class="best"><em>Best for</em> Raves, club nights, festival dance stages, hip hop and DJ driven events.</p>
+        </div>
+        <div class="dj-card" data-reveal>
+          <span class="tag">Live and corporate</span>
+          <h3>DAS Audio LX218CA subwoofer array</h3>
+          <p class="spec"><span>Array</span> Dual 18 inch LX218CA &middot; flown or stacked &middot; matched to the tops</p>
+          <p>For live bands, corporate general sessions and anything where speech has to stay intelligible, we run the DAS Audio LX218CA array. It is a dual 18 inch cabinet from the same family as the tops, so the crossover is a known quantity rather than something we negotiate on site. It stays tight and fast under a kick drum and a bass guitar, and it stays out of the way of a presenter's voice.</p>
+          <p class="best"><em>Best for</em> <a href="/live-music-and-band-events">Live music and band events</a>, <a href="/corporate-events">corporate general sessions</a>, worship and awards nights.</p>
+        </div>
+      </div>
+
+      <div class="addon" data-reveal>
+        <h3>Not sure which array your event wants?</h3>
+        <p>Tell us the venue and what is on stage. If the night is a band until ten and a DJ after, say so. We have run both arrays under the same hang and we will tell you which one we would bring and why, before you book anything.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="flown-or-ground">
+    <div class="wrap">
+      <div class="split flip">
+        <div class="split-copy" data-reveal>
+          <span class="kicker">Rigging</span>
+          <h2>Flown or ground stacked: your venue decides</h2>
+          <p class="spec"><span>Rig</span> 6 per side flown &middot; 4 per side ground stacked &middot; rigging plan supplied</p>
+          <p>We do both, and we would rather fly it. An array in the air gets above head height, which means the first row is not absorbing the whole system and the back of the room is being aimed at deliberately. Where a venue has rigging points and the load ratings to use them, that is what we do.</p>
+          <p>Plenty of DFW rooms have no points, or points a rigger will not sign off on. Then we ground stack four Aero 12 per side on the sub array or on lift towers, which gets the boxes high enough to clear a standing crowd. It is a real system either way, tuned the same way.</p>
+          <p>Your production manager gets a rigging plan and a certificate of insurance naming the venue, sent at intake rather than chased for on the Friday. We advance load in, power and curfew with the venue directly, so nobody discovers a freight elevator problem on the day.</p>
+        </div>
+        <div class="split-vis" data-reveal style="--img:url('/images/line-array-rental-dallas-ground-stacked.jpg')">
+          <span class="slot">/images/line-array-rental-dallas-ground-stacked.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="concert-and-festival">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:900px;">
+        <span class="kicker">Concerts and festivals</span>
+        <h2>Concert sound system rental and festival sound in Dallas-Fort Worth</h2>
+        <p>Concert and festival work is what a line array was built for. These are the four situations we get called for most, and what changes about the rig in each one.</p>
+      </div>
+
+      <div class="fx-grid">
+        <div class="fx-card" data-reveal>
+          <h3>Outdoor stages with no walls</h3>
+          <p>Outdoors there is nothing to help you. A room gives you reflections that carry sound to the back for free, and a field gives you none of that, so everything the audience hears has to be aimed there on purpose. That is what a flown array does, and it is why an outdoor event of 800 guests can need more system than an indoor event of 1,500.</p>
+        </div>
+        <div class="fx-card" data-reveal>
+          <h3>Festival sound and lighting on one call</h3>
+          <p>Most festival organizers we work with would rather book audio and lighting together than coordinate two crews across one load in window. We run both, so the rig, the <a href="/services-lighting">stage lighting</a> and the power plan get advanced as one job with one schedule.</p>
+        </div>
+        <div class="fx-card" data-reveal>
+          <h3>Delay towers and front fill</h3>
+          <p>Past a certain depth, a single hang cannot serve the front and the back honestly. Delay towers put a second source further into the crowd, time aligned so it reinforces the main array instead of smearing it, and front fill covers the guests standing closer than the array is aimed. Both are how a big field stays even.</p>
+        </div>
+        <div class="fx-card" data-reveal>
+          <h3>Multiple acts sharing one rig</h3>
+          <p>Support acts, changeovers and a headliner all on the same system means the console has to hold several shows at once and the changeover has to fit in fifteen minutes. We build the input list around every act on the bill and keep an engineer on it all night, so the last band gets the same system the first one had.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="full-service">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:900px;">
+        <span class="kicker">How it works</span>
+        <h2>Full-service line array rental: delivered, flown, tuned and operated</h2>
+        <p>Dallas Event Audio is a full-service company and has been since 2001. We do not do counter pickups on line array systems. Our crew brings it, hangs or stacks it, tunes it to the room, runs it for the length of your event and loads out the same night, and all of that is in the rental.</p>
+      </div>
+
+      <div class="flow">
+        <div class="flow-step" data-reveal>
+          <div class="n">1</div>
+          <h3>Intake</h3>
+          <p>Venue, date, head count, what is on stage and the load in rules. We advance rigging points, power and curfew with the venue rather than assuming.</p>
+        </div>
+        <div class="flow-step" data-reveal>
+          <div class="n">2</div>
+          <h3>Hang or stack</h3>
+          <p>We fly the array where the venue allows it and ground stack where it does not, then place the subwoofer array where the room wants it rather than where it fits most neatly.</p>
+        </div>
+        <div class="flow-step" data-reveal>
+          <div class="n">3</div>
+          <h3>Tune to the room</h3>
+          <p>Splay angles, crossover, gain and delay set to the actual room, checked from the back wall and the balcony, not from behind the console.</p>
+        </div>
+        <div class="flow-step" data-reveal>
+          <div class="n">4</div>
+          <h3>Operate and load out</h3>
+          <p>An engineer stays with the system for the whole event, then we strike and load out the same night. Your team does not coil, count or return anything.</p>
+        </div>
+      </div>
+
+      <div class="trust-grid">
+        <div class="trust-card" data-reveal>
+          <h3>No customer pickup</h3>
+          <p>Every rental on this page includes delivery, rigging and pickup by our crew. The people who load the truck are the people who tune the rig at the venue, which is why a typical job is working before anyone on your side arrives.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Rigging plan and insurance up front</h3>
+          <p>DFW hotels and convention venues want a certificate of insurance naming them and a rigging plan with load numbers on it. Tell us the venue at intake and both go out before your production manager asks.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Power planned before the date</h3>
+          <p>A full hang and a subwoofer array will not run off whatever outlet is nearest the stage. We work the circuits out with the venue in advance and bring distribution when the room needs it.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Redundancy on the critical path</h3>
+          <p>Spare wireless channels, a backup console and spare amp modules travel with the system. That redundancy is the reason we do not rent these unattended.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>An engineer who stays</h3>
+          <p>The person who tuned the array is the person standing behind it when the room fills, so a level that was right at seven o'clock is still right at ten.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Doing this since 2001</h3>
+          <p>We have been putting systems into DFW ballrooms, gymnasiums, warehouses and open fields for over twenty years, and most of what we know about a given venue we learned in that venue.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="microphones">
+    <div class="wrap">
+      <div class="split">
+        <div class="split-copy" data-reveal>
+          <span class="kicker">Microphones and console</span>
+          <h2>Wireless microphones and a digital console go out with the array</h2>
+          <p class="spec"><span>Rig</span> Digital console &middot; wireless microphone package &middot; stage monitors &middot; engineer</p>
+          <p>Most line array bookings go out as a complete package: the array, the subwoofer array, a digital console, stage monitors and a wireless microphone package, with an engineer to run all of it. Handhelds, lapels, headsets and podium microphones are all available, and we coordinate frequencies against the venue and against anyone else transmitting in the building.</p>
+          <p>Every microphone we rent includes our AI-powered De-Feedback system as standard. It listens for the ring before a human can and pulls it down without gutting the tone of the voice, which is what keeps a podium usable in a hard-surfaced ballroom. There is a fuller explanation in <a href="/post/what-is-de-feedback-for-live-events">what De-Feedback does at a live event</a>.</p>
+          <p>Spare wireless channels ride on the truck. If a channel goes strange during a keynote, the swap is a handoff rather than a problem the audience watches.</p>
+          <div class="chips">
+            <a class="chip" href="/feedback-free-microphone-rentals">Wireless microphone rentals</a>
+            <a class="chip" href="/rent-sound-equipment">Full sound equipment rental</a>
+            <a class="chip" href="/live-streaming-services">Live streaming</a>
+            <span class="chip">Frequency coordination included</span>
+          </div>
+        </div>
+        <div class="split-vis" data-reveal style="--img:url('/images/wireless-microphone-rental-dallas-stage.jpg')">
+          <span class="slot">/images/wireless-microphone-rental-dallas-stage.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="which-event">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:900px;">
+        <span class="kicker">By event type</span>
+        <h2>Events we bring a line array to</h2>
+        <p>The rig changes with the event even when the boxes do not. These are the event types we hang an array for most often across the metro.</p>
+      </div>
+
+      <div class="vgrid">
+        <a class="vcard" href="/corporate-events" data-reveal>
+          <h3>Corporate general sessions</h3>
+          <p>Speech that stays intelligible in the back row, and a clean feed for the recording.</p>
+        </a>
+        <a class="vcard" href="/live-music-and-band-events" data-reveal>
+          <h3>Live music and band events</h3>
+          <p>Full input list, stage monitoring and an engineer who mixes the whole set.</p>
+        </a>
+        <a class="vcard" href="/rave-and-night-club-events" data-reveal>
+          <h3>Raves and club nights</h3>
+          <p>Aero 12 over a BASSBOSS array, aimed at the floor and not at the ceiling.</p>
+        </a>
+        <a class="vcard" href="/college-school-university-events" data-reveal>
+          <h3>College and university events</h3>
+          <p>Gymnasiums and quads, where directivity is the difference between words and mush.</p>
+        </a>
+        <a class="vcard" href="/private-events" data-reveal>
+          <h3>Large private events</h3>
+          <p>Estates, tents and open ground where a pair of speakers on poles runs out fast.</p>
+        </a>
+        <a class="vcard" href="/celebrity-and-luxury-events" data-reveal>
+          <h3>Celebrity and luxury events</h3>
+          <p>Riders, advance paperwork and a system that meets the spec that was sent over.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="service-area">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:900px;">
+        <span class="kicker">Where we work</span>
+        <h2>PA system rental across the Dallas-Fort Worth metro</h2>
+        <p>If you are searching for PA system rental near me from anywhere inside the metro, you are inside our standard service area. We work roughly forty miles out from Hurst, which covers the cities below and everything between them. For larger productions we travel outside DFW, so ask about your date rather than assuming it is too far.</p>
+      </div>
+      <div class="chips" data-reveal>
+        <span class="chip">Dallas</span>
+        <span class="chip">Fort Worth</span>
+        <span class="chip">Arlington</span>
+        <span class="chip">Plano</span>
+        <span class="chip">Frisco</span>
+        <span class="chip">Irving</span>
+        <span class="chip">Denton</span>
+        <span class="chip">McKinney</span>
+        <span class="chip">Grapevine</span>
+        <span class="chip">Southlake</span>
+        <span class="chip">Richardson</span>
+        <span class="chip">Fort Worth Stockyards</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pairs-with">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:900px;">
+        <span class="kicker">Goes out with it</span>
+        <h2>What gets booked alongside a line array rental</h2>
+        <p>An array is rarely the only thing on the truck. These go out on the same job, from the same crew and the same load in.</p>
+      </div>
+
+      <div class="vgrid">
+        <a class="vcard" href="/rent-sound-equipment" data-reveal>
+          <h3>Sound equipment rental</h3>
+          <p>The full range for rooms that do not need an array, tops, subs and an operator.</p>
+        </a>
+        <a class="vcard" href="/rent-bassboss-subwoofers" data-reveal>
+          <h3>BASSBOSS subwoofers</h3>
+          <p>The low end array we put under the Aero 12 for DJ driven events.</p>
+        </a>
+        <a class="vcard" href="/feedback-free-microphone-rentals" data-reveal>
+          <h3>Wireless microphone rentals</h3>
+          <p>Handheld, lapel, headset and podium, all with AI-powered De-Feedback.</p>
+        </a>
+        <a class="vcard" href="/rent-sound-equipment/cdj-rental-dallas" data-reveal>
+          <h3>CDJ and DJ equipment</h3>
+          <p>Decks, mixers and booth monitoring, tested before they leave the shop.</p>
+        </a>
+        <a class="vcard" href="/services-lighting" data-reveal>
+          <h3>Stage and event lighting</h3>
+          <p>Wash, key and effect lighting advanced on the same schedule as the audio.</p>
+        </a>
+        <a class="vcard" href="/live-streaming-services" data-reveal>
+          <h3>Live streaming</h3>
+          <p>A clean board feed and a stream your remote audience can hear.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="faq">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:900px;">
+        <span class="kicker">Questions</span>
+        <h2>Line array rental questions we get asked in Dallas-Fort Worth</h2>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item" data-reveal>
+          <summary>Do you deliver and set up, or is this a pickup rental?</summary>
+          <div class="ans">We deliver, install and operate. Dallas Event Audio is a full-service company, so our crew hangs or stacks the system, tunes it to the room, runs it during your event and loads out the same night. We do not do counter pickups on line array systems.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How much does it cost to rent a line array in Dallas?</summary>
+          <div class="ans">It depends on the size of the hang, the venue, the labor call and how long you need it. A compact ballroom system and a festival main stage are different jobs. Send us the venue, the date and the head count and we will quote it the same day.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How many Aero 12 cabinets do you fly per side?</summary>
+          <div class="ans">Up to six DAS Audio Aero 12 per side flown, and up to four per side ground stacked where the venue has no rigging points. Six a side covers a festival stage or a ballroom at capacity, and four a side covers most corporate general sessions and receptions.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Can you fly the system, or does it have to be ground stacked?</summary>
+          <div class="ans">Both. If your venue has rigging points and the load ratings to support them we fly it, which usually sounds better because it gets the array above head height and lets us aim it down onto the audience. Where flying is not possible we ground stack on the subwoofer array or on lift towers.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Which subwoofer array will you bring?</summary>
+          <div class="ans">It depends on the music. For electronic, hip hop and DJ driven events we bring a BASSBOSS array, which holds the bottom octave at level all night. For live bands, corporate general sessions and anything speech heavy we bring the DAS Audio LX218CA array, which stays tight under a kick drum and out of the way of a presenter.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do you provide microphones and a mixing console too?</summary>
+          <div class="ans">Yes. Most line array bookings go out with a digital console, a wireless microphone package, stage monitors and an engineer to run all of it. Every microphone includes our AI-powered De-Feedback system as standard, and we carry spare wireless channels.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How many guests can your line array cover?</summary>
+          <div class="ans">A full hang with front fill and delay towers covers festival scale crowds. For anything above roughly 2,000 guests we want to walk the site or review a venue plan first, because at that size the room and the sight lines decide the design more than the head count does.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>When do I need a line array instead of a regular PA system?</summary>
+          <div class="ans">Below about 250 guests in a normal room, a good point source PA is the right tool and an array is more rig than the event needs. Above that, or outdoors, or in a long room with a balcony or hard surfaces, an array is what keeps every seat sounding the same.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How far do you travel?</summary>
+          <div class="ans">The whole Dallas-Fort Worth metro is standard, which means Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Denton, McKinney and everything in between, roughly forty miles out from Hurst. We travel outside DFW for larger productions, so ask.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>What happens if something fails during the event?</summary>
+          <div class="ans">Our engineer is there the whole time and we carry redundancy on the critical path, which means spare wireless channels, a backup console and spare amp modules. That is the reason we do not rent these unattended.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta" id="quote">
+    <div class="wrap">
+      <h2 data-reveal>Send us the venue and the head count.</h2>
+      <p data-reveal>Tell us about your event and we'll send you a straightforward quote the same day. Venue, date, head count and what is on stage, and we will come back with the hang that fits the room.</p>
+      <div class="cta-row" data-reveal>
+        <a class="btn-primary" href="/contact">Request a quote</a>
+        <a class="btn-secondary" href="/gallery">See the photos</a>
+      </div>
+    </div>
+  </section>
+
+
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="col brand">
+          <div class="logo"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARoAAAB4CAYAAAAt+D1fAAAvGElEQVR42u2deZxcZZX3v+e5t6q37CGE7BJQgbAJiCAIiYBsSUCUDKPOCKK4weA6ryJOkhHU0VFGRR3UUcFRxwQQkkgAhQQQ2VdZw5qELSSQrdNb3fuc94/7PN03RZJe6naTrronn/p0urr71l2e83vO76xCLrnkko0ogqATrmNiEPBFLFNQxmMZqcIwoF6gqBACiFLC0IGlVYUNIqxDeQl4HuFpFVYQ8Mzq9/HSYL81kq+OXHLZgczFMB3DdGIE3eHvLiBgDvHExRwaDucuLQEK2OSl6r4v00ARwHS9REAtaAegrEdYKfCohXtEuKddeGjN8bRs42g50OSSy6DagBdgOB1FsL21aMZexa7FOlaIYSiKopiUtskb/koBSX3tOpYhACmAhAmsSBGi1zlr9Ux+zTJCZhANhhtq8jWVSy4poFhGotJziBHs5CVMfcty/mXqn5ncaeF0s22viXlNhLVSwADS+a8LZNK2jf+ZQTBAAATu/xCh2oq1m4nsFkrxJqwEPAzA9F6AYA40ueSykwCMoMwg4jIKk5ZyyuQb+SMBD5nh/CDq4KNOuc0OjzQXwxxiVVZhiFBKQAxYZ7N4SEpbNhaIUaLOl/+b5DcNgpECBY1YOWYMf3dH0R5cm3Hg+aaylzBfZbnUtCwgQIiBaOoChkcj+CcsnzRF9kXAdqDxa0SqvB/lIgcA25fpGOZjEdYEowjtekIENE7+UqNOiyaBigAkwEjotn1JfqoxUOr8/RilJHUU6OCO+w6h5P1BPSCBzkPU5UPKfTS55DKQAOOUbtRvGDZkDOcgnGvqmaIdoO1Y5zcxCBCgseUdL57Ew+49uz0LQlHdY2n9e6UhPlRag1eDoLCxaIMNBEFzaMKWUCQGUIO0laL6iPYma+ORHTbaVW00UY1OQZiKsjsw3jQmtos0QbyGc1bN4ufd+mfcOU5cyvGmwMRVx/JL5w8yzAPmDyztyi2aXGqPJi1M6A1zMZMP52wRviINTNVWsJuJnd+ky4GrlEwjhk2cCjzMcoy3ElRVUrYIQCwiCtyUvCKgvdf7f0DAafdOH/74hnuntLRt2reEfZe0cyDCTQAs7wYo5sHBl1FYG/OjYCRvnXwD56jlm6uFawEcUMUMUOQqt2hyqUkrZspSpqvhW6aew7QdbAeRJE7YrX0nikUIg9EQr+Ops05mr2kskNM5XQArIm9QeFVt2ND2ytg4kN0K0rBLQYJRIcEQgqCRmAIAASXiuEUxm1VLr7drvG5DvGHt6uYH1h455tTNbzx5Q4BBRYltJA7Mti3O2pm0hDnBEP4QN9Nh6imKAY1YEkV87cWTnEN5gOhUDjS51IIIywiYQTT5t4xkFy4W4dMSgG0l7oz6dFk9FlApEkg92C00m8Bc32Abf7vvphMXL5yzME6ByjBgH+Ag4B3AXsAUYAxQ38vzbAPWASuBJ2Pih0tR6aGn2p56fP+h+6/ZCkt0WTid6erAbmvQmYthPjppMfebRg7QNiya6LppwtgSbRrznboVfPPp82kfiDB5DjS5VLfMxTAPRdApizmJOn4o9exhN7kQs2wVRbIoKvUEEoK283RgileMNMN/d98xa59JgcvewLHAccAhwLjtEjU6KY52o4dmB/r4GvBQTHxLQPAX4H4RaUudT9hpXTkLZfJ1fFCKLNBWYkzKRaLECIEZCtrG/VErn33xFO50uT7ao0hWDjS55LIVyITMJ2Iu4ZTD+BZFvoQFbSdCtlK+xDKoI5AiaBsPF6Xu0sKGYb9/bM7aZoBXWl+ZOqow4v2FoO79wLvY2r+pdEWjpOzVOw/S1q+EZL3xOM8ANwJXA7eJSLsDHDOPeeF85pcmXcflhV35p3gd2JhYhKDsemPTQGgjIpQLV53Af/QnlcqBJpfqFEcHpvyRt2gjV5hG3mM3YV32rdlqhw8ITBPYVlYUpO67B23Y44qFcx7rAFhfWn/MsHDI2YZwFjAk9QlRDyyRrMRbRroN4FkBXAn8TkQedb8tx9y916hnXl/xMWvsF0wDu9nE6xO7v/cSA8YMRWwri0rtnP3ybNb1B5XKgSaXqpVJ1/E+CbjCFBlrm4nKKIQiWNNEYNvZGEj43bdHB/3o+pPu3gSwpbTllHpT/zljzPQ3CVx2JD43xqR8SyXgBuAy4E/eb7PX0l3GtZh1/wqcawqEtoWItNPbWzdDCbWdp7WDM1bN5L6swSYHmlyqziez57sotFs+Y4p8D0W0lPgl0laMhM7R287Vu4bjL7j3mJeeBNhc2nBsYzj0AoOZUWZNmJ1UXzzopKncvcClC1d/f8GcyV9sBWHiIn2nqec/TT1H2WbAYrey7CyRNBCibKGdf145k6uzBJscaHKpHnH+hQlLOK24K1fFa4lc4lqaKkWmidB2sC6k8KXnjo8vVyxrdM0eu9hd5htjPpxSYC2jGjuzeEBMR9CeiIg+e+zyY2+9dcZtkWJl8lK+RMC/S0C9tpb5qiAWQ0Dipzp31cn8OKt8m7zWKZfqkTnEKGZ4C0vidfzKDCV0oepOh68ZRmg7+MtonXj4s8eXLlcskUbn7squdzuQ8Y5dM4hAxhsNgTvvyL12DwnXLp++PP7EvR8voLDqRL5LB0dqzINmGCFKnKrBCjTGajvWDOHSyYv5OjOIWLZNh3Ru0eRSw+JaNbCAYPIQlpomjos30WFCitSBtvGtlc36dZkj8ZrWVXvuWj/ph8CJfkcfZOCyPcsmdlTqZBG5TlUDcWUPng6NW0RjocClppGz7BZHpNJ+G0n8NraZb646ia9VatnkQJNLVfppmIfuuZShHYZbguEcGG+iWWLziZUn8X9gaY/aTy8GxR+TJNZFUPmuvZNI5EDmQhG5WFVDEYm2RTEBJl3P50zAJa7gs8tv48FmGGG8kW+snsm/VeKzyYEml2q1bAyCHf9HJhVH8rOguf4bz8xs+xuAqn4T+GoVWTHlILNQROZsE2TSll/SAyeetJjZpo7fAU3akXKcpyybaCNfemEW3+trnk0ONLlUPY0yBFhiHtFHhkxj2q+BD6T8MNWiAx4w/w4cDrQCusOaKIDLKPBJSlOu5TBtYJEYxmhbWZQOOoIRFKPXOXP1LC7vC9jkzuBcqlcEXbDg9MAS88rmV8ZOY9pSBzK+nNo6BX0zX1m0a/DRpo3AB0VkC0C3IAPoOWrPW3Fe3cpTuNNu5r3EvCT1BK5UASyRaaBoW3jGBDyJIjzaez9NbtHkUr0GjWpSvwPvBK5h+zVJO4PYPm78aefvbBFZvEPKVHZ/fPX5eSvOq/vR237UPmUJe1PkJoRxto32YDh1tpV77Ebe/8IcXux0tvdS8n40uVQryLhedTQA/wq8ADwxAGs+7AVgCDAK2LMCdhEBBeCCXoJMKCKRql4APCYi1/zqubn1Z+0+//EJ13JCUM/N4RhGR+tZ0raZf1w7h+ZUN8I+GJf985BzAHO7lIhYt7PmNDUx5yMHAsFAfuZODIhFkgrwXwJvc+BoegEyIfBbEflIH0Dmo8CvnTX1zyLyWwc2bZOu5Thp4v2rjuUzzm4yvZoIkUsuueyUgPNeTSTWnknkvt6tqnWqGjgA75ERoKoz3DFKqc/8DMAjuqBYRs4qNkjCfrhhBvgMMNFxx1rzA0mKM18H3AYcBpzidqBatWwE2AT8BzAM+BxQx8C0ktwZ16Avb/g58BxJsyvvp9Fuztm6v30JOE1E2p2/RbvRzcBZMm8jqfhOf1YM/Ngd59JHdEFx34VzYua43sk7ywPw2YeqeihwV75HATBDRJar6g3A+/LbwV+Bo4BPAT/JbwcKTBCRl1X1/ST9ZbrL6/G9akrA0SJy11aZvzs2ABQYCdzhaFr6szQFYJ8QkV/0lIoNtEXjQesUdwElatPZ7HelJx3IjAYOddZMdztVtYp3WF4mIqqqp9JVjxPW6P0IgKtE5GX33skphd8RyHhr+UwHMt2CgaNUvtjySgcy5ffe/zwGfq6qa0Xk2h6DTTfRqCwfcuxQc2YKJYMaXUQh8Gf3/fuAEakFUou7dgi0ANer6kjg3e69akn778umHABLHRA0krQGpRtq7dfQPBH5v16AjKdMvwRm7ADgPSBZ4Heq+h4RuX+HFtNcN75FXF/i7YBNJv6CFD+cBuzL4Cqvz1r8Pb02ZeEpg2ggez9YeAB3isg6t3MPoTb9d2nfTAtws3vvYJKG5jvKpfHg8AcRme+cuj0JNfsI09eBs3rANDzFagSuVtVdAB853dqCWUbohuXZ3a9l7I4sGpOxcp2cMr9qVakMsAr4m6oOcTvIgIZzd0LFSgPvaTnwAnC7iLxQRptsN5bMQ8DHnNLHPXD+hiJSUtUPA//eC6oauN+dAlzhPsd0RrXmYvz44PF/ZNLkpfwyruORiYuZgCLbmk9uMr55s8r8NbW4iBS4UUQ6HMjsSleKeK3SphJwjaMIR+fAC8AiDwbASTvQR+/X2wicLiIt0H15QSpX5kjgV3Q5fnu6DkMHNieq6pcdRTMownzsxO/RMPl6/l/YyAOmjrNME7sY+DqCMu2Nn1Ex0Pg0ZlXdgyTVW6ndEK4v0ltURptqNdHJX/cDIrKKZDzJqBqnTSHQQdLfF+dqmLYDvfHFn2eLyFMOQGw3Oul9MnuQRLIK9G0qQ+A+/yJV3U9EYkWZuISjzAHcbxr4tiijbQuRbcZS4KOTlzCV07FufEumFo0/xgnugmp5ERngVWCZqtY5xZIaBl6/6y52Xz+Q0yYA7gOedv8/cQfuBk91fiQiV/XQ+WucT2W4o6tjUmDVW/F6XAQu836aIMCYgL3sZkoaoQghMdY0Ug98GUFZuDUGmAxv3qk1Tpt897FlItJMElmZTN+L5apBAnf9V6tqgSSykgMvLHJhfgFmb0dvfMPxR4Avq2pAN77PVBhbgAXOUooqpKneX3N4TPxxEdFVJwbL42Z+Z4Z2GhYAgd2CYvjIpGsYzxxs2ldT0QNP0aZxJD0woLYzX4Wto03UOG0S4AkReQw4kqR6OgfeJGMckmLKg7ehN97qi4Gz/IC4HrR98GHon5KkVWSVp2QAGxD8+wbdMOrf5kamqVj4lm0jwrjzFoSY2AxhiBT5OKBMzwho6PJEvw9oIg9ZbgRudLvPCTUOvB5gl7qvH8yBFyFpTPVYmbshKtMbn6H7XyJyr6NM3VkzBeeX+QpwDtkmzBp3TmOHM/zz8+eLXXG8PqIdLDKNGNS19xSMtoEqH5uyjHrXY1iyUALfweuUMtOwVpXqNhF5jWTge28rcatN/HUvdJvRiTnwArAk5WfZFm3yIPMiMN+HsrsBGR/GPgP4Fv2TcR249Xzumubndou1JIUgvERLpCd/Gi0RB41MiZs5EVA3QaHvD11VxdU2jQKmp06mlmWRU6pT6CpUq1WlMiSFgveQtEHYvcaB1+vGn5z+TCLx422LNlngSyKyOWFM26dMqQjTEcDlKaDKmln49TxidNOkc0REnzmx9Dfbxl3SkHJmJ32G1Rg+CsDaxPio5KH7svQZJIVatU6bWoGlblGcnO/eKHCDC8V62lTLwCvAU8D97r1jSLJv03qTzhpemiqE3BHIxC6M/UeS6BD9qIcG0IDgE4+vfXyoiLESmJ9LsNVZBrYVAY6dfBXjmEPMXEwlipCmTXnIMkmxf0FV02UYtZ5PdJX7/qQceBN/lXfspmiTbsNqGAJ8z4H0NvvMuEBM7GrHFlFZGLu3vpqJU0dOnYWq7DNk/0W2mfWEBM6a8U7hJurcc5/eR6BJ0aYhdOWK1Hqm5xK3IGY5fhzX8P0wwBpguaruDeyTAy/g8olUdYxjAttyN/jI1Nmq+lkRKQGSrjXylo6q1juQ2YfKw9i9esbFoPhRBL3hqIfXKlxnGlIWa9JEVdWnvKylzy03PSc7AtiNykOW+iYoZhbtNb2pWyJx8qmqzszIfLUMzgiNd0TeLCIdqvoBusa0hoNsjQQZPUdD0rP4Tvfe0XRV9Ac78IdcqqpjRGSeA5gwtSZ8y4cjGdh2G95aPXrlhpV7TBkx5dmCFK+ytuPDqUmXRtsQ4MjJSxi5aibr+3py6d4zmgHQCIOzhYJ3vD0gIitUdXcSx2cWNGGw9hn2z9HTpqzq3wbzGhGS+rfmMr3RHVyrt2zmqup7gM+KyBMpq+b/SHyBA93TR9xn1o0bMu5E4NJ9Gva77eEt971OyCiSTGHRCBs0MSJq5lDghl6foKNNkWuqfAKVZXr6grFm4EKSPJT+Vi7PM091SlDJpEK/UK5ztOkkkvaUlTx8D9rXkyT/BYPIsvHP07p78hbgHRUCb7oi/pvOejT9fE+M+5zPktTvVbKRbpXIqarD6MqQDnpwHhHwXuBuVb2QpEDy+8A/uHMsvAnPWQAKQeEk4NI/zXhg3aQl3G7qmWW3dG6+lhBjAo7qE9CkaNM7SUKWlTwEX/7+ZxH5wYBqhOrJGZnWFrjW0abZGe3ekMxOvm9QO2sSGlnICHgvF5HLBvj8v5YRtX6NpI0pfXA3eH/fUOAHwFfoyrAuvEmP1p/3YU9semKXvYbttU6MuRljZzmHcJIpHIFqUjEQ9hXN6PKaV4r2kLQQCOkqTe9PJFb3oCtNIPPX/RjwkKqOdYsoi2M+Czzi6oNg8EX0jGuTcUoGwGtSVqPvytefvhp//BnAWzPYSAPgLyLyehmV7M1xgxTV2hnKOLzVOnJKw4R3AH9uDJruaGndTKeVphjtAJR9pixjRF+AJnYp9pXmini03+L4a6SqcU/GeFawQ/ndYTrJYLFKaJN/2L5u5QS6yjCyOGZHyhoYVOKe5Xi2nZDWl/vxJHAvSbOnfr0fqurPf2ZGG2ln2xBVbaDvpSmS2ih3Bt+dBUwhbDgU+POhxYOevHnLLWtMgbFa6vTTIIZd2czeYS8fgi+i3I/KQ5aey90uIq+kx3P25zoqoziVgJq/bl+Jm0U+kU/Q+l8HuB2DkC6l698aMwLeJU75+9vi9Rtpgcpzf/xGuhlY5t7LIkN6Z0mKlcR8CQ4G+M2Mv26Y+CcelwJjNerU7VjqCbSF/cI+KIIlaUAuFXJvTdEm6W8HXyr3Z4RzrpGBAjwL3OV6f2TROc7fg0tUtTTIMMYvrnkicrMbH5IVmF87EBQylWl7MElldRYb6W2pSQczU5RqsDeq94D39rk6N5wv8yNRHiVkeqefBhABq+zb24uNu+mh0RuQ8Z3GrncWQX9bM76vxlHA6Ix22htdMVu6c1ylSVOGrpYbg1GecpGVozMC8+eBu1PvDYTyzM4QEHy0qZACmmpIXPT3atIZ62bvOp/5L5nAPN6pxppY9xpjEXbv8U1M0aa3AgdS2aQDj/Z3i8hzA0Wb3NesKE56p51NtmUYgy2r2APsrSKyWlVPB4ZnAOaCS9vPcphZNxupocthWyltagNudO/tB+xN9WRIe6AZutuwqbsBL4UaPtdR6kjKEAwiQihFoI13hr1ULkviBK40ZLlVg+YBpE2NwPFUnvtjgJeBW5yD7xiy7Rw32Mo5vGItcd9nMenAZ6AOFG3yG+n+ZOd/vEtEnnfvnZyBu2FnpMumodiwG0BTccjzHfZ1wRBgaVFhvW1hjcBTYS8PSga0yStSTFfEpr+tGZ/7cxgwgWxCljeLSKuqngCMJ+8cFwF/dL2S35shmP91ANeI9z9WWjJRPukgbSVVU4cDC5g66sYAXLDbfz/9pZVzjgyEzSXLa7Gy/uXZtNDTG5lC+0lOWclAUR8GHnPWxkBx71OpvGTChxmvKaNNtQo0/nk+5Gjw8XSNmKl0jdwoIlt6Mls6Q7qaRe6PB97r3fdvI8mQrtbBirsAnD7tdDtnX25/g74o0tOF4EOWx9OVf1KJIxhcEWJ/33h33j5keWIGO20ArAf+4sKtlZZhDHbpfJ7u6wepfMRMOZhLP68R4wISe2cACF43HgR8bdKJVHdF//DO/y0gQDHMdTOgkpmWtqemoc0w/8RnOS4aCO5NkqWaVcjSRyFuEZENrqtZ3jkuuf6rHUV4X0ZgvgG4zSWH4r/2kxRcOsFsurLTK6VNi1OWerUPVmzs/N+cFJjO7/qFbm+mpzauh0ZWIcsngQe9k3aAaNOsMrCo5FiLnaV0agbHHPQcnWTSwcMOeCsdMePv5TWu//JA0b90/VultElx/kdXWFrtE0Lqu/uFHs3hVdWYxME3jIxS7Ac409NQeQ5DumRiacokruYF1NPnudQB7wfK3q8EzJudBd3ftU2+bmc8SaFwJc9zq/o3996xThGrKdq0vWdWEdBoxin2MPAhy32pvL2mD1neISIvq+qBVFdeRCXP80q3RrJo2ek3sXPda6dUnB5spD6zOwvn8s4uWhHQpPJPhtLzHhrdPYRVwF2p9/pbEbIOWS5JTTrIonPcYLdmVpGUYRxAtiNm3oyZ5VlkdUNXy86xJJno1W71tldq0fj8k6NImh9XYhL7TM8bRKRtoDI9y/wzWZRMLC7bvWt1BHC6c1ysqqeRbULaYOtDnS6ZuMe9NyMDd8NgkC09ReDuTMhTyC5kOWC0iaSp81SSsaOV0iaA+0XkWVVN50Xkkw6yAfNqAF4lqd1rLdObap8QsrFT7+ZiVDG6jFDVvZYRht3Qpsh1Ws8ibT8AXgVuHSDaVHA1MieTzLvJkjZl0TlusHNy457nMjdXaH+qNyGtN8DriyhH0JUhXe33xDf1UpmPdWFt21PqlE7bzyJkGQA3icjm/sz0dEAQOJDZj6T1YaWWh2/Z6XvP1Pru7Z/nMnefT6MrG7aW/VVrgDvce0dSeYb0zi5+/b8KwEuz6uIV8ntTxxBKvIDwMqovx8pLYQ8O0pfWg9ulTQ4IpJ9AxleBR6r6T8CljiNXmqQXAH8Xkb+r6gTgXT2knlTxAhPg6hRFqHXa5P1VnkbUQmmKu66WBGja7pxo6phNHUlA3wAiBC073n1il+eSVcvOjc6iUZeXkzXIhI7q1QGXAJ/OACDTtOl6B5InU3kb0PRxfXtGGURKFZBMrrheVceR3YiZwQ68voiyieovTfFrthXaXkne2TCMklrbnmREG8FSxNh2njTbUdrA1SEdALydbBypt4rIutSxM6NKKZDZC7jFgUxMNs5aDybXuPOenfHiHGyWgL+fN4rIJmfN1JHPXl/v1h4kiX+Tqtya8Tq8htU3rQOIIzuVBgyxilgNbawBoiFWV4bd0KYsOo2Vt+yUDEHGkCQURqp6BvBTkgmAWfkK/EJ5BrhHVUc77l3J7u2PuZqkALFUdp8Gi6wso9a1Kl43lovI2jK9qQWgeU4mz2klaUKzt7taTW9LRnky3AFtErLpNBYm5hU3ZtmyM2XFhKr6HeDzGYDi9rj3De6zjiebznG+4fbdg3qlqe6aAfBWA20iRZuKVN7YfDABzaOdlxrZA+kA4s7huOLG/d0TbstKcGn7e9MVssyi09gLrgLXOhCriM44xZ8K/Bp4j1N+Q7ahxPLcnyxadvp7+acBmlPUX/TJT1CshYS07mjTFuAv7r0DyTZDemeX+wB01XkNdsMlB5p28K3JjWDsFqJIeSzcziLyLTsrDVl6hVwAkGFIO3K1Vz8nyVjuj7CqP+bLJO0KhlJ5XoS3Zl4hGSoWMQjnNjk/m1XVU6mNhLTuNtI7ROQF914WE0IGgyRV6h0bHgTg9Z/tYQyTtQ0EjCpW6jG080JxMyvC7dy8NM/MomT+MWdm96Q3cLydheutizqSmchf7QeqVA4yrwFnupads6i8DENTu8Ao14zLDjacEZEX3aSDY6iNhLTunqdP0ksPVqxmx7jXgZWsu21FcidaD6EJo5uIJNEdJQRaeEjeTWu4Hdr0FuDQDHimD90u6cWuF3XzYOtIJkJqCsyyXDjWgcztDmSeTu1UleZF+HM9lsTBPJgWo6emd5HU8EwnaeFYy7TJ17/d4N7bmyRSW+0Z0l4H7pAJs1sgwEbx0caW3R8Bjfkb27AEjKoqSQ5AXUbmnwBD+mHRB/10zIBkmPqX3cwmPxM8y7yIukG8uJa777OYdFANtOk+wG9GJ1BTGdLxjYl/5l8a7CuXzKAFiDBIEmyiFQJJmsuX3wyb6j2TpfmX9WLMGmT8wtgIfFpEfu/ycwoObN5N5WUY/X1PBkq5rnTge1xGwGsHmD5mRfU6aZPTGd86pNppUyqS/OrNALz0k8NNPVNsO1bE+WcKGNvMK2Z90gAs3AZtGkv2IUvZiW+ap0r3AB8VkcedIqV9RaeU7erVfE92ZM08LiKPquoMshsxYxic0Rlf/+a7Le5O5R36BtNa+JvI+JVgsLb9Aybxx9hkdByWIYgp8Wc5ni3Lyqq3PW061lGdaufeaap0GfC58j45qho7B18t5EX0ZHH5OVxZtOz0Kex3A393x9Ee/I0hqZzvC7BbYJxb45WUffjrfojOPBKOz9DdsLOLEMd/ANAXP97Icz+bSavTj2TrFjoQosRJPr3shviWnafWAPf2i2ELcJ6I/Cpl1XmQ8QPf30HlZRiDXTpbdjqKcEKFwOvXVgswM5VR2/8mrOqZDmgqiVZ6oPlTKmWjVmhTUrfYujKZYvLs/xxDA5NtC7EIgQpqigR2C+tM0eUWTScO3c33LTtHkEQUqjVkqakF9pCjSg95qlQ2yC5dvV4LeRHdKdVKZ30cBOxBNomcfxORtS6bdqCmlZ6ZASB43Vji9Gc8cEQNWL1ed66SoXusgQDbEX/a1NOVQy/EFAhoZ6kcwkZdQCDigIYuT/nRwOgqpU1eYULgcuBcEWneQUvRONXkqtp3qu7um2+BYFX1g2WLrhKLZpG7x7Y/27p6S9W1+Mhq0sFTwAPuvWNqxN2Q0NvSxv/WuRiOHbY3dv1xdhMqQuA0xFBCDFyR/sOw7MFXa+tBb420AV8QkZ+m6FG0nYVpVXUfaiMvorvFJcBC931WY2tKJG0vM6t/29E1OP/j8STDziqxTtOTDnxT7tlUv7vBg+ifpTjiHjDEh60/34wkpIMIIVSw0oCxm3nCGJarIiJJeY1J0aZGKp8yuDNSJb+ongCOFpGfqmrQzfA6f/0nMThrkbK2Al8FblHVtwP7ZECbhKT/8lMDNHtdM2zx4a/bF1GOpnZadkLU9m0AvWnXKSbkQ3YTSkzgnMBWCmCEX8kMIpZ33Y90aPHdwASqp7Tdpqy2PwCHi8jdjirF3fTEsSkLr9Zpk5I0LOsgaWthKgTezpGxZf6O/qJNfiMdTXaTVl9w/ipIJoSMorr78Xhr5i9SaLhZVcW2rLmQQBopEQuIRqgRAruRDYT8SkGY3rVODNlOOtiZqJJXiC+IyBluVnbQnS+grAyjFvIidiS+vizLSQc+/2RxGfD0lwTODzSDpFdRJYDggfcGEWmucnfDNq695QIAbpgw0QgfRxFiQUtiscQ0IkT8Qo5iLcsIRLruiXeSFUmKwaqBNnmq9BxwjIhc0gOqVM7nfQjX50XUcue4jcCNqjqJZMRMJcDradNjwCMDNHvd06YsAKG8ZeewlLuhWmlT5K7tVyJN9+i9lxVY+dIrqJ5MB3eboYQmxBgr2I3SbAIuUUVYvrXB4hfMQSSZjYM5V8Snsock1bSHicitPaRKWx0ntTBrmTZ5ALhVRDYDp9I1tqYSiwCSIXy2UuVUCBbs4Bgp2tRE5ZNWPfCuA25z7x1OkgBoq3SdeKq4DviqqhoOPieWT1KSWVzHnXp43KKfsJZnGEdIicvlfbwEGJm/7XErs1KLKxykSuEX0IUicrFbaEFvwqbeMenKMGohL6K73Rvgmgz9VabMP6N91HgBRBwYavJ/3c7nxSQlNbuR3cig9e69ap904DfuL7h8p84xSbqAQOYQA7/Qa/QPrOdzJWGhKsK8Nz6LsKyHxmC8WZ4qvQCcLSI3pnoJ99YsD9yEhmOAoeSd41pJcl1Gud27Utrk+y/fV2bh9MqKcQCjf51qzixBuzxrf69g5I3HkzKQzGJkkKdNDcCJVO+kA69XV4vIb8pnsTmQSQDnVDYD3yhbP5RbNPuT9NGwfX34b9Ju683VELgR+JhryFTJTG9fhjEzRcVqkTp5gL3TTa74CMmImRJdzcz6unCvF5GOvjwnZ7nESyczbnhBvtMkfGRLpM1/ncQtrOblNNikJq0WnB+lkvXt66I2ATe79w6uAndDd5bMC8A5fuPepiLOIXY+mYDpxGkHcDnQfMRx78Em3tK4WEQu7AtV2g6fH0GSlGbIa5t8r+QPO0UrVHBMv8YW9YU2zXUgsmyqOaNB+F49jN/UYTuGCkO2wP8InLisCwQ1RZuOICmZyMJi/5uIvOL+f/IgdzfsCFQ9HfyQiLzW3WRZBy471LsQmAY8y+AZYuYB4FXgGyLi09grjWD4hXkASQvPV6ldRzAkBY9XutnroytcI17xV0HSCKk3lsWyowln3EK0fA/ztTGGizaWlOZY4wCKrVaiUYYTbp+gXzniRb6tEMrWDusD3blnMbni126tGaq3oj9yG8q5InJbhQyhC4wGqKAta6AJRKQ1ZcVkFiJ1prZS2yIiUnL3w1RAl8oP2jdr01kzy/cIZjTG8XVxTKBIaBRB0UDV1kHQohx/2MvcuAzCGW6Hdc8z2IbfpqcA6f9GgZKzeqcBD7P1EMBqkJIDmR+KyPlIiP5b9IYIUl99HYPXxssYZHLZJp3cKUB3AQRzIL5tEuePNvJfm2IiUQ1FQVRsEcRY1jfHetjh63jK/34/3JMCSd3XKVRXsMCDzEJE/kEIVH9QnCjnt76gmsxpkgo2G8lgxtKbteVqfypYDjNd9zir+1HpM/OWyh0TZPEIozM3RURBYtmA1bgJgkh5srWVIw/ZIuvmqpp5qmNIpma09tICEQckpZSbYVeSiOT+DK556T0FmaU8tfT98raZ7fr9YJptipebDvmpnBf/mwtbS1+tm1yhchk0Mtf5Q2aNY5QR7isgk9tjbKhqUBAlGoGELcrt6xv0uMNXaxuPPlpg2rSLgC9neCrVlDfjQeZ6Vt9xmkw+olW/PXIi9a/fSsDuFA22JL8wa+NPynysq8jWHGhyqWrxlOiesRzagNyK1bADTKiIUQElGoGGLZbrHxzPKXMelw5UUdWLgQuAdirLfTFVCDKLWH3HGTL53a168a5jbXHtTaaOabZDIwAz3IS2g+tMaD/EOWxKrNPegU0ONLkMOvEU6r5d+chw+E2blUiVwCgiqqBEo0TCZsv1rw7V0w5frW0uP+rzwPfdYWo1GRO6wtcB8Gt+9slz5JM/K+kFu4xjyGtLqeeAuJ3YBAQEiiodZoQp2hbuNK/Z9wC2txTK5Ms2l8EmMyBSCA9+lf/dYvn6SAgD1UhUXTGThBst0QirJ0xYz9IHR8hwwhARuQQ4HWimq6tkrYmvXg+Ai0TkLPnkL0qtc+v2tA3rlmH0ANtCZDTpMaORqDEYWiwmtr9mXt8c7DnQ5DIoRSBaBuEB67hoY6w/GAkFUUpGBVEIYw03KFGj4eixkdz87JBoigObK+noOJqkEVrowKZW0hl8JXYL8M8i8nUI0K+bd9Vr+3JjeLttJZZYQyxo5HpsFySkxHnyeS7rq0M4B5pcBq1Mh1gh2Gc9n9to+eVokYIopSBWD0ZhcyxRUXlHUxu3rwyj9xCGSF3d/axefQTwOwc2PsJUrWLpymB+hFLL0SLyGwjRL8ZzsNFNwATbnEwySCwZVSA2dYTxFrlQvsilOpewr1GnHGhyGcxWjQJ2AQR7beDsDZbLx1gt4ELSgRUMhFuUOIAJTXDTGqJPYwJk8uTXReTDwNnA63S1bLVVdpt8E7gA+DnPP/geKTbdq6pGPx9dRD1/oESTbcOKEFACVdQIsSloyBb5evgVe7EDmaiCZ5VLLoNbUm0j7LNN/GS44dObY4kgcRAHqliwBcUMV2iDK4LRQ7449KXNrzkn8VTgO3QNxvPKOZg34rSz+3mi9i9Lof5KAD1/7FusrPmpqeME244lREQQAlDBYsAMxdDGBTKPb1UKMjnQ5FKVYPN8E98cgXx1s2LFKgLGJKWCKmBHqQRb4GUxeuTwNl2VGhp4GjAf2HcQA4539hp3/j/hlYculnEHvgoB0af0Q0Fov0+RsTYiEiH081pViU2RgBAl5tNyMZdlATI50ORSjWBjBOJVDXymUbnUgnQocajJ7i4q8RAwrfDX9pKeMB7aUOfTSZqe1QOfAL4AvCWlvN7VIDvnpXcmEfrzW0zLpoulafhdAHremD1oX3sRBc4AsJZYAgJv82hAZOoJUTZFlo8U/oPFWYFMDjS5VKX4PJtVdZzQCP9br4zeBFGgEhTBCrS3Gd1vt3aeLeth09VBLukHfCbwKZJ+TeU+jze7oDLdziHdpuIG4D9F5C8A+t3jmuLHbvqUYC8wdYyyETGCkUJy7hokLcZNQzKSqKODM+ou4aEsQSYHmlyq2boJBaLVRd7aBJcPhcM3qLSPgLp1KuePi+wPU936uv7OtYHoBJznnqtn/PjZFItnktQ5FctARxi4LnseWLQMXDaT9A76bxG5PbFg9hwWr199hkQd55tG3YcYrBCLcVaMAQ2IBQIZAkRcxUbOkf/h9axBJgeaXGrCslkAxWML8u2RwufXKbeMKen0dCuJbWp0AjhbNVLT116bxvDhswmC2cAhvLHhVUxXsWXa4pE+AEoaWNiGr8iSzJZaCFwlIisBdO7ckHnzlDnydurkUSzYmIiCBhIgGFDTZcVY6DDKhXIp3wXQ0wlkYfah/hxocql2y6aTGr1W5PQQHhrewYrt9Bjeyt8joDpuXCNBMFJeeulFbNevO9A5iiB4rwOdt/TQEulOH3fkB1pH0m/5RpJZ6I+kgDFwfqbYg4XOkYUUOc12YCXUkCCxYowhoBGIuRvDZ+XH3KtzMcxD+1IwmQNNLrmwdUSqt9RL4QKE/wdcT1i4hr33vkn+/vdXvQMZQBcsGMJxx+3J0KH7IXIAxuxN0k94LMnQut7Sqoiky+NqbLSCOH6Ilrb7MeZBGTZsXbnVRTIiqPPaOoHmdA4mlLttEodSCoqpJ0BpiYXvPPgA3zzkPkr9QZVyoMmllgEngCTE3QNgAihY4XEDU1N85VUDN1IoXs1BB90i99zzOnG8TaBixf0jGTV5Fxobd8GYUYiMJAiagEa6clws1rai2kwUrSeO17Fp01pKa9fI7u/Y8IYDG4PGcVgOLm/4/E6wkSup4wPEQAGs6KJIuaDuCh5NqBaZdNDLJZdceg9IIUAJZqugsVCKhSgWIhU09XohDlmgRXO+Dqk/Qg88cAxhCCaronBBT5gwUY8cfkx0aPECPczcFh8ivy0Dw21fw1yMgug/8Lb4DLH6j/KgnsEHO39+NKEOoKGRWzS55LIdv44Ki4GTLcTiwEe7/C1iwJR1I16HYSWwglCeQWQVhcLqUkNxU6EuaKa+qbVlaENr45D6UufftLfUsaVlCFH7cLRtF6ydiI2mWNE9Ed0To1NNwFBCIBSspc2ITpR7eG0Hg/O2vp4zOOTRmIf3XUiHzk1o3EBbMTnQ5JLLtkAGDkK4D1CbRJOM8/N06owKiul08gYmcD9LD971KYQC1mgJpZ2QOOX2LRDQYMKkBAAjXfElAxjFKpYAi0FNnRSiSGcW7uNPPYkQpcGovyJKPZG8qDKXXLahnKVEN26yoAZCA8aAaOIgjhVUBJEkFycUEJuAkrUQWe18WQuqCgYKRhhiYHjnS2g0INaiNia2sUY2IrIxkbVYm5RNGPFV5oIakfcC8Gr3hoKAehr1ZoFMbtHkkkv3oHMgcDrCSRb2NancGWuwiKMggsE4iyedvpdk4yQab1yoKqArkO1eYpIcl+QlnfXWGmiSAWywGKwpSmgtj5mpeiALsTJIeunkQJNLLtuxarxFkHpvbwzHArOs8G5jaPI/8MChgCYApI4ziKNOgnE1VUEXGLnkOQhQBzTqf18CjITa1eTBUSurvGhED+iNnyYHmlxy2cl9Ns7G2CrPZEsDExuFaXHE/mI5wATsbWF3AyM7LRZNWSeS+FsACB02Gbp+FqYsHGcBYcAaXY/heQyPmZB7CbgfeJR7eF0GUWfAHGhyyaXnFo4nPHZbuTjawHgsexEwFWF3hKlWZBzCLgijMRoARQKKCHUYOoxhizW0GMN6DGutYS2BPGcCfZqQJynynDzAS4P9/v1/fbnyJQR+CsQAAAAASUVORK5CYII=" alt="Dallas Event Audio" width="282" height="120"></div>
+          <p style="margin-top:14px; max-width:250px;">Full-service AV production for Dallas-Fort Worth since 2001. Delivered, set up, and run by our on-site technician.</p>
+          <div class="foot-contact">
+            <a href="tel:8172107957">817-210-7957</a>
+            <a href="mailto:info@dallaseventaudio.com">info@dallaseventaudio.com</a>
+          </div>
+          <p class="foot-area">Serving Dallas, Fort Worth, Southlake, Arlington, Frisco, McKinney, Richardson &amp; the wider Metroplex.</p>
+        </div>
+        <div class="col">
+          <h4>Events</h4>
+          <a href="/weddings">Weddings</a>
+          <a href="/corporate-events">Corporate Events</a>
+          <a href="/private-events">Private Events</a>
+          <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+          <a href="/college-school-university-events">College &amp; University</a>
+          <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+          <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+        </div>
+        <div class="col">
+          <h4>Services</h4>
+          <a href="/services-dj">DJ Services</a>
+          <a href="/services-audio">Audio Services</a>
+          <a href="/services-lighting">Lighting Services</a>
+          <a href="/services-photo-and-video">Photo &amp; Video</a>
+          <a href="/services-extra">Extra Services</a>
+        </div>
+        <div class="col">
+          <h4>Audio Rentals</h4>
+          <a href="/rent-sound-equipment">Sound Equipment</a>
+          <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+          <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+          <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+          <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+          <a href="/live-streaming-services">Live Streaming</a>
+        </div>
+        <div class="col">
+          <h4>Lighting &amp; FX</h4>
+          <a href="/rent-uplighting">Uplighting</a>
+          <a href="/rent-laser-light-show">Laser Light Show</a>
+          <a href="/rent-follow-spot-light">Follow Spot</a>
+          <a href="/monogram-projector">Monogram Projector</a>
+          <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+          <a href="/rent-cold-sparks">Cold Sparks</a>
+          <a href="/projector-screen-rental">Projector &amp; Screen</a>
+        </div>
+        <div class="col">
+          <h4>Company</h4>
+          <a href="/our-story">Our Story</a>
+          <a href="/our-work">Our Work</a>
+          <a href="/equipment-list">Equipment List</a>
+          <a href="/what-others-are-saying">Reviews</a>
+          <a href="/blog">Blog</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div class="foot-proof">
+        <a class="fp" href="https://www.google.com/maps?cid=11213015373496621898" target="_blank" rel="noopener"><span class="m g">G</span> <b>4.9</b> <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span> &middot; 41 Google reviews</a>
+        <a class="fp" href="https://www.yelp.com/biz/dallas-event-audio-dallas" target="_blank" rel="noopener"><span class="m y">Y</span> <b>Yelp</b> &middot; 13 reviews &middot; 134 photos</a>
+      </div>
+      <div class="foot-bottom">
+        <span>&copy; 2026 Dallas Event Audio. Fully insured, on-site AV production.</span>
+        <span>Service page draft: line array and large format PA rental</span>
+      </div>
+    </div>
+  </footer>
+<div id="paletteBar">
+    <div class="pal-opts" id="palOpts" role="group" aria-label="Color palette">
+      <div class="pal-head">Color palette</div>
+      <button type="button" data-p="signal" class="active" aria-pressed="true"><i class="sw-signal"></i>Signal Chain</button>
+      <button type="button" data-p="amber" aria-pressed="false"><i class="sw-amber"></i>Stage Black &amp; Amber</button>
+      <button type="button" data-p="night" aria-pressed="false"><i class="sw-night"></i>DFW Night Rig</button>
+    </div>
+    <button type="button" class="pal-toggle" id="palToggle" aria-expanded="false" aria-controls="palOpts">
+      <span class="dots"><i style="background:#31ff6e"></i><i style="background:#fff21c"></i><i style="background:#ff1f3d"></i></span>
+      <span class="label">Palette</span>
+    </button>
+  </div>
+
+  <div id="chatBubble">✦ AV Concierge</div>
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+<script>
+  // Palette dock, bottom left
+  (function(){
+    const dock = document.getElementById('paletteBar');
+    const toggle = document.getElementById('palToggle');
+    const opts = Array.prototype.slice.call(document.querySelectorAll('#palOpts button'));
+    if(!dock || !toggle) return;
+
+    function store(v){ try{ window.localStorage.setItem('dea-palette', v); }catch(e){} }
+    function recall(){ try{ return window.localStorage.getItem('dea-palette'); }catch(e){ return null; } }
+
+    function apply(p){
+      document.documentElement.setAttribute('data-palette', p);
+      opts.forEach(b=>{
+        const on = b.dataset.p === p;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+
+    const saved = recall();
+    if(saved && opts.some(b=>b.dataset.p === saved)) apply(saved);
+
+    function open(state){
+      dock.classList.toggle('open', state);
+      toggle.setAttribute('aria-expanded', state ? 'true' : 'false');
+    }
+    toggle.addEventListener('click', e=>{ e.stopPropagation(); open(!dock.classList.contains('open')); });
+    opts.forEach(b=>{
+      b.addEventListener('click', ()=>{ apply(b.dataset.p); store(b.dataset.p); open(false); });
+    });
+    document.addEventListener('click', e=>{ if(!dock.contains(e.target)) open(false); });
+    document.addEventListener('keydown', e=>{ if(e.key === 'Escape') open(false); });
+  })();
+
+  // Scroll reveal
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.15});
+    document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el=>el.classList.add('in'));
+  }
+
+  // CO2 / particle burst on primary CTA click
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function burst(x, y){
+    if(reduceMotion) return;
+    const colors = ['var(--a1)','var(--a2)','var(--a3)','#ffffff'];
+    const count = 26;
+    for(let i=0;i<count;i++){
+      const p = document.createElement('span');
+      p.className = 'burst-particle';
+      const angle = (Math.PI * 2 * i) / count + Math.random()*0.4;
+      const dist = 60 + Math.random()*140;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist - 40;
+      const size = 4 + Math.random()*6;
+      p.style.width = p.style.height = size + 'px';
+      p.style.background = colors[i % colors.length];
+      p.style.boxShadow = '0 0 8px ' + colors[i % colors.length];
+      p.style.left = x + 'px';
+      p.style.top = y + 'px';
+      document.body.appendChild(p);
+      const anim = p.animate([
+        { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
+        { transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.3)`, opacity:0 }
+      ], { duration:700 + Math.random()*400, easing:'cubic-bezier(.2,.7,.3,1)' });
+      anim.onfinish = () => p.remove();
+    }
+  }
+  document.querySelectorAll('.btn-primary').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      burst(e.clientX, e.clientY);
+    });
+  });
+</script>
+
+</body>
+</html>

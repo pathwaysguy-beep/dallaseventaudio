@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="signal">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font-display:'Unbounded',sans-serif;
+    --font-body:'Space Grotesk',sans-serif;
+  }
+
+  /* ============ PALETTE A: Signal Chain (true DJ mixer peak-meter LEDs: green / yellow / red) ============ */
+  html[data-palette="signal"]{
+    --bg-0:#050706; --bg-1:#0a0f0c; --bg-2:#0e1512;
+    --ink:#f4f7f5; --dim:#b4c5ba;
+    --a1:#31ff6e; /* LED green */
+    --a2:#fff21c; /* LED yellow */
+    --a3:#ff1f3d; /* LED red */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 55%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(255,255,255,.08);
+    --glow: rgba(49,255,110,.35);
+  }
+  /* ============ PALETTE B: Stage Black & Amber (warm, premium, ties to existing chat widget gold) ============ */
+  html[data-palette="amber"]{
+    --bg-0:#070605; --bg-1:#0d0a06; --bg-2:#120e08;
+    --ink:#f8f3ea; --dim:#c3b7a5;
+    --a1:#e8b75c; /* gold */
+    --a2:#ffdfa0; /* warm white/spot */
+    --a3:#4fa3ff; /* cool counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 50%, var(--a2) 50%, var(--a2) 100%);
+    --card-border: rgba(232,183,92,.16);
+    --glow: rgba(232,183,92,.32);
+  }
+  /* ============ PALETTE C: DFW Night Rig (cool stage-lighting energy, distinct from EDM Wedding DJ's magenta) ============ */
+  html[data-palette="night"]{
+    --bg-0:#05060b; --bg-1:#090b16; --bg-2:#0c0f1e;
+    --ink:#f1f3fb; --dim:#aeb5cf;
+    --a1:#2f6fff; /* electric blue */
+    --a2:#8b5cf6; /* violet */
+    --a3:#ffb020; /* amber counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 65%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(139,92,246,.16);
+    --glow: rgba(47,111,255,.35);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-0);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  .grad-text{
+    background:var(--grad);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  /* ---------- palette dock (bottom left, shipped feature) ---------- */
+  #paletteBar{
+    position:fixed; left:20px; bottom:22px; z-index:200;
+    display:flex; flex-direction:column; align-items:flex-start;
+    font-family:var(--font-body);
+  }
+  #paletteBar .pal-toggle{
+    display:flex; align-items:center; gap:9px;
+    padding:11px 17px; border-radius:100px;
+    border:1px solid var(--card-border); background:rgba(8,9,10,.82);
+    -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+    color:var(--ink); font-family:var(--font-body); font-size:0.85rem; font-weight:600;
+    cursor:pointer; transition:border-color .2s, background .2s;
+  }
+  #paletteBar .pal-toggle:hover{ border-color:var(--a1); background:rgba(8,9,10,.94); }
+  #paletteBar .pal-toggle .dots{ display:flex; gap:3px; }
+  #paletteBar .pal-toggle .dots i{ width:8px; height:8px; border-radius:50%; display:block; }
+  #paletteBar .pal-opts{
+    display:none; flex-direction:column; gap:4px; margin-bottom:10px;
+    padding:10px; border-radius:16px; min-width:222px;
+    border:1px solid var(--card-border); background:rgba(8,9,10,.94);
+    -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px);
+    box-shadow:0 20px 50px -18px rgba(0,0,0,.9);
+  }
+  #paletteBar.open .pal-opts{ display:flex; }
+  #paletteBar .pal-opts .pal-head{
+    font-family:var(--font-display); font-weight:900; font-size:0.6rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--dim);
+    padding:4px 10px 8px;
+  }
+  #paletteBar .pal-opts button{
+    display:flex; align-items:center; gap:10px; text-align:left; width:100%;
+    padding:9px 11px; border-radius:11px; border:1px solid transparent;
+    background:transparent; color:var(--ink);
+    font-family:var(--font-body); font-size:0.87rem; font-weight:500;
+    cursor:pointer; transition:.18s;
+  }
+  #paletteBar .pal-opts button:hover{ background:rgba(255,255,255,.06); }
+  #paletteBar .pal-opts button.active{ border-color:var(--a1); background:rgba(255,255,255,.05); font-weight:700; }
+  #paletteBar .pal-opts button i{
+    width:22px; height:11px; border-radius:100px; flex:0 0 auto;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);
+  }
+  #paletteBar .sw-signal{ background:linear-gradient(90deg,#31ff6e,#fff21c 55%,#ff1f3d); }
+  #paletteBar .sw-amber { background:linear-gradient(90deg,#e8b75c,#ffdfa0); }
+  #paletteBar .sw-night { background:linear-gradient(90deg,#2f6fff,#8b5cf6 65%,#ffb020); }
+  @media(max-width:520px){
+    #paletteBar{ left:14px; bottom:16px; }
+    #paletteBar .pal-toggle{ padding:9px 13px; font-size:0.8rem; }
+    #paletteBar .pal-toggle .label{ display:none; }
+    #paletteBar .pal-opts{ min-width:198px; }
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(5,6,5,.7); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--card-border);
+  }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1180px; margin:0 auto; }
+  .logo{ display:flex; align-items:center; }
+  .logo img{
+    display:block; height:46px; width:auto;
+    filter:drop-shadow(0 0 9px rgba(255,255,255,.32)) drop-shadow(0 2px 3px rgba(0,0,0,.65));
+  }
+  .col.brand .logo img{ height:38px; }
+  @media (max-width:520px){ .logo img{ height:34px; } }
+  .navlinks{ display:flex; gap:28px; font-size:0.994rem; color:var(--dim); }
+  .navlinks a:hover{ color:var(--ink); }
+  .navright{ display:flex; align-items:center; gap:18px; }
+  .phone{ font-size:0.96rem; color:var(--dim); }
+  .cta-btn{
+    font-family:var(--font-body); font-weight:700; font-size:0.96rem;
+    padding:11px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    display:inline-block; white-space:nowrap;
+  }
+  @media (max-width:860px){ .navlinks{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{ position:relative; padding:110px 0 90px; overflow:hidden; }
+  .hero::before{
+    content:''; position:absolute; inset:-20% -10% auto -10%; height:600px;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    opacity:.5; filter:blur(40px); pointer-events:none;
+  }
+
+  /* -- animated perspective floor grid -- */
+  .hero-grid{
+    position:absolute; left:0; right:0; bottom:-10%; height:70%;
+    perspective:400px; overflow:hidden; pointer-events:none; z-index:0;
+  }
+  .hero-grid::before{
+    content:''; position:absolute; inset:-50% -50% 0 -50%;
+    background-image:
+      repeating-linear-gradient(to right, var(--card-border) 0 1px, transparent 1px 68px),
+      repeating-linear-gradient(to top, var(--card-border) 0 1px, transparent 1px 68px);
+    transform:rotateX(62deg);
+    transform-origin:bottom;
+    animation: gridScroll 9s linear infinite;
+    opacity:.55;
+    mask-image:linear-gradient(to top, black 0%, transparent 75%);
+    -webkit-mask-image:linear-gradient(to top, black 0%, transparent 75%);
+  }
+  @keyframes gridScroll{ from{ background-position:0 0; } to{ background-position:0 136px; } }
+
+  /* -- sweeping laser beams -- */
+  .hero-lasers{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .laser{
+    position:absolute; top:-10%; width:2px; height:130%;
+    background:linear-gradient(to bottom, transparent, var(--a1), transparent);
+    opacity:0; filter:blur(.5px);
+    animation: laserSweep 6s ease-in-out infinite;
+  }
+  .laser:nth-child(1){ left:8%;  background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:0s; }
+  .laser:nth-child(2){ left:32%; background:linear-gradient(to bottom, transparent, var(--a2), transparent); animation-delay:1.6s; transform:rotate(6deg); }
+  .laser:nth-child(3){ left:63%; background:linear-gradient(to bottom, transparent, var(--a3), transparent); animation-delay:3.1s; transform:rotate(-8deg); }
+  .laser:nth-child(4){ left:85%; background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:4.3s; transform:rotate(4deg); }
+  @keyframes laserSweep{
+    0%{ opacity:0; transform:translateX(-10px) rotate(var(--rot,0deg)); }
+    8%{ opacity:.55; }
+    20%{ opacity:0; }
+    100%{ opacity:0; }
+  }
+
+  /* -- drifting fog -- */
+  .hero-fog{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .fog-blob{
+    position:absolute; width:60%; padding-top:60%; border-radius:50%;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    filter:blur(50px); opacity:.4;
+    animation: fogDrift 18s ease-in-out infinite alternate;
+  }
+  .fog-blob.b2{ left:50%; top:20%; animation-duration:24s; animation-delay:-6s; opacity:.28; }
+  @keyframes fogDrift{
+    from{ transform:translate(-8%, 0) scale(1); }
+    to{ transform:translate(8%, 6%) scale(1.15); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-grid::before, .laser, .fog-blob{ animation:none !important; }
+    .laser{ opacity:0; }
+  }
+
+  .hero-logo-wrap{ text-align:center; position:relative; z-index:1; margin-bottom:40px; }
+  .hero-logo-wrap img{
+    width:min(440px, 78vw); height:auto;
+    filter:drop-shadow(0 0 60px var(--glow));
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--card-border); border-radius:100px; padding:7px 16px;
+    font-size:0.881rem; color:var(--dim); letter-spacing:.04em; text-transform:uppercase;
+    margin-bottom:28px; position:relative; z-index:1;
+  }
+  .eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--a1); box-shadow:0 0 8px var(--a1); }
+  .hero h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.6rem, 6vw, 4.6rem); max-width:900px; position:relative; z-index:1;
+  }
+  .hero p.sub{
+    font-size:1.15rem; color:var(--dim); max-width:600px; margin-top:26px; position:relative; z-index:1;
+  }
+  .hero-ctas{ display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; position:relative; z-index:1; }
+  .btn-primary{
+    font-weight:700; padding:16px 30px; border-radius:100px; background:var(--grad); color:#0a0a0a; font-size:1.073rem;
+  }
+  .btn-secondary{
+    font-weight:600; padding:16px 30px; border-radius:100px; border:1px solid var(--card-border); color:var(--ink); font-size:1.073rem;
+  }
+  .trust-row{
+    display:flex; gap:40px; flex-wrap:wrap; margin-top:64px; padding-top:34px;
+    border-top:1px solid var(--card-border); position:relative; z-index:1;
+  }
+  .trust-item .num{ font-family:var(--font-display); font-weight:800; font-size:1.6rem; }
+  .trust-item .label{ font-size:0.904rem; color:var(--dim); margin-top:4px; }
+
+  /* ---------- services ---------- */
+  .section{ padding:90px 0; }
+  .section-head{ max-width:640px; margin-bottom:52px; }
+  .kicker{ font-size:0.881rem; letter-spacing:.08em; text-transform:uppercase; color:var(--a1); font-weight:700; margin-bottom:14px; display:block; }
+  .section-head h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.8rem,3.4vw,2.6rem); }
+  .section-head p{ color:var(--dim); margin-top:14px; font-size:1.153rem; }
+
+  .service-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; }
+  .service-card{
+    background:linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 55%, transparent), color-mix(in srgb, var(--bg-1) 45%, transparent));
+    backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:20px; padding:28px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 8px 30px -18px rgba(0,0,0,.6);
+    transition:.25s; position:relative; overflow:hidden;
+  }
+  .service-card:hover{ transform:translateY(-4px); border-color:var(--a1); box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 20px 50px -20px var(--glow); }
+  .service-card .icon{
+    width:44px; height:44px; border-radius:12px; margin-bottom:20px;
+    background:var(--grad); display:flex; align-items:center; justify-content:center;
+    font-size:1.2rem;
+  }
+  .service-card h3{ font-family:var(--font-display); font-size:1.186rem; font-weight:700; margin-bottom:10px; }
+  .service-card p{ font-size:0.994rem; color:var(--dim); margin-bottom:18px; }
+  .service-card .learn{ font-size:0.904rem; font-weight:700; color:var(--a1); }
+  .service-card.featured{ border-color:var(--a2); }
+  .tag-live{ position:absolute; top:20px; right:20px; font-size:0.82rem; text-transform:uppercase; letter-spacing:.06em; color:var(--a2); border:1px solid var(--a2); padding:3px 8px; border-radius:100px; }
+
+  /* ---------- differentiator ---------- */
+  .diff{ background:var(--bg-1); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border); }
+  .diff-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+  .diff-visual{
+    aspect-ratio:4/3; border-radius:24px; border:1px solid var(--card-border);
+    background:
+      radial-gradient(circle at 30% 20%, var(--glow), transparent 55%),
+      linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 50%, transparent), color-mix(in srgb, var(--bg-0) 40%, transparent));
+    backdrop-filter:blur(22px) saturate(150%); -webkit-backdrop-filter:blur(22px) saturate(150%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 20px 60px -30px rgba(0,0,0,.7);
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .diff-visual .badge{
+    font-family:var(--font-display); font-weight:800; text-align:center; font-size:1.073rem; color:var(--dim);
+    border:1px dashed var(--card-border); padding:20px; border-radius:16px;
+  }
+  .diff-copy h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.7rem,3vw,2.3rem); margin-bottom:20px; }
+  .diff-copy p{ color:var(--dim); margin-bottom:16px; font-size:1.13rem; }
+  .diff-copy strong{ color:var(--ink); }
+  @media (max-width:820px){ .diff-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- reviews ---------- */
+  .review-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
+  .review-card{
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:18px; padding:26px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -20px rgba(0,0,0,.6);
+  }
+  .stars{ color:var(--a2); letter-spacing:2px; margin-bottom:14px; font-size:1.017rem; }
+  .review-card p{ font-size:1.04rem; color:var(--ink); opacity:.9; margin-bottom:16px; }
+  .review-card .who{ font-size:0.904rem; color:var(--dim); font-weight:600; }
+
+  /* ---------- review proof badges ---------- */
+  .proof-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:16px; margin-bottom:36px; }
+  .proof-badge{
+    display:flex; align-items:center; gap:14px; padding:18px 20px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -22px rgba(0,0,0,.6);
+    transition:.22s;
+  }
+  .proof-badge:hover{ border-color:var(--a1); transform:translateY(-3px); box-shadow:0 16px 42px -24px var(--glow); }
+  .proof-mark{
+    flex:0 0 42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:1.2rem; letter-spacing:-.02em;
+  }
+  .proof-mark.g{ background:#ffffff; color:#4285f4; }
+  .proof-mark.y{ background:#d32323; color:#ffffff; }
+  .proof-mark.k{ background:#ffffff; color:#0f9aa0; }
+  .proof-mark.w{ background:#ffffff; color:#16181d; font-size:.98rem; }
+  .proof-meta .rate{
+    font-family:var(--font-display); font-weight:800; font-size:1.22rem; line-height:1.15;
+    display:flex; align-items:baseline; gap:9px;
+  }
+  .proof-meta .rate .s{ color:var(--a2); font-size:.92rem; letter-spacing:1px; font-weight:400; }
+  .proof-meta .cnt{ font-size:.92rem; color:var(--dim); margin-top:2px; }
+  .proof-badge.tbd{ border-style:dashed; border-color:var(--a2); }
+  .proof-badge.tbd .rate{ color:var(--a2); }
+  .proof-badge.tbd .cnt{ color:var(--a2); opacity:.8; }
+
+  /* compact sitewide footer strip */
+  .foot-proof{
+    display:flex; flex-wrap:wrap; align-items:center; gap:12px 26px;
+    margin-top:32px; padding-top:26px; border-top:1px solid var(--card-border);
+  }
+  .foot-proof .fp{ display:inline-flex; align-items:center; gap:9px; font-size:.94rem; color:var(--dim); }
+  .foot-proof .fp:hover{ color:var(--ink); }
+  .foot-proof .fp b{ color:var(--ink); font-weight:700; }
+  .foot-proof .fp .s{ color:var(--a2); letter-spacing:1px; }
+  .foot-proof .fp .m{
+    width:24px; height:24px; border-radius:7px; display:inline-flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:.76rem;
+  }
+  .foot-proof .fp .m.g{ background:#ffffff; color:#4285f4; }
+  .foot-proof .fp .m.y{ background:#d32323; color:#ffffff; }
+  .foot-proof .fp .m.k{ background:#ffffff; color:#0f9aa0; }
+  .foot-proof .fp .m.w{ background:#ffffff; color:#16181d; font-size:.62rem; }
+  @media (max-width:820px){ .foot-proof{ gap:12px 18px; } }
+
+  /* ---------- final CTA ---------- */
+  .final-cta{ text-align:center; padding:110px 0; position:relative; }
+  .final-cta h2{ font-family:var(--font-display); font-weight:900; font-size:clamp(2rem,5vw,3.2rem); max-width:760px; margin:0 auto 22px; }
+  .final-cta p{ color:var(--dim); max-width:520px; margin:0 auto 36px; }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:1px solid var(--card-border); padding:50px 0; }
+  .foot-grid{ display:grid; grid-template-columns:1.6fr repeat(5,1fr); gap:34px 26px; }
+  @media (max-width:1080px){ .foot-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:620px){ .foot-grid{ grid-template-columns:repeat(2,1fr); } }
+  .foot-grid .col.brand{ min-width:210px; }
+  @media (max-width:1080px){ .foot-grid .col.brand{ grid-column:1 / -1; } }
+  .foot-contact{ margin-top:16px; }
+  .foot-contact a{ display:block; margin-bottom:6px; font-size:1rem; color:var(--ink); opacity:.9; }
+  .foot-contact a:hover{ color:var(--a1); opacity:1; }
+  .foot-area{ font-size:.9rem; color:var(--dim); margin-top:12px; line-height:1.6; }
+  .foot-grid .col h4{ font-size:0.904rem; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin-bottom:14px; }
+  .foot-grid .col a, .foot-grid .col p{ display:block; font-size:0.972rem; color:var(--ink); opacity:.8; margin-bottom:8px; }
+  .foot-bottom{ margin-top:40px; padding-top:24px; border-top:1px solid var(--card-border); font-size:0.881rem; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+
+  /* ---------- chatbot bubble (visual placeholder for the AV Concierge) ---------- */
+  #chatBubble{
+    position:fixed; right:22px; bottom:22px; z-index:200;
+    display:flex; align-items:center; gap:8px;
+    padding:14px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    font-weight:700; font-size:0.96rem; box-shadow:0 14px 40px -12px var(--glow);
+    cursor:pointer;
+  }
+
+  [data-reveal]{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  [data-reveal].in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- film grain overlay ---------- */
+  .grain-overlay{
+    position:fixed; inset:0; z-index:999; pointer-events:none;
+    opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-repeat:repeat;
+  }
+
+  /* ---------- marquee strip ---------- */
+  .marquee{
+    border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);
+    background:var(--bg-1); overflow:hidden; padding:18px 0; position:relative;
+  }
+  .marquee-track{
+    display:flex; width:max-content; gap:48px;
+    animation:marqueeScroll 32s linear infinite;
+  }
+  .marquee-track span{
+    font-family:var(--font-display); font-weight:700; font-size:1.073rem;
+    letter-spacing:.04em; text-transform:uppercase; color:var(--dim);
+    display:flex; align-items:center; gap:48px; white-space:nowrap;
+  }
+  .marquee-track span::after{ content:'✦'; color:var(--a1); margin-left:48px; }
+  @keyframes marqueeScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  /* ---------- CO2 / particle burst ---------- */
+  .burst-particle{
+    position:fixed; top:0; left:0; width:6px; height:6px; border-radius:50%;
+    pointer-events:none; z-index:500; will-change:transform,opacity;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+    .marquee-track{ animation:none; }
+    .grain-overlay{ display:none; }
+  }
+</style>
+  <title>Projector and Screen Rental Dallas | Dallas Event Audio</title>
+  <meta name="description" content="Projector and screen rental in Dallas-Fort Worth. Laser projectors and matched screens delivered, set up and tuned for your room. Request a quote today.">
+  <link rel="canonical" href="https://www.dallaseventaudio.com/projector-screen-rental">
+  <meta property="og:title" content="Projector and Screen Rental Dallas | Dallas Event Audio">
+  <meta property="og:description" content="Projector and screen rental in Dallas-Fort Worth. Laser projectors and matched screens delivered, set up and tuned for your room. Request a quote today.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.dallaseventaudio.com/projector-screen-rental">
+<style>
+  /* ========== LINE ARRAY & LARGE FORMAT PA (rent-line-array-speaker-system) ========== */
+
+  section[id]{ scroll-margin-top:96px; }
+
+  .hero.hero-page{ padding:64px 0 62px; }
+  .breadcrumb{
+    font-size:.881rem; color:var(--dim); letter-spacing:.03em;
+    position:relative; z-index:1; margin-bottom:22px;
+  }
+  .breadcrumb a{ color:var(--dim); }
+  .breadcrumb a:hover{ color:var(--a1); }
+  .breadcrumb .sep{ opacity:.45; margin:0 8px; }
+  .breadcrumb .here{ color:var(--ink); opacity:.75; }
+
+  .hero-page h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.3rem, 5.2vw, 4rem); max-width:980px; position:relative; z-index:1;
+  }
+  .hero-page .sub{
+    font-size:1.18rem; color:var(--dim); max-width:720px; margin-top:24px;
+    position:relative; z-index:1;
+  }
+
+  .stat-row{
+    display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:14px;
+    margin-top:40px; position:relative; z-index:1;
+  }
+  .stat{
+    padding:18px 20px; border-radius:14px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .stat .num{
+    font-family:var(--font-display); font-weight:900; font-size:1.7rem; line-height:1;
+    background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .stat .lbl{ margin-top:8px; font-size:.86rem; color:var(--dim); line-height:1.45; }
+  @media (max-width:860px){ .stat-row{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:480px){ .stat-row{ grid-template-columns:1fr; } }
+
+  /* ---------- DJ service tier cards ---------- */
+  .dj-grid{
+    display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:18px;
+    margin-top:38px;
+  }
+  @media (max-width:860px){
+    .dj-grid{ grid-template-columns:1fr; }
+  }
+  .dj-card{
+    position:relative; overflow:hidden;
+    padding:30px 30px 28px; border-radius:20px;
+    background:color-mix(in srgb, var(--bg-2) 52%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s, box-shadow .3s;
+  }
+  .dj-card::before{
+    content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+    background:var(--grad); opacity:.5; transition:opacity .3s;
+  }
+  .dj-card:hover{
+    border-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transform:translateY(-3px);
+    box-shadow:0 24px 60px -34px var(--glow), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .dj-card:hover::before{ opacity:1; }
+
+  .dj-card .tag{
+    font-family:var(--font-display); font-weight:900; font-size:.7rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1);
+  }
+  .dj-card h3{
+    margin-top:12px; font-family:var(--font-display); font-weight:900; line-height:1.12;
+    font-size:clamp(1.3rem, 2.1vw, 1.6rem);
+  }
+  .dj-card p{ margin-top:14px; font-size:1rem; line-height:1.72; color:var(--dim); }
+  .dj-card p b, .dj-card p strong{ color:var(--ink); font-weight:700; }
+  .dj-card .best{
+    margin-top:18px; padding-top:15px; border-top:1px solid var(--card-border);
+    font-size:.87rem; line-height:1.6; color:var(--dim);
+  }
+  .dj-card .best em{ font-style:normal; font-weight:800; color:var(--a2); letter-spacing:.04em;
+    text-transform:uppercase; font-size:.72rem; display:block; margin-bottom:6px; }
+
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+  .chip{
+    display:inline-block; padding:6px 13px; border-radius:100px;
+    font-size:.79rem; font-weight:600; letter-spacing:.02em;
+    color:var(--dim); text-decoration:none;
+    border:1px solid var(--card-border);
+    background:color-mix(in srgb, var(--bg-0) 45%, transparent);
+    transition:.2s;
+  }
+  a.chip:hover{ color:var(--a1); border-color:color-mix(in srgb, var(--a1) 55%, transparent); }
+  a.chip::after{ content:' \2192'; opacity:.55; }
+
+  /* ---------- which setup for which room ---------- */
+  .room-list{ margin-top:36px; border-top:1px solid var(--card-border); }
+  .room{
+    display:grid; grid-template-columns:280px 1fr; gap:32px;
+    padding:24px 0; border-bottom:1px solid var(--card-border);
+    transition:border-color .3s;
+  }
+  .room:hover{ border-bottom-color:color-mix(in srgb, var(--a1) 40%, transparent); }
+  .room h3{
+    font-family:var(--font-display); font-weight:800; font-size:1.1rem; line-height:1.35;
+  }
+  .room h3 span{ display:block; margin-top:6px; font-size:.76rem; font-weight:700;
+    letter-spacing:.09em; text-transform:uppercase; color:var(--a1); opacity:.85; }
+  .room p{ font-size:1rem; line-height:1.72; color:var(--dim); }
+  .room p b{ color:var(--ink); font-weight:700; }
+
+  @media (max-width:860px){
+    .room{ grid-template-columns:1fr; gap:12px; }
+  }
+
+  .room-body{ min-width:0; }
+  .room-body p + p{ margin-top:14px; }
+
+  /* ---------- spec line (dea-copy-standards, option C) ---------- */
+  .spec{
+    display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+    margin:0 0 14px; padding-bottom:12px;
+    border-bottom:1px solid var(--card-border);
+    font-family:var(--font-body); font-size:.92rem; color:var(--ink); line-height:1.5;
+  }
+  .spec span{
+    font-family:var(--font-display); font-weight:900; font-size:.66rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1); flex:0 0 auto;
+  }
+
+  /* ---------- add-on strip ---------- */
+  .addon{
+    margin-top:24px; padding:28px 30px; border-radius:18px;
+    border:1px dashed color-mix(in srgb, var(--a1) 32%, var(--card-border));
+    background:color-mix(in srgb, var(--bg-1) 40%, transparent);
+  }
+  .addon h3{ font-family:var(--font-display); font-size:1.16rem; font-weight:800; }
+  .addon p{ margin-top:10px; font-size:.98rem; color:var(--dim); line-height:1.7; }
+
+  /* ---------- feature split ---------- */
+  .split{
+    display:grid; grid-template-columns:1.05fr .95fr; gap:44px; align-items:center;
+  }
+  .split.flip .split-copy{ order:2; }
+  .split.flip .split-vis{ order:1; }
+  .split-copy h2{
+    font-family:var(--font-display); font-weight:900; line-height:1.1;
+    font-size:clamp(1.85rem, 3.4vw, 2.7rem);
+  }
+  .split-copy p{ margin-top:18px; font-size:1.04rem; line-height:1.75; color:var(--dim); }
+  .split-copy p b{ color:var(--ink); font-weight:700; }
+
+  .split-vis{
+    position:relative; border-radius:20px; overflow:hidden;
+    aspect-ratio:4/3; border:1px solid var(--card-border);
+    background-color:var(--bg-2);
+    background-image:var(--img),
+      radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--a1) 22%, transparent), transparent 62%),
+      radial-gradient(circle at 76% 80%, color-mix(in srgb, var(--a2) 18%, transparent), transparent 60%);
+    background-size:cover; background-position:center; background-repeat:no-repeat;
+  }
+  .split-vis img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  }
+  .split-vis .slot{
+    position:absolute; left:0; right:0; bottom:0; padding:30px 16px 13px;
+    background:linear-gradient(to top, rgba(6,6,8,.9), transparent);
+    font-size:.72rem; color:var(--dim); letter-spacing:.03em;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  @media (max-width:860px){
+    .split{ grid-template-columns:1fr; gap:26px; }
+    .split.flip .split-copy{ order:1; }
+    .split.flip .split-vis{ order:2; }
+  }
+
+  /* ---------- how it works ---------- */
+  .flow{ display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:16px; margin-top:34px; }
+  @media (max-width:1040px){ .flow{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:620px){ .flow{ grid-template-columns:1fr; } }
+  .flow-step{
+    position:relative; padding:26px 22px 24px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    border:1px solid var(--card-border);
+    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  }
+  .flow-step .n{
+    font-family:var(--font-display); font-weight:900; font-size:.7rem;
+    letter-spacing:.15em; text-transform:uppercase; color:var(--a1);
+  }
+  .flow-step h3{ margin-top:12px; font-family:var(--font-display); font-size:1.06rem; font-weight:800; }
+  .flow-step p{ margin-top:9px; font-size:.92rem; color:var(--dim); line-height:1.62; }
+
+  /* ---------- trust strip ---------- */
+  .trust-grid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:32px; }
+  @media (max-width:860px){ .trust-grid{ grid-template-columns:1fr; } }
+  .trust-card{
+    padding:24px 24px 22px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 45%, transparent);
+    border:1px solid var(--card-border);
+  }
+  .trust-card h3{ font-family:var(--font-display); font-size:1.02rem; font-weight:800; }
+  .trust-card p{ margin-top:9px; font-size:.92rem; color:var(--dim); line-height:1.62; }
+
+
+  /* ---------- event vertical link cards ---------- */
+  .vgrid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:34px; }
+  @media (max-width:1040px){ .vgrid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:860px){ .vgrid{ grid-template-columns:1fr; } }
+  .vcard{
+    display:block; position:relative; overflow:hidden; text-decoration:none;
+    padding:24px 24px 22px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    backdrop-filter:blur(12px) saturate(140%); -webkit-backdrop-filter:blur(12px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s, box-shadow .3s;
+  }
+  .vcard::before{
+    content:''; position:absolute; left:0; right:0; top:0; height:2px;
+    background:var(--grad); opacity:.45; transition:opacity .3s;
+  }
+  .vcard:hover{
+    border-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transform:translateY(-3px);
+    box-shadow:0 22px 54px -34px var(--glow), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .vcard:hover::before{ opacity:1; }
+  .vcard h3{
+    font-family:var(--font-display); font-weight:800; font-size:1.06rem; line-height:1.3;
+    color:var(--ink);
+  }
+  .vcard h3::after{ content:' \2192'; color:var(--a1); opacity:.7; }
+  .vcard p{ margin-top:10px; font-size:.93rem; color:var(--dim); line-height:1.64; }
+
+  /* ---------- vocabulary band (near-me / city phrasing) ---------- */
+  .band{
+    margin-top:34px; padding:30px 32px; border-radius:20px;
+    background:
+      radial-gradient(circle at 12% 18%, color-mix(in srgb, var(--a1) 12%, transparent), transparent 58%),
+      color-mix(in srgb, var(--bg-1) 55%, transparent);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .band h3{ font-family:var(--font-display); font-weight:900; font-size:clamp(1.2rem,2vw,1.5rem); line-height:1.18; }
+  .band p{ margin-top:14px; font-size:1.02rem; line-height:1.74; color:var(--dim); }
+  .band p b{ color:var(--ink); font-weight:700; }
+  @media (max-width:820px){ .band{ padding:24px 22px; } }
+
+  /* ---------- FAQ ---------- */
+  .faq-list{ margin-top:32px; border-top:1px solid var(--card-border); }
+  .faq-item{ border-bottom:1px solid var(--card-border); }
+  .faq-item summary{
+    list-style:none; cursor:pointer; padding:22px 44px 22px 0; position:relative;
+    font-family:var(--font-display); font-weight:700; font-size:1.06rem; line-height:1.45;
+    transition:color .2s;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary:hover{ color:var(--a1); }
+  .faq-item summary::after{
+    content:'+'; position:absolute; right:6px; top:50%; transform:translateY(-50%);
+    font-size:1.5rem; font-weight:400; line-height:1; color:var(--a1); transition:transform .25s;
+  }
+  .faq-item[open] summary::after{ transform:translateY(-50%) rotate(45deg); }
+  .faq-item .ans{ padding:0 44px 24px 0; font-size:1rem; line-height:1.75; color:var(--dim); }
+  .faq-item .ans a{ color:var(--a1); }
+
+  @media (max-width:820px){
+    .hero.hero-page{ padding:44px 0 50px; }
+    .dj-card{ padding:26px 22px 24px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .dj-card, .vcard{ transition:none; }
+  }
+
+
+
+
+  /* ---------- effect comparison strip ---------- */
+  .fx-grid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:34px; }
+  @media (max-width:1040px){ .fx-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:700px){ .fx-grid{ grid-template-columns:1fr; } }
+  .fx-card{
+    position:relative; overflow:hidden;
+    padding:26px 24px 24px; border-radius:18px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s;
+  }
+  .fx-card::after{
+    content:''; position:absolute; right:-30px; top:-30px; width:110px; height:110px;
+    border-radius:50%; opacity:.16; transition:opacity .3s;
+    background:radial-gradient(circle, var(--a2), transparent 68%);
+  }
+  .fx-card:hover{ border-color:color-mix(in srgb, var(--a2) 42%, transparent); transform:translateY(-3px); }
+  .fx-card:hover::after{ opacity:.34; }
+  .fx-card h3{ font-family:var(--font-display); font-weight:800; font-size:1.06rem; line-height:1.3; }
+  .fx-card p{ margin-top:10px; font-size:.94rem; line-height:1.66; color:var(--dim); }
+  .fx-card p b{ color:var(--ink); font-weight:700; }
+
+  @media (prefers-reduced-motion: reduce){
+    .arr-fx i{ animation:none; opacity:.3; }
+    .fx-card{ transition:none; }
+  }
+
+  /* ---------- hero coverage fan ---------- */
+  .arr-fx{
+    position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0;
+    mask-image:radial-gradient(115% 100% at 50% 0%, #000 26%, transparent 84%);
+    -webkit-mask-image:radial-gradient(115% 100% at 50% 0%, #000 26%, transparent 84%);
+  }
+  .arr-fx i{
+    position:absolute; left:50%; top:-140px;
+    width:520px; height:520px; margin-left:-260px;
+    border-radius:50%; opacity:0;
+    border:1px solid color-mix(in srgb, var(--a1) 50%, transparent);
+    box-shadow:0 0 40px color-mix(in srgb, var(--a1) 14%, transparent) inset;
+    animation:wavefront linear infinite;
+  }
+  @keyframes wavefront{
+    0%{   transform:scale(.16); opacity:0; }
+    14%{  opacity:.5; }
+    72%{  opacity:.14; }
+    100%{ transform:scale(2.6); opacity:0; }
+  }
+  .arr-fx i:nth-child(1){ animation-duration:7.2s; animation-delay:0s;   }
+  .arr-fx i:nth-child(2){ animation-duration:7.2s; animation-delay:1.2s; }
+  .arr-fx i:nth-child(3){ animation-duration:7.2s; animation-delay:2.4s; }
+  .arr-fx i:nth-child(4){ animation-duration:7.2s; animation-delay:3.6s;
+    border-color:color-mix(in srgb, var(--a2) 42%, transparent); }
+  .arr-fx i:nth-child(5){ animation-duration:7.2s; animation-delay:4.8s; }
+  .arr-fx i:nth-child(6){ animation-duration:7.2s; animation-delay:6.0s; }
+
+  /* ---------- the throw: projector, cone, screen ---------- */
+  .throw{
+    position:relative; width:320px; height:118px;
+    margin:30px 0 46px; opacity:.95;
+  }
+  @media (max-width:860px){
+    .throw{ width:232px; height:88px; margin:22px 0 34px; }
+  }
+  .throw i{ position:absolute; display:block; }
+  .throw i.pj{
+    left:0; top:38%; width:16%; height:24%; border-radius:4px;
+    background:linear-gradient(180deg, var(--bg-2), var(--bg-1));
+    border:1px solid color-mix(in srgb, var(--a1) 46%, transparent);
+    box-shadow:0 0 18px color-mix(in srgb, var(--a1) 20%, transparent);
+  }
+  .throw i.cone{
+    left:15%; top:0; width:63%; height:100%;
+    clip-path:polygon(0 41%, 100% 0, 100% 100%, 0 59%);
+    -webkit-clip-path:polygon(0 41%, 100% 0, 100% 100%, 0 59%);
+    background:linear-gradient(90deg,
+      color-mix(in srgb, var(--a1) 40%, transparent),
+      color-mix(in srgb, var(--a2) 10%, transparent));
+    animation:throwpulse 3.4s ease-in-out infinite alternate;
+  }
+  @keyframes throwpulse{ from{ opacity:.44; } to{ opacity:.94; } }
+  .throw i.scr{
+    right:0; top:0; width:22%; height:100%; border-radius:3px;
+    background:linear-gradient(160deg,
+      color-mix(in srgb, var(--a2) 32%, transparent),
+      color-mix(in srgb, var(--a1) 14%, transparent));
+    border:1px solid color-mix(in srgb, var(--a2) 50%, transparent);
+    box-shadow:0 0 28px color-mix(in srgb, var(--a2) 18%, transparent);
+  }
+  @media (prefers-reduced-motion: reduce){
+    .throw i.cone{ animation:none; opacity:.7; }
+  }
+
+  /* ---------- haze beam band ---------- */
+  .beams{
+    position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; opacity:.5;
+  }
+  .beams i{
+    position:absolute; top:-30%; width:2px; height:160%;
+    transform-origin:top center;
+    background:linear-gradient(to bottom, color-mix(in srgb, var(--a1) 55%, transparent), transparent 78%);
+    filter:blur(3px);
+  }
+  .beams i:nth-child(1){ left:12%; transform:rotate(9deg);   width:3px; }
+  .beams i:nth-child(2){ left:27%; transform:rotate(-6deg);  }
+  .beams i:nth-child(3){ left:44%; transform:rotate(12deg);  width:4px;
+    background:linear-gradient(to bottom, color-mix(in srgb, var(--a2) 46%, transparent), transparent 74%); }
+  .beams i:nth-child(4){ left:61%; transform:rotate(-11deg); }
+  .beams i:nth-child(5){ left:78%; transform:rotate(7deg);   width:3px; }
+  .beams i:nth-child(6){ left:91%; transform:rotate(-4deg);  }
+
+  .wrap p a:not(.chip):not(.btn-primary):not(.btn-secondary),
+  .addon a:not(.chip){
+    color:var(--a1);
+    text-decoration:underline;
+    text-decoration-thickness:1px;
+    text-underline-offset:3px;
+    text-decoration-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transition:color .2s ease, text-decoration-color .2s ease;
+  }
+  .wrap p a:not(.chip):not(.btn-primary):not(.btn-secondary):hover,
+  .addon a:not(.chip):hover{ color:var(--a2); text-decoration-color:var(--a2); }
+
+  .dj-card .spec, .room .spec, .split-copy .spec, .band .spec, .fx-card .spec, .addon .spec, .section-head .spec{
+    margin:0 0 14px; font-size:.92rem; color:var(--ink); line-height:1.5;
+  }
+  .dj-card .spec span, .room .spec span, .split-copy .spec span,
+  .band .spec span, .fx-card .spec span, .addon .spec span, .section-head .spec span{
+    font-family:var(--font-display); font-weight:900; font-size:.66rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1); flex:0 0 auto;
+  }
+</style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Projector and Screen Rental in Dallas-Fort Worth",
+    "serviceType": "Projector and Screen Rental",
+    "url": "https://www.dallaseventaudio.com/projector-screen-rental",
+    "description": "Projector and projector screen rental across Dallas-Fort Worth. Two matched packages cover almost any room: an Epson PowerLite 700U ultra short throw laser projector paired with a 150 inch Light-On CLR ambient light rejecting screen for rooms that cannot be darkened, and an Epson Pro EX10000 long throw laser projector paired with a 124 or 144 inch screen for ballrooms and deeper rooms. Every projector rental is full-service: delivery, screen rigging, cable dressing, laptop connection, image tuning, an optional on-site technician and pickup. There is no customer pickup.",
+    "category": "Projector Rental",
+    "provider": {
+      "@type": "Organization",
+      "name": "Dallas Event Audio",
+      "url": "https://www.dallaseventaudio.com",
+      "email": "info@dallaseventaudio.com",
+      "telephone": "+1-817-210-7957",
+      "foundingDate": "2001",
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": { "@type": "GeoCoordinates", "addressCountry": "US" },
+        "description": "Dallas-Fort Worth Metroplex, approximately 40 miles from Hurst, TX"
+      }
+    },
+    "areaServed": {
+      "@type": "GeoCircle",
+      "geoMidpoint": { "@type": "GeoCoordinates", "addressCountry": "US" },
+      "description": "Dallas-Fort Worth Metroplex, approximately 40 miles from Hurst, TX"
+    },
+    "audience": { "@type": "Audience", "audienceType": "Corporate meeting planners, wedding couples and planners, associations, houses of worship, schools and universities, venues and private hosts" },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Projector and screen rental",
+      "itemListElement": [
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Projector and screen rental","description":"Laser projectors and matched projector screens rented as one package, delivered, set up and tuned to the room across Dallas-Fort Worth.","url":"https://www.dallaseventaudio.com/projector-screen-rental#projector-and-screen"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Ultra short throw projector rental","description":"Epson PowerLite 700U 4,000 lumen WUXGA laser projector paired with a 150 inch Light-On CLR ambient light rejecting screen for rooms that cannot be darkened.","url":"https://www.dallaseventaudio.com/projector-screen-rental#bright-rooms"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Long throw projector rental","description":"Epson Pro EX10000 4,600 lumen Full HD laser projector with wireless input, paired with a 124 inch tab tensioned or 144 inch matte screen for ballrooms and deeper rooms.","url":"https://www.dallaseventaudio.com/projector-screen-rental#ballrooms"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Projector screen rental","description":"Projector screens from 6 feet up to 150 inches, tripod, tab tensioned and dressed frame options sized to the audience and the room.","url":"https://www.dallaseventaudio.com/projector-screen-rental#what-size"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Corporate projector rental","description":"Projector and screen rental for corporate meetings, conferences, general sessions and trade shows in Dallas-Fort Worth hotels and campuses.","url":"https://www.dallaseventaudio.com/projector-screen-rental#corporate"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Wedding projector rental","description":"Dressed and skirted projector screens for wedding slideshows, ceremony visuals and reception displays.","url":"https://www.dallaseventaudio.com/projector-screen-rental#wedding"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"On-site technician","description":"A technician who stays with the setup to switch sources and handle presenters for the length of the event.","url":"https://www.dallaseventaudio.com/projector-screen-rental#full-service"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Monogram projection","description":"Initials, logos and patterns projected onto a floor or wall, a separate rig from a projector and screen package.","url":"https://www.dallaseventaudio.com/monogram-projector"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Live streaming","description":"Stream the same feed the projector is showing to remote attendees.","url":"https://www.dallaseventaudio.com/live-streaming-services"}}
+      ]
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"Do you rent the projector and the screen together?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes. We rent projectors and screens together as matched packages, and that is how most people book it. Renting them as a set gives the better result, because the projector and the screen are paired for the size and the light level of your room rather than picked separately and hoped for."}},
+      {"@type":"Question","name":"How many lumens do I need to rent a projector for my event?",
+       "acceptedAnswer":{"@type":"Answer","text":"For a room you can dim, 3,000 to 4,000 lumens is usually enough. A room with windows or the house lights up wants 5,000 lumens and above, or a projector paired with an ambient light rejecting screen, which is the route we normally take. Tell us your room and your audience size and we will match the projector and screen to it."}},
+      {"@type":"Question","name":"What size projector screen do I need?",
+       "acceptedAnswer":{"@type":"Answer","text":"A rough guide by audience: about 50 guests wants a 6 to 8 foot screen, about 100 wants 8 to 10 foot, about 150 wants 10 to 12 foot, and 200 or more wants 12 to 16 foot. Deeper rooms and longer viewing distances push the screen bigger. We rent screens up to 150 inches and check the size against your floor plan before the truck loads."}},
+      {"@type":"Question","name":"Can I use a projector in a bright room or with the lights on?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes. Our ultra short throw Epson PowerLite 700U paired with the Light-On CLR ambient light rejecting screen keeps the image sharp with overhead and ambient light in the room. That setup is what we bring for lobbies, receptions, glass-walled conference rooms and any space you cannot darken."}},
+      {"@type":"Question","name":"Can I connect my laptop or phone?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes. Our projectors connect over HDMI for laptops and most devices, and the Epson Pro EX10000 also supports wireless and Miracast. We bring the cables and the adapters, connect your machine at setup and test the whole signal path before we leave."}},
+      {"@type":"Question","name":"Do you deliver and set it up?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes. We deliver, rig the screen, set the projector, tune the image and pick everything up across the Dallas-Fort Worth metro, and we can staff an on-site technician for the event. Dallas Event Audio is a full-service company, so a projector rental arrives set up and working."}},
+      {"@type":"Question","name":"Do you have projector rental for a wedding?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes. We provide projectors and dressed screens for wedding slideshows, ceremony visuals and reception displays, with the cable dressed and the frame skirted so the screen looks right in the photographs. Ask about pairing it with monogram projection if you also want your initials on the floor or a wall."}},
+      {"@type":"Question","name":"Do you do corporate projector rental for conferences?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes, and corporate meetings are most of what this inventory does. A corporate setup usually pairs the projector and screen with microphones, speakers and a recording or streaming feed, all on one quote, and we advance the load in with the hotel or venue before the date."}},
+      {"@type":"Question","name":"How far in advance should I book a projector rental?",
+       "acceptedAnswer":{"@type":"Answer","text":"One to two weeks ahead when you can. Weekend dates and the peak spring and fall corporate season fill up first. We will confirm availability and hold the gear for your event once the quote is approved."}},
+      {"@type":"Question","name":"How much does it cost to rent a projector in Dallas?",
+       "acceptedAnswer":{"@type":"Answer","text":"Projector and screen rentals are quoted per event, based on which setup the room needs, the screen size, the length of the booking and whether you want an on-site technician. Send us the venue, the date and the audience size and we will quote it the same day."}},
+      {"@type":"Question","name":"Do you rent projectors without a screen?",
+       "acceptedAnswer":{"@type":"Answer","text":"We can, and sometimes a venue already owns a good fixed screen. Tell us the screen surface, its size and where it lives in the room, and we will bring the projector that is paired to it. In every other case we would rather send the set, because a projector on a mismatched surface is a common way a good image goes wrong."}}
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://www.dallaseventaudio.com/"},
+      {"@type":"ListItem","position":2,"name":"Photo and Video","item":"https://www.dallaseventaudio.com/services-photo-and-video"},
+      {"@type":"ListItem","position":3,"name":"Projector and Screen Rental","item":"https://www.dallaseventaudio.com/projector-screen-rental"}
+    ]
+  }
+  </script>
+
+</head>
+<body>
+<header>
+    <nav>
+      <a class="logo" href="/" style="text-decoration:none;"><img src="data:image/png;base64,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" alt="Dallas Event Audio" width="282" height="120"></a>
+      <div class="navlinks">
+        <a href="/services-lighting">Lighting</a>
+        <a href="/services-audio">Audio</a>
+        <a href="/our-work">Our Work</a>
+        <a href="/what-others-are-saying">Reviews</a>
+        <a href="/contact">Contact</a>
+      </div>
+      <div class="navright">
+        <span class="phone">817-210-7957</span>
+        <a class="cta-btn" href="/contact">Get a Quote</a>
+      </div>
+    </nav>
+  </header>
+  <section class="hero hero-page">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="arr-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="wrap">
+      <div class="breadcrumb" data-reveal>
+        <a href="/">Home</a><span class="sep">/</span><a href="/services-photo-and-video">Photo and Video</a><span class="sep">/</span><span class="here">Projector and Screen Rental</span>
+      </div>
+      <h1 data-reveal>Projector and screen rental in Dallas-Fort Worth: <span class="grad-text">delivered, set up and dialed in.</span></h1>
+      <p class="sub" data-reveal>Dallas Event Audio rents laser projectors and matched projector screens across Dallas, Fort Worth, Plano, Frisco, Arlington and the rest of the metro. Every projector rental is a full-service setup: we deliver, rig the screen, run the cable, tune the image to your room and come back for the gear afterward. The projector and the screen are quoted and paired together, because the two of them are what decides whether the image reads from the back of the room.</p>
+
+      <div class="throw" aria-hidden="true"><i class="pj"></i><i class="cone"></i><i class="scr"></i></div>
+
+      <div class="stat-row" data-reveal>
+        <div class="stat">
+          <div class="num">2001</div>
+          <div class="lbl">Running audio and video for Dallas-Fort Worth events since 2001</div>
+        </div>
+        <div class="stat">
+          <div class="num">150 in</div>
+          <div class="lbl">Largest projector screen in our rental inventory</div>
+        </div>
+        <div class="stat">
+          <div class="num">40 mi</div>
+          <div class="lbl">Delivery radius around Dallas and Fort Worth</div>
+        </div>
+        <div class="stat">
+          <div class="num">Full-service</div>
+          <div class="lbl">Delivery, setup, image tuning and pickup on every rental</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Projector Rental Dallas &middot; Projector And Screen Rental DFW &middot; Ultra Short Throw &middot; Ambient Light Rejecting Screens &middot; Corporate Meetings &middot; Weddings &middot; Delivered And Set Up &middot;&nbsp;</span>
+      <span>Projector Rental Dallas &middot; Projector And Screen Rental DFW &middot; Ultra Short Throw &middot; Ambient Light Rejecting Screens &middot; Corporate Meetings &middot; Weddings &middot; Delivered And Set Up &middot;&nbsp;</span>
+    </div>
+  </div>
+
+  <section class="section" id="projector-and-screen">
+    <div class="wrap">
+      <div class="split">
+        <div class="split-copy" data-reveal>
+          <span class="kicker">The short version</span>
+          <h2>Projector and screen rental, matched as one package</h2>
+          <p>Most people searching for a projector rental in Dallas need a screen with it, and the two have to agree with each other. A bright projector aimed at the wrong screen surface in a room with the lights on gives you a washed out image, and a beautiful screen fed by an underpowered projector gives you the same result. So we rent them as a set. You tell us the room and the audience size, and the projector and screen come out of our inventory already paired for that job.</p>
+          <p>Every setup goes out the same way. Our crew delivers it, rigs the screen, dresses the cable, connects your laptop, tunes the image for the light in the room, and stays long enough to confirm your first slide looks right on the screen. Then we come back and pick it all up. There is no counter pickup and nothing is left in a parking lot for your team to carry.</p>
+          <div class="chips">
+            <a class="chip" href="/corporate-events">Corporate AV production</a>
+            <a class="chip" href="/live-streaming-services">Live streaming</a>
+            <a class="chip" href="/monogram-projector">Monogram projection</a>
+            <span class="chip">Screens up to 150 inches</span>
+          </div>
+        </div>
+        <div class="split-vis" data-reveal style="--img:url('/images/projector-screen-rental-dallas-ballroom.jpg')">
+          <span class="slot">/images/projector-screen-rental-dallas-ballroom.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="bright-rooms">
+    <div class="wrap">
+      <div class="split flip">
+        <div class="split-copy" data-reveal>
+          <span class="kicker">Package one</span>
+          <h2>Ultra short throw projector rental and ambient light rejecting screens for bright rooms</h2>
+          <p class="spec"><span>Rig</span> Epson PowerLite 700U &middot; 150 inch CLR screen &middot; ultra short throw</p>
+          <p>This is the setup for a room you cannot darken. The Epson PowerLite 700U is a 4,000 lumen WUXGA laser projector that sits inches from the screen instead of across the room, and it is paired with an Elite Screens Light-On CLR StarBright ambient light rejecting screen at 150 inches. The screen surface is built to reject the light coming down from the ceiling and accept only the light coming up from the projector, so the image holds its contrast with the house lights on.</p>
+          <p>Because the throw distance is inches rather than feet, nobody walks through the beam and casts a shadow across your slide, and you do not lose the middle of the room to a projector stand. Lobbies, hotel prefunction space, retail activations, reception areas and glass-walled conference rooms are all rooms we bring this setup to. Clients stop asking us whether they can dim the lights, because the answer no longer matters.</p>
+        </div>
+        <div class="split-vis" data-reveal style="--img:url('/images/ultra-short-throw-projector-rental-dallas.jpg')">
+          <span class="slot">/images/ultra-short-throw-projector-rental-dallas.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="ballrooms">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:900px;">
+        <span class="kicker">Package two</span>
+        <h2>Long throw projector rental for ballrooms and larger rooms</h2>
+        <p class="lede">When the room can go dark and the projector can live behind the audience or on a truss, a long throw setup gives you more placement freedom and a bigger image for the same money.</p>
+      </div>
+      <p class="spec"><span>Rig</span> Epson Pro EX10000 &middot; 124 or 144 inch screen &middot; long throw</p>
+      <p>The Epson Pro EX10000 is a 4,600 lumen Full HD laser projector with wireless and Miracast input, paired with either a 124 inch tab tensioned tripod screen or a 144 inch white matte screen depending on how far back the room lets us sit. Laser means no lamp warm up, no lamp to fail in the middle of a keynote, and the same brightness at the end of a long conference day as at the start of it.</p>
+      <p>This is the workhorse for hotel ballrooms, banquet rooms, general session rooms, worship spaces and any room with real seating depth. Give us the ceiling height, the throw distance and the seating layout and we will tell you which of the two screens fits, then bring the one that does. Larger rooms sometimes want two screens so the far side of the audience is not reading at an angle, and we rent projectors and screens in pairs for that reason.</p>
+    </div>
+  </section>
+
+  <section class="section alt" id="what-size">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:900px;">
+        <span class="kicker">Sizing</span>
+        <h2>What size projector screen do you need?</h2>
+        <p class="lede">Audience size sets the screen, and the depth of the room sets it again. The rough guide below is where most Dallas-Fort Worth events land, and we will check it against your floor plan before anything is loaded on the truck.</p>
+      </div>
+
+      <div class="room-list">
+        <div class="room" data-reveal>
+          <h3>About 50 guests<span>6 to 8 foot screen</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Rig</span> 1 projector &middot; 6 to 8 ft screen &middot; single feed</p>
+            <p>Boardrooms, training rooms, small breakouts and rehearsal dinners. At this size the back row is close enough that a modest screen still reads, and the projector matters more than the screen does. If the room has windows we will bring the ultra short throw setup instead, because a 6 foot image in a bright room is the easiest image on this page to lose.</p>
+          </div>
+        </div>
+        <div class="room" data-reveal>
+          <h3>About 100 guests<span>8 to 10 foot screen</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Rig</span> 1 projector &middot; 8 to 10 ft screen &middot; laptop and audio feed</p>
+            <p>Corporate meetings, association luncheons and mid size receptions. This is the projector and screen rental we deliver most often in Dallas. One screen at the front of the room, the projector paired to it for the throw distance we have, and a clean laptop connection at the podium so your presenter is not crouched over a cable.</p>
+          </div>
+        </div>
+        <div class="room" data-reveal>
+          <h3>About 150 guests<span>10 to 12 foot screen</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Rig</span> 1 projector &middot; 10 to 12 ft screen &middot; dressed and skirted</p>
+            <p>Ballroom meetings, galas and fundraisers. At this size the screen becomes part of the room's look, so it gets dressed rather than left as a bare frame on legs. Rooms this deep also start to need a brighter projector, because the same lumens spread across a bigger image is a dimmer image.</p>
+          </div>
+        </div>
+        <div class="room" data-reveal>
+          <h3>200 guests and up<span>12 to 16 foot screen</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Rig</span> 1 or 2 projectors &middot; 12 to 16 ft screen &middot; up to 150 in</p>
+            <p>General sessions, conferences, worship services and large weddings. Wide rooms usually do better with two screens than one very large screen, so the guests on the outside seats are looking straight at an image rather than across one. We rent screens up to 150 inches and will tell you honestly when your room wants a second projector and screen instead of a bigger single one.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="lumens">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:900px;">
+        <span class="kicker">Brightness</span>
+        <h2>How many lumens does your room need?</h2>
+        <p class="lede">Lumens is the number people ask about, but the honest answer is that lumens and screen surface are one decision, not two.</p>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-card" data-reveal>
+          <h3>Room you can dim</h3>
+          <p>3,000 to 4,000 lumens is enough for a ballroom or meeting room where the house lights come down and the shades close. Both of our projectors clear that comfortably, so in a dimmed room the screen size drives the choice rather than the brightness.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Windows or lights on</h3>
+          <p>A room with daylight or full house lights wants 5,000 lumens and up, or a projector paired with an ambient light rejecting screen, which is the route we take. The CLR screen buys back more contrast than the extra lumens would, and it does it without a projector the size of a suitcase in the middle of your room.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Screen surface does half the work</h3>
+          <p>Two setups can put the same lumens on the wall and look nothing alike. Matte white spreads light evenly for wide seating, and the Light-On CLR surface rejects overhead light so the image survives with the lights up. We pick the surface for the room, then pick the projector that is paired to it.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>We check it in your room</h3>
+          <p>Brightness on paper is a starting point. On the day we set the image, check it from the back row and the outside seats, and adjust before your first presenter walks up. If your room turns out brighter than the floor plan suggested, that is our problem to solve at setup, not yours.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="corporate">
+    <div class="wrap">
+      <div class="split">
+        <div class="split-copy" data-reveal>
+          <span class="kicker">Corporate</span>
+          <h2>Corporate projector rental for meetings and conferences in Dallas</h2>
+          <p>Corporate work is most of what this inventory does. Quarterly meetings, sales kickoffs, board presentations, training sessions, trade show booths and multi day conferences in Dallas, Fort Worth, Irving, Plano and Frisco hotels. The projector and screen are usually the visible part of a larger corporate setup that also includes microphones, speakers and a recording feed, and we would rather quote all of it together than have three vendors meet in your ballroom for the first time on show morning.</p>
+          <p>For a corporate event we advance the load in with the venue, arrive early enough to have the image up before your team rehearses, and label the laptop cable so the person presenting knows which one is theirs. If the meeting runs multiple days the setup stays put and we check it each morning. Corporate clients who need the session recorded or pushed out to remote attendees add <a href="/live-streaming-services">live streaming</a> to the same setup, and it runs off the same feed the projector is showing.</p>
+          <div class="chips">
+            <a class="chip" href="/corporate-events">Corporate event AV</a>
+            <a class="chip" href="/feedback-free-microphone-rentals">Microphone rentals</a>
+            <a class="chip" href="/rent-sound-equipment">Sound system rental</a>
+            <a class="chip" href="/college-school-university-events">Campus and university events</a>
+          </div>
+        </div>
+        <div class="split-vis" data-reveal style="--img:url('/images/corporate-projector-rental-dallas-conference.jpg')">
+          <span class="slot">/images/corporate-projector-rental-dallas-conference.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="wedding">
+    <div class="wrap">
+      <div class="split flip">
+        <div class="split-copy" data-reveal>
+          <span class="kicker">Weddings</span>
+          <h2>Wedding projector rental in Dallas-Fort Worth</h2>
+          <p>Slideshows during dinner, a live feed of a ceremony for guests in an overflow room, a video message from family who could not travel, or a photo montage running behind the head table. A wedding projector rental is a different job from a corporate one, mostly because the screen is in every photograph. So the screen gets dressed, the frame gets skirted, and the cable runs where the photographer is not going to find it.</p>
+          <p>Reception rooms are also rarely dark, which is why a reception usually gets the ultra short throw setup. The projector sits at the base of the screen instead of on a stand in the middle of your dance floor, and the ambient light rejecting screen keeps the image readable while the room still looks like a wedding. If what you want is your initials on the dance floor or a wall, that is a different piece of gear, and it lives on our <a href="/monogram-projector">monogram projection</a> page. Plenty of couples rent both.</p>
+          <div class="chips">
+            <a class="chip" href="/weddings">Wedding AV and production</a>
+            <a class="chip" href="/monogram-projector">Monogram projector</a>
+            <a class="chip" href="/gallery">See the photos</a>
+            <span class="chip">Dressed and skirted screens</span>
+          </div>
+        </div>
+        <div class="split-vis" data-reveal style="--img:url('/images/wedding-projector-screen-rental-dfw.jpg')">
+          <span class="slot">/images/wedding-projector-screen-rental-dfw.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section" id="full-service">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:900px;">
+        <span class="kicker">What you get</span>
+        <h2>What is included in every projector rental</h2>
+        <p class="lede">The same four steps run on every job, whether it is one screen in a boardroom or a pair of them in a ballroom.</p>
+      </div>
+      <div class="flow">
+        <div class="flow-step" data-reveal>
+          <div class="n">1</div>
+          <h3>Intake</h3>
+          <p>Room, date, audience size, ceiling height and how much light you can kill. We advance the load in and the dock with the venue rather than assuming, and we pick the projector and screen from that.</p>
+        </div>
+        <div class="flow-step" data-reveal>
+          <div class="n">2</div>
+          <h3>Delivery and setup</h3>
+          <p>Our crew brings it in, rigs the screen, sets the projector, runs and dresses the cable and connects your laptop. HDMI, adapters for whatever port your machine has, and a wireless option on the long throw setup.</p>
+        </div>
+        <div class="flow-step" data-reveal>
+          <div class="n">3</div>
+          <h3>Image tuning</h3>
+          <p>Geometry, focus, brightness and color set to the actual room, then checked from the back row and the outside seats. Your first slide goes up on the screen before we consider the setup finished.</p>
+        </div>
+        <div class="flow-step" data-reveal>
+          <div class="n">4</div>
+          <h3>Technician and pickup</h3>
+          <p>An on-site technician can stay for the event to switch sources and handle presenters. When it is over we strike the setup and take everything back. Your team does not coil, fold or return anything.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section alt" id="sound">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:900px;">
+        <span class="kicker">One vendor</span>
+        <h2>Projector and speaker rental from one company</h2>
+        <p class="lede">A silent image is half an event. Dallas Event Audio started in audio in 2001, so the projector rental and the sound for the same room come off one quote and one truck.</p>
+      </div>
+      <p>Nearly every projector rental we deliver goes out with something making noise next to it: a pair of speakers for a slideshow, a podium microphone and a lapel for a presenter, a full <a href="/rent-sound-equipment">sound system rental</a> for a general session, or a band system for a live event. Running audio and video off one setup means your presenter's voice and the video soundtrack land at the same level in the same room, and nobody is patching between two companies' consoles ten minutes before doors.</p>
+      <p>When microphones are part of the setup they go out with our AI-powered De-Feedback system, which listens for the frequencies about to ring and pulls them down before the room hears anything. That matters most in the rooms projectors live in, because a hard-surfaced ballroom with a screen at the front is a room that wants to feed back. We wrote up how it works in <a href="/post/what-is-de-feedback-for-live-events">this explainer on De-Feedback for live events</a>, and every <a href="/feedback-free-microphone-rentals">wireless microphone rental</a> we send out has it running.</p>
+      <p>For rooms where a projected image is not the right answer at all, we also rent <a href="/flat-panel-audio-dml500">flat panel audio</a> and can talk you through whether a large flat panel display would serve you better than a projector and screen. Small rooms with high ambient light sometimes fall on that side of the line, and we will say so.</p>
+    </div>
+  </section>
+
+  <section class="section" id="service-area">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:900px;">
+        <span class="kicker">Where we work</span>
+        <h2>Projector rental for events across Dallas-Fort Worth</h2>
+        <p class="lede">We deliver projector and screen rentals to hotels, wedding venues, corporate campuses, churches, schools and event spaces inside roughly a forty mile radius of Hurst.</p>
+      </div>
+      <div class="chips">
+        <span class="chip">Dallas</span>
+        <span class="chip">Fort Worth</span>
+        <span class="chip">Plano</span>
+        <span class="chip">Frisco</span>
+        <span class="chip">Arlington</span>
+        <span class="chip">Irving</span>
+        <span class="chip">McKinney</span>
+        <span class="chip">Denton</span>
+        <span class="chip">Grapevine</span>
+        <span class="chip">Southlake</span>
+        <span class="chip">Richardson</span>
+        <span class="chip">Hurst</span>
+      </div>
+      <p>Events we cover with this inventory: corporate meetings and conferences, weddings and receptions, galas and fundraisers, trade shows and brand activations, house of worship services, school and university events, and community screenings. If your venue sits outside that radius, ask anyway and we will tell you honestly whether the trip works for your date.</p>
+      <p>If you want more background before you request a quote, our guide to <a href="/post/projector-rental-dallas-tx">projector rental in Dallas, TX</a> walks through the questions we get asked most, and we have a separate write up on <a href="/post/ambient-light-rejecting-projector-screen-rental-dallas">ambient light rejecting projector screens</a> for anyone dealing with a room they cannot darken.</p>
+    </div>
+  </section>
+
+  <section class="section alt" id="pairs-with">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:900px;">
+        <span class="kicker">Goes with</span>
+        <h2>What else goes in the room</h2>
+      </div>
+      <div class="vgrid">
+        <a class="vcard" href="/corporate-events" data-reveal>
+          <h3>Corporate events</h3>
+          <p>Meetings, conferences and general sessions with the audio, video and crew on one quote.</p>
+        </a>
+        <a class="vcard" href="/weddings" data-reveal>
+          <h3>Weddings</h3>
+          <p>Ceremony sound, reception audio and a dressed screen that looks right in the photos.</p>
+        </a>
+        <a class="vcard" href="/live-streaming-services" data-reveal>
+          <h3>Live streaming</h3>
+          <p>Send the same feed your projector is showing to the people who could not be in the room.</p>
+        </a>
+        <a class="vcard" href="/monogram-projector" data-reveal>
+          <h3>Monogram projector</h3>
+          <p>Initials, a logo or a pattern projected onto a floor or wall. A different rig from this one.</p>
+        </a>
+        <a class="vcard" href="/feedback-free-microphone-rentals" data-reveal>
+          <h3>Microphone rentals</h3>
+          <p>Handheld, lapel, headset and podium microphones with De-Feedback running on all of them.</p>
+        </a>
+        <a class="vcard" href="/rent-sound-equipment" data-reveal>
+          <h3>Sound equipment rental</h3>
+          <p>Speakers, mixers and playback for the room your screen is standing in.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:900px;">
+        <span class="kicker">Questions</span>
+        <h2>Projector rental questions we get asked in Dallas-Fort Worth</h2>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item" data-reveal>
+          <summary>Do you rent the projector and the screen together?</summary>
+          <div class="ans">Yes. We rent projectors and screens together as matched packages, and that is how most people book it. Renting them as a set gives the better result, because the projector and the screen are paired for the size and the light level of your room rather than picked separately and hoped for.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How many lumens do I need to rent a projector for my event?</summary>
+          <div class="ans">For a room you can dim, 3,000 to 4,000 lumens is usually enough. A room with windows or the house lights up wants 5,000 lumens and above, or a projector paired with an ambient light rejecting screen, which is the route we normally take. Tell us your room and your audience size and we will match the projector and screen to it.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>What size projector screen do I need?</summary>
+          <div class="ans">A rough guide by audience: about 50 guests wants a 6 to 8 foot screen, about 100 wants 8 to 10 foot, about 150 wants 10 to 12 foot, and 200 or more wants 12 to 16 foot. Deeper rooms and longer viewing distances push the screen bigger. We rent screens up to 150 inches and check the size against your floor plan before the truck loads.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Can I use a projector in a bright room or with the lights on?</summary>
+          <div class="ans">Yes. Our ultra short throw Epson PowerLite 700U paired with the Light-On CLR ambient light rejecting screen keeps the image sharp with overhead and ambient light in the room. That setup is what we bring for lobbies, receptions, glass-walled conference rooms and any space you cannot darken.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Can I connect my laptop or phone?</summary>
+          <div class="ans">Yes. Our projectors connect over HDMI for laptops and most devices, and the Epson Pro EX10000 also supports wireless and Miracast. We bring the cables and the adapters, connect your machine at setup and test the whole signal path before we leave.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do you deliver and set it up?</summary>
+          <div class="ans">Yes. We deliver, rig the screen, set the projector, tune the image and pick everything up across the Dallas-Fort Worth metro, and we can staff an on-site technician for the event. Dallas Event Audio is a full-service company, so a projector rental arrives set up and working.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do you have projector rental for a wedding?</summary>
+          <div class="ans">Yes. We provide projectors and dressed screens for wedding slideshows, ceremony visuals and reception displays, with the cable dressed and the frame skirted so the screen looks right in the photographs. Ask about pairing it with monogram projection if you also want your initials on the floor or a wall.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do you do corporate projector rental for conferences?</summary>
+          <div class="ans">Yes, and corporate meetings are most of what this inventory does. A corporate setup usually pairs the projector and screen with microphones, speakers and a recording or streaming feed, all on one quote, and we advance the load in with the hotel or venue before the date.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How far in advance should I book a projector rental?</summary>
+          <div class="ans">One to two weeks ahead when you can. Weekend dates and the peak spring and fall corporate season fill up first. We will confirm availability and hold the gear for your event once the quote is approved.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How much does it cost to rent a projector in Dallas?</summary>
+          <div class="ans">Projector and screen rentals are quoted per event, based on which setup the room needs, the screen size, the length of the booking and whether you want an on-site technician. Send us the venue, the date and the audience size and we will quote it the same day.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do you rent projectors without a screen?</summary>
+          <div class="ans">We can, and sometimes a venue already owns a good fixed screen. Tell us the screen surface, its size and where it lives in the room, and we will bring the projector that is paired to it. In every other case we would rather send the set, because a projector on a mismatched surface is a common way a good image goes wrong.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta" id="quote">
+    <div class="wrap">
+      <h2 data-reveal>Tell us the room and the audience size.</h2>
+      <p data-reveal>Tell us about your event and we'll send you a straightforward quote the same day. Venue, date, audience size and how much light you can kill, and we will come back with the projector and screen that fit the room.</p>
+      <div class="cta-row" data-reveal>
+        <a class="btn-primary" href="/contact">Request a quote</a>
+        <a class="btn-secondary" href="/gallery">Real DFW events we've run</a>
+      </div>
+    </div>
+  </section>
+
+
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="col brand">
+          <div class="logo"><img src="data:image/png;base64,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" alt="Dallas Event Audio" width="282" height="120"></div>
+          <p style="margin-top:14px; max-width:250px;">Full-service AV production for Dallas-Fort Worth since 2001. Delivered, set up, and run by our on-site technician.</p>
+          <div class="foot-contact">
+            <a href="tel:8172107957">817-210-7957</a>
+            <a href="mailto:info@dallaseventaudio.com">info@dallaseventaudio.com</a>
+          </div>
+          <p class="foot-area">Serving Dallas, Fort Worth, Southlake, Arlington, Frisco, McKinney, Richardson &amp; the wider Metroplex.</p>
+        </div>
+        <div class="col">
+          <h4>Events</h4>
+          <a href="/weddings">Weddings</a>
+          <a href="/corporate-events">Corporate Events</a>
+          <a href="/private-events">Private Events</a>
+          <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+          <a href="/college-school-university-events">College &amp; University</a>
+          <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+          <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+        </div>
+        <div class="col">
+          <h4>Services</h4>
+          <a href="/services-dj">DJ Services</a>
+          <a href="/services-audio">Audio Services</a>
+          <a href="/services-lighting">Lighting Services</a>
+          <a href="/services-photo-and-video">Photo &amp; Video</a>
+          <a href="/services-extra">Extra Services</a>
+        </div>
+        <div class="col">
+          <h4>Audio Rentals</h4>
+          <a href="/rent-sound-equipment">Sound Equipment</a>
+          <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+          <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+          <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+          <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+          <a href="/live-streaming-services">Live Streaming</a>
+        </div>
+        <div class="col">
+          <h4>Lighting &amp; FX</h4>
+          <a href="/rent-uplighting">Uplighting</a>
+          <a href="/rent-laser-light-show">Laser Light Show</a>
+          <a href="/rent-follow-spot-light">Follow Spot</a>
+          <a href="/monogram-projector">Monogram Projector</a>
+          <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+          <a href="/rent-cold-sparks">Cold Sparks</a>
+          <a href="/projector-screen-rental">Projector &amp; Screen</a>
+        </div>
+        <div class="col">
+          <h4>Company</h4>
+          <a href="/our-story">Our Story</a>
+          <a href="/our-work">Our Work</a>
+          <a href="/equipment-list">Equipment List</a>
+          <a href="/what-others-are-saying">Reviews</a>
+          <a href="/blog">Blog</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div class="foot-proof">
+        <a class="fp" href="https://www.google.com/maps?cid=11213015373496621898" target="_blank" rel="noopener"><span class="m g">G</span> <b>4.9</b> <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span> &middot; 41 Google reviews</a>
+        <a class="fp" href="https://www.yelp.com/biz/dallas-event-audio-dallas" target="_blank" rel="noopener"><span class="m y">Y</span> <b>Yelp</b> &middot; 13 reviews &middot; 134 photos</a>
+      </div>
+      <div class="foot-bottom">
+        <span>&copy; 2026 Dallas Event Audio. Fully insured, on-site AV production.</span>
+        <span>Service page draft: projector and screen rental</span>
+      </div>
+    </div>
+  </footer>
+<div id="paletteBar">
+    <div class="pal-opts" id="palOpts" role="group" aria-label="Color palette">
+      <div class="pal-head">Color palette</div>
+      <button type="button" data-p="signal" class="active" aria-pressed="true"><i class="sw-signal"></i>Signal Chain</button>
+      <button type="button" data-p="amber" aria-pressed="false"><i class="sw-amber"></i>Stage Black &amp; Amber</button>
+      <button type="button" data-p="night" aria-pressed="false"><i class="sw-night"></i>DFW Night Rig</button>
+    </div>
+    <button type="button" class="pal-toggle" id="palToggle" aria-expanded="false" aria-controls="palOpts">
+      <span class="dots"><i style="background:#31ff6e"></i><i style="background:#fff21c"></i><i style="background:#ff1f3d"></i></span>
+      <span class="label">Palette</span>
+    </button>
+  </div>
+
+  <div id="chatBubble">✦ AV Concierge</div>
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+<script>
+  // Palette dock, bottom left
+  (function(){
+    const dock = document.getElementById('paletteBar');
+    const toggle = document.getElementById('palToggle');
+    const opts = Array.prototype.slice.call(document.querySelectorAll('#palOpts button'));
+    if(!dock || !toggle) return;
+
+    function store(v){ try{ window.localStorage.setItem('dea-palette', v); }catch(e){} }
+    function recall(){ try{ return window.localStorage.getItem('dea-palette'); }catch(e){ return null; } }
+
+    function apply(p){
+      document.documentElement.setAttribute('data-palette', p);
+      opts.forEach(b=>{
+        const on = b.dataset.p === p;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+
+    const saved = recall();
+    if(saved && opts.some(b=>b.dataset.p === saved)) apply(saved);
+
+    function open(state){
+      dock.classList.toggle('open', state);
+      toggle.setAttribute('aria-expanded', state ? 'true' : 'false');
+    }
+    toggle.addEventListener('click', e=>{ e.stopPropagation(); open(!dock.classList.contains('open')); });
+    opts.forEach(b=>{
+      b.addEventListener('click', ()=>{ apply(b.dataset.p); store(b.dataset.p); open(false); });
+    });
+    document.addEventListener('click', e=>{ if(!dock.contains(e.target)) open(false); });
+    document.addEventListener('keydown', e=>{ if(e.key === 'Escape') open(false); });
+  })();
+
+  // Scroll reveal
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.15});
+    document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el=>el.classList.add('in'));
+  }
+
+  // CO2 / particle burst on primary CTA click
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function burst(x, y){
+    if(reduceMotion) return;
+    const colors = ['var(--a1)','var(--a2)','var(--a3)','#ffffff'];
+    const count = 26;
+    for(let i=0;i<count;i++){
+      const p = document.createElement('span');
+      p.className = 'burst-particle';
+      const angle = (Math.PI * 2 * i) / count + Math.random()*0.4;
+      const dist = 60 + Math.random()*140;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist - 40;
+      const size = 4 + Math.random()*6;
+      p.style.width = p.style.height = size + 'px';
+      p.style.background = colors[i % colors.length];
+      p.style.boxShadow = '0 0 8px ' + colors[i % colors.length];
+      p.style.left = x + 'px';
+      p.style.top = y + 'px';
+      document.body.appendChild(p);
+      const anim = p.animate([
+        { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
+        { transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.3)`, opacity:0 }
+      ], { duration:700 + Math.random()*400, easing:'cubic-bezier(.2,.7,.3,1)' });
+      anim.onfinish = () => p.remove();
+    }
+  }
+  document.querySelectorAll('.btn-primary').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      burst(e.clientX, e.clientY);
+    });
+  });
+</script>
+
+</body>
+</html>

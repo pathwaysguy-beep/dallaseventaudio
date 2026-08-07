@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="signal">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font-display:'Unbounded',sans-serif;
+    --font-body:'Space Grotesk',sans-serif;
+  }
+
+  /* ============ PALETTE A: Signal Chain (true DJ mixer peak-meter LEDs: green / yellow / red) ============ */
+  html[data-palette="signal"]{
+    --bg-0:#050706; --bg-1:#0a0f0c; --bg-2:#0e1512;
+    --ink:#f4f7f5; --dim:#b4c5ba;
+    --a1:#31ff6e; /* LED green */
+    --a2:#fff21c; /* LED yellow */
+    --a3:#ff1f3d; /* LED red */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 55%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(255,255,255,.08);
+    --glow: rgba(49,255,110,.35);
+  }
+  /* ============ PALETTE B: Stage Black & Amber (warm, premium, ties to existing chat widget gold) ============ */
+  html[data-palette="amber"]{
+    --bg-0:#070605; --bg-1:#0d0a06; --bg-2:#120e08;
+    --ink:#f8f3ea; --dim:#c3b7a5;
+    --a1:#e8b75c; /* gold */
+    --a2:#ffdfa0; /* warm white/spot */
+    --a3:#4fa3ff; /* cool counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 50%, var(--a2) 50%, var(--a2) 100%);
+    --card-border: rgba(232,183,92,.16);
+    --glow: rgba(232,183,92,.32);
+  }
+  /* ============ PALETTE C: DFW Night Rig (cool stage-lighting energy, distinct from EDM Wedding DJ's magenta) ============ */
+  html[data-palette="night"]{
+    --bg-0:#05060b; --bg-1:#090b16; --bg-2:#0c0f1e;
+    --ink:#f1f3fb; --dim:#aeb5cf;
+    --a1:#2f6fff; /* electric blue */
+    --a2:#8b5cf6; /* violet */
+    --a3:#ffb020; /* amber counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 65%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(139,92,246,.16);
+    --glow: rgba(47,111,255,.35);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-0);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  .grad-text{
+    background:var(--grad);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  /* ---------- palette switcher (review tool only, not part of the shipped site) ---------- */
+  #paletteBar{
+    position:fixed; top:0; left:0; right:0; z-index:999;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    padding:10px; background:#000; border-bottom:1px solid rgba(255,255,255,.12);
+    font-family:var(--font-body); font-size:0.881rem;
+  }
+  #paletteBar span{color:#8a8a8a; margin-right:4px;}
+  #paletteBar button{
+    font-family:var(--font-body); font-size:0.881rem; font-weight:600;
+    padding:7px 14px; border-radius:100px; border:1px solid rgba(255,255,255,.18);
+    background:rgba(255,255,255,.04); color:#eee; cursor:pointer; transition:.2s;
+  }
+  #paletteBar button.active{ background:#fff; color:#000; border-color:#fff; }
+  #paletteBar button:hover{ border-color:#fff; }
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky; top:40px; z-index:100;
+    background:rgba(5,6,5,.7); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--card-border);
+  }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1180px; margin:0 auto; }
+  .logo{ display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:900; font-size:1.15rem; letter-spacing:.02em; }
+  .logo .dial{ width:26px; height:26px; border-radius:50%; position:relative; background:conic-gradient(var(--a1) 0 26%, var(--a2) 26% 52%, var(--a3) 52% 78%, transparent 78%); }
+  .logo .dial::after{ content:''; position:absolute; inset:4px; border-radius:50%; background:var(--bg-0); }
+  .navlinks{ display:flex; gap:28px; font-size:0.994rem; color:var(--dim); }
+  .navlinks a:hover{ color:var(--ink); }
+  .navright{ display:flex; align-items:center; gap:18px; }
+  .phone{ font-size:0.96rem; color:var(--dim); }
+  .cta-btn{
+    font-family:var(--font-body); font-weight:700; font-size:0.96rem;
+    padding:11px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    display:inline-block; white-space:nowrap;
+  }
+  @media (max-width:860px){ .navlinks{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{ position:relative; padding:110px 0 90px; overflow:hidden; }
+  .hero::before{
+    content:''; position:absolute; inset:-20% -10% auto -10%; height:600px;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    opacity:.5; filter:blur(40px); pointer-events:none;
+  }
+
+  /* -- animated perspective floor grid -- */
+  .hero-grid{
+    position:absolute; left:0; right:0; bottom:-10%; height:70%;
+    perspective:400px; overflow:hidden; pointer-events:none; z-index:0;
+  }
+  .hero-grid::before{
+    content:''; position:absolute; inset:-50% -50% 0 -50%;
+    background-image:
+      repeating-linear-gradient(to right, var(--card-border) 0 1px, transparent 1px 68px),
+      repeating-linear-gradient(to top, var(--card-border) 0 1px, transparent 1px 68px);
+    transform:rotateX(62deg);
+    transform-origin:bottom;
+    animation: gridScroll 9s linear infinite;
+    opacity:.55;
+    mask-image:linear-gradient(to top, black 0%, transparent 75%);
+    -webkit-mask-image:linear-gradient(to top, black 0%, transparent 75%);
+  }
+  @keyframes gridScroll{ from{ background-position:0 0; } to{ background-position:0 136px; } }
+
+  /* -- sweeping laser beams -- */
+  .hero-lasers{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .laser{
+    position:absolute; top:-10%; width:2px; height:130%;
+    background:linear-gradient(to bottom, transparent, var(--a1), transparent);
+    opacity:0; filter:blur(.5px);
+    animation: laserSweep 6s ease-in-out infinite;
+  }
+  .laser:nth-child(1){ left:8%;  background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:0s; }
+  .laser:nth-child(2){ left:32%; background:linear-gradient(to bottom, transparent, var(--a2), transparent); animation-delay:1.6s; transform:rotate(6deg); }
+  .laser:nth-child(3){ left:63%; background:linear-gradient(to bottom, transparent, var(--a3), transparent); animation-delay:3.1s; transform:rotate(-8deg); }
+  .laser:nth-child(4){ left:85%; background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:4.3s; transform:rotate(4deg); }
+  @keyframes laserSweep{
+    0%{ opacity:0; transform:translateX(-10px) rotate(var(--rot,0deg)); }
+    8%{ opacity:.55; }
+    20%{ opacity:0; }
+    100%{ opacity:0; }
+  }
+
+  /* -- drifting fog -- */
+  .hero-fog{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .fog-blob{
+    position:absolute; width:60%; padding-top:60%; border-radius:50%;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    filter:blur(50px); opacity:.4;
+    animation: fogDrift 18s ease-in-out infinite alternate;
+  }
+  .fog-blob.b2{ left:50%; top:20%; animation-duration:24s; animation-delay:-6s; opacity:.28; }
+  @keyframes fogDrift{
+    from{ transform:translate(-8%, 0) scale(1); }
+    to{ transform:translate(8%, 6%) scale(1.15); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-grid::before, .laser, .fog-blob{ animation:none !important; }
+    .laser{ opacity:0; }
+  }
+
+  .hero-logo-wrap{ text-align:center; position:relative; z-index:1; margin-bottom:40px; }
+  .hero-logo-wrap img{
+    width:min(440px, 78vw); height:auto;
+    filter:drop-shadow(0 0 60px var(--glow));
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--card-border); border-radius:100px; padding:7px 16px;
+    font-size:0.881rem; color:var(--dim); letter-spacing:.04em; text-transform:uppercase;
+    margin-bottom:28px; position:relative; z-index:1;
+  }
+  .eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--a1); box-shadow:0 0 8px var(--a1); }
+  .hero h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.6rem, 6vw, 4.6rem); max-width:900px; position:relative; z-index:1;
+  }
+  .hero p.sub{
+    font-size:1.15rem; color:var(--dim); max-width:600px; margin-top:26px; position:relative; z-index:1;
+  }
+  .hero-ctas{ display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; position:relative; z-index:1; }
+  .btn-primary{
+    font-weight:700; padding:16px 30px; border-radius:100px; background:var(--grad); color:#0a0a0a; font-size:1.073rem;
+  }
+  .btn-secondary{
+    font-weight:600; padding:16px 30px; border-radius:100px; border:1px solid var(--card-border); color:var(--ink); font-size:1.073rem;
+  }
+  .trust-row{
+    display:flex; gap:40px; flex-wrap:wrap; margin-top:64px; padding-top:34px;
+    border-top:1px solid var(--card-border); position:relative; z-index:1;
+  }
+  .trust-item .num{ font-family:var(--font-display); font-weight:800; font-size:1.6rem; }
+  .trust-item .label{ font-size:0.904rem; color:var(--dim); margin-top:4px; }
+
+  /* ---------- services ---------- */
+  .section{ padding:90px 0; }
+  .section-head{ max-width:640px; margin-bottom:52px; }
+  .kicker{ font-size:0.881rem; letter-spacing:.08em; text-transform:uppercase; color:var(--a1); font-weight:700; margin-bottom:14px; display:block; }
+  .section-head h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.8rem,3.4vw,2.6rem); }
+  .section-head p{ color:var(--dim); margin-top:14px; font-size:1.153rem; }
+
+  .service-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; }
+  .service-card{
+    background:linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 55%, transparent), color-mix(in srgb, var(--bg-1) 45%, transparent));
+    backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:20px; padding:28px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 8px 30px -18px rgba(0,0,0,.6);
+    transition:.25s; position:relative; overflow:hidden;
+  }
+  .service-card:hover{ transform:translateY(-4px); border-color:var(--a1); box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 20px 50px -20px var(--glow); }
+  .service-card .icon{
+    width:44px; height:44px; border-radius:12px; margin-bottom:20px;
+    background:var(--grad); display:flex; align-items:center; justify-content:center;
+    font-size:1.2rem;
+  }
+  .service-card h3{ font-family:var(--font-display); font-size:1.186rem; font-weight:700; margin-bottom:10px; }
+  .service-card p{ font-size:0.994rem; color:var(--dim); margin-bottom:18px; }
+  .service-card .learn{ font-size:0.904rem; font-weight:700; color:var(--a1); }
+  .service-card.featured{ border-color:var(--a2); }
+  .tag-live{ position:absolute; top:20px; right:20px; font-size:0.82rem; text-transform:uppercase; letter-spacing:.06em; color:var(--a2); border:1px solid var(--a2); padding:3px 8px; border-radius:100px; }
+
+  /* ---------- differentiator ---------- */
+  .diff{ background:var(--bg-1); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border); }
+  .diff-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+  .diff-visual{
+    aspect-ratio:4/3; border-radius:24px; border:1px solid var(--card-border);
+    background:
+      radial-gradient(circle at 30% 20%, var(--glow), transparent 55%),
+      linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 50%, transparent), color-mix(in srgb, var(--bg-0) 40%, transparent));
+    backdrop-filter:blur(22px) saturate(150%); -webkit-backdrop-filter:blur(22px) saturate(150%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 20px 60px -30px rgba(0,0,0,.7);
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .diff-visual .badge{
+    font-family:var(--font-display); font-weight:800; text-align:center; font-size:1.073rem; color:var(--dim);
+    border:1px dashed var(--card-border); padding:20px; border-radius:16px;
+  }
+  .diff-copy h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.7rem,3vw,2.3rem); margin-bottom:20px; }
+  .diff-copy p{ color:var(--dim); margin-bottom:16px; font-size:1.13rem; }
+  .diff-copy strong{ color:var(--ink); }
+  @media (max-width:820px){ .diff-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- reviews ---------- */
+  .review-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
+  .review-card{
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:18px; padding:26px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -20px rgba(0,0,0,.6);
+  }
+  .stars{ color:var(--a2); letter-spacing:2px; margin-bottom:14px; font-size:1.017rem; }
+  .review-card p{ font-size:1.04rem; color:var(--ink); opacity:.9; margin-bottom:16px; }
+  .review-card .who{ font-size:0.904rem; color:var(--dim); font-weight:600; }
+
+  /* ---------- review proof badges ---------- */
+  .proof-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:16px; margin-bottom:36px; }
+  .proof-badge{
+    display:flex; align-items:center; gap:14px; padding:18px 20px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -22px rgba(0,0,0,.6);
+    transition:.22s;
+  }
+  .proof-badge:hover{ border-color:var(--a1); transform:translateY(-3px); box-shadow:0 16px 42px -24px var(--glow); }
+  .proof-mark{
+    flex:0 0 42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:1.2rem; letter-spacing:-.02em;
+  }
+  .proof-mark.g{ background:#ffffff; color:#4285f4; }
+  .proof-mark.y{ background:#d32323; color:#ffffff; }
+  .proof-mark.k{ background:#ffffff; color:#0f9aa0; }
+  .proof-mark.w{ background:#ffffff; color:#16181d; font-size:.98rem; }
+  .proof-meta .rate{
+    font-family:var(--font-display); font-weight:800; font-size:1.22rem; line-height:1.15;
+    display:flex; align-items:baseline; gap:9px;
+  }
+  .proof-meta .rate .s{ color:var(--a2); font-size:.92rem; letter-spacing:1px; font-weight:400; }
+  .proof-meta .cnt{ font-size:.92rem; color:var(--dim); margin-top:2px; }
+  .proof-badge.tbd{ border-style:dashed; border-color:var(--a2); }
+  .proof-badge.tbd .rate{ color:var(--a2); }
+  .proof-badge.tbd .cnt{ color:var(--a2); opacity:.8; }
+
+  /* compact sitewide footer strip */
+  .foot-proof{
+    display:flex; flex-wrap:wrap; align-items:center; gap:12px 26px;
+    margin-top:32px; padding-top:26px; border-top:1px solid var(--card-border);
+  }
+  .foot-proof .fp{ display:inline-flex; align-items:center; gap:9px; font-size:.94rem; color:var(--dim); }
+  .foot-proof .fp:hover{ color:var(--ink); }
+  .foot-proof .fp b{ color:var(--ink); font-weight:700; }
+  .foot-proof .fp .s{ color:var(--a2); letter-spacing:1px; }
+  .foot-proof .fp .m{
+    width:24px; height:24px; border-radius:7px; display:inline-flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:.76rem;
+  }
+  .foot-proof .fp .m.g{ background:#ffffff; color:#4285f4; }
+  .foot-proof .fp .m.y{ background:#d32323; color:#ffffff; }
+  .foot-proof .fp .m.k{ background:#ffffff; color:#0f9aa0; }
+  .foot-proof .fp .m.w{ background:#ffffff; color:#16181d; font-size:.62rem; }
+  @media (max-width:820px){ .foot-proof{ gap:12px 18px; } }
+
+  /* ---------- final CTA ---------- */
+  .final-cta{ text-align:center; padding:110px 0; position:relative; }
+  .final-cta h2{ font-family:var(--font-display); font-weight:900; font-size:clamp(2rem,5vw,3.2rem); max-width:760px; margin:0 auto 22px; }
+  .final-cta p{ color:var(--dim); max-width:520px; margin:0 auto 36px; }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:1px solid var(--card-border); padding:50px 0; }
+  .foot-grid{ display:grid; grid-template-columns:1.6fr repeat(5,1fr); gap:34px 26px; }
+  @media (max-width:1080px){ .foot-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:620px){ .foot-grid{ grid-template-columns:repeat(2,1fr); } }
+  .foot-grid .col.brand{ min-width:210px; }
+  @media (max-width:1080px){ .foot-grid .col.brand{ grid-column:1 / -1; } }
+  .foot-contact{ margin-top:16px; }
+  .foot-contact a{ display:block; margin-bottom:6px; font-size:1rem; color:var(--ink); opacity:.9; }
+  .foot-contact a:hover{ color:var(--a1); opacity:1; }
+  .foot-area{ font-size:.9rem; color:var(--dim); margin-top:12px; line-height:1.6; }
+  .foot-grid .col h4{ font-size:0.904rem; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin-bottom:14px; }
+  .foot-grid .col a, .foot-grid .col p{ display:block; font-size:0.972rem; color:var(--ink); opacity:.8; margin-bottom:8px; }
+  .foot-bottom{ margin-top:40px; padding-top:24px; border-top:1px solid var(--card-border); font-size:0.881rem; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+
+  /* ---------- chatbot bubble (visual placeholder for the AV Concierge) ---------- */
+  #chatBubble{
+    position:fixed; right:22px; bottom:22px; z-index:200;
+    display:flex; align-items:center; gap:8px;
+    padding:14px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    font-weight:700; font-size:0.96rem; box-shadow:0 14px 40px -12px var(--glow);
+    cursor:pointer;
+  }
+
+  [data-reveal]{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  [data-reveal].in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- film grain overlay ---------- */
+  .grain-overlay{
+    position:fixed; inset:0; z-index:999; pointer-events:none;
+    opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-repeat:repeat;
+  }
+
+  /* ---------- marquee strip ---------- */
+  .marquee{
+    border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);
+    background:var(--bg-1); overflow:hidden; padding:18px 0; position:relative;
+  }
+  .marquee-track{
+    display:flex; width:max-content; gap:48px;
+    animation:marqueeScroll 32s linear infinite;
+  }
+  .marquee-track span{
+    font-family:var(--font-display); font-weight:700; font-size:1.073rem;
+    letter-spacing:.04em; text-transform:uppercase; color:var(--dim);
+    display:flex; align-items:center; gap:48px; white-space:nowrap;
+  }
+  .marquee-track span::after{ content:'✦'; color:var(--a1); margin-left:48px; }
+  @keyframes marqueeScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  /* ---------- CO2 / particle burst ---------- */
+  .burst-particle{
+    position:fixed; top:0; left:0; width:6px; height:6px; border-radius:50%;
+    pointer-events:none; z-index:500; will-change:transform,opacity;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+    .marquee-track{ animation:none; }
+    .grain-overlay{ display:none; }
+  }
+</style>
+  <title>Fog Machine &amp; Haze Rental Dallas TX | Dallas Event Audio</title>
+  <meta name="description" content="Fog machine and haze rental across Dallas-Fort Worth. Hazers for visible beams, high density fog for a grand entrance, delivered and run by our technician.">
+  <link rel="canonical" href="https://www.dallaseventaudio.com/rent-fog-machine">
+  <meta property="og:title" content="Fog Machine &amp; Haze Rental Dallas TX | Dallas Event Audio">
+  <meta property="og:description" content="Fog machine and haze rental across Dallas-Fort Worth. Hazers for visible beams, high density fog for a grand entrance, delivered and run by our technician.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.dallaseventaudio.com/rent-fog-machine">
+<style>
+  /* ========== FOG & HAZE MACHINE RENTAL (rent-fog-machine) ========== */
+
+  section[id]{ scroll-margin-top:96px; }
+
+  .hero.hero-page{ padding:64px 0 62px; }
+  .breadcrumb{
+    font-size:.881rem; color:var(--dim); letter-spacing:.03em;
+    position:relative; z-index:1; margin-bottom:22px;
+  }
+  .breadcrumb a{ color:var(--dim); }
+  .breadcrumb a:hover{ color:var(--a1); }
+  .breadcrumb .sep{ opacity:.45; margin:0 8px; }
+  .breadcrumb .here{ color:var(--ink); opacity:.75; }
+
+  .hero-page h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.3rem, 5.2vw, 4rem); max-width:980px; position:relative; z-index:1;
+  }
+  .hero-page .sub{
+    font-size:1.18rem; color:var(--dim); max-width:720px; margin-top:24px;
+    position:relative; z-index:1;
+  }
+
+  .stat-row{
+    display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:14px;
+    margin-top:40px; position:relative; z-index:1;
+  }
+  .stat{
+    padding:18px 20px; border-radius:14px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .stat .num{
+    font-family:var(--font-display); font-weight:900; font-size:1.7rem; line-height:1;
+    background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .stat .lbl{ margin-top:8px; font-size:.86rem; color:var(--dim); line-height:1.45; }
+  @media (max-width:860px){ .stat-row{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:480px){ .stat-row{ grid-template-columns:1fr; } }
+
+  /* ---------- DJ service tier cards ---------- */
+  .dj-grid{
+    display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:18px;
+    margin-top:38px;
+  }
+  @media (max-width:860px){
+    .dj-grid{ grid-template-columns:1fr; }
+  }
+  .dj-card{
+    position:relative; overflow:hidden;
+    padding:30px 30px 28px; border-radius:20px;
+    background:color-mix(in srgb, var(--bg-2) 52%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s, box-shadow .3s;
+  }
+  .dj-card::before{
+    content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+    background:var(--grad); opacity:.5; transition:opacity .3s;
+  }
+  .dj-card:hover{
+    border-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transform:translateY(-3px);
+    box-shadow:0 24px 60px -34px var(--glow), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .dj-card:hover::before{ opacity:1; }
+
+  .dj-card .tag{
+    font-family:var(--font-display); font-weight:900; font-size:.7rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1);
+  }
+  .dj-card h3{
+    margin-top:12px; font-family:var(--font-display); font-weight:900; line-height:1.12;
+    font-size:clamp(1.3rem, 2.1vw, 1.6rem);
+  }
+  .dj-card p{ margin-top:14px; font-size:1rem; line-height:1.72; color:var(--dim); }
+  .dj-card p b, .dj-card p strong{ color:var(--ink); font-weight:700; }
+  .dj-card .best{
+    margin-top:18px; padding-top:15px; border-top:1px solid var(--card-border);
+    font-size:.87rem; line-height:1.6; color:var(--dim);
+  }
+  .dj-card .best em{ font-style:normal; font-weight:800; color:var(--a2); letter-spacing:.04em;
+    text-transform:uppercase; font-size:.72rem; display:block; margin-bottom:6px; }
+
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+  .chip{
+    display:inline-block; padding:6px 13px; border-radius:100px;
+    font-size:.79rem; font-weight:600; letter-spacing:.02em;
+    color:var(--dim); text-decoration:none;
+    border:1px solid var(--card-border);
+    background:color-mix(in srgb, var(--bg-0) 45%, transparent);
+    transition:.2s;
+  }
+  a.chip:hover{ color:var(--a1); border-color:color-mix(in srgb, var(--a1) 55%, transparent); }
+  a.chip::after{ content:' \2192'; opacity:.55; }
+
+  /* ---------- which setup for which room ---------- */
+  .room-list{ margin-top:36px; border-top:1px solid var(--card-border); }
+  .room{
+    display:grid; grid-template-columns:280px 1fr; gap:32px;
+    padding:24px 0; border-bottom:1px solid var(--card-border);
+    transition:border-color .3s;
+  }
+  .room:hover{ border-bottom-color:color-mix(in srgb, var(--a1) 40%, transparent); }
+  .room h3{
+    font-family:var(--font-display); font-weight:800; font-size:1.1rem; line-height:1.35;
+  }
+  .room h3 span{ display:block; margin-top:6px; font-size:.76rem; font-weight:700;
+    letter-spacing:.09em; text-transform:uppercase; color:var(--a1); opacity:.85; }
+  .room p{ font-size:1rem; line-height:1.72; color:var(--dim); }
+  .room p b{ color:var(--ink); font-weight:700; }
+
+  @media (max-width:860px){
+    .room{ grid-template-columns:1fr; gap:12px; }
+  }
+
+  .room-body{ min-width:0; }
+  .room-body p + p{ margin-top:14px; }
+
+  /* ---------- spec line (dea-copy-standards, option C) ---------- */
+  .spec{
+    display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+    margin:0 0 14px; padding-bottom:12px;
+    border-bottom:1px solid var(--card-border);
+    font-family:var(--font-body); font-size:.92rem; color:var(--ink); line-height:1.5;
+  }
+  .spec span{
+    font-family:var(--font-display); font-weight:900; font-size:.66rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1); flex:0 0 auto;
+  }
+
+  /* ---------- add-on strip ---------- */
+  .addon{
+    margin-top:24px; padding:28px 30px; border-radius:18px;
+    border:1px dashed color-mix(in srgb, var(--a1) 32%, var(--card-border));
+    background:color-mix(in srgb, var(--bg-1) 40%, transparent);
+  }
+  .addon h3{ font-family:var(--font-display); font-size:1.16rem; font-weight:800; }
+  .addon p{ margin-top:10px; font-size:.98rem; color:var(--dim); line-height:1.7; }
+
+  /* ---------- feature split ---------- */
+  .split{
+    display:grid; grid-template-columns:1.05fr .95fr; gap:44px; align-items:center;
+  }
+  .split.flip .split-copy{ order:2; }
+  .split.flip .split-vis{ order:1; }
+  .split-copy h2{
+    font-family:var(--font-display); font-weight:900; line-height:1.1;
+    font-size:clamp(1.85rem, 3.4vw, 2.7rem);
+  }
+  .split-copy p{ margin-top:18px; font-size:1.04rem; line-height:1.75; color:var(--dim); }
+  .split-copy p b{ color:var(--ink); font-weight:700; }
+
+  .split-vis{
+    position:relative; border-radius:20px; overflow:hidden;
+    aspect-ratio:4/3; border:1px solid var(--card-border);
+    background-color:var(--bg-2);
+    background-image:var(--img),
+      radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--a1) 22%, transparent), transparent 62%),
+      radial-gradient(circle at 76% 80%, color-mix(in srgb, var(--a2) 18%, transparent), transparent 60%);
+    background-size:cover; background-position:center; background-repeat:no-repeat;
+  }
+  .split-vis img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  }
+  .split-vis .slot{
+    position:absolute; left:0; right:0; bottom:0; padding:30px 16px 13px;
+    background:linear-gradient(to top, rgba(6,6,8,.9), transparent);
+    font-size:.72rem; color:var(--dim); letter-spacing:.03em;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  @media (max-width:860px){
+    .split{ grid-template-columns:1fr; gap:26px; }
+    .split.flip .split-copy{ order:1; }
+    .split.flip .split-vis{ order:2; }
+  }
+
+  /* ---------- how it works ---------- */
+  .flow{ display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:16px; margin-top:34px; }
+  @media (max-width:1040px){ .flow{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:620px){ .flow{ grid-template-columns:1fr; } }
+  .flow-step{
+    position:relative; padding:26px 22px 24px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    border:1px solid var(--card-border);
+    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  }
+  .flow-step .n{
+    font-family:var(--font-display); font-weight:900; font-size:.7rem;
+    letter-spacing:.15em; text-transform:uppercase; color:var(--a1);
+  }
+  .flow-step h3{ margin-top:12px; font-family:var(--font-display); font-size:1.06rem; font-weight:800; }
+  .flow-step p{ margin-top:9px; font-size:.92rem; color:var(--dim); line-height:1.62; }
+
+  /* ---------- trust strip ---------- */
+  .trust-grid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:32px; }
+  @media (max-width:860px){ .trust-grid{ grid-template-columns:1fr; } }
+  .trust-card{
+    padding:24px 24px 22px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 45%, transparent);
+    border:1px solid var(--card-border);
+  }
+  .trust-card h3{ font-family:var(--font-display); font-size:1.02rem; font-weight:800; }
+  .trust-card p{ margin-top:9px; font-size:.92rem; color:var(--dim); line-height:1.62; }
+
+
+  /* ---------- event vertical link cards ---------- */
+  .vgrid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:34px; }
+  @media (max-width:1040px){ .vgrid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:860px){ .vgrid{ grid-template-columns:1fr; } }
+  .vcard{
+    display:block; position:relative; overflow:hidden; text-decoration:none;
+    padding:24px 24px 22px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    backdrop-filter:blur(12px) saturate(140%); -webkit-backdrop-filter:blur(12px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s, box-shadow .3s;
+  }
+  .vcard::before{
+    content:''; position:absolute; left:0; right:0; top:0; height:2px;
+    background:var(--grad); opacity:.45; transition:opacity .3s;
+  }
+  .vcard:hover{
+    border-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transform:translateY(-3px);
+    box-shadow:0 22px 54px -34px var(--glow), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .vcard:hover::before{ opacity:1; }
+  .vcard h3{
+    font-family:var(--font-display); font-weight:800; font-size:1.06rem; line-height:1.3;
+    color:var(--ink);
+  }
+  .vcard h3::after{ content:' \2192'; color:var(--a1); opacity:.7; }
+  .vcard p{ margin-top:10px; font-size:.93rem; color:var(--dim); line-height:1.64; }
+
+  /* ---------- vocabulary band (near-me / city phrasing) ---------- */
+  .band{
+    margin-top:34px; padding:30px 32px; border-radius:20px;
+    background:
+      radial-gradient(circle at 12% 18%, color-mix(in srgb, var(--a1) 12%, transparent), transparent 58%),
+      color-mix(in srgb, var(--bg-1) 55%, transparent);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .band h3{ font-family:var(--font-display); font-weight:900; font-size:clamp(1.2rem,2vw,1.5rem); line-height:1.18; }
+  .band p{ margin-top:14px; font-size:1.02rem; line-height:1.74; color:var(--dim); }
+  .band p b{ color:var(--ink); font-weight:700; }
+  @media (max-width:820px){ .band{ padding:24px 22px; } }
+
+  /* ---------- FAQ ---------- */
+  .faq-list{ margin-top:32px; border-top:1px solid var(--card-border); }
+  .faq-item{ border-bottom:1px solid var(--card-border); }
+  .faq-item summary{
+    list-style:none; cursor:pointer; padding:22px 44px 22px 0; position:relative;
+    font-family:var(--font-display); font-weight:700; font-size:1.06rem; line-height:1.45;
+    transition:color .2s;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary:hover{ color:var(--a1); }
+  .faq-item summary::after{
+    content:'+'; position:absolute; right:6px; top:50%; transform:translateY(-50%);
+    font-size:1.5rem; font-weight:400; line-height:1; color:var(--a1); transition:transform .25s;
+  }
+  .faq-item[open] summary::after{ transform:translateY(-50%) rotate(45deg); }
+  .faq-item .ans{ padding:0 44px 24px 0; font-size:1rem; line-height:1.75; color:var(--dim); }
+  .faq-item .ans a{ color:var(--a1); }
+
+  @media (max-width:820px){
+    .hero.hero-page{ padding:44px 0 50px; }
+    .dj-card{ padding:26px 22px 24px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .dj-card, .vcard{ transition:none; }
+  }
+
+
+
+
+  /* ---------- effect comparison strip ---------- */
+  .fx-grid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:34px; }
+  @media (max-width:1040px){ .fx-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:700px){ .fx-grid{ grid-template-columns:1fr; } }
+  .fx-card{
+    position:relative; overflow:hidden;
+    padding:26px 24px 24px; border-radius:18px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s;
+  }
+  .fx-card::after{
+    content:''; position:absolute; right:-30px; top:-30px; width:110px; height:110px;
+    border-radius:50%; opacity:.16; transition:opacity .3s;
+    background:radial-gradient(circle, var(--a2), transparent 68%);
+  }
+  .fx-card:hover{ border-color:color-mix(in srgb, var(--a2) 42%, transparent); transform:translateY(-3px); }
+  .fx-card:hover::after{ opacity:.34; }
+  .fx-card h3{ font-family:var(--font-display); font-weight:800; font-size:1.06rem; line-height:1.3; }
+  .fx-card p{ margin-top:10px; font-size:.94rem; line-height:1.66; color:var(--dim); }
+  .fx-card p b{ color:var(--ink); font-weight:700; }
+
+  @media (prefers-reduced-motion: reduce){
+    .fog-fx i{ animation:none; opacity:.42; }
+    .fx-card{ transition:none; }
+  }
+
+  /* ---------- hero fog drift ---------- */
+  .fog-fx{
+    position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0;
+    mask-image:linear-gradient(to top, #000 32%, transparent 88%);
+    -webkit-mask-image:linear-gradient(to top, #000 32%, transparent 88%);
+  }
+  .fog-fx i{
+    position:absolute; bottom:-14%; border-radius:50%;
+    filter:blur(34px); opacity:0; animation:drift linear infinite;
+    background:radial-gradient(circle, color-mix(in srgb, var(--a1) 26%, transparent), transparent 70%);
+  }
+  @keyframes drift{
+    0%{   transform:translate3d(0,0,0) scale(.86); opacity:0; }
+    16%{  opacity:.62; }
+    78%{  opacity:.34; }
+    100%{ transform:translate3d(var(--dx,60px),calc(-1 * var(--rise,180px)),0) scale(1.3); opacity:0; }
+  }
+  .fog-fx i:nth-child(1){ left:-4%;  width:290px; height:150px; --rise:120px; --dx:70px;  animation-duration:19s; animation-delay:0s;   }
+  .fog-fx i:nth-child(2){ left:14%;  width:230px; height:120px; --rise:170px; --dx:-52px; animation-duration:24s; animation-delay:3.5s; }
+  .fog-fx i:nth-child(3){ left:31%;  width:330px; height:165px; --rise:140px; --dx:60px;  animation-duration:21s; animation-delay:7s;   }
+  .fog-fx i:nth-child(4){ left:49%;  width:250px; height:130px; --rise:200px; --dx:-70px; animation-duration:26s; animation-delay:1.5s; }
+  .fog-fx i:nth-child(5){ left:64%;  width:310px; height:155px; --rise:150px; --dx:44px;  animation-duration:22s; animation-delay:9s;   }
+  .fog-fx i:nth-child(6){ left:79%;  width:240px; height:125px; --rise:185px; --dx:-58px; animation-duration:25s; animation-delay:5s;   }
+  .fog-fx i:nth-child(7){ left:92%;  width:280px; height:145px; --rise:135px; --dx:38px;  animation-duration:20s; animation-delay:12s;  }
+  .fog-fx i:nth-child(8){ left:22%;  width:200px; height:105px; --rise:220px; --dx:80px;  animation-duration:28s; animation-delay:14s;  }
+
+  /* ---------- haze beam band ---------- */
+  .beams{
+    position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; opacity:.5;
+  }
+  .beams i{
+    position:absolute; top:-30%; width:2px; height:160%;
+    transform-origin:top center;
+    background:linear-gradient(to bottom, color-mix(in srgb, var(--a1) 55%, transparent), transparent 78%);
+    filter:blur(3px);
+  }
+  .beams i:nth-child(1){ left:12%; transform:rotate(9deg);   width:3px; }
+  .beams i:nth-child(2){ left:27%; transform:rotate(-6deg);  }
+  .beams i:nth-child(3){ left:44%; transform:rotate(12deg);  width:4px;
+    background:linear-gradient(to bottom, color-mix(in srgb, var(--a2) 46%, transparent), transparent 74%); }
+  .beams i:nth-child(4){ left:61%; transform:rotate(-11deg); }
+  .beams i:nth-child(5){ left:78%; transform:rotate(7deg);   width:3px; }
+  .beams i:nth-child(6){ left:91%; transform:rotate(-4deg);  }
+
+  .wrap p a:not(.chip):not(.btn-primary):not(.btn-secondary),
+  .addon a:not(.chip){
+    color:var(--a1);
+    text-decoration:underline;
+    text-decoration-thickness:1px;
+    text-underline-offset:3px;
+    text-decoration-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transition:color .2s ease, text-decoration-color .2s ease;
+  }
+  .wrap p a:not(.chip):not(.btn-primary):not(.btn-secondary):hover,
+  .addon a:not(.chip):hover{ color:var(--a2); text-decoration-color:var(--a2); }
+
+  .dj-card .spec, .room .spec, .split-copy .spec, .band .spec, .fx-card .spec, .addon .spec, .section-head .spec{
+    margin:0 0 14px; font-size:.92rem; color:var(--ink); line-height:1.5;
+  }
+  .dj-card .spec span, .room .spec span, .split-copy .spec span,
+  .band .spec span, .fx-card .spec span, .addon .spec span, .section-head .spec span{
+    font-family:var(--font-display); font-weight:900; font-size:.66rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1); flex:0 0 auto;
+  }
+</style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Fog Machine and Haze Rental in Dallas-Fort Worth",
+    "serviceType": "Fog Machine Rental",
+    "url": "https://www.dallaseventaudio.com/rent-fog-machine",
+    "description": "Fog machine and haze machine rental across Dallas-Fort Worth. Water based hazers for visible lighting beams, high density fog for grand entrances and photo work, and low-lying fog that stays on the dance floor. Every rental is delivered, placed, tuned to the room, addressed on DMX where supported and run by a technician for the length of the event, then loaded out. Smoke machine rental, fogger rental and fog machine rental describe the same category of equipment.",
+    "category": "Special Effects Rental",
+    "provider": {
+      "@type": "Organization",
+      "name": "Dallas Event Audio",
+      "url": "https://www.dallaseventaudio.com",
+      "email": "info@dallaseventaudio.com",
+      "telephone": "+1-817-210-7957",
+      "foundingDate": "2001",
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": { "@type": "GeoCoordinates", "addressCountry": "US" },
+        "description": "Dallas-Fort Worth Metroplex, approximately 40 miles from Hurst, TX"
+      }
+    },
+    "areaServed": {
+      "@type": "GeoCircle",
+      "geoMidpoint": { "@type": "GeoCoordinates", "addressCountry": "US" },
+      "description": "Dallas-Fort Worth Metroplex, approximately 40 miles from Hurst, TX"
+    },
+    "audience": { "@type": "Audience", "audienceType": "Wedding couples, event planners, corporate event producers, venues, photographers and nightlife promoters" },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Fog and haze effects",
+      "itemListElement": [
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Haze machine rental","description":"Chauvet Hurricane Haze 2D at 1,200 cfm and Hurricane Haze 4D at 4,300 cfm, water based, DMX addressable, held at a set density from the lighting console.","url":"https://www.dallaseventaudio.com/rent-fog-machine#haze-machine-rental"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"High density fog machine rental","description":"Froggy's Fog Titan 1200 with Bog Fog fluid for grand entrances, club nights, Halloween events and photo or video work.","url":"https://www.dallaseventaudio.com/rent-fog-machine#high-density-fog"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Smoke machine rental","description":"Smoke machine, fogger and fog machine rental are the same category of equipment, supplied and operated by a technician.","url":"https://www.dallaseventaudio.com/rent-fog-machine#smoke-machine-rental"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Fog machine for a wedding entrance","description":"High density fog fired as a burst behind a doorway for the silhouette entrance shot, or low-lying fog for the walking on air look.","url":"https://www.dallaseventaudio.com/rent-fog-machine#fog-machine-wedding-entrance"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Low-lying fog and dry ice","description":"Continuous low-lying fog and dry ice fog for a first dance or a theatrical reveal, covered in full on the dancing on the clouds page.","url":"https://www.dallaseventaudio.com/rent-dancing-on-the-clouds-low-lyin"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Venue and alarm coordination","description":"Clearing the effect with the venue and the alarm monitoring company before the date, and placing machines away from detectors and return vents.","url":"https://www.dallaseventaudio.com/rent-fog-machine#smoke-detectors"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Laser light show rental","description":"Laser effects run through haze on the same console by the same crew.","url":"https://www.dallaseventaudio.com/rent-laser-light-show"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Uplighting rental","description":"Uplighting that reads as beams once the room is hazed.","url":"https://www.dallaseventaudio.com/rent-uplighting"}}
+      ]
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"Do you rent fog machines in Dallas-Fort Worth?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes. We rent and operate haze machines, high density fog machines and low-lying fog machines across Dallas, Fort Worth and the surrounding DFW area for weddings, corporate events, clubs, shoots and private parties. Every fog machine rental is delivered, placed, tuned to the room and run by one of our technicians for the length of your event, then loaded out afterwards."}},
+      {"@type":"Question","name":"What is the difference between fog and haze?",
+       "acceptedAnswer":{"@type":"Answer","text":"Haze is a thin, even suspension that makes light visible, so beams from moving heads, lasers and follow spots read as solid shafts while the room still looks clear. Fog is denser and more visible in itself, either as a heavy burst for a moment like a grand entrance or as a low-lying cloud that sits on the dance floor. Haze is atmosphere for the whole evening; fog is usually a moment."}},
+      {"@type":"Question","name":"Do you rent haze machines?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes. We run the Chauvet Hurricane Haze 2D at 1,200 cfm for ballrooms, chapels and corporate general sessions, and the Hurricane Haze 4D at 4,300 cfm for larger rooms, high ceilings and aggressive HVAC. Both are water based, both run Chauvet High Performance Haze Fluid, and both are DMX addressable so the haze is held at a set density from the lighting console."}},
+      {"@type":"Question","name":"Will fog or haze set off the smoke detectors at my venue?",
+       "acceptedAnswer":{"@type":"Answer","text":"It can, which is why we handle it before your date rather than on the night. Manufacturers state plainly that atmospheric effects can trigger detectors, so we clear the effect with your venue and with the alarm monitoring company where there is one, and we place the machine so the output stays away from detectors and return vents. Some venues allow haze but restrict heavy fog, and we will tell you which yours is."}},
+      {"@type":"Question","name":"Is a smoke machine the same as a fog machine?",
+       "acceptedAnswer":{"@type":"Answer","text":"In event rental they mean the same thing. Smoke machine, fog machine, fogger and smoke machine hire all describe the same category of equipment. The distinction worth making is between haze, high density fog and low-lying fog, because those are three different machines with three different results in the room."}},
+      {"@type":"Question","name":"Can I pick up a fog machine and run it myself?",
+       "acceptedAnswer":{"@type":"Answer","text":"We deliver and operate everything we rent, so there is no customer pickup on fog or haze equipment. The machine arrives with our crew, gets placed where the venue has agreed, is addressed on DMX and tuned to the room, and a technician stays with it through your event. That is also what keeps the effect consistent from the first song to the last."}},
+      {"@type":"Question","name":"Which fog machine do I need for a wedding entrance?",
+       "acceptedAnswer":{"@type":"Answer","text":"For the silhouette shot, where the wedding party walks out of a wall of white, you want the high density Titan 1200 fired as a burst behind the doorway. For the walking on air look, where the fog stays at ankle height and faces stay clear, you want low-lying fog instead. Tell us which photograph you have in mind and we will spec the machine, the placement and the cue."}},
+      {"@type":"Question","name":"How far in advance should I book a fog machine or hazer?",
+       "acceptedAnswer":{"@type":"Answer","text":"Two to four weeks is comfortable, mostly so there is time to clear the effect with your venue and the alarm monitoring company before your date. Shorter notice is often workable for haze in a room we already know. Send the date and the venue and we will give you a straight answer rather than a maybe."}},
+      {"@type":"Question","name":"How much does a fog machine rental cost in Dallas?",
+       "acceptedAnswer":{"@type":"Answer","text":"We do not publish prices, because a single hazer at a ballroom dinner and a full fog, haze and low-lying package for a club night are different jobs and one number would misprice both. Send the date, the venue and what you want the room to look like and you will get an itemized quote back with delivery, fluid, the technician and load out included. Call or text 817-210-7957, or use the contact form."}},
+      {"@type":"Question","name":"Do you cover Fort Worth and the rest of DFW?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes. We work roughly a forty mile radius from the mid-cities between Dallas and Fort Worth, which covers Arlington, Plano, Frisco, Irving, Southlake, McKinney, Grapevine, Richardson, Denton and everything folded in among them. If your venue sits further out, ask anyway and we will tell you honestly whether it works."}}
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://www.dallaseventaudio.com/"},
+      {"@type":"ListItem","position":2,"name":"Lighting Services","item":"https://www.dallaseventaudio.com/services-lighting"},
+      {"@type":"ListItem","position":3,"name":"Fog and Haze Machine Rental","item":"https://www.dallaseventaudio.com/rent-fog-machine"}
+    ]
+  }
+  </script>
+
+</head>
+<body>
+<div id="paletteBar">
+    <span>Palette preview</span>
+    <button data-p="signal" class="active">A · Signal Chain</button>
+    <button data-p="amber">B · Stage Black &amp; Amber</button>
+    <button data-p="night">C · DFW Night Rig</button>
+  </div>
+
+  <header>
+    <nav>
+      <a class="logo" href="/" style="text-decoration:none;"><div class="dial"></div>DEA</a>
+      <div class="navlinks">
+        <a href="/services-lighting">Lighting</a>
+        <a href="/services-audio">Audio</a>
+        <a href="/our-work">Our Work</a>
+        <a href="/what-others-are-saying">Reviews</a>
+        <a href="/contact">Contact</a>
+      </div>
+      <div class="navright">
+        <span class="phone">817-210-7957</span>
+        <a class="cta-btn" href="/contact">Get a Quote</a>
+      </div>
+    </nav>
+  </header>
+  <section class="hero hero-page">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="fog-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="beams" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="wrap">
+      <div class="breadcrumb" data-reveal>
+        <a href="/">Home</a><span class="sep">/</span><a href="/services-lighting">Lighting Services</a><span class="sep">/</span><span class="here">Fog &amp; Haze Machine Rental</span>
+      </div>
+      <h1 data-reveal>Fog machine and haze rental in Dallas-Fort Worth, <span class="grad-text">tuned to your room and run by a technician.</span></h1>
+      <p class="sub" data-reveal>Hazers that make your lighting beams visible, high density foggers for a grand entrance, and low-lying fog that stays on the dance floor. Three different machines doing three different jobs, all delivered, set up, tuned to the room and operated by one of our technicians for the length of your event.</p>
+
+      <div class="stat-row" data-reveal>
+        <div class="stat">
+          <div class="num">3 types</div>
+          <div class="lbl">Haze, high density fog and low-lying fog, all in stock</div>
+        </div>
+        <div class="stat">
+          <div class="num">4,300 cfm</div>
+          <div class="lbl">Output of the largest hazer we send out, the Hurricane Haze 4D</div>
+        </div>
+        <div class="stat">
+          <div class="num">2001</div>
+          <div class="lbl">Running event production across Dallas-Fort Worth since 2001</div>
+        </div>
+        <div class="stat">
+          <div class="num">40 mi</div>
+          <div class="lbl">Delivery radius around Dallas and Fort Worth</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Fog Machine Rental Dallas &middot; Haze Machine Rental &middot; Smoke Machine Rental &middot; Fog Machine For Wedding Entrance &middot; Rent A Fog Machine Near Me &middot; Hazer Rental DFW &middot; Fog Machine Rental Fort Worth &middot; Low-Lying Fog &middot; Delivered And Operated &middot; Insured Since 2001 &middot;&nbsp;</span>
+      <span>Fog Machine Rental Dallas &middot; Haze Machine Rental &middot; Smoke Machine Rental &middot; Fog Machine For Wedding Entrance &middot; Rent A Fog Machine Near Me &middot; Hazer Rental DFW &middot; Fog Machine Rental Fort Worth &middot; Low-Lying Fog &middot; Delivered And Operated &middot; Insured Since 2001 &middot;&nbsp;</span>
+    </div>
+  </div>
+
+  <section class="section" id="which-machine">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:860px;">
+        <span class="kicker">Fog And Haze Machine Rental</span>
+        <h2>Which fog machine do you need: haze, high density fog or low-lying fog?</h2>
+        <p>Fog covers three separate machines. A hazer makes your lighting beams visible, a high output fogger fills a room on a drop, and a low-lying machine lays a cloud across the dance floor. Getting that choice right is most of what this page is for, so here is the difference in plain terms.</p>
+      </div>
+
+      <div class="dj-grid">
+        <div class="dj-card" data-reveal>
+          <span class="tag">Haze</span>
+          <h3>Haze: beams you can see</h3>
+          <p class="spec"><span>Machine</span> Chauvet Hurricane Haze 2D or 4D &middot; water based &middot; DMX</p>
+          <p>Haze is a thin, even suspension that makes light visible. On its own you barely notice it. The moment a moving head, a gobo wash, a pin spot on the cake table or a laser fires through it, every beam reads as a solid shaft of light. Haze is what makes a lighting package photograph the way it looked in the proposal, and guests read it as atmosphere rather than smoke.</p>
+          <p class="best"><em>Best for</em> Ballrooms, chapels, corporate general sessions, and any room where lasers or moving heads are in the rig.</p>
+        </div>
+        <div class="dj-card" data-reveal>
+          <span class="tag">High density fog</span>
+          <h3>High density fog: a moment on a cue</h3>
+          <p class="spec"><span>Machine</span> Froggy&rsquo;s Fog Titan 1200 &middot; 1,300 W &middot; variable output</p>
+          <p>High density fog works the other way around. It is a heavy, opaque burst you use as a single moment: a grand entrance, a DJ drop, a first look, a Halloween walk through, or a photo and video setup that needs the background gone. It rolls in thick, does its job and clears.</p>
+          <p class="best"><em>Best for</em> Grand entrances, club nights, Halloween events, concert sets and camera work.</p>
+        </div>
+        <div class="dj-card" data-reveal>
+          <span class="tag">Low-lying fog</span>
+          <h3>Low-lying fog: a cloud on the floor</h3>
+          <p class="spec"><span>Machine</span> Chauvet DJ Cumulus or ADJ Entour Ice &middot; dry ice or water based</p>
+          <p>Low-lying fog stays on the floor. It is the dancing on the clouds look, a knee deep cloud that hangs across the dance floor for a first dance or a quincea&ntilde;era waltz, with the couple standing above it. That machine has a page of its own, and this page carries the rest of the fog and haze inventory.</p>
+          <p class="best"><em>Best for</em> First dances, quincea&ntilde;era waltzes, theatrical reveals and anything photographed close to the ground.</p>
+        </div>
+      </div>
+
+      <div class="chips" data-reveal>
+        <a class="chip" href="/rent-dancing-on-the-clouds-low-lyin">Low-lying fog and dry ice</a>
+        <a class="chip" href="/rent-uplighting">Uplighting rental</a>
+        <a class="chip" href="/rent-laser-light-show">Laser light show</a>
+        <a class="chip" href="/contact">Ask which one fits</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="fog-machine-wedding-entrance">
+    <div class="wrap">
+      <div class="split" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">Fog Machine For A Wedding Entrance</span>
+          <h2>Fog machine for a wedding entrance in Dallas-Fort Worth.</h2>
+          <p>A grand entrance is what most people are picturing when they search for a fog machine rental for a wedding, and it is worth being clear about which machine gives you the shot you have in your head, because two very different looks get called the same thing.</p>
+          <p>A high density fog burst behind a doorway gives you the silhouette. The wedding party walks out of a wall of white, the room cannot see past it until they arrive, and the fog clears within a minute. A low-lying cloud on the floor gives you the walking on air version instead, where the fog holds at ankle height and every face stays clear for the camera.</p>
+          <p>Which one your venue allows and which one your photographer wants are the two questions worth settling early. Send us the room, the doorway and whether a photographer or a videographer is shooting it, and we will spec the machine, the placement and the cue so it fires on the beat rather than near it.</p>
+          <div class="chips">
+            <a class="chip" href="/weddings">Wedding services</a>
+            <a class="chip" href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the clouds</a>
+            <a class="chip" href="/gallery">Real DFW events we&rsquo;ve run</a>
+          </div>
+        </div>
+        <div class="split-vis" style="--img:url('/images/fog/fog-machine-wedding-entrance-dallas.jpg')">
+          <span class="slot">/images/fog/fog-machine-wedding-entrance-dallas.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="haze-machine-rental">
+    <div class="wrap">
+      <div class="split flip" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">Haze Machine Rental</span>
+          <h2>Haze machine rental: Chauvet Hurricane Haze 2D and 4D.</h2>
+          <p class="spec"><span>Hazers</span> Hurricane Haze 2D, 1,200 cfm &middot; Hurricane Haze 4D, 4,300 cfm</p>
+          <p>Both of our hazers are water based and run Chauvet High Performance Haze Fluid (HFG), which Chauvet describes as non toxic, non flammable and unscented, and which will not stain fabric or leave residue on a dance floor.</p>
+          <p>The Hurricane Haze 2D puts out 1,200 cfm from a 0.7 gallon tank, heats up in about five minutes, draws 533 W and gives you two channels of DMX over 3 pin XLR. It ships with a digital display and a 15 foot wired timer remote. At 18.7 lb it is the right hazer for a ballroom, a chapel or a corporate general session, where you want the beams visible while the room still reads clear to the eye.</p>
+          <p>The Hurricane Haze 4D is the larger machine: 4,300 cfm, a 0.9 gallon tank, a two minute heat up, 1,120 W and the same two DMX channels. Use it when the room is big, the ceiling is high, or the HVAC is strong enough to eat the output of a smaller hazer.</p>
+          <p>Because both are DMX addressable, we run them from the same console as your lighting and hold the haze at one set density all night instead of chasing it with bursts. That is also why a haze machine rental and a lighting package quote well together.</p>
+          <div class="chips">
+            <a class="chip" href="/services-lighting">Event lighting</a>
+            <a class="chip" href="/rent-laser-light-show">Lasers in haze</a>
+            <a class="chip" href="/rent-follow-spot-light">Follow spot rental</a>
+          </div>
+        </div>
+        <div class="split-vis" style="--img:url('/images/fog/haze-machine-rental-dallas-beams.jpg')">
+          <span class="slot">/images/fog/haze-machine-rental-dallas-beams.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="high-density-fog">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:860px;">
+        <span class="kicker">High Density Fog Machine Rental</span>
+        <h2>High density fog: the Froggy&rsquo;s Fog Titan 1200.</h2>
+        <p class="spec"><span>Machine</span> Titan 1200 &middot; 1,300 W &middot; five-liter reservoir &middot; variable 0 to 100 percent</p>
+        <p>The Titan 1200 is our burst machine: 1,300 W, a five-liter drop in reservoir, roughly a four minute heat up, and a reheat time Froggy&rsquo;s rates at under ten seconds after a full cycle, which is what lets it hit repeatedly through a set instead of dying after the first blast. Output is variable from 0 to 100 percent and it runs from a wired remote, an optional wireless remote or a built in timer.</p>
+        <p>We pair it with Froggy&rsquo;s Fog Bog Fog extreme high density fluid. It is water based, made from deionized water and pharmaceutical grade, FDA approved ingredients with no glycerol or glycerin, and it produces a very white, very dense fog with a high index of refraction and a slow evaporation rate. That is the fluid you want for a white out effect, for hiding scenic elements, for strobe work and for camera work.</p>
+        <p>Bog Fog is dense, and that is the point of it. It suits a concert, a club night, a Halloween event or a shoot, and it is usually too much for a plated dinner in a hotel ballroom. If you are unsure which side of that line your event falls on, tell us the room and the moment and we will spec it honestly.</p>
+      </div>
+
+      <div class="fx-grid">
+        <div class="fx-card" data-reveal>
+          <h3>Grand entrance</h3>
+          <p>A wall of white behind a doorway, fired on the cue and cleared within a minute so the room sees the wedding party or the keynote arrive out of it.</p>
+        </div>
+        <div class="fx-card" data-reveal>
+          <h3>Club and concert</h3>
+          <p>Repeat bursts through a set, timed against the lighting and the drop. The reheat time is what makes that possible on a long set.</p>
+        </div>
+        <div class="fx-card" data-reveal>
+          <h3>Halloween and haunts</h3>
+          <p>Thick, low visibility fog for a walk through attraction, held at density for hours on a timer with a technician topping up the fluid.</p>
+        </div>
+        <div class="fx-card" data-reveal>
+          <h3>Photo and video</h3>
+          <p>A white background on demand, plus a way to hide rigging, scenic elements or a wall that has to disappear from the frame.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="smoke-machine-rental">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">Smoke Machine Rental</span>
+        <h2>Smoke machine rental, fogger rental and fog machine rental are the same request.</h2>
+      </div>
+      <div class="band" data-reveal>
+        <h3>Different words, same category of equipment.</h3>
+        <p>Smoke machine, fog machine, fogger and smoke machine hire all describe the same category of equipment, so if you searched for one of those and landed here, you are in the right place. The distinction that matters is between haze, high density fog and low-lying fog, because those really are three different machines with three different results. Tell us what you want the room to look like and we will name the machine.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="low-lying-fog">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:860px;">
+        <span class="kicker">Low-Lying Fog And Dry Ice</span>
+        <h2>Low-lying fog and dry ice: dancing on the clouds.</h2>
+        <p>Low-lying fog is a cloud that stays on the floor instead of rising, and two machines produce it. The Chauvet DJ Cumulus makes the effect with no dry ice at all, using an onboard ultrasonic agitator to turn distilled water into a fine mist that chills the fog so it hugs the floor. The ADJ Entour Ice is the theatrical version, dropping dry ice into heated water the way stage productions have done it for decades, built as a wheeled, insulated, DMX controllable machine.</p>
+        <p>Dry ice fog reads denser, whiter and colder than the water based version, and it hugs the floor harder, which is why it is still the standard for a first dance, a quincea&ntilde;era waltz or a theatrical reveal photographed close to the ground. Dry ice has to be sourced fresh on the day and handled safely, and that part is ours.</p>
+        <p>Because low-lying fog is a whole package rather than a single machine, the full detail has its own page: coverage, how long a cloud holds, what the dry ice service includes, and how it is timed against the song.</p>
+      </div>
+
+      <div class="addon" data-reveal>
+        <h3>Dancing on the clouds</h3>
+        <p>The complete low-lying fog and dry ice service, including the Chauvet DJ Cumulus and the ADJ Entour Ice, is covered on <a href="/rent-dancing-on-the-clouds-low-lyin">our dancing on the clouds page</a>. Plenty of weddings book both: a low-lying cloud for the first dance and a fog machine burst on the grand entrance earlier in the night, from the same crew on the same load in.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="which-room">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:840px;">
+        <span class="kicker">Matching The Machine To The Room</span>
+        <h2>Which machine suits your room and your event.</h2>
+        <p>The room decides this more than the effect does. Ceiling height, HVAC, whether there is a plated dinner in progress and what the venue allows all narrow it down before anyone talks about output. Here is how it usually lands.</p>
+      </div>
+
+      <div class="room-list">
+        <div class="room" data-reveal>
+          <h3>Hotel ballroom, plated dinner<span>Light haze only</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Machine</span> Hurricane Haze 2D &middot; low set level on DMX</p>
+            <p>A plated dinner needs the lighting to read without the room looking smoky. One 2D hazer, held at a low DMX level and started before doors so it has time to even out, gives you visible beams over the tables and across the dance floor while the room stays clear to the eye. High density fog in this room is the wrong call, and we will say so before you book it.</p>
+          </div>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Church or chapel ceremony<span>Cleared with the venue first</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Machine</span> Hurricane Haze 2D &middot; venue and alarm approval</p>
+            <p>Chapels are where clearing the effect with the venue matters most, because many of them have their own detectors and their own house rules. Where haze is allowed, a low level is plenty to give a beam of light down the aisle some shape. Where the venue says otherwise, we tell you early instead of on the day.</p>
+          </div>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Grand entrance or reveal<span>Fog machine for a wedding entrance</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Machine</span> Titan 1200 &middot; burst on a cue</p>
+            <p>This is a single moment, so it wants the burst machine rather than continuous output. We place the Titan behind the doorway or the reveal, fire it on the cue and let it clear. When we are also running your sound and lighting, that cue is shared across the whole rig, so the fog, the music and the light hit as one thing.</p>
+          </div>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Nightclub, rave or concert<span>Haze plus bursts</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Machine</span> Hurricane Haze 4D &middot; plus Titan 1200 for hits</p>
+            <p>Club rooms want both. The 4D holds a constant haze so every beam, laser and strobe reads all night, and the Titan 1200 adds density on the drops. Both run on DMX from the lighting console, so the operator has the fog on faders alongside everything else.</p>
+          </div>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Outdoor tent or patio<span>Wind dependent</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Machine</span> Hurricane Haze 4D &middot; sided tent recommended</p>
+            <p>Open air pulls haze apart quickly, so the honest answer outdoors depends on the wind and on how enclosed the space is. A sided tent holds an effect well. A fully open patio usually will not, and we would rather tell you that than take the booking and hope the evening is still.</p>
+          </div>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Photo or video shoot<span>Camera work</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Machine</span> Titan 1200 with Bog Fog &middot; or 2D for beam work</p>
+            <p>Shoots split into two jobs. Bog Fog through the Titan 1200 gives you a white out background or hides what should be out of frame, and a light haze from the 2D gives depth and visible light shafts without fogging the subject. A technician holds the density where the camera wants it between takes.</p>
+          </div>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Halloween walk through<span>Held for hours</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Machine</span> Titan 1200 &middot; timer, technician topping up fluid</p>
+            <p>A haunt needs density held for a whole evening rather than one burst. The Titan runs on its built in timer with a technician on site refilling fluid, so hour four looks like hour one. Low-lying fog underneath adds the floor layer if the walk through has a graveyard or a lake scene.</p>
+          </div>
+        </div>
+        <div class="room" data-reveal>
+          <h3>First dance on a cloud<span>Low-lying fog</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Machine</span> Chauvet DJ Cumulus or ADJ Entour Ice &middot; dry ice option</p>
+            <p>This is the dancing on the clouds effect, and it is the one machine on this page with its own dedicated page. Dry ice through the Entour Ice reads denser and colder on camera; the Cumulus gives you the same look continuously with no dry ice to source. Both are covered in full on the <a href="/rent-dancing-on-the-clouds-low-lyin">low-lying fog page</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="whats-included">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">What Is Included</span>
+        <h2>What is included with your fog machine rental.</h2>
+        <p>Every fog machine rental and haze machine rental from Dallas Event Audio is a managed service. Delivery, placement, fluid, setup, DMX addressing where the machine supports it, tuning to the room on the day, a technician on site through your event, and load out afterwards are all part of the rental, and every rental is backed by full insurance coverage.</p>
+      </div>
+
+      <div class="flow">
+        <div class="flow-step" data-reveal>
+          <div class="n">Step 01</div>
+          <h3>Tell us the room and the moment</h3>
+          <p>The venue, the date, the ceiling height if you know it, and what you want the room to look like. That is enough for us to name the machine.</p>
+        </div>
+        <div class="flow-step" data-reveal>
+          <div class="n">Step 02</div>
+          <h3>We spec it and clear it</h3>
+          <p>We pick the machine, the fluid and the placement, then clear the effect with your venue and, where one is involved, the alarm monitoring company.</p>
+        </div>
+        <div class="flow-step" data-reveal>
+          <div class="n">Step 03</div>
+          <h3>Delivered, placed and tuned</h3>
+          <p>Our crew loads in, sets the machine where the output stays away from detectors and return vents, addresses it on DMX and tunes the density to the room.</p>
+        </div>
+        <div class="flow-step" data-reveal>
+          <div class="n">Step 04</div>
+          <h3>A technician runs it, then it goes home</h3>
+          <p>A technician stays through your event, holds the level, fires the cues and refills fluid. Afterwards the whole rig loads out with us. Your team carries nothing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="smoke-detectors">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:860px;">
+        <span class="kicker">Fog Machines And Smoke Detectors</span>
+        <h2>Fog machines and smoke detectors: what we clear with your venue.</h2>
+        <p>Every manufacturer of every fog and haze machine, Chauvet included, states in the manual that atmospheric effects can set off smoke detectors, and every machine needs clearance around it for ventilation. So before your date we clear the effect with your venue and, where one is involved, the alarm monitoring company, and we place the machines where the output stays away from a detector or a return vent.</p>
+        <p>That conversation is a routine part of the booking, and it is one of the reasons a technician comes with the machine. It is also why we ask for the venue name early: we have worked most rooms in the Metroplex before, and we usually know their rules on haze already.</p>
+      </div>
+
+      <div class="trust-grid">
+        <div class="trust-card" data-reveal>
+          <h3>Insured since 2001</h3>
+          <p>Full insurance coverage on every rental, and a certificate of insurance for your venue whenever they ask for one, supplied before load in rather than at the door.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Venue and alarm coordination</h3>
+          <p>We contact the venue, and the alarm monitoring company where there is one, and agree the effect and the machine placement in advance of your date.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>A technician on site</h3>
+          <p>Someone stays with the machine for the length of your event, holding the density where it belongs and firing the cues on the beat.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Delivered across DFW</h3>
+          <p>Roughly a forty mile radius covering Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Southlake, McKinney, Grapevine, Richardson and Denton.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Fluid is included</h3>
+          <p>Haze fluid, fog fluid and dry ice where the machine uses it are part of the rental, sourced fresh and topped up on site through the event.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>DMX on the same console</h3>
+          <p>Where the machine supports DMX we address it alongside your lighting, so the fog and the light are run together instead of by two different people.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pairs-with">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">Books Well Together</span>
+        <h2>What people book alongside a fog or haze machine rental.</h2>
+        <p>Haze exists to make other things visible, so it rarely gets booked on its own. These are the services it usually arrives with, all on one contract and one load in.</p>
+      </div>
+
+      <div class="vgrid">
+        <a class="vcard" href="/rent-uplighting" data-reveal>
+          <h3>Uplighting rental</h3>
+          <p>Color around the room. Haze gives the wash depth and makes the beams read instead of just the wall behind them.</p>
+        </a>
+        <a class="vcard" href="/rent-laser-light-show" data-reveal>
+          <h3>Laser light show</h3>
+          <p>Lasers need haze to exist at all. Without something in the air the beam only appears where it lands.</p>
+        </a>
+        <a class="vcard" href="/rent-dancing-on-the-clouds-low-lyin" data-reveal>
+          <h3>Dancing on the clouds</h3>
+          <p>The full low-lying fog and dry ice service for a first dance, a waltz or a reveal, with the cloud held for the length of the song.</p>
+        </a>
+        <a class="vcard" href="/rent-cold-sparks" data-reveal>
+          <h3>Cold sparks</h3>
+          <p>Sparkle fountains for an entrance or a reveal, run by a licensed pyrotechnician on an approved floor plan.</p>
+        </a>
+        <a class="vcard" href="/rent-follow-spot-light" data-reveal>
+          <h3>Follow spot rental</h3>
+          <p>A hard edged beam on a person. Haze is what makes that shaft visible to the room and to the operator following it.</p>
+        </a>
+        <a class="vcard" href="/services-dj" data-reveal>
+          <h3>DJ services</h3>
+          <p>When the fog cue and the music cue come from the same crew, the burst lands on the downbeat rather than somewhere near it.</p>
+        </a>
+        <a class="vcard" href="/rent-sound-equipment" data-reveal>
+          <h3>Sound equipment rental</h3>
+          <p>Speakers, subwoofers and mixing for the same room, quoted together with the fog and haze rather than on a separate invoice.</p>
+        </a>
+        <a class="vcard" href="/services-extra" data-reveal>
+          <h3>Special effects</h3>
+          <p>CO2 effects and the rest of the effects catalog, bookable on the same contract and the same load in.</p>
+        </a>
+      </div>
+
+      <div class="addon" data-reveal>
+        <h3>If anyone is speaking near the effect</h3>
+        <p>Every microphone we send out carries our AI-powered De-Feedback system, which listens for the frequencies that start to ring and pulls them down before they build, so a grand entrance announcement or a toast over a fog cue arrives clean. There is a full write up in <a href="/post/what-is-de-feedback-for-live-events">what De-Feedback does for live events</a>, and the hardware is on the <a href="/feedback-free-microphone-rentals">microphone rental</a> page.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:720px;">
+        <span class="kicker">Questions</span>
+        <h2>Fog machine and haze rental questions.</h2>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item" data-reveal>
+          <summary>Do you rent fog machines in Dallas-Fort Worth?</summary>
+          <div class="ans">Yes. We rent and operate haze machines, high density fog machines and low-lying fog machines across Dallas, Fort Worth and the surrounding DFW area for weddings, corporate events, clubs, shoots and private parties. Every fog machine rental is delivered, placed, tuned to the room and run by one of our technicians for the length of your event, then loaded out afterwards.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>What is the difference between fog and haze?</summary>
+          <div class="ans">Haze is a thin, even suspension that makes light visible, so beams from moving heads, lasers and follow spots read as solid shafts while the room still looks clear. Fog is denser and more visible in itself, either as a heavy burst for a moment like a grand entrance or as a low-lying cloud that sits on the dance floor. Haze is atmosphere for the whole evening; fog is usually a moment.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do you rent haze machines?</summary>
+          <div class="ans">Yes. We run the Chauvet Hurricane Haze 2D at 1,200 cfm for ballrooms, chapels and corporate general sessions, and the Hurricane Haze 4D at 4,300 cfm for larger rooms, high ceilings and aggressive HVAC. Both are water based, both run Chauvet High Performance Haze Fluid, and both are DMX addressable so the haze is held at a set density from the lighting console.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Will fog or haze set off the smoke detectors at my venue?</summary>
+          <div class="ans">It can, which is why we handle it before your date rather than on the night. Manufacturers state plainly that atmospheric effects can trigger detectors, so we clear the effect with your venue and with the alarm monitoring company where there is one, and we place the machine so the output stays away from detectors and return vents. Some venues allow haze but restrict heavy fog, and we will tell you which yours is.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Is a smoke machine the same as a fog machine?</summary>
+          <div class="ans">In event rental they mean the same thing. Smoke machine, fog machine, fogger and smoke machine hire all describe the same category of equipment. The distinction worth making is between haze, high density fog and low-lying fog, because those are three different machines with three different results in the room.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Can I pick up a fog machine and run it myself?</summary>
+          <div class="ans">We deliver and operate everything we rent, so there is no customer pickup on fog or haze equipment. The machine arrives with our crew, gets placed where the venue has agreed, is addressed on DMX and tuned to the room, and a technician stays with it through your event. That is also what keeps the effect consistent from the first song to the last.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Which fog machine do I need for a wedding entrance?</summary>
+          <div class="ans">For the silhouette shot, where the wedding party walks out of a wall of white, you want the high density Titan 1200 fired as a burst behind the doorway. For the walking on air look, where the fog stays at ankle height and faces stay clear, you want low-lying fog instead. Tell us which photograph you have in mind and we will spec the machine, the placement and the cue.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How far in advance should I book a fog machine or hazer?</summary>
+          <div class="ans">Two to four weeks is comfortable, mostly so there is time to clear the effect with your venue and the alarm monitoring company before your date. Shorter notice is often workable for haze in a room we already know. Send the date and the venue and we will give you a straight answer rather than a maybe.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How much does a fog machine rental cost in Dallas?</summary>
+          <div class="ans">We do not publish prices, because a single hazer at a ballroom dinner and a full fog, haze and low-lying package for a club night are different jobs and one number would misprice both. Send the date, the venue and what you want the room to look like and you will get an itemized quote back with delivery, fluid, the technician and load out included. Call or text 817-210-7957, or use the <a href="/contact">contact form</a>.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do you cover Fort Worth and the rest of DFW?</summary>
+          <div class="ans">Yes. We work roughly a forty mile radius from the mid-cities between Dallas and Fort Worth, which covers Arlington, Plano, Frisco, Irving, Southlake, McKinney, Grapevine, Richardson, Denton and everything folded in among them. If your venue sits further out, ask anyway and we will tell you honestly whether it works.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta" id="quote">
+    <div class="wrap">
+      <h2 data-reveal>Tell us the venue and the moment. <span class="grad-text">We&rsquo;ll tell you which machine does it.</span></h2>
+      <p data-reveal>Send us the room, the date and what you want the moment to look like, and we&rsquo;ll send you a straightforward quote the same day.</p>
+      <div data-reveal style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+        <a class="btn-primary" href="/contact">Get Your Quote</a>
+        <a class="btn-secondary" href="tel:8172107957">Call or Text 817-210-7957</a>
+      </div>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="col brand">
+          <div class="logo"><div class="dial"></div>DEA</div>
+          <p style="margin-top:14px; max-width:250px;">Full-service AV production for Dallas-Fort Worth since 2001. Delivered, set up, and run by our on-site technician.</p>
+          <div class="foot-contact">
+            <a href="tel:8172107957">817-210-7957</a>
+            <a href="mailto:info@dallaseventaudio.com">info@dallaseventaudio.com</a>
+          </div>
+          <p class="foot-area">Serving Dallas, Fort Worth, Southlake, Arlington, Frisco, McKinney, Richardson &amp; the wider Metroplex.</p>
+        </div>
+        <div class="col">
+          <h4>Events</h4>
+          <a href="/weddings">Weddings</a>
+          <a href="/corporate-events">Corporate Events</a>
+          <a href="/private-events">Private Events</a>
+          <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+          <a href="/college-school-university-events">College &amp; University</a>
+          <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+          <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+        </div>
+        <div class="col">
+          <h4>Services</h4>
+          <a href="/services-dj">DJ Services</a>
+          <a href="/services-audio">Audio Services</a>
+          <a href="/services-lighting">Lighting Services</a>
+          <a href="/services-photo-and-video">Photo &amp; Video</a>
+          <a href="/services-extra">Extra Services</a>
+        </div>
+        <div class="col">
+          <h4>Audio Rentals</h4>
+          <a href="/rent-sound-equipment">Sound Equipment</a>
+          <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+          <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+          <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+          <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+          <a href="/live-streaming-services">Live Streaming</a>
+        </div>
+        <div class="col">
+          <h4>Lighting &amp; FX</h4>
+          <a href="/rent-uplighting">Uplighting</a>
+          <a href="/rent-laser-light-show">Laser Light Show</a>
+          <a href="/rent-follow-spot-light">Follow Spot</a>
+          <a href="/monogram-projector">Monogram Projector</a>
+          <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+          <a href="/rent-cold-sparks">Cold Sparks</a>
+          <a href="/projector-screen-rental">Projector &amp; Screen</a>
+        </div>
+        <div class="col">
+          <h4>Company</h4>
+          <a href="/our-story">Our Story</a>
+          <a href="/our-work">Our Work</a>
+          <a href="/equipment-list">Equipment List</a>
+          <a href="/what-others-are-saying">Reviews</a>
+          <a href="/blog">Blog</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div class="foot-proof">
+        <a class="fp" href="https://www.google.com/maps?cid=11213015373496621898" target="_blank" rel="noopener"><span class="m g">G</span> <b>4.9</b> <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span> &middot; 41 Google reviews</a>
+        <a class="fp" href="https://www.yelp.com/biz/dallas-event-audio-dallas" target="_blank" rel="noopener"><span class="m y">Y</span> <b>Yelp</b> &middot; 13 reviews &middot; 134 photos</a>
+      </div>
+      <div class="foot-bottom">
+        <span>&copy; 2026 Dallas Event Audio. Fully insured, on-site AV production.</span>
+        <span>Service page draft: fog and haze machine rental</span>
+      </div>
+    </div>
+  </footer>
+<div id="chatBubble">✦ AV Concierge</div>
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+<script>
+  // Palette switcher, review tool only
+  document.querySelectorAll('#paletteBar button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.documentElement.setAttribute('data-palette', btn.dataset.p);
+      document.querySelectorAll('#paletteBar button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // Scroll reveal
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.15});
+    document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el=>el.classList.add('in'));
+  }
+
+  // CO2 / particle burst on primary CTA click
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function burst(x, y){
+    if(reduceMotion) return;
+    const colors = ['var(--a1)','var(--a2)','var(--a3)','#ffffff'];
+    const count = 26;
+    for(let i=0;i<count;i++){
+      const p = document.createElement('span');
+      p.className = 'burst-particle';
+      const angle = (Math.PI * 2 * i) / count + Math.random()*0.4;
+      const dist = 60 + Math.random()*140;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist - 40;
+      const size = 4 + Math.random()*6;
+      p.style.width = p.style.height = size + 'px';
+      p.style.background = colors[i % colors.length];
+      p.style.boxShadow = '0 0 8px ' + colors[i % colors.length];
+      p.style.left = x + 'px';
+      p.style.top = y + 'px';
+      document.body.appendChild(p);
+      const anim = p.animate([
+        { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
+        { transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.3)`, opacity:0 }
+      ], { duration:700 + Math.random()*400, easing:'cubic-bezier(.2,.7,.3,1)' });
+      anim.onfinish = () => p.remove();
+    }
+  }
+  document.querySelectorAll('.btn-primary').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      burst(e.clientX, e.clientY);
+    });
+  });
+</script>
+
+</body>
+</html>

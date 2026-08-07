@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="signal">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font-display:'Unbounded',sans-serif;
+    --font-body:'Space Grotesk',sans-serif;
+  }
+
+  /* ============ PALETTE A: Signal Chain (true DJ mixer peak-meter LEDs: green / yellow / red) ============ */
+  html[data-palette="signal"]{
+    --bg-0:#050706; --bg-1:#0a0f0c; --bg-2:#0e1512;
+    --ink:#f4f7f5; --dim:#b4c5ba;
+    --a1:#31ff6e; /* LED green */
+    --a2:#fff21c; /* LED yellow */
+    --a3:#ff1f3d; /* LED red */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 55%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(255,255,255,.08);
+    --glow: rgba(49,255,110,.35);
+  }
+  /* ============ PALETTE B: Stage Black & Amber (warm, premium, ties to existing chat widget gold) ============ */
+  html[data-palette="amber"]{
+    --bg-0:#070605; --bg-1:#0d0a06; --bg-2:#120e08;
+    --ink:#f8f3ea; --dim:#c3b7a5;
+    --a1:#e8b75c; /* gold */
+    --a2:#ffdfa0; /* warm white/spot */
+    --a3:#4fa3ff; /* cool counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 50%, var(--a2) 50%, var(--a2) 100%);
+    --card-border: rgba(232,183,92,.16);
+    --glow: rgba(232,183,92,.32);
+  }
+  /* ============ PALETTE C: DFW Night Rig (cool stage-lighting energy, distinct from EDM Wedding DJ's magenta) ============ */
+  html[data-palette="night"]{
+    --bg-0:#05060b; --bg-1:#090b16; --bg-2:#0c0f1e;
+    --ink:#f1f3fb; --dim:#aeb5cf;
+    --a1:#2f6fff; /* electric blue */
+    --a2:#8b5cf6; /* violet */
+    --a3:#ffb020; /* amber counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 65%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(139,92,246,.16);
+    --glow: rgba(47,111,255,.35);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-0);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  .grad-text{
+    background:var(--grad);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  /* ---------- palette dock (bottom left, shipped feature) ---------- */
+  #paletteBar{
+    position:fixed; left:20px; bottom:22px; z-index:200;
+    display:flex; flex-direction:column; align-items:flex-start;
+    font-family:var(--font-body);
+  }
+  #paletteBar .pal-toggle{
+    display:flex; align-items:center; gap:9px;
+    padding:11px 17px; border-radius:100px;
+    border:1px solid var(--card-border); background:rgba(8,9,10,.82);
+    -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+    color:var(--ink); font-family:var(--font-body); font-size:0.85rem; font-weight:600;
+    cursor:pointer; transition:border-color .2s, background .2s;
+  }
+  #paletteBar .pal-toggle:hover{ border-color:var(--a1); background:rgba(8,9,10,.94); }
+  #paletteBar .pal-toggle .dots{ display:flex; gap:3px; }
+  #paletteBar .pal-toggle .dots i{ width:8px; height:8px; border-radius:50%; display:block; }
+  #paletteBar .pal-opts{
+    display:none; flex-direction:column; gap:4px; margin-bottom:10px;
+    padding:10px; border-radius:16px; min-width:222px;
+    border:1px solid var(--card-border); background:rgba(8,9,10,.94);
+    -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px);
+    box-shadow:0 20px 50px -18px rgba(0,0,0,.9);
+  }
+  #paletteBar.open .pal-opts{ display:flex; }
+  #paletteBar .pal-opts .pal-head{
+    font-family:var(--font-display); font-weight:900; font-size:0.6rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--dim);
+    padding:4px 10px 8px;
+  }
+  #paletteBar .pal-opts button{
+    display:flex; align-items:center; gap:10px; text-align:left; width:100%;
+    padding:9px 11px; border-radius:11px; border:1px solid transparent;
+    background:transparent; color:var(--ink);
+    font-family:var(--font-body); font-size:0.87rem; font-weight:500;
+    cursor:pointer; transition:.18s;
+  }
+  #paletteBar .pal-opts button:hover{ background:rgba(255,255,255,.06); }
+  #paletteBar .pal-opts button.active{ border-color:var(--a1); background:rgba(255,255,255,.05); font-weight:700; }
+  #paletteBar .pal-opts button i{
+    width:22px; height:11px; border-radius:100px; flex:0 0 auto;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);
+  }
+  #paletteBar .sw-signal{ background:linear-gradient(90deg,#31ff6e,#fff21c 55%,#ff1f3d); }
+  #paletteBar .sw-amber { background:linear-gradient(90deg,#e8b75c,#ffdfa0); }
+  #paletteBar .sw-night { background:linear-gradient(90deg,#2f6fff,#8b5cf6 65%,#ffb020); }
+  @media(max-width:520px){
+    #paletteBar{ left:14px; bottom:calc(16px + env(safe-area-inset-bottom, 0px)); }
+    #paletteBar .pal-toggle{ padding:9px 13px; font-size:0.8rem; }
+    #paletteBar .pal-toggle .label{ display:none; }
+    #paletteBar .pal-opts{ min-width:198px; }
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(5,6,5,.7); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--card-border);
+  }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1180px; margin:0 auto; }
+  .logo{ display:flex; align-items:center; }
+  .logo img{
+    display:block; height:46px; width:auto;
+    filter:drop-shadow(0 0 9px rgba(255,255,255,.32)) drop-shadow(0 2px 3px rgba(0,0,0,.65));
+  }
+  .col.brand .logo img{ height:38px; }
+  @media (max-width:520px){ .logo img{ height:34px; } }
+  .navlinks{ display:flex; gap:28px; font-size:0.994rem; color:var(--dim); }
+  .navlinks a:hover{ color:var(--ink); }
+  .navright{ display:flex; align-items:center; gap:18px; }
+  .phone{ font-size:0.96rem; color:var(--dim); }
+  .cta-btn{
+    font-family:var(--font-body); font-weight:700; font-size:0.96rem;
+    padding:11px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    display:inline-block; white-space:nowrap;
+  }
+  @media (max-width:860px){ .navlinks{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{ position:relative; padding:110px 0 90px; overflow:hidden; }
+  .hero::before{
+    content:''; position:absolute; inset:-20% -10% auto -10%; height:600px;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    opacity:.5; filter:blur(40px); pointer-events:none;
+  }
+
+  /* -- animated perspective floor grid -- */
+  .hero-grid{
+    position:absolute; left:0; right:0; bottom:-10%; height:70%;
+    perspective:400px; overflow:hidden; pointer-events:none; z-index:0;
+  }
+  .hero-grid::before{
+    content:''; position:absolute; inset:-50% -50% 0 -50%;
+    background-image:
+      repeating-linear-gradient(to right, var(--card-border) 0 1px, transparent 1px 68px),
+      repeating-linear-gradient(to top, var(--card-border) 0 1px, transparent 1px 68px);
+    transform:rotateX(62deg);
+    transform-origin:bottom;
+    animation: gridScroll 9s linear infinite;
+    opacity:.55;
+    mask-image:linear-gradient(to top, black 0%, transparent 75%);
+    -webkit-mask-image:linear-gradient(to top, black 0%, transparent 75%);
+  }
+  @keyframes gridScroll{ from{ background-position:0 0; } to{ background-position:0 136px; } }
+
+  /* -- sweeping laser beams -- */
+  .hero-lasers{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .laser{
+    position:absolute; top:-10%; width:2px; height:130%;
+    background:linear-gradient(to bottom, transparent, var(--a1), transparent);
+    opacity:0; filter:blur(.5px);
+    animation: laserSweep 6s ease-in-out infinite;
+  }
+  .laser:nth-child(1){ left:8%;  background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:0s; }
+  .laser:nth-child(2){ left:32%; background:linear-gradient(to bottom, transparent, var(--a2), transparent); animation-delay:1.6s; transform:rotate(6deg); }
+  .laser:nth-child(3){ left:63%; background:linear-gradient(to bottom, transparent, var(--a3), transparent); animation-delay:3.1s; transform:rotate(-8deg); }
+  .laser:nth-child(4){ left:85%; background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:4.3s; transform:rotate(4deg); }
+  @keyframes laserSweep{
+    0%{ opacity:0; transform:translateX(-10px) rotate(var(--rot,0deg)); }
+    8%{ opacity:.55; }
+    20%{ opacity:0; }
+    100%{ opacity:0; }
+  }
+
+  /* -- drifting fog -- */
+  .hero-fog{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .fog-blob{
+    position:absolute; width:60%; padding-top:60%; border-radius:50%;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    filter:blur(50px); opacity:.4;
+    animation: fogDrift 18s ease-in-out infinite alternate;
+  }
+  .fog-blob.b2{ left:50%; top:20%; animation-duration:24s; animation-delay:-6s; opacity:.28; }
+  @keyframes fogDrift{
+    from{ transform:translate(-8%, 0) scale(1); }
+    to{ transform:translate(8%, 6%) scale(1.15); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-grid::before, .laser, .fog-blob{ animation:none !important; }
+    .laser{ opacity:0; }
+  }
+
+  .hero-logo-wrap{ text-align:center; position:relative; z-index:1; margin-bottom:40px; }
+  .hero-logo-wrap img{
+    width:min(440px, 78vw); height:auto;
+    filter:drop-shadow(0 0 60px var(--glow));
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--card-border); border-radius:100px; padding:7px 16px;
+    font-size:0.881rem; color:var(--dim); letter-spacing:.04em; text-transform:uppercase;
+    margin-bottom:28px; position:relative; z-index:1;
+  }
+  .eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--a1); box-shadow:0 0 8px var(--a1); }
+  .hero h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.6rem, 6vw, 4.6rem); max-width:900px; position:relative; z-index:1;
+  }
+  .hero p.sub{
+    font-size:1.15rem; color:var(--dim); max-width:600px; margin-top:26px; position:relative; z-index:1;
+  }
+  .hero-ctas{ display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; position:relative; z-index:1; }
+  .btn-primary{
+    font-weight:700; padding:16px 30px; border-radius:100px; background:var(--grad); color:#0a0a0a; font-size:1.073rem;
+  }
+  .btn-secondary{
+    font-weight:600; padding:16px 30px; border-radius:100px; border:1px solid var(--card-border); color:var(--ink); font-size:1.073rem;
+  }
+  .trust-row{
+    display:flex; gap:40px; flex-wrap:wrap; margin-top:64px; padding-top:34px;
+    border-top:1px solid var(--card-border); position:relative; z-index:1;
+  }
+  .trust-item .num{ font-family:var(--font-display); font-weight:800; font-size:1.6rem; }
+  .trust-item .label{ font-size:0.904rem; color:var(--dim); margin-top:4px; }
+
+  /* ---------- services ---------- */
+  .section{ padding:90px 0; }
+  .section-head{ max-width:640px; margin-bottom:52px; }
+  .kicker{ font-size:0.881rem; letter-spacing:.08em; text-transform:uppercase; color:var(--a1); font-weight:700; margin-bottom:14px; display:block; }
+  .section-head h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.8rem,3.4vw,2.6rem); }
+  .section-head p{ color:var(--dim); margin-top:14px; font-size:1.153rem; }
+
+  .service-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; }
+  .service-card{
+    background:linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 55%, transparent), color-mix(in srgb, var(--bg-1) 45%, transparent));
+    backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:20px; padding:28px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 8px 30px -18px rgba(0,0,0,.6);
+    transition:.25s; position:relative; overflow:hidden;
+  }
+  .service-card:hover{ transform:translateY(-4px); border-color:var(--a1); box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 20px 50px -20px var(--glow); }
+  .service-card .icon{
+    width:44px; height:44px; border-radius:12px; margin-bottom:20px;
+    background:var(--grad); display:flex; align-items:center; justify-content:center;
+    font-size:1.2rem;
+  }
+  .service-card h3{ font-family:var(--font-display); font-size:1.186rem; font-weight:700; margin-bottom:10px; }
+  .service-card p{ font-size:0.994rem; color:var(--dim); margin-bottom:18px; }
+  .service-card .learn{ font-size:0.904rem; font-weight:700; color:var(--a1); }
+  .service-card.featured{ border-color:var(--a2); }
+  .tag-live{ position:absolute; top:20px; right:20px; font-size:0.82rem; text-transform:uppercase; letter-spacing:.06em; color:var(--a2); border:1px solid var(--a2); padding:3px 8px; border-radius:100px; }
+
+  /* ---------- differentiator ---------- */
+  .diff{ background:var(--bg-1); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border); }
+  .diff-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+  .diff-visual{
+    aspect-ratio:4/3; border-radius:24px; border:1px solid var(--card-border);
+    background:
+      radial-gradient(circle at 30% 20%, var(--glow), transparent 55%),
+      linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 50%, transparent), color-mix(in srgb, var(--bg-0) 40%, transparent));
+    backdrop-filter:blur(22px) saturate(150%); -webkit-backdrop-filter:blur(22px) saturate(150%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 20px 60px -30px rgba(0,0,0,.7);
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .diff-visual .badge{
+    font-family:var(--font-display); font-weight:800; text-align:center; font-size:1.073rem; color:var(--dim);
+    border:1px dashed var(--card-border); padding:20px; border-radius:16px;
+  }
+  .diff-copy h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.7rem,3vw,2.3rem); margin-bottom:20px; }
+  .diff-copy p{ color:var(--dim); margin-bottom:16px; font-size:1.13rem; }
+  .diff-copy strong{ color:var(--ink); }
+  @media (max-width:820px){ .diff-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- reviews ---------- */
+  .review-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
+  .review-card{
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:18px; padding:26px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -20px rgba(0,0,0,.6);
+  }
+  .stars{ color:var(--a2); letter-spacing:2px; margin-bottom:14px; font-size:1.017rem; }
+  .review-card p{ font-size:1.04rem; color:var(--ink); opacity:.9; margin-bottom:16px; }
+  .review-card .who{ font-size:0.904rem; color:var(--dim); font-weight:600; }
+
+  /* ---------- review proof badges ---------- */
+  .proof-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:16px; margin-bottom:36px; }
+  .proof-badge{
+    display:flex; align-items:center; gap:14px; padding:18px 20px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -22px rgba(0,0,0,.6);
+    transition:.22s;
+  }
+  .proof-badge:hover{ border-color:var(--a1); transform:translateY(-3px); box-shadow:0 16px 42px -24px var(--glow); }
+  .proof-mark{
+    flex:0 0 42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:1.2rem; letter-spacing:-.02em;
+  }
+  .proof-mark.g{ background:#ffffff; color:#4285f4; }
+  .proof-mark.y{ background:#d32323; color:#ffffff; }
+  .proof-mark.k{ background:#ffffff; color:#0f9aa0; }
+  .proof-mark.w{ background:#ffffff; color:#16181d; font-size:.98rem; }
+  .proof-meta .rate{
+    font-family:var(--font-display); font-weight:800; font-size:1.22rem; line-height:1.15;
+    display:flex; align-items:baseline; gap:9px;
+  }
+  .proof-meta .rate .s{ color:var(--a2); font-size:.92rem; letter-spacing:1px; font-weight:400; }
+  .proof-meta .cnt{ font-size:.92rem; color:var(--dim); margin-top:2px; }
+  .proof-badge.tbd{ border-style:dashed; border-color:var(--a2); }
+  .proof-badge.tbd .rate{ color:var(--a2); }
+  .proof-badge.tbd .cnt{ color:var(--a2); opacity:.8; }
+
+  /* compact sitewide footer strip */
+  .foot-proof{
+    display:flex; flex-wrap:wrap; align-items:center; gap:12px 26px;
+    margin-top:32px; padding-top:26px; border-top:1px solid var(--card-border);
+  }
+  .foot-proof .fp{ display:inline-flex; align-items:center; gap:9px; font-size:.94rem; color:var(--dim); }
+  .foot-proof .fp:hover{ color:var(--ink); }
+  .foot-proof .fp b{ color:var(--ink); font-weight:700; }
+  .foot-proof .fp .s{ color:var(--a2); letter-spacing:1px; }
+  .foot-proof .fp .m{
+    width:24px; height:24px; border-radius:7px; display:inline-flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:.76rem;
+  }
+  .foot-proof .fp .m.g{ background:#ffffff; color:#4285f4; }
+  .foot-proof .fp .m.y{ background:#d32323; color:#ffffff; }
+  .foot-proof .fp .m.k{ background:#ffffff; color:#0f9aa0; }
+  .foot-proof .fp .m.w{ background:#ffffff; color:#16181d; font-size:.62rem; }
+  @media (max-width:820px){ .foot-proof{ gap:12px 18px; } }
+
+  /* ---------- final CTA ---------- */
+  .final-cta{ text-align:center; padding:110px 0; position:relative; }
+  .final-cta h2{ font-family:var(--font-display); font-weight:900; font-size:clamp(2rem,5vw,3.2rem); max-width:760px; margin:0 auto 22px; }
+  .final-cta p{ color:var(--dim); max-width:520px; margin:0 auto 36px; }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:1px solid var(--card-border); padding:50px 0; }
+  .foot-grid{ display:grid; grid-template-columns:1.6fr repeat(5,1fr); gap:34px 26px; }
+  @media (max-width:1080px){ .foot-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:620px){ .foot-grid{ grid-template-columns:repeat(2,1fr); } }
+  .foot-grid .col.brand{ min-width:210px; }
+  @media (max-width:1080px){ .foot-grid .col.brand{ grid-column:1 / -1; } }
+  .foot-contact{ margin-top:16px; }
+  .foot-contact a{ display:block; margin-bottom:6px; font-size:1rem; color:var(--ink); opacity:.9; }
+  .foot-contact a:hover{ color:var(--a1); opacity:1; }
+  .foot-area{ font-size:.9rem; color:var(--dim); margin-top:12px; line-height:1.6; }
+  .foot-grid .col h4{ font-size:0.904rem; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin-bottom:14px; }
+  .foot-grid .col a, .foot-grid .col p{ display:block; font-size:0.972rem; color:var(--ink); opacity:.8; margin-bottom:8px; }
+  .foot-bottom{ margin-top:40px; padding-top:24px; border-top:1px solid var(--card-border); font-size:0.881rem; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+
+  /* ---------- chatbot bubble (visual placeholder for the AV Concierge) ---------- */
+  #chatBubble{
+    position:fixed; right:22px; bottom:calc(22px + env(safe-area-inset-bottom, 0px)); z-index:200;
+    display:flex; align-items:center; gap:8px;
+    padding:14px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    font-weight:700; font-size:0.96rem; box-shadow:0 14px 40px -12px var(--glow);
+    cursor:pointer;
+  }
+
+  [data-reveal]{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  [data-reveal].in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- film grain overlay ---------- */
+  .grain-overlay{
+    position:fixed; inset:0; z-index:999; pointer-events:none;
+    opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-repeat:repeat;
+  }
+
+  /* ---------- marquee strip ---------- */
+  .marquee{
+    border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);
+    background:var(--bg-1); overflow:hidden; padding:18px 0; position:relative;
+  }
+  .marquee-track{
+    display:flex; width:max-content; gap:48px;
+    animation:marqueeScroll 32s linear infinite;
+  }
+  .marquee-track span{
+    font-family:var(--font-display); font-weight:700; font-size:1.073rem;
+    letter-spacing:.04em; text-transform:uppercase; color:var(--dim);
+    display:flex; align-items:center; gap:48px; white-space:nowrap;
+  }
+  .marquee-track span::after{ content:'✦'; color:var(--a1); margin-left:48px; }
+  @keyframes marqueeScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  /* ---------- CO2 / particle burst ---------- */
+  .burst-particle{
+    position:fixed; top:0; left:0; width:6px; height:6px; border-radius:50%;
+    pointer-events:none; z-index:500; will-change:transform,opacity;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+    .marquee-track{ animation:none; }
+    .grain-overlay{ display:none; }
+  }
+
+  /* ================================================================
+     FOLLOW SPOT  -  pointer tracked accent pool on cards
+     Desktop: tracks the cursor.  Mobile: lands at the touch point.
+     Reads --a1 and --grad, so every palette gets its own colour
+     with no extra rules.  Compositor only: opacity, transform and
+     background-position.  No canvas, no timers, no third party.
+     ================================================================ */
+
+  .fspot{
+    position:relative;
+    --fs-x:50%; --fs-y:50%; --fs-on:0;
+  }
+  /* zero specificity so any element with its own position rule, such as
+     an absolutely placed badge, keeps it */
+  :where(.fspot) > *{ position:relative; z-index:1; }
+  .fspot::after{
+    content:''; position:absolute; inset:0; z-index:0;
+    border-radius:inherit; pointer-events:none;
+    opacity:var(--fs-on);
+    transition:opacity .22s ease;
+    background:radial-gradient(
+      220px circle at var(--fs-x) var(--fs-y),
+      color-mix(in srgb, var(--a1) 26%, transparent) 0%,
+      color-mix(in srgb, var(--a1) 11%, transparent) 34%,
+      transparent 68%);
+  }
+  .fspot-clip{ overflow:hidden; }
+
+  /* the accent rail starts travelling while the card is live */
+  @keyframes fs-rail{
+    from{ background-position:0% 50%; }
+    to  { background-position:200% 50%; }
+  }
+  .fspot.fs-live::before{
+    opacity:1;
+    background-size:200% 100%;
+    animation:fs-rail 1.2s linear infinite;
+  }
+
+  /* press state, which is what a phone actually gives us */
+  .fspot.fs-press{
+    transform:translateY(-1px) scale(.987);
+    transition:transform .12s ease;
+  }
+
+  /* ---- palette pill: level meter bounce on hover or press ---- */
+  @keyframes pal-bounce{
+    0%,100%{ transform:scaleY(1); }
+    45%    { transform:scaleY(2.05); }
+  }
+  @keyframes pal-sweep{
+    0%  { border-color:var(--a1); }
+    33% { border-color:var(--a2); }
+    66% { border-color:var(--a3); }
+    100%{ border-color:var(--a1); }
+  }
+  #paletteBar .pal-toggle .dots i{
+    transform-origin:center; will-change:transform;
+  }
+  #paletteBar .pal-toggle:hover,
+  #paletteBar .pal-toggle.fs-press,
+  #paletteBar.open .pal-toggle{
+    animation:pal-sweep 1.8s linear infinite;
+  }
+  #paletteBar .pal-toggle:hover .dots i,
+  #paletteBar .pal-toggle.fs-press .dots i,
+  #paletteBar.open .pal-toggle .dots i{
+    animation:pal-bounce .62s ease-in-out infinite;
+  }
+  #paletteBar .pal-toggle:hover .dots i:nth-child(2),
+  #paletteBar .pal-toggle.fs-press .dots i:nth-child(2),
+  #paletteBar.open .pal-toggle .dots i:nth-child(2){ animation-delay:.1s; }
+  #paletteBar .pal-toggle:hover .dots i:nth-child(3),
+  #paletteBar .pal-toggle.fs-press .dots i:nth-child(3),
+  #paletteBar.open .pal-toggle .dots i:nth-child(3){ animation-delay:.2s; }
+
+  /* the swatch in the open menu lights up under the pointer too */
+  #paletteBar .pal-opts button:hover i,
+  #paletteBar .pal-opts button.active i{
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), 0 0 12px -2px currentColor;
+  }
+
+  /* On a phone the concierge button steps aside while the palette menu is
+     open, because the menu's bottom right corner and the button's top left
+     corner overlap by about 11x21 px at 390 wide. Closed, the two are 140 px
+     apart and nothing moves. */
+  #chatBubble{ transition:opacity .2s ease, transform .2s ease; }
+  @media (max-width:520px){
+    #paletteBar.open ~ #chatBubble{
+      opacity:0;
+      transform:translateY(10px) scale(.94);
+      pointer-events:none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .fspot::after{ display:none; }
+    .fspot.fs-live::before{ animation:none; background-size:100% 100%; }
+    .fspot.fs-press{ transform:none; }
+    #paletteBar .pal-toggle,
+    #paletteBar .pal-toggle .dots i{ animation:none !important; }
+  }
+</style>
+  <title>Dallas Event Audio Reviews | What Others Are Saying</title>
+  <meta name="description" content="Read what clients say about Dallas Event Audio on Google, WeddingWire, The Knot, Yelp, Zola and Facebook, with links to every review profile.">
+  <link rel="canonical" href="https://www.dallaseventaudio.com/what-others-are-saying">
+  <meta property="og:title" content="Dallas Event Audio Reviews | What Others Are Saying">
+  <meta property="og:description" content="Read what clients say about Dallas Event Audio on Google, WeddingWire, The Knot, Yelp, Zola and Facebook, with links to every review profile.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.dallaseventaudio.com/what-others-are-saying">
+<style>
+  /* ========== WHAT OTHERS ARE SAYING: page-specific additions ========== */
+
+  section[id]{ scroll-margin-top:96px; }
+
+  .hero.hero-page{ padding:64px 0 62px; }
+  .breadcrumb{
+    font-size:.881rem; color:var(--dim); letter-spacing:.03em;
+    position:relative; z-index:1; margin-bottom:22px;
+  }
+  .breadcrumb a{ color:var(--dim); }
+  .breadcrumb a:hover{ color:var(--a1); }
+  .breadcrumb .sep{ opacity:.45; margin:0 8px; }
+  .breadcrumb .here{ color:var(--ink); opacity:.75; }
+
+  .hero-page h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.3rem, 5.2vw, 4rem); max-width:980px; position:relative; z-index:1;
+  }
+  .hero-page .sub{
+    font-size:1.18rem; color:var(--dim); max-width:740px; margin-top:24px;
+    position:relative; z-index:1;
+  }
+
+  .stat-row{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(158px,1fr)); gap:14px;
+    margin-top:40px; position:relative; z-index:1;
+  }
+  .stat{
+    padding:18px 20px; border-radius:14px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .stat .num{
+    font-family:var(--font-display); font-weight:900; font-size:1.7rem; line-height:1;
+    background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .stat .lbl{ margin-top:8px; font-size:.86rem; color:var(--dim); line-height:1.45; }
+
+  /* ---------- lead paragraph ---------- */
+  .lede{ font-size:1.14rem; line-height:1.8; color:var(--dim); max-width:840px; }
+  .lede + .lede{ margin-top:20px; }
+  .lede a{ color:var(--a1); }
+
+  /* ---------- platform cards (extends the shared .proof-badge) ---------- */
+  .proof-row{ margin-bottom:0; }
+  a.proof-badge{
+    text-decoration:none; color:inherit; position:relative;
+  }
+  a.proof-badge:focus-visible{
+    outline:2px solid var(--a1); outline-offset:3px;
+  }
+  a.proof-badge .proof-meta{ flex:1 1 auto; }
+  a.proof-badge .go{
+    flex:0 0 auto; font-size:1rem; color:var(--dim); opacity:.55; transition:.22s;
+  }
+  a.proof-badge:hover .go{ opacity:1; color:var(--a1); transform:translateX(2px); }
+  .proof-mark.z{ background:#ffffff; color:#16181d; font-size:1.05rem; }
+  .proof-mark.f{ background:#1877F2; color:#ffffff; }
+  .proof-note{
+    margin-top:22px; font-size:.92rem; color:var(--dim); line-height:1.7; max-width:760px;
+  }
+  .proof-note a{ color:var(--a1); }
+
+  /* ---------- awards row ---------- */
+  .awards{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px; margin-top:30px;
+  }
+  .award{
+    padding:22px 22px 20px; border-radius:16px; text-align:center;
+    border:1px solid color-mix(in srgb, var(--a2) 30%, var(--card-border));
+    background:color-mix(in srgb, var(--bg-2) 45%, transparent);
+  }
+  .award .yr{
+    font-family:var(--font-display); font-weight:900; font-size:1.5rem; line-height:1;
+    background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .award .nm{ margin-top:9px; font-size:.86rem; color:var(--dim); line-height:1.5; }
+
+  /* ---------- quote wall (extends the shared .review-card) ---------- */
+  .quote-wall{
+    columns:3 300px; column-gap:20px; margin-top:38px;
+  }
+  .quote-wall .review-card{
+    break-inside:avoid; -webkit-column-break-inside:avoid; page-break-inside:avoid;
+    display:inline-block; width:100%; margin:0 0 20px;
+  }
+  .quote-wall .review-card p{ line-height:1.75; }
+  .quote-src{
+    margin-top:14px; padding-top:13px; border-top:1px solid var(--card-border);
+    font-size:.82rem; color:var(--dim); line-height:1.5;
+  }
+  .quote-src strong{ font-weight:400; }
+  .quote-src .nm{
+    display:block; font-family:var(--font-display); font-weight:800; font-size:.94rem;
+    color:var(--ink); letter-spacing:-.01em; margin-bottom:5px;
+  }
+  .quote-src .plat{ color:var(--a1); font-weight:600; }
+  @media (max-width:640px){
+    .quote-wall{ columns:1; }
+  }
+
+  /* ---------- what clients mention ---------- */
+  .trust-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; margin-top:34px; }
+  .trust-card{
+    padding:26px 24px 24px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 45%, transparent);
+    border:1px solid var(--card-border);
+  }
+  .trust-card h3{ font-family:var(--font-display); font-size:1.04rem; font-weight:800; line-height:1.35; }
+  .trust-card p{ margin-top:10px; font-size:.94rem; color:var(--dim); line-height:1.68; }
+  .trust-card p a{ color:var(--a1); }
+
+  /* ---------- chips ---------- */
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+  .chip{
+    display:inline-block; padding:6px 13px; border-radius:100px;
+    font-size:.79rem; font-weight:600; letter-spacing:.02em;
+    color:var(--dim); text-decoration:none;
+    border:1px solid var(--card-border);
+    background:color-mix(in srgb, var(--bg-0) 45%, transparent);
+    transition:.2s;
+  }
+  a.chip:hover{ color:var(--a1); border-color:color-mix(in srgb, var(--a1) 55%, transparent); }
+  a.chip::after{ content:' \2192'; opacity:.55; }
+
+  /* ---------- callout strip ---------- */
+  .addon{
+    margin-top:30px; padding:28px 30px; border-radius:18px;
+    border:1px dashed color-mix(in srgb, var(--a1) 32%, var(--card-border));
+    background:color-mix(in srgb, var(--bg-1) 40%, transparent);
+  }
+  .addon h3{ font-family:var(--font-display); font-size:1.16rem; font-weight:800; }
+  .addon p{ margin-top:10px; font-size:.98rem; color:var(--dim); line-height:1.7; }
+  .addon p a{ color:var(--a1); }
+
+  /* ---------- FAQ ---------- */
+  .faq-list{ margin-top:32px; border-top:1px solid var(--card-border); }
+  .faq-item{ border-bottom:1px solid var(--card-border); }
+  .faq-item summary{
+    list-style:none; cursor:pointer; padding:22px 44px 22px 0; position:relative;
+    font-family:var(--font-display); font-weight:700; font-size:1.06rem; line-height:1.45;
+    transition:color .2s;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary:hover{ color:var(--a1); }
+  .faq-item summary::after{
+    content:'+'; position:absolute; right:6px; top:50%; transform:translateY(-50%);
+    font-size:1.5rem; font-weight:400; line-height:1; color:var(--a1); transition:transform .25s;
+  }
+  .faq-item[open] summary::after{ transform:translateY(-50%) rotate(45deg); }
+  .faq-item .ans{ padding:0 44px 24px 0; font-size:1rem; line-height:1.75; color:var(--dim); }
+  .faq-item .ans a{ color:var(--a1); }
+
+  @media (max-width:820px){
+    .hero.hero-page{ padding:44px 0 50px; }
+    .lede{ font-size:1.06rem; }
+    .addon{ padding:24px 22px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    a.proof-badge, a.proof-badge .go{ transition:none; }
+  }
+</style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Dallas Event Audio",
+    "alternateName": "DEA",
+    "url": "https://www.dallaseventaudio.com",
+    "mainEntityOfPage": "https://www.dallaseventaudio.com/what-others-are-saying",
+    "telephone": "+1-817-210-7957",
+    "email": "info@dallaseventaudio.com",
+    "foundingDate": "2001",
+    "description": "Dallas Event Audio is a full service event production company based in Hurst, Texas, between Dallas and Fort Worth. Founded in 2001, the company owns the sound, lighting, DJ, photo and video equipment it rents, and delivers, sets up, tunes, runs and strikes every system with its own crew. There is no customer pickup and no drop off. Services cover weddings, corporate events, private events, live music and bands, school and university events, and raves and nightclubs across the Dallas-Fort Worth Metroplex.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Hurst",
+      "addressRegion": "TX",
+      "addressCountry": "US"
+    },
+    "areaServed": {
+      "@type": "GeoCircle",
+      "geoMidpoint": { "@type": "GeoCoordinates", "addressCountry": "US" },
+      "description": "Dallas-Fort Worth Metroplex, approximately 40 miles from Hurst, TX"
+    },
+    "sameAs": [
+      "https://maps.google.com/?cid=11213015373496621898",
+      "https://www.weddingwire.com/biz/dallas-event-audio-frisco/29690aa6325ab32b.html",
+      "https://www.theknot.com/marketplace/dallas-event-audio-%F0%9F%94%88%F0%9F%8E%B6-hurst-tx-2022777",
+      "https://www.yelp.com/biz/dallas-event-audio-dallas",
+      "https://www.zola.com/wedding-vendors/wedding-bands-djs/dallas-event-audio",
+      "https://www.facebook.com/dallaseventaudioDEA"
+    ],
+    "knowsAbout": [
+      "Event sound system rental",
+      "Wireless microphone rental",
+      "Event lighting and uplighting rental",
+      "DJ services",
+      "Live streaming and event video",
+      "Full service event production"
+    ],
+    "makesOffer": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Event sound system rental",
+          "url": "https://www.dallaseventaudio.com/services-audio",
+          "description": "Speakers, subwoofers, wireless microphones and consoles delivered, set up, tuned to the room and run by a Dallas Event Audio technician. Every microphone package includes an AI-powered De-Feedback system."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Event lighting rental",
+          "url": "https://www.dallaseventaudio.com/services-lighting",
+          "description": "Uplighting, dance floor lighting, follow spot, monogram projection and laser effects, installed and operated by our own crew."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "DJ services",
+          "url": "https://www.dallaseventaudio.com/services-dj",
+          "description": "DJs working off Dallas Event Audio equipment through the same sound system our audio department supplies, so the DJ and the sound company are one crew with one phone number."
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Event photo, video and effects",
+          "url": "https://www.dallaseventaudio.com/services-photo-and-video",
+          "description": "Photo and video coverage for corporate events, live streaming, projector and screen packages, and effects including fog, low lying clouds and cold sparks."
+        }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Where can I read Dallas Event Audio reviews?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "On Google, WeddingWire, The Knot, Yelp, Zola and Facebook. Every one of those profiles is linked from the platform cards near the top of this page, and each link opens the full listing so you can read complete reviews rather than the excerpts here."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How many reviews does Dallas Event Audio have?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "About 194 public reviews across the six platforms as of the day this page was built. That is 89 on WeddingWire, 44 on The Knot, 43 on Google, 12 on Yelp, 3 on Zola and 3 on Facebook. Yelp holds back another 123 on its not recommended list, which is linked near the top of this page. The counts move as new ones come in, so treat the number on the platform as the current one."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which platform has the most Dallas Event Audio reviews?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "WeddingWire, with 89 reviews at 4.9 out of 5 and a 98 percent recommend rate. The Knot has the longest run of five star reviews at 44, and Google carries the widest mix of corporate, private and live music work alongside weddings."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is The Knot Best of Weddings award?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Knot gives it each year to vendors whose client reviews place them at the top of their category. We have received it three times, in 2021, 2022 and 2023. It is scored from what clients wrote, so it reflects the reviews rather than sitting apart from them."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you have reviews from corporate and private event clients?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, and most of them are on Google, since the wedding platforms only accept wedding reviews. Company holiday parties, conferences, veterinary and medical education events, fundraisers and private parties all show up there. The corporate and private section above pulls several of them together."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do the same people handle the sound and the DJ?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. We are a sound company that also DJs, so the speakers, the microphones and the person on the decks all come from one crew on one phone number, and the sound system rental is part of the same booking. Reviewers tend to notice it as the timeline holding together and nobody arguing about the room."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you provide a certificate of insurance for my venue?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. We carry liability insurance and can send a certificate naming your venue as additional insured, usually the same day you ask. Most Dallas-Fort Worth venues want it a week or two ahead of load in, and we handle that directly with the venue if you prefer."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I get a quote for my event?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Send us the date, the venue and roughly what you need, through the contact page or by phone. We will come back the same day with a straightforward quote for the sound, lighting, DJ or video rental the event calls for."
+        }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://www.dallaseventaudio.com/"},
+      {"@type":"ListItem","position":2,"name":"What Others Are Saying","item":"https://www.dallaseventaudio.com/what-others-are-saying"}
+    ]
+  }
+  </script>
+
+</head>
+<body>
+<header>
+    <nav>
+      <a class="logo" href="/" style="text-decoration:none;"><img src="data:image/png;base64,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" alt="Dallas Event Audio" width="282" height="120"></a>
+      <div class="navlinks">
+        <a href="/services-lighting">Lighting</a>
+        <a href="/services-audio">Audio</a>
+        <a href="/our-work">Our Work</a>
+        <a href="/what-others-are-saying">Reviews</a>
+        <a href="/contact">Contact</a>
+      </div>
+      <div class="navright">
+        <span class="phone">817-210-7957</span>
+        <a class="cta-btn" href="/contact">Get a Quote</a>
+      </div>
+    </nav>
+  </header>
+  <section class="hero hero-page">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="breadcrumb" data-reveal>
+        <a href="/">Home</a><span class="sep">/</span><span class="here">What Others Are Saying</span>
+      </div>
+      <h1 data-reveal>What others are saying about <span class="grad-text">Dallas Event Audio.</span></h1>
+      <p class="sub" data-reveal>Every quote on this page comes from a public review you can open and read yourself. We have collected them here from Google, WeddingWire, The Knot, Yelp, Zola and Facebook, and every platform card below links straight to the profile it came from.</p>
+      <div class="stat-row" data-reveal>
+        <div class="stat"><div class="num">194</div><div class="lbl">Public reviews across six review platforms</div></div>
+        <div class="stat"><div class="num">4.9</div><div class="lbl">Google rating across 43 reviews</div></div>
+        <div class="stat"><div class="num">5.0</div><div class="lbl">The Knot rating across 44 reviews</div></div>
+        <div class="stat"><div class="num">3x</div><div class="lbl">The Knot Best of Weddings, 2021, 2022 and 2023</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>4.9 on Google &middot; 5.0 on The Knot &middot; 4.9 on WeddingWire &middot; 5.0 on Zola &middot; Best of Weddings 2021, 2022, 2023 &middot;&nbsp;</span>
+      <span>4.9 on Google &middot; 5.0 on The Knot &middot; 4.9 on WeddingWire &middot; 5.0 on Zola &middot; Best of Weddings 2021, 2022, 2023 &middot;&nbsp;</span>
+    </div>
+  </div>
+
+  <section class="section" id="where-to-read-them">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:880px;">
+        <span class="kicker">The Sources</span>
+        <h2>Where to read the Dallas Event Audio reviews yourself</h2>
+        <p class="sub">Six platforms carry public reviews of our work. Open any of them and read the whole thing, in the reviewer's own words, on a site we do not control.</p>
+      </div>
+      <p class="lede" data-reveal>We have been taking bookings in the Dallas-Fort Worth Metroplex since 2001, and most of the reviews below were written by couples and event planners who found us through one of these listings while they were looking for event sound and lighting rentals. The wedding platforms carry the longest history because weddings are where clients tend to write things down afterward, and Google carries the widest mix of corporate, private and live music work.</p>
+      <div class="proof-row" data-reveal style="margin-top:34px;">
+        <a class="proof-badge" href="https://maps.google.com/?cid=11213015373496621898" target="_blank" rel="noopener">
+          <div class="proof-mark g">G</div>
+          <div class="proof-meta">
+            <div class="rate">4.9 <span class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+            <div class="cnt">43 reviews on Google</div>
+          </div>
+          <div class="go" aria-hidden="true">&#8594;</div>
+        </a>
+        <a class="proof-badge" href="https://www.weddingwire.com/biz/dallas-event-audio-frisco/29690aa6325ab32b.html" target="_blank" rel="noopener">
+          <div class="proof-mark w">WW</div>
+          <div class="proof-meta">
+            <div class="rate">4.9 <span class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+            <div class="cnt">89 reviews on WeddingWire</div>
+          </div>
+          <div class="go" aria-hidden="true">&#8594;</div>
+        </a>
+        <a class="proof-badge" href="https://www.theknot.com/marketplace/dallas-event-audio-%F0%9F%94%88%F0%9F%8E%B6-hurst-tx-2022777" target="_blank" rel="noopener">
+          <div class="proof-mark k">K</div>
+          <div class="proof-meta">
+            <div class="rate">5.0 <span class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+            <div class="cnt">44 reviews on The Knot</div>
+          </div>
+          <div class="go" aria-hidden="true">&#8594;</div>
+        </a>
+        <a class="proof-badge" href="https://www.yelp.com/biz/dallas-event-audio-dallas" target="_blank" rel="noopener">
+          <div class="proof-mark y">Y</div>
+          <div class="proof-meta">
+            <div class="rate">4.6 <span class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9734;</span></div>
+            <div class="cnt">12 reviews on Yelp</div>
+          </div>
+          <div class="go" aria-hidden="true">&#8594;</div>
+        </a>
+        <a class="proof-badge" href="https://www.zola.com/wedding-vendors/wedding-bands-djs/dallas-event-audio" target="_blank" rel="noopener">
+          <div class="proof-mark z">Z</div>
+          <div class="proof-meta">
+            <div class="rate">5.0 <span class="s" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</span></div>
+            <div class="cnt">3 reviews on Zola</div>
+          </div>
+          <div class="go" aria-hidden="true">&#8594;</div>
+        </a>
+        <a class="proof-badge" href="https://www.facebook.com/dallaseventaudioDEA" target="_blank" rel="noopener">
+          <div class="proof-mark f">f</div>
+          <div class="proof-meta">
+            <div class="rate">3</div>
+            <div class="cnt">recommendations on Facebook</div>
+          </div>
+          <div class="go" aria-hidden="true">&#8594;</div>
+        </a>
+      </div>
+      <p class="proof-note" data-reveal>Ratings and counts were current on the day this page was built and they move as new reviews come in, so the number on the platform is the one to trust. Where a quote below has been shortened, the cut is marked with three dots and the wording around it is untouched. Every quote is in the reviewer's own words. Yelp sometimes hides reviews: <a href="https://www.yelp.com/not_recommended_reviews/dallas-event-audio-dallas" target="_blank" rel="noopener">here are the additional 123 reviews for Dallas Event Audio on Yelp</a>. Several of the Yelp quotes below come from that list, and Facebook uses recommendations rather than a star rating.</p>
+    </div>
+  </section>
+
+  <section class="section" id="awards">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:880px;">
+        <span class="kicker">Awards</span>
+        <h2>Three years of The Knot Best of Weddings</h2>
+        <p class="sub">The Knot gives this to vendors whose reviews put them in the top of their category for the year. It is scored from what clients wrote, so it is a reflection of the reviews rather than something separate from them.</p>
+      </div>
+      <div class="awards" data-reveal>
+        <div class="award"><div class="yr">2021</div><div class="nm">The Knot Best of Weddings</div></div>
+        <div class="award"><div class="yr">2022</div><div class="nm">The Knot Best of Weddings</div></div>
+        <div class="award"><div class="yr">2023</div><div class="nm">The Knot Best of Weddings</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="weddings">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:880px;">
+        <span class="kicker">Weddings</span>
+        <h2>What couples say about their Dallas-Fort Worth wedding</h2>
+        <p class="sub">Ceremony sound, reception sound, DJ and MC, uplighting and the timeline that holds it all together. These are the reviews from the day itself.</p>
+      </div>
+      <div class="quote-wall">
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve was absolutely incredible as our wedding DJ! He brought amazing energy the entire night and truly kept the party alive from start to finish."</p>
+          <div class="quote-src"><span class="nm">Kenny Freeland</span><span class="plat">Google</span> and WeddingWire</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve w DEA is AMAZING!!! He dj-ed and mc-ed our wedding in Dallas and did a great job! One of the main decisions and most important aspects of our wedding was..THE MUSIC and DJ! We are sooo happy w our decision to go w Steve. He was able to feel the crowd, create an amazing mix and even threw in a few Indian songs I wanted. He did an awesome job keeping the reception flowing. Highly recommend!!"</p>
+          <div class="quote-src"><span class="nm">Ravina P.</span><span class="plat">Dallas, TX</span></div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"One of the best decisions I ever made was hiring this company for my wedding! Steve was so helpful in helping us create a playlist and was very patient with my indecisiveness lol. Our wedding was such a beautiful event and everybody had so much fun and I'm convinced it was because of the party that these guys bring to the table."</p>
+          <div class="quote-src"><span class="nm">Angela H.</span><span class="plat">Yelp</span>, Plano, TX, 2017</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"This company is easy to work with and professional, with high-quality equipment. They did audio for our wedding and reception, found all the music we requested and met our expectations, and set-up and ran a slideshow during our wedding. The best part of working with them is how quickly they responded to questions and requests during the planning process."</p>
+          <div class="quote-src"><span class="nm">Ally D.</span><span class="plat">Yelp</span>, 2018</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve is soooooo good, people. ... My friends and family were on the dance floor all night. Thanks for working with us, Steve. You did a great, professional job and we appreciate you."</p>
+          <div class="quote-src"><span class="nm">Kat Y.</span><span class="plat">Yelp</span>, Lewisville, TX, 2018</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve was awesome for our wedding! He was always willing to meet up and go over our needs, has amazing equipment ... Would definitely hire him again for any future events and recommend to friends for their weddings!"</p>
+          <div class="quote-src"><span class="nm">Mike H.</span><span class="plat">Denton, TX</span></div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Working with Steve was an absolute pleasure from start to finish ... He was very involved in the planning of our music and general timeline."</p>
+          <div class="quote-src"><span class="nm">Lizzie</span><span class="plat">WeddingWire</span>, 2023</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve gave us the party of our dreams! ... He didn't allow for any awkward lulls."</p>
+          <div class="quote-src"><span class="nm">Brandie</span><span class="plat">WeddingWire</span>, 2024</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Our experience with Dallas Event Audio was wonderful from start to finish. Steve ... was attentive, hardworking, and passionate about making our celebration a hit."</p>
+          <div class="quote-src"><span class="nm">Logan C.</span><span class="plat">Zola</span>, 2025</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Dallas Event Audio was an absolute dream to work with for our wedding! ... their DJ Steve was an absolute pro and kept the dance floor packed all night long."</p>
+          <div class="quote-src"><span class="nm">Jorden</span><span class="plat">Zola</span>, 2024</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve with Dallas Event Audio is fantastic! ... He took time to understand our music preferences and the atmosphere we hoped to create for each part of the day."</p>
+          <div class="quote-src"><span class="nm">Mary Kate and N.</span><span class="plat">Zola</span>, 2024</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"I completely changed the timeline the day of the event and he rolled with it!"</p>
+          <div class="quote-src"><span class="nm">Diana A.</span><span class="plat">The Knot</span>, 2022</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"He was great. Punctual and did a pre wedding walk through."</p>
+          <div class="quote-src"><span class="nm">Jonathan N.</span><span class="plat">The Knot</span>, 2023</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"He did WAY higher quality sound and video equipment than expected."</p>
+          <div class="quote-src"><span class="nm">Dylan F.</span><span class="plat">The Knot</span>, 2019</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"We got married this past weekend and Steve was our DJ! He was so great and very talented! He not only is responsive and friendly but listens to what you want and also keeps guests entertained and dancing. He can read a crowd well and knows what keeps the energy going. He also provided the up-lighting (we chose purple) and it really made the room beautiful. We will definitely use him for future events!"</p>
+          <div class="quote-src"><span class="nm">Jessica K.</span><span class="plat">Yelp</span>, 2019</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"Stop looking. This is who you want I promise you! Not only did Steve help us with the actual event, but he was also a rock with my pre-wedding jitters. He helped me with the music selection and was extremely understanding of my last-minute changes. There is nothing I would change about my wedding and it's all because of Steve and his support."</p>
+          <div class="quote-src"><span class="nm">Yesenia S.</span><span class="plat">Yelp</span>, 2022</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"Steve goes above and beyond to make your day personalized and special! Love his personality, super fun and friendly! He made sure that our wedding timeline would flow good with everything we wanted and made sure that we didn't have any gaps uncovered! Great music! Worked with me on last minute adjustments! Would definitely hire him again!"</p>
+          <div class="quote-src"><span class="nm">Heather G.</span><span class="plat">Yelp</span>, 2022</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"Steve, with Dallas Event Audio, covered an intimate backyard wedding for us and did a FANTASTIC job! He arrived on time, provided a lapel mic for the minister to use during the ceremony, played GREAT music for the afterparty, and left things nice and tidy when he left. We will definitely call him again when we're in need of music for an event."</p>
+          <div class="quote-src"><span class="nm">Pam P.</span><span class="plat">Yelp</span>, 2017</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"I cannot recommend Steve enough. Seriously, he's amazing. Not only was he great at keeping our guests dancing all night long but he went out of his way to do things that weren't even in his job description to make the day run smoothly. ... He was also great with our music selection which consisted of multiple genres and even Cumbia music!!! Below I attached a picture of the dancing on the clouds. It was awesome!"</p>
+          <div class="quote-src"><span class="nm">Alexus M.</span><span class="plat">Yelp</span>, 2021</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"Steve is the most passionate DJ I have ever met! ... He's personable and matched the EXACT vibe we were looking for during our brunch wedding at The Olana. ... I can't stress this enough, Steve really does use the best equipment around."</p>
+          <div class="quote-src"><span class="nm">Ali K.</span><span class="plat">Yelp</span>, 2020</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"Steve was incredibly helpful! Setup and takedown went very smoothly, and he was very mindful of the guests. The quality of the audio was perfect. He was very attentive and professional the entire time."</p>
+          <div class="quote-src"><span class="nm">Natalie J.</span><span class="plat">Yelp</span>, 2025</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"If I could rate Steve as 10 Stars I would. He DJ'd our wedding last weekend and he was PERFECT!! ... EVERY single special moment (w/music) we planned, turned out PERFECT!! We had an age range of 10 up to 75 and he entertained the entire party. Our guests danced all night, he kept the music fun and always made sure we were happy with everything."</p>
+          <div class="quote-src"><span class="nm">Jodi G.</span><span class="plat">Yelp</span>, 2017</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"If you are still on the fence about any particular DJ to use for your wedding, stop looking, you've already found it. ... He made every effort to streamline the night, was extremely nice, well read, and helpful at every turn, always responded to emails within an acceptable amount of time, most times within five to ten minutes! ... After a talk with Steve, he VOLUNTEERED to be the day of coordinator for the entire wedding, and performed his duties BOTH to a very high degree!"</p>
+          <div class="quote-src"><span class="nm">Cordell J.</span><span class="plat">Yelp</span>, 2019</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"Steve was a complete joy and pleasure to work with! I had so many ideas I wanted to incorporate with my wedding. He's patience is awesome, especially being a planning bride with many changes. Our wedding lights were minimal for them. ... But still managed to make our wedding lighting amazing, the sound system he brought was a phenomenal sound quality system. New technology speakers he brought made our dance floor alive!"</p>
+          <div class="quote-src"><span class="nm">Alexis P.</span><span class="plat">Yelp</span>, 2018</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"Steve was amazing to work with and he truly knew how to respond to the crowd. He was also able to inform them of important timeline information."</p>
+          <div class="quote-src"><span class="nm">Jacob Wayne</span><span class="plat">Facebook</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="corporate-and-private">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:880px;">
+        <span class="kicker">Corporate, Private and Live</span>
+        <h2>Company parties, conferences and private events</h2>
+        <p class="sub">The wedding platforms only see part of what we do. Google is where the corporate and private event reviews land, along with the people who have been hiring us the longest.</p>
+      </div>
+      <div class="quote-wall">
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Tony was an AMAZING DJ for our company Christmas party! He showed up early, mixed some awesome Christmas music, felt out the crowd really well."</p>
+          <div class="quote-src"><span class="nm">Brandon Klekar</span><span class="plat">Google</span></div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve and his team are incredible. From the first conversation Steve instilled a sense of confidence that echoed throughout the entire process."</p>
+          <div class="quote-src"><span class="nm">Rahul Gupta</span><span class="plat">Google</span></div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Used them for our veterinary education event at a local restaurant. They were on time, professional and very communicative. Thank you so much for your help!"</p>
+          <div class="quote-src"><span class="nm">Ivania G.</span><span class="plat">Yelp</span>, Garland, TX, 2024</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"I've been hiring DEA since about 2012 ... They have only gotten better/more professional."</p>
+          <div class="quote-src"><span class="nm">Anthony</span><span class="plat">WeddingWire</span>, 2025</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"DEA's sound system blew me away! LITERALLY! The bass was so intense it made my eyes tear up. Every time I see the DEA logo on event flyers I know I'm going to have a good time."</p>
+          <div class="quote-src"><span class="nm">Steve L</span><span class="plat">Google</span></div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve was very professional will be using his services again. I am very pleased with the communication through the event."</p>
+          <div class="quote-src"><span class="nm">Andrea D.</span><span class="plat">Yelp</span>, 2016</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"Dallas event audio exceeds expectations. Steve personally helped us out with finding the right sound equipment for our event. They setup the equipment on time and stuck around to make sure everything was alright throughout the night with the sound. We rented the PL-11 speakers for our guests of 500+ and the sound quality was amazing. Steve and Shelby were punctual, professional, and very easy-going. We will be booking them again for our next event."</p>
+          <div class="quote-src"><span class="nm">Anthony N.</span><span class="plat">Yelp</span>, 2019</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"I contacted Steve to manage lighting and sound for a large conference seating 500 people. Steve worked with me and through many changes to make sure we had all the mics we needed, the lights working and the projectors up and running for powerpoint, video and room sound. Steve was dedicated to make sure the conference went off without a hitch. He and his team left at 4am in the cold and rain, drove up to Denison from Dallas, just to be at the venue early for final setup."</p>
+          <div class="quote-src"><span class="nm">Kaleb G.</span><span class="plat">Yelp</span>, 2019</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"Dallas Event Audio and Steve were fantastic. On very short notice they were able to host the audio video needs for an awards banquet. The equipment was top notch and made the event a total success. Steve took great care to make sure everything was perfect. We'll be using them in the future for sure."</p>
+          <div class="quote-src"><span class="nm">Will S.</span><span class="plat">Yelp</span>, 2019</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"We used Dallas Event Audio this summer for the first time and will certainly use them again. The setup was for a live band in a 600 seat venue and they provided exactly what we needed with no headaches along the way. The quality of equipment was great and the customer service was even better."</p>
+          <div class="quote-src"><span class="nm">Lance G.</span><span class="plat">Yelp</span>, 2017</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"Excellent service! Steve and his crew went above and beyond to make sure my event was everything I had envisioned and more. Sound Quality was on point and the visuals were mind blowing! I will most definitely be using them again, and would recommend them to anyone looking for next level production value for their events."</p>
+          <div class="quote-src"><span class="nm">Joshua D.</span><span class="plat">Yelp</span>, 2017</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"Steve and his partner Shelby were so easy to work with. I had hired them to do sound on a double decker party barge, but due to rain, the event got moved indoors. Shelby was the technician to setup my sound and he did so quickly and efficiently. He was so nice to start and end later than we originally had agreed upon. The sound was great for the entire event and worked perfectly! I would highly recommend DEA for sound rental for your next event!"</p>
+          <div class="quote-src"><span class="nm">Karen H.</span><span class="plat">Yelp</span>, 2016</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"My experience with Dallas Event Audio was soooo incredible. Steve is an absolute angel, responded so quickly to all messages and accommodated last minute requests. Professional and on time, and made my dad's retirement party the best time. Cannot recommend enough!!!"</p>
+          <div class="quote-src"><span class="nm">Jules</span><span class="plat">Yelp</span>, 2025</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"Working with Steve at Dallas Event Audio really helped pull the whole event together. Went above and beyond offering critiques to make everything perfect."</p>
+          <div class="quote-src"><span class="nm">Kristofer B.</span><span class="plat">Yelp</span>, 2026</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"Steve was great we did a business to business transaction and really works with you and accommodates your requirements. Sound system package test great and would do business with him again."</p>
+          <div class="quote-src"><span class="nm">Nash S.</span><span class="plat">Yelp</span>, 2018</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"My company has worked alongside DEA for many events spanning from Austin, TX to Oklahoma City. It has always been a pleasure working with them and we will continue to partner up with them on many more events in the future."</p>
+          <div class="quote-src"><span class="nm">Blake B.</span><span class="plat">Yelp</span>, 2015</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"DEA has helped me more times than i can count. Not only were they extremely professional during the event. they showed up, ON TIME, for load in and load out. they kept the volume at a great sounding level and kept the gear from harm. they also made my events turn key in regards to audio and visual experience with little effort on my part in most cases."</p>
+          <div class="quote-src"><span class="nm">Justin Vandergriff</span><span class="plat">Facebook</span>, 2025</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="planners-and-pros">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:880px;">
+        <span class="kicker">Planners and Vendors</span>
+        <h2>What other event professionals say</h2>
+        <p class="sub">Planners book us again on other people's weddings, which is a different kind of review from a couple writing once. One of these came from a planner who called us, found us booked, and wrote a review anyway.</p>
+      </div>
+      <div class="quote-wall">
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"I have not even worked with this vendor but I am a wedding planner and called to get information for a wedding I am doing in Dallas. Although they were booked for the date I was inquiring about, Steve was awesome in giving me all the information I needed about the services (cold sparks) my clients were wanting for their wedding. He also gave me a referral to other professionals that provided the same services. He obviously has a passion for what he does and knows all the details that will make an event successful. For any future Dallas area weddings, they would definitely be my first recommendation!"</p>
+          <div class="quote-src"><span class="nm">Patrice M.</span><span class="plat">Yelp</span>, Memphis, TN, 2024</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"I recommend him to all of my clients!"</p>
+          <div class="quote-src"><span class="nm">Katelynn</span><span class="plat">WeddingWire</span>, wedding planner, 2024</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"DEA has a very strong inventory of audio and event equipment that can be scaled to most size events. I am a DJ and event promoter that has his own audio rig but I have worked with Steve on joint events and he is the top of my short list for additional sound if I need equipment larger than my own. He is extremely knowledgable about audio placement, equipment loading, and sizing for an event."</p>
+          <div class="quote-src"><span class="nm">Brian H.</span><span class="plat">Yelp</span>, DJ and event promoter, 2014</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"I've used DEA sound for several large events, indoors and out. The success of many events is directly related to how and where the sound is set up, DEA allows themselves the time to make sure you're getting the best sound in your venue. Combined with the timeliness, and professionalism of DEA, that makes them a winning combination in my book."</p>
+          <div class="quote-src"><span class="nm">Owen M.</span><span class="plat">Yelp</span>, 2017</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"Absolutely love this company; they don't just have top of line sound/lighting equipment, they have people with the knowledge and experience to properly operate it!"</p>
+          <div class="quote-src"><span class="nm">Sean T.</span><span class="plat">Yelp</span>, 2015</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"Steve is a true professional! He always takes care of his clients needs, no matter how big or small. You can trust him to make your next event a success!"</p>
+          <div class="quote-src"><span class="nm">Peter F.</span><span class="plat">Yelp</span>, 2026</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"Steve is highly professional, offers a great outstanding full service production for any size event. Can't say enough good things about this guy. Wonderful to work with, easy to communicate with, and has a high level of knowledge in the industry."</p>
+          <div class="quote-src"><span class="nm">Amanda N.</span><span class="plat">Yelp</span>, 2022</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <p>"Steve is not just an outstanding DJ and audio engineer, but also a longtime friend of mine. I have watched him grow through the years and experienced the knowledge he has acquired first hand. ... He has invested in some amazing equipment that you have to hear and feel to believe. ... He has always ensured that whatever venue he sets up at has amazing sound and energy, and he always flows with the vibe."</p>
+          <div class="quote-src"><span class="nm">Carissa H.</span><span class="plat">Yelp</span>, 2022</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="short-takes">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:880px;">
+        <span class="kicker">More From The Knot</span>
+        <h2>Short takes from forty four reviews on The Knot</h2>
+        <p class="sub">The Knot profile carries the longest run of feedback we have anywhere, and 98 percent of it is five stars. Here is a sample, one line each, oldest at the bottom.</p>
+      </div>
+      <div class="quote-wall">
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"He was genuinely invested in our big day and we loved having him as part of it!"</p>
+          <div class="quote-src"><span class="nm">Brittany B</span><span class="plat">The Knot</span>, 2023</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve is incredibly professional, responsive, and easy to work with."</p>
+          <div class="quote-src"><span class="nm">Marina S</span><span class="plat">The Knot</span>, 2023</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve knew exactly how to read the crowd and make sure everyone had fun."</p>
+          <div class="quote-src"><span class="nm">Makayla G</span><span class="plat">The Knot</span>, 2022</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"He got everyone dancing and is very passionate for what he does."</p>
+          <div class="quote-src"><span class="nm">Katelyn K</span><span class="plat">The Knot</span>, 2022</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve was amazing and had everyone up dancing at our wedding!"</p>
+          <div class="quote-src"><span class="nm">Chantelle T</span><span class="plat">The Knot</span>, 2022</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve was AMAZING!!! He helped me select ceremony music with ease."</p>
+          <div class="quote-src"><span class="nm">Taylor S</span><span class="plat">The Knot</span>, 2022</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"So glad we hired Steve for our wedding day! He did an amazing job!"</p>
+          <div class="quote-src"><span class="nm">Lindsay J</span><span class="plat">The Knot</span>, 2022</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"We absolutely loved Steve! He made everything run so smoothly."</p>
+          <div class="quote-src"><span class="nm">Lauren W</span><span class="plat">The Knot</span>, 2022</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"I can't say enough about how amazing and professional Steve is!"</p>
+          <div class="quote-src"><span class="nm">Amber H</span><span class="plat">The Knot</span>, 2022</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Dallas Event Audio is fun and reads the crowd too!"</p>
+          <div class="quote-src"><span class="nm">Hillary F</span><span class="plat">The Knot</span>, 2022</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve goes above and beyond to make your day personalized and special!"</p>
+          <div class="quote-src"><span class="nm">Heather G</span><span class="plat">The Knot</span>, 2022</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve was absolutely INCREDIBLE! Could not have asked for a better DJ!"</p>
+          <div class="quote-src"><span class="nm">Kerry G</span><span class="plat">The Knot</span>, 2021</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve is seriously the most fun and kindest person you could hire."</p>
+          <div class="quote-src"><span class="nm">Tobie S</span><span class="plat">The Knot</span>, 2021</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"DJ Steve kept our wedding fun and kept people dancing all night."</p>
+          <div class="quote-src"><span class="nm">J'Nae M</span><span class="plat">The Knot</span>, 2021</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"I cannot recommend Steve enough. Seriously, he's amazing."</p>
+          <div class="quote-src"><span class="nm">Alexus S</span><span class="plat">The Knot</span>, 2021</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve did an amazing job DJing our wedding celebration."</p>
+          <div class="quote-src"><span class="nm">Lauren N</span><span class="plat">The Knot</span>, 2021</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve is professional, kind, flexible, knowledgeable, and wonderful."</p>
+          <div class="quote-src"><span class="nm">Alek W</span><span class="plat">The Knot</span>, 2021</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"We made a great choice with our DJ! Steve was the ultimate professional."</p>
+          <div class="quote-src"><span class="nm">Ana J</span><span class="plat">The Knot</span>, 2021</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve surpassed all of our expectations for our wedding."</p>
+          <div class="quote-src"><span class="nm">Annabel N</span><span class="plat">The Knot</span>, 2021</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve is the most passionate DJ I have ever met!"</p>
+          <div class="quote-src"><span class="nm">Ali K</span><span class="plat">The Knot</span>, 2020</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Dallas Event Audio really listened to our music recommendations."</p>
+          <div class="quote-src"><span class="nm">Elizabeth G</span><span class="plat">The Knot</span>, 2020</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Amazing DJ. Super professional and very easy to work with!"</p>
+          <div class="quote-src"><span class="nm">Jordan L</span><span class="plat">The Knot</span>, 2020</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve is very experienced and passionate about his work."</p>
+          <div class="quote-src"><span class="nm">Greg H</span><span class="plat">The Knot</span>, 2020</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Very accommodating and helpful! Answered all of our questions."</p>
+          <div class="quote-src"><span class="nm">Haleigh A</span><span class="plat">The Knot</span>, 2020</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve from Dallas Event Audio was absolutely amazing!"</p>
+          <div class="quote-src"><span class="nm">Cordell J</span><span class="plat">The Knot</span>, 2019</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve was fantastic! He was very accommodating and always available."</p>
+          <div class="quote-src"><span class="nm">Shelbi H</span><span class="plat">The Knot</span>, 2019</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"He is so relaxed in nature but incredibly passionate about his work."</p>
+          <div class="quote-src"><span class="nm">Rebecca B</span><span class="plat">The Knot</span>, 2019</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"He checked on us throughout the night and played all our favorites."</p>
+          <div class="quote-src"><span class="nm">Jordyn J</span><span class="plat">The Knot</span>, 2019</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve was so kind and helpful and provided the BEST music."</p>
+          <div class="quote-src"><span class="nm">Sara N</span><span class="plat">The Knot</span>, 2019</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve went above and beyond our expectations."</p>
+          <div class="quote-src"><span class="nm">Sandra M</span><span class="plat">The Knot</span>, 2019</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="what-clients-mention">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:880px;">
+        <span class="kicker">The Patterns</span>
+        <h2>What comes up again and again in the reviews</h2>
+        <p class="sub">Read enough of them in one sitting and the same handful of things keep surfacing. Each one links to the rental or service page that explains how we do it.</p>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-card" data-reveal>
+          <h3>Reading the room</h3>
+          <p>Across all six platforms, the line that keeps coming back is some version of reading the crowd. That is the part of <a href="/services-dj">DJ services</a> that no rental inventory can promise for you, and it is why our DJs work the floor rather than the playlist.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>The gear was better than expected</h3>
+          <p>We own what we send out, so the speakers, subwoofers and consoles that show up are the ones we have run at the last dozen events. Our full <a href="/wedding-av-rental-dallas">wedding ceremony and reception sound</a> rental packages and the wider <a href="/services-audio">audio services</a> both come off the same inventory.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Microphones that behave</h3>
+          <p>Reviewers mention vows and toasts carrying to the back row. Every one of our <a href="/feedback-free-microphone-rentals">microphone rentals</a> includes the AI powered De-Feedback system, which is why a lapel on an officiant does not have to be rung out or ridden down.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Timelines that move</h3>
+          <p>Several reviews describe the timeline changing on the day and nobody panicking. That is easier when the DJ and the rental crew are the same people, which is how we run every <a href="/weddings">wedding</a> and every <a href="/corporate-events">corporate event</a>.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Lighting the room</h3>
+          <p>Uplighting comes up in the wedding reviews more than any other lighting item, usually color matched to the linens. Uplighting rental sits inside our <a href="/services-lighting">lighting services</a> alongside dance floor lighting, follow spot and monogram projection.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Showing up early</h3>
+          <p>Punctual, showed up early, set up before guests arrived. That is what full service rental means here, and <a href="/our-story">our story</a> explains why we have never done customer pickup. You can see the finished rooms in <a href="/our-work">our work</a>.</p>
+        </div>
+      </div>
+      <div class="addon" data-reveal>
+        <h3>Want to leave one?</h3>
+        <p>If we have worked your event, the Google, WeddingWire, The Knot, Yelp, Zola and Facebook profiles linked above are all open for reviews. It helps the next couple or planner decide, and we read every one of them.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:880px;">
+        <span class="kicker">Questions</span>
+        <h2>Common questions about our reviews</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" data-reveal>
+          <summary>Where can I read Dallas Event Audio reviews?</summary>
+          <div class="ans">On Google, WeddingWire, The Knot, Yelp, Zola and Facebook. Every one of those profiles is linked from the platform cards near the top of this page, and each link opens the full listing so you can read complete reviews rather than the excerpts here.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How many reviews does Dallas Event Audio have?</summary>
+          <div class="ans">About 194 public reviews across the six platforms as of the day this page was built. That is 89 on WeddingWire, 44 on The Knot, 43 on Google, 12 on Yelp, 3 on Zola and 3 on Facebook. Yelp holds back another 123 on its not recommended list, which is linked near the top of this page. The counts move as new ones come in, so treat the number on the platform as the current one.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Which platform has the most Dallas Event Audio reviews?</summary>
+          <div class="ans">WeddingWire, with 89 reviews at 4.9 out of 5 and a 98 percent recommend rate. The Knot has the longest run of five star reviews at 44, and Google carries the widest mix of corporate, private and live music work alongside weddings.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>What is The Knot Best of Weddings award?</summary>
+          <div class="ans">The Knot gives it each year to vendors whose client reviews place them at the top of their category. We have received it three times, in 2021, 2022 and 2023. It is scored from what clients wrote, so it reflects the reviews rather than sitting apart from them.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do you have reviews from corporate and private event clients?</summary>
+          <div class="ans">Yes, and most of them are on Google, since the wedding platforms only accept wedding reviews. Company holiday parties, conferences, veterinary and medical education events, fundraisers and private parties all show up there. The corporate and private section above pulls several of them together.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do the same people handle the sound and the DJ?</summary>
+          <div class="ans">Yes. We are a sound company that also DJs, so the speakers, the microphones and the person on the decks all come from one crew on one phone number, and the sound system rental is part of the same booking. Reviewers tend to notice it as the timeline holding together and nobody arguing about the room.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Can you provide a certificate of insurance for my venue?</summary>
+          <div class="ans">Yes. We carry liability insurance and can send a certificate naming your venue as additional insured, usually the same day you ask. Most Dallas-Fort Worth venues want it a week or two ahead of load in, and we handle that directly with the venue if you prefer.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How do I get a quote for my event?</summary>
+          <div class="ans">Send us the date, the venue and roughly what you need, through the <a href="/contact">contact page</a> or by phone. We will come back the same day with a straightforward quote for the sound, lighting, DJ or video rental the event calls for.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="quote">
+    <div class="wrap">
+      <div class="final-cta" data-reveal>
+        <span class="kicker">Next Step</span>
+        <h2>Tell us about your event and we'll send you a straightforward quote the same day</h2>
+        <p>Read the reviews on any of the six platforms above, then tell us the date and the venue. We will put together what your event needs and send it back the same day.</p>
+        <div class="hero-ctas">
+          <a class="btn-primary" href="/contact">Request a quote</a>
+          <a class="btn-secondary" href="/our-work">See our work</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="col brand">
+          <div class="logo"><img src="data:image/png;base64,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" alt="Dallas Event Audio" width="282" height="120"></div>
+          <p style="margin-top:14px; max-width:250px;">Full-service AV production for Dallas-Fort Worth since 2001. Delivered, set up, and run by our on-site technician.</p>
+          <div class="foot-contact">
+            <a href="tel:8172107957">817-210-7957</a>
+            <a href="mailto:info@dallaseventaudio.com">info@dallaseventaudio.com</a>
+          </div>
+          <p class="foot-area">Serving Dallas, Fort Worth, Southlake, Arlington, Frisco, McKinney, Richardson &amp; the wider Metroplex.</p>
+        </div>
+        <div class="col">
+          <h4>Events</h4>
+          <a href="/weddings">Weddings</a>
+          <a href="/wedding-av-rental-dallas">Wedding AV Rental</a>
+          <a href="/corporate-events">Corporate Events</a>
+          <a href="/private-events">Private Events</a>
+          <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+          <a href="/college-school-university-events">College &amp; University</a>
+          <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+          <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+        </div>
+        <div class="col">
+          <h4>Services</h4>
+          <a href="/services-dj">DJ Services</a>
+          <a href="/services-audio">Audio Services</a>
+          <a href="/services-lighting">Lighting Services</a>
+          <a href="/services-photo-and-video">Photo &amp; Video</a>
+          <a href="/services-extra">Extra Services</a>
+        </div>
+        <div class="col">
+          <h4>Audio Rentals</h4>
+          <a href="/rent-sound-equipment">Sound Equipment</a>
+          <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+          <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+          <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+          <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+          <a href="/feedback-free-microphone-rentals">Microphone Rental</a>
+          <a href="/live-streaming-services">Live Streaming</a>
+        </div>
+        <div class="col">
+          <h4>Lighting &amp; FX</h4>
+          <a href="/rent-uplighting">Uplighting</a>
+          <a href="/rent-laser-light-show">Laser Light Show</a>
+          <a href="/rent-follow-spot-light">Follow Spot</a>
+          <a href="/monogram-projector">Monogram Projector</a>
+          <a href="/rent-fog-machine">Fog &amp; Haze</a>
+          <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+          <a href="/rent-cold-sparks">Cold Sparks</a>
+          <a href="/projector-screen-rental">Projector &amp; Screen</a>
+        </div>
+        <div class="col">
+          <h4>Company</h4>
+          <a href="/our-story">Our Story</a>
+          <a href="/our-work">Our Work</a>
+          <a href="/equipment-list">Equipment List</a>
+          <a href="/what-others-are-saying">Reviews</a>
+          <a href="/blog">Blog</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div class="foot-proof">
+        <a class="fp" href="https://www.google.com/maps?cid=11213015373496621898" target="_blank" rel="noopener"><span class="m g">G</span> <b>4.9</b> <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span> &middot; 41 Google reviews</a>
+        <a class="fp" href="https://www.yelp.com/biz/dallas-event-audio-dallas" target="_blank" rel="noopener"><span class="m y">Y</span> <b>Yelp</b> &middot; 13 reviews &middot; 134 photos</a>
+      </div>
+      <div class="foot-bottom">
+        <span>&copy; 2026 Dallas Event Audio. Fully insured, on-site AV production.</span>
+        <span>What others are saying page draft v3</span>
+      </div>
+    </div>
+  </footer>
+<div id="paletteBar">
+    <div class="pal-opts" id="palOpts" role="group" aria-label="Color palette">
+      <div class="pal-head">Color palette</div>
+      <button type="button" data-p="signal" class="active" aria-pressed="true"><i class="sw-signal"></i>Signal Chain</button>
+      <button type="button" data-p="amber" aria-pressed="false"><i class="sw-amber"></i>Stage Black &amp; Amber</button>
+      <button type="button" data-p="night" aria-pressed="false"><i class="sw-night"></i>DFW Night Rig</button>
+    </div>
+    <button type="button" class="pal-toggle" id="palToggle" aria-expanded="false" aria-controls="palOpts">
+      <span class="dots"><i style="background:#31ff6e"></i><i style="background:#fff21c"></i><i style="background:#ff1f3d"></i></span>
+      <span class="label">Palette</span>
+    </button>
+  </div>
+
+  <div id="chatBubble">✦ AV Concierge</div>
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+<script>
+  // Palette dock, bottom left
+  (function(){
+    const dock = document.getElementById('paletteBar');
+    const toggle = document.getElementById('palToggle');
+    const opts = Array.prototype.slice.call(document.querySelectorAll('#palOpts button'));
+    if(!dock || !toggle) return;
+
+    function store(v){ try{ window.localStorage.setItem('dea-palette', v); }catch(e){} }
+    function recall(){ try{ return window.localStorage.getItem('dea-palette'); }catch(e){ return null; } }
+
+    function apply(p){
+      document.documentElement.setAttribute('data-palette', p);
+      opts.forEach(b=>{
+        const on = b.dataset.p === p;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+
+    const saved = recall();
+    if(saved && opts.some(b=>b.dataset.p === saved)) apply(saved);
+
+    function open(state){
+      dock.classList.toggle('open', state);
+      toggle.setAttribute('aria-expanded', state ? 'true' : 'false');
+    }
+    toggle.addEventListener('click', e=>{ e.stopPropagation(); open(!dock.classList.contains('open')); });
+    opts.forEach(b=>{
+      b.addEventListener('click', ()=>{ apply(b.dataset.p); store(b.dataset.p); open(false); });
+    });
+    document.addEventListener('click', e=>{ if(!dock.contains(e.target)) open(false); });
+    document.addEventListener('keydown', e=>{ if(e.key === 'Escape') open(false); });
+  })();
+
+  // Scroll reveal
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.15});
+    document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el=>el.classList.add('in'));
+  }
+
+  // CO2 / particle burst on primary CTA click
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function burst(x, y){
+    if(reduceMotion) return;
+    const colors = ['var(--a1)','var(--a2)','var(--a3)','#ffffff'];
+    const count = 26;
+    for(let i=0;i<count;i++){
+      const p = document.createElement('span');
+      p.className = 'burst-particle';
+      const angle = (Math.PI * 2 * i) / count + Math.random()*0.4;
+      const dist = 60 + Math.random()*140;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist - 40;
+      const size = 4 + Math.random()*6;
+      p.style.width = p.style.height = size + 'px';
+      p.style.background = colors[i % colors.length];
+      p.style.boxShadow = '0 0 8px ' + colors[i % colors.length];
+      p.style.left = x + 'px';
+      p.style.top = y + 'px';
+      document.body.appendChild(p);
+      const anim = p.animate([
+        { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
+        { transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.3)`, opacity:0 }
+      ], { duration:700 + Math.random()*400, easing:'cubic-bezier(.2,.7,.3,1)' });
+      anim.onfinish = () => p.remove();
+    }
+  }
+  document.querySelectorAll('.btn-primary').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      burst(e.clientX, e.clientY);
+    });
+  });
+
+  // Follow spot: a pointer tracked pool of the active palette accent.
+  // Desktop tracks the cursor, touch lights at the press point.
+  (function(){
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var SEL = '.gear-card, .vcard, .dj-card, .trust-card, .flow-step, .city,'
+            + ' .service-card, .cost-factor, .mic-card, .stat, .addon';
+    var cards = Array.prototype.slice.call(document.querySelectorAll(SEL));
+    if(!cards.length) return;
+    var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    cards.forEach(function(el){
+      el.classList.add('fspot');
+      var rect = null, raf = 0, px = 0, py = 0;
+
+      function paint(){
+        raf = 0;
+        if(!rect || !rect.width || !rect.height) return;
+        el.style.setProperty('--fs-x', ((px - rect.left) / rect.width  * 100).toFixed(2) + '%');
+        el.style.setProperty('--fs-y', ((py - rect.top)  / rect.height * 100).toFixed(2) + '%');
+      }
+      function queue(e){
+        px = e.clientX; py = e.clientY;
+        if(!raf) raf = window.requestAnimationFrame(paint);
+      }
+      function light(e){
+        rect = el.getBoundingClientRect();
+        queue(e);
+        el.style.setProperty('--fs-on', '1');
+        el.classList.add('fs-live');
+      }
+      function dark(){
+        if(raf){ window.cancelAnimationFrame(raf); raf = 0; }
+        rect = null;
+        el.style.setProperty('--fs-on', '0');
+        el.classList.remove('fs-live', 'fs-press');
+      }
+
+      if(fine){
+        el.addEventListener('pointerenter', light);
+        el.addEventListener('pointermove', queue, {passive:true});
+        el.addEventListener('pointerleave', dark);
+      }
+      el.addEventListener('pointerdown', function(e){
+        light(e); el.classList.add('fs-press');
+      }, {passive:true});
+      function release(){
+        el.classList.remove('fs-press');
+        if(!fine) dark();
+      }
+      el.addEventListener('pointerup', release);
+      el.addEventListener('pointercancel', release);
+    });
+
+    // press state for the palette pill, since a phone has no hover
+    var pt = document.getElementById('palToggle');
+    if(pt){
+      pt.addEventListener('pointerdown', function(){ pt.classList.add('fs-press'); }, {passive:true});
+      ['pointerup','pointercancel','pointerleave'].forEach(function(ev){
+        pt.addEventListener(ev, function(){ pt.classList.remove('fs-press'); });
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,197 @@
+[
+ {
+  "url": "/",
+  "file": "index.html",
+  "from": "dea-homepage-draft-v5.html"
+ },
+ {
+  "url": "/celebrity-and-luxury-events",
+  "file": "celebrity-and-luxury-events/index.html",
+  "from": "dea-celebrity-luxury-draft-v6.html"
+ },
+ {
+  "url": "/college-school-university-events",
+  "file": "college-school-university-events/index.html",
+  "from": "dea-college-school-university-draft-v2.html"
+ },
+ {
+  "url": "/contact",
+  "file": "contact/index.html",
+  "from": "dea-contact-draft-v4.html"
+ },
+ {
+  "url": "/corporate-events",
+  "file": "corporate-events/index.html",
+  "from": "dea-corporate-events-draft-v4.html"
+ },
+ {
+  "url": "/dj-speaker-rental",
+  "file": "dj-speaker-rental/index.html",
+  "from": "dea-dj-speaker-rental-draft-v1.html"
+ },
+ {
+  "url": "/equipment-list",
+  "file": "equipment-list/index.html",
+  "from": "dea-equipment-list-draft-v5.html"
+ },
+ {
+  "url": "/feedback-free-microphone-rentals",
+  "file": "feedback-free-microphone-rentals/index.html",
+  "from": "dea-microphone-rental-draft-v4.html"
+ },
+ {
+  "url": "/flat-panel-audio-dml500",
+  "file": "flat-panel-audio-dml500/index.html",
+  "from": "dea-flat-panel-dml500-draft-v2.html"
+ },
+ {
+  "url": "/gallery",
+  "file": "gallery/index.html",
+  "from": "dea-gallery-draft-v1.html"
+ },
+ {
+  "url": "/live-music-and-band-events",
+  "file": "live-music-and-band-events/index.html",
+  "from": "dea-live-music-band-draft-v5.html"
+ },
+ {
+  "url": "/live-streaming-services",
+  "file": "live-streaming-services/index.html",
+  "from": "dea-live-streaming-draft.html"
+ },
+ {
+  "url": "/monogram-projector",
+  "file": "monogram-projector/index.html",
+  "from": "dea-monogram-draft-2-photos-video.html"
+ },
+ {
+  "url": "/our-story",
+  "file": "our-story/index.html",
+  "from": "dea-our-story-draft-v2.html"
+ },
+ {
+  "url": "/our-work",
+  "file": "our-work/index.html",
+  "from": "dea-our-work-draft.html"
+ },
+ {
+  "url": "/post/tips-for-incorporating-fog-effects-into-your-wedding-dance",
+  "file": "post/tips-for-incorporating-fog-effects-into-your-wedding-dance/index.html",
+  "from": "dea-wedding-fog-effects-post-draft-v2.html"
+ },
+ {
+  "url": "/private-events",
+  "file": "private-events/index.html",
+  "from": "dea-private-events-draft-v2.html"
+ },
+ {
+  "url": "/projector-screen-rental",
+  "file": "projector-screen-rental/index.html",
+  "from": "dea-projector-draft-v2.html"
+ },
+ {
+  "url": "/rave-and-night-club-events",
+  "file": "rave-and-night-club-events/index.html",
+  "from": "dea-rave-nightclub-draft-v2.html"
+ },
+ {
+  "url": "/rent-bassboss-subwoofers",
+  "file": "rent-bassboss-subwoofers/index.html",
+  "from": "dea-bassboss-draft.html"
+ },
+ {
+  "url": "/rent-cold-sparks",
+  "file": "rent-cold-sparks/index.html",
+  "from": "dea-cold-sparks-draft.html"
+ },
+ {
+  "url": "/rent-dancing-on-the-clouds-low-lyin",
+  "file": "rent-dancing-on-the-clouds-low-lyin/index.html",
+  "from": "dea-dancing-on-the-clouds-draft-v4-SINGLE-FILE.html"
+ },
+ {
+  "url": "/rent-dj-lighting",
+  "file": "rent-dj-lighting/index.html",
+  "from": "dea-dj-lighting-draft.html"
+ },
+ {
+  "url": "/rent-fog-machine",
+  "file": "rent-fog-machine/index.html",
+  "from": "dea-fog-machine-draft.html"
+ },
+ {
+  "url": "/rent-follow-spot-light",
+  "file": "rent-follow-spot-light/index.html",
+  "from": "dea-follow-spot-draft.html"
+ },
+ {
+  "url": "/rent-laser-light-show",
+  "file": "rent-laser-light-show/index.html",
+  "from": "dea-laser-page-draft.html"
+ },
+ {
+  "url": "/rent-line-array-speaker-system",
+  "file": "rent-line-array-speaker-system/index.html",
+  "from": "dea-line-array-rental-draft-v1.html"
+ },
+ {
+  "url": "/rent-sound-equipment",
+  "file": "rent-sound-equipment/index.html",
+  "from": "dea-sound-equipment-rental-draft-v3.html"
+ },
+ {
+  "url": "/rent-sound-equipment/cdj-rental-dallas",
+  "file": "rent-sound-equipment/cdj-rental-dallas/index.html",
+  "from": "dea-dj-equipment-rental-draft.html"
+ },
+ {
+  "url": "/rent-uplighting",
+  "file": "rent-uplighting/index.html",
+  "from": "dea-uplighting-draft-v5.html"
+ },
+ {
+  "url": "/services-audio",
+  "file": "services-audio/index.html",
+  "from": "dea-services-audio-draft-v3.html"
+ },
+ {
+  "url": "/services-dj",
+  "file": "services-dj/index.html",
+  "from": "dea-services-dj-draft-v2.html"
+ },
+ {
+  "url": "/services-extra",
+  "file": "services-extra/index.html",
+  "from": "dea-services-extra-draft.html"
+ },
+ {
+  "url": "/services-lighting",
+  "file": "services-lighting/index.html",
+  "from": "dea-services-lighting-draft-v3.html"
+ },
+ {
+  "url": "/services-photo-and-video",
+  "file": "services-photo-and-video/index.html",
+  "from": "dea-photo-video-draft-v5.html"
+ },
+ {
+  "url": "/thank-you",
+  "file": "thank-you/index.html",
+  "from": "dea-thank-you-draft-v2.html"
+ },
+ {
+  "url": "/wedding-av-rental-dallas",
+  "file": "wedding-av-rental-dallas/index.html",
+  "from": "dea-wedding-av-rental-draft-v3.html"
+ },
+ {
+  "url": "/weddings",
+  "file": "weddings/index.html",
+  "from": "dea-weddings-draft-v3.html"
+ },
+ {
+  "url": "/what-others-are-saying",
+  "file": "what-others-are-saying/index.html",
+  "from": "dea-what-others-are-saying-draft-v3.html"
+ }
+]

@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="signal">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font-display:'Unbounded',sans-serif;
+    --font-body:'Space Grotesk',sans-serif;
+  }
+
+  /* ============ PALETTE A: Signal Chain (true DJ mixer peak-meter LEDs: green / yellow / red) ============ */
+  html[data-palette="signal"]{
+    --bg-0:#050706; --bg-1:#0a0f0c; --bg-2:#0e1512;
+    --ink:#f4f7f5; --dim:#b4c5ba;
+    --a1:#31ff6e; /* LED green */
+    --a2:#fff21c; /* LED yellow */
+    --a3:#ff1f3d; /* LED red */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 55%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(255,255,255,.08);
+    --glow: rgba(49,255,110,.35);
+  }
+  /* ============ PALETTE B: Stage Black and Amber (warm, premium, ties to existing chat widget gold) ============ */
+  html[data-palette="amber"]{
+    --bg-0:#070605; --bg-1:#0d0a06; --bg-2:#120e08;
+    --ink:#f8f3ea; --dim:#c3b7a5;
+    --a1:#e8b75c; /* gold */
+    --a2:#ffdfa0; /* warm white/spot */
+    --a3:#4fa3ff; /* cool counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 50%, var(--a2) 50%, var(--a2) 100%);
+    --card-border: rgba(232,183,92,.16);
+    --glow: rgba(232,183,92,.32);
+  }
+  /* ============ PALETTE C: DFW Night Rig (cool stage-lighting energy, distinct from EDM Wedding DJ's magenta) ============ */
+  html[data-palette="night"]{
+    --bg-0:#05060b; --bg-1:#090b16; --bg-2:#0c0f1e;
+    --ink:#f1f3fb; --dim:#aeb5cf;
+    --a1:#2f6fff; /* electric blue */
+    --a2:#8b5cf6; /* violet */
+    --a3:#ffb020; /* amber counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 65%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(139,92,246,.16);
+    --glow: rgba(47,111,255,.35);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-0);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  .grad-text{
+    background:var(--grad);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  /* ---------- palette switcher (review tool only, not part of the shipped site) ---------- */
+  #paletteBar{
+    position:fixed; top:0; left:0; right:0; z-index:999;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    padding:10px; background:#000; border-bottom:1px solid rgba(255,255,255,.12);
+    font-family:var(--font-body); font-size:0.881rem;
+  }
+  #paletteBar span{color:#8a8a8a; margin-right:4px;}
+  #paletteBar button{
+    font-family:var(--font-body); font-size:0.881rem; font-weight:600;
+    padding:7px 14px; border-radius:100px; border:1px solid rgba(255,255,255,.18);
+    background:rgba(255,255,255,.04); color:#eee; cursor:pointer; transition:.2s;
+  }
+  #paletteBar button.active{ background:#fff; color:#000; border-color:#fff; }
+  #paletteBar button:hover{ border-color:#fff; }
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky; top:40px; z-index:100;
+    background:rgba(5,6,5,.7); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--card-border);
+  }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1180px; margin:0 auto; }
+  .logo{ display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:900; font-size:1.15rem; letter-spacing:.02em; }
+  .logo .dial{ width:26px; height:26px; border-radius:50%; position:relative; background:conic-gradient(var(--a1) 0 26%, var(--a2) 26% 52%, var(--a3) 52% 78%, transparent 78%); }
+  .logo .dial::after{ content:''; position:absolute; inset:4px; border-radius:50%; background:var(--bg-0); }
+  .navlinks{ display:flex; gap:28px; font-size:0.994rem; color:var(--dim); }
+  .navlinks a:hover{ color:var(--ink); }
+  .navright{ display:flex; align-items:center; gap:18px; }
+  .phone{ font-size:0.96rem; color:var(--dim); }
+  .cta-btn{
+    font-family:var(--font-body); font-weight:700; font-size:0.96rem;
+    padding:11px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    display:inline-block; white-space:nowrap;
+  }
+  @media (max-width:860px){ .navlinks{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{ position:relative; padding:110px 0 90px; overflow:hidden; }
+  .hero::before{
+    content:''; position:absolute; inset:-20% -10% auto -10%; height:600px;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    opacity:.5; filter:blur(40px); pointer-events:none;
+  }
+
+  /* -- animated perspective floor grid -- */
+  .hero-grid{
+    position:absolute; left:0; right:0; bottom:-10%; height:70%;
+    perspective:400px; overflow:hidden; pointer-events:none; z-index:0;
+  }
+  .hero-grid::before{
+    content:''; position:absolute; inset:-50% -50% 0 -50%;
+    background-image:
+      repeating-linear-gradient(to right, var(--card-border) 0 1px, transparent 1px 68px),
+      repeating-linear-gradient(to top, var(--card-border) 0 1px, transparent 1px 68px);
+    transform:rotateX(62deg);
+    transform-origin:bottom;
+    animation: gridScroll 9s linear infinite;
+    opacity:.55;
+    mask-image:linear-gradient(to top, black 0%, transparent 75%);
+    -webkit-mask-image:linear-gradient(to top, black 0%, transparent 75%);
+  }
+  @keyframes gridScroll{ from{ background-position:0 0; } to{ background-position:0 136px; } }
+
+  /* -- sweeping laser beams -- */
+  .hero-lasers{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .laser{
+    position:absolute; top:-10%; width:2px; height:130%;
+    background:linear-gradient(to bottom, transparent, var(--a1), transparent);
+    opacity:0; filter:blur(.5px);
+    animation: laserSweep 6s ease-in-out infinite;
+  }
+  .laser:nth-child(1){ left:8%;  background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:0s; }
+  .laser:nth-child(2){ left:32%; background:linear-gradient(to bottom, transparent, var(--a2), transparent); animation-delay:1.6s; transform:rotate(6deg); }
+  .laser:nth-child(3){ left:63%; background:linear-gradient(to bottom, transparent, var(--a3), transparent); animation-delay:3.1s; transform:rotate(-8deg); }
+  .laser:nth-child(4){ left:85%; background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:4.3s; transform:rotate(4deg); }
+  @keyframes laserSweep{
+    0%{ opacity:0; transform:translateX(-10px) rotate(var(--rot,0deg)); }
+    8%{ opacity:.55; }
+    20%{ opacity:0; }
+    100%{ opacity:0; }
+  }
+
+  /* -- drifting fog -- */
+  .hero-fog{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .fog-blob{
+    position:absolute; width:60%; padding-top:60%; border-radius:50%;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    filter:blur(50px); opacity:.4;
+    animation: fogDrift 18s ease-in-out infinite alternate;
+  }
+  .fog-blob.b2{ left:50%; top:20%; animation-duration:24s; animation-delay:-6s; opacity:.28; }
+  @keyframes fogDrift{
+    from{ transform:translate(-8%, 0) scale(1); }
+    to{ transform:translate(8%, 6%) scale(1.15); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-grid::before, .laser, .fog-blob{ animation:none !important; }
+    .laser{ opacity:0; }
+  }
+
+  .hero-logo-wrap{ text-align:center; position:relative; z-index:1; margin-bottom:40px; }
+  .hero-logo-wrap img{
+    width:min(440px, 78vw); height:auto;
+    filter:drop-shadow(0 0 60px var(--glow));
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--card-border); border-radius:100px; padding:7px 16px;
+    font-size:0.881rem; color:var(--dim); letter-spacing:.04em; text-transform:uppercase;
+    margin-bottom:28px; position:relative; z-index:1;
+  }
+  .eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--a1); box-shadow:0 0 8px var(--a1); }
+  .hero h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.6rem, 6vw, 4.6rem); max-width:900px; position:relative; z-index:1;
+  }
+  .hero p.sub{
+    font-size:1.15rem; color:var(--dim); max-width:600px; margin-top:26px; position:relative; z-index:1;
+  }
+  .hero-ctas{ display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; position:relative; z-index:1; }
+  .btn-primary{
+    font-weight:700; padding:16px 30px; border-radius:100px; background:var(--grad); color:#0a0a0a; font-size:1.073rem;
+  }
+  .btn-secondary{
+    font-weight:600; padding:16px 30px; border-radius:100px; border:1px solid var(--card-border); color:var(--ink); font-size:1.073rem;
+  }
+  .trust-row{
+    display:flex; gap:40px; flex-wrap:wrap; margin-top:64px; padding-top:34px;
+    border-top:1px solid var(--card-border); position:relative; z-index:1;
+  }
+  .trust-item .num{ font-family:var(--font-display); font-weight:800; font-size:1.6rem; }
+  .trust-item .label{ font-size:0.904rem; color:var(--dim); margin-top:4px; }
+
+  /* ---------- services ---------- */
+  .section{ padding:90px 0; }
+  .section-head{ max-width:640px; margin-bottom:52px; }
+  .kicker{ font-size:0.881rem; letter-spacing:.08em; text-transform:uppercase; color:var(--a1); font-weight:700; margin-bottom:14px; display:block; }
+  .section-head h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.8rem,3.4vw,2.6rem); }
+  .section-head p{ color:var(--dim); margin-top:14px; font-size:1.153rem; }
+
+  .service-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; }
+  .service-card{
+    background:linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 55%, transparent), color-mix(in srgb, var(--bg-1) 45%, transparent));
+    backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:20px; padding:28px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 8px 30px -18px rgba(0,0,0,.6);
+    transition:.25s; position:relative; overflow:hidden;
+  }
+  .service-card:hover{ transform:translateY(-4px); border-color:var(--a1); box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 20px 50px -20px var(--glow); }
+  .service-card .icon{
+    width:44px; height:44px; border-radius:12px; margin-bottom:20px;
+    background:var(--grad); display:flex; align-items:center; justify-content:center;
+    font-size:1.2rem;
+  }
+  .service-card h3{ font-family:var(--font-display); font-size:1.186rem; font-weight:700; margin-bottom:10px; }
+  .service-card p{ font-size:0.994rem; color:var(--dim); margin-bottom:18px; }
+  .service-card .learn{ font-size:0.904rem; font-weight:700; color:var(--a1); }
+  .service-card.featured{ border-color:var(--a2); }
+  .tag-live{ position:absolute; top:20px; right:20px; font-size:0.82rem; text-transform:uppercase; letter-spacing:.06em; color:var(--a2); border:1px solid var(--a2); padding:3px 8px; border-radius:100px; }
+
+  /* ---------- differentiator ---------- */
+  .diff{ background:var(--bg-1); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border); }
+  .diff-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+  .diff-visual{
+    aspect-ratio:4/3; border-radius:24px; border:1px solid var(--card-border);
+    background:
+      radial-gradient(circle at 30% 20%, var(--glow), transparent 55%),
+      linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 50%, transparent), color-mix(in srgb, var(--bg-0) 40%, transparent));
+    backdrop-filter:blur(22px) saturate(150%); -webkit-backdrop-filter:blur(22px) saturate(150%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 20px 60px -30px rgba(0,0,0,.7);
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .diff-visual .badge{
+    font-family:var(--font-display); font-weight:800; text-align:center; font-size:1.073rem; color:var(--dim);
+    border:1px dashed var(--card-border); padding:20px; border-radius:16px;
+  }
+  .diff-copy h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.7rem,3vw,2.3rem); margin-bottom:20px; }
+  .diff-copy p{ color:var(--dim); margin-bottom:16px; font-size:1.13rem; }
+  .diff-copy strong{ color:var(--ink); }
+  @media (max-width:820px){ .diff-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- reviews ---------- */
+  .review-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
+  .review-card{
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:18px; padding:26px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -20px rgba(0,0,0,.6);
+  }
+  .stars{ color:var(--a2); letter-spacing:2px; margin-bottom:14px; font-size:1.017rem; }
+  .review-card p{ font-size:1.04rem; color:var(--ink); opacity:.9; margin-bottom:16px; }
+  .review-card .who{ font-size:0.904rem; color:var(--dim); font-weight:600; }
+
+  /* ---------- review proof badges ---------- */
+  .proof-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:16px; margin-bottom:36px; }
+  .proof-badge{
+    display:flex; align-items:center; gap:14px; padding:18px 20px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -22px rgba(0,0,0,.6);
+    transition:.22s;
+  }
+  .proof-badge:hover{ border-color:var(--a1); transform:translateY(-3px); box-shadow:0 16px 42px -24px var(--glow); }
+  .proof-mark{
+    flex:0 0 42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:1.2rem; letter-spacing:-.02em;
+  }
+  .proof-mark.g{ background:#ffffff; color:#4285f4; }
+  .proof-mark.y{ background:#d32323; color:#ffffff; }
+  .proof-mark.k{ background:#ffffff; color:#0f9aa0; }
+  .proof-mark.w{ background:#ffffff; color:#16181d; font-size:.98rem; }
+  .proof-meta .rate{
+    font-family:var(--font-display); font-weight:800; font-size:1.22rem; line-height:1.15;
+    display:flex; align-items:baseline; gap:9px;
+  }
+  .proof-meta .rate .s{ color:var(--a2); font-size:.92rem; letter-spacing:1px; font-weight:400; }
+  .proof-meta .cnt{ font-size:.92rem; color:var(--dim); margin-top:2px; }
+  .proof-badge.tbd{ border-style:dashed; border-color:var(--a2); }
+  .proof-badge.tbd .rate{ color:var(--a2); }
+  .proof-badge.tbd .cnt{ color:var(--a2); opacity:.8; }
+
+  /* compact sitewide footer strip */
+  .foot-proof{
+    display:flex; flex-wrap:wrap; align-items:center; gap:12px 26px;
+    margin-top:32px; padding-top:26px; border-top:1px solid var(--card-border);
+  }
+  .foot-proof .fp{ display:inline-flex; align-items:center; gap:9px; font-size:.94rem; color:var(--dim); }
+  .foot-proof .fp:hover{ color:var(--ink); }
+  .foot-proof .fp b{ color:var(--ink); font-weight:700; }
+  .foot-proof .fp .s{ color:var(--a2); letter-spacing:1px; }
+  .foot-proof .fp .m{
+    width:24px; height:24px; border-radius:7px; display:inline-flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:.76rem;
+  }
+  .foot-proof .fp .m.g{ background:#ffffff; color:#4285f4; }
+  .foot-proof .fp .m.y{ background:#d32323; color:#ffffff; }
+  .foot-proof .fp .m.k{ background:#ffffff; color:#0f9aa0; }
+  .foot-proof .fp .m.w{ background:#ffffff; color:#16181d; font-size:.62rem; }
+  @media (max-width:820px){ .foot-proof{ gap:12px 18px; } }
+
+  /* ---------- final CTA ---------- */
+  .final-cta{ text-align:center; padding:110px 0; position:relative; }
+  .final-cta h2{ font-family:var(--font-display); font-weight:900; font-size:clamp(2rem,5vw,3.2rem); max-width:760px; margin:0 auto 22px; }
+  .final-cta p{ color:var(--dim); max-width:520px; margin:0 auto 36px; }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:1px solid var(--card-border); padding:50px 0; }
+  .foot-grid{ display:grid; grid-template-columns:1.6fr repeat(5,1fr); gap:34px 26px; }
+  @media (max-width:1080px){ .foot-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:620px){ .foot-grid{ grid-template-columns:repeat(2,1fr); } }
+  .foot-grid .col.brand{ min-width:210px; }
+  @media (max-width:1080px){ .foot-grid .col.brand{ grid-column:1 / -1; } }
+  .foot-contact{ margin-top:16px; }
+  .foot-contact a{ display:block; margin-bottom:6px; font-size:1rem; color:var(--ink); opacity:.9; }
+  .foot-contact a:hover{ color:var(--a1); opacity:1; }
+  .foot-area{ font-size:.9rem; color:var(--dim); margin-top:12px; line-height:1.6; }
+  .foot-grid .col h4{ font-size:0.904rem; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin-bottom:14px; }
+  .foot-grid .col a, .foot-grid .col p{ display:block; font-size:0.972rem; color:var(--ink); opacity:.8; margin-bottom:8px; }
+  .foot-bottom{ margin-top:40px; padding-top:24px; border-top:1px solid var(--card-border); font-size:0.881rem; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+
+  /* ---------- chatbot bubble (visual placeholder for the AV Concierge) ---------- */
+  #chatBubble{
+    position:fixed; right:22px; bottom:22px; z-index:200;
+    display:flex; align-items:center; gap:8px;
+    padding:14px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    font-weight:700; font-size:0.96rem; box-shadow:0 14px 40px -12px var(--glow);
+    cursor:pointer;
+  }
+
+  [data-reveal]{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  [data-reveal].in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- film grain overlay ---------- */
+  .grain-overlay{
+    position:fixed; inset:0; z-index:999; pointer-events:none;
+    opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-repeat:repeat;
+  }
+
+  /* ---------- marquee strip ---------- */
+  .marquee{
+    border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);
+    background:var(--bg-1); overflow:hidden; padding:18px 0; position:relative;
+  }
+  .marquee-track{
+    display:flex; width:max-content; gap:48px;
+    animation:marqueeScroll 32s linear infinite;
+  }
+  .marquee-track span{
+    font-family:var(--font-display); font-weight:700; font-size:1.073rem;
+    letter-spacing:.04em; text-transform:uppercase; color:var(--dim);
+    display:flex; align-items:center; gap:48px; white-space:nowrap;
+  }
+  .marquee-track span::after{ content:'✦'; color:var(--a1); margin-left:48px; }
+  @keyframes marqueeScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  /* ---------- CO2 / particle burst ---------- */
+  .burst-particle{
+    position:fixed; top:0; left:0; width:6px; height:6px; border-radius:50%;
+    pointer-events:none; z-index:500; will-change:transform,opacity;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+    .marquee-track{ animation:none; }
+    .grain-overlay{ display:none; }
+  }
+</style>
+  <title>Live Streaming Services Dallas | Corporate & Hybrid Event Streaming | Dallas Event Audio</title>
+  <meta name="description" content="Live streaming services in Dallas-Fort Worth for corporate and hybrid events. Up to four 4K cameras switched on site, with board-feed audio run by a technician.">
+  <link rel="canonical" href="https://www.dallaseventaudio.com/live-streaming-services">
+  <meta property="og:title" content="Live Streaming Services Dallas | Corporate & Hybrid Event Streaming | Dallas Event Audio">
+  <meta property="og:description" content="Live streaming services in Dallas-Fort Worth for corporate and hybrid events. Up to four 4K cameras switched on site, with board-feed audio run by a technician.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.dallaseventaudio.com/live-streaming-services">
+<style>
+  /* ========== LIVE STREAMING SERVICES (live-streaming-services) ========== */
+
+  section[id]{ scroll-margin-top:96px; }
+
+  .hero.hero-page{ padding:64px 0 62px; }
+  .breadcrumb{
+    font-size:.881rem; color:var(--dim); letter-spacing:.03em;
+    position:relative; z-index:1; margin-bottom:22px;
+  }
+  .breadcrumb a{ color:var(--dim); }
+  .breadcrumb a:hover{ color:var(--a1); }
+  .breadcrumb .sep{ opacity:.45; margin:0 8px; }
+  .breadcrumb .here{ color:var(--ink); opacity:.75; }
+
+  .hero-page h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.3rem, 5.2vw, 4rem); max-width:980px; position:relative; z-index:1;
+  }
+  .hero-page .sub{
+    font-size:1.18rem; color:var(--dim); max-width:720px; margin-top:24px;
+    position:relative; z-index:1;
+  }
+
+  .stat-row{
+    display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:14px;
+    margin-top:40px; position:relative; z-index:1;
+  }
+  .stat{
+    padding:18px 20px; border-radius:14px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .stat .num{
+    font-family:var(--font-display); font-weight:900; font-size:1.7rem; line-height:1;
+    background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .stat .lbl{ margin-top:8px; font-size:.86rem; color:var(--dim); line-height:1.45; }
+  @media (max-width:860px){ .stat-row{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:480px){ .stat-row{ grid-template-columns:1fr; } }
+
+  /* ---------- DJ service tier cards ---------- */
+  .kit-grid{
+    display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:18px;
+    margin-top:38px;
+  }
+  @media (max-width:860px){
+    .kit-grid{ grid-template-columns:1fr; }
+  }
+  .kit-card{
+    position:relative; overflow:hidden;
+    padding:30px 30px 28px; border-radius:20px;
+    background:color-mix(in srgb, var(--bg-2) 52%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s, box-shadow .3s;
+  }
+  .kit-card::before{
+    content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+    background:var(--grad); opacity:.5; transition:opacity .3s;
+  }
+  .kit-card:hover{
+    border-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transform:translateY(-3px);
+    box-shadow:0 24px 60px -34px var(--glow), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .kit-card:hover::before{ opacity:1; }
+
+  .kit-card .tag{
+    font-family:var(--font-display); font-weight:900; font-size:.7rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1);
+  }
+  .kit-card h3{
+    margin-top:12px; font-family:var(--font-display); font-weight:900; line-height:1.12;
+    font-size:clamp(1.3rem, 2.1vw, 1.6rem);
+  }
+  .kit-card p{ margin-top:14px; font-size:1rem; line-height:1.72; color:var(--dim); }
+  .kit-card p b, .kit-card p strong{ color:var(--ink); font-weight:700; }
+  .kit-card .best{
+    margin-top:18px; padding-top:15px; border-top:1px solid var(--card-border);
+    font-size:.87rem; line-height:1.6; color:var(--dim);
+  }
+  .kit-card .best em{ font-style:normal; font-weight:800; color:var(--a2); letter-spacing:.04em;
+    text-transform:uppercase; font-size:.72rem; display:block; margin-bottom:6px; }
+
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+  .chip{
+    display:inline-block; padding:6px 13px; border-radius:100px;
+    font-size:.79rem; font-weight:600; letter-spacing:.02em;
+    color:var(--dim); text-decoration:none;
+    border:1px solid var(--card-border);
+    background:color-mix(in srgb, var(--bg-0) 45%, transparent);
+    transition:.2s;
+  }
+  a.chip:hover{ color:var(--a1); border-color:color-mix(in srgb, var(--a1) 55%, transparent); }
+  a.chip::after{ content:' \2192'; opacity:.55; }
+
+  /* ---------- which setup for which room ---------- */
+  .room-list{ margin-top:36px; border-top:1px solid var(--card-border); }
+  .room{
+    display:grid; grid-template-columns:280px 1fr; gap:32px;
+    padding:24px 0; border-bottom:1px solid var(--card-border);
+    transition:border-color .3s;
+  }
+  .room:hover{ border-bottom-color:color-mix(in srgb, var(--a1) 40%, transparent); }
+  .room h3{
+    font-family:var(--font-display); font-weight:800; font-size:1.1rem; line-height:1.35;
+  }
+  .room h3 span{ display:block; margin-top:6px; font-size:.76rem; font-weight:700;
+    letter-spacing:.09em; text-transform:uppercase; color:var(--a1); opacity:.85; }
+  .room p{ font-size:1rem; line-height:1.72; color:var(--dim); }
+  .room p b{ color:var(--ink); font-weight:700; }
+
+  @media (max-width:860px){
+    .room{ grid-template-columns:1fr; gap:12px; }
+  }
+
+  /* ---------- add-on strip ---------- */
+  .addon{
+    margin-top:24px; padding:28px 30px; border-radius:18px;
+    border:1px dashed color-mix(in srgb, var(--a1) 32%, var(--card-border));
+    background:color-mix(in srgb, var(--bg-1) 40%, transparent);
+  }
+  .addon h3{ font-family:var(--font-display); font-size:1.16rem; font-weight:800; }
+  .addon p{ margin-top:10px; font-size:.98rem; color:var(--dim); line-height:1.7; }
+
+  /* ---------- feature split ---------- */
+  .split{
+    display:grid; grid-template-columns:1.05fr .95fr; gap:44px; align-items:center;
+  }
+  .split.flip .split-copy{ order:2; }
+  .split.flip .split-vis{ order:1; }
+  .split-copy h2{
+    font-family:var(--font-display); font-weight:900; line-height:1.1;
+    font-size:clamp(1.85rem, 3.4vw, 2.7rem);
+  }
+  .split-copy p{ margin-top:18px; font-size:1.04rem; line-height:1.75; color:var(--dim); }
+  .split-copy p b{ color:var(--ink); font-weight:700; }
+
+  .split-vis{
+    position:relative; border-radius:20px; overflow:hidden;
+    aspect-ratio:4/3; border:1px solid var(--card-border);
+    background-color:var(--bg-2);
+    background-image:var(--img),
+      radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--a1) 22%, transparent), transparent 62%),
+      radial-gradient(circle at 76% 80%, color-mix(in srgb, var(--a2) 18%, transparent), transparent 60%);
+    background-size:cover; background-position:center; background-repeat:no-repeat;
+  }
+  .split-vis .slot{
+    position:absolute; left:0; right:0; bottom:0; padding:30px 16px 13px;
+    background:linear-gradient(to top, rgba(6,6,8,.9), transparent);
+    font-size:.72rem; color:var(--dim); letter-spacing:.03em;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  @media (max-width:860px){
+    .split{ grid-template-columns:1fr; gap:26px; }
+    .split.flip .split-copy{ order:1; }
+    .split.flip .split-vis{ order:2; }
+  }
+
+  /* ---------- how it works ---------- */
+  .flow{ display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:16px; margin-top:34px; }
+  @media (max-width:1040px){ .flow{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:620px){ .flow{ grid-template-columns:1fr; } }
+  .flow-step{
+    position:relative; padding:26px 22px 24px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    border:1px solid var(--card-border);
+    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  }
+  .flow-step .n{
+    font-family:var(--font-display); font-weight:900; font-size:.7rem;
+    letter-spacing:.15em; text-transform:uppercase; color:var(--a1);
+  }
+  .flow-step h3{ margin-top:12px; font-family:var(--font-display); font-size:1.06rem; font-weight:800; }
+  .flow-step p{ margin-top:9px; font-size:.92rem; color:var(--dim); line-height:1.62; }
+
+  /* ---------- trust strip ---------- */
+  .trust-grid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:32px; }
+  @media (max-width:860px){ .trust-grid{ grid-template-columns:1fr; } }
+  .trust-card{
+    padding:24px 24px 22px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 45%, transparent);
+    border:1px solid var(--card-border);
+  }
+  .trust-card h3{ font-family:var(--font-display); font-size:1.02rem; font-weight:800; }
+  .trust-card p{ margin-top:9px; font-size:.92rem; color:var(--dim); line-height:1.62; }
+
+
+  /* ---------- event vertical link cards ---------- */
+  .vgrid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:34px; }
+  @media (max-width:1040px){ .vgrid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:860px){ .vgrid{ grid-template-columns:1fr; } }
+  .vcard{
+    display:block; position:relative; overflow:hidden; text-decoration:none;
+    padding:24px 24px 22px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    backdrop-filter:blur(12px) saturate(140%); -webkit-backdrop-filter:blur(12px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s, box-shadow .3s;
+  }
+  .vcard::before{
+    content:''; position:absolute; left:0; right:0; top:0; height:2px;
+    background:var(--grad); opacity:.45; transition:opacity .3s;
+  }
+  .vcard:hover{
+    border-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transform:translateY(-3px);
+    box-shadow:0 22px 54px -34px var(--glow), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .vcard:hover::before{ opacity:1; }
+  .vcard h3{
+    font-family:var(--font-display); font-weight:800; font-size:1.06rem; line-height:1.3;
+    color:var(--ink);
+  }
+  .vcard h3::after{ content:' \2192'; color:var(--a1); opacity:.7; }
+  .vcard p{ margin-top:10px; font-size:.93rem; color:var(--dim); line-height:1.64; }
+
+  /* ---------- vocabulary band (near-me / city phrasing) ---------- */
+  .band{
+    margin-top:34px; padding:30px 32px; border-radius:20px;
+    background:
+      radial-gradient(circle at 12% 18%, color-mix(in srgb, var(--a1) 12%, transparent), transparent 58%),
+      color-mix(in srgb, var(--bg-1) 55%, transparent);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .band h3{ font-family:var(--font-display); font-weight:900; font-size:clamp(1.2rem,2vw,1.5rem); line-height:1.18; }
+  .band p{ margin-top:14px; font-size:1.02rem; line-height:1.74; color:var(--dim); }
+  .band p b{ color:var(--ink); font-weight:700; }
+  @media (max-width:820px){ .band{ padding:24px 22px; } }
+
+  /* ---------- FAQ ---------- */
+  .faq-list{ margin-top:32px; border-top:1px solid var(--card-border); }
+  .faq-item{ border-bottom:1px solid var(--card-border); }
+  .faq-item summary{
+    list-style:none; cursor:pointer; padding:22px 44px 22px 0; position:relative;
+    font-family:var(--font-display); font-weight:700; font-size:1.06rem; line-height:1.45;
+    transition:color .2s;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary:hover{ color:var(--a1); }
+  .faq-item summary::after{
+    content:'+'; position:absolute; right:6px; top:50%; transform:translateY(-50%);
+    font-size:1.5rem; font-weight:400; line-height:1; color:var(--a1); transition:transform .25s;
+  }
+  .faq-item[open] summary::after{ transform:translateY(-50%) rotate(45deg); }
+  .faq-item .ans{ padding:0 44px 24px 0; font-size:1rem; line-height:1.75; color:var(--dim); }
+  .faq-item .ans a{ color:var(--a1); }
+
+  @media (max-width:820px){
+    .hero.hero-page{ padding:44px 0 50px; }
+    .kit-card{ padding:26px 22px 24px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .kit-card, .vcard{ transition:none; }
+  }
+
+
+  /* ---------- service area city grid ---------- */
+  .city-grid{
+    display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px; margin-top:32px;
+  }
+  @media (max-width:900px){ .city-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:520px){ .city-grid{ grid-template-columns:1fr; } }
+  .city{
+    padding:20px 22px 18px; border-radius:14px;
+    background:color-mix(in srgb, var(--bg-2) 44%, transparent);
+    border:1px solid var(--card-border);
+    transition:border-color .3s;
+  }
+  .city:hover{ border-color:color-mix(in srgb, var(--a1) 38%, transparent); }
+  .city h3{ font-family:var(--font-display); font-weight:800; font-size:1rem; }
+  .city p{ margin-top:8px; font-size:.9rem; color:var(--dim); line-height:1.6; }
+
+  /* ---------- signal path chain ---------- */
+  .path{
+    display:grid; grid-template-columns:repeat(5, minmax(0,1fr)); gap:0;
+    margin-top:38px; position:relative;
+  }
+  .node{
+    position:relative; padding:26px 20px 24px; text-align:center;
+    background:color-mix(in srgb, var(--bg-2) 46%, transparent);
+    backdrop-filter:blur(12px) saturate(140%); -webkit-backdrop-filter:blur(12px) saturate(140%);
+    border:1px solid var(--card-border); border-right-width:0;
+    transition:border-color .3s, background .3s;
+  }
+  .path .node:first-child{ border-radius:16px 0 0 16px; }
+  .path .node:last-child{ border-radius:0 16px 16px 0; border-right-width:1px; }
+  .node:hover{ background:color-mix(in srgb, var(--bg-2) 74%, transparent); }
+  .node .step{
+    font-family:var(--font-display); font-weight:900; font-size:.66rem;
+    letter-spacing:.17em; text-transform:uppercase; color:var(--a1); opacity:.9;
+  }
+  .node h3{
+    margin-top:11px; font-family:var(--font-display); font-weight:800;
+    font-size:1rem; line-height:1.3;
+  }
+  .node p{ margin-top:9px; font-size:.87rem; color:var(--dim); line-height:1.6; }
+  .path .node + .node::after{
+    content:''; position:absolute; left:-6px; top:50%; z-index:3;
+    width:12px; height:12px; margin-top:-6px; border-radius:50%;
+    background:var(--a1); box-shadow:0 0 0 5px var(--bg-0), 0 0 16px var(--glow);
+  }
+  .path-note{
+    margin-top:18px; font-size:.9rem; color:var(--dim); line-height:1.7;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace; letter-spacing:.01em;
+  }
+  @media (max-width:1040px){
+    .path{ grid-template-columns:repeat(2, minmax(0,1fr)); gap:14px; }
+    .node{ border-right-width:1px; border-radius:14px !important; }
+    .path .node + .node::after{ display:none; }
+  }
+  @media (max-width:560px){
+    .path{ grid-template-columns:1fr; }
+  }
+
+  /* ---------- camera count cards ---------- */
+  .cam-grid{ display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:14px; margin-top:34px; }
+  @media (max-width:1040px){ .cam-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:520px){ .cam-grid{ grid-template-columns:1fr; } }
+  .cam{
+    padding:24px 22px 22px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 46%, transparent);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s;
+  }
+  .cam:hover{ border-color:color-mix(in srgb, var(--a1) 40%, transparent); transform:translateY(-2px); }
+  .cam .cn{
+    font-family:var(--font-display); font-weight:900; font-size:2rem; line-height:1;
+    background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .cam h3{ margin-top:12px; font-family:var(--font-display); font-weight:800; font-size:1rem; line-height:1.3; }
+  .cam p{ margin-top:9px; font-size:.9rem; color:var(--dim); line-height:1.62; }
+
+  .wrap p a:not(.chip):not(.btn-primary):not(.btn-secondary),
+  .addon a:not(.chip){
+    color:var(--a1);
+    text-decoration:underline;
+    text-decoration-thickness:1px;
+    text-underline-offset:3px;
+    text-decoration-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transition:color .2s ease, text-decoration-color .2s ease;
+  }
+  .wrap p a:not(.chip):not(.btn-primary):not(.btn-secondary):hover,
+  .addon a:not(.chip):hover{ color:var(--a2); text-decoration-color:var(--a2); }
+</style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Live Streaming Services in Dallas-Fort Worth",
+    "serviceType": "Event Live Streaming and Hybrid Event Production",
+    "url": "https://www.dallaseventaudio.com/live-streaming-services",
+    "description": "Multi-camera live streaming for corporate conferences, general sessions, town halls, panels, awards nights, hybrid meetings, webinars and weddings across Dallas-Fort Worth. Up to four Sony 4K cameras switched live on a Blackmagic Mini ISO Pro, encoded on a MacBook Pro and streamed to the client's own platform. Audio is patched into the video switcher directly from our mixing console, with every microphone processed by an AI-powered De-Feedback system, so remote viewers hear a clean board feed rather than a camera microphone. Delivered, built and operated by an on-site technician. There is no equipment-only or self-service option.",
+    "category": "Live Video Streaming Service",
+    "provider": {
+      "@type": "Organization",
+      "name": "Dallas Event Audio",
+      "url": "https://www.dallaseventaudio.com",
+      "email": "info@dallaseventaudio.com",
+      "telephone": "+1-817-210-7957",
+      "foundingDate": "2001",
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": { "@type": "GeoCoordinates", "addressCountry": "US" },
+        "description": "Dallas-Fort Worth Metroplex, approximately 40 miles from Hurst, TX"
+      }
+    },
+    "areaServed": {
+      "@type": "GeoCircle",
+      "geoMidpoint": { "@type": "GeoCoordinates", "addressCountry": "US" },
+      "description": "Dallas-Fort Worth Metroplex, approximately 40 miles from Hurst, TX"
+    },
+    "audience": { "@type": "Audience", "audienceType": "Corporate event producers, meeting and conference planners, communications teams, houses of worship, venues and wedding couples" },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Live streaming services available",
+      "itemListElement": [
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Corporate live streaming","description":"General sessions, town halls, panels and awards nights streamed live to the client's own platform with board-feed audio.","url":"https://www.dallaseventaudio.com/live-streaming-services#corporate-and-hybrid-events"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Hybrid event production","description":"Events with an in-room audience and a remote audience, run as one event with a room mix and a stream mix off the same console.","url":"https://www.dallaseventaudio.com/live-streaming-services#platforms"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Multi-camera live streaming","description":"One to four Sony 4K cameras cut live by an operator so the stream follows the speaker, the slides and the room.","url":"https://www.dallaseventaudio.com/live-streaming-services#camera-coverage"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Conference and webinar streaming","description":"Presentation audio and switched video for conferences, seminars, training sessions and webinars.","url":"https://www.dallaseventaudio.com/live-streaming-services#platforms"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Wedding live streaming","description":"Discreet camera coverage of a ceremony with the vows carried on processed lapel and podium microphones through our console.","url":"https://www.dallaseventaudio.com/live-streaming-services#wedding-live-streaming"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Board-feed stream audio","description":"Every microphone mixed and processed through an AI-powered De-Feedback system, then patched directly into the video switcher.","url":"https://www.dallaseventaudio.com/live-streaming-services#the-audio-difference"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Corporate photography and videography","description":"Corporate event photography and video delivered as raw image files and raw footage with a 24-hour turnaround.","url":"https://www.dallaseventaudio.com/services-photo-and-video"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Event sound and AV","description":"The console, microphones and room reinforcement the stream feeds off, on the same booking and the same load-in.","url":"https://www.dallaseventaudio.com/services-audio"}}
+      ]
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"Do you offer live streaming services in Dallas?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes. We stream corporate conferences, general sessions, town halls, panels, awards nights, hybrid meetings, webinars and weddings across Dallas, Fort Worth, Plano, Irving, Frisco, Southlake, Arlington, McKinney, Richardson and the surrounding metroplex. Every booking is delivered, built and operated by our technician - there is no equipment-only or self-service option."}},
+      {"@type":"Question","name":"What platforms can you stream to?",
+       "acceptedAnswer":{"@type":"Answer","text":"Whichever one you already use. Zoom and Microsoft Teams for internal and hybrid meetings, YouTube Live and Facebook Live for public events, Vimeo for gated or branded streams, Twitch for entertainment audiences, and any corporate platform that gives us an RTMP destination and key. The stream goes out on your account, so the registration list, chat, analytics and recording all stay in systems your organisation already controls."}},
+      {"@type":"Question","name":"How many cameras do you use?",
+       "acceptedAnswer":{"@type":"Answer","text":"Up to four Sony 4K cameras, and we pick the number based on the event rather than a package. One is right for a single presenter in a fixed position. Two is the most common corporate configuration - a wide and a tight, or a stage camera and the slides. Three or four is what a panel, an awards night or a multi-speaker general session needs so the cut can follow whoever is actually speaking."}},
+      {"@type":"Question","name":"Why does your stream audio sound different from other live streams?",
+       "acceptedAnswer":{"@type":"Answer","text":"Because it does not come from a camera. Your microphones run into our mixing console first, where each channel is gated, compressed, EQ'd and processed by our AI-powered De-Feedback system, and that finished mix is patched directly into the video switcher as a board feed. Remote viewers hear processed speech rather than a microphone on the front of a camera picking up the stage, the air conditioning and the back of the room all at once."}},
+      {"@type":"Question","name":"What is De-Feedback and why does it matter on a stream?",
+       "acceptedAnswer":{"@type":"Answer","text":"It is AI-powered processing that watches for the frequencies about to ring and pulls them down before feedback happens. In the room it means we can run microphone gain high enough for a soft-spoken presenter to be clearly heard. On a stream it matters twice as much, because a remote listener has no visual context to fill in a missed word and no social reason to keep listening - so speech that is loud, clear and free of the low-level ring is what keeps them watching."}},
+      {"@type":"Question","name":"Can you run a hybrid event where half the audience is remote?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes, and that is the format this setup suits best. A hybrid event is one event with two audiences, which means microphone coverage planned for both, a room mix and a stream mix that are related but not identical, and somebody whose job during the session is watching what the remote audience is actually receiving. Because we are running the room audio as well, both feeds come off the same console."}},
+      {"@type":"Question","name":"Do we get a recording afterwards?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes. The session is archived on the platform you streamed to, in your own account, ready to download, trim or repost. If you want a proper multi-camera video record of the event as well as a stream, that is a different service - see our corporate photo and video page, where we deliver raw footage with a 24-hour turnaround."}},
+      {"@type":"Question","name":"Do you also shoot corporate photography and video?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes. We cover corporate events with photography and videography and deliver the raw image files and raw video footage directly to you, typically within 24 hours. There is no editing pass - you receive the original files, so your own team or editor can do whatever they need with them without waiting on a post-production queue. It is a separate booking from streaming but it works on the same event and the same load-in."}},
+      {"@type":"Question","name":"What do you need from our venue?",
+       "acceptedAnswer":{"@type":"Answer","text":"Three things, all of which we confirm in advance: an internet connection we have tested from the actual streaming position, preferably wired rather than house Wi-Fi; a camera position with a sightline that will still be clear once the room is dressed and staffed; and power on a circuit that is not shared with catering equipment. We also need the load-in window to include enough time to take the stream live and check it from outside the building before doors."}},
+      {"@type":"Question","name":"Can you live stream a wedding ceremony?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes. Ceremony audio is the hardest audio at any event - two people speaking quietly, often outdoors, with wind and music and a room full of guests - and it is precisely what a camera microphone cannot handle. Because the ceremony microphones are already ours and already processed, the vows on the stream are on a lapel through our console. We keep camera positions discreet and work to whatever your officiant, venue and photographer have agreed."}},
+      {"@type":"Question","name":"How much do live streaming services cost in Dallas?",
+       "acceptedAnswer":{"@type":"Answer","text":"We do not publish a figure, because a one-camera briefing in a hotel meeting room and a four-camera awards night with breakout audio are not the same job and any range wide enough to cover both would be useless to you. What moves the number is the camera count, how many hours the crew is on site, how much microphone coverage the room needs and whether we are also running the sound for the live audience. Send us the date and the venue and you will get a real quote back, usually the same day."}},
+      {"@type":"Question","name":"How far do you travel?",
+       "acceptedAnswer":{"@type":"Answer","text":"We are based in Hurst, between Dallas and Fort Worth, and cover roughly a forty-mile radius as standard, which takes in almost all of the metroplex. Events further out are usually still possible - ask, and we will tell you plainly whether it works."}}
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://www.dallaseventaudio.com/"},
+      {"@type":"ListItem","position":2,"name":"Audio","item":"https://www.dallaseventaudio.com/services-audio"},
+      {"@type":"ListItem","position":3,"name":"Live Streaming Services","item":"https://www.dallaseventaudio.com/live-streaming-services"}
+    ]
+  }
+  </script>
+
+</head>
+<body>
+<div id="paletteBar">
+    <span>Palette preview</span>
+    <button data-p="signal" class="active">A · Signal Chain</button>
+    <button data-p="amber">B · Stage Black &amp; Amber</button>
+    <button data-p="night">C · DFW Night Rig</button>
+  </div>
+
+  <header>
+    <nav>
+      <a class="logo" href="/" style="text-decoration:none;"><div class="dial"></div>DEA</a>
+      <div class="navlinks">
+        <a href="/services-lighting">Lighting</a>
+        <a href="/services-audio">Audio</a>
+        <a href="/our-work">Our Work</a>
+        <a href="/what-others-are-saying">Reviews</a>
+        <a href="/contact">Contact</a>
+      </div>
+      <div class="navright">
+        <span class="phone">817-210-7957</span>
+        <a class="cta-btn" href="/contact">Get a Quote</a>
+      </div>
+    </nav>
+  </header>
+  <section class="hero hero-page">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="breadcrumb" data-reveal>
+        <a href="/">Home</a><span class="sep">/</span><a href="/services-audio">Audio</a><span class="sep">/</span><span class="here">Live Streaming Services</span>
+      </div>
+      <h1 data-reveal>Live streaming services in Dallas-Fort Worth, <span class="grad-text">with audio your remote audience can actually follow.</span></h1>
+      <p class="sub" data-reveal>Up to four Sony 4K cameras, switched live on site, streamed to whichever platform you already use. The part nobody else talks about is the sound: your microphones run through our mixer and our AI-powered De-Feedback processing first, then straight into the video switcher as a clean board feed. The people watching from a laptop hear the same processed speech the room hears, not a camera picking up the room.</p>
+
+      <div class="stat-row" data-reveal>
+        <div class="stat">
+          <div class="num">4</div>
+          <div class="lbl">Sony 4K cameras available, switched live by an on-site operator</div>
+        </div>
+        <div class="stat">
+          <div class="num">Board</div>
+          <div class="lbl">Audio patched from our mixer into the switcher, never a camera microphone</div>
+        </div>
+        <div class="stat">
+          <div class="num">2001</div>
+          <div class="lbl">Running event audio and AV across Dallas-Fort Worth since 2001</div>
+        </div>
+        <div class="stat">
+          <div class="num">COI</div>
+          <div class="lbl">Fully insured, certificates sent straight to your venue</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Live Streaming Services Dallas &middot; Corporate Live Streaming &middot; Hybrid Event Production &middot; Multi-Camera Live Streaming &middot; Conference Streaming &middot; Webinar Production &middot; Wedding Live Stream &middot; Board-Feed Audio &middot; Technician Run &middot; Insured Since 2001 &middot;&nbsp;</span>
+      <span>Live Streaming Services Dallas &middot; Corporate Live Streaming &middot; Hybrid Event Production &middot; Multi-Camera Live Streaming &middot; Conference Streaming &middot; Webinar Production &middot; Wedding Live Stream &middot; Board-Feed Audio &middot; Technician Run &middot; Insured Since 2001 &middot;&nbsp;</span>
+    </div>
+  </div>
+
+  <section class="section" id="live-streaming-services">
+    <div class="wrap">
+      <div class="split" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">Live Streaming Services Dallas</span>
+          <h2>Most live streams fail on the sound, not the picture.</h2>
+          <p>Sit through a badly streamed conference and the cameras are almost never the problem. The picture is fine. What drives the remote audience away is a presenter who sounds like they are speaking from the back of a parking garage, a panel where only the person nearest the camera is intelligible, and a room whose air handling is louder than the microphone. <b>Every one of those is an audio problem being solved with a camera.</b></p>
+          <p>We come at this from the other direction. Dallas Event Audio has been running live sound in this metroplex since 2001, so when we stream an event, the microphones are already ours, already mixed, and already processed. The stream gets a direct feed from the mixing console, the same signal we send to the speakers in the room, patched into the video switcher on a dedicated audio input. Nothing is picked up off a camera.</p>
+          <p>The video side is genuinely good: up to four Sony 4K cameras cut live by an operator, so the stream follows the speaker, the slides and the room instead of staring at one wide shot for two hours. But the reason people stay watching is that they can understand what is being said. If you want the wider picture of what we run on the sound side, start at <a href="/services-audio">our audio services</a>.</p>
+          <div class="chips">
+            <a class="chip" href="/contact">Check your date</a>
+            <a class="chip" href="/corporate-events">Corporate events</a>
+            <a class="chip" href="/services-photo-and-video">Photo &amp; video</a>
+          </div>
+        </div>
+        <div class="split-vis" style="--img:url('/images/live-streaming/live-streaming-services-dallas-multicamera.jpg')">
+          <span class="slot">/images/live-streaming/live-streaming-services-dallas-multicamera.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how-it-works">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">The Signal Path</span>
+        <h2>How the stream is actually built</h2>
+        <p class="sub">Five stages, start to finish. The order matters, because the audio is cleaned up before it ever reaches the video side rather than after.</p>
+      </div>
+
+      <div class="path">
+        <div class="node" data-reveal>
+          <div class="step">01</div>
+          <h3>Microphones</h3>
+          <p>Lapels, handhelds, podium and panel microphones, placed and rung out for the actual room.</p>
+        </div>
+        <div class="node" data-reveal>
+          <div class="step">02</div>
+          <h3>Mixing console</h3>
+          <p>Every channel gated, compressed and EQ&rsquo;d, with AI-powered De-Feedback holding the room stable.</p>
+        </div>
+        <div class="node" data-reveal>
+          <div class="step">03</div>
+          <h3>Video switcher</h3>
+          <p>A Blackmagic Mini ISO Pro takes the camera feeds and the board feed, cut live by an operator.</p>
+        </div>
+        <div class="node" data-reveal>
+          <div class="step">04</div>
+          <h3>Encoding laptop</h3>
+          <p>A MacBook Pro encodes the switched program and pushes it out over the venue&rsquo;s connection.</p>
+        </div>
+        <div class="node" data-reveal>
+          <div class="step">05</div>
+          <h3>Your platform</h3>
+          <p>Zoom, Teams, YouTube, Facebook, Twitch, Vimeo or whatever your organisation already runs on.</p>
+        </div>
+      </div>
+
+      <p class="path-note">microphones &rarr; mixer &rarr; De-Feedback &rarr; video switcher &rarr; encoder &rarr; platform</p>
+
+      <div class="addon" data-reveal>
+        <h3>The whole chain is one crew</h3>
+        <p>The sound in the room, the microphones on the presenters, the cameras and the stream are all run by the same team on the same load-in. Nobody has to negotiate a hand-off between an AV company and a video company in a hallway forty minutes before doors, and nobody discovers at 9:04 a.m. that the streaming vendor was expecting a feed the audio vendor never agreed to send. Talk to us about <a href="/contact">your date and venue</a> and it is quoted as one job.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="the-audio-difference">
+    <div class="wrap">
+      <div class="split flip" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">The Difference</span>
+          <h2>A board feed, not a camera microphone.</h2>
+          <p>This is the whole argument for hiring an audio company to run your stream, so it is worth being specific about it. A camera has a microphone on the front. Point it at a stage forty feet away and it records the stage, the HVAC, the ice machine, the coffee service at the back and the two people whispering in row four, all at roughly the same volume, because a microphone does not know what you care about.</p>
+          <p><b>We do not use that microphone at all.</b> The presenter&rsquo;s lapel, the handheld going around the Q&amp;A, the podium microphone and the panel table are all on our console. Each one is treated individually, then summed into a stereo feed and patched into the video switcher on a dedicated audio input. What the stream carries is the mix, the same one the room hears, minus the room.</p>
+          <p>On top of that, every microphone runs through our <a href="/feedback-free-microphone-rentals">AI-powered De-Feedback processing</a>. It watches for the frequencies that are about to ring and pulls them down before they do, which means we can run gain high enough for a soft-spoken presenter to be genuinely clear without the system howling. Remote viewers get the benefit twice over: the speech is louder relative to the room, and it is not sitting on top of the low-level ring that makes long streams exhausting to listen to.</p>
+        </div>
+        <div class="split-vis" style="--img:url('/images/live-streaming/live-stream-board-feed-audio-mixer-dallas.jpg')">
+          <span class="slot">/images/live-streaming/live-stream-board-feed-audio-mixer-dallas.jpg</span>
+        </div>
+      </div>
+
+      <div class="band" data-reveal>
+        <h3>Why the remote audience drops off</h3>
+        <p>Attention on a stream is far more fragile than attention in a room. Someone sitting in your ballroom has social pressure, a table, a coffee and nowhere else to be. Someone watching from a desk has a browser tab and no obligation whatsoever. <b>The moment they have to work to understand a sentence, they leave.</b> Clean, processed, feedback-free speech is not a nicety on a live stream. It is the entire retention strategy.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="what-we-bring">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">The Rig</span>
+        <h2>What we bring</h2>
+        <p class="sub">A compact, reliable package rather than a truck of things nobody will use. Every piece of it is delivered, built, tested and operated by our technician.</p>
+      </div>
+
+      <div class="kit-grid">
+        <div class="kit-card" data-reveal>
+          <div class="tag">Cameras</div>
+          <h3>Sony 4K cameras, one to four</h3>
+          <p>We scale the camera count to the event rather than the invoice. One camera is right for a single presenter on a fixed stage. Two covers a presenter plus the audience or the slides. Three or four is what a panel, an awards night or a multi-speaker general session needs so the cut can follow whoever is actually talking.</p>
+          <div class="best"><em>Best for</em>Any event where the stream should look intentional rather than recorded from a tripod at the back.</div>
+        </div>
+        <div class="kit-card" data-reveal>
+          <div class="tag">Switching</div>
+          <h3>Blackmagic Mini ISO Pro switcher</h3>
+          <p>The switcher is where the event is actually assembled. Camera feeds, presentation graphics and the audio board feed all arrive here, and an operator cuts between them live as the event happens. That is why the stream tracks the room. There is a person watching it and making decisions, not a fixed wide shot running unattended.</p>
+          <div class="best"><em>Best for</em>Conferences, panels and general sessions where the interesting thing keeps moving.</div>
+        </div>
+        <div class="kit-card" data-reveal>
+          <div class="tag">Encoding</div>
+          <h3>MacBook Pro streaming station</h3>
+          <p>The switched program goes into a MacBook Pro, which encodes it and pushes it to whichever service you have chosen. We connect to your platform and your account, so the recording, the chat, the registration list and the analytics all live where your organisation already keeps them rather than on a vendor&rsquo;s system.</p>
+          <div class="best"><em>Best for</em>Companies with an existing Zoom, Teams, YouTube or Vimeo workflow they do not want to leave.</div>
+        </div>
+        <div class="kit-card" data-reveal>
+          <div class="tag">Audio</div>
+          <h3>Console, microphones and De-Feedback</h3>
+          <p>Wireless lapels and handhelds, podium and panel microphones, playback from a presenter&rsquo;s laptop, and a mixing console running every one of them through AI-powered De-Feedback. This is the same system reinforcing the room, so the audio the stream carries and the audio your live audience hears are the same mix.</p>
+          <div class="best"><em>Best for</em>Every single stream we do. This is the part that is not optional.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="camera-coverage">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">Multi-Camera Live Streaming</span>
+        <h2>How many cameras your event actually needs</h2>
+        <p class="sub">More cameras is not automatically better. What matters is whether there is more than one thing worth looking at, and whether anybody is going to look away from the stage.</p>
+      </div>
+
+      <div class="cam-grid">
+        <div class="cam" data-reveal>
+          <div class="cn">1</div>
+          <h3>Single camera</h3>
+          <p>One presenter, one position, one message. A clean locked shot with real board-feed audio, which is already better than most streams. Right for a keynote, a briefing or a short address.</p>
+        </div>
+        <div class="cam" data-reveal>
+          <div class="cn">2</div>
+          <h3>Two cameras</h3>
+          <p>A wide and a tight, or a stage camera and a slide feed. The cut can breathe, and a long session stops feeling static. This is the most common corporate configuration.</p>
+        </div>
+        <div class="cam" data-reveal>
+          <div class="cn">3</div>
+          <h3>Three cameras</h3>
+          <p>Wide, tight and a reverse or audience angle. Panels start to work properly here, because the cut can land on whoever picked up the microphone instead of holding on the moderator.</p>
+        </div>
+        <div class="cam" data-reveal>
+          <div class="cn">4</div>
+          <h3>Four cameras</h3>
+          <p>Full coverage for an awards night, a multi-speaker general session or a room where the audience reaction is part of the story. Nothing important happens off-camera.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="platforms">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">Platforms</span>
+        <h2>We stream to whichever service you already use</h2>
+      </div>
+
+      <p style="max-width:820px;" data-reveal>There is no Dallas Event Audio platform you have to sign up for, and no viewing link that routes your attendees through us. You tell us where the stream is going and we send it there. In practice that means Zoom and Microsoft Teams for internal and hybrid meetings, YouTube Live and Facebook Live for public and community events, Vimeo for organisations that want the stream gated behind their own branding, Twitch for anything with a gaming or entertainment audience, and a plain RTMP destination for corporate platforms that provide their own key.</p>
+
+      <p style="max-width:820px;" data-reveal>Keeping the stream on your account matters more than it sounds. The registration list, the chat, the viewer analytics, the retention graph and the recording all stay inside systems your organisation already controls and already has a data agreement with. When your communications team wants the numbers on Monday, they log into their own dashboard. <b>The archive is yours too</b>, the recorded session lives in your platform&rsquo;s library, ready to download, cut down or repost.</p>
+
+      <div class="band" data-reveal>
+        <h3>Hybrid events and webinar production in Dallas</h3>
+        <p>If half your audience is in the ballroom and half is on a laptop, the two halves have to be treated as one event with two feeds, not as a live event with a camera pointed at it. That means microphone coverage planned for both audiences, a room mix and a stream mix that are related but not identical, and somebody whose actual job during the session is watching the stream. That is what a <b>hybrid event production</b> booking with us includes.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="corporate-and-hybrid-events">
+    <div class="wrap">
+      <div class="split" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">Corporate Live Streaming</span>
+          <h2>Conferences, general sessions, town halls and awards nights.</h2>
+          <p>Corporate work is the bulk of what we stream, and it is the environment this setup was built for. A general session with a lapel-microphone keynote, a panel on a stage, a Q&amp;A microphone travelling through the audience and a slide deck that has to be legible on a phone is exactly the situation where a camera-microphone stream falls apart and a board-feed stream holds together.</p>
+          <p>The practical advantage is that we are already your audio company for the day. The room reinforcement, the presenter microphones, the playback from the laptop on the podium and the stream are one system with one operator behind it. There is no second vendor to brief, no argument about who owns the feed, and no adapter nobody brought. Load-in is one crew, one time.</p>
+          <p>For a conference running breakouts, we can stream the main room while the breakout rooms get their own audio, all quoted together. Our <a href="/corporate-events">corporate events page</a> covers the rest of what that day looks like, and <a href="/rent-sound-equipment">sound and AV equipment rental</a> covers the room systems underneath it.</p>
+        </div>
+        <div class="split-vis" style="--img:url('/images/live-streaming/corporate-live-streaming-dallas-conference.jpg')">
+          <span class="slot">/images/live-streaming/corporate-live-streaming-dallas-conference.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="wedding-live-streaming">
+    <div class="wrap">
+      <div class="split flip" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">Wedding Live Streaming</span>
+          <h2>For the people who could not get on a plane.</h2>
+          <p>Wedding streaming is a smaller part of what we do, but it is the one with the most riding on it. There is usually a specific reason it is being booked, a grandparent who cannot travel, family overseas, someone who is not well enough to be in the room, and there is exactly one take.</p>
+          <p>What we bring to it is the same thing that makes the corporate streams work. The ceremony microphones are already ours, which means the vows are on a lapel and a discreet podium microphone going through our console, not on a camera at the back of the aisle. A ceremony is the hardest audio in the entire event: two people speaking quietly, outdoors as often as not, with wind and a string quartet and a hundred guests breathing. A camera microphone does not stand a chance at it. A processed lapel feed does.</p>
+          <p>We keep the camera positions unobtrusive and work to whatever your officiant, venue and photographer have already agreed. If we are handling your ceremony and reception audio anyway, adding the stream is a small extension of a system that is already in the room, see <a href="/weddings">wedding audio</a> for the rest of it.</p>
+        </div>
+        <div class="split-vis" style="--img:url('/images/live-streaming/wedding-live-stream-dallas-ceremony.jpg')">
+          <span class="slot">/images/live-streaming/wedding-live-stream-dallas-ceremony.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="streaming-by-event">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">By Event Type</span>
+        <h2>Where streaming fits with everything else</h2>
+        <p class="sub">The stream is rarely booked on its own. It usually rides along with the audio, video and production we are already bringing to the room.</p>
+      </div>
+
+      <div class="vgrid">
+        <a class="vcard" href="/corporate-events" data-reveal>
+          <h3>Corporate events</h3>
+          <p>General sessions, town halls, panels and awards nights, streamed on your platform with board-feed audio.</p>
+        </a>
+        <a class="vcard" href="/services-photo-and-video" data-reveal>
+          <h3>Photo &amp; video</h3>
+          <p>Corporate photography and videography delivered as raw files, 24-hour turnaround, alongside the stream.</p>
+        </a>
+        <a class="vcard" href="/services-audio" data-reveal>
+          <h3>Audio services</h3>
+          <p>The console, microphones and room reinforcement the stream feeds off. This is the foundation of all of it.</p>
+        </a>
+        <a class="vcard" href="/weddings" data-reveal>
+          <h3>Weddings</h3>
+          <p>Ceremony and reception audio, with an optional stream for the family who could not make the trip.</p>
+        </a>
+        <a class="vcard" href="/rent-sound-equipment" data-reveal>
+          <h3>Sound &amp; AV rental</h3>
+          <p>Speakers, subwoofers, wireless microphones, mixers and corporate AV, delivered and run by a technician.</p>
+        </a>
+        <a class="vcard" href="/services-lighting" data-reveal>
+          <h3>Lighting</h3>
+          <p>Stage and uplighting that makes a room read properly on camera instead of turning presenters into silhouettes.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="where-it-works">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">Venue Requirements</span>
+        <h2>What we need from the room</h2>
+        <p class="sub">Streaming has three genuine dependencies. We check all of them before the day rather than discovering them at eight in the morning.</p>
+      </div>
+
+      <div class="room-list">
+        <div class="room" data-reveal>
+          <h3>An internet connection we have tested<span>Wired if at all possible</span></h3>
+          <p>This is the one that decides whether a stream succeeds, and it is almost always the venue&rsquo;s house Wi-Fi that fails it, not because it is slow at nine in the morning, but because it is being shared with four hundred phones by ten. We ask for a wired connection to the streaming position wherever the building can provide one, and we test the actual upload speed from that actual jack in advance rather than trusting the number on the venue&rsquo;s information sheet.</p>
+        </div>
+        <div class="room" data-reveal>
+          <h3>A camera position with a real sightline<span>And an agreement that it stays clear</span></h3>
+          <p>Cameras need somewhere to be that is not behind a pillar, a floral installation or a service door that is about to have twelve plated dinners carried through it. We walk this with you or the venue beforehand and mark the positions on the floor plan, because a tripod that has to move during a keynote is a shot that is gone.</p>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Power at the streaming position<span>On a circuit nobody else is using</span></h3>
+          <p>The switcher, the encoding laptop, the console and the cameras all need clean, uninterrupted power. The failure mode is never dramatic: somebody plugs a warming tray into the same circuit and the breaker takes the stream down mid-sentence. We identify a dedicated circuit as part of the advance and run our own distribution from it.</p>
+        </div>
+        <div class="room" data-reveal>
+          <h3>A little time before doors<span>Enough to test, not just to build</span></h3>
+          <p>We need the load-in window to include a real test, the stream actually going live to your platform, checked from a second device outside the building, with a microphone open and somebody listening. Building the rig is the easy half. Confirming that what leaves the room arrives at the other end is the half that gets skipped and the half that matters.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="service-area">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">Service Area</span>
+        <h2>Where we stream</h2>
+        <p class="sub">We work across Dallas-Fort Worth, roughly forty miles out from our base in Hurst, which puts most of the metroplex comfortably inside the radius.</p>
+      </div>
+
+      <div class="city-grid">
+        <div class="city" data-reveal><h3>Dallas</h3><p>Downtown hotel ballrooms, Design District spaces and corporate conference centres.</p></div>
+        <div class="city" data-reveal><h3>Fort Worth</h3><p>Convention space, downtown hotels and the Stockyards event venues.</p></div>
+        <div class="city" data-reveal><h3>Plano</h3><p>Corporate campuses and the Legacy-area meeting and conference space.</p></div>
+        <div class="city" data-reveal><h3>Irving</h3><p>Las Colinas corporate AV, hotel conference centres and training facilities.</p></div>
+        <div class="city" data-reveal><h3>Frisco</h3><p>Hotel ballrooms, corporate meeting space and stadium-district events.</p></div>
+        <div class="city" data-reveal><h3>Southlake</h3><p>Country clubs, private estates and Town Square venues.</p></div>
+        <div class="city" data-reveal><h3>Arlington</h3><p>Entertainment district venues, university auditoriums and large-format sessions.</p></div>
+        <div class="city" data-reveal><h3>McKinney</h3><p>Historic downtown venues and north-county corporate and wedding properties.</p></div>
+        <div class="city" data-reveal><h3>Richardson</h3><p>Telecom corridor offices, training rooms and civic auditorium events.</p></div>
+      </div>
+
+      <div class="band" data-reveal>
+        <h3>Looking for a live streaming company near you in DFW?</h3>
+        <p>If your venue is inside the metroplex, we are almost certainly already familiar with it. Searches like <b>live streaming services Dallas</b>, <b>corporate live streaming</b>, <b>live streaming company Dallas</b> and <b>event live streaming near me</b> all land in the same place: a crew that shows up with cameras, a switcher and, the part that actually separates one stream from another, a mixing console. Send us <a href="/contact">the date and the venue</a> and we will tell you what it needs.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="why-us">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">Why Us</span>
+        <h2>Why hire an audio company to run your stream</h2>
+      </div>
+
+      <div class="trust-grid">
+        <div class="trust-card" data-reveal>
+          <h3>The audio is the product</h3>
+          <p>Everyone streaming events in Dallas has cameras. Very few of them own the console your microphones are already plugged into. The board feed and the AI-powered De-Feedback processing are the reason a remote viewer stays for forty minutes instead of four.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>One crew, one load-in</h3>
+          <p>Sound, microphones, cameras and stream are all us, on the same booking. No hand-off between vendors, no argument over whose feed it is, and one technician on site who understands the whole signal path from the lapel to the platform.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Run, not dropped off</h3>
+          <p>There is no self-service option and no equipment pickup. Everything is delivered, built, tested end-to-end and operated by our technician for the length of the event, then struck. Insured, and working in Dallas-Fort Worth since 2001.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">FAQ</span>
+        <h2>Live streaming questions</h2>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item" data-reveal>
+          <summary>Do you offer live streaming services in Dallas?</summary>
+          <div class="ans">Yes. We stream corporate conferences, general sessions, town halls, panels, awards nights, hybrid meetings, webinars and weddings across Dallas, Fort Worth, Plano, Irving, Frisco, Southlake, Arlington, McKinney, Richardson and the surrounding metroplex. Every booking is delivered, built and operated by our technician. There is no equipment-only or self-service option.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>What platforms can you stream to?</summary>
+          <div class="ans">Whichever one you already use. Zoom and Microsoft Teams for internal and hybrid meetings, YouTube Live and Facebook Live for public events, Vimeo for gated or branded streams, Twitch for entertainment audiences, and any corporate platform that gives us an RTMP destination and key. The stream goes out on your account, so the registration list, chat, analytics and recording all stay in systems your organisation already controls.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How many cameras do you use?</summary>
+          <div class="ans">Up to four Sony 4K cameras, and we pick the number based on the event rather than a package. One is right for a single presenter in a fixed position. Two is the most common corporate configuration, a wide and a tight, or a stage camera and the slides. Three or four is what a panel, an awards night or a multi-speaker general session needs so the cut can follow whoever is actually speaking.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Why does your stream audio sound different from other live streams?</summary>
+          <div class="ans">Because it does not come from a camera. Your microphones run into our mixing console first, where each channel is gated, compressed, EQ&rsquo;d and processed by our AI-powered De-Feedback system, and that finished mix is patched directly into the video switcher as a board feed. Remote viewers hear processed speech rather than a microphone on the front of a camera picking up the stage, the air conditioning and the back of the room all at once.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>What is De-Feedback and why does it matter on a stream?</summary>
+          <div class="ans">It is AI-powered processing that watches for the frequencies about to ring and pulls them down before feedback happens. In the room it means we can run microphone gain high enough for a soft-spoken presenter to be clearly heard. On a stream it matters twice as much, because a remote listener has no visual context to fill in a missed word and no social reason to keep listening, so speech that is loud, clear and free of the low-level ring is what keeps them watching.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Can you run a hybrid event where half the audience is remote?</summary>
+          <div class="ans">Yes, and that is the format this setup suits best. A hybrid event is one event with two audiences, which means microphone coverage planned for both, a room mix and a stream mix that are related but not identical, and somebody whose job during the session is watching what the remote audience is actually receiving. Because we are running the room audio as well, both feeds come off the same console.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do we get a recording afterwards?</summary>
+          <div class="ans">Yes. The session is archived on the platform you streamed to, in your own account, ready to download, trim or repost. If you want a proper multi-camera video record of the event as well as a stream, that is a different service, see our <a href="/services-photo-and-video">corporate photo and video</a> page, where we deliver raw footage with a 24-hour turnaround.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do you also shoot corporate photography and video?</summary>
+          <div class="ans">Yes. We cover corporate events with photography and videography and deliver the <b>raw image files and raw video footage</b> directly to you, typically within 24 hours. There is no editing pass. You receive the original files, so your own team or editor can do whatever they need with them without waiting on a post-production queue. It is a separate booking from streaming but it works on the same event and the same load-in.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>What do you need from our venue?</summary>
+          <div class="ans">Three things, all of which we confirm in advance: an internet connection we have tested from the actual streaming position, preferably wired rather than house Wi-Fi; a camera position with a sightline that will still be clear once the room is dressed and staffed; and power on a circuit that is not shared with catering equipment. We also need the load-in window to include enough time to take the stream live and check it from outside the building before doors.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Can you live stream a wedding ceremony?</summary>
+          <div class="ans">Yes. Ceremony audio is the hardest audio at any event, two people speaking quietly, often outdoors, with wind and music and a room full of guests, and it is precisely what a camera microphone cannot handle. Because the ceremony microphones are already ours and already processed, the vows on the stream are on a lapel through our console. We keep camera positions discreet and work to whatever your officiant, venue and photographer have agreed.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How much do live streaming services cost in Dallas?</summary>
+          <div class="ans">We do not publish a figure, because a one-camera briefing in a hotel meeting room and a four-camera awards night with breakout audio are not the same job and any range wide enough to cover both would be useless to you. What moves the number is the camera count, how many hours the crew is on site, how much microphone coverage the room needs and whether we are also running the sound for the live audience. Send us the date and the venue and you will get a real quote back, usually the same day.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How far do you travel?</summary>
+          <div class="ans">We are based in Hurst, between Dallas and Fort Worth, and cover roughly a forty-mile radius as standard, which takes in almost all of the metroplex. Events further out are usually still possible, ask, and we will tell you plainly whether it works.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta" id="quote">
+    <div class="wrap">
+      <h2 data-reveal>Tell us the date, the venue and the platform. <span class="grad-text">We&rsquo;ll spec the stream.</span></h2>
+      <p data-reveal>The date, the room, roughly how many people are in it and where the stream needs to go is enough to get a real quote back, usually the same day, with cameras, the switcher, the audio and the technician already in the number. Tell us about your event and we will send you a straightforward quote the same day.</p>
+      <div data-reveal style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+        <a class="btn-primary" href="/contact">Get Your Quote</a>
+        <a class="btn-secondary" href="tel:8172107957">Call or Text 817-210-7957</a>
+      </div>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="col brand">
+          <div class="logo"><div class="dial"></div>DEA</div>
+          <p style="margin-top:14px; max-width:250px;">Full-service AV production for Dallas-Fort Worth since 2001. Delivered, set up, and run by our on-site technician.</p>
+          <div class="foot-contact">
+            <a href="tel:8172107957">817-210-7957</a>
+            <a href="mailto:info@dallaseventaudio.com">info@dallaseventaudio.com</a>
+          </div>
+          <p class="foot-area">Serving Dallas, Fort Worth, Southlake, Arlington, Frisco, McKinney, Richardson &amp; the wider Metroplex.</p>
+        </div>
+        <div class="col">
+          <h4>Events</h4>
+          <a href="/weddings">Weddings</a>
+          <a href="/corporate-events">Corporate Events</a>
+          <a href="/private-events">Private Events</a>
+          <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+          <a href="/college-school-university-events">College &amp; University</a>
+          <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+          <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+        </div>
+        <div class="col">
+          <h4>Services</h4>
+          <a href="/services-dj">DJ Services</a>
+          <a href="/services-audio">Audio Services</a>
+          <a href="/services-lighting">Lighting Services</a>
+          <a href="/services-photo-and-video">Photo &amp; Video</a>
+          <a href="/services-extra">Extra Services</a>
+        </div>
+        <div class="col">
+          <h4>Audio Rentals</h4>
+          <a href="/rent-sound-equipment">Sound Equipment</a>
+          <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+          <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+          <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+          <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+          <a href="/live-streaming-services">Live Streaming</a>
+        </div>
+        <div class="col">
+          <h4>Lighting &amp; FX</h4>
+          <a href="/rent-uplighting">Uplighting</a>
+          <a href="/rent-laser-light-show">Laser Light Show</a>
+          <a href="/rent-follow-spot-light">Follow Spot</a>
+          <a href="/monogram-projector">Monogram Projector</a>
+          <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+          <a href="/projector-screen-rental">Projector &amp; Screen</a>
+        </div>
+        <div class="col">
+          <h4>Company</h4>
+          <a href="/our-story">Our Story</a>
+          <a href="/our-work">Our Work</a>
+          <a href="/equipment-list">Equipment List</a>
+          <a href="/what-others-are-saying">Reviews</a>
+          <a href="/blog">Blog</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div class="foot-proof">
+        <a class="fp" href="https://www.google.com/maps?cid=11213015373496621898" target="_blank" rel="noopener"><span class="m g">G</span> <b>4.9</b> <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span> &middot; 41 Google reviews</a>
+        <a class="fp" href="https://www.yelp.com/biz/dallas-event-audio-dallas" target="_blank" rel="noopener"><span class="m y">Y</span> <b>Yelp</b> &middot; 13 reviews &middot; 134 photos</a>
+      </div>
+      <div class="foot-bottom">
+        <span>&copy; 2026 Dallas Event Audio. Fully insured, on-site AV production.</span>
+        <span>Service page draft, live streaming</span>
+      </div>
+    </div>
+  </footer>
+<div id="chatBubble">✦ AV Concierge</div>
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+<script>
+  // Palette switcher, review tool only
+  document.querySelectorAll('#paletteBar button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.documentElement.setAttribute('data-palette', btn.dataset.p);
+      document.querySelectorAll('#paletteBar button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // Scroll reveal
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.15});
+    document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el=>el.classList.add('in'));
+  }
+
+  // CO2 / particle burst on primary CTA click
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function burst(x, y){
+    if(reduceMotion) return;
+    const colors = ['var(--a1)','var(--a2)','var(--a3)','#ffffff'];
+    const count = 26;
+    for(let i=0;i<count;i++){
+      const p = document.createElement('span');
+      p.className = 'burst-particle';
+      const angle = (Math.PI * 2 * i) / count + Math.random()*0.4;
+      const dist = 60 + Math.random()*140;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist - 40;
+      const size = 4 + Math.random()*6;
+      p.style.width = p.style.height = size + 'px';
+      p.style.background = colors[i % colors.length];
+      p.style.boxShadow = '0 0 8px ' + colors[i % colors.length];
+      p.style.left = x + 'px';
+      p.style.top = y + 'px';
+      document.body.appendChild(p);
+      const anim = p.animate([
+        { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
+        { transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.3)`, opacity:0 }
+      ], { duration:700 + Math.random()*400, easing:'cubic-bezier(.2,.7,.3,1)' });
+      anim.onfinish = () => p.remove();
+    }
+  }
+  document.querySelectorAll('.btn-primary').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      burst(e.clientX, e.clientY);
+    });
+  });
+</script>
+
+</body>
+</html>

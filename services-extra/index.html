@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="signal">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font-display:'Unbounded',sans-serif;
+    --font-body:'Space Grotesk',sans-serif;
+  }
+
+  /* ============ PALETTE A: Signal Chain (true DJ mixer peak-meter LEDs: green / yellow / red) ============ */
+  html[data-palette="signal"]{
+    --bg-0:#050706; --bg-1:#0a0f0c; --bg-2:#0e1512;
+    --ink:#f4f7f5; --dim:#b4c5ba;
+    --a1:#31ff6e; /* LED green */
+    --a2:#fff21c; /* LED yellow */
+    --a3:#ff1f3d; /* LED red */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 55%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(255,255,255,.08);
+    --glow: rgba(49,255,110,.35);
+  }
+  /* ============ PALETTE B: Stage Black & Amber (warm, premium, ties to existing chat widget gold) ============ */
+  html[data-palette="amber"]{
+    --bg-0:#070605; --bg-1:#0d0a06; --bg-2:#120e08;
+    --ink:#f8f3ea; --dim:#c3b7a5;
+    --a1:#e8b75c; /* gold */
+    --a2:#ffdfa0; /* warm white/spot */
+    --a3:#4fa3ff; /* cool counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 50%, var(--a2) 50%, var(--a2) 100%);
+    --card-border: rgba(232,183,92,.16);
+    --glow: rgba(232,183,92,.32);
+  }
+  /* ============ PALETTE C: DFW Night Rig (cool stage-lighting energy, distinct from EDM Wedding DJ's magenta) ============ */
+  html[data-palette="night"]{
+    --bg-0:#05060b; --bg-1:#090b16; --bg-2:#0c0f1e;
+    --ink:#f1f3fb; --dim:#aeb5cf;
+    --a1:#2f6fff; /* electric blue */
+    --a2:#8b5cf6; /* violet */
+    --a3:#ffb020; /* amber counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 65%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(139,92,246,.16);
+    --glow: rgba(47,111,255,.35);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-0);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  .grad-text{
+    background:var(--grad);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  /* ---------- palette dock (bottom left, shipped feature) ---------- */
+  #paletteBar{
+    position:fixed; left:20px; bottom:22px; z-index:200;
+    display:flex; flex-direction:column; align-items:flex-start;
+    font-family:var(--font-body);
+  }
+  #paletteBar .pal-toggle{
+    display:flex; align-items:center; gap:9px;
+    padding:11px 17px; border-radius:100px;
+    border:1px solid var(--card-border); background:rgba(8,9,10,.82);
+    -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+    color:var(--ink); font-family:var(--font-body); font-size:0.85rem; font-weight:600;
+    cursor:pointer; transition:border-color .2s, background .2s;
+  }
+  #paletteBar .pal-toggle:hover{ border-color:var(--a1); background:rgba(8,9,10,.94); }
+  #paletteBar .pal-toggle .dots{ display:flex; gap:3px; }
+  #paletteBar .pal-toggle .dots i{ width:8px; height:8px; border-radius:50%; display:block; }
+  #paletteBar .pal-opts{
+    display:none; flex-direction:column; gap:4px; margin-bottom:10px;
+    padding:10px; border-radius:16px; min-width:222px;
+    border:1px solid var(--card-border); background:rgba(8,9,10,.94);
+    -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px);
+    box-shadow:0 20px 50px -18px rgba(0,0,0,.9);
+  }
+  #paletteBar.open .pal-opts{ display:flex; }
+  #paletteBar .pal-opts .pal-head{
+    font-family:var(--font-display); font-weight:900; font-size:0.6rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--dim);
+    padding:4px 10px 8px;
+  }
+  #paletteBar .pal-opts button{
+    display:flex; align-items:center; gap:10px; text-align:left; width:100%;
+    padding:9px 11px; border-radius:11px; border:1px solid transparent;
+    background:transparent; color:var(--ink);
+    font-family:var(--font-body); font-size:0.87rem; font-weight:500;
+    cursor:pointer; transition:.18s;
+  }
+  #paletteBar .pal-opts button:hover{ background:rgba(255,255,255,.06); }
+  #paletteBar .pal-opts button.active{ border-color:var(--a1); background:rgba(255,255,255,.05); font-weight:700; }
+  #paletteBar .pal-opts button i{
+    width:22px; height:11px; border-radius:100px; flex:0 0 auto;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);
+  }
+  #paletteBar .sw-signal{ background:linear-gradient(90deg,#31ff6e,#fff21c 55%,#ff1f3d); }
+  #paletteBar .sw-amber { background:linear-gradient(90deg,#e8b75c,#ffdfa0); }
+  #paletteBar .sw-night { background:linear-gradient(90deg,#2f6fff,#8b5cf6 65%,#ffb020); }
+  @media(max-width:520px){
+    #paletteBar{ left:14px; bottom:16px; }
+    #paletteBar .pal-toggle{ padding:9px 13px; font-size:0.8rem; }
+    #paletteBar .pal-toggle .label{ display:none; }
+    #paletteBar .pal-opts{ min-width:198px; }
+  }
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(5,6,5,.7); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--card-border);
+  }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1180px; margin:0 auto; }
+  .logo{ display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:900; font-size:1.15rem; letter-spacing:.02em; }
+  .logo .dial{ width:26px; height:26px; border-radius:50%; position:relative; background:conic-gradient(var(--a1) 0 26%, var(--a2) 26% 52%, var(--a3) 52% 78%, transparent 78%); }
+  .logo .dial::after{ content:''; position:absolute; inset:4px; border-radius:50%; background:var(--bg-0); }
+  .navlinks{ display:flex; gap:28px; font-size:0.994rem; color:var(--dim); }
+  .navlinks a:hover{ color:var(--ink); }
+  .navright{ display:flex; align-items:center; gap:18px; }
+  .phone{ font-size:0.96rem; color:var(--dim); }
+  .cta-btn{
+    font-family:var(--font-body); font-weight:700; font-size:0.96rem;
+    padding:11px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    display:inline-block; white-space:nowrap;
+  }
+  @media (max-width:860px){ .navlinks{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{ position:relative; padding:110px 0 90px; overflow:hidden; }
+  .hero::before{
+    content:''; position:absolute; inset:-20% -10% auto -10%; height:600px;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    opacity:.5; filter:blur(40px); pointer-events:none;
+  }
+
+  /* -- animated perspective floor grid -- */
+  .hero-grid{
+    position:absolute; left:0; right:0; bottom:-10%; height:70%;
+    perspective:400px; overflow:hidden; pointer-events:none; z-index:0;
+  }
+  .hero-grid::before{
+    content:''; position:absolute; inset:-50% -50% 0 -50%;
+    background-image:
+      repeating-linear-gradient(to right, var(--card-border) 0 1px, transparent 1px 68px),
+      repeating-linear-gradient(to top, var(--card-border) 0 1px, transparent 1px 68px);
+    transform:rotateX(62deg);
+    transform-origin:bottom;
+    animation: gridScroll 9s linear infinite;
+    opacity:.55;
+    mask-image:linear-gradient(to top, black 0%, transparent 75%);
+    -webkit-mask-image:linear-gradient(to top, black 0%, transparent 75%);
+  }
+  @keyframes gridScroll{ from{ background-position:0 0; } to{ background-position:0 136px; } }
+
+  /* -- sweeping laser beams -- */
+  .hero-lasers{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .laser{
+    position:absolute; top:-10%; width:2px; height:130%;
+    background:linear-gradient(to bottom, transparent, var(--a1), transparent);
+    opacity:0; filter:blur(.5px);
+    animation: laserSweep 6s ease-in-out infinite;
+  }
+  .laser:nth-child(1){ left:8%;  background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:0s; }
+  .laser:nth-child(2){ left:32%; background:linear-gradient(to bottom, transparent, var(--a2), transparent); animation-delay:1.6s; transform:rotate(6deg); }
+  .laser:nth-child(3){ left:63%; background:linear-gradient(to bottom, transparent, var(--a3), transparent); animation-delay:3.1s; transform:rotate(-8deg); }
+  .laser:nth-child(4){ left:85%; background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:4.3s; transform:rotate(4deg); }
+  @keyframes laserSweep{
+    0%{ opacity:0; transform:translateX(-10px) rotate(var(--rot,0deg)); }
+    8%{ opacity:.55; }
+    20%{ opacity:0; }
+    100%{ opacity:0; }
+  }
+
+  /* -- drifting fog -- */
+  .hero-fog{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .fog-blob{
+    position:absolute; width:60%; padding-top:60%; border-radius:50%;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    filter:blur(50px); opacity:.4;
+    animation: fogDrift 18s ease-in-out infinite alternate;
+  }
+  .fog-blob.b2{ left:50%; top:20%; animation-duration:24s; animation-delay:-6s; opacity:.28; }
+  @keyframes fogDrift{
+    from{ transform:translate(-8%, 0) scale(1); }
+    to{ transform:translate(8%, 6%) scale(1.15); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-grid::before, .laser, .fog-blob{ animation:none !important; }
+    .laser{ opacity:0; }
+  }
+
+  .hero-logo-wrap{ text-align:center; position:relative; z-index:1; margin-bottom:40px; }
+  .hero-logo-wrap img{
+    width:min(440px, 78vw); height:auto;
+    filter:drop-shadow(0 0 60px var(--glow));
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--card-border); border-radius:100px; padding:7px 16px;
+    font-size:0.881rem; color:var(--dim); letter-spacing:.04em; text-transform:uppercase;
+    margin-bottom:28px; position:relative; z-index:1;
+  }
+  .eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--a1); box-shadow:0 0 8px var(--a1); }
+  .hero h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.6rem, 6vw, 4.6rem); max-width:900px; position:relative; z-index:1;
+  }
+  .hero p.sub{
+    font-size:1.15rem; color:var(--dim); max-width:600px; margin-top:26px; position:relative; z-index:1;
+  }
+  .hero-ctas{ display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; position:relative; z-index:1; }
+  .btn-primary{
+    font-weight:700; padding:16px 30px; border-radius:100px; background:var(--grad); color:#0a0a0a; font-size:1.073rem;
+  }
+  .btn-secondary{
+    font-weight:600; padding:16px 30px; border-radius:100px; border:1px solid var(--card-border); color:var(--ink); font-size:1.073rem;
+  }
+  .trust-row{
+    display:flex; gap:40px; flex-wrap:wrap; margin-top:64px; padding-top:34px;
+    border-top:1px solid var(--card-border); position:relative; z-index:1;
+  }
+  .trust-item .num{ font-family:var(--font-display); font-weight:800; font-size:1.6rem; }
+  .trust-item .label{ font-size:0.904rem; color:var(--dim); margin-top:4px; }
+
+  /* ---------- services ---------- */
+  .section{ padding:90px 0; }
+  .section-head{ max-width:640px; margin-bottom:52px; }
+  .kicker{ font-size:0.881rem; letter-spacing:.08em; text-transform:uppercase; color:var(--a1); font-weight:700; margin-bottom:14px; display:block; }
+  .section-head h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.8rem,3.4vw,2.6rem); }
+  .section-head p{ color:var(--dim); margin-top:14px; font-size:1.153rem; }
+
+  .service-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; }
+  .service-card{
+    background:linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 55%, transparent), color-mix(in srgb, var(--bg-1) 45%, transparent));
+    backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:20px; padding:28px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 8px 30px -18px rgba(0,0,0,.6);
+    transition:.25s; position:relative; overflow:hidden;
+  }
+  .service-card:hover{ transform:translateY(-4px); border-color:var(--a1); box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 20px 50px -20px var(--glow); }
+  .service-card .icon{
+    width:44px; height:44px; border-radius:12px; margin-bottom:20px;
+    background:var(--grad); display:flex; align-items:center; justify-content:center;
+    font-size:1.2rem;
+  }
+  .service-card h3{ font-family:var(--font-display); font-size:1.186rem; font-weight:700; margin-bottom:10px; }
+  .service-card p{ font-size:0.994rem; color:var(--dim); margin-bottom:18px; }
+  .service-card .learn{ font-size:0.904rem; font-weight:700; color:var(--a1); }
+  .service-card.featured{ border-color:var(--a2); }
+  .tag-live{ position:absolute; top:20px; right:20px; font-size:0.82rem; text-transform:uppercase; letter-spacing:.06em; color:var(--a2); border:1px solid var(--a2); padding:3px 8px; border-radius:100px; }
+
+  /* ---------- differentiator ---------- */
+  .diff{ background:var(--bg-1); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border); }
+  .diff-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+  .diff-visual{
+    aspect-ratio:4/3; border-radius:24px; border:1px solid var(--card-border);
+    background:
+      radial-gradient(circle at 30% 20%, var(--glow), transparent 55%),
+      linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 50%, transparent), color-mix(in srgb, var(--bg-0) 40%, transparent));
+    backdrop-filter:blur(22px) saturate(150%); -webkit-backdrop-filter:blur(22px) saturate(150%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 20px 60px -30px rgba(0,0,0,.7);
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .diff-visual .badge{
+    font-family:var(--font-display); font-weight:800; text-align:center; font-size:1.073rem; color:var(--dim);
+    border:1px dashed var(--card-border); padding:20px; border-radius:16px;
+  }
+  .diff-copy h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.7rem,3vw,2.3rem); margin-bottom:20px; }
+  .diff-copy p{ color:var(--dim); margin-bottom:16px; font-size:1.13rem; }
+  .diff-copy strong{ color:var(--ink); }
+  @media (max-width:820px){ .diff-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- reviews ---------- */
+  .review-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
+  .review-card{
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:18px; padding:26px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -20px rgba(0,0,0,.6);
+  }
+  .stars{ color:var(--a2); letter-spacing:2px; margin-bottom:14px; font-size:1.017rem; }
+  .review-card p{ font-size:1.04rem; color:var(--ink); opacity:.9; margin-bottom:16px; }
+  .review-card .who{ font-size:0.904rem; color:var(--dim); font-weight:600; }
+
+  /* ---------- review proof badges ---------- */
+  .proof-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:16px; margin-bottom:36px; }
+  .proof-badge{
+    display:flex; align-items:center; gap:14px; padding:18px 20px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -22px rgba(0,0,0,.6);
+    transition:.22s;
+  }
+  .proof-badge:hover{ border-color:var(--a1); transform:translateY(-3px); box-shadow:0 16px 42px -24px var(--glow); }
+  .proof-mark{
+    flex:0 0 42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:1.2rem; letter-spacing:-.02em;
+  }
+  .proof-mark.g{ background:#ffffff; color:#4285f4; }
+  .proof-mark.y{ background:#d32323; color:#ffffff; }
+  .proof-mark.k{ background:#ffffff; color:#0f9aa0; }
+  .proof-mark.w{ background:#ffffff; color:#16181d; font-size:.98rem; }
+  .proof-meta .rate{
+    font-family:var(--font-display); font-weight:800; font-size:1.22rem; line-height:1.15;
+    display:flex; align-items:baseline; gap:9px;
+  }
+  .proof-meta .rate .s{ color:var(--a2); font-size:.92rem; letter-spacing:1px; font-weight:400; }
+  .proof-meta .cnt{ font-size:.92rem; color:var(--dim); margin-top:2px; }
+  .proof-badge.tbd{ border-style:dashed; border-color:var(--a2); }
+  .proof-badge.tbd .rate{ color:var(--a2); }
+  .proof-badge.tbd .cnt{ color:var(--a2); opacity:.8; }
+
+  /* compact sitewide footer strip */
+  .foot-proof{
+    display:flex; flex-wrap:wrap; align-items:center; gap:12px 26px;
+    margin-top:32px; padding-top:26px; border-top:1px solid var(--card-border);
+  }
+  .foot-proof .fp{ display:inline-flex; align-items:center; gap:9px; font-size:.94rem; color:var(--dim); }
+  .foot-proof .fp:hover{ color:var(--ink); }
+  .foot-proof .fp b{ color:var(--ink); font-weight:700; }
+  .foot-proof .fp .s{ color:var(--a2); letter-spacing:1px; }
+  .foot-proof .fp .m{
+    width:24px; height:24px; border-radius:7px; display:inline-flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:.76rem;
+  }
+  .foot-proof .fp .m.g{ background:#ffffff; color:#4285f4; }
+  .foot-proof .fp .m.y{ background:#d32323; color:#ffffff; }
+  .foot-proof .fp .m.k{ background:#ffffff; color:#0f9aa0; }
+  .foot-proof .fp .m.w{ background:#ffffff; color:#16181d; font-size:.62rem; }
+  @media (max-width:820px){ .foot-proof{ gap:12px 18px; } }
+
+  /* ---------- final CTA ---------- */
+  .final-cta{ text-align:center; padding:110px 0; position:relative; }
+  .final-cta h2{ font-family:var(--font-display); font-weight:900; font-size:clamp(2rem,5vw,3.2rem); max-width:760px; margin:0 auto 22px; }
+  .final-cta p{ color:var(--dim); max-width:520px; margin:0 auto 36px; }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:1px solid var(--card-border); padding:50px 0; }
+  .foot-grid{ display:grid; grid-template-columns:1.6fr repeat(5,1fr); gap:34px 26px; }
+  @media (max-width:1080px){ .foot-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:620px){ .foot-grid{ grid-template-columns:repeat(2,1fr); } }
+  .foot-grid .col.brand{ min-width:210px; }
+  @media (max-width:1080px){ .foot-grid .col.brand{ grid-column:1 / -1; } }
+  .foot-contact{ margin-top:16px; }
+  .foot-contact a{ display:block; margin-bottom:6px; font-size:1rem; color:var(--ink); opacity:.9; }
+  .foot-contact a:hover{ color:var(--a1); opacity:1; }
+  .foot-area{ font-size:.9rem; color:var(--dim); margin-top:12px; line-height:1.6; }
+  .foot-grid .col h4{ font-size:0.904rem; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin-bottom:14px; }
+  .foot-grid .col a, .foot-grid .col p{ display:block; font-size:0.972rem; color:var(--ink); opacity:.8; margin-bottom:8px; }
+  .foot-bottom{ margin-top:40px; padding-top:24px; border-top:1px solid var(--card-border); font-size:0.881rem; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+
+  /* ---------- chatbot bubble (visual placeholder for the AV Concierge) ---------- */
+  #chatBubble{
+    position:fixed; right:22px; bottom:22px; z-index:200;
+    display:flex; align-items:center; gap:8px;
+    padding:14px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    font-weight:700; font-size:0.96rem; box-shadow:0 14px 40px -12px var(--glow);
+    cursor:pointer;
+  }
+
+  [data-reveal]{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  [data-reveal].in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- film grain overlay ---------- */
+  .grain-overlay{
+    position:fixed; inset:0; z-index:999; pointer-events:none;
+    opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-repeat:repeat;
+  }
+
+  /* ---------- marquee strip ---------- */
+  .marquee{
+    border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);
+    background:var(--bg-1); overflow:hidden; padding:18px 0; position:relative;
+  }
+  .marquee-track{
+    display:flex; width:max-content; gap:48px;
+    animation:marqueeScroll 32s linear infinite;
+  }
+  .marquee-track span{
+    font-family:var(--font-display); font-weight:700; font-size:1.073rem;
+    letter-spacing:.04em; text-transform:uppercase; color:var(--dim);
+    display:flex; align-items:center; gap:48px; white-space:nowrap;
+  }
+  .marquee-track span::after{ content:'✦'; color:var(--a1); margin-left:48px; }
+  @keyframes marqueeScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  /* ---------- CO2 / particle burst ---------- */
+  .burst-particle{
+    position:fixed; top:0; left:0; width:6px; height:6px; border-radius:50%;
+    pointer-events:none; z-index:500; will-change:transform,opacity;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+    .marquee-track{ animation:none; }
+    .grain-overlay{ display:none; }
+  }
+</style>
+  <title>CO2 Cannons &amp; Special Effects Rental | Dallas Event Audio</title>
+  <meta name="description" content="Special effects rental across Dallas-Fort Worth. CO2 cannons and guns, cold sparks, lasers, fog and haze, dancing on the clouds, all run by our crew.">
+  <link rel="canonical" href="https://www.dallaseventaudio.com/services-extra">
+  <meta property="og:title" content="CO2 Cannons &amp; Special Effects Rental | Dallas Event Audio">
+  <meta property="og:description" content="Special effects rental across Dallas-Fort Worth. CO2 cannons and guns, cold sparks, lasers, fog and haze, dancing on the clouds, all run by our crew.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.dallaseventaudio.com/services-extra">
+<style>
+  /* ========== FOG & HAZE MACHINE RENTAL (rent-fog-machine) ========== */
+
+  section[id]{ scroll-margin-top:96px; }
+
+  .hero.hero-page{ padding:64px 0 62px; }
+  .breadcrumb{
+    font-size:.881rem; color:var(--dim); letter-spacing:.03em;
+    position:relative; z-index:1; margin-bottom:22px;
+  }
+  .breadcrumb a{ color:var(--dim); }
+  .breadcrumb a:hover{ color:var(--a1); }
+  .breadcrumb .sep{ opacity:.45; margin:0 8px; }
+  .breadcrumb .here{ color:var(--ink); opacity:.75; }
+
+  .hero-page h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.3rem, 5.2vw, 4rem); max-width:980px; position:relative; z-index:1;
+  }
+  .hero-page .sub{
+    font-size:1.18rem; color:var(--dim); max-width:720px; margin-top:24px;
+    position:relative; z-index:1;
+  }
+
+  .stat-row{
+    display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:14px;
+    margin-top:40px; position:relative; z-index:1;
+  }
+  .stat{
+    padding:18px 20px; border-radius:14px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .stat .num{
+    font-family:var(--font-display); font-weight:900; font-size:1.7rem; line-height:1;
+    background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .stat .lbl{ margin-top:8px; font-size:.86rem; color:var(--dim); line-height:1.45; }
+  @media (max-width:860px){ .stat-row{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:480px){ .stat-row{ grid-template-columns:1fr; } }
+
+  /* ---------- DJ service tier cards ---------- */
+  .dj-grid{
+    display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:18px;
+    margin-top:38px;
+  }
+  @media (max-width:860px){
+    .dj-grid{ grid-template-columns:1fr; }
+  }
+  .dj-card{
+    position:relative; overflow:hidden;
+    padding:30px 30px 28px; border-radius:20px;
+    background:color-mix(in srgb, var(--bg-2) 52%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s, box-shadow .3s;
+  }
+  .dj-card::before{
+    content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+    background:var(--grad); opacity:.5; transition:opacity .3s;
+  }
+  .dj-card:hover{
+    border-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transform:translateY(-3px);
+    box-shadow:0 24px 60px -34px var(--glow), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .dj-card:hover::before{ opacity:1; }
+
+  .dj-card .tag{
+    font-family:var(--font-display); font-weight:900; font-size:.7rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1);
+  }
+  .dj-card h3{
+    margin-top:12px; font-family:var(--font-display); font-weight:900; line-height:1.12;
+    font-size:clamp(1.3rem, 2.1vw, 1.6rem);
+  }
+  .dj-card p{ margin-top:14px; font-size:1rem; line-height:1.72; color:var(--dim); }
+  .dj-card p b, .dj-card p strong{ color:var(--ink); font-weight:700; }
+  .dj-card .best{
+    margin-top:18px; padding-top:15px; border-top:1px solid var(--card-border);
+    font-size:.87rem; line-height:1.6; color:var(--dim);
+  }
+  .dj-card .best em{ font-style:normal; font-weight:800; color:var(--a2); letter-spacing:.04em;
+    text-transform:uppercase; font-size:.72rem; display:block; margin-bottom:6px; }
+
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+  .chip{
+    display:inline-block; padding:6px 13px; border-radius:100px;
+    font-size:.79rem; font-weight:600; letter-spacing:.02em;
+    color:var(--dim); text-decoration:none;
+    border:1px solid var(--card-border);
+    background:color-mix(in srgb, var(--bg-0) 45%, transparent);
+    transition:.2s;
+  }
+  a.chip:hover{ color:var(--a1); border-color:color-mix(in srgb, var(--a1) 55%, transparent); }
+  a.chip::after{ content:' \2192'; opacity:.55; }
+
+  /* ---------- which setup for which room ---------- */
+  .room-list{ margin-top:36px; border-top:1px solid var(--card-border); }
+  .room{
+    display:grid; grid-template-columns:280px 1fr; gap:32px;
+    padding:24px 0; border-bottom:1px solid var(--card-border);
+    transition:border-color .3s;
+  }
+  .room:hover{ border-bottom-color:color-mix(in srgb, var(--a1) 40%, transparent); }
+  .room h3{
+    font-family:var(--font-display); font-weight:800; font-size:1.1rem; line-height:1.35;
+  }
+  .room h3 span{ display:block; margin-top:6px; font-size:.76rem; font-weight:700;
+    letter-spacing:.09em; text-transform:uppercase; color:var(--a1); opacity:.85; }
+  .room p{ font-size:1rem; line-height:1.72; color:var(--dim); }
+  .room p b{ color:var(--ink); font-weight:700; }
+
+  @media (max-width:860px){
+    .room{ grid-template-columns:1fr; gap:12px; }
+  }
+
+  .room-body{ min-width:0; }
+  .room-body p + p{ margin-top:14px; }
+
+  /* ---------- spec line (dea-copy-standards, option C) ---------- */
+  .spec{
+    display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+    margin:0 0 14px; padding-bottom:12px;
+    border-bottom:1px solid var(--card-border);
+    font-family:var(--font-body); font-size:.92rem; color:var(--ink); line-height:1.5;
+  }
+  .spec span{
+    font-family:var(--font-display); font-weight:900; font-size:.66rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1); flex:0 0 auto;
+  }
+
+  /* ---------- add-on strip ---------- */
+  .addon{
+    margin-top:24px; padding:28px 30px; border-radius:18px;
+    border:1px dashed color-mix(in srgb, var(--a1) 32%, var(--card-border));
+    background:color-mix(in srgb, var(--bg-1) 40%, transparent);
+  }
+  .addon h3{ font-family:var(--font-display); font-size:1.16rem; font-weight:800; }
+  .addon p{ margin-top:10px; font-size:.98rem; color:var(--dim); line-height:1.7; }
+
+  /* ---------- feature split ---------- */
+  .split{
+    display:grid; grid-template-columns:1.05fr .95fr; gap:44px; align-items:center;
+  }
+  .split.flip .split-copy{ order:2; }
+  .split.flip .split-vis{ order:1; }
+  .split-copy h2{
+    font-family:var(--font-display); font-weight:900; line-height:1.1;
+    font-size:clamp(1.85rem, 3.4vw, 2.7rem);
+  }
+  .split-copy p{ margin-top:18px; font-size:1.04rem; line-height:1.75; color:var(--dim); }
+  .split-copy p b{ color:var(--ink); font-weight:700; }
+
+  .split-vis{
+    position:relative; border-radius:20px; overflow:hidden;
+    aspect-ratio:4/3; border:1px solid var(--card-border);
+    background-color:var(--bg-2);
+    background-image:var(--img),
+      radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--a1) 22%, transparent), transparent 62%),
+      radial-gradient(circle at 76% 80%, color-mix(in srgb, var(--a2) 18%, transparent), transparent 60%);
+    background-size:cover; background-position:center; background-repeat:no-repeat;
+  }
+  .split-vis img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  }
+  .split-vis .slot{
+    position:absolute; left:0; right:0; bottom:0; padding:30px 16px 13px;
+    background:linear-gradient(to top, rgba(6,6,8,.9), transparent);
+    font-size:.72rem; color:var(--dim); letter-spacing:.03em;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  @media (max-width:860px){
+    .split{ grid-template-columns:1fr; gap:26px; }
+    .split.flip .split-copy{ order:1; }
+    .split.flip .split-vis{ order:2; }
+  }
+
+  /* ---------- how it works ---------- */
+  .flow{ display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:16px; margin-top:34px; }
+  @media (max-width:1040px){ .flow{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:620px){ .flow{ grid-template-columns:1fr; } }
+  .flow-step{
+    position:relative; padding:26px 22px 24px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    border:1px solid var(--card-border);
+    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  }
+  .flow-step .n{
+    font-family:var(--font-display); font-weight:900; font-size:.7rem;
+    letter-spacing:.15em; text-transform:uppercase; color:var(--a1);
+  }
+  .flow-step h3{ margin-top:12px; font-family:var(--font-display); font-size:1.06rem; font-weight:800; }
+  .flow-step p{ margin-top:9px; font-size:.92rem; color:var(--dim); line-height:1.62; }
+
+  /* ---------- trust strip ---------- */
+  .trust-grid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:32px; }
+  @media (max-width:860px){ .trust-grid{ grid-template-columns:1fr; } }
+  .trust-card{
+    padding:24px 24px 22px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 45%, transparent);
+    border:1px solid var(--card-border);
+  }
+  .trust-card h3{ font-family:var(--font-display); font-size:1.02rem; font-weight:800; }
+  .trust-card p{ margin-top:9px; font-size:.92rem; color:var(--dim); line-height:1.62; }
+
+
+  /* ---------- event vertical link cards ---------- */
+  .vgrid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:34px; }
+  @media (max-width:1040px){ .vgrid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:860px){ .vgrid{ grid-template-columns:1fr; } }
+  .vcard{
+    display:block; position:relative; overflow:hidden; text-decoration:none;
+    padding:24px 24px 22px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    backdrop-filter:blur(12px) saturate(140%); -webkit-backdrop-filter:blur(12px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s, box-shadow .3s;
+  }
+  .vcard::before{
+    content:''; position:absolute; left:0; right:0; top:0; height:2px;
+    background:var(--grad); opacity:.45; transition:opacity .3s;
+  }
+  .vcard:hover{
+    border-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transform:translateY(-3px);
+    box-shadow:0 22px 54px -34px var(--glow), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .vcard:hover::before{ opacity:1; }
+  .vcard h3{
+    font-family:var(--font-display); font-weight:800; font-size:1.06rem; line-height:1.3;
+    color:var(--ink);
+  }
+  .vcard h3::after{ content:' \2192'; color:var(--a1); opacity:.7; }
+  .vcard p{ margin-top:10px; font-size:.93rem; color:var(--dim); line-height:1.64; }
+
+  /* ---------- vocabulary band (near-me / city phrasing) ---------- */
+  .band{
+    margin-top:34px; padding:30px 32px; border-radius:20px;
+    background:
+      radial-gradient(circle at 12% 18%, color-mix(in srgb, var(--a1) 12%, transparent), transparent 58%),
+      color-mix(in srgb, var(--bg-1) 55%, transparent);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  }
+  .band h3{ font-family:var(--font-display); font-weight:900; font-size:clamp(1.2rem,2vw,1.5rem); line-height:1.18; }
+  .band p{ margin-top:14px; font-size:1.02rem; line-height:1.74; color:var(--dim); }
+  .band p b{ color:var(--ink); font-weight:700; }
+  @media (max-width:820px){ .band{ padding:24px 22px; } }
+
+  /* ---------- FAQ ---------- */
+  .faq-list{ margin-top:32px; border-top:1px solid var(--card-border); }
+  .faq-item{ border-bottom:1px solid var(--card-border); }
+  .faq-item summary{
+    list-style:none; cursor:pointer; padding:22px 44px 22px 0; position:relative;
+    font-family:var(--font-display); font-weight:700; font-size:1.06rem; line-height:1.45;
+    transition:color .2s;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary:hover{ color:var(--a1); }
+  .faq-item summary::after{
+    content:'+'; position:absolute; right:6px; top:50%; transform:translateY(-50%);
+    font-size:1.5rem; font-weight:400; line-height:1; color:var(--a1); transition:transform .25s;
+  }
+  .faq-item[open] summary::after{ transform:translateY(-50%) rotate(45deg); }
+  .faq-item .ans{ padding:0 44px 24px 0; font-size:1rem; line-height:1.75; color:var(--dim); }
+  .faq-item .ans a{ color:var(--a1); }
+
+  @media (max-width:820px){
+    .hero.hero-page{ padding:44px 0 50px; }
+    .dj-card{ padding:26px 22px 24px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .dj-card, .vcard{ transition:none; }
+  }
+
+
+
+
+  /* ---------- effect comparison strip ---------- */
+  .fx-grid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:34px; }
+  @media (max-width:1040px){ .fx-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:700px){ .fx-grid{ grid-template-columns:1fr; } }
+  .fx-card{
+    position:relative; overflow:hidden;
+    padding:26px 24px 24px; border-radius:18px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s;
+  }
+  .fx-card::after{
+    content:''; position:absolute; right:-30px; top:-30px; width:110px; height:110px;
+    border-radius:50%; opacity:.16; transition:opacity .3s;
+    background:radial-gradient(circle, var(--a2), transparent 68%);
+  }
+  .fx-card:hover{ border-color:color-mix(in srgb, var(--a2) 42%, transparent); transform:translateY(-3px); }
+  .fx-card:hover::after{ opacity:.34; }
+  .fx-card h3{ font-family:var(--font-display); font-weight:800; font-size:1.06rem; line-height:1.3; }
+  .fx-card p{ margin-top:10px; font-size:.94rem; line-height:1.66; color:var(--dim); }
+  .fx-card p b{ color:var(--ink); font-weight:700; }
+
+  @media (prefers-reduced-motion: reduce){
+    .fog-fx i{ animation:none; opacity:.42; }
+    .fx-card{ transition:none; }
+  }
+
+  /* ---------- hero fog drift ---------- */
+  .fog-fx{
+    position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0;
+    mask-image:linear-gradient(to top, #000 32%, transparent 88%);
+    -webkit-mask-image:linear-gradient(to top, #000 32%, transparent 88%);
+  }
+  .fog-fx i{
+    position:absolute; bottom:-14%; border-radius:50%;
+    filter:blur(34px); opacity:0; animation:drift linear infinite;
+    background:radial-gradient(circle, color-mix(in srgb, var(--a1) 26%, transparent), transparent 70%);
+  }
+  @keyframes drift{
+    0%{   transform:translate3d(0,0,0) scale(.86); opacity:0; }
+    16%{  opacity:.62; }
+    78%{  opacity:.34; }
+    100%{ transform:translate3d(var(--dx,60px),calc(-1 * var(--rise,180px)),0) scale(1.3); opacity:0; }
+  }
+  .fog-fx i:nth-child(1){ left:-4%;  width:290px; height:150px; --rise:120px; --dx:70px;  animation-duration:19s; animation-delay:0s;   }
+  .fog-fx i:nth-child(2){ left:14%;  width:230px; height:120px; --rise:170px; --dx:-52px; animation-duration:24s; animation-delay:3.5s; }
+  .fog-fx i:nth-child(3){ left:31%;  width:330px; height:165px; --rise:140px; --dx:60px;  animation-duration:21s; animation-delay:7s;   }
+  .fog-fx i:nth-child(4){ left:49%;  width:250px; height:130px; --rise:200px; --dx:-70px; animation-duration:26s; animation-delay:1.5s; }
+  .fog-fx i:nth-child(5){ left:64%;  width:310px; height:155px; --rise:150px; --dx:44px;  animation-duration:22s; animation-delay:9s;   }
+  .fog-fx i:nth-child(6){ left:79%;  width:240px; height:125px; --rise:185px; --dx:-58px; animation-duration:25s; animation-delay:5s;   }
+  .fog-fx i:nth-child(7){ left:92%;  width:280px; height:145px; --rise:135px; --dx:38px;  animation-duration:20s; animation-delay:12s;  }
+  .fog-fx i:nth-child(8){ left:22%;  width:200px; height:105px; --rise:220px; --dx:80px;  animation-duration:28s; animation-delay:14s;  }
+
+  /* ---------- haze beam band ---------- */
+  .beams{
+    position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; opacity:.5;
+  }
+  .beams i{
+    position:absolute; top:-30%; width:2px; height:160%;
+    transform-origin:top center;
+    background:linear-gradient(to bottom, color-mix(in srgb, var(--a1) 55%, transparent), transparent 78%);
+    filter:blur(3px);
+  }
+  .beams i:nth-child(1){ left:12%; transform:rotate(9deg);   width:3px; }
+  .beams i:nth-child(2){ left:27%; transform:rotate(-6deg);  }
+  .beams i:nth-child(3){ left:44%; transform:rotate(12deg);  width:4px;
+    background:linear-gradient(to bottom, color-mix(in srgb, var(--a2) 46%, transparent), transparent 74%); }
+  .beams i:nth-child(4){ left:61%; transform:rotate(-11deg); }
+  .beams i:nth-child(5){ left:78%; transform:rotate(7deg);   width:3px; }
+  .beams i:nth-child(6){ left:91%; transform:rotate(-4deg);  }
+
+  .wrap p a:not(.chip):not(.btn-primary):not(.btn-secondary),
+  .addon a:not(.chip){
+    color:var(--a1);
+    text-decoration:underline;
+    text-decoration-thickness:1px;
+    text-underline-offset:3px;
+    text-decoration-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transition:color .2s ease, text-decoration-color .2s ease;
+  }
+  .wrap p a:not(.chip):not(.btn-primary):not(.btn-secondary):hover,
+  .addon a:not(.chip):hover{ color:var(--a2); text-decoration-color:var(--a2); }
+
+  .dj-card .spec, .room .spec, .split-copy .spec, .band .spec, .fx-card .spec, .addon .spec, .section-head .spec{
+    margin:0 0 14px; font-size:.92rem; color:var(--ink); line-height:1.5;
+  }
+  .dj-card .spec span, .room .spec span, .split-copy .spec span,
+  .band .spec span, .fx-card .spec span, .addon .spec span, .section-head .spec span{
+    font-family:var(--font-display); font-weight:900; font-size:.66rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1); flex:0 0 auto;
+  }
+</style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Special Effects Rental in Dallas-Fort Worth",
+    "serviceType": "Special Effects Rental",
+    "url": "https://www.dallaseventaudio.com/services-extra",
+    "description": "Special effects rental across Dallas-Fort Worth. CO2 cannons and handheld CO2 guns for cryo bursts, cold spark machines for first dances and stage entrances, laser light shows, fog and haze machines, and dancing on the clouds dry ice fog. Every effect is delivered, rigged, cleared with the venue and fired by a technician who stays for the event, then loaded out. Extra services that sit on top of a sound and lighting package.",
+    "category": "Special Effects Rental",
+    "provider": {
+      "@type": "Organization",
+      "name": "Dallas Event Audio",
+      "url": "https://www.dallaseventaudio.com",
+      "email": "info@dallaseventaudio.com",
+      "telephone": "+1-817-210-7957",
+      "foundingDate": "2001",
+      "areaServed": {
+        "@type": "GeoCircle",
+        "geoMidpoint": { "@type": "GeoCoordinates", "addressCountry": "US" },
+        "description": "Dallas-Fort Worth Metroplex, approximately 40 miles from Hurst, TX"
+      }
+    },
+    "areaServed": {
+      "@type": "GeoCircle",
+      "geoMidpoint": { "@type": "GeoCoordinates", "addressCountry": "US" },
+      "description": "Dallas-Fort Worth Metroplex, approximately 40 miles from Hurst, TX"
+    },
+    "audience": { "@type": "Audience", "audienceType": "Wedding couples, event planners, corporate event producers, venues, nightlife promoters and universities" },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Extra services and special effects",
+      "itemListElement": [
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"CO2 cannon rental","description":"Mounted CO2 cannons aimed over a dance floor or a stage, fired on cue by our technician, with the CO2 supplied.","url":"https://www.dallaseventaudio.com/services-extra#co2-cannons"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"CO2 gun rental","description":"Handheld CO2 guns for a DJ, a performer or a host, run by our crew for the length of the event.","url":"https://www.dallaseventaudio.com/services-extra#co2-cannons"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Cold spark machine rental","description":"Cold spark fountains for a first dance, a grand entrance or a stage reveal, covered in full on the cold sparks page.","url":"https://www.dallaseventaudio.com/rent-cold-sparks"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Laser light show rental","description":"Laser effects programmed to the music and run through haze on the same console as the rest of the lighting.","url":"https://www.dallaseventaudio.com/rent-laser-light-show"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Fog and haze machine rental","description":"Water based hazers for visible lighting beams and high density fog for entrances and photo work.","url":"https://www.dallaseventaudio.com/rent-fog-machine"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Dancing on the clouds rental","description":"Dry ice fog that stays at ankle height for a first dance, so the couple looks like they are dancing on a cloud.","url":"https://www.dallaseventaudio.com/rent-dancing-on-the-clouds-low-lyin"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Venue and alarm clearance","description":"Clearing every effect with the venue and the alarm monitoring company before the date, and placing machines away from detectors and return vents.","url":"https://www.dallaseventaudio.com/services-extra#venue-clearance"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"Uplighting rental","description":"Uplighting that reads as beams once a room is hazed, quoted alongside the effects.","url":"https://www.dallaseventaudio.com/rent-uplighting"}}
+      ]
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"What special effects do you rent in Dallas-Fort Worth?",
+       "acceptedAnswer":{"@type":"Answer","text":"CO2 cannons and handheld CO2 guns, cold spark machines, laser light shows, fog and haze machines, and low-lying fog for the dancing on the clouds effect. Every one of these extras is delivered, rigged, cleared with your venue and staffed by one of our technicians for the length of your event, then loaded out afterwards. The handheld CO2 guns are the exception on operation: we hand those to you for the moment you want them."}},
+      {"@type":"Question","name":"How do CO2 cannons work at an event?",
+       "acceptedAnswer":{"@type":"Answer","text":"Liquid CO2 runs from a tank through a hose to the nozzle. The pressure drop at the nozzle flashes the liquid into vapor and ice crystals, which is the white plume you see shooting overhead. It rises, spreads and disappears within a few seconds, so it works as a hit on a beat instead of continuous atmosphere. Our two mounted cannons carry LED lights in the head and run on DMX, so the plume can come out lit in a color that matches the lighting cue."}},
+      {"@type":"Question","name":"Are CO2 cannons safe to use indoors?",
+       "acceptedAnswer":{"@type":"Answer","text":"CO2 is a cold effect with no flame and no fallout, so it leaves the floor dry and the carpet clean, and venues that refuse open flame will frequently still allow it. What it needs is height above the nozzle and a clear path for the plume, plus a ventilated room. We check both when we walk your venue and we agree the placement with the room before your date."}},
+      {"@type":"Question","name":"What is the difference between cold sparks and CO2?",
+       "acceptedAnswer":{"@type":"Answer","text":"Cold sparks throw a silver fountain upward from a granule and read as fireworks indoors, which suits a first dance or a cake cutting. CO2 creates a white column of cold vapor that vanishes in seconds, which suits a drop, a reveal or a club room. Sparks are the romantic effect and CO2 is the hype effect, and plenty of events run both at different points in the night."}},
+      {"@type":"Question","name":"Will fog or haze set off the smoke detectors at my venue?",
+       "acceptedAnswer":{"@type":"Answer","text":"It can, which is why we settle it before your date. Manufacturers state plainly that atmospheric effects can trigger detectors, so we clear the effect with your venue and with the alarm monitoring company where there is one, then place machines so the output stays away from detectors and return vents. Some rooms allow haze but restrict heavy fog, and we will tell you which yours is."}},
+      {"@type":"Question","name":"Can I rent the effects and run them myself?",
+       "acceptedAnswer":{"@type":"Answer","text":"There is no customer pickup on effects equipment. It arrives with our crew, gets placed where the venue has agreed, is tested before doors, and a technician stays with it through your event. The one thing you do get your hands on is the handheld CO2 guns. We load them, show you the trigger and stand with you, and you fire them yourself, which is how most people want that moment to go. The cannons, the lasers, the sparks and the fog stay on our board, cued off the DJ and the timeline."}},
+      {"@type":"Question","name":"Can I book more than one effect for the same event?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes, and most events do. A wedding might take a low-lying cloud for the first dance and cold sparks as the song lands, while a club night takes haze all evening with CO2 on the drops. Booking them together means one crew, one load in and one contract, and the cues get programmed against each other rather than fired by different people guessing."}},
+      {"@type":"Question","name":"How far in advance should I book special effects?",
+       "acceptedAnswer":{"@type":"Answer","text":"For CO2, lasers, fog, haze and clouds, two to four weeks is comfortable, mostly so there is time to clear the effect with your venue before the date, and shorter notice is often workable in a room we already know. Cold sparks are the exception and need longer: the permit takes four to six weeks to approve, so book those as soon as you have a date. Send us the date and the venue name and you will get a straight answer back."}},
+      {"@type":"Question","name":"Do you cover Fort Worth and the rest of DFW?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes. We work roughly a forty mile radius from the mid-cities between Dallas and Fort Worth, which covers Arlington, Plano, Frisco, Irving, Southlake, McKinney, Grapevine, Richardson, Denton and everything folded in among them. If your venue sits further out, ask anyway and we will tell you honestly whether it works."}},
+      {"@type":"Question","name":"Do cold spark machines need a permit in Dallas-Fort Worth?",
+       "acceptedAnswer":{"@type":"Answer","text":"Yes. We run cold sparks as a permitted effect with a licensed pyrotechnician operating the machines, and the permit has to be approved by the authority having jurisdiction over your venue before the date. Approval runs four to six weeks, which makes cold sparks the longest lead time of anything on this page, so book them first. CO2, lasers, fog, haze and low-lying fog do not carry that permit requirement, though every venue still has its own house rules that we clear in advance."}},
+      {"@type":"Question","name":"How much does special effects rental cost in Dallas?",
+       "acceptedAnswer":{"@type":"Answer","text":"We do not publish prices, because a pair of CO2 cannons on a corporate reveal and a full effects package for a club night are different jobs and one number would misprice both. Send the date, the venue and the moments you want covered, and you will get an itemized quote back with delivery, the technician, consumables and load out included. Call or text 817-210-7957, or use the contact form."}}
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Home","item":"https://www.dallaseventaudio.com/"},
+      {"@type":"ListItem","position":2,"name":"Extra Services","item":"https://www.dallaseventaudio.com/services-extra"}
+    ]
+  }
+  </script>
+
+</head>
+<body>
+<header>
+    <nav>
+      <a class="logo" href="/" style="text-decoration:none;"><div class="dial"></div>DEA</a>
+      <div class="navlinks">
+        <a href="/services-lighting">Lighting</a>
+        <a href="/services-audio">Audio</a>
+        <a href="/our-work">Our Work</a>
+        <a href="/what-others-are-saying">Reviews</a>
+        <a href="/contact">Contact</a>
+      </div>
+      <div class="navright">
+        <span class="phone">817-210-7957</span>
+        <a class="cta-btn" href="/contact">Get a Quote</a>
+      </div>
+    </nav>
+  </header>
+  <section class="hero hero-page">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="fog-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="beams" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="wrap">
+      <div class="breadcrumb" data-reveal>
+        <a href="/">Home</a><span class="sep">/</span><span class="here">Extra Services</span>
+      </div>
+      <h1 data-reveal>Special effects rental in Dallas-Fort Worth: <span class="grad-text">CO2 cannons, cold sparks, lasers, fog and clouds.</span></h1>
+      <p class="sub" data-reveal>These are the extras that go on top of a sound and lighting package: the white CO2 plume on the drop, the sparkle fountains behind a first dance, laser beams across a ballroom, haze that makes those beams visible, and a low-lying cloud on the floor. Every one of them is delivered, rigged, cleared with your venue and run by our technician for the length of your event.</p>
+
+      <div class="stat-row" data-reveal>
+        <div class="stat">
+          <div class="num">5 effects</div>
+          <div class="lbl">CO2, cold sparks, lasers, fog and haze, and dancing on the clouds</div>
+        </div>
+        <div class="stat">
+          <div class="num">One crew</div>
+          <div class="lbl">Effects, audio and lighting on one contract and one load in</div>
+        </div>
+        <div class="stat">
+          <div class="num">2001</div>
+          <div class="lbl">Running event production across Dallas-Fort Worth since 2001</div>
+        </div>
+        <div class="stat">
+          <div class="num">40 mi</div>
+          <div class="lbl">Delivery radius around Dallas and Fort Worth</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Special Effects Rental Dallas &middot; CO2 Cannon Rental &middot; CO2 Gun Rental &middot; Cold Spark Machines &middot; Laser Light Show &middot; Fog &amp; Haze Machines &middot; Dancing On The Clouds &middot; Cryo Effects DFW &middot; Delivered And Operated &middot; Insured Since 2001 &middot;&nbsp;</span>
+      <span>Special Effects Rental Dallas &middot; CO2 Cannon Rental &middot; CO2 Gun Rental &middot; Cold Spark Machines &middot; Laser Light Show &middot; Fog &amp; Haze Machines &middot; Dancing On The Clouds &middot; Cryo Effects DFW &middot; Delivered And Operated &middot; Insured Since 2001 &middot;&nbsp;</span>
+    </div>
+  </div>
+
+  <section class="section" id="which-effect">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:880px;">
+        <span class="kicker">Special Effects Rental</span>
+        <h2>Which special effect suits the moment you are planning?</h2>
+        <p>Most people arrive here with a picture in their head and no name for it. The white blast over a dance floor, the silver fountains behind a couple, the beams cutting across a ballroom and the cloud that sits on the ground are four separate machines with four separate rigs. Here is what each of these extras does, so you can point at the one you meant. Each creates a different kind of visual moment, and most rooms want two of them rather than four.</p>
+      </div>
+
+      <div class="dj-grid">
+        <div class="dj-card" data-reveal>
+          <span class="tag">CO2</span>
+          <h3>CO2 cannons and guns: a white plume</h3>
+          <p class="spec"><span>Rig</span> 2 handheld CO2 guns &middot; 2 CO2 cannons with LEDs on DMX &middot; CO2 supplied</p>
+          <p>A burst of liquid CO2 leaves the nozzle and flashes into a column of white vapor that shoots overhead and vanishes in a few seconds. It is cold rather than hot, it leaves the floor dry, and it lands on a beat. This is the effect on the page with no separate page of its own, so it gets the long version further down.</p>
+          <p class="best"><em>Best for</em> Club nights, DJ drops, raves, birthday entrances and hype moments in a corporate general session.</p>
+        </div>
+        <div class="dj-card" data-reveal>
+          <span class="tag">Cold sparks</span>
+          <h3>Cold sparks: silver fountains</h3>
+          <p class="spec"><span>Rig</span> Cold spark machines &middot; licensed pyrotechnician &middot; permit, book 4 to 6 weeks out</p>
+          <p>Cold spark machines throw a fountain of silver sparks several feet into the air from a granule that burns far cooler than traditional pyrotechnics. Guests read it as fireworks indoors. It is the effect people mean when they say sparklers for the first dance. It is also the one effect here that has to be permitted and run by a licensed pyrotechnician, so it needs the longest lead time of anything on this page.</p>
+          <p class="best"><em>Best for</em> First dances, grand entrances, cake cuttings, quincea&ntilde;era waltzes and stage reveals.</p>
+        </div>
+        <div class="dj-card" data-reveal>
+          <span class="tag">Lasers</span>
+          <h3>Lasers: beams across the room</h3>
+          <p class="spec"><span>Rig</span> Laser projectors &middot; run with haze &middot; aimed above head height</p>
+          <p>Lasers draw sharp beams and shapes through the air and can sweep an entire ballroom from one position. They want something in the air to be visible at all, which is why lasers and haze get quoted together. Aiming and safety zones are set during load in and held all night.</p>
+          <p class="best"><em>Best for</em> Nightclubs, raves, concerts, dance floors and large corporate reveals.</p>
+        </div>
+        <div class="dj-card" data-reveal>
+          <span class="tag">Fog and haze</span>
+          <h3>Fog and haze: air you can see light in</h3>
+          <p class="spec"><span>Rig</span> Hazers for beams &middot; high density foggers for a burst</p>
+          <p>Haze is a thin, even suspension that makes every beam in the room read as a solid shaft of light. High density fog is the opposite job: a heavy burst behind a doorway for a silhouette entrance, gone within a minute. Both machines are covered in full on their own page.</p>
+          <p class="best"><em>Best for</em> Ballrooms with a lighting package, grand entrances, club nights and camera work.</p>
+        </div>
+        <div class="dj-card" data-reveal>
+          <span class="tag">Clouds</span>
+          <h3>Dancing on the clouds: a cloud on the floor</h3>
+          <p class="spec"><span>Rig</span> Low-lying fog &middot; dry ice or water based &middot; held for the song</p>
+          <p>Low-lying fog stays at ankle height instead of rising, so a couple appears to be standing on a cloud while their faces stay clear for the camera. Dry ice gives the denser, whiter version of it. This one has a dedicated page as well, because the coverage and the timing matter more than the machine does.</p>
+          <p class="best"><em>Best for</em> First dances, quincea&ntilde;era waltzes, sweet sixteens and theatrical reveals.</p>
+        </div>
+      </div>
+
+      <div class="chips" data-reveal>
+        <a class="chip" href="#co2-cannons">CO2 cannons and guns</a>
+        <a class="chip" href="/rent-cold-sparks">Cold sparks</a>
+        <a class="chip" href="/rent-laser-light-show">Laser light show</a>
+        <a class="chip" href="/rent-fog-machine">Fog and haze machines</a>
+        <a class="chip" href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the clouds</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="co2-cannons">
+    <div class="wrap">
+      <div class="split" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">CO2 Cannon And CO2 Gun Rental</span>
+          <h2>CO2 cannons and CO2 guns: a white plume on the drop.</h2>
+          <p class="spec"><span>Rig</span> 2 handheld CO2 guns for your hands &middot; 2 CO2 cannons with LEDs on DMX, technician run &middot; CO2 supplied</p>
+          <p>Our CO2 guns and cannons create plumes of cold white smoke that shoot overhead and clear in seconds. Liquid CO2 travels from a tank through a hose to the nozzle, and the pressure drop at the nozzle flashes it into vapor and ice crystals. That is what you see: a bright white column that reads as an explosion on camera and disappears before the next bar of the song.</p>
+          <p>We carry two of each shape, and they are used in two different ways. The two handheld CO2 guns go in your hands. We charge them, show you the trigger and stand close by, then the couple, the guest of honor or whoever you want holding them fires the plume where they want it, straight up over the dance floor or out across the crowd. Most of the best photographs we get all year come from that thirty seconds. The two mounted cannons are ours to run. They have LED lights in the head and sit on DMX with the rest of the lighting rig, so the plume comes out lit in a color, and a technician fires them from the board on cues the DJ calls and the timeline sets. That is what puts the blast on the drop, on the entrance or on the reveal instead of a second behind it.</p>
+          <p>The reason CO2 gets used indoors so freely is that there is no heat and no fallout. The plume is cold, the floor stays dry, and there is nothing to sweep up afterwards, so it suits venues that will not allow flame or anything that leaves residue. What it does need is height above the nozzle and a clear path for the plume, which we check when we walk the room.</p>
+          <p>We bring the CO2, set the tanks, run the hose so it stays out of the walkway, and stay with the rig for the length of the event. The cannons fire from our board on DMX, cued off the DJ and the run of show. The handhelds are yours for the moment you want them, with our technician on them either side of the hit, loading, checking pressure and taking them back afterwards. When we are running your audio and lighting as well, the cannon cue is shared across the room, so the blast, the light and the drop land as one thing.</p>
+          <div class="chips">
+            <a class="chip" href="/services-lighting">Event lighting</a>
+            <a class="chip" href="/services-dj">DJ services</a>
+            <a class="chip" href="/gallery">Real DFW events we&rsquo;ve run</a>
+          </div>
+        </div>
+        <div class="split-vis" style="--img:url('/images/effects/co2-cannon-rental-dallas-dance-floor.jpg')">
+          <span class="slot">/images/effects/co2-cannon-rental-dallas-dance-floor.jpg</span>
+        </div>
+      </div>
+
+      <div class="fx-grid" style="margin-top:34px;">
+        <div class="fx-card" data-reveal>
+          <h3>Club nights and raves</h3>
+          <p>Repeat hits through a set, timed against the lighting and the drops. The cannons fire on cue from the board all night, and the handhelds get passed to whoever is on the floor when the room is peaking.</p>
+        </div>
+        <div class="fx-card" data-reveal>
+          <h3>Grand entrances</h3>
+          <p>The two cannons sit either side of the doorway and fire as the doors open, so the room sees the entrance arrive through a white column of vapor. Plenty of couples then take a handheld gun each and hit the floor with it.</p>
+        </div>
+        <div class="fx-card" data-reveal>
+          <h3>Corporate reveals</h3>
+          <p>A product, a logo or a keynote speaker arriving on a cue. CO2 gives a general session a visual moment that photographs well and leaves the ballroom floor dry.</p>
+        </div>
+        <div class="fx-card" data-reveal>
+          <h3>Birthdays and private parties</h3>
+          <p>Sweet sixteens, quincea&ntilde;eras and milestone birthdays where the guest of honor walks in and the room reacts before the music even lands.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="cold-sparks">
+    <div class="wrap">
+      <div class="split flip" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">Cold Spark Machine Rental</span>
+          <h2>Cold sparks: indoor sparkle fountains for the moment everyone films.</h2>
+          <p>Cold spark machines create cascades of silver sparks that rise several feet and fall away, and they do it at a temperature low enough that many venues allow them where real pyrotechnics are refused. Guests read the effect as fireworks indoors. Photographers love it because the sparks light faces from below while the couple stays in focus.</p>
+          <p>These are the machines people are describing when they ask about sparklers for a first dance, cold sparklers for a wedding, or spark fountains for a stage entrance. Placement, the safe distance to the nearest guest and clearance overhead all get agreed with your venue before the date instead of worked out on the night.</p>
+          <p class="spec"><span>Lead time</span> Permit approval takes 4 to 6 weeks &middot; book cold sparks first</p>
+          <p>Cold sparks are handled as a permitted effect. A licensed pyrotechnician operates the machines at your event, and the permit has to be approved by the authority having jurisdiction over your venue before we can fire them. That approval runs four to six weeks, so cold sparks are the first thing to lock in on a date, ahead of every other extra on this page. Tell us the venue and the date early and we start the paperwork the same week. If your date is inside that window, say so anyway and we will tell you honestly whether it can still be permitted in time, and what the alternatives are if it cannot.</p>
+          <div class="chips">
+            <a class="chip" href="/rent-cold-sparks">Cold spark rental</a>
+            <a class="chip" href="/weddings">Wedding services</a>
+            <a class="chip" href="/private-events">Private events</a>
+          </div>
+        </div>
+        <div class="split-vis" style="--img:url('/images/effects/cold-spark-machines-dallas-first-dance.jpg')">
+          <span class="slot">/images/effects/cold-spark-machines-dallas-first-dance.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="lasers">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:860px;">
+        <span class="kicker">Laser Light Show Rental</span>
+        <h2>Lasers: beams and shapes across the whole room.</h2>
+        <p>A laser rig draws hard edged beams, fans and shapes through the air, and one position can cover an entire ballroom. Because a laser beam is only visible where it hits something, we run lasers through haze so the beams read across the room instead of only at the wall. Aiming, safe zones above head height and the operating position are set during load in and held for the night.</p>
+      </div>
+
+      <div class="band" data-reveal>
+        <h3>Lasers have their own page.</h3>
+        <p>Programming, the effects a laser can draw, and how a laser show is timed to music are covered on <a href="/rent-laser-light-show">our laser light show page</a>. Lasers and haze are quoted together often enough that we treat them as one line on the plan, and both come from the same crew on the same load in.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="fog-haze">
+    <div class="wrap">
+      <div class="split" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">Fog And Haze Machine Rental</span>
+          <h2>Fog and haze: the air that makes every other effect visible.</h2>
+          <p>Haze is a thin suspension you barely notice until a beam passes through it, and then every moving head, pin spot and laser in the room reads as a shaft of light. High density fog does the opposite job. It is a heavy white burst you use as one moment, usually behind a doorway for a grand entrance, and it clears within a minute.</p>
+          <p>Because haze is what lets lasers and beam fixtures exist in the air, it gets added to most effects packages by default. Machine choice, venue rules and the difference between fog, haze and smoke are all set out on <a href="/rent-fog-machine">our fog machine and haze rental page</a>.</p>
+          <div class="chips">
+            <a class="chip" href="/rent-fog-machine">Fog and haze rental</a>
+            <a class="chip" href="/rent-uplighting">Uplighting rental</a>
+            <a class="chip" href="/rent-follow-spot-light">Follow spot rental</a>
+          </div>
+        </div>
+        <div class="split-vis" style="--img:url('/images/effects/haze-and-lasers-dallas-ballroom.jpg')">
+          <span class="slot">/images/effects/haze-and-lasers-dallas-ballroom.jpg</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="clouds">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:860px;">
+        <span class="kicker">Dancing On The Clouds</span>
+        <h2>Dancing on the clouds: low-lying fog for a first dance.</h2>
+        <p>Low-lying fog is chilled so it hangs at ankle height across the dance floor instead of rising, which gives you the dancing on the clouds look: a couple standing on a white cloud with faces clear above it. Dry ice produces the denser, whiter version and has been the theatrical standard for decades; a water based machine gives you a continuous cloud with no dry ice to source on the day.</p>
+        <p>How much floor a cloud covers, how long it holds and how it is timed against the song matter more here than the machine does, which is why the clouds effect keeps a page to itself.</p>
+      </div>
+
+      <div class="addon" data-reveal>
+        <h3>The full clouds service</h3>
+        <p>Coverage, dry ice handling and timing are covered on <a href="/rent-dancing-on-the-clouds-low-lyin">our dancing on the clouds page</a>. Weddings book this alongside cold sparks often: a cloud under the first dance, then sparks as the song lands.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="which-event">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:860px;">
+        <span class="kicker">By Event Type</span>
+        <h2>Extra services for every kind of event we work in DFW.</h2>
+        <p>The room and the occasion narrow the choice faster than the effects list does. These are the combinations that come up most often, and each event type has a page of its own with the audio and lighting side of it.</p>
+      </div>
+
+      <div class="room-list">
+        <div class="room" data-reveal>
+          <h3>Weddings<span>Sparks, clouds and haze</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Usual rig</span> Cold sparks &middot; low-lying fog &middot; light haze for the beams</p>
+            <p>Two moments carry the effects at a wedding: the grand entrance and the first dance. Cold sparks behind the couple and a low-lying cloud under them cover both, with a light haze in the room so the uplighting and beams read on camera. Full wedding coverage is on our <a href="/weddings">weddings page</a>.</p>
+          </div>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Corporate events<span>Reveals and general sessions</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Usual rig</span> 2 CO2 cannons with LEDs &middot; haze for the beams</p>
+            <p>A product reveal, an award moment or a keynote entrance gains a lot from one well timed visual hit. CO2 suits a ballroom because it leaves the floor dry and the carpet clean. See <a href="/corporate-events">corporate events</a> for the audio visual side of a general session.</p>
+          </div>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Rave and nightclub<span>CO2, lasers and haze</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Usual rig</span> 2 handheld CO2 guns &middot; 2 CO2 cannons with LEDs &middot; lasers in haze</p>
+            <p>Club rooms use the whole catalog. Haze holds all night so every beam and laser reads, CO2 hits the drops, and the operator has the effects on faders next to the lighting. More at <a href="/rave-and-night-club-events">rave and nightclub events</a>.</p>
+          </div>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Private events<span>Entrances and birthdays</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Usual rig</span> Cold sparks &middot; CO2 guns &middot; low-lying fog</p>
+            <p>Sweet sixteens, quincea&ntilde;eras and milestone birthdays all build around an entrance. Sparks and a CO2 hit as the guest of honor walks in give the room its reaction. See <a href="/private-events">private events</a>.</p>
+          </div>
+        </div>
+        <div class="room" data-reveal>
+          <h3>College and university<span>Homecoming and formals</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Usual rig</span> Lasers &middot; haze &middot; CO2 on the dance floor</p>
+            <p>Campus formals, homecoming and Greek events run close to a club night, and campus venues have their own approvals process that we work through in advance. See <a href="/college-school-university-events">college, school and university events</a>.</p>
+          </div>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Live music and bands<span>Set pieces on cue</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Usual rig</span> Haze through the set &middot; CO2 on the hits</p>
+            <p>Haze runs from doors so the lighting reads from the first song, and effects fire on the cues the band asks for. See <a href="/live-music-and-band-events">live music and band events</a> for the audio side.</p>
+          </div>
+        </div>
+        <div class="room" data-reveal>
+          <h3>Celebrity and luxury<span>Discreet crew, big moments</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Usual rig</span> Effects specified to the room &middot; crew in black</p>
+            <p>These events want the effect visible and the crew invisible. We work the plan with your producer and stay out of the frame. See <a href="/celebrity-and-luxury-events">celebrity and luxury events</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="venue-clearance">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:880px;">
+        <span class="kicker">What We Clear Before The Date</span>
+        <h2>Every venue has rules about effects, and we settle them in advance.</h2>
+        <p>Special effects are the part of an event most likely to run into a house rule, and finding that out on the day is expensive. So before your date we take the venue name, contact the room, and agree what is allowed, where the rig sits and what paperwork they want. Most rooms in the Metroplex we have worked before, so the answer usually comes back the same week.</p>
+      </div>
+
+      <div class="trust-grid">
+        <div class="trust-card" data-reveal>
+          <h3>Detectors and alarm monitoring</h3>
+          <p>Fog and haze can trigger smoke detectors, so we clear the effect with the venue and with the alarm monitoring company where there is one, and place machines away from detectors and return vents.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Ceiling height and clearance</h3>
+          <p>CO2 plumes and spark fountains both need room above the nozzle. We measure the height over the exact spot the effect fires from, because that is the number that governs the plume.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Floor plan and safe distance</h3>
+          <p>Where guests stand, where the cake table sits and how far the nearest chair is all shape the placement. That plan goes to the venue before load in.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Overhead rigging and drapery</h3>
+          <p>Drape, greenery, chandeliers and low truss all change what an effect can do underneath them. We look up during the walk through, not during the reception.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Permits, licensing and insurance</h3>
+          <p>Cold sparks are permitted and fired by a licensed pyrotechnician, and permit approval runs four to six weeks. Every rental carries full insurance, with a certificate for your venue whenever they ask for one, supplied ahead of load in.</p>
+        </div>
+        <div class="trust-card" data-reveal>
+          <h3>Power and cable paths</h3>
+          <p>Effects share circuits with audio and lighting, so we plan the power draw and run hose and cable where guests will walk without stepping over anything.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="whats-included">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:840px;">
+        <span class="kicker">What Is Included</span>
+        <h2>What is included with our extra services.</h2>
+        <p>Every one of these extras arrives as a managed service. Delivery, rigging, the CO2 or fluid or granules the machine consumes, venue clearance, tuning on the day, a technician firing the cues through your event, and load out afterwards are all part of the rental. The only piece you handle is the CO2 gun, if you want it.</p>
+      </div>
+
+      <div class="flow">
+        <div class="flow-step" data-reveal>
+          <div class="n">Step 01</div>
+          <h3>Tell us the moment</h3>
+          <p>The venue, the date and what you want the room to do at a particular point in the night. That is enough for us to name the effect and the rig that will create it.</p>
+        </div>
+        <div class="flow-step" data-reveal>
+          <div class="n">Step 02</div>
+          <h3>We spec it and clear it</h3>
+          <p>We pick the machines and the positions, then agree the effect with your venue, the alarm monitoring company where one is involved, and your planner or producer.</p>
+        </div>
+        <div class="flow-step" data-reveal>
+          <div class="n">Step 03</div>
+          <h3>Delivered, rigged and tuned</h3>
+          <p>Our crew loads in, sets the machines where the plan puts them, runs hose and cable clear of walkways and tests every cue before doors.</p>
+        </div>
+        <div class="flow-step" data-reveal>
+          <div class="n">Step 04</div>
+          <h3>A technician fires it, then it goes home</h3>
+          <p>A technician stays with the rig for the length of your event, fires the cannons on the cues the DJ calls, and hands you the CO2 guns for the moments you want them. Afterwards the whole rig loads out with us.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pairs-with">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:840px;">
+        <span class="kicker">Books Well Together</span>
+        <h2>What people book alongside the extras.</h2>
+        <p>Effects land hardest when the same crew is running the music and the light, because then the hit arrives on the downbeat. These are the services that usually share the contract and the load in, and together they create one visual plan for the room rather than several.</p>
+      </div>
+
+      <div class="vgrid">
+        <a class="vcard" href="/rent-cold-sparks" data-reveal>
+          <h3>Cold sparks</h3>
+          <p>Silver fountains for a first dance, a grand entrance or a stage reveal, placed on a floor plan agreed with your venue.</p>
+        </a>
+        <a class="vcard" href="/rent-laser-light-show" data-reveal>
+          <h3>Laser light show</h3>
+          <p>Beams, fans and shapes across the room, aimed and zoned during load in and run through haze all night.</p>
+        </a>
+        <a class="vcard" href="/rent-fog-machine" data-reveal>
+          <h3>Fog and haze machines</h3>
+          <p>Hazers that make beams visible and high density foggers for a grand entrance burst.</p>
+        </a>
+        <a class="vcard" href="/rent-dancing-on-the-clouds-low-lyin" data-reveal>
+          <h3>Dancing on the clouds</h3>
+          <p>A low-lying cloud held across the dance floor for the length of a song, dry ice or water based.</p>
+        </a>
+        <a class="vcard" href="/rent-uplighting" data-reveal>
+          <h3>Uplighting rental</h3>
+          <p>Color around the walls of the room. Haze gives the wash depth and makes the beams read.</p>
+        </a>
+        <a class="vcard" href="/services-lighting" data-reveal>
+          <h3>Lighting services</h3>
+          <p>Moving heads, wash, pin spots and the console that the effects are run from alongside everything else.</p>
+        </a>
+        <a class="vcard" href="/services-dj" data-reveal>
+          <h3>DJ services</h3>
+          <p>When the effect cue and the music cue come from the same crew, the hit lands on the drop rather than near it.</p>
+        </a>
+        <a class="vcard" href="/rent-sound-equipment" data-reveal>
+          <h3>Sound equipment rental</h3>
+          <p>Speakers, subwoofers and mixing for the same room, quoted with the effects on one invoice.</p>
+        </a>
+      </div>
+
+      <div class="addon" data-reveal>
+        <h3>If anyone is speaking near the effects</h3>
+        <p>Every microphone we send out carries our AI-powered De-Feedback system, which listens for the frequencies that start to ring and pulls them down before they build, so an entrance announcement or a toast over a CO2 hit arrives clean. There is a full write up in <a href="/post/what-is-de-feedback-for-live-events">what De-Feedback does for live events</a>, and the hardware is on the <a href="/feedback-free-microphone-rentals">microphone rental</a> page.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:720px;">
+        <span class="kicker">Questions</span>
+        <h2>Special effects rental questions.</h2>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item" data-reveal>
+          <summary>What special effects do you rent in Dallas-Fort Worth?</summary>
+          <div class="ans">CO2 cannons and handheld CO2 guns, cold spark machines, laser light shows, fog and haze machines, and low-lying fog for the dancing on the clouds effect. Every one of these extras is delivered, rigged, cleared with your venue and staffed by one of our technicians for the length of your event, then loaded out afterwards. The handheld CO2 guns are the exception on operation: we hand those to you for the moment you want them.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How do CO2 cannons work at an event?</summary>
+          <div class="ans">Liquid CO2 runs from a tank through a hose to the nozzle. The pressure drop at the nozzle flashes the liquid into vapor and ice crystals, which is the white plume you see shooting overhead. It rises, spreads and disappears within a few seconds, so it works as a hit on a beat instead of continuous atmosphere. Our two mounted cannons carry LED lights in the head and run on DMX, so the plume can come out lit in a color that matches the lighting cue.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Are CO2 cannons safe to use indoors?</summary>
+          <div class="ans">CO2 is a cold effect with no flame and no fallout, so it leaves the floor dry and the carpet clean, and venues that refuse open flame will frequently still allow it. What it needs is height above the nozzle and a clear path for the plume, plus a ventilated room. We check both when we walk your venue and we agree the placement with the room before your date.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>What is the difference between cold sparks and CO2?</summary>
+          <div class="ans">Cold sparks throw a silver fountain upward from a granule and read as fireworks indoors, which suits a first dance or a cake cutting. CO2 creates a white column of cold vapor that vanishes in seconds, which suits a drop, a reveal or a club room. Sparks are the romantic effect and CO2 is the hype effect, and plenty of events run both at different points in the night.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Will fog or haze set off the smoke detectors at my venue?</summary>
+          <div class="ans">It can, which is why we settle it before your date. Manufacturers state plainly that atmospheric effects can trigger detectors, so we clear the effect with your venue and with the alarm monitoring company where there is one, then place machines so the output stays away from detectors and return vents. Some rooms allow haze but restrict heavy fog, and we will tell you which yours is.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Can I rent the effects and run them myself?</summary>
+          <div class="ans">There is no customer pickup on effects equipment. It arrives with our crew, gets placed where the venue has agreed, is tested before doors, and a technician stays with it through your event. The one thing you do get your hands on is the handheld CO2 guns. We load them, show you the trigger and stand with you, and you fire them yourself, which is how most people want that moment to go. The cannons, the lasers, the sparks and the fog stay on our board, cued off the DJ and the timeline.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Can I book more than one effect for the same event?</summary>
+          <div class="ans">Yes, and most events do. A wedding might take a low-lying cloud for the first dance and cold sparks as the song lands, while a club night takes haze all evening with CO2 on the drops. Booking them together means one crew, one load in and one contract, and the cues get programmed against each other rather than fired by different people guessing.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How far in advance should I book special effects?</summary>
+          <div class="ans">For CO2, lasers, fog, haze and clouds, two to four weeks is comfortable, mostly so there is time to clear the effect with your venue before the date, and shorter notice is often workable in a room we already know. Cold sparks are the exception and need longer: the permit takes four to six weeks to approve, so book those as soon as you have a date. Send us the date and the venue name and you will get a straight answer back.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do you cover Fort Worth and the rest of DFW?</summary>
+          <div class="ans">Yes. We work roughly a forty mile radius from the mid-cities between Dallas and Fort Worth, which covers Arlington, Plano, Frisco, Irving, Southlake, McKinney, Grapevine, Richardson, Denton and everything folded in among them. If your venue sits further out, ask anyway and we will tell you honestly whether it works.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do cold spark machines need a permit in Dallas-Fort Worth?</summary>
+          <div class="ans">Yes. We run cold sparks as a permitted effect with a licensed pyrotechnician operating the machines, and the permit has to be approved by the authority having jurisdiction over your venue before the date. Approval runs four to six weeks, which makes cold sparks the longest lead time of anything on this page, so book them first. CO2, lasers, fog, haze and low-lying fog do not carry that permit requirement, though every venue still has its own house rules that we clear in advance.</div>
+        </details>
+
+        <details class="faq-item" data-reveal>
+          <summary>How much does special effects rental cost in Dallas?</summary>
+          <div class="ans">We do not publish prices, because a pair of CO2 cannons on a corporate reveal and a full effects package for a club night are different jobs and one number would misprice both. Send the date, the venue and the moments you want covered, and you will get an itemized quote back with delivery, the technician, consumables and load out included. Call or text 817-210-7957, or use the <a href="/contact">contact form</a>.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta" id="quote">
+    <div class="wrap">
+      <h2 data-reveal>Tell us the moment you want to land. <span class="grad-text">We&rsquo;ll tell you which effect does it.</span></h2>
+      <p data-reveal>Send us the venue, the date and the moments that matter, and we&rsquo;ll send you a straightforward quote the same day covering the extras and the crew who run them.</p>
+      <div data-reveal style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+        <a class="btn-primary" href="/contact">Get Your Quote</a>
+        <a class="btn-secondary" href="tel:8172107957">Call or Text 817-210-7957</a>
+      </div>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="col brand">
+          <div class="logo"><div class="dial"></div>DEA</div>
+          <p style="margin-top:14px; max-width:250px;">Full-service AV production for Dallas-Fort Worth since 2001. Delivered, set up, and run by our on-site technician.</p>
+          <div class="foot-contact">
+            <a href="tel:8172107957">817-210-7957</a>
+            <a href="mailto:info@dallaseventaudio.com">info@dallaseventaudio.com</a>
+          </div>
+          <p class="foot-area">Serving Dallas, Fort Worth, Southlake, Arlington, Frisco, McKinney, Richardson &amp; the wider Metroplex.</p>
+        </div>
+        <div class="col">
+          <h4>Events</h4>
+          <a href="/weddings">Weddings</a>
+          <a href="/corporate-events">Corporate Events</a>
+          <a href="/private-events">Private Events</a>
+          <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+          <a href="/college-school-university-events">College &amp; University</a>
+          <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+          <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+        </div>
+        <div class="col">
+          <h4>Services</h4>
+          <a href="/services-dj">DJ Services</a>
+          <a href="/services-audio">Audio Services</a>
+          <a href="/services-lighting">Lighting Services</a>
+          <a href="/services-photo-and-video">Photo &amp; Video</a>
+          <a href="/services-extra">Extra Services</a>
+        </div>
+        <div class="col">
+          <h4>Audio Rentals</h4>
+          <a href="/rent-sound-equipment">Sound Equipment</a>
+          <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+          <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+          <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+          <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+          <a href="/live-streaming-services">Live Streaming</a>
+        </div>
+        <div class="col">
+          <h4>Lighting &amp; FX</h4>
+          <a href="/rent-uplighting">Uplighting</a>
+          <a href="/rent-laser-light-show">Laser Light Show</a>
+          <a href="/rent-follow-spot-light">Follow Spot</a>
+          <a href="/monogram-projector">Monogram Projector</a>
+          <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+          <a href="/rent-cold-sparks">Cold Sparks</a>
+          <a href="/projector-screen-rental">Projector &amp; Screen</a>
+        </div>
+        <div class="col">
+          <h4>Company</h4>
+          <a href="/our-story">Our Story</a>
+          <a href="/our-work">Our Work</a>
+          <a href="/equipment-list">Equipment List</a>
+          <a href="/what-others-are-saying">Reviews</a>
+          <a href="/blog">Blog</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div class="foot-proof">
+        <a class="fp" href="https://www.google.com/maps?cid=11213015373496621898" target="_blank" rel="noopener"><span class="m g">G</span> <b>4.9</b> <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span> &middot; 41 Google reviews</a>
+        <a class="fp" href="https://www.yelp.com/biz/dallas-event-audio-dallas" target="_blank" rel="noopener"><span class="m y">Y</span> <b>Yelp</b> &middot; 13 reviews &middot; 134 photos</a>
+      </div>
+      <div class="foot-bottom">
+        <span>&copy; 2026 Dallas Event Audio. Fully insured, on-site AV production.</span>
+        <span>Service page draft: special effects and extra services</span>
+      </div>
+    </div>
+  </footer>
+<div id="paletteBar">
+    <div class="pal-opts" id="palOpts" role="group" aria-label="Color palette">
+      <div class="pal-head">Color palette</div>
+      <button type="button" data-p="signal" class="active" aria-pressed="true"><i class="sw-signal"></i>Signal Chain</button>
+      <button type="button" data-p="amber" aria-pressed="false"><i class="sw-amber"></i>Stage Black &amp; Amber</button>
+      <button type="button" data-p="night" aria-pressed="false"><i class="sw-night"></i>DFW Night Rig</button>
+    </div>
+    <button type="button" class="pal-toggle" id="palToggle" aria-expanded="false" aria-controls="palOpts">
+      <span class="dots"><i style="background:#31ff6e"></i><i style="background:#fff21c"></i><i style="background:#ff1f3d"></i></span>
+      <span class="label">Palette</span>
+    </button>
+  </div>
+
+  <div id="chatBubble">✦ AV Concierge</div>
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+<script>
+  // Palette dock, bottom left
+  (function(){
+    const dock = document.getElementById('paletteBar');
+    const toggle = document.getElementById('palToggle');
+    const opts = Array.prototype.slice.call(document.querySelectorAll('#palOpts button'));
+    if(!dock || !toggle) return;
+
+    function store(v){ try{ window.localStorage.setItem('dea-palette', v); }catch(e){} }
+    function recall(){ try{ return window.localStorage.getItem('dea-palette'); }catch(e){ return null; } }
+
+    function apply(p){
+      document.documentElement.setAttribute('data-palette', p);
+      opts.forEach(b=>{
+        const on = b.dataset.p === p;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+
+    const saved = recall();
+    if(saved && opts.some(b=>b.dataset.p === saved)) apply(saved);
+
+    function open(state){
+      dock.classList.toggle('open', state);
+      toggle.setAttribute('aria-expanded', state ? 'true' : 'false');
+    }
+    toggle.addEventListener('click', e=>{ e.stopPropagation(); open(!dock.classList.contains('open')); });
+    opts.forEach(b=>{
+      b.addEventListener('click', ()=>{ apply(b.dataset.p); store(b.dataset.p); open(false); });
+    });
+    document.addEventListener('click', e=>{ if(!dock.contains(e.target)) open(false); });
+    document.addEventListener('keydown', e=>{ if(e.key === 'Escape') open(false); });
+  })();
+
+  // Scroll reveal
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.15});
+    document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el=>el.classList.add('in'));
+  }
+
+  // CO2 / particle burst on primary CTA click
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function burst(x, y){
+    if(reduceMotion) return;
+    const colors = ['var(--a1)','var(--a2)','var(--a3)','#ffffff'];
+    const count = 26;
+    for(let i=0;i<count;i++){
+      const p = document.createElement('span');
+      p.className = 'burst-particle';
+      const angle = (Math.PI * 2 * i) / count + Math.random()*0.4;
+      const dist = 60 + Math.random()*140;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist - 40;
+      const size = 4 + Math.random()*6;
+      p.style.width = p.style.height = size + 'px';
+      p.style.background = colors[i % colors.length];
+      p.style.boxShadow = '0 0 8px ' + colors[i % colors.length];
+      p.style.left = x + 'px';
+      p.style.top = y + 'px';
+      document.body.appendChild(p);
+      const anim = p.animate([
+        { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
+        { transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.3)`, opacity:0 }
+      ], { duration:700 + Math.random()*400, easing:'cubic-bezier(.2,.7,.3,1)' });
+      anim.onfinish = () => p.remove();
+    }
+  }
+  document.querySelectorAll('.btn-primary').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      burst(e.clientX, e.clientY);
+    });
+  });
+</script>
+
+</body>
+</html>

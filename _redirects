@@ -1,0 +1,5 @@
+# Cloudflare Pages redirects: <from> <to> <status>
+# Wix era URLs that must not 404 at cutover.
+/rent-photobooth                  /services-extra          301
+/rent-pa-speakers-lighting-video  /rent-sound-equipment    301
+/corporate-event-av-rental        /corporate-events        301

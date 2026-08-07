@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="signal">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wedding AV Services in Dallas-Fort Worth | Dallas Event Audio</title>
+<meta name="description" content="Wedding AV services in Dallas-Fort Worth: ceremony sound, reception PA, uplighting, monogram projection and effects, delivered and run by our technician.">
+<link rel="canonical" href="https://www.dallaseventaudio.com/weddings">
+<meta property="og:title" content="Wedding AV Services in Dallas-Fort Worth | Dallas Event Audio">
+<meta property="og:description" content="Wedding AV services in Dallas-Fort Worth: ceremony sound, reception PA, uplighting, monogram projection and effects, delivered and run by our technician.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.dallaseventaudio.com/weddings">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font-display:'Unbounded',sans-serif;
+    --font-body:'Space Grotesk',sans-serif;
+  }
+
+  /* ============ PALETTE A: Signal Chain (true DJ mixer peak-meter LEDs: green / yellow / red) ============ */
+  html[data-palette="signal"]{
+    --bg-0:#050706; --bg-1:#0a0f0c; --bg-2:#0e1512;
+    --ink:#f4f7f5; --dim:#b4c5ba;
+    --a1:#31ff6e; /* LED green */
+    --a2:#fff21c; /* LED yellow */
+    --a3:#ff1f3d; /* LED red */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 55%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(255,255,255,.08);
+    --glow: rgba(49,255,110,.35);
+  }
+  /* ============ PALETTE B: Stage Black & Amber (warm, premium, ties to existing chat widget gold) ============ */
+  html[data-palette="amber"]{
+    --bg-0:#070605; --bg-1:#0d0a06; --bg-2:#120e08;
+    --ink:#f8f3ea; --dim:#c3b7a5;
+    --a1:#e8b75c; /* gold */
+    --a2:#ffdfa0; /* warm white/spot */
+    --a3:#4fa3ff; /* cool counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 50%, var(--a2) 50%, var(--a2) 100%);
+    --card-border: rgba(232,183,92,.16);
+    --glow: rgba(232,183,92,.32);
+  }
+  /* ============ PALETTE C: DFW Night Rig (cool stage-lighting energy, distinct from EDM Wedding DJ's magenta) ============ */
+  html[data-palette="night"]{
+    --bg-0:#05060b; --bg-1:#090b16; --bg-2:#0c0f1e;
+    --ink:#f1f3fb; --dim:#aeb5cf;
+    --a1:#2f6fff; /* electric blue */
+    --a2:#8b5cf6; /* violet */
+    --a3:#ffb020; /* amber counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 65%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(139,92,246,.16);
+    --glow: rgba(47,111,255,.35);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg-0);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+  .grad-text{
+    background:var(--grad);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  /* ---------- palette switcher (review tool only, not part of the shipped site) ---------- */
+  #paletteBar{
+    position:fixed; top:0; left:0; right:0; z-index:999;
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    padding:10px; background:#000; border-bottom:1px solid rgba(255,255,255,.12);
+    font-family:var(--font-body); font-size:0.881rem;
+  }
+  #paletteBar span{color:#8a8a8a; margin-right:4px;}
+  #paletteBar button{
+    font-family:var(--font-body); font-size:0.881rem; font-weight:600;
+    padding:7px 14px; border-radius:100px; border:1px solid rgba(255,255,255,.18);
+    background:rgba(255,255,255,.04); color:#eee; cursor:pointer; transition:.2s;
+  }
+  #paletteBar button.active{ background:#fff; color:#000; border-color:#fff; }
+  #paletteBar button:hover{ border-color:#fff; }
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky; top:40px; z-index:100;
+    background:rgba(5,6,5,.7); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--card-border);
+  }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1180px; margin:0 auto; }
+  .logo{ display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:900; font-size:1.15rem; letter-spacing:.02em; }
+  .logo .dial{ width:26px; height:26px; border-radius:50%; position:relative; background:conic-gradient(var(--a1) 0 26%, var(--a2) 26% 52%, var(--a3) 52% 78%, transparent 78%); }
+  .logo .dial::after{ content:''; position:absolute; inset:4px; border-radius:50%; background:var(--bg-0); }
+  .navlinks{ display:flex; gap:28px; font-size:0.994rem; color:var(--dim); }
+  .navlinks a:hover{ color:var(--ink); }
+  .navright{ display:flex; align-items:center; gap:18px; }
+  .phone{ font-size:0.96rem; color:var(--dim); }
+  .cta-btn{
+    font-family:var(--font-body); font-weight:700; font-size:0.96rem;
+    padding:11px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    display:inline-block; white-space:nowrap;
+  }
+  @media (max-width:860px){ .navlinks{display:none;} }
+
+  /* ---------- hero ---------- */
+  .hero{ position:relative; padding:110px 0 90px; overflow:hidden; }
+  .hero::before{
+    content:''; position:absolute; inset:-20% -10% auto -10%; height:600px;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    opacity:.5; filter:blur(40px); pointer-events:none;
+  }
+
+  /* -- animated perspective floor grid -- */
+  .hero-grid{
+    position:absolute; left:0; right:0; bottom:-10%; height:70%;
+    perspective:400px; overflow:hidden; pointer-events:none; z-index:0;
+  }
+  .hero-grid::before{
+    content:''; position:absolute; inset:-50% -50% 0 -50%;
+    background-image:
+      repeating-linear-gradient(to right, var(--card-border) 0 1px, transparent 1px 68px),
+      repeating-linear-gradient(to top, var(--card-border) 0 1px, transparent 1px 68px);
+    transform:rotateX(62deg);
+    transform-origin:bottom;
+    animation: gridScroll 9s linear infinite;
+    opacity:.55;
+    mask-image:linear-gradient(to top, black 0%, transparent 75%);
+    -webkit-mask-image:linear-gradient(to top, black 0%, transparent 75%);
+  }
+  @keyframes gridScroll{ from{ background-position:0 0; } to{ background-position:0 136px; } }
+
+  /* -- sweeping laser beams -- */
+  .hero-lasers{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .laser{
+    position:absolute; top:-10%; width:2px; height:130%;
+    background:linear-gradient(to bottom, transparent, var(--a1), transparent);
+    opacity:0; filter:blur(.5px);
+    animation: laserSweep 6s ease-in-out infinite;
+  }
+  .laser:nth-child(1){ left:8%;  background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:0s; }
+  .laser:nth-child(2){ left:32%; background:linear-gradient(to bottom, transparent, var(--a2), transparent); animation-delay:1.6s; transform:rotate(6deg); }
+  .laser:nth-child(3){ left:63%; background:linear-gradient(to bottom, transparent, var(--a3), transparent); animation-delay:3.1s; transform:rotate(-8deg); }
+  .laser:nth-child(4){ left:85%; background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:4.3s; transform:rotate(4deg); }
+  @keyframes laserSweep{
+    0%{ opacity:0; transform:translateX(-10px) rotate(var(--rot,0deg)); }
+    8%{ opacity:.55; }
+    20%{ opacity:0; }
+    100%{ opacity:0; }
+  }
+
+  /* -- drifting fog -- */
+  .hero-fog{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .fog-blob{
+    position:absolute; width:60%; padding-top:60%; border-radius:50%;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    filter:blur(50px); opacity:.4;
+    animation: fogDrift 18s ease-in-out infinite alternate;
+  }
+  .fog-blob.b2{ left:50%; top:20%; animation-duration:24s; animation-delay:-6s; opacity:.28; }
+  @keyframes fogDrift{
+    from{ transform:translate(-8%, 0) scale(1); }
+    to{ transform:translate(8%, 6%) scale(1.15); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-grid::before, .laser, .fog-blob{ animation:none !important; }
+    .laser{ opacity:0; }
+  }
+
+  .hero-logo-wrap{ text-align:center; position:relative; z-index:1; margin-bottom:40px; }
+  .hero-logo-wrap img{
+    width:min(440px, 78vw); height:auto;
+    filter:drop-shadow(0 0 60px var(--glow));
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--card-border); border-radius:100px; padding:7px 16px;
+    font-size:0.881rem; color:var(--dim); letter-spacing:.04em; text-transform:uppercase;
+    margin-bottom:28px; position:relative; z-index:1;
+  }
+  .eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--a1); box-shadow:0 0 8px var(--a1); }
+  .hero h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.6rem, 6vw, 4.6rem); max-width:900px; position:relative; z-index:1;
+  }
+  .hero p.sub{
+    font-size:1.15rem; color:var(--dim); max-width:600px; margin-top:26px; position:relative; z-index:1;
+  }
+  .hero-ctas{ display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; position:relative; z-index:1; }
+  .btn-primary{
+    font-weight:700; padding:16px 30px; border-radius:100px; background:var(--grad); color:#0a0a0a; font-size:1.073rem;
+  }
+  .btn-secondary{
+    font-weight:600; padding:16px 30px; border-radius:100px; border:1px solid var(--card-border); color:var(--ink); font-size:1.073rem;
+  }
+  .trust-row{
+    display:flex; gap:40px; flex-wrap:wrap; margin-top:64px; padding-top:34px;
+    border-top:1px solid var(--card-border); position:relative; z-index:1;
+  }
+  .trust-item .num{ font-family:var(--font-display); font-weight:800; font-size:1.6rem; }
+  .trust-item .label{ font-size:0.904rem; color:var(--dim); margin-top:4px; }
+
+  /* ---------- services ---------- */
+  .section{ padding:90px 0; }
+  .section-head{ max-width:640px; margin-bottom:52px; }
+  .kicker{ font-size:0.881rem; letter-spacing:.08em; text-transform:uppercase; color:var(--a1); font-weight:700; margin-bottom:14px; display:block; }
+  .section-head h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.8rem,3.4vw,2.6rem); }
+  .section-head p{ color:var(--dim); margin-top:14px; font-size:1.153rem; }
+
+  .service-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; }
+  .service-card{
+    background:linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 55%, transparent), color-mix(in srgb, var(--bg-1) 45%, transparent));
+    backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:20px; padding:28px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 8px 30px -18px rgba(0,0,0,.6);
+    transition:.25s; position:relative; overflow:hidden;
+  }
+  .service-card:hover{ transform:translateY(-4px); border-color:var(--a1); box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 20px 50px -20px var(--glow); }
+  .service-card .icon{
+    width:44px; height:44px; border-radius:12px; margin-bottom:20px;
+    background:var(--grad); display:flex; align-items:center; justify-content:center;
+    font-size:1.2rem;
+  }
+  .service-card h3{ font-family:var(--font-display); font-size:1.186rem; font-weight:700; margin-bottom:10px; }
+  .service-card p{ font-size:0.994rem; color:var(--dim); margin-bottom:18px; }
+  .service-card .learn{ font-size:0.904rem; font-weight:700; color:var(--a1); }
+  .service-card.featured{ border-color:var(--a2); }
+  .tag-live{ position:absolute; top:20px; right:20px; font-size:0.82rem; text-transform:uppercase; letter-spacing:.06em; color:var(--a2); border:1px solid var(--a2); padding:3px 8px; border-radius:100px; }
+
+  /* ---------- differentiator ---------- */
+  .diff{ background:var(--bg-1); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border); }
+  .diff-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+  .diff-visual{
+    aspect-ratio:4/3; border-radius:24px; border:1px solid var(--card-border);
+    background:
+      radial-gradient(circle at 30% 20%, var(--glow), transparent 55%),
+      linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 50%, transparent), color-mix(in srgb, var(--bg-0) 40%, transparent));
+    backdrop-filter:blur(22px) saturate(150%); -webkit-backdrop-filter:blur(22px) saturate(150%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 20px 60px -30px rgba(0,0,0,.7);
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+  .diff-visual .badge{
+    font-family:var(--font-display); font-weight:800; text-align:center; font-size:1.073rem; color:var(--dim);
+    border:1px dashed var(--card-border); padding:20px; border-radius:16px;
+  }
+  .diff-copy h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.7rem,3vw,2.3rem); margin-bottom:20px; }
+  .diff-copy p{ color:var(--dim); margin-bottom:16px; font-size:1.13rem; }
+  .diff-copy strong{ color:var(--ink); }
+  @media (max-width:820px){ .diff-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- reviews ---------- */
+  .review-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
+  .review-card{
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:18px; padding:26px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -20px rgba(0,0,0,.6);
+  }
+  .stars{ color:var(--a2); letter-spacing:2px; margin-bottom:14px; font-size:1.017rem; }
+  .review-card p{ font-size:1.04rem; color:var(--ink); opacity:.9; margin-bottom:16px; }
+  .review-card .who{ font-size:0.904rem; color:var(--dim); font-weight:600; }
+
+  /* ---------- review proof badges ---------- */
+  .proof-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:16px; margin-bottom:36px; }
+  .proof-badge{
+    display:flex; align-items:center; gap:14px; padding:18px 20px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -22px rgba(0,0,0,.6);
+    transition:.22s;
+  }
+  .proof-badge:hover{ border-color:var(--a1); transform:translateY(-3px); box-shadow:0 16px 42px -24px var(--glow); }
+  .proof-mark{
+    flex:0 0 42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:1.2rem; letter-spacing:-.02em;
+  }
+  .proof-mark.g{ background:#ffffff; color:#4285f4; }
+  .proof-mark.y{ background:#d32323; color:#ffffff; }
+  .proof-mark.k{ background:#ffffff; color:#0f9aa0; }
+  .proof-mark.w{ background:#ffffff; color:#16181d; font-size:.98rem; }
+  .proof-meta .rate{
+    font-family:var(--font-display); font-weight:800; font-size:1.22rem; line-height:1.15;
+    display:flex; align-items:baseline; gap:9px;
+  }
+  .proof-meta .rate .s{ color:var(--a2); font-size:.92rem; letter-spacing:1px; font-weight:400; }
+  .proof-meta .cnt{ font-size:.92rem; color:var(--dim); margin-top:2px; }
+  .proof-badge.tbd{ border-style:dashed; border-color:var(--a2); }
+  .proof-badge.tbd .rate{ color:var(--a2); }
+  .proof-badge.tbd .cnt{ color:var(--a2); opacity:.8; }
+
+  /* compact sitewide footer strip */
+  .foot-proof{
+    display:flex; flex-wrap:wrap; align-items:center; gap:12px 26px;
+    margin-top:32px; padding-top:26px; border-top:1px solid var(--card-border);
+  }
+  .foot-proof .fp{ display:inline-flex; align-items:center; gap:9px; font-size:.94rem; color:var(--dim); }
+  .foot-proof .fp:hover{ color:var(--ink); }
+  .foot-proof .fp b{ color:var(--ink); font-weight:700; }
+  .foot-proof .fp .s{ color:var(--a2); letter-spacing:1px; }
+  .foot-proof .fp .m{
+    width:24px; height:24px; border-radius:7px; display:inline-flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:.76rem;
+  }
+  .foot-proof .fp .m.g{ background:#ffffff; color:#4285f4; }
+  .foot-proof .fp .m.y{ background:#d32323; color:#ffffff; }
+  .foot-proof .fp .m.k{ background:#ffffff; color:#0f9aa0; }
+  .foot-proof .fp .m.w{ background:#ffffff; color:#16181d; font-size:.62rem; }
+  @media (max-width:820px){ .foot-proof{ gap:12px 18px; } }
+
+  /* ---------- final CTA ---------- */
+  .final-cta{ text-align:center; padding:110px 0; position:relative; }
+  .final-cta h2{ font-family:var(--font-display); font-weight:900; font-size:clamp(2rem,5vw,3.2rem); max-width:760px; margin:0 auto 22px; }
+  .final-cta p{ color:var(--dim); max-width:520px; margin:0 auto 36px; }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:1px solid var(--card-border); padding:50px 0; }
+  .foot-grid{ display:grid; grid-template-columns:1.6fr repeat(5,1fr); gap:34px 26px; }
+  @media (max-width:1080px){ .foot-grid{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:620px){ .foot-grid{ grid-template-columns:repeat(2,1fr); } }
+  .foot-grid .col.brand{ min-width:210px; }
+  @media (max-width:1080px){ .foot-grid .col.brand{ grid-column:1 / -1; } }
+  .foot-contact{ margin-top:16px; }
+  .foot-contact a{ display:block; margin-bottom:6px; font-size:1rem; color:var(--ink); opacity:.9; }
+  .foot-contact a:hover{ color:var(--a1); opacity:1; }
+  .foot-area{ font-size:.9rem; color:var(--dim); margin-top:12px; line-height:1.6; }
+  .foot-grid .col h4{ font-size:0.904rem; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin-bottom:14px; }
+  .foot-grid .col a, .foot-grid .col p{ display:block; font-size:0.972rem; color:var(--ink); opacity:.8; margin-bottom:8px; }
+  .foot-bottom{ margin-top:40px; padding-top:24px; border-top:1px solid var(--card-border); font-size:0.881rem; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+
+  /* ---------- chatbot bubble (visual placeholder for the AV Concierge) ---------- */
+  #chatBubble{
+    position:fixed; right:22px; bottom:22px; z-index:200;
+    display:flex; align-items:center; gap:8px;
+    padding:14px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    font-weight:700; font-size:0.96rem; box-shadow:0 14px 40px -12px var(--glow);
+    cursor:pointer;
+  }
+
+  [data-reveal]{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+  [data-reveal].in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- film grain overlay ---------- */
+  .grain-overlay{
+    position:fixed; inset:0; z-index:999; pointer-events:none;
+    opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-repeat:repeat;
+  }
+
+  /* ---------- marquee strip ---------- */
+  .marquee{
+    border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);
+    background:var(--bg-1); overflow:hidden; padding:18px 0; position:relative;
+  }
+  .marquee-track{
+    display:flex; width:max-content; gap:48px;
+    animation:marqueeScroll 32s linear infinite;
+  }
+  .marquee-track span{
+    font-family:var(--font-display); font-weight:700; font-size:1.073rem;
+    letter-spacing:.04em; text-transform:uppercase; color:var(--dim);
+    display:flex; align-items:center; gap:48px; white-space:nowrap;
+  }
+  .marquee-track span::after{ content:'✦'; color:var(--a1); margin-left:48px; }
+  @keyframes marqueeScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+
+  /* ---------- CO2 / particle burst ---------- */
+  .burst-particle{
+    position:fixed; top:0; left:0; width:6px; height:6px; border-radius:50%;
+    pointer-events:none; z-index:500; will-change:transform,opacity;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal]{ opacity:1; transform:none; transition:none; }
+    html{ scroll-behavior:auto; }
+    .marquee-track{ animation:none; }
+    .grain-overlay{ display:none; }
+  }
+</style>
+<style>
+  /* ========== WEDDINGS PAGE: page-specific additions ========== */
+
+  /* anchor jumps clear the sticky header */
+  section[id]{ scroll-margin-top:96px; }
+
+  /* interior-page hero */
+  .hero.hero-page{ padding:64px 0 78px; }
+  .breadcrumb{
+    font-size:.881rem; color:var(--dim); letter-spacing:.03em;
+    position:relative; z-index:1; margin-bottom:22px;
+  }
+  .breadcrumb a{ color:var(--dim); }
+  .breadcrumb a:hover{ color:var(--a1); }
+  .breadcrumb .sep{ opacity:.45; margin:0 8px; }
+  .breadcrumb .here{ color:var(--ink); opacity:.75; }
+
+  .hero-page h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.3rem, 5.2vw, 4rem); max-width:990px; position:relative; z-index:1;
+  }
+  .hero-page .sub{
+    font-size:1.18rem; color:var(--dim); max-width:690px; margin-top:24px;
+    position:relative; z-index:1;
+  }
+
+  /* -- soft aisle glow behind the hero, page-specific -- */
+  .aisle{
+    position:absolute; inset:0; pointer-events:none; z-index:0; overflow:hidden;
+  }
+  .aisle span{
+    position:absolute; bottom:-30%; left:50%; width:52vw; height:70vh;
+    transform:translateX(-50%);
+    background:radial-gradient(ellipse at center bottom, color-mix(in srgb, var(--a1) 22%, transparent), transparent 68%);
+    filter:blur(38px); opacity:.55;
+    animation:aisleBreathe 13s ease-in-out infinite alternate;
+  }
+  .aisle span.b2{
+    width:34vw; height:52vh; left:22%;
+    background:radial-gradient(ellipse at center bottom, color-mix(in srgb, var(--a2) 16%, transparent), transparent 66%);
+    animation-delay:-5s;
+  }
+  .aisle span.b3{
+    width:30vw; height:46vh; left:78%;
+    background:radial-gradient(ellipse at center bottom, color-mix(in srgb, var(--a2) 14%, transparent), transparent 66%);
+    animation-delay:-9s;
+  }
+  @keyframes aisleBreathe{ from{ opacity:.34; } to{ opacity:.66; } }
+
+  /* -- award badge in hero -- */
+  .award-badge{
+    display:inline-flex; align-items:center; gap:10px; margin-bottom:20px;
+    border:1px solid var(--a2); border-radius:100px; padding:8px 18px;
+    font-size:.84rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--a2); background:color-mix(in srgb, var(--a2) 10%, transparent);
+    position:relative; z-index:1;
+  }
+  .award-badge .pulse{
+    width:8px; height:8px; border-radius:50%; background:var(--a2);
+    box-shadow:0 0 10px var(--a2); animation:pulseDot 2s ease-in-out infinite;
+  }
+  @keyframes pulseDot{ 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
+
+  /* -- awards strip (weddings page only) -- */
+  .award-strip{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; margin-bottom:34px; }
+  .award-card{
+    display:flex; align-items:center; gap:15px; padding:20px 22px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -22px rgba(0,0,0,.6);
+    transition:.22s;
+  }
+  .award-card:hover{ border-color:var(--a2); transform:translateY(-3px); }
+  .award-card .yrs{
+    font-family:var(--font-display); font-weight:900; font-size:1.6rem; line-height:1;
+    background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+    flex:0 0 auto;
+  }
+  .award-card .txt{ font-size:.95rem; line-height:1.45; }
+  .award-card .txt b{ display:block; font-family:var(--font-display); font-weight:700; margin-bottom:3px; }
+  .award-card .txt span{ color:var(--dim); font-size:.9rem; }
+
+  /* -- service cards used as real links -- */
+  a.service-card{ display:flex; flex-direction:column; text-decoration:none; }
+  a.service-card .learn{ margin-top:auto; }
+
+  /* -- numbered process / moment list -- */
+  .step-list{ counter-reset:step; display:grid; gap:14px; margin-top:26px; }
+  .step{
+    display:flex; gap:16px; align-items:flex-start;
+    background:color-mix(in srgb, var(--bg-2) 45%, transparent);
+    backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+    border:1px solid var(--card-border); border-radius:14px; padding:16px 18px;
+  }
+  .step .n{
+    flex:0 0 28px; height:28px; border-radius:8px; background:var(--grad); color:#0a0a0a;
+    font-family:var(--font-display); font-weight:800; font-size:.93rem;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .step p{ font-size:.99rem; color:var(--dim); margin:0; }
+  .step p b{ color:var(--ink); font-weight:600; }
+
+  /* -- chip grid (effects, add-ons) -- */
+  .event-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:14px; }
+  .event-chip{
+    display:block; padding:22px 22px 20px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    backdrop-filter:blur(14px) saturate(130%); -webkit-backdrop-filter:blur(14px) saturate(130%);
+    border:1px solid var(--card-border); transition:.22s; position:relative; overflow:hidden;
+  }
+  .event-chip:hover{ border-color:var(--a1); transform:translateY(-3px); box-shadow:0 16px 40px -22px var(--glow); }
+  .event-chip .ico{ font-size:1.45rem; display:block; margin-bottom:12px; }
+  .event-chip h3{ font-family:var(--font-display); font-size:1.07rem; font-weight:700; margin-bottom:6px; }
+  .event-chip p{ font-size:.93rem; color:var(--dim); }
+  .event-chip .go{ font-size:.86rem; font-weight:700; color:var(--a1); margin-top:auto; padding-top:12px; display:block; }
+  a.event-chip{ display:flex; flex-direction:column; text-decoration:none; }
+
+  /* -- pair / partner cards -- */
+  .pair-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; }
+  .pair-card{
+    padding:26px; border-radius:18px; border:1px solid var(--card-border);
+    background:
+      radial-gradient(circle at 85% 10%, color-mix(in srgb, var(--glow) 55%, transparent), transparent 60%),
+      color-mix(in srgb, var(--bg-2) 45%, transparent);
+    backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+    transition:.22s; display:flex; flex-direction:column;
+  }
+  .pair-card:hover{ border-color:var(--a2); transform:translateY(-3px); }
+  .pair-card h3{ font-family:var(--font-display); font-size:1.13rem; font-weight:700; margin-bottom:8px; }
+  .pair-card p{ font-size:.96rem; color:var(--dim); margin-bottom:14px; }
+  .pair-card a.go{ font-size:.9rem; font-weight:700; color:var(--a1); margin-top:auto; }
+
+  /* -- FAQ -- */
+  .faq-list{ display:grid; gap:12px; max-width:880px; }
+  .faq-item{
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--card-border); border-radius:16px; overflow:hidden;
+    transition:border-color .2s;
+  }
+  .faq-item[open]{ border-color:var(--a1); }
+  .faq-item summary{
+    cursor:pointer; list-style:none; padding:20px 24px;
+    font-family:var(--font-display); font-weight:700; font-size:1.08rem;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary::after{
+    content:'+'; font-size:1.5rem; color:var(--a1); font-weight:400; line-height:1;
+    transition:transform .22s; flex:0 0 auto;
+  }
+  .faq-item[open] summary::after{ transform:rotate(45deg); }
+  .faq-item .ans{ padding:0 24px 22px; font-size:1.01rem; color:var(--dim); line-height:1.7; }
+
+  /* -- photo bento grid (real wedding shots) -- */
+  .shot-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:172px; gap:14px;
+  }
+  .shot{
+    position:relative; overflow:hidden; border-radius:16px; margin:0;
+    border:1px solid var(--card-border);
+    background-color:var(--bg-2);
+    background-image:var(--img),
+      radial-gradient(circle at 30% 20%, color-mix(in srgb, var(--a1) 20%, transparent), transparent 62%),
+      radial-gradient(circle at 78% 82%, color-mix(in srgb, var(--a2) 16%, transparent), transparent 60%);
+    background-size:cover; background-position:center; background-repeat:no-repeat;
+    transition:.28s;
+  }
+  .shot:hover{ transform:translateY(-3px); border-color:var(--a1); box-shadow:0 18px 46px -26px var(--glow); }
+  /* placeholder tiles vary slightly so they don't read as a render error */
+  .shot:nth-child(2n){ background-position:center, 70% 30%, 20% 80%; }
+  .shot:nth-child(3n){ background-position:center, 20% 70%, 85% 25%; }
+  .shot:nth-child(4n){ background-position:center, 50% 15%, 40% 90%; }
+  .shot.wide{ grid-column:span 2; }
+  .shot.tall{ grid-row:span 2; }
+  .shot figcaption{
+    position:absolute; left:0; right:0; bottom:0; padding:34px 16px 14px;
+    background:linear-gradient(to top, rgba(6,6,8,.88), rgba(6,6,8,.45) 55%, transparent);
+    font-size:.9rem; font-weight:600; line-height:1.35;
+  }
+  .shot figcaption .slot{
+    display:block; margin-top:4px; font-size:.74rem; font-weight:500;
+    letter-spacing:.03em; color:var(--dim); font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  .shot-note{
+    margin-top:20px; font-size:.92rem; color:var(--dim);
+  }
+  @media (max-width:900px){
+    .shot-grid{ grid-template-columns:repeat(2,1fr); grid-auto-rows:150px; }
+    .shot.tall{ grid-row:span 1; }
+  }
+  @media (max-width:520px){
+    .shot-grid{ grid-template-columns:1fr; }
+    .shot.wide{ grid-column:span 1; }
+  }
+
+  /* -- step lead-in line (design-system element, not prose emphasis) -- */
+  .step .lead{
+    display:block; margin-bottom:6px;
+    font-family:var(--font-display); font-weight:700; font-size:1rem;
+    line-height:1.35; color:var(--ink); letter-spacing:.005em;
+  }
+
+  /* -- service-area line -- */
+  .area-line{
+    margin-top:34px; padding-top:26px; border-top:1px solid var(--card-border);
+    font-size:.97rem; color:var(--dim); line-height:1.8;
+  }
+  .area-line b{ color:var(--ink); font-weight:600; }
+
+  @media (max-width:820px){
+    .hero.hero-page{ padding:44px 0 60px; }
+    .step{ padding:14px; }
+    .award-card{ padding:16px 18px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .aisle span, .award-badge .pulse{ animation:none !important; }
+  }
+</style>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Wedding Audio, Lighting and Effects Rental",
+  "name": "Wedding AV Services in Dallas-Fort Worth",
+  "description": "Ceremony sound, reception PA systems, uplighting, monogram projection and special effects for weddings across Dallas-Fort Worth, delivered, set up and operated by an on-site AV technician.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Dallas Event Audio",
+    "telephone": "+1-817-210-7957",
+    "email": "info@dallaseventaudio.com",
+    "url": "https://www.dallaseventaudio.com",
+    "foundingDate": "2001",
+    "address": { "@type": "PostalAddress", "addressRegion": "TX", "addressCountry": "US" }
+  },
+  "areaServed": [
+    {"@type":"City","name":"Dallas"},{"@type":"City","name":"Fort Worth"},
+    {"@type":"City","name":"McKinney"},{"@type":"City","name":"Richardson"},
+    {"@type":"City","name":"Southlake"},{"@type":"City","name":"Rockwall"},
+    {"@type":"City","name":"Frisco"},{"@type":"City","name":"Waxahachie"},
+    {"@type":"City","name":"Arlington"},{"@type":"City","name":"Plano"}
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Wedding AV Rentals",
+    "itemListElement": [
+      {"@type":"Offer","itemOffered":{"@type":"Service","name":"Ceremony Sound Rental"}},
+      {"@type":"Offer","itemOffered":{"@type":"Service","name":"Reception Sound System Rental"}},
+      {"@type":"Offer","itemOffered":{"@type":"Service","name":"Wedding Uplighting Rental"}},
+      {"@type":"Offer","itemOffered":{"@type":"Service","name":"Custom Monogram Projection"}},
+      {"@type":"Offer","itemOffered":{"@type":"Service","name":"Dancing on the Clouds Low-Lying Fog"}},
+      {"@type":"Offer","itemOffered":{"@type":"Service","name":"CDJ and DJ Equipment Rental"}}
+    ]
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do you deliver and set up, or do we pick the equipment up?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We deliver, set up, run, and strike everything ourselves. An insured technician is on-site from load-in through the last song. You never touch a cable, and nobody in your wedding party gets handed a job on the day."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you cover an outdoor ceremony with no power?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Outdoor ceremonies are routine for us. We plan for the distance, the wind, and the power situation ahead of time, including battery-powered options where there's no outlet. Tell us where the aisle is and we'll tell you what it takes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What about microphone feedback during the vows and toasts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every microphone rental includes our AI-powered De-Feedback system as standard. It suppresses feedback before it becomes the squeal everyone remembers, which matters most in exactly the two moments you can't redo: the vows and the toasts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "We're bringing our own DJ or band. Can you just provide the gear?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "That's a big part of what we do. Traveling wedding DJs get CDJs, mixers, PA, subs, booth and facade; live wedding bands get front-of-house, monitors, subs, stands, cables, and a console on request. It's all set up, line-checked, and staffed. Your DJ or band walks into a working system."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far in advance should we book?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Peak DFW wedding dates, spring and fall Saturdays, get claimed first, often a year out. If you have a date and a venue, send them over and we'll tell you honestly whether we're open. If we're not, we'll say so rather than stringing you along."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you handle the ceremony and the reception, or just one?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Either, but most couples book both. It's one delivery, one setup crew, and one point of contact instead of coordinating two vendors across the same afternoon. We strike the ceremony rig and have cocktail hour and the reception up while your guests are still finding their tables."
+      }
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://www.dallaseventaudio.com/"},
+    {"@type":"ListItem","position":2,"name":"Weddings","item":"https://www.dallaseventaudio.com/weddings"}
+  ]
+}
+</script>
+
+</head>
+
+<body>
+
+<div id="paletteBar">
+    <span>Palette preview</span>
+    <button data-p="signal" class="active">A · Signal Chain</button>
+    <button data-p="amber">B · Stage Black &amp; Amber</button>
+    <button data-p="night">C · DFW Night Rig</button>
+  </div>
+
+  <header>
+    <nav>
+      <a class="logo" href="/" style="text-decoration:none;"><div class="dial"></div>DEA</a>
+      <div class="navlinks">
+        <a href="/services-lighting">Lighting</a>
+        <a href="/services-audio">Audio</a>
+        <a href="/our-work">Our Work</a>
+        <a href="/what-others-are-saying">Reviews</a>
+        <a href="/contact">Contact</a>
+      </div>
+      <div class="navright">
+        <span class="phone">817-210-7957</span>
+        <a class="cta-btn" href="/contact">Get a Quote</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero hero-page">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="aisle" aria-hidden="true">
+      <span></span><span class="b2"></span><span class="b3"></span>
+    </div>
+    <div class="wrap">
+      <div class="breadcrumb" data-reveal>
+        <a href="/">Home</a><span class="sep">/</span><a href="/our-work">Events</a><span class="sep">/</span><span class="here">Weddings</span>
+      </div>
+      <div data-reveal>
+        <div class="award-badge"><span class="pulse"></span> 6&times; WeddingWire Couples&rsquo; Choice &middot; 3&times; Knot Best of Weddings</div>
+      </div>
+      <h1 data-reveal>Wedding <span class="grad-text">AV Services</span> in Dallas-Fort Worth</h1>
+      <p class="sub" data-reveal>Ceremony sound your back row can hear. A reception system that holds a full dance floor. Uplighting, monograms, and effects that make the photos. All of it delivered, set up, and run by our on-site technician. You never touch a cable.</p>
+      <div class="hero-ctas" data-reveal>
+        <a class="btn-primary" href="/contact">Check Your Wedding Date</a>
+        <a class="btn-secondary" href="#reception">See What We Bring</a>
+      </div>
+      <div class="trust-row" data-reveal>
+        <div class="trust-item"><div class="num">3&times;</div><div class="label">Knot Best of Weddings</div></div>
+        <div class="trust-item"><div class="num">5.0&#9733;</div><div class="label">44 Reviews on The Knot</div></div>
+        <div class="trust-item"><div class="num">2001</div><div class="label">Working DFW Weddings Since</div></div>
+        <div class="trust-item"><div class="num">100%</div><div class="label">Staffed by Our Technician</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Ceremony Sound &middot; Reception Systems &middot; Wireless Mics with AI De-Feedback &middot; Uplighting &middot; Monogram Projection &middot; Dancing on the Clouds &middot; Insured &middot; On-Site Technician</span>
+      <span>Ceremony Sound &middot; Reception Systems &middot; Wireless Mics with AI De-Feedback &middot; Uplighting &middot; Monogram Projection &middot; Dancing on the Clouds &middot; Insured &middot; On-Site Technician</span>
+    </div>
+  </div>
+
+  <!-- ---------- intro ---------- -->
+  <section class="section" id="intro">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:860px;">
+        <span class="kicker">Wedding AV in Dallas-Fort Worth</span>
+        <h2>Full hearts, and a dance floor nobody wants to leave.</h2>
+        <p>When you picture the day, you see the ceremony under the oaks, the toast that lands, the last song with everyone still in the room. Nobody pictures an empty dance floor, or a microphone that squeals through the vows. You brought everyone together and rented the venue so people would <em>stay</em>. That's the job.</p>
+        <p>Dallas Event Audio has been working DFW weddings since 2001. Every booking includes an insured technician on-site from load-in to the last song, with sound, lighting, and effects run by the same people who own the gear.</p>
+        <p>Wedding audio equipment rental, wedding lighting and the effects that go with them all come from one crew and one delivery. We cover ceremony sound, reception sound systems, and everything in the room between them, at venues across Dallas, Fort Worth, McKinney, Southlake, Frisco, Rockwall and Waxahachie.</p>
+      </div>
+
+      <div class="service-grid">
+        <a class="service-card featured" href="#ceremony" data-reveal>
+          <span class="tag-live">Start Here</span>
+          <div class="icon">💍</div>
+          <h3>Ceremony Sound</h3>
+          <p>Wireless mics, discreet speaker placement, and processions cued live, indoors, in a garden, or out where there's no power at all.</p>
+          <span class="learn">Ceremony sound rentals →</span>
+        </a>
+        <a class="service-card" href="#reception" data-reveal>
+          <div class="icon">🔊</div>
+          <h3>Reception Sound</h3>
+          <p>Systems sized to your guest count and your room, with the low end a dance floor needs.</p>
+          <span class="learn">Reception sound rentals →</span>
+        </a>
+        <a class="service-card" href="#lighting" data-reveal>
+          <div class="icon">💡</div>
+          <h3>Wedding Lighting</h3>
+          <p>Uplighting matched to your palette, a monogram on the floor, a follow spot on the first dance.</p>
+          <span class="learn">Wedding lighting rentals →</span>
+        </a>
+        <a class="service-card" href="#effects" data-reveal>
+          <div class="icon">☁️</div>
+          <h3>Effects</h3>
+          <p>Dancing on the Clouds, lasers and haze, cold sparks, CO&#8322; guns, slideshow projection.</p>
+          <span class="learn">Effects rentals →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- ceremony ---------- -->
+  <section class="section" id="ceremony" style="background:var(--bg-1); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="kicker">Ceremony Sound Rentals</span>
+        <h2>The vows are the one part you can't do over.</h2>
+        <p>A ceremony is the hardest audio of the whole day and the least forgiving: quiet voices, an outdoor space with no walls to help, and one take. We treat it that way.</p>
+      </div>
+      <div class="step-list">
+        <div class="step" data-reveal>
+          <div class="n">1</div>
+          <p><span class="lead">Everyone hears it, including the back row.</span> Speakers placed for the seating plan you have, not aimed at the first three rows. Outdoors we plan for wind and open air; indoors we tune to the room so it stays intelligible instead of just loud.</p>
+        </div>
+        <div class="step" data-reveal>
+          <div class="n">2</div>
+          <p><span class="lead">Wireless handheld and lapel mics, with AI De-Feedback standard.</span> Every <a href="/feedback-free-microphone-rentals">wireless microphone rental</a> includes our AI-powered feedback-suppression system as standard. The officiant, the readings and the vows all come through clean.</p>
+        </div>
+        <div class="step" data-reveal>
+          <div class="n">3</div>
+          <p><span class="lead">Live musicians get their own inputs.</span> A string trio, a solo guitarist, a harpist, a vocalist. We mic and reinforce them properly instead of hoping a laptop speaker carries it, and we run the balance live as the processional starts.</p>
+        </div>
+        <div class="step" data-reveal>
+          <div class="n">4</div>
+          <p><span class="lead">Cues are run by a person at the board.</span> Our technician is there for the processional, the pause, the kiss, and the recessional. If the wedding party is thirty seconds late, the music waits with them.</p>
+        </div>
+        <div class="step" data-reveal>
+          <div class="n">5</div>
+          <p><span class="lead">Then it moves to the reception.</span> The same team strikes the ceremony rig and has cocktail hour and the reception up before your guests find their seats.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- reception ---------- -->
+  <section class="section" id="reception">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="kicker">Reception Sound Rentals</span>
+        <h2>Sized to the room and the guest count.</h2>
+        <p>A 120-guest ballroom and a 700-guest reception hall are two different problems, so our wedding sound equipment rental starts with the room. We look at the space first, then tell you what it takes to fill it without blowing out the tables closest to the speakers.</p>
+      </div>
+      <div class="event-grid">
+        <a class="event-chip" href="/rent-sound-equipment" data-reveal>
+          <span class="ico">🔊</span>
+          <h3>PA &amp; Sound Systems</h3>
+          <p>Full front-of-house systems for receptions of every size, tuned on-site and run by our technician all night.</p>
+          <span class="go">Sound equipment rental →</span>
+        </a>
+        <a class="event-chip" href="/rent-bassboss-subwoofers" data-reveal>
+          <span class="ico">🎚️</span>
+          <h3>BassBoss Subwoofers</h3>
+          <p>Touring-grade low end for the part of the night when the dance floor needs to feel the bass through the floor.</p>
+          <span class="go">Subwoofer rental →</span>
+        </a>
+        <a class="event-chip" href="/rent-line-array-speaker-system" data-reveal>
+          <span class="ico">📡</span>
+          <h3>Line Array Systems</h3>
+          <p>For large receptions of 800 guests and up, where coverage has to reach the back of the hall evenly.</p>
+          <span class="go">Line array rental →</span>
+        </a>
+        <a class="event-chip" href="/flat-panel-audio-dml500" data-reveal>
+          <span class="ico">🖼️</span>
+          <h3>Flat Panel DML500</h3>
+          <p>Slim, low-profile speakers for rooms where the sound has to be everywhere and the gear has to disappear.</p>
+          <span class="go">Flat panel audio →</span>
+        </a>
+        <a class="event-chip" href="/rent-sound-equipment/cdj-rental-dallas" data-reveal>
+          <span class="ico">🎛️</span>
+          <h3>CDJs &amp; DJ Booth</h3>
+          <p>Pioneer CDJ media players, DJM mixers, booth and facade, set up and line-checked before your DJ arrives.</p>
+          <span class="go">CDJ rental Dallas →</span>
+        </a>
+        <a class="event-chip" href="/services-audio" data-reveal>
+          <span class="ico">🎤</span>
+          <h3>Toasts &amp; Speeches</h3>
+          <p>Wireless handhelds with AI De-Feedback standard, so the best man is the only thing anyone hears.</p>
+          <span class="go">Audio services →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- lighting ---------- -->
+  <section class="section" id="lighting" style="background:var(--bg-1); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="kicker">Wedding Lighting Rentals</span>
+        <h2>The room your photographer is going to thank you for.</h2>
+        <p>Venue houselights are built for setup, not for a reception. Lighting is what turns a beige ballroom into your colors, and it's the difference between photos that look like a room and photos that look like your wedding.</p>
+      </div>
+      <div class="event-grid">
+        <a class="event-chip" href="/rent-uplighting" data-reveal>
+          <span class="ico">💡</span>
+          <h3>Uplighting</h3>
+          <p>Wireless RGBAW-UV fixtures matched to your linens, florals, or bridesmaid palette, battery-powered so the floor stays clear.</p>
+          <span class="go">Uplighting rental →</span>
+        </a>
+        <a class="event-chip" href="/monogram-projector" data-reveal>
+          <span class="ico">✨</span>
+          <h3>Custom Monogram</h3>
+          <p>Your names, initials, or date projected on the dance floor or a feature wall, designed to your artwork.</p>
+          <span class="go">Monogram projector →</span>
+        </a>
+        <a class="event-chip" href="/rent-follow-spot-light" data-reveal>
+          <span class="ico">🔦</span>
+          <h3>Follow Spot</h3>
+          <p>Operated live for the grand entrance, the first dance, and the parent dances so the room's eye goes where it should.</p>
+          <span class="go">Follow spot rental →</span>
+        </a>
+        <a class="event-chip" href="/services-lighting" data-reveal>
+          <span class="ico">🪩</span>
+          <h3>Moving Heads &amp; Truss</h3>
+          <p>Intelligent lighting on trussing for receptions that want the dance floor to feel like a real production after dinner.</p>
+          <span class="go">Lighting services →</span>
+        </a>
+        <a class="event-chip" href="/services-lighting" data-reveal>
+          <span class="ico">🕯️</span>
+          <h3>Pin Spot Lighting</h3>
+          <p>Tight beams on centerpieces and the cake, so the details you paid for don't disappear once the lights come down.</p>
+          <span class="go">Lighting services →</span>
+        </a>
+        <a class="event-chip" href="/rent-laser-light-show" data-reveal>
+          <span class="ico">🟢</span>
+          <h3>Lasers &amp; Haze</h3>
+          <p>A late-night look for the last hour, run by an operator under our FDA variance.</p>
+          <span class="go">Laser light show →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- effects ---------- -->
+  <section class="section" id="effects">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="kicker">Effects &amp; Upgrades</span>
+        <h2>The three or four moments people post about.</h2>
+        <p>You don't need all of these. You probably want two. Here's what couples add most often, and what each one is for.</p>
+      </div>
+      <div class="event-grid">
+        <a class="event-chip" href="/rent-dancing-on-the-clouds-low-lyin" data-reveal>
+          <span class="ico">☁️</span>
+          <h3>Dancing on the Clouds</h3>
+          <p>Dry-ice fog that stays ankle-high for the first dance. It doesn't set off smoke alarms and it photographs beautifully.</p>
+          <span class="go">Dancing on the Clouds →</span>
+        </a>
+        <a class="event-chip" href="/services-extra" data-reveal>
+          <span class="ico">🎆</span>
+          <h3>Cold Sparks</h3>
+          <p>Indoor-safe spark fountains for the grand entrance or the last dance, run by a licensed operator on an approved permit.</p>
+          <span class="go">Extra services →</span>
+        </a>
+        <a class="event-chip" href="/services-extra" data-reveal>
+          <span class="ico">💨</span>
+          <h3>CO&#8322; Guns &amp; Cannons</h3>
+          <p>A hit of cold fog on the drop for receptions that turn into a party after the formalities are done.</p>
+          <span class="go">Extra services →</span>
+        </a>
+        <a class="event-chip" href="/projector-screen-rental" data-reveal>
+          <span class="ico">📽️</span>
+          <h3>Projector &amp; Screen</h3>
+          <p>Slideshows during dinner, or a live feed of the ceremony for guests in an overflow room.</p>
+          <span class="go">Projector &amp; screen rental →</span>
+        </a>
+        <a class="event-chip" href="/rent-fog-machine" data-reveal>
+          <span class="ico">🌫️</span>
+          <h3>Fog &amp; Haze</h3>
+          <p>Light haze so the beams and the uplighting read on camera, kept thin enough that nobody notices it as fog.</p>
+          <span class="go">Fog &amp; haze rental →</span>
+        </a>
+        <a class="event-chip" href="/live-streaming-services" data-reveal>
+          <span class="ico">🎥</span>
+          <h3>Live Streaming</h3>
+          <p>For the grandparents who couldn't travel: a real camera and a real audio feed.</p>
+          <span class="go">Live streaming →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- partners: traveling DJs and live musicians ---------- -->
+  <section class="section" id="partners" style="background:var(--bg-1); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="kicker">DJs, Bands &amp; Planners</span>
+        <h2>Flying in, or bringing your own band? We're the local rig.</h2>
+        <p>A large part of what Dallas Event Audio does is supporting other wedding professionals. Traveling DJs land at DFW with a flash drive and headphones; live wedding bands arrive with instruments and no PA. Either way, the system is already up, line-checked, and staffed when you walk in.</p>
+      </div>
+      <div class="pair-grid">
+        <div class="pair-card" data-reveal>
+          <h3>Traveling Wedding DJs</h3>
+          <p>Pioneer CDJs, DJM mixers, XDJ-AZ, powered PA and subwoofers, booth and facade, laptop stands, wireless handhelds and lapels. Set up and tested before your soundcheck, with our technician on-site all night if anything needs a hand.</p>
+          <a class="go" href="/rent-sound-equipment/cdj-rental-dallas">CDJ &amp; DJ gear rental →</a>
+        </div>
+        <div class="pair-card" data-reveal>
+          <h3>Live Wedding Bands &amp; Musicians</h3>
+          <p>Front-of-house PA, stage monitors and floor wedges, subwoofers for bass reinforcement, mic stands and cables, wireless instrument systems, and a mixing console on request. String players and soloists at the ceremony get reinforced properly too.</p>
+          <a class="go" href="/live-music-and-band-events">Live music &amp; band events →</a>
+        </div>
+        <div class="pair-card" data-reveal>
+          <h3>Wedding AV Packages</h3>
+          <p>Ceremony, cocktail hour, and reception bundled into one delivery, one setup, and one point of contact, instead of three vendors coordinating in your inbox.</p>
+          <a class="go" href="/wedding-av-rental-dallas">Wedding AV packages →</a>
+        </div>
+        <div class="pair-card" data-reveal>
+          <h3>Planners &amp; Venues</h3>
+          <p>Dallas Event Audio is insured, we send certificates without being chased, and we've worked most of the rooms in the Metroplex. Your coordinator gets a load-in time and a tech who sticks to it.</p>
+          <a class="go" href="/contact">Talk to us →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- gallery: real wedding photos ---------- -->
+  <!-- Drop real .jpg files at the paths in each --img and the tiles fill in.
+       Until then the gradient fallback shows. Before launch, hide the filename
+       hints with:  .shot figcaption .slot{ display:none; }  -->
+  <section class="section" id="gallery">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="kicker">Real DFW Weddings</span>
+        <h2>What it looks like when the room is running.</h2>
+        <p>Every one of these is our own gear, our own technician, and a real wedding somewhere in the Metroplex.</p>
+      </div>
+
+      <div class="shot-grid">
+        <figure class="shot wide tall" data-reveal style="--img:url('/images/weddings/reception-dancefloor.jpg')">
+          <figcaption>A full dance floor, lit and loud enough to hold it
+            <span class="slot">/images/weddings/reception-dancefloor.jpg</span></figcaption>
+        </figure>
+        <figure class="shot" data-reveal style="--img:url('/images/weddings/ceremony-outdoor.jpg')">
+          <figcaption>Outdoor ceremony, speakers placed for the back row
+            <span class="slot">/images/weddings/ceremony-outdoor.jpg</span></figcaption>
+        </figure>
+        <figure class="shot" data-reveal style="--img:url('/images/weddings/uplighting-ballroom.jpg')">
+          <figcaption>Uplighting matched to the palette
+            <span class="slot">/images/weddings/uplighting-ballroom.jpg</span></figcaption>
+        </figure>
+        <figure class="shot" data-reveal style="--img:url('/images/weddings/monogram-floor.jpg')">
+          <figcaption>Monogram on the dance floor
+            <span class="slot">/images/weddings/monogram-floor.jpg</span></figcaption>
+        </figure>
+        <figure class="shot" data-reveal style="--img:url('/images/weddings/dancing-on-clouds.jpg')">
+          <figcaption>Dancing on the Clouds, first dance
+            <span class="slot">/images/weddings/dancing-on-clouds.jpg</span></figcaption>
+        </figure>
+        <figure class="shot wide" data-reveal style="--img:url('/images/weddings/band-front-of-house.jpg')">
+          <figcaption>Front-of-house for a live wedding band
+            <span class="slot">/images/weddings/band-front-of-house.jpg</span></figcaption>
+        </figure>
+        <figure class="shot" data-reveal style="--img:url('/images/weddings/ceremony-mic.jpg')">
+          <figcaption>Wireless lapel mic, AI De-Feedback running
+            <span class="slot">/images/weddings/ceremony-mic.jpg</span></figcaption>
+        </figure>
+        <figure class="shot" data-reveal style="--img:url('/images/weddings/load-in-tech.jpg')">
+          <figcaption>Load-in, hours before the first guest
+            <span class="slot">/images/weddings/load-in-tech.jpg</span></figcaption>
+        </figure>
+      </div>
+
+      <p class="shot-note" data-reveal>More setups, rooms, and rigs are in <a href="/our-work" style="color:var(--a1); font-weight:600;">our work</a>.</p>
+    </div>
+  </section>
+
+  <!-- ---------- proof: awards + badges + reviews ---------- -->
+  <section class="section" id="reviews">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="kicker">What Couples Say</span>
+        <h2>Nine awards, and the couples who voted for them.</h2>
+      </div>
+
+      <div class="award-strip">
+        <div class="award-card" data-reveal>
+          <div class="yrs">6&times;</div>
+          <div class="txt"><b>WeddingWire Couples&rsquo; Choice</b><span>2019 &middot; 2020 &middot; 2021 &middot; 2022 &middot; 2023 &middot; 2024</span></div>
+        </div>
+        <div class="award-card" data-reveal>
+          <div class="yrs">3&times;</div>
+          <div class="txt"><b>The Knot Best of Weddings</b><span>2021 &middot; 2022 &middot; 2023</span></div>
+        </div>
+        <div class="award-card" data-reveal>
+          <div class="yrs">2001</div>
+          <div class="txt"><b>Working DFW weddings since</b><span>Insured, on-site, owner-operated</span></div>
+        </div>
+      </div>
+
+      <div class="proof-row" data-reveal>
+        <a class="proof-badge" href="https://www.theknot.com/marketplace/dallas-event-audio-%F0%9F%94%88%F0%9F%8E%B6-hurst-tx-2022777" target="_blank" rel="noopener">
+          <span class="proof-mark k">K</span>
+          <span class="proof-meta">
+            <span class="rate">5.0 <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span></span>
+            <span class="cnt">44 reviews on The Knot</span>
+          </span>
+        </a>
+        <a class="proof-badge" href="https://www.weddingwire.com/biz/dallas-event-audio-frisco/29690aa6325ab32b.html" target="_blank" rel="noopener">
+          <span class="proof-mark w">WW</span>
+          <span class="proof-meta">
+            <span class="rate">4.9 <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span></span>
+            <span class="cnt">89 reviews on WeddingWire</span>
+          </span>
+        </a>
+        <a class="proof-badge" href="https://www.google.com/maps?cid=11213015373496621898" target="_blank" rel="noopener">
+          <span class="proof-mark g">G</span>
+          <span class="proof-meta">
+            <span class="rate">4.9 <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span></span>
+            <span class="cnt">41 Google reviews</span>
+          </span>
+        </a>
+        <a class="proof-badge" href="https://www.yelp.com/biz/dallas-event-audio-dallas" target="_blank" rel="noopener">
+          <span class="proof-mark y">Y</span>
+          <span class="proof-meta">
+            <span class="rate">Yelp</span>
+            <span class="cnt">13 reviews &middot; 134 photos</span>
+          </span>
+        </a>
+      </div>
+
+      <div class="review-grid">
+        <div class="review-card" data-reveal>
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve was absolutely incredible as our wedding DJ! He brought amazing energy the entire night and truly kept the party alive from start to finish."</p>
+          <div class="who">Kenny, WeddingWire</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"He kept the good vibes going alllll night long. He didn't allow for any awkward lulls and knows exactly what songs to play."</p>
+          <div class="who">Brandie, WeddingWire</div>
+        </div>
+        <div class="review-card" data-reveal>
+          <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>"Steve is one of the most kind, attentive, professional, and personable human beings that I've ever met."</p>
+          <div class="who">Ty Baker, WeddingWire</div>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:30px;" data-reveal>
+        <a class="btn-secondary" href="/what-others-are-saying">Read more reviews</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- FAQ ---------- -->
+  <section class="section" id="faq" style="background:var(--bg-1); border-top:1px solid var(--card-border);">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="kicker">Common Questions</span>
+        <h2>Wedding AV questions, answered straight.</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" data-reveal open>
+          <summary>Do you deliver and set up, or do we pick the equipment up?</summary>
+          <div class="ans">We deliver, set up, run, and strike everything ourselves. An insured technician is on-site from load-in through the last song. You never touch a cable, and nobody in your wedding party gets handed a job on the day.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Can you cover an outdoor ceremony with no power?</summary>
+          <div class="ans">Yes. Outdoor ceremonies are routine for us. We plan for the distance, the wind, and the power situation ahead of time, including battery-powered options where there's no outlet. Tell us where the aisle is and we'll tell you what it takes.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>What about microphone feedback during the vows and toasts?</summary>
+          <div class="ans">Every microphone rental includes our AI-powered De-Feedback system as standard. It suppresses feedback before it becomes the squeal everyone remembers, which matters most in exactly the two moments you can't redo: the vows and the toasts.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>We're bringing our own DJ or band. Can you just provide the gear?</summary>
+          <div class="ans">That's a big part of what we do. Traveling wedding DJs get CDJs, mixers, PA, subs, booth and facade; live wedding bands get front-of-house, monitors, subs, stands, cables, and a console on request. It's all set up, line-checked, and staffed. Your DJ or band walks into a working system.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>How far in advance should we book?</summary>
+          <div class="ans">Peak DFW wedding dates, spring and fall Saturdays, get claimed first, often a year out. If you have a date and a venue, send them over and we'll tell you honestly whether we're open. If we're not, we'll say so rather than stringing you along.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do you handle the ceremony and the reception, or just one?</summary>
+          <div class="ans">Either, but most couples book both. It's one delivery, one setup crew, and one point of contact instead of coordinating two vendors across the same afternoon. We strike the ceremony rig and have cocktail hour and the reception up while your guests are still finding their tables.</div>
+        </details>
+      </div>
+
+      <div class="area-line" data-reveal>
+        <b>Wedding service area:</b> Dallas, Fort Worth, McKinney, Richardson, Southlake, Rockwall, Frisco, Waxahachie, Arlington, Plano, Denton, and the wider Metroplex. Getting married outside that ring? <a href="/contact" style="color:var(--a1); font-weight:600;">Ask us</a>. We travel for the right event.
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- final CTA ---------- -->
+  <section class="final-cta" id="contact">
+    <div class="wrap">
+      <h2 data-reveal>Send us the date and the venue. We'll tell you <span class="grad-text">what it takes.</span></h2>
+      <p data-reveal>Your date, your venue, and roughly how many guests is enough for us to come back with a straightforward quote. We will send you a straightforward quote the same day.</p>
+      <div data-reveal style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+        <a class="btn-primary" href="/contact">Check Your Wedding Date</a>
+        <a class="btn-secondary" href="tel:8172107957">Call or Text 817-210-7957</a>
+      </div>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="col brand">
+          <div class="logo"><div class="dial"></div>DEA</div>
+          <p style="margin-top:14px; max-width:250px;">Full-service AV production for Dallas-Fort Worth since 2001. Delivered, set up, and run by our on-site technician.</p>
+          <div class="foot-contact">
+            <a href="tel:8172107957">817-210-7957</a>
+            <a href="mailto:info@dallaseventaudio.com">info@dallaseventaudio.com</a>
+          </div>
+          <p class="foot-area">Serving Dallas, Fort Worth, Southlake, Arlington, Frisco, McKinney, Richardson &amp; the wider Metroplex.</p>
+        </div>
+        <div class="col">
+          <h4>Events</h4>
+          <a href="/weddings">Weddings</a>
+          <a href="/corporate-events">Corporate Events</a>
+          <a href="/private-events">Private Events</a>
+          <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+          <a href="/college-school-university-events">College &amp; University</a>
+          <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+          <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+        </div>
+        <div class="col">
+          <h4>Services</h4>
+          <a href="/services-dj">DJ Services</a>
+          <a href="/services-audio">Audio Services</a>
+          <a href="/services-lighting">Lighting Services</a>
+          <a href="/services-photo-and-video">Photo &amp; Video</a>
+          <a href="/services-extra">Extra Services</a>
+        </div>
+        <div class="col">
+          <h4>Audio Rentals</h4>
+          <a href="/rent-sound-equipment">Sound Equipment</a>
+          <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+          <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+          <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+          <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+          <a href="/live-streaming-services">Live Streaming</a>
+        </div>
+        <div class="col">
+          <h4>Lighting &amp; FX</h4>
+          <a href="/rent-uplighting">Uplighting</a>
+          <a href="/rent-laser-light-show">Laser Light Show</a>
+          <a href="/rent-follow-spot-light">Follow Spot</a>
+          <a href="/monogram-projector">Monogram Projector</a>
+          <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+          <a href="/rent-fog-machine">Fog &amp; Haze</a>
+          <a href="/projector-screen-rental">Projector &amp; Screen</a>
+        </div>
+        <div class="col">
+          <h4>Company</h4>
+          <a href="/our-story">Our Story</a>
+          <a href="/our-work">Our Work</a>
+          <a href="/equipment-list">Equipment List</a>
+          <a href="/what-others-are-saying">Reviews</a>
+          <a href="/blog">Blog</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div class="foot-proof">
+        <a class="fp" href="https://www.google.com/maps?cid=11213015373496621898" target="_blank" rel="noopener"><span class="m g">G</span> <b>4.9</b> <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span> &middot; 41 Google reviews</a>
+        <a class="fp" href="https://www.yelp.com/biz/dallas-event-audio-dallas" target="_blank" rel="noopener"><span class="m y">Y</span> <b>Yelp</b> &middot; 13 reviews &middot; 134 photos</a>
+      </div>
+      <div class="foot-bottom">
+        <span>&copy; 2026 Dallas Event Audio. Fully insured, on-site AV production.</span>
+        <span>Event page draft: weddings</span>
+      </div>
+    </div>
+  </footer>
+
+  <div id="chatBubble">✦ AV Concierge</div>
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+<script>
+  // Palette switcher, review tool only
+  document.querySelectorAll('#paletteBar button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      document.documentElement.setAttribute('data-palette', btn.dataset.p);
+      document.querySelectorAll('#paletteBar button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+
+  // Scroll reveal
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.15});
+    document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el=>el.classList.add('in'));
+  }
+
+  // CO2 / particle burst on primary CTA click
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function burst(x, y){
+    if(reduceMotion) return;
+    const colors = ['var(--a1)','var(--a2)','var(--a3)','#ffffff'];
+    const count = 26;
+    for(let i=0;i<count;i++){
+      const p = document.createElement('span');
+      p.className = 'burst-particle';
+      const angle = (Math.PI * 2 * i) / count + Math.random()*0.4;
+      const dist = 60 + Math.random()*140;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist - 40;
+      const size = 4 + Math.random()*6;
+      p.style.width = p.style.height = size + 'px';
+      p.style.background = colors[i % colors.length];
+      p.style.boxShadow = '0 0 8px ' + colors[i % colors.length];
+      p.style.left = x + 'px';
+      p.style.top = y + 'px';
+      document.body.appendChild(p);
+      const anim = p.animate([
+        { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
+        { transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.3)`, opacity:0 }
+      ], { duration:700 + Math.random()*400, easing:'cubic-bezier(.2,.7,.3,1)' });
+      anim.onfinish = () => p.remove();
+    }
+  }
+  document.querySelectorAll('.btn-primary').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      burst(e.clientX, e.clientY);
+    });
+  });
+</script>
+
+</body>
+</html>
