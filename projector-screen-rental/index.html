@@ -708,6 +708,10 @@ a.chip::after{ content:' \2192'; opacity:.55; }
     font-family:var(--font-display); font-weight:900; font-size:.66rem;
     letter-spacing:.16em; text-transform:uppercase; color:var(--a1); flex:0 0 auto;
   }
+
+  /* screen-reader only: describes a photo that is painted as a CSS
+     background, which assistive tech cannot see */
+  .visually-hidden{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0;}
 </style>
 
   <script type="application/ld+json">
@@ -1206,8 +1210,8 @@ body.nav-locked{ overflow:hidden; }
             <span class="chip">Screens up to 150 inches</span>
           </div>
         </div>
-        <div class="split-vis" data-reveal style="--img:url('/images/projector-screen-rental-dallas-ballroom.jpg')">
-          <span class="slot">/images/projector-screen-rental-dallas-ballroom.jpg</span>
+        <div class="split-vis" data-reveal style="--img:url('/images/alr-projector-screen-audience-dallas-event.jpg')">
+          <span class="visually-hidden">A projector and ambient light rejecting screen running video for a seated audience at a Dallas private event.</span>
         </div>
       </div>
     </div>
@@ -1224,7 +1228,7 @@ body.nav-locked{ overflow:hidden; }
           <p>Because the throw distance is inches rather than feet, nobody walks through the beam and casts a shadow across your slide, and you do not lose the middle of the room to a projector stand. Lobbies, hotel prefunction space, retail activations, reception areas and glass-walled conference rooms are all rooms we bring this setup to. Clients stop asking us whether they can dim the lights, because the answer no longer matters.</p>
         </div>
         <div class="split-vis" data-reveal style="--img:url('/images/ultra-short-throw-projector-rental-dallas.jpg')">
-          <span class="slot">/images/ultra-short-throw-projector-rental-dallas.jpg</span>
+          <span class="visually-hidden">An ultra short throw projector at the base of an ambient light rejecting screen, holding a bright slide in an aircraft hangar with the door open to daylight.</span>
         </div>
       </div>
     </div>
@@ -1328,7 +1332,7 @@ body.nav-locked{ overflow:hidden; }
           </div>
         </div>
         <div class="split-vis" data-reveal style="--img:url('/images/corporate-projector-rental-dallas-conference.jpg')">
-          <span class="slot">/images/corporate-projector-rental-dallas-conference.jpg</span>
+          <span class="visually-hidden">A corporate presentation on an ambient light rejecting screen beside a vintage American Airlines aircraft, with a DEA speaker on a stand alongside.</span>
         </div>
       </div>
     </div>
