@@ -726,6 +726,15 @@ input[type=range].mx-vert{ width:22px; height:150px; }
   }
 .wrap p a:not(.chip):not(.btn-primary):not(.btn-secondary):hover,
   .addon a:not(.chip):hover{ color:var(--a2); text-decoration-color:var(--a2); }
+
+  /* the presets clip leads How It Works at full column width */
+  .vid-lead{ position:relative; width:100%; aspect-ratio:16/9; margin:26px 0 34px;
+    border-radius:18px; overflow:hidden; border:1px solid var(--card-border);
+    background:var(--bg-2); background-image:var(--poster, none);
+    background-size:cover; background-position:center; }
+  .vid-lead .vid{ display:block; width:100%; height:100%; object-fit:cover; background:var(--bg-2); }
+  @media (max-width:860px){ .vid-lead{ border-radius:14px; margin:20px 0 26px; } }
+  @media (prefers-reduced-motion: reduce){ .vid-lead .vid{ display:none; } }
 </style>
 
   <script type="application/ld+json">
@@ -849,7 +858,7 @@ input[type=range].mx-vert{ width:22px; height:150px; }
         "name": "Can the colors change during the event?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, and it is one of the better uses of the system. A warmer tone for the ceremony and dinner, then something with more energy when the dancing starts, is a common program. We program those changes to your run sheet at load-in and the timeline runs itself, so the room shifts with the night instead of sitting on one color for six hours. Color changes called by hand are also available when a technician is already on site for your booking, which is usually the case when you have audio, a follow spot or a fuller production package with us."
+          "text": "Yes, and it is one of the better uses of the system. A warmer tone for the ceremony and dinner, then something with more energy when the dancing starts, is a common program. We build those changes into DMX presets at load-in, one button each, so your DJ or planner shifts the room with the night instead of leaving it on one color for six hours. Color changes called by hand are also available when a technician is already on site for your booking, which is usually the case when you have audio, a follow spot or a fuller production package with us."
         }
       },
       {
@@ -1844,7 +1853,7 @@ body.nav-locked{ overflow:hidden; }
         </div>
         <div class="room" data-reveal>
           <h3>Fixed color or programmed changes<span>One look or several</span></h3>
-          <p>The simplest version is one color set at load-in that holds all night. The better version, in most rooms, changes: warm and low through dinner, then something with more energy when the floor opens. Our technician programs that sequence against your run sheet before doors open, and the timeline runs itself from there, so the room follows the night on its own. Color changes called by hand during the event are available when a technician is already on site for your booking, which is usually the case when you have audio, a follow spot or a fuller <a href="/services-lighting">production package</a> with us.</p>
+          <p>The simplest version is one color set at load-in that holds all night. The better version, in most rooms, changes: warm and low through dinner, then something with more energy when the floor opens. Our technician programs that sequence into presets before doors open, and your DJ or planner recalls each one with a single button press, so the room follows the night. Color changes called by hand during the event are available when a technician is already on site for your booking, which is usually the case when you have audio, a follow spot or a fuller <a href="/services-lighting">production package</a> with us.</p>
         </div>
         <div class="room" data-reveal>
           <h3>What the house lights are doing<span>The hidden variable</span></h3>
@@ -1966,7 +1975,7 @@ body.nav-locked{ overflow:hidden; }
           <h2>Choosing an uplighting color that works in your room.</h2>
           <p>Clients usually arrive with a swatch from the florist or a screenshot from Pinterest, and the honest answer is that a color on fabric and the same color on a wall are not the same color. Deep jewel tones read rich in a large ballroom and heavy in a small one. Blush and champagne look beautiful in person and can vanish on camera. Sharp blues photograph dramatically but drain the warmth out of skin tones on the dance floor.</p>
           <p>So we talk about it. Bring your palette, your venue and your photographer&rsquo;s preferences, and we will tell you what that combination does in that room, including when the answer is a warmer version of what you asked for.</p>
-          <p>Colors can also change through the night: one tone for the ceremony, a second for dinner, something with more energy when the dancing starts. That is a programming decision we make once, and it runs itself.</p>
+          <p>Colors can also change through the night: one tone for the ceremony, a second for dinner, something with more energy when the dancing starts. That is a programming decision we make once, and it lands on a button.</p>
           <p>If you want to see how a color behaves on a given surface before you commit to it, <a href="#color-mixer">mix one on the virtual wall at the top of this page</a> and switch the surface underneath it.</p>
           <div class="chips">
             <span class="chip">Single color wash</span>
@@ -2028,8 +2037,8 @@ body.nav-locked{ overflow:hidden; }
           <p>Wireless uplights run the length of an event on their own batteries. No cords across walkways, no gaffer tape on your venue&rsquo;s floor, no fight over the one outlet.</p>
         </div>
         <div class="trust-card" data-reveal>
-          <h3>Programmed to your timeline</h3>
-          <p>Our technician programs the look at load-in, including any color changes across the evening, and it runs itself from there. The cues come off your run sheet: ceremony, dinner, first dance, open floor.</p>
+          <h3>Presets your DJ can recall</h3>
+            <p>We build the looks into DMX presets at load-in, one for each moment on your run sheet. Cocktail hour, dinner, dance party. Your DJ or planner brings up the next one with a single button press, so the room follows the night without anybody from our crew standing at a console.</p>
         </div>
         <div class="trust-card" data-reveal>
           <h3>Venue paperwork</h3>
@@ -2053,6 +2062,14 @@ body.nav-locked{ overflow:hidden; }
         <span class="kicker">How It Works</span>
         <h2>From the first message to lights out.</h2>
       </div>
+
+        <div class="vid-lead" data-reveal style="--poster:url('/images/uplighting-presets-dmx-dallas-poster.jpg')">
+          <video class="vid" width="1920" height="1080" playsinline muted loop autoplay preload="metadata"
+                 aria-label="Animation of DMX uplighting presets recalled with one button press, across three run sheets: a wedding reception, a corporate conference, and a gender reveal"
+                 poster="/images/uplighting-presets-dmx-dallas-poster.jpg">
+            <source src="/videos/uplighting-presets-dmx-dallas.mp4" type="video/mp4">
+          </video>
+        </div>
       <div class="flow">
         <div class="flow-step" data-reveal>
           <div class="n">Step 01</div>
@@ -2076,8 +2093,8 @@ body.nav-locked{ overflow:hidden; }
         </div>
         <div class="flow-step" data-reveal>
           <div class="n">Step 05</div>
-          <h3>It runs, then we strike</h3>
-          <p>The programmed look holds through the event on its own, and our crew comes back afterward to strike everything cleanly. Your last memory of us is the room looking right.</p>
+          <h3>One button per moment</h3>
+            <p>Each preset is one button. Your DJ or planner changes the room when the night changes, and our crew comes back afterward to strike everything cleanly. Your last memory of us is the room looking right.</p>
         </div>
       </div>
     </div>
@@ -2174,7 +2191,7 @@ body.nav-locked{ overflow:hidden; }
         </details>
         <details class="faq-item" data-reveal>
           <summary>Can the colors change during the event?</summary>
-          <div class="ans">Yes, and it is one of the better uses of the system. A warmer tone for the ceremony and dinner, then something with more energy when the dancing starts, is a common program. We program those changes to your run sheet at load-in and the timeline runs itself, so the room shifts with the night instead of sitting on one color for six hours. Color changes called by hand are also available when a technician is already on site for your booking, which is usually the case when you have audio, a follow spot or a fuller production package with us.</div>
+          <div class="ans">Yes, and it is one of the better uses of the system. A warmer tone for the ceremony and dinner, then something with more energy when the dancing starts, is a common program. We build those changes into DMX presets at load-in, one button each, so your DJ or planner shifts the room with the night instead of leaving it on one color for six hours. Color changes called by hand are also available when a technician is already on site for your booking, which is usually the case when you have audio, a follow spot or a fuller production package with us.</div>
         </details>
         <details class="faq-item" data-reveal>
           <summary>Do you deliver and set up, or do I pick the lights up?</summary>
