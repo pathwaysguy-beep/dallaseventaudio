@@ -3,7 +3,10 @@
 Static site. No build step, no dependencies. Every page is a finished HTML file
 at the exact slug it will live on, so what you click here is what visitors get.
 
-**This is staging, not production.** 39 of the site's 77 URLs are rebuilt.
+**This is staging, not production.** 39 of the site's 77 URLs are rebuilt, plus
+one URL that does not exist on Wix at all: `/sensory-friendly-event-services`.
+It is a draft for review and it is not linked from the main nav, only from the
+footer's Company column and one card on `/contact`.
 `robots.txt` disallows everything and `_headers` sends `X-Robots-Tag: noindex`,
 so this preview cannot compete with the live Wix site for the same URLs. Both
 come off at go-live and not before.

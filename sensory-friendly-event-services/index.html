@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="signal">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/unbounded-latin-800-normal.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/space-grotesk-latin-400-normal.woff2" crossorigin>
+<style>
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/unbounded-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/unbounded-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:800;font-display:swap;src:url('/fonts/unbounded-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:900;font-display:swap;src:url('/fonts/unbounded-latin-900-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/space-grotesk-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/space-grotesk-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/space-grotesk-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/space-grotesk-latin-700-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Unbounded-fb";src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:125.8%;ascent-override:79.1%;descent-override:19.5%;line-gap-override:0%}
+@font-face{font-family:"SpaceGrotesk-fb";src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:105%;ascent-override:93.7%;descent-override:27.8%;line-gap-override:0%}
+</style>
+<style>
+
+:root{
+    --font-display:'Unbounded','Unbounded-fb',sans-serif;
+    --font-body:'Space Grotesk','SpaceGrotesk-fb',sans-serif;
+  }
+html[data-palette="signal"]{
+    --bg-0:#050706; --bg-1:#0a0f0c; --bg-2:#0e1512;
+    --ink:#f4f7f5; --dim:#b4c5ba;
+    --a1:#31ff6e; /* LED green */
+    --a2:#fff21c; /* LED yellow */
+    --a3:#ff1f3d; /* LED red */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 55%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(255,255,255,.08);
+    --glow: rgba(49,255,110,.35);
+  }
+html[data-palette="amber"]{
+    --bg-0:#070605; --bg-1:#0d0a06; --bg-2:#120e08;
+    --ink:#f8f3ea; --dim:#c3b7a5;
+    --a1:#e8b75c; /* gold */
+    --a2:#ffdfa0; /* warm white/spot */
+    --a3:#4fa3ff; /* cool counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 50%, var(--a2) 50%, var(--a2) 100%);
+    --card-border: rgba(232,183,92,.16);
+    --glow: rgba(232,183,92,.32);
+  }
+html[data-palette="night"]{
+    --bg-0:#05060b; --bg-1:#090b16; --bg-2:#0c0f1e;
+    --ink:#f1f3fb; --dim:#aeb5cf;
+    --a1:#2f6fff; /* electric blue */
+    --a2:#8b5cf6; /* violet */
+    --a3:#ffb020; /* amber counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 65%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(139,92,246,.16);
+    --glow: rgba(47,111,255,.35);
+  }
+</style>
+
+  <title>Sensory-Friendly Event Services in Dallas-Fort Worth</title>
+  <meta name="description" content="Sensory-friendly event services in DFW, listed one plain sentence at a time: sound, lighting, lasers, clouds, sparks, projection, DJ. Pick one and get a quote.">
+  <link rel="canonical" href="https://www.dallaseventaudio.com/sensory-friendly-event-services">
+  <meta property="og:title" content="Sensory-Friendly Event Services in Dallas-Fort Worth">
+  <meta property="og:description" content="Sensory-friendly event services in DFW, listed one plain sentence at a time: sound, lighting, lasers, clouds, sparks, projection, DJ. Pick one and get a quote.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.dallaseventaudio.com/sensory-friendly-event-services">
+  <meta property="og:site_name" content="Dallas Event Audio">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Sensory-Friendly Event Services in Dallas-Fort Worth">
+  <meta name="twitter:description" content="Sensory-friendly event services in DFW, listed one plain sentence at a time: sound, lighting, lasers, clouds, sparks, projection, DJ. Pick one and get a quote.">
+
+<!-- 1. shared base + chrome CSS, as it ships sitewide -->
+<style>
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+    background:var(--bg-0); color:var(--ink); font-family:var(--font-body);
+    font-size:17px; line-height:1.65; -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+a{color:inherit; text-decoration:none;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+.section{ padding:90px 0; }
+.section[id]{ scroll-margin-top:96px; }
+.section-head{ max-width:640px; margin-bottom:52px; }
+.kicker{ font-size:0.881rem; letter-spacing:.08em; text-transform:uppercase; color:var(--a1); font-weight:700; margin-bottom:14px; display:block; }
+.hero{ position:relative; padding:110px 0 90px; }
+.hero.hero-page{ padding:64px 0 62px; }
+.breadcrumb{
+    font-size:.881rem; color:var(--dim); letter-spacing:.03em;
+    position:relative; z-index:1; margin-bottom:22px;
+  }
+.breadcrumb a{ color:var(--dim); }
+.breadcrumb .sep{ opacity:.45; margin:0 8px; }
+.breadcrumb .here{ color:var(--ink); opacity:.75; }
+.faq-list{ margin-top:32px; border-top:1px solid var(--card-border); }
+.faq-item{ border-bottom:1px solid var(--card-border); }
+.faq-item summary{
+    list-style:none; cursor:pointer; padding:22px 44px 22px 0; position:relative;
+    font-family:var(--font-display); font-weight:700; font-size:1.06rem; line-height:1.45;
+  }
+.faq-item summary::-webkit-details-marker{ display:none; }
+.faq-item summary::after{
+    content:'+'; position:absolute; right:6px; top:50%; transform:translateY(-50%);
+    font-size:1.5rem; font-weight:400; line-height:1; color:var(--a1);
+  }
+.faq-item[open] summary::after{ transform:translateY(-50%) rotate(45deg); }
+.faq-item .ans{ padding:0 44px 24px 0; font-size:1rem; line-height:1.75; color:var(--dim); }
+footer{ border-top:1px solid var(--card-border); padding:50px 0; }
+.foot-grid{ display:grid; grid-template-columns:1.6fr repeat(5,1fr); gap:34px 26px; }
+@media (max-width:1080px){
+.foot-grid{ grid-template-columns:repeat(3,1fr); }
+}
+@media (max-width:620px){
+.foot-grid{ grid-template-columns:repeat(2,1fr); }
+}
+.foot-grid .col.brand{ min-width:210px; }
+@media (max-width:1080px){
+.foot-grid .col.brand{ grid-column:1 / -1; }
+}
+.foot-contact{ margin-top:16px; }
+.foot-contact a{ display:block; margin-bottom:6px; font-size:1rem; color:var(--ink); }
+.foot-area{ font-size:.9rem; color:var(--dim); margin-top:12px; line-height:1.6; }
+.foot-grid .col .foot-h{ font-size:0.904rem; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin-bottom:14px; }
+.foot-grid .col a, .foot-grid .col p{ display:block; font-size:0.972rem; color:var(--ink); margin-bottom:8px; }
+.foot-proof{
+    display:flex; flex-wrap:wrap; align-items:center; gap:12px 26px;
+    margin-top:32px; padding-top:26px; border-top:1px solid var(--card-border);
+  }
+.foot-proof .fp{ display:inline-flex; align-items:center; gap:9px; font-size:.94rem; color:var(--dim); }
+.foot-proof .fp b{ color:var(--ink); font-weight:700; }
+.foot-proof .fp .s{ color:var(--a2); letter-spacing:1px; }
+.foot-proof .fp .m{
+    width:24px; height:24px; border-radius:7px; display:inline-flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:.76rem;
+  }
+@media (max-width:820px){
+.foot-proof{ gap:12px 18px; }
+}
+.foot-bottom{ margin-top:40px; padding-top:24px; border-top:1px solid var(--card-border); font-size:0.881rem; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+</style>
+
+<!-- 2. Agent 3's scoped calm overrides. Loaded second so they win. -->
+<style>
+/* ============================================================================
+   03-design.css  ,  "Calm" visual treatment for /sensory-friendly-event-services
+   Agent 3 of 4. 2026-08-10.
+
+   This file LAYERS ON TOP of the Signal Chain system that ships in
+   /rent-uplighting/index.html. It reuses Signal Chain's class names (.wrap,
+   .section, .kicker, .cta-btn, header, footer, .vid-lead) and only re-points
+   the tokens those classes already read. Nothing here invents a parallel
+   system, and nothing here can escape the page.
+
+   SCOPE CONTRACT
+   --------------
+   Everything is scoped under `body.calm`. One class, on the body element, e.g.
+
+     body class="calm"
+
+   Two consequences worth knowing:
+   - Signal Chain sets its tokens on html[data-palette="signal"]. `body.calm`
+     is a descendant, so re-declaring the same custom properties on body wins
+     for the whole document without touching the html attribute. Leave
+     data-palette="signal" in place; the palette switcher is hidden below.
+   - The only rules that reach outside the body element are the two `html:has(body.calm)`
+     rules for scroll behaviour. If :has() support is ever a problem, mirror
+     `class="calm"` onto <html> as well and change those two selectors.
+
+   CONTRAST
+   --------
+   Every foreground/background pair below is computed in 03-design.md with the
+   WCAG relative-luminance formula. 37 pairs, 0 failures. Do not substitute a
+   colour here without re-running that script.
+
+   HERO VIDEO, REMOVED AT ASSEMBLY
+   -------------------------------
+   Agent 3 specified one autoplaying, muted, looping background video with a
+   visible pause toggle, per WCAG 2.2.2. The assembled page carries no video
+   at all, so the toggle, the .calm-vid rules and the reduced-motion hide rule
+   have been removed rather than left as dead code. Three reasons, in order:
+
+   1. There is no honest asset. /tmp/dea-site/videos holds fifteen clips and
+      every one of them is a single effect: dry ice clouds, monogram gobos,
+      uplighting presets, a microphone, a stream feed. This page routes to
+      seven services and sells none of them.
+   2. Using the clouds clip, the only one with any pull, would make the page
+      read as a clouds page. Agent 1 named that the second biggest
+      cannibalisation risk on the site and capped the clouds section at one
+      sentence and one link. A twelve second hero loop is not one sentence.
+   3. The page exists so an overwhelmed reader can finish one screen. Motion
+      that starts on its own and has to be switched off puts the cost on the
+      reader first and refunds it second. A pause button makes that legal.
+      It does not make it right for this audience.
+
+   If Steve later shoots a wide, static, cutless room plate that belongs to no
+   single service, put it back with Agent 3's markup contract and the toggle:
+   a real button element with aria-pressed, 44px minimum, and v.pause() gated on
+   matchMedia('(prefers-reduced-motion: reduce)').matches.
+   ========================================================================= */
+
+/* ---------------------------------------------------------------------------
+   1. TOKENS
+   Signal Chain's own names are re-pointed so every inherited rule follows
+   automatically. New names are added only where Signal Chain had no token.
+
+   The palette is the same family as Signal Chain , green, on near-black , but
+   the background is lifted about four stops off #050706 and the chroma is
+   pulled out of the accent. Softer here means two things at once: less
+   saturation, and less luminance distance. Body text lands at 10.93:1 instead
+   of the shipping 18.73:1, which is a visibly gentler page that still clears
+   AA with more than double the required headroom.
+--------------------------------------------------------------------------- */
+body.calm{
+  /* surfaces , three steps, deliberately close together */
+  --bg-0:#191D1B;          /* page */
+  --bg-1:#202523;          /* header, sticky bar, alternate band */
+  --bg-2:#282E2B;          /* card */
+
+  /* text */
+  --ink:#C9D1CC;           /* headings and body */
+  --dim:#9CA7A2;           /* lead, closing block, nav, footer */
+
+  /* one accent, doing every accent job on the page */
+  --accent:#79B394;        /* muted sage , the LED green with the chroma removed */
+  --accent-ink:#10201A;    /* label on an accent fill */
+
+  /* borders. Signal Chain's --card-border is rgba(255,255,255,.08), which
+     lands at 1.22:1 over the page. That is fine for decoration and illegal for
+     a component edge, and this page has no decoration, so both point at one
+     token that clears 3:1 on every surface , including over the brightest and
+     darkest frame the hero video can produce. */
+  --border:#79837E;
+  --card-border:var(--border);
+
+  /* focus. Two bands, because no single colour clears 3:1 against both the
+     page surface and the accent fill. The light band lives outside the button
+     with a gap, so both of its sides touch the page surface. The dark band is
+     inset and flanked by accent on both sides. Neither band is ever adjacent
+     to a colour it fails against. */
+  --focus:#E0C27A;
+  --focus-inner:#10201A;
+
+  /* Signal Chain aliases, kept alive so inherited rules do not fall back to
+     LED green. All three still pass 4.5:1 as text if anything reaches for them. */
+  --a1:var(--accent);
+  --a2:#E0C27A;
+  --a3:#C99B90;
+
+  /* the gradients become flat fills, so .cta-btn / .btn-primary keep working
+     unedited and simply stop being a three-colour LED wipe */
+  --grad:linear-gradient(var(--accent),var(--accent));
+  --grad-hard:linear-gradient(var(--accent),var(--accent));
+  --glow:transparent;      /* kills every bloom, halo and coloured drop-shadow */
+
+  /* type scale , 1.2ish, four steps, nothing louder than 40px */
+  --fs-body:1.1875rem;                                  /* 19px */
+  --fs-lead:1.3125rem;                                  /* 21px */
+  --fs-meta:1.0625rem;                                  /* 17px, labels only */
+  --fs-h2:clamp(1.5rem, 1.25rem + 1.2vw, 1.75rem);      /* 24 -> 28px */
+  --fs-h1:clamp(1.875rem, 1.4rem + 2.4vw, 2.5rem);      /* 30 -> 40px */
+  --lh-body:1.75;
+  --lh-head:1.3;
+
+  /* spacing scale, 8px base */
+  --sp-1:.5rem; --sp-2:1rem; --sp-3:1.5rem; --sp-4:2rem;
+  --sp-5:3rem;  --sp-6:4.5rem; --sp-7:7rem;
+
+  /* measure. 640px at 19px Space Grotesk (avg advance ~0.50em, so ~9.5px per
+     character) is about 67 characters. Inside the 60-75 target. */
+  --container:46rem;       /* 736px, down from Signal Chain's 1180px */
+  --measure:40rem;         /* 640px */
+
+  --tap:44px;              /* every target, no exceptions */
+  --sticky-h:5.25rem;      /* 44px button + 20px padding top and bottom */
+}
+
+/* ---------------------------------------------------------------------------
+   2. BASE
+--------------------------------------------------------------------------- */
+body.calm{
+  background:var(--bg-0);
+  color:var(--ink);
+  font-family:var(--font-body);
+  font-size:var(--fs-body);
+  line-height:var(--lh-body);
+  /* the loose end of WCAG 1.4.12. Set generously up front rather than merely
+     surviving a user stylesheet that sets it. */
+  letter-spacing:.01em;
+  word-spacing:.04em;
+  text-align:left;         /* never justified: rivers are a real reading cost */
+  hyphens:none;            /* broken words are a real reading cost too */
+  /* reserve the sticky bar's height so it can never sit on top of anything,
+     including the last line of the footer */
+  padding-bottom:calc(var(--sticky-h) + env(safe-area-inset-bottom, 0px));
+}
+
+/* Signal Chain sets scroll-behavior:smooth on html and only unsets it under
+   reduced motion. On this page it is off for everybody , an animated jump to
+   an anchor is motion the reader did not ask to watch. */
+html:has(body.calm){ scroll-behavior:auto; }
+/* and keep in-page anchors clear of both the sticky header and the sticky bar */
+html:has(body.calm){
+  scroll-padding-top:6rem;
+  scroll-padding-bottom:calc(var(--sticky-h) + 1.5rem);
+}
+
+/* ---------------------------------------------------------------------------
+   3. LAYOUT
+--------------------------------------------------------------------------- */
+body.calm .wrap{
+  max-width:var(--container);
+  margin:0 auto;
+  padding:0 var(--sp-3);
+}
+
+/* Sections are separated by white space and nothing else. No rules, no
+   alternating tints, no dividers , a hairline at 4:1 every 700px reads as
+   noise, and 112px of nothing reads as "this is finished, next thing". */
+body.calm .section{ padding:var(--sp-7) 0; }
+body.calm .section-head{ max-width:var(--measure); margin-bottom:var(--sp-4); }
+
+@media (max-width:820px){
+  body.calm .section{ padding:var(--sp-6) 0; }
+}
+
+/* ---------------------------------------------------------------------------
+   4. HEADINGS AND PROSE
+--------------------------------------------------------------------------- */
+/* Unbounded survives at the H1 only, at 600 rather than Signal Chain's 900.
+   The brand voice is carried by the logo in the header; a 900-weight display
+   face at 40px is shouting, and shouting is the thing this page is not. */
+body.calm h1{
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:var(--fs-h1);
+  line-height:var(--lh-head);
+  letter-spacing:0;        /* Signal Chain's negative tracking, undone */
+  max-width:var(--measure);
+  text-wrap:balance;
+}
+
+/* H2s drop to the body face. Seven of them in a row in a display face is a
+   wall; in Space Grotesk 600 they read as seven signposts. */
+body.calm h2{
+  font-family:var(--font-body);
+  font-weight:600;
+  font-size:var(--fs-h2);
+  line-height:1.35;
+  letter-spacing:0;
+  max-width:var(--measure);
+  text-wrap:balance;
+  margin-bottom:var(--sp-2);
+}
+
+body.calm p{
+  max-width:var(--measure);
+  font-size:var(--fs-body);
+  line-height:var(--lh-body);
+  color:var(--ink);
+}
+body.calm p + p{ margin-top:var(--sp-3); }   /* 1.5rem ~ 1.26em */
+
+/* the three-sentence intro and the closing block */
+body.calm .calm-lead,
+body.calm .calm-close p{
+  font-size:var(--fs-lead);
+  line-height:1.7;
+  color:var(--dim);
+}
+body.calm .calm-lead{ margin-top:var(--sp-4); }
+
+/* .kicker keeps its name and loses its shout: sentence case, no tracking,
+   no uppercase. Uppercase costs about 10-15% reading speed and this page
+   would have had seven of them. */
+body.calm .kicker{
+  display:block;
+  margin-bottom:var(--sp-1);
+  font-size:var(--fs-meta);
+  font-weight:600;
+  letter-spacing:0;
+  text-transform:none;
+  color:var(--accent);
+}
+
+/* Prose links exist only inside the closing block. Everywhere else the CTA is
+   the link, so there is nothing to underline. */
+body.calm .calm-close a{
+  color:var(--accent);
+  text-decoration:underline;
+  text-decoration-thickness:1px;
+  text-underline-offset:4px;
+}
+
+/* ---------------------------------------------------------------------------
+   5. HERO AND THE ONE VIDEO
+--------------------------------------------------------------------------- */
+body.calm .hero,
+body.calm .hero.hero-page{ padding:var(--sp-6) 0 var(--sp-5); overflow:visible; }
+/* Signal Chain's hero decoration is a scrolling perspective grid, four sweeping
+   laser beams and two drifting fog blobs. All of it is scroll-independent
+   ambient motion, which is exactly what this page is for the absence of. */
+body.calm .hero::before,
+body.calm .hero-grid,
+body.calm .hero-lasers,
+body.calm .hero-fog{ display:none; }
+
+/* ---------------------------------------------------------------------------
+   6. SERVICE CARD
+   One card per service. Kicker, H2, one sentence, one CTA. The card edge is a
+   real 3:1 boundary rather than a suggestion, because "where does this thing
+   start and stop" should never need working out.
+--------------------------------------------------------------------------- */
+body.calm .calm-card{
+  background:var(--bg-2);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:var(--sp-5) var(--sp-4);
+  max-width:var(--container);
+}
+body.calm .calm-card + .calm-card{ margin-top:var(--sp-5); }
+body.calm .calm-card p{ margin-bottom:var(--sp-4); }
+
+/* no hover lift, no border colour change, no shadow bloom. A card that moves
+   when the pointer crosses it is motion nobody asked for. */
+body.calm .calm-card:hover{
+  transform:none; box-shadow:none; border-color:var(--border);
+}
+
+@media (max-width:820px){
+  body.calm .calm-card{ padding:var(--sp-4) var(--sp-3); }
+}
+
+/* ---------------------------------------------------------------------------
+   7. CTA
+   One per section, and it is the only interactive element in that section.
+   Enforced in markup, not here , but nothing in this file gives a section any
+   other affordance to click.
+--------------------------------------------------------------------------- */
+body.calm .cta-btn,
+body.calm .calm-cta{
+  display:inline-flex; align-items:center; justify-content:center;
+  min-height:var(--tap);
+  padding:.75rem var(--sp-3);
+  font-family:var(--font-body);
+  font-size:var(--fs-body);
+  font-weight:600;
+  line-height:1.2;
+  letter-spacing:0;
+  color:var(--accent-ink);
+  background:var(--accent);        /* flat, not --grad */
+  border:0;
+  border-radius:10px;              /* Signal Chain's 100px pill, calmed down */
+  text-decoration:none;
+  white-space:normal;              /* let a long label wrap rather than clip */
+  cursor:pointer;
+}
+/* hover changes nothing but the cursor. No lift, no glow, no colour shift ,
+   the button was already legible, so a hover state is decoration. */
+body.calm .calm-cta:hover,
+body.calm .cta-btn:hover{ background:var(--accent); color:var(--accent-ink); }
+
+/* ---------------------------------------------------------------------------
+   8. STICKY CTA
+   Fixed to the bottom, opaque, silent, always present.
+
+   "Does not cover content" is solved by reservation, not by cleverness:
+   body carries padding-bottom equal to the bar's height, and html carries a
+   matching scroll-padding-bottom, so no line of text and no anchor target can
+   ever end up underneath it. The bar is fully opaque for the same reason a
+   translucent bar is a bad idea here , with backdrop-filter the contrast of
+   anything on the bar depends on whatever is scrolling behind it, and that is
+   not a number anyone can prove.
+
+   It does not animate: no slide-in, no fade-on-scroll, no appear-after-30%.
+   It is in the DOM from first paint and it never moves.
+
+   Keyboard: it is a real anchor to /contact, placed in source order directly
+   after the header element, so it is among the first tab stops on the page and does not
+   require travelling through seven sections to reach.
+--------------------------------------------------------------------------- */
+body.calm .calm-sticky{
+  position:fixed;
+  left:0; right:0; bottom:0;
+  z-index:150;                     /* over content and header, under .ndrawer (400) */
+  background:var(--bg-1);          /* opaque on purpose */
+  border-top:1px solid var(--border);
+  padding:1.25rem 0 calc(1.25rem + env(safe-area-inset-bottom, 0px));
+}
+body.calm .calm-sticky .wrap{ display:flex; justify-content:center; }
+body.calm .calm-sticky .calm-cta{ min-width:16rem; }
+
+@media (max-width:520px){
+  body.calm .calm-sticky .calm-cta{ min-width:0; width:100%; }
+}
+
+/* ---------------------------------------------------------------------------
+   9. FOCUS
+   Two bands. See the token block for why one colour cannot do it.
+
+   Geometry, outward from the button:
+     [accent fill] | 3px dark inset band | 2px accent | [edge] | 3px page
+     surface gap | 3px light outline | [page surface]
+   The light band touches only the page surface (>= 8.03:1 on all three
+   surfaces). The dark band touches only accent (6.99:1). Neither is ever
+   adjacent to a colour it would fail against.
+--------------------------------------------------------------------------- */
+body.calm :focus{ outline:none; }         /* replaced, not removed */
+
+body.calm a:focus-visible,
+body.calm button:focus-visible,
+body.calm summary:focus-visible,
+body.calm [tabindex]:focus-visible,
+body.calm input:focus-visible,
+body.calm select:focus-visible,
+body.calm textarea:focus-visible{
+  outline:3px solid var(--focus);
+  outline-offset:3px;
+  border-radius:10px;
+}
+
+/* on an accent-filled button the outline can be clipped by the sticky bar's
+   own box, so the fill carries an inset band as well. The 2px of accent in
+   front of it is what keeps the dark band flanked by accent on both sides. */
+body.calm .calm-cta:focus-visible,
+body.calm .cta-btn:focus-visible{
+  box-shadow:
+    inset 0 0 0 2px var(--accent),
+    inset 0 0 0 5px var(--focus-inner);
+}
+
+/* ---------------------------------------------------------------------------
+   10. SHARED CHROME
+   Header and footer stay. They are the site's continuity and the logo is a
+   white mark, so a light page would erase it. They inherit the calm tokens
+   automatically; these rules only fix the things Signal Chain hard-codes.
+--------------------------------------------------------------------------- */
+body.calm header{
+  background:var(--bg-1);           /* was rgba(5,6,5,.7) , a fixed value that
+                                       ignores --bg tokens entirely */
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+}
+body.calm nav{ max-width:var(--container); }
+body.calm .logo img{ filter:none; }  /* the white glow drop-shadow, off */
+
+/* Signal Chain fades footer and nav links with opacity, which makes their real
+   contrast a function of the backdrop and therefore unprovable. Opacity off,
+   proven token on. */
+body.calm .foot-grid .col a,
+body.calm .foot-grid .col p,
+body.calm .foot-contact a,
+body.calm .navlinks a,
+body.calm .nl-menu a,
+body.calm .nd-panel a{ opacity:1; color:var(--dim); }
+body.calm .foot-contact a:hover,
+body.calm .navlinks a:hover,
+body.calm .nl-menu a:hover,
+body.calm .nd-panel a:hover{ color:var(--ink); background:transparent; }
+
+/* Tap targets. Everything clickable, in the page and in the chrome. */
+body.calm a,
+body.calm button,
+body.calm summary,
+body.calm .nl-top,
+body.calm .nd-trig,
+body.calm .nl-menu a,
+body.calm .nd-panel a,
+body.calm .foot-grid .col a,
+body.calm .foot-contact a{
+  min-height:var(--tap);
+  display:flex;
+  align-items:center;
+}
+/* inline links inside prose are exempt , a 44px inline link would break the
+   line box. WCAG 2.5.8 exempts targets in a sentence for exactly this reason. */
+body.calm p a,
+body.calm .calm-lead a,
+body.calm .breadcrumb a{ display:inline; min-height:0; }
+
+/* Things that are removed on this page, not just quietened.
+   - #chatBubble  : a second floating action, permanently on screen, competing
+                    with the sticky CTA. One action means one.
+   - #paletteBar  : a theme switcher is a decision, and this page exists to
+                    reduce the number of decisions on screen.
+   - .grain-overlay : a full-screen noise texture. Static, but it is visual
+                    noise by definition.
+   - .marquee     : horizontally scrolling text, permanently in motion.
+   - [data-reveal]: scroll-triggered entrance animation. The brief bans motion
+                    triggered by scroll outright, so this is off for everyone,
+                    not only under reduced motion. */
+body.calm #chatBubble,
+body.calm #paletteBar,
+body.calm .grain-overlay,
+body.calm .marquee{ display:none; }
+body.calm [data-reveal]{ opacity:1; transform:none; transition:none; }
+
+/* the flashlight-spot hover effect that follows the cursor around cards */
+body.calm .fspot::after,
+body.calm .fspot::before{ display:none; }
+
+/* ---------------------------------------------------------------------------
+   11. PREFERS-REDUCED-MOTION
+   Written to catch everything inherited from Signal Chain, including things
+   this page does not currently use, because a fragment might arrive later.
+
+   The blanket rule kills timing, not transforms. Blanket `transform:none`
+   would also break layout-critical transforms in the shared chrome , the
+   dropdown's translateX(-50%) centring and the drawer close button's two
+   rotated bars. So: timing is nuked for everything, and the handful of
+   decorative movers are named individually.
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce){
+
+  html:has(body.calm){ scroll-behavior:auto !important; }
+
+  body.calm,
+  body.calm *,
+  body.calm *::before,
+  body.calm *::after{
+    animation-duration:1ms !important;
+    animation-delay:-1ms !important;
+    animation-iteration-count:1 !important;
+    animation-play-state:paused !important;
+    transition-duration:1ms !important;
+    transition-delay:0s !important;
+    scroll-behavior:auto !important;
+  }
+
+  /* the decorative movers, by name */
+  body.calm [data-reveal],
+  body.calm .service-card:hover,
+  body.calm .lite-card:hover,
+  body.calm .proof-badge:hover,
+  body.calm .calm-card:hover,
+  body.calm .room:hover,
+  body.calm .fspot,
+  body.calm .fspot.fs-press,
+  body.calm .hero-grid::before,
+  body.calm .laser,
+  body.calm .fog-blob,
+  body.calm .marquee-track,
+  body.calm .burst-particle{
+    transform:none !important;
+    animation:none !important;
+    transition:none !important;
+  }
+
+  /* ambient decoration removed outright rather than frozen */
+  body.calm .hero-grid,
+  body.calm .hero-lasers,
+  body.calm .hero-fog,
+  body.calm .grain-overlay,
+  body.calm .marquee,
+  body.calm .burst-particle,
+  body.calm .fspot::after,
+  body.calm .fspot::before{ display:none !important; }
+
+  /* the sticky bar never animated in the first place; restated so a future
+     edit cannot quietly add a slide-in */
+  body.calm .calm-sticky{
+    transform:none !important; transition:none !important; animation:none !important;
+  }
+}
+
+</style>
+
+<!-- 3. assembly overrides. Loaded last. -->
+<style>
+
+/* =========================================================================
+   ASSEMBLY OVERRIDES  -  Agent 5, 2026-08-10.
+   Everything here is scoped under body.calm and sits AFTER 03-design.css so
+   Agent 3's tokens are already in force. Six jobs only:
+     1. the two places the shared chrome still hard-codes a color or an
+        opacity that 03-design.css did not name, so the ratio stays provable
+     2. FAQ summary pulled onto the body face, in line with the H2 decision
+     3. the closing block's two secondary links, sized to 44px
+     4. the hamburger breakpoint and its 44px box
+     5. breadcrumb links taken out of the inline-link exception
+     6. two shared-chrome details the calm scope breaks
+   ========================================================================= */
+
+/* 1a. .breadcrumb .here ships as --ink at opacity .75, which makes its real
+       ratio a function of the backdrop. Same fix Agent 3 applied to the nav
+       and the footer: proven token, opacity off. --dim on --bg-0 = 6.86:1. */
+body.calm .breadcrumb .here{ color:var(--dim); opacity:1; }
+body.calm .breadcrumb .sep{ color:var(--dim); opacity:1; }
+
+/* 1b. The footer review monograms hard-code brand colors on white:
+       #4285f4 on #ffffff is 3.56:1 and #ffffff on #d32323 is 4.16:1, both
+       below 4.5:1 for 12px text. The calm scope already strips brand chroma
+       everywhere else, so the chips become one neutral pair:
+       --ink #C9D1CC on --bg-2 #282E2B = 8.89:1. The launch checklist replaces
+       these with official brand assets anyway. */
+body.calm .foot-proof .fp .m{
+  background:var(--bg-2); color:var(--ink);
+  border:1px solid var(--border);
+}
+
+/* 2. FAQ disclosure. Same reasoning as the H2 decision: the display face at
+      seventeen headings in a column is a wall. */
+body.calm .faq-item summary{
+  font-family:var(--font-body);
+  font-weight:600;
+  font-size:var(--fs-body);
+  line-height:1.4;
+  padding:1.25rem 2.75rem 1.25rem 0;
+}
+body.calm .faq-item summary:hover{ color:var(--ink); }
+body.calm .faq-item summary::after{ color:var(--accent); transition:none; }
+body.calm .faq-item .ans{
+  font-size:var(--fs-body); line-height:var(--lh-body); color:var(--dim);
+  max-width:var(--measure); padding:0 2.75rem 1.5rem 0;
+}
+body.calm .faq-list{ margin-top:var(--sp-3); border-top:1px solid var(--border); }
+body.calm .faq-item{ border-bottom:1px solid var(--border); }
+
+/* 3. The two secondary destinations in the closing block. Not buttons: the
+      section already has one CTA-shaped action in the sticky bar, and these
+      are browse destinations rather than the page's ask. They still get the
+      44px box, because they are not inside a sentence. */
+body.calm .calm-more{ margin-top:var(--sp-4); }
+body.calm .calm-more a{
+  color:var(--accent);
+  text-decoration:underline;
+  text-decoration-thickness:1px;
+  text-underline-offset:4px;
+  max-width:var(--measure);
+}
+
+/* 4. Agent 3's blanket tap-target rule sets display:flex on every button,
+      which out-specifies .navburger{display:none} and leaves the hamburger
+      painted on desktop next to the full nav. Restore the breakpoint, and
+      take the burger itself from 42px to the 44px the same rule demands. */
+body.calm .navburger{ display:none; }
+@media (max-width:900px){
+  body.calm .navburger{
+    display:flex; flex:0 0 44px;
+    width:44px; min-width:44px; height:44px; min-height:44px;
+  }
+}
+
+/* 5. Breadcrumb links. 03-design.css exempts them from the 44px rule along
+      with links inside a sentence, on the WCAG 2.5.8 inline exception. A
+      breadcrumb is a navigation row rather than a sentence, so it does not
+      get to use that exception here. inline-flex keeps the row on one line
+      and still gives the box its height. */
+body.calm .breadcrumb a{
+  display:inline-flex; align-items:center;
+  min-height:var(--tap); padding:0 .3rem; margin-left:-.3rem;
+}
+
+/* 6. Two things in the shared chrome that the calm scope breaks, found in
+      headless QA rather than by reading.
+
+      a) 03-design.css narrows `nav` to --container (736px). The header nav is
+         a logo, six dropdown groups, a phone number and a CTA; at 736px on a
+         1440px screen the phone wraps onto three lines and the groups collide.
+         The header goes back to the shared 1180px. The content column stays at
+         736px, which is the measure decision and is unaffected.
+
+      b) chrome.css styles the bare element `nav` as the header bar: flex,
+         space-between, 1180px, 16px/28px padding. The breadcrumb is also a
+         a nav landmark, so it inherited all of that and its three parts were flung to
+         the corners of the screen. Reset it here rather than downgrading it to
+         a a plain div, because the landmark is worth keeping. */
+body.calm nav{ max-width:1180px; }
+/*    c) the footer is a six column link grid and it also uses .wrap, which the
+         calm scope narrowed to 736px. Six columns in 736px wraps almost every
+         label onto two or three lines. Same call as the header: the chrome
+         keeps the site's width, the reading column keeps the measure. */
+body.calm footer .wrap{ max-width:1180px; }
+body.calm nav.breadcrumb{
+  display:block; max-width:var(--measure);
+  padding:0; margin:0 0 var(--sp-3);
+}
+
+/* the hero on this page carries no video and no decoration, so it is type
+   on a surface and nothing else */
+body.calm .hero.hero-page{ padding:var(--sp-5) 0 var(--sp-4); }
+body.calm .calm-cards{ margin-top:0; }
+body.calm .section-head{ margin-bottom:var(--sp-4); }
+
+</style>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Sensory-Friendly Event Services in Dallas-Fort Worth",
+  "url": "https://www.dallaseventaudio.com/sensory-friendly-event-services",
+  "description": "A plain-language index of what Dallas Event Audio does for events across the Dallas-Fort Worth Metroplex, written one sentence per service for planners and hosts who want a low-stimulation, sensory-conscious event. Each service is described by how it is experienced in the room rather than by its equipment, and links through to the page that covers it in full.",
+  "inLanguage": "en-US",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Dallas Event Audio",
+    "url": "https://www.dallaseventaudio.com/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Dallas Event Audio",
+    "url": "https://www.dallaseventaudio.com/",
+    "telephone": "+1-817-210-7957",
+    "email": "info@dallaseventaudio.com",
+    "foundingDate": "2001"
+  },
+  "about": {
+    "@type": "Thing",
+    "name": "Sensory-friendly event production in Dallas-Fort Worth"
+  },
+  "mentions": [
+    {
+      "@type": "Service",
+      "name": "Sound and PA",
+      "url": "https://www.dallaseventaudio.com/services-audio"
+    },
+    {
+      "@type": "Service",
+      "name": "Uplighting",
+      "url": "https://www.dallaseventaudio.com/rent-uplighting"
+    },
+    {
+      "@type": "Service",
+      "name": "Lasers",
+      "url": "https://www.dallaseventaudio.com/rent-laser-light-show"
+    },
+    {
+      "@type": "Service",
+      "name": "Dancing on the Clouds",
+      "url": "https://www.dallaseventaudio.com/rent-dancing-on-the-clouds-low-lyin"
+    },
+    {
+      "@type": "Service",
+      "name": "Cold sparks",
+      "url": "https://www.dallaseventaudio.com/rent-cold-sparks"
+    },
+    {
+      "@type": "Service",
+      "name": "Projection and screens",
+      "url": "https://www.dallaseventaudio.com/projector-screen-rental"
+    },
+    {
+      "@type": "Service",
+      "name": "DJ packages",
+      "url": "https://www.dallaseventaudio.com/services-dj"
+    }
+  ]
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do I have to pick anything up or set anything up myself?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We bring everything, set it up, run it, and take it away at the end. There is no pickup counter and no self-service option, so nothing gets left at a door for you to work out."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will someone from your crew stay for the whole event?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every booking includes an on-site technician who stays through the event. The crew runs the equipment for you, and there is always someone in the room to ask."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I write to you instead of calling?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can email us or fill in the form and skip the phone call. A person who works these events reads it and comes back to you the same day."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will there be cables taped across the floor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The uplights run on batteries, so they sit where you want them and leave the floor clear of cords and tape."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I ask you to keep the music volume down?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An on-site technician runs the sound all night and sets the volume for the room. If you want it kept down, you can tell us before the date. Put it on the form with your date and venue and we will answer you the same day."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will the lights flash or strobe?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Uplighting holds a steady color. We can change it to another color through the night, and it never strobes or flashes. DJ lighting is different. It normally flashes and strobes, so you can approve it before the date, or we can leave it out if someone in the room is sensitive to it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you keep the lasers off the guests?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We plan where the lasers point before your event, and which parts of the room they stay out of. That is settled ahead of the date rather than on the night. The beams stay off the crowd and at least 3 meters above head height, or about ten feet. We confirm that to you in writing before the date."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do cold sparks use real fire, and do they leave smoke?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "There is no open flame and nothing to put out afterwards. Cold sparks run at a much lower temperature than traditional fireworks. They are quiet, and the air stays clear of smoke and smell."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the cloud effect loud, and does it leave a smell?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The cloud is water vapor chilled by carbon dioxide. It stays low, at about ankle to knee height. The machine is quiet while it runs, the cloud has no smell, and it clears quickly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I book one of these on its own?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Any one of these can be booked on its own, or added to a booking you already have with us."
+      }
+    }
+  ]
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.dallaseventaudio.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Sensory-Friendly Event Services",
+      "item": "https://www.dallaseventaudio.com/sensory-friendly-event-services"
+    }
+  ]
+}
+  </script>
+
+<!-- chrome-sync:css -->
+<style>
+#paletteBar{
+    position:fixed; left:20px; bottom:22px; z-index:200;
+    display:flex; flex-direction:column; align-items:flex-start;
+    font-family:var(--font-body);
+  }
+#paletteBar .pal-toggle{
+    display:flex; align-items:center; gap:9px;
+    padding:11px 17px; border-radius:100px;
+    border:1px solid var(--card-border); background:rgba(8,9,10,.82);
+    -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+    color:var(--ink); font-family:var(--font-body); font-size:0.85rem; font-weight:600;
+    cursor:pointer; transition:border-color .2s, background .2s;
+  }
+#paletteBar .pal-toggle:hover{ border-color:var(--a1); background:rgba(8,9,10,.94); }
+#paletteBar .pal-toggle .dots{ display:flex; gap:3px; }
+#paletteBar .pal-toggle .dots i{ width:8px; height:8px; border-radius:50%; display:block; }
+#paletteBar .pal-opts{
+    display:none; flex-direction:column; gap:4px; margin-bottom:10px;
+    padding:10px; border-radius:16px; min-width:222px;
+    border:1px solid var(--card-border); background:rgba(8,9,10,.94);
+    -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px);
+    box-shadow:0 20px 50px -18px rgba(0,0,0,.9);
+  }
+#paletteBar.open .pal-opts{ display:flex; }
+#paletteBar .pal-opts .pal-head{
+    font-family:var(--font-display); font-weight:900; font-size:0.6rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--dim);
+    padding:4px 10px 8px;
+  }
+#paletteBar .pal-opts button{
+    display:flex; align-items:center; gap:10px; text-align:left; width:100%;
+    padding:9px 11px; border-radius:11px; border:1px solid transparent;
+    background:transparent; color:var(--ink);
+    font-family:var(--font-body); font-size:0.87rem; font-weight:500;
+    cursor:pointer; transition:.18s;
+  }
+#paletteBar .pal-opts button:hover{ background:rgba(255,255,255,.06); }
+#paletteBar .pal-opts button.active{ border-color:var(--a1); background:rgba(255,255,255,.05); font-weight:700; }
+#paletteBar .pal-opts button i{
+    width:22px; height:11px; border-radius:100px; flex:0 0 auto;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);
+  }
+#paletteBar .sw-signal{ background:linear-gradient(90deg,#31ff6e,#fff21c 55%,#ff1f3d); }
+#paletteBar .sw-amber { background:linear-gradient(90deg,#e8b75c,#ffdfa0); }
+#paletteBar .sw-night { background:linear-gradient(90deg,#2f6fff,#8b5cf6 65%,#ffb020); }
+@media(max-width:520px){
+  #paletteBar{ left:14px; bottom:16px; }
+  #paletteBar .pal-toggle{ padding:9px 13px; font-size:0.8rem; }
+  #paletteBar .pal-toggle .label{ display:none; }
+  #paletteBar .pal-opts{ min-width:198px; }
+}
+header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(5,6,5,.7); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--card-border);
+  }
+nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1180px; margin:0 auto; }
+.logo{ display:flex; align-items:center; }
+.logo img{
+    display:block; height:46px; width:auto;
+    filter:drop-shadow(0 0 9px rgba(255,255,255,.32)) drop-shadow(0 2px 3px rgba(0,0,0,.65));
+  }
+.col.brand .logo img{ height:38px; }
+@media (max-width:520px){
+  .logo img{ height:34px; }
+}
+.navlinks{ display:flex; align-items:center; gap:2px; font-size:0.994rem; color:var(--dim); }
+.navlinks a:hover{ color:var(--ink); }
+.nl-item{ position:relative; }
+.nl-top{
+    display:flex; align-items:center; gap:6px;
+    padding:10px 13px; border-radius:9px;
+    color:var(--dim); cursor:pointer; white-space:nowrap;
+    transition:color .15s ease, background .15s ease;
+  }
+.nl-top:hover, .nl-item:hover .nl-top, .nl-item:focus-within .nl-top{
+    color:var(--ink); background:rgba(255,255,255,.05);
+  }
+.nl-top:focus-visible{ outline:2px solid var(--a1); outline-offset:2px; }
+.nl-car{ width:10px; height:6px; opacity:.65; transition:transform .18s ease; }
+.nl-item:hover .nl-car, .nl-item:focus-within .nl-car{ transform:rotate(180deg); opacity:1; }
+.nl-menu{
+    position:absolute; top:calc(100% + 8px); left:50%; transform:translateX(-50%) translateY(-6px);
+    min-width:238px; padding:8px;
+    background:var(--bg-1); border:1px solid var(--card-border); border-radius:14px;
+    box-shadow:0 18px 44px rgba(0,0,0,.6), 0 0 0 1px rgba(0,0,0,.35);
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity .16s ease, transform .16s ease, visibility .16s;
+    z-index:120;
+  }
+.nl-menu::before{ content:""; position:absolute; top:-10px; left:0; right:0; height:10px; }
+.nl-item:hover .nl-menu, .nl-item:focus-within .nl-menu{
+    opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0);
+  }
+.nl-menu a{
+    display:block; padding:9px 12px; border-radius:8px;
+    font-size:0.93rem; color:var(--dim); white-space:nowrap;
+    transition:color .13s ease, background .13s ease;
+  }
+.nl-menu a:hover{ color:var(--ink); background:rgba(255,255,255,.06); }
+.nl-solo{ text-decoration:none; }
+.navburger{
+    display:none; width:42px; height:42px; padding:0;
+    background:transparent; border:1px solid var(--card-border); border-radius:11px;
+    cursor:pointer; flex-direction:column; align-items:center; justify-content:center; gap:5px;
+  }
+.navburger span{ display:block; width:19px; height:2px; border-radius:2px; background:var(--ink); }
+.navburger:focus-visible{ outline:2px solid var(--a1); outline-offset:2px; }
+.ndrawer{
+    position:fixed; inset:0; z-index:400;
+    background:var(--bg-0);
+    display:flex; flex-direction:column;
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity .2s ease, visibility .2s;
+    overflow-y:auto; -webkit-overflow-scrolling:touch;
+  }
+.ndrawer.open{ opacity:1; visibility:visible; pointer-events:auto; }
+.nd-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 22px; border-bottom:1px solid var(--card-border);
+    position:sticky; top:0; background:var(--bg-0); z-index:2;
+  }
+.nd-close{
+    position:relative; width:42px; height:42px; padding:0;
+    background:transparent; border:1px solid var(--card-border); border-radius:11px; cursor:pointer;
+  }
+.nd-close span{
+    position:absolute; top:50%; left:50%; width:19px; height:2px; border-radius:2px;
+    background:var(--ink); margin:-1px 0 0 -9.5px;
+  }
+.nd-close span:first-child{ transform:rotate(45deg); }
+.nd-close span:last-child{ transform:rotate(-45deg); }
+.nd-body{ padding:8px 14px 20px; flex:1 0 auto; }
+.nd-sec{ border-bottom:1px solid var(--card-border); }
+.nd-trig{
+    width:100%; display:flex; align-items:center; justify-content:space-between;
+    padding:17px 8px; background:transparent; border:0; cursor:pointer;
+    font-family:var(--font-body); font-size:1.06rem; font-weight:600;
+    color:var(--ink); text-align:left; text-decoration:none;
+  }
+.nd-trig .nl-car{ width:13px; height:8px; transition:transform .2s ease; }
+.nd-sec.open .nd-trig .nl-car{ transform:rotate(180deg); }
+.nd-panel{ display:none; padding:0 8px 14px; }
+.nd-sec.open .nd-panel{ display:block; }
+.nd-panel a{
+    display:block; padding:11px 12px; border-radius:9px;
+    font-size:0.99rem; color:var(--dim);
+  }
+.nd-panel a:hover{ color:var(--ink); background:rgba(255,255,255,.05); }
+.nd-foot{
+    display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
+    padding:20px 22px 34px; border-top:1px solid var(--card-border);
+  }
+.nd-phone{ font-size:1.06rem; font-weight:600; color:var(--ink); }
+body.nav-locked{ overflow:hidden; }
+.navright{ display:flex; align-items:center; gap:18px; }
+.phone{ font-size:0.96rem; color:var(--dim); }
+.cta-btn{
+    font-family:var(--font-body); font-weight:700; font-size:0.96rem;
+    padding:11px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    display:inline-block; white-space:nowrap;
+  }
+@media (max-width:1120px){
+  .navlinks{ gap:0; font-size:0.94rem; }
+  .nl-top{ padding:10px 9px; }
+}
+@media (max-width:980px){
+  header nav .phone{ display:none; }
+}
+@media (max-width:900px){
+  .navlinks{ display:none; }
+  .navburger{ display:flex; }
+  header nav .navright{ gap:12px; }
+}
+@media (min-width:600px){
+  .nd-head, .nd-foot{
+      padding-left:max(22px, calc((100% - 680px)/2));
+      padding-right:max(22px, calc((100% - 680px)/2));
+    }
+  .nd-body{
+      padding-left:max(14px, calc((100% - 700px)/2));
+      padding-right:max(14px, calc((100% - 700px)/2));
+    }
+}
+</style>
+</head>
+<body class="calm">
+
+  <div id="paletteBar">
+    <div class="pal-opts" id="palOpts" role="group" aria-label="Color palette">
+      <div class="pal-head">Color palette</div>
+      <button type="button" data-p="signal" class="active" aria-pressed="true"><i class="sw-signal"></i>Signal Chain</button>
+      <button type="button" data-p="amber" aria-pressed="false"><i class="sw-amber"></i>Stage Black &amp; Amber</button>
+      <button type="button" data-p="night" aria-pressed="false"><i class="sw-night"></i>DFW Night Rig</button>
+    </div>
+    <button type="button" class="pal-toggle" id="palToggle" aria-expanded="false" aria-controls="palOpts">
+      <span class="dots"><i style="background:#31ff6e"></i><i style="background:#fff21c"></i><i style="background:#ff1f3d"></i></span>
+      <span class="label">Palette</span>
+    </button>
+  </div>
+
+  <header>
+    <nav>
+      <a class="logo" href="/" style="text-decoration:none;" aria-label="Dallas Event Audio home"><img src="/images/dea-logo.png" alt="Dallas Event Audio" width="326" height="138"></a>
+      <div class="navlinks">
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Events<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/weddings">Weddings</a>
+            <a href="/wedding-av-rental-dallas">Wedding AV Rental</a>
+            <a href="/corporate-events">Corporate Events</a>
+            <a href="/private-events">Private Events</a>
+            <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+            <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+            <a href="/college-school-university-events">College &amp; University</a>
+            <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+          </div>
+        </div>
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Audio<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/services-audio">All Audio Services</a>
+            <a href="/rent-sound-equipment">Sound Equipment Rental</a>
+            <a href="/dj-speaker-rental">DJ &amp; Party Speakers</a>
+            <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+            <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+            <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+            <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+            <a href="/feedback-free-microphone-rentals">Microphone Rental</a>
+          </div>
+        </div>
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Lighting &amp; FX<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/services-lighting">All Lighting Services</a>
+            <a href="/rent-uplighting">Uplighting</a>
+            <a href="/rent-dj-lighting">DJ Lighting</a>
+            <a href="/rent-laser-light-show">Laser Light Show</a>
+            <a href="/rent-follow-spot-light">Follow Spot</a>
+            <a href="/monogram-projector">Monogram Projector</a>
+            <a href="/rent-fog-machine">Fog &amp; Haze</a>
+            <a href="/rent-cold-sparks">Cold Sparks</a>
+            <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+          </div>
+        </div>
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Services<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/services-dj">DJ Services</a>
+            <a href="/services-photo-and-video">Photo &amp; Video</a>
+            <a href="/live-streaming-services">Live Streaming</a>
+            <a href="/projector-screen-rental">Projector &amp; Screen</a>
+            <a href="/services-extra">Special Effects &amp; Extras</a>
+            <a href="/equipment-list">Equipment List</a>
+          </div>
+        </div>
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Our Work<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/our-work">Our Work</a>
+            <a href="/gallery">Photo Gallery</a>
+            <a href="/what-others-are-saying">Reviews</a>
+            <a href="/our-story">Our Story</a>
+            <a href="/blog">Blog</a>
+          </div>
+        </div>
+        <a class="nl-top nl-solo" href="/contact">Contact</a>
+      </div>
+      <div class="navright">
+        <span class="phone">817-210-7957</span>
+        <a class="cta-btn" href="/contact">Get a Quote</a>
+        <button class="navburger" id="navBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="ndrawer" id="navDrawer" aria-hidden="true">
+    <div class="nd-head">
+      <a class="logo" href="/" style="text-decoration:none;" aria-label="Dallas Event Audio home"><img src="/images/dea-logo.png" alt="Dallas Event Audio" width="326" height="138"></a>
+      <button class="nd-close" id="navClose" type="button" aria-label="Close menu"><span></span><span></span></button>
+    </div>
+    <div class="nd-body">
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Events<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/weddings">Weddings</a>
+          <a href="/wedding-av-rental-dallas">Wedding AV Rental</a>
+          <a href="/corporate-events">Corporate Events</a>
+          <a href="/private-events">Private Events</a>
+          <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+          <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+          <a href="/college-school-university-events">College &amp; University</a>
+          <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+        </div>
+      </div>
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Audio<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/services-audio">All Audio Services</a>
+          <a href="/rent-sound-equipment">Sound Equipment Rental</a>
+          <a href="/dj-speaker-rental">DJ &amp; Party Speakers</a>
+          <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+          <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+          <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+          <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+          <a href="/feedback-free-microphone-rentals">Microphone Rental</a>
+        </div>
+      </div>
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Lighting &amp; FX<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/services-lighting">All Lighting Services</a>
+          <a href="/rent-uplighting">Uplighting</a>
+          <a href="/rent-dj-lighting">DJ Lighting</a>
+          <a href="/rent-laser-light-show">Laser Light Show</a>
+          <a href="/rent-follow-spot-light">Follow Spot</a>
+          <a href="/monogram-projector">Monogram Projector</a>
+          <a href="/rent-fog-machine">Fog &amp; Haze</a>
+          <a href="/rent-cold-sparks">Cold Sparks</a>
+          <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+        </div>
+      </div>
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Services<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/services-dj">DJ Services</a>
+          <a href="/services-photo-and-video">Photo &amp; Video</a>
+          <a href="/live-streaming-services">Live Streaming</a>
+          <a href="/projector-screen-rental">Projector &amp; Screen</a>
+          <a href="/services-extra">Special Effects &amp; Extras</a>
+          <a href="/equipment-list">Equipment List</a>
+        </div>
+      </div>
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Our Work<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/our-work">Our Work</a>
+          <a href="/gallery">Photo Gallery</a>
+          <a href="/what-others-are-saying">Reviews</a>
+          <a href="/our-story">Our Story</a>
+          <a href="/blog">Blog</a>
+        </div>
+      </div>
+      <div class="nd-sec"><a class="nd-trig nd-solo" href="/contact">Contact</a></div>
+    </div>
+    <div class="nd-foot">
+      <a class="nd-phone" href="tel:8172107957">817-210-7957</a>
+      <a class="cta-btn" href="/contact">Get a Quote</a>
+    </div>
+  </div>
+<div class="calm-sticky">
+    <div class="wrap">
+      <a class="calm-cta" href="/contact">Get a quote</a>
+    </div>
+  </div>
+
+  <main id="main">
+
+    <section class="hero hero-page">
+      <div class="wrap">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Home</a><span class="sep" aria-hidden="true">/</span><span class="here" aria-current="page">Sensory-friendly event services</span>
+        </nav>
+        <span class="kicker">Dallas-Fort Worth</span>
+        <h1>Sensory-friendly event services in Dallas-Fort Worth, one plain sentence at a time.</h1>
+        <p class="calm-lead">Here is everything we do, on one page. Each service gets one sentence and one link. Pick what you need and skip the rest.</p>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="wrap calm-cards">
+        <article class="calm-card">
+          <span class="kicker">Sound and PA</span>
+          <h2>An on-site technician runs the sound all night and sets the volume for the room.</h2>
+          <p>We bring the speakers and the wireless mics, set them up, and run them for you.</p>
+          <a class="calm-cta" href="/services-audio">See how we set up sound</a>
+        </article>
+        <article class="calm-card">
+          <span class="kicker">Uplighting</span>
+          <h2>Uplighting holds a steady color and never strobes or flashes.</h2>
+          <p>Uplighting puts the colors you pick on the walls of your room.</p>
+          <a class="calm-cta" href="/rent-uplighting">See uplighting colors</a>
+        </article>
+        <article class="calm-card">
+          <span class="kicker">Lasers</span>
+          <h2>Lasers stay off the crowd and at least 3 meters above head height.</h2>
+          <p>Lasers draw bright beams and shapes in the air over the dance floor.</p>
+          <a class="calm-cta" href="/rent-laser-light-show">See how lasers are aimed</a>
+        </article>
+        <article class="calm-card">
+          <span class="kicker">Dancing on the Clouds</span>
+          <h2>The cloud effect is quiet, has no smell, and clears quickly.</h2>
+          <p>Dancing on the Clouds is a low white cloud that covers the floor for a first dance.</p>
+          <a class="calm-cta" href="/rent-dancing-on-the-clouds-low-lyin">See the cloud effect</a>
+        </article>
+        <article class="calm-card">
+          <span class="kicker">Cold sparks</span>
+          <h2>Cold sparks are quiet and leave the air clear.</h2>
+          <p>A cold spark machine sends a fountain of sparkles up into the air.</p>
+          <a class="calm-cta" href="/rent-cold-sparks">See how cold sparks work</a>
+        </article>
+        <article class="calm-card">
+          <span class="kicker">Projection and screens</span>
+          <h2>Ask us in advance and we can put announcements on the screen.</h2>
+          <p>We set up screens and projectors that show words, slides and photos to the room.</p>
+          <a class="calm-cta" href="/projector-screen-rental">See screens and projectors</a>
+        </article>
+        <article class="calm-card">
+          <span class="kicker">DJ packages</span>
+          <h2>You approve the playlist and a do-not-play list with the DJ before the date.</h2>
+          <p>A DJ package gives you the DJ, the music and the sound system for the night.</p>
+          <a class="calm-cta" href="/services-dj">See what the DJ does</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Questions people ask before they book</h2>
+        </div>
+        <div class="faq-list">
+        <details class="faq-item">
+          <summary>Do I have to pick anything up or set anything up myself?</summary>
+          <div class="ans">We bring everything, set it up, run it, and take it away at the end. There is no pickup counter and no self-service option, so nothing gets left at a door for you to work out.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Will someone from your crew stay for the whole event?</summary>
+          <div class="ans">Every booking includes an on-site technician who stays through the event. The crew runs the equipment for you, and there is always someone in the room to ask.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Can I write to you instead of calling?</summary>
+          <div class="ans">You can email us or fill in the form and skip the phone call. A person who works these events reads it and comes back to you the same day.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Will there be cables taped across the floor?</summary>
+          <div class="ans">The uplights run on batteries, so they sit where you want them and leave the floor clear of cords and tape.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Can I ask you to keep the music volume down?</summary>
+          <div class="ans">An on-site technician runs the sound all night and sets the volume for the room. If you want it kept down, you can tell us before the date. Put it on the form with your date and venue and we will answer you the same day.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Will the lights flash or strobe?</summary>
+          <div class="ans">Uplighting holds a steady color. We can change it to another color through the night, and it never strobes or flashes. DJ lighting is different. It normally flashes and strobes, so you can approve it before the date, or we can leave it out if someone in the room is sensitive to it.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Can you keep the lasers off the guests?</summary>
+          <div class="ans">We plan where the lasers point before your event, and which parts of the room they stay out of. That is settled ahead of the date rather than on the night. The beams stay off the crowd and at least 3 meters above head height, or about ten feet. We confirm that to you in writing before the date.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Do cold sparks use real fire, and do they leave smoke?</summary>
+          <div class="ans">There is no open flame and nothing to put out afterwards. Cold sparks run at a much lower temperature than traditional fireworks. They are quiet, and the air stays clear of smoke and smell.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Is the cloud effect loud, and does it leave a smell?</summary>
+          <div class="ans">The cloud is water vapor chilled by carbon dioxide. It stays low, at about ankle to knee height. The machine is quiet while it runs, the cloud has no smell, and it clears quickly.</div>
+        </details>
+        <details class="faq-item">
+          <summary>Can I book one of these on its own?</summary>
+          <div class="ans">Any one of these can be booked on its own, or added to a booking you already have with us.</div>
+        </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section calm-close" id="tell-us">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Tell us about the day</h2>
+        </div>
+        <p>You can also just tell us about the day, and we will point you to the right one. <a href="/contact">Write to us in your own words</a> and we'll send you a straightforward quote the same day.</p>
+        <div class="calm-more">
+          <a href="/equipment-list">See everything we carry</a>
+          <a href="/what-others-are-saying">Read what clients say</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="col brand">
+          <div class="logo"><img src="data:image/png;base64,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" alt="Dallas Event Audio" width="282" height="120"></div>
+          <p style="margin-top:14px; max-width:250px;">Full-service AV production for Dallas-Fort Worth since 2001. Delivered, set up, and run by our on-site technician.</p>
+          <div class="foot-contact">
+            <a href="tel:8172107957">817-210-7957</a>
+            <a href="mailto:info@dallaseventaudio.com">info@dallaseventaudio.com</a>
+          </div>
+          <p class="foot-area">Serving Dallas, Fort Worth, Southlake, Arlington, Frisco, McKinney, Richardson &amp; the wider Metroplex.</p>
+        </div>
+        <div class="col">
+          <div class="foot-h">Events</div>
+          <a href="/weddings">Weddings</a>
+          <a href="/wedding-av-rental-dallas">Wedding AV Rental</a>
+          <a href="/corporate-events">Corporate Events</a>
+          <a href="/private-events">Private Events</a>
+          <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+          <a href="/college-school-university-events">College &amp; University</a>
+          <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+          <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+        </div>
+        <div class="col">
+          <div class="foot-h">Services</div>
+          <a href="/services-dj">DJ Services</a>
+          <a href="/services-audio">Audio Services</a>
+          <a href="/services-lighting">Lighting Services</a>
+          <a href="/services-photo-and-video">Photo &amp; Video</a>
+          <a href="/services-extra">Extra Services</a>
+        </div>
+        <div class="col">
+          <div class="foot-h">Audio Rentals</div>
+          <a href="/rent-sound-equipment">Sound Equipment</a>
+          <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+          <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+          <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+          <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+          <a href="/feedback-free-microphone-rentals">Microphone Rental</a>
+          <a href="/live-streaming-services">Live Streaming</a>
+        </div>
+        <div class="col">
+          <div class="foot-h">Lighting &amp; FX</div>
+          <a href="/rent-uplighting">Uplighting</a>
+          <a href="/rent-laser-light-show">Laser Light Show</a>
+          <a href="/rent-follow-spot-light">Follow Spot</a>
+          <a href="/monogram-projector">Monogram Projector</a>
+          <a href="/rent-fog-machine">Fog &amp; Haze</a>
+          <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+          <a href="/rent-cold-sparks">Cold Sparks</a>
+          <a href="/projector-screen-rental">Projector &amp; Screen</a>
+        </div>
+        <div class="col">
+          <div class="foot-h">Company</div>
+          <a href="/our-story">Our Story</a>
+          <a href="/our-work">Our Work</a>
+          <a href="/equipment-list">Equipment List</a>
+          <a href="/sensory-friendly-event-services">Sensory-Friendly Events</a>
+          <a href="/what-others-are-saying">Reviews</a>
+          <a href="/blog">Blog</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div class="foot-proof">
+        <a class="fp" href="https://www.google.com/maps?cid=11213015373496621898" target="_blank" rel="noopener"><span class="m g">G</span> <b>4.9</b> <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span> &middot; 41 Google reviews</a>
+        <a class="fp" href="https://www.yelp.com/biz/dallas-event-audio-dallas" target="_blank" rel="noopener"><span class="m y">Y</span> <b>Yelp</b> &middot; 13 reviews &middot; 134 photos</a>
+      </div>
+      <div class="foot-bottom">
+        <span>&copy; 2026 Dallas Event Audio. Fully insured, on-site AV production.</span>
+        <span>Sensory-friendly services page draft v1</span>
+      </div>
+    </div>
+  </footer>
+<!-- chrome-sync:js -->
+<script>
+  // Palette dock, bottom left
+  (function(){
+    const dock = document.getElementById('paletteBar');
+    const toggle = document.getElementById('palToggle');
+    const opts = Array.prototype.slice.call(document.querySelectorAll('#palOpts button'));
+    if(!dock || !toggle) return;
+
+    function store(v){ try{ window.localStorage.setItem('dea-palette', v); }catch(e){} }
+    function recall(){ try{ return window.localStorage.getItem('dea-palette'); }catch(e){ return null; } }
+
+    function apply(p){
+      document.documentElement.setAttribute('data-palette', p);
+      opts.forEach(b=>{
+        const on = b.dataset.p === p;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+
+    const saved = recall();
+    if(saved && opts.some(b=>b.dataset.p === saved)) apply(saved);
+
+    function open(state){
+      dock.classList.toggle('open', state);
+      toggle.setAttribute('aria-expanded', state ? 'true' : 'false');
+    }
+    toggle.addEventListener('click', e=>{ e.stopPropagation(); open(!dock.classList.contains('open')); });
+    opts.forEach(b=>{
+      b.addEventListener('click', ()=>{ apply(b.dataset.p); store(b.dataset.p); open(false); });
+    });
+    document.addEventListener('click', e=>{ if(!dock.contains(e.target)) open(false); });
+    document.addEventListener('keydown', e=>{ if(e.key === 'Escape') open(false); });
+  })();
+
+  // Scroll reveal
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.15});
+    document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el=>el.classList.add('in'));
+  }
+
+  // CO2 / particle burst on primary CTA click
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function burst(x, y){
+    if(reduceMotion) return;
+    const colors = ['var(--a1)','var(--a2)','var(--a3)','#ffffff'];
+    const count = 26;
+    for(let i=0;i<count;i++){
+      const p = document.createElement('span');
+      p.className = 'burst-particle';
+      const angle = (Math.PI * 2 * i) / count + Math.random()*0.4;
+      const dist = 60 + Math.random()*140;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist - 40;
+      const size = 4 + Math.random()*6;
+      p.style.width = p.style.height = size + 'px';
+      p.style.background = colors[i % colors.length];
+      p.style.boxShadow = '0 0 8px ' + colors[i % colors.length];
+      p.style.left = x + 'px';
+      p.style.top = y + 'px';
+      document.body.appendChild(p);
+      const anim = p.animate([
+        { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
+        { transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.3)`, opacity:0 }
+      ], { duration:700 + Math.random()*400, easing:'cubic-bezier(.2,.7,.3,1)' });
+      anim.onfinish = () => p.remove();
+    }
+  }
+  document.querySelectorAll('.btn-primary').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      burst(e.clientX, e.clientY);
+    });
+  });
+</script>
+<script>
+/* Mobile navigation drawer. Added 5 Aug 2026 - before this, nav links simply
+   vanished below 860px with nothing to replace them. */
+(function(){
+  var burger = document.getElementById('navBurger');
+  var drawer = document.getElementById('navDrawer');
+  var closeb = document.getElementById('navClose');
+  if(!burger || !drawer) return;
+
+  function open(){
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden','false');
+    burger.setAttribute('aria-expanded','true');
+    document.body.classList.add('nav-locked');
+  }
+  function close(){
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden','true');
+    burger.setAttribute('aria-expanded','false');
+    document.body.classList.remove('nav-locked');
+  }
+  burger.addEventListener('click', open);
+  if(closeb) closeb.addEventListener('click', close);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && drawer.classList.contains('open')) close();
+  });
+  drawer.querySelectorAll('a[href]').forEach(function(a){
+    a.addEventListener('click', function(){
+      var h = a.getAttribute('href') || '';
+      if(h.charAt(0) === '#') close();
+    });
+  });
+  drawer.querySelectorAll('.nd-sec > button.nd-trig').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var sec = btn.parentNode;
+      var isOpen = sec.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  });
+
+  /* Desktop dropdowns: hover and focus are handled in CSS. Keyboard users get
+     Enter/Space to pin a menu open, Escape to release it. */
+  document.querySelectorAll('.nl-item > .nl-top').forEach(function(top){
+    top.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        var menu = top.parentNode.querySelector('.nl-menu a');
+        if(menu) menu.focus();
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>
