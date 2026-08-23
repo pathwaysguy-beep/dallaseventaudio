@@ -741,15 +741,23 @@ input[type=range].mx-vert{ width:22px; height:150px; }
   @media (max-width:860px){ .vid-lead{ border-radius:14px; margin:20px 0 26px; } }
   @media (prefers-reduced-motion: reduce){ .vid-lead .vid{ display:none; } }
 
-  /* Photo panels carry a real image element so the picture has alt text and
-     can be indexed. The panel keeps its own background gradient underneath,
-     which is what still shows in a slot with no photograph yet.
-     Do not write literal tag syntax in this comment: the build scripts read the
-     file as text and count tags. */
-  .split-vis img, .slide img{
-    position:absolute; inset:0; display:block;
-    width:100%; height:100%; object-fit:cover;
+  /* Color gallery. Same grid as /gallery so the two pages stay one pattern. */
+  .gshots{
+    display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:14px; margin-top:30px;
   }
+  .gshot{
+    position:relative; margin:0; overflow:hidden;
+    aspect-ratio:4/3; border-radius:14px;
+    border:1px solid var(--card-border); background-color:var(--bg-2);
+  }
+  .gshot img{ display:block; width:100%; height:100%; object-fit:cover; }
+  .gshot figcaption{
+    position:absolute; left:0; right:0; bottom:0; padding:30px 13px 11px;
+    background:linear-gradient(to top, rgba(6,6,8,.93), transparent);
+    font-size:.73rem; line-height:1.45; color:var(--dim); letter-spacing:.015em;
+  }
+  @media (max-width:1040px){ .gshots{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+  @media (max-width:520px){ .gshots{ grid-template-columns:1fr; } }
 </style>
 
   <script type="application/ld+json">
@@ -1829,8 +1837,8 @@ body.nav-locked{ overflow:hidden; }
             <a class="chip" href="/our-work">See past events</a>
           </div>
         </div>
-        <div class="split-vis">
-          <img src="/images/uplighting/ballroom-uplighting-wide.jpg" alt="Pink uplighting around a draped reception room with round tables and an open floor" loading="lazy" width="1200" height="900">
+        <div class="split-vis" style="--img:url('/images/uplighting/ballroom-uplighting-wide.jpg')">
+          <span class="slot">/images/uplighting/ballroom-uplighting-wide.jpg</span>
         </div>
       </div>
     </div>
@@ -2044,9 +2052,69 @@ body.nav-locked{ overflow:hidden; }
             <span class="chip">Brand-matched color</span>
           </div>
         </div>
-        <div class="split-vis">
-          <img src="/images/uplighting/color-wash-comparison.jpg" alt="Two wash colors landing on the same stairwell wall, magenta below and warm red above the rail" loading="lazy" width="1536" height="1152">
+        <div class="split-vis" style="--img:url('/images/uplighting/color-wash-comparison.jpg')">
+          <span class="slot">/images/uplighting/color-wash-comparison.jpg</span>
         </div>
+      </div>
+    
+      <div class="section-head" data-reveal style="margin-top:54px;">
+        <span class="kicker">The Same Job, Thirteen Colors</span>
+        <h2>What each color does to a real room.</h2>
+        <p class="sub">Every one of these is a real DFW room we lit. Wood soaks up color and wants more of it. White drape gives it back. Stone goes cool. Find the room closest to yours and you have your answer faster than any swatch will give it to you.</p>
+      </div>
+      <div class="gshots">
+        <figure class="gshot" data-reveal>
+          <img src="/images/uplighting/uplighting-amber-wood-wall-barn-hall.jpg" alt="Amber uplighting glowing against a wood plank wall in a barn style event hall" loading="lazy" width="1600" height="1200">
+          <figcaption>Amber on a wood plank wall</figcaption>
+        </figure>
+        <figure class="gshot" data-reveal>
+          <img src="/images/uplighting/uplighting-blue-coffered-ballroom.jpg" alt="Blue uplighting lining the walls of a white coffered ceiling ballroom set for dinner" loading="lazy" width="1600" height="1200">
+          <figcaption>Blue in a coffered ballroom</figcaption>
+        </figure>
+        <figure class="gshot" data-reveal>
+          <img src="/images/uplighting/uplighting-magenta-chandelier-room.jpg" alt="Magenta uplighting filling the corner of a formal room lit by an iron chandelier" loading="lazy" width="1600" height="1200">
+          <figcaption>Magenta in a chandelier room</figcaption>
+        </figure>
+        <figure class="gshot" data-reveal>
+          <img src="/images/uplighting/uplighting-teal-stone-fireplace-room.jpg" alt="Teal uplighting on a stone fireplace wall in a timber ceiling great room" loading="lazy" width="1600" height="1200">
+          <figcaption>Teal on a stone fireplace</figcaption>
+        </figure>
+        <figure class="gshot" data-reveal>
+          <img src="/images/uplighting/uplighting-violet-draped-ceiling-hall.jpg" alt="Violet uplighting behind draped ceiling fabric and string lights above a reception floor" loading="lazy" width="1557" height="1168">
+          <figcaption>Violet behind ceiling drape</figcaption>
+        </figure>
+        <figure class="gshot" data-reveal>
+          <img src="/images/uplighting/uplighting-red-curved-staircase.jpg" alt="Red uplighting washing a curved staircase and landing in a foyer" loading="lazy" width="1536" height="1152">
+          <figcaption>Red up a curved staircase</figcaption>
+        </figure>
+        <figure class="gshot" data-reveal>
+          <img src="/images/uplighting/uplighting-blue-timber-post-barn.jpg" alt="Blue uplighting on the timber posts of a barn venue with daylight still in the windows" loading="lazy" width="1600" height="1200">
+          <figcaption>Blue on barn posts</figcaption>
+        </figure>
+        <figure class="gshot" data-reveal>
+          <img src="/images/uplighting/uplighting-purple-banquet-hall-denton.jpg" alt="Purple uplighting along a long candlelit banquet table under an open industrial ceiling" loading="lazy" width="1600" height="1200">
+          <figcaption>Purple down a banquet table, Denton</figcaption>
+        </figure>
+        <figure class="gshot" data-reveal>
+          <img src="/images/uplighting/uplighting-blue-behind-wedding-cake.jpg" alt="Blue uplighting on a textured wall behind a wedding cake and dessert table" loading="lazy" width="1600" height="1200">
+          <figcaption>Blue behind the cake table</figcaption>
+        </figure>
+        <figure class="gshot" data-reveal>
+          <img src="/images/uplighting/uplighting-magenta-timber-barn-hall.jpg" alt="Magenta uplighting on the stone and timber walls of a barn hall with guests at round tables" loading="lazy" width="1600" height="1200">
+          <figcaption>Magenta in a timber barn</figcaption>
+        </figure>
+        <figure class="gshot" data-reveal>
+          <img src="/images/uplighting/uplighting-warm-amber-lantern-hall.jpg" alt="Warm amber uplighting between the windows of a hall lit by hanging lanterns" loading="lazy" width="1600" height="1200">
+          <figcaption>Amber between the windows</figcaption>
+        </figure>
+        <figure class="gshot" data-reveal>
+          <img src="/images/uplighting/uplighting-blue-white-truss-barn.jpg" alt="Blue uplighting along the walls of a white truss barn set with round tables" loading="lazy" width="1600" height="1200">
+          <figcaption>Blue in a white truss barn</figcaption>
+        </figure>
+        <figure class="gshot" data-reveal>
+          <img src="/images/uplighting/uplighting-blue-on-wood-plank-wall.jpg" alt="Blue uplighting throwing narrow beams up a dark wood plank wall behind banquet chairs" loading="lazy" width="1600" height="1200">
+          <figcaption>Blue up a dark plank wall</figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -2066,8 +2134,8 @@ body.nav-locked{ overflow:hidden; }
             <a class="chip" href="/live-streaming-services">Live streaming</a>
           </div>
         </div>
-        <div class="split-vis">
-          <img src="/images/uplighting/corporate-brand-color-wash.jpg" alt="Green and blue uplighting along a room wall with a branded slide on the screen behind the guests" loading="lazy" width="1200" height="900">
+        <div class="split-vis" style="--img:url('/images/uplighting/corporate-brand-color-wash.jpg')">
+          <span class="slot">/images/uplighting/corporate-brand-color-wash.jpg</span>
         </div>
       </div>
     </div>
@@ -2215,8 +2283,8 @@ body.nav-locked{ overflow:hidden; }
             <a class="chip" href="/rave-and-night-club-events">Clubs &amp; raves</a>
           </div>
         </div>
-        <div class="split-vis">
-          <img src="/images/uplighting/dfw-venue-uplighting.jpg" alt="Pink uplighting along the walls of a wooden barn venue with chandeliers and tables set" loading="lazy" width="1200" height="900">
+        <div class="split-vis" style="--img:url('/images/uplighting/dfw-venue-uplighting.jpg')">
+          <span class="slot">/images/uplighting/dfw-venue-uplighting.jpg</span>
         </div>
       </div>
     </div>
