@@ -1,0 +1,53 @@
+<script>
+/* Mobile navigation drawer. Added 5 Aug 2026 - before this, nav links simply
+   vanished below 860px with nothing to replace them. */
+(function(){
+  var burger = document.getElementById('navBurger');
+  var drawer = document.getElementById('navDrawer');
+  var closeb = document.getElementById('navClose');
+  if(!burger || !drawer) return;
+
+  function open(){
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden','false');
+    burger.setAttribute('aria-expanded','true');
+    document.body.classList.add('nav-locked');
+  }
+  function close(){
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden','true');
+    burger.setAttribute('aria-expanded','false');
+    document.body.classList.remove('nav-locked');
+  }
+  burger.addEventListener('click', open);
+  if(closeb) closeb.addEventListener('click', close);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && drawer.classList.contains('open')) close();
+  });
+  drawer.querySelectorAll('a[href]').forEach(function(a){
+    a.addEventListener('click', function(){
+      var h = a.getAttribute('href') || '';
+      if(h.charAt(0) === '#') close();
+    });
+  });
+  drawer.querySelectorAll('.nd-sec > button.nd-trig').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var sec = btn.parentNode;
+      var isOpen = sec.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  });
+
+  /* Desktop dropdowns: hover and focus are handled in CSS. Keyboard users get
+     Enter/Space to pin a menu open, Escape to release it. */
+  document.querySelectorAll('.nl-item > .nl-top').forEach(function(top){
+    top.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        var menu = top.parentNode.querySelector('.nl-menu a');
+        if(menu) menu.focus();
+      }
+    });
+  });
+})();
+</script>
