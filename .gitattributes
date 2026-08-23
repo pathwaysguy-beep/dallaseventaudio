@@ -1,0 +1,23 @@
+# The site is built with LF line endings and tools/sync_chrome.py compares bytes.
+# Without this, Git hands a fresh clone CRLF copies of the chrome fragments, the
+# injected chrome then differs from what is already in the pages, and the next
+# sync run rewrites all 40 files for no reason. Pin everything to LF.
+* text=auto eol=lf
+
+# Never touch these.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.webp  binary
+*.avif  binary
+*.ico   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
+*.mp4   binary
+*.webm  binary
+*.mov   binary
+*.pdf   binary
+*.zip   binary
