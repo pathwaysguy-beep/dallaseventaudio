@@ -710,6 +710,16 @@ a.chip::after{ content:' \2192'; opacity:.55; }
       font-family:var(--font-display); font-weight:900; font-size:.66rem;
       letter-spacing:.16em; text-transform:uppercase; color:var(--a1); flex:0 0 auto;
     }
+
+  /* Photo panels carry a real image element so the picture has alt text and
+     can be indexed. The panel keeps its own background gradient underneath,
+     which is what still shows in a slot with no photograph yet.
+     Do not write literal tag syntax in this comment: the build scripts read the
+     file as text and count tags. */
+  .split-vis img, .slide img{
+    position:absolute; inset:0; display:block;
+    width:100%; height:100%; object-fit:cover;
+  }
 </style>
 
   <script type="application/ld+json">
@@ -1275,8 +1285,8 @@ body.nav-locked{ overflow:hidden; }
             <a class="chip" href="/equipment-list">See the equipment list</a>
           </div>
         </div>
-        <div class="split-vis" style="--img:url('/images/college-school-university-events/dallas-campus-event-sound-system.jpg')">
-          <span class="slot">/images/college-school-university-events/dallas-campus-event-sound-system.jpg</span>
+        <div class="split-vis">
+          <img src="/images/college-school-university-events/dallas-campus-event-sound-system.jpg" alt="An LED wall and truss build going up on an arena floor with the seating bowl empty behind it" loading="lazy" width="1536" height="1152">
         </div>
       </div>
     </div>
@@ -1391,8 +1401,8 @@ body.nav-locked{ overflow:hidden; }
             <a class="chip" href="/wedding-av-rental-dallas">AV rental for your own DJ</a>
           </div>
         </div>
-        <div class="split-vis" style="--img:url('/images/college-school-university-events/campus-dj-booth-sound-setup-dallas.jpg')">
-          <span class="slot">/images/college-school-university-events/campus-dj-booth-sound-setup-dallas.jpg</span>
+        <div class="split-vis">
+          <img src="/images/college-school-university-events/campus-dj-booth-sound-setup-dallas.jpg" alt="A DJ booth lit from behind by an LED wall, framed by truss towers outside a brick campus building at night" loading="lazy" width="1600" height="1200">
         </div>
       </div>
     </div>

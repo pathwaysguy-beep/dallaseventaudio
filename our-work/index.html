@@ -547,6 +547,16 @@ section[id]{ scroll-margin-top:96px; }
 .rail{ scroll-behavior:auto; }
 .slide, .wtile{ transition:none; }
 }
+
+  /* Photo panels carry a real image element so the picture has alt text and
+     can be indexed. The panel keeps its own background gradient underneath,
+     which is what still shows in a slot with no photograph yet.
+     Do not write literal tag syntax in this comment: the build scripts read the
+     file as text and count tags. */
+  .split-vis img, .slide img{
+    position:absolute; inset:0; display:block;
+    width:100%; height:100%; object-fit:cover;
+  }
 </style>
 
   <script type="application/ld+json">
@@ -1019,9 +1029,9 @@ body.nav-locked{ overflow:hidden; }
               <span class="slot">/images/work/ceremony-outdoor.jpg</span></span>
           </a>
 
-          <figure class="slide" style="--img:url('/images/work/uplighting-ballroom.jpg')">
-            <figcaption><span class="tag">Lighting</span>Uplighting matched to the room&rsquo;s palette
-              <span class="slot">/images/work/uplighting-ballroom.jpg</span></figcaption>
+          <figure class="slide">
+          <img src="/images/work/uplighting-ballroom.jpg" alt="Blue uplighting on a draped wall behind a candlelit head table" loading="lazy" width="1200" height="900">
+            <figcaption><span class="tag">Lighting</span>Uplighting matched to the room&rsquo;s palette</figcaption>
           </figure>
 
           <figure class="slide" style="--img:url('/images/work/monogram-floor.jpg')">
@@ -1041,19 +1051,19 @@ body.nav-locked{ overflow:hidden; }
               <span class="slot">/images/work/alr-screen.jpg</span></span>
           </a>
 
-          <figure class="slide" style="--img:url('/images/work/dj-booth.jpg')">
-            <figcaption><span class="tag">DJ</span>Booth set and line-checked long before doors
-              <span class="slot">/images/work/dj-booth.jpg</span></figcaption>
+          <figure class="slide">
+          <img src="/images/work/dj-booth.jpg" alt="A speaker stack beside a DJ booth set on a patterned floor before doors" loading="lazy" width="1200" height="900">
+            <figcaption><span class="tag">DJ</span>Booth set and line-checked long before doors</figcaption>
           </figure>
 
-          <figure class="slide" style="--img:url('/images/work/band-foh.jpg')">
-            <figcaption><span class="tag">Live Sound</span>Front of house for a live band
-              <span class="slot">/images/work/band-foh.jpg</span></figcaption>
+          <figure class="slide">
+          <img src="/images/work/band-foh.jpg" alt="A band playing under red stage light, seen from the mixing position at the back of the room" loading="lazy" width="1600" height="1200">
+            <figcaption><span class="tag">Live Sound</span>Front of house for a live band</figcaption>
           </figure>
 
-          <figure class="slide" style="--img:url('/images/work/dancing-on-clouds.jpg')">
-            <figcaption><span class="tag">Effects</span>Dancing on the Clouds during a first dance
-              <span class="slot">/images/work/dancing-on-clouds.jpg</span></figcaption>
+          <figure class="slide">
+          <img src="/images/work/dancing-on-clouds.jpg" alt="A couple dancing inside a low cloud of dry ice fog lying flat on the floor" loading="lazy" width="1200" height="2133">
+            <figcaption><span class="tag">Effects</span>Dancing on the Clouds during a first dance</figcaption>
           </figure>
 
           <a class="slide" href="/post/trending-av-services-in-dallas-texas-for-2026-events" style="--img:url('/images/work/corporate-stage.jpg')">

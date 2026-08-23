@@ -605,6 +605,16 @@ a.chip::after{ content:' \2192'; opacity:.55; }
   }
 .wrap p a:not(.chip):not(.btn-primary):not(.btn-secondary):hover,
   .addon a:not(.chip):hover{ color:var(--a2); text-decoration-color:var(--a2); }
+
+  /* Photo panels carry a real image element so the picture has alt text and
+     can be indexed. The panel keeps its own background gradient underneath,
+     which is what still shows in a slot with no photograph yet.
+     Do not write literal tag syntax in this comment: the build scripts read the
+     file as text and count tags. */
+  .split-vis img, .slide img{
+    position:absolute; inset:0; display:block;
+    width:100%; height:100%; object-fit:cover;
+  }
 </style>
 
   <script type="application/ld+json">
@@ -1103,8 +1113,8 @@ body.nav-locked{ overflow:hidden; }
             <a class="chip" href="/our-work">See past events</a>
           </div>
         </div>
-        <div class="split-vis" style="--img:url('/images/corporate-events/audio-visual-company-dallas-general-session.jpg')">
-          <span class="slot">/images/corporate-events/audio-visual-company-dallas-general-session.jpg</span>
+        <div class="split-vis">
+          <img src="/images/corporate-events/audio-visual-company-dallas-general-session.jpg" alt="A wide projection screen with blue uplighting along the wall of a ballroom set for a general session" loading="lazy" width="1200" height="1600">
         </div>
       </div>
     </div>

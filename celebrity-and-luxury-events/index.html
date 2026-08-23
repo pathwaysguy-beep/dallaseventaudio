@@ -710,6 +710,16 @@ a.chip::after{ content:' \2192'; opacity:.55; }
       font-family:var(--font-display); font-weight:900; font-size:.66rem;
       letter-spacing:.16em; text-transform:uppercase; color:var(--a1); flex:0 0 auto;
     }
+
+  /* Photo panels carry a real image element so the picture has alt text and
+     can be indexed. The panel keeps its own background gradient underneath,
+     which is what still shows in a slot with no photograph yet.
+     Do not write literal tag syntax in this comment: the build scripts read the
+     file as text and count tags. */
+  .split-vis img, .slide img{
+    position:absolute; inset:0; display:block;
+    width:100%; height:100%; object-fit:cover;
+  }
 </style>
 
   <script type="application/ld+json">
@@ -1264,8 +1274,8 @@ body.nav-locked{ overflow:hidden; }
             <a class="chip" href="/services-audio">Audio services</a>
           </div>
         </div>
-        <div class="split-vis" style="--img:url('/images/celebrity-and-luxury-events/luxury-event-sound-dallas-private-room.jpg')">
-          <span class="slot">/images/celebrity-and-luxury-events/luxury-event-sound-dallas-private-room.jpg</span>
+        <div class="split-vis">
+          <img src="/images/celebrity-and-luxury-events/luxury-event-sound-dallas-private-room.jpg" alt="Speakers on stands either side of a small stage in a private dining room set with round tables and gold chairs" loading="lazy" width="1200" height="675">
         </div>
       </div>
     </div>

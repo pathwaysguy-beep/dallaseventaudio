@@ -710,6 +710,16 @@ a.chip::after{ content:' \2192'; opacity:.55; }
       font-family:var(--font-display); font-weight:900; font-size:.66rem;
       letter-spacing:.16em; text-transform:uppercase; color:var(--a1); flex:0 0 auto;
     }
+
+  /* Photo panels carry a real image element so the picture has alt text and
+     can be indexed. The panel keeps its own background gradient underneath,
+     which is what still shows in a slot with no photograph yet.
+     Do not write literal tag syntax in this comment: the build scripts read the
+     file as text and count tags. */
+  .split-vis img, .slide img{
+    position:absolute; inset:0; display:block;
+    width:100%; height:100%; object-fit:cover;
+  }
 </style>
 
   <script type="application/ld+json">
@@ -1301,8 +1311,8 @@ body.nav-locked{ overflow:hidden; }
             <a class="chip" href="/weddings">Wedding services</a>
           </div>
         </div>
-        <div class="split-vis" style="--img:url('/images/wedding-av-rental/dallas-wedding-ceremony-sound-system.jpg')">
-          <span class="slot">/images/wedding-av-rental/dallas-wedding-ceremony-sound-system.jpg</span>
+        <div class="split-vis">
+          <img src="/images/wedding-av-rental/dallas-wedding-ceremony-sound-system.jpg" alt="A speaker column beside a floral ceremony arch and a two seat sofa on a white stage" loading="lazy" width="1600" height="1200">
         </div>
       </div>
     </div>
@@ -1391,8 +1401,8 @@ body.nav-locked{ overflow:hidden; }
             <a class="chip" href="/services-dj">Wedding DJ services</a>
           </div>
         </div>
-        <div class="split-vis" style="--img:url('/images/wedding-av-rental/dallas-wedding-dj-sound-system-rental.jpg')">
-          <span class="slot">/images/wedding-av-rental/dallas-wedding-dj-sound-system-rental.jpg</span>
+        <div class="split-vis">
+          <img src="/images/wedding-av-rental/dallas-wedding-dj-sound-system-rental.jpg" alt="A DJ controller set at the end of a dance floor inside a draped tent reception" loading="lazy" width="1600" height="1200">
         </div>
       </div>
     </div>
@@ -1412,8 +1422,8 @@ body.nav-locked{ overflow:hidden; }
             <a class="chip" href="/rent-line-array-speaker-system">Line array systems</a>
           </div>
         </div>
-        <div class="split-vis" style="--img:url('/images/wedding-av-rental/dallas-wedding-reception-sound-system.jpg')">
-          <span class="slot">/images/wedding-av-rental/dallas-wedding-reception-sound-system.jpg</span>
+        <div class="split-vis">
+          <img src="/images/wedding-av-rental/dallas-wedding-reception-sound-system.jpg" alt="A long head table below a floral arch with speaker columns either side of the reception stage" loading="lazy" width="1600" height="1200">
         </div>
       </div>
     </div>
@@ -1457,8 +1467,8 @@ body.nav-locked{ overflow:hidden; }
             <a class="chip" href="/services-lighting">Lighting services</a>
           </div>
         </div>
-        <div class="split-vis" style="--img:url('/images/wedding-av-rental/dallas-wedding-uplighting-monogram.jpg')">
-          <span class="slot">/images/wedding-av-rental/dallas-wedding-uplighting-monogram.jpg</span>
+        <div class="split-vis">
+          <img src="/images/wedding-av-rental/dallas-wedding-uplighting-monogram.jpg" alt="A wedding monogram projected across a reception wall above pink uplights, with tables set in sage and white" loading="lazy" width="1600" height="1200">
         </div>
       </div>
     </div>

@@ -735,6 +735,16 @@ a.chip::after{ content:' \2192'; opacity:.55; }
 
 <style>
 .slot{display:none !important;}
+
+  /* Photo panels carry a real image element so the picture has alt text and
+     can be indexed. The panel keeps its own background gradient underneath,
+     which is what still shows in a slot with no photograph yet.
+     Do not write literal tag syntax in this comment: the build scripts read the
+     file as text and count tags. */
+  .split-vis img, .slide img{
+    position:absolute; inset:0; display:block;
+    width:100%; height:100%; object-fit:cover;
+  }
 </style>
 <!-- chrome-sync:css -->
 <style>
@@ -1149,8 +1159,9 @@ body.nav-locked{ overflow:hidden; }
           <p>A technician handles every part of it, from the proof to the focus. If the venue moves your head table an hour before doors, we move the projector and refocus the design.</p>
           <p>Most of our monogram installs go in alongside sound and other event lighting, which is why there is a speaker standing next to the projector in this photo. If you are already looking at <a href="/rent-uplighting">uplighting rentals</a> or a full lighting package, the monogram goes on the same quote and arrives in the same load-in.</p>
         </div>
-        <figure class="split-vis" style="--img:url('/images/monogram-projector-gobo-dallas-poster-1aca57.jpg')">
-          <figcaption>Monogram projector and speakers set up before doors at a Dallas ballroom reception.<span class="slot">monogram-projector-and-speakers-before-doors-dallas.jpg</span></figcaption>
+        <figure class="split-vis">
+          <img src="/images/monogram-projector-gobo-dallas-poster-1aca57.jpg" alt="A projected monogram on a reception wall above tables set for dinner" loading="lazy" width="1400" height="787">
+          <figcaption>Monogram projector and speakers set up before doors at a Dallas ballroom reception.</figcaption>
         </figure>
       </div>
     </div>
@@ -1199,8 +1210,9 @@ body.nav-locked{ overflow:hidden; }
           <p>Where it goes is your call. A wall behind the head table is the usual choice, because it lands in every photo of the toasts. Ceiling projection works in rooms with a flat light-colored ceiling. Dance floor projection reads well in a dark room and then gets walked on, so we generally point people to a wall or the ceiling first and look at the floor with you as an option.</p>
           <p>If you have your own DJ and are renting gear only, a wedding monogram can ride along on our <a href="/wedding-av-rental-dallas">wedding AV packages</a>. If you want the whole night handled, start at <a href="/weddings">wedding services</a> instead.</p>
         </div>
-        <figure class="split-vis" style="--img:url('/images/monogram-projector-gobo-dallas-poster-5b6db8.jpg')">
-          <figcaption>White CR wedding monogram projected above the head table at a DFW wedding reception.<span class="slot">cr-wedding-monogram-above-head-table-dfw.jpg</span></figcaption>
+        <figure class="split-vis">
+          <img src="/images/monogram-projector-gobo-dallas-poster-5b6db8.jpg" alt="A white monogram projected on the wall behind a round table set for a reception" loading="lazy" width="787" height="1400">
+          <figcaption>White CR wedding monogram projected above the head table at a DFW wedding reception.</figcaption>
         </figure>
       </div>
       <div class="vidrow" data-reveal>

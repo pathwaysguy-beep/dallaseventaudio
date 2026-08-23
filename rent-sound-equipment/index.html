@@ -654,6 +654,16 @@ a.chip::after{ content:' \2192'; opacity:.55; }
   }
 .wrap p a:not(.chip):not(.btn-primary):not(.btn-secondary):hover,
   .addon a:not(.chip):hover{ color:var(--a2); text-decoration-color:var(--a2); }
+
+  /* Photo panels carry a real image element so the picture has alt text and
+     can be indexed. The panel keeps its own background gradient underneath,
+     which is what still shows in a slot with no photograph yet.
+     Do not write literal tag syntax in this comment: the build scripts read the
+     file as text and count tags. */
+  .split-vis img, .slide img{
+    position:absolute; inset:0; display:block;
+    width:100%; height:100%; object-fit:cover;
+  }
 </style>
 
   <script type="application/ld+json">
@@ -1153,8 +1163,8 @@ body.nav-locked{ overflow:hidden; }
             <a class="chip" href="/our-work">See past events</a>
           </div>
         </div>
-        <div class="split-vis" style="--img:url('/images/sound-equipment-rental/sound-equipment-rental-dallas-system.jpg')">
-          <span class="slot">/images/sound-equipment-rental/sound-equipment-rental-dallas-system.jpg</span>
+        <div class="split-vis">
+          <img src="/images/sound-equipment-rental/sound-equipment-rental-dallas-system.jpg" alt="A speaker top on a pole above a dual eighteen inch subwoofer against a gray wall" loading="lazy" width="1200" height="1800">
         </div>
       </div>
     </div>
@@ -1395,8 +1405,8 @@ body.nav-locked{ overflow:hidden; }
             <a class="chip" href="/rave-and-night-club-events">Club &amp; rave production</a>
           </div>
         </div>
-        <div class="split-vis" style="--img:url('/images/sound-equipment-rental/dj-equipment-rental-dallas.jpg')">
-          <span class="slot">/images/sound-equipment-rental/dj-equipment-rental-dallas.jpg</span>
+        <div class="split-vis">
+          <img src="/images/sound-equipment-rental/dj-equipment-rental-dallas.jpg" alt="A close view of a DJ mixer and jog wheel with the channel lights on" loading="lazy" width="1600" height="1200">
         </div>
       </div>
     </div>

@@ -677,6 +677,16 @@ a.chip::after{ content:' \2192'; opacity:.55; }
       font-family:var(--font-display); font-weight:900; font-size:.66rem;
       letter-spacing:.16em; text-transform:uppercase; color:var(--a1); flex:0 0 auto;
     }
+
+  /* Photo panels carry a real image element so the picture has alt text and
+     can be indexed. The panel keeps its own background gradient underneath,
+     which is what still shows in a slot with no photograph yet.
+     Do not write literal tag syntax in this comment: the build scripts read the
+     file as text and count tags. */
+  .split-vis img, .slide img{
+    position:absolute; inset:0; display:block;
+    width:100%; height:100%; object-fit:cover;
+  }
 </style>
 
   <script type="application/ld+json">
@@ -1606,8 +1616,8 @@ body.nav-locked{ overflow:hidden; }
             <a class="chip" href="/monogram-projector">Monogram projection</a>
           </div>
         </div>
-        <div class="split-vis" style="--img:url('/images/equipment-list/projector-and-screen-rental-dallas-ballroom.jpg')">
-          <span class="slot">/images/equipment-list/projector-and-screen-rental-dallas-ballroom.jpg</span>
+        <div class="split-vis">
+          <img src="/images/equipment-list/projector-and-screen-rental-dallas-ballroom.jpg" alt="Two projection screens either side of a banquet room set with round tables" loading="lazy" width="1200" height="900">
         </div>
       </div>
     </div>

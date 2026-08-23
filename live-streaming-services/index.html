@@ -677,6 +677,16 @@ a.chip::after{ content:' \2192'; opacity:.55; }
     .vid-lead{ aspect-ratio:9/16; max-width:460px; margin-left:auto; margin-right:auto; border-radius:14px; }
   }
   @media (prefers-reduced-motion: reduce){ .vid-lead .vid{ display:none; } }
+
+  /* Photo panels carry a real image element so the picture has alt text and
+     can be indexed. The panel keeps its own background gradient underneath,
+     which is what still shows in a slot with no photograph yet.
+     Do not write literal tag syntax in this comment: the build scripts read the
+     file as text and count tags. */
+  .split-vis img, .slide img{
+    position:absolute; inset:0; display:block;
+    width:100%; height:100%; object-fit:cover;
+  }
 </style>
 
   <script type="application/ld+json">
@@ -1173,8 +1183,8 @@ body.nav-locked{ overflow:hidden; }
             <a class="chip" href="/services-photo-and-video">Photo &amp; video</a>
           </div>
         </div>
-        <div class="split-vis" style="--img:url('/images/live-streaming/live-streaming-services-dallas-multicamera.jpg')">
-          <span class="slot">/images/live-streaming/live-streaming-services-dallas-multicamera.jpg</span>
+        <div class="split-vis">
+          <img src="/images/live-streaming/live-streaming-services-dallas-multicamera.jpg" alt="A video camera on a tripod with its operator, covering an outdoor event with a seated audience behind" loading="lazy" width="1200" height="900">
         </div>
       </div>
     </div>
