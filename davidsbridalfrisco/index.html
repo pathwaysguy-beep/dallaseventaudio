@@ -1,0 +1,374 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dancing on the Clouds for David's Bridal Frisco brides</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- GA4. Reports into the same property as the rest of the site
+     (G-5SVH2Y4BDS) and stamps the flyer campaign, because the printed
+     QR carries no UTM. Hostname guarded, same as every other page. -->
+<script>
+/* Same guard as the rest of the site: nothing fires anywhere except the
+   production domain, so the preview and every headless run stay silent.
+   window.gtag is defined either way, because the tap and scroll tracking
+   further down calls it and would stop working if it vanished.
+
+   The campaign stamping is the reason this block is per page rather than
+   shared. The QR printed on the David's Bridal bags carries no UTM, so this
+   is the only thing that separates a bride who scanned a flyer from ordinary
+   direct traffic. */
+(function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+  window.gtag = gtag;
+  if (PROD.indexOf(location.hostname) === -1) return;
+
+  var t = document.createElement('script');
+  t.async = true;
+  t.src = 'https://www.googletagmanager.com/gtag/js?id=G-5SVH2Y4BDS';
+  document.head.appendChild(t);
+
+  gtag('js', new Date());
+  gtag('config', 'G-5SVH2Y4BDS', {
+    page_title: "David's Bridal Frisco - Dancing on the Clouds",
+    page_location: 'https://www.dallaseventaudio.com/davidsbridalfrisco',
+    page_path: '/davidsbridalfrisco',
+    campaign_source: 'davidsbridal',
+    campaign_medium: 'flyer',
+    campaign_name: 'davids_bridal_frisco_bags'
+  });
+})();
+</script>
+<style>
+:root{--navy:#0b1022;--ink:#05070f;--ivory:#f6f1e7;--muted:#c8cede;--gold:#e0bd77;--blue:#4db4ff;
+--i-hero:url('/images/davidsbridalfrisco/hero-first-dance-clouds.jpg');--i-bl:url('/images/davidsbridalfrisco/hero-blur.jpg');--i-c2:url('/images/davidsbridalfrisco/clouds-dance-floor.jpg');--i-logo:url('/images/davidsbridalfrisco/dea-logo.png');
+--g:#3bd23b;--y:#ffd23b;--o:#ff8c1a;--r:#ff2d2d;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Montserrat',sans-serif;background:var(--ink);color:var(--ivory);line-height:1.6;overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+.serif{font-family:'Playfair Display',serif;}
+.spectrum{height:4px;width:100%;background:linear-gradient(90deg,var(--g),var(--y) 42%,var(--o) 72%,var(--r));}
+.todo{color:#ff8c1a;font-weight:700;}
+header{position:sticky;top:0;z-index:50;background:rgba(6,8,16,.82);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08);}
+.hbar{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;max-width:1080px;margin:0 auto;}
+.logo{height:40px;width:150px;background:var(--i-logo) left center/contain no-repeat;}
+.logo.f{height:44px;width:165px;}
+.hcta{display:flex;gap:10px;align-items:center;}
+.btn{display:inline-block;padding:12px 22px;border-radius:40px;font-weight:700;font-size:14px;cursor:pointer;transition:transform .15s,border-color .2s,color .2s;border:none;-webkit-tap-highlight-color:rgba(77,180,255,.35);touch-action:manipulation;}
+.btn:active{transform:scale(.96);}
+.btn-gold{background:linear-gradient(180deg,#f3e4c0,#e0bd77);color:#2a2005;box-shadow:0 8px 22px rgba(224,189,119,.28);}
+.btn-gold:hover{transform:translateY(-2px);}
+.btn-ghost{background:transparent;border:1.5px solid rgba(255,255,255,.4);color:#fff;}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue);}
+.btn-blue{background:linear-gradient(180deg,#5cbcff,#2f8fe6);color:#04121f;box-shadow:0 8px 22px rgba(77,180,255,.3);}
+.hbar .btn{padding:10px 18px;font-size:13px;}
+@media(max-width:640px){.hbar .hcta .btn-ghost{display:none;}.logo{height:32px;width:120px;}.cta-row{flex-direction:column;gap:12px;align-items:stretch;margin-bottom:6px;}.cta-row .btn{width:100%;padding:16px 20px;font-size:16px;}.hbar .btn{padding:12px 18px;font-size:14px;}}
+.hero{position:relative;height:720px;display:flex;align-items:flex-end;overflow:hidden;background:#05070f;}
+@media(max-width:640px){.hero{height:580px;}}
+.hero-bl{position:absolute;inset:0;background:var(--i-bl) center/cover;filter:brightness(.42);transform:scale(1.15);}
+.hero-ph{position:absolute;inset:0;background:var(--i-hero) center 36%/cover no-repeat;}
+@media(max-width:640px){.hero-ph{background-position:center 30%;}}
+.hero-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.hero-sc{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,7,15,.5),rgba(5,7,15,0) 24%,rgba(5,7,15,0) 46%,rgba(5,7,15,.62) 76%,#05070f 100%),radial-gradient(60% 40% at 50% 88%,rgba(53,167,255,.22),transparent 70%);}
+.hero-in{position:relative;z-index:2;padding:0 24px 56px;max-width:1080px;margin:0 auto;width:100%;text-align:center;}
+.badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(180deg,#fff,#f1e6c9);color:#2a2005;font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;padding:8px 16px;border-radius:40px;border:1px solid var(--gold);}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(40px,7vw,74px);line-height:1.0;font-weight:600;margin:18px 0 8px;text-shadow:0 4px 24px rgba(0,0,0,.5);}
+.hero h1 i{color:var(--gold);}
+.hero p.sub{font-size:clamp(15px,2.2vw,20px);color:#e7ecf7;max-width:660px;margin:0 auto 24px;}
+.hero p.sub b{color:#fff;}
+.cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.offerbar{background:linear-gradient(90deg,rgba(224,189,119,.16),rgba(77,180,255,.14));border-top:1px solid rgba(224,189,119,.35);border-bottom:1px solid rgba(224,189,119,.35);}
+.offerbar .in{padding:16px 24px;text-align:center;font-size:clamp(15px,2.4vw,19px);}
+.offerbar b{color:var(--gold);}
+section{padding:70px 0;}
+section.tight{padding:52px 0;}
+.eyebrow{text-align:center;color:var(--gold);letter-spacing:.34em;text-transform:uppercase;font-size:12px;font-weight:600;margin-bottom:10px;}
+h2.title{font-family:'Playfair Display',serif;text-align:center;font-size:clamp(28px,4.5vw,42px);font-weight:600;line-height:1.08;margin-bottom:14px;}
+.lead{text-align:center;color:var(--muted);max-width:680px;margin:0 auto 40px;font-size:16px;}
+.lead b{color:#fff;}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+@media(max-width:820px){.steps{grid-template-columns:1fr;gap:16px;}}
+.step{background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:26px 24px;}
+.step .n{font-family:'Playfair Display',serif;font-size:15px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:10px;}
+.step h3{font-family:'Playfair Display',serif;font-size:21px;font-weight:600;margin-bottom:8px;line-height:1.2;}
+.step p{color:var(--muted);font-size:15px;}
+.tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch;}
+@media(max-width:900px){.tiers{grid-template-columns:1fr;}}
+.tier{position:relative;display:flex;flex-direction:column;background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:30px 26px 26px;}
+.tier.pop{border-color:rgba(224,189,119,.6);box-shadow:0 14px 40px rgba(224,189,119,.13);}
+.tier .flag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(180deg,#f3e4c0,#e0bd77);color:#2a2005;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 14px;border-radius:40px;white-space:nowrap;}
+.tier h3{font-family:'Playfair Display',serif;font-size:26px;font-weight:600;line-height:1.15;margin-bottom:4px;}
+.tier .mach{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:16px;}
+.tier .price{font-family:'Playfair Display',serif;font-size:34px;color:var(--gold);line-height:1;margin-bottom:4px;}
+.tier .price small{font-family:'Montserrat',sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px;font-weight:600;}
+.tier .load{font-size:13.5px;color:#fff;font-weight:600;letter-spacing:.02em;padding-top:10px;}
+.tier .load u{text-decoration:none;color:var(--muted);font-weight:500;}
+.meter{height:7px;border-radius:6px;background:rgba(255,255,255,.09);overflow:hidden;margin:8px 0 14px;border-bottom:0;}
+.meter i{display:block;height:100%;width:var(--fill,50%);background:linear-gradient(90deg,#2f8fe6,#a9e2ff);border-radius:6px;}
+.meter.inf i{width:100%;background:linear-gradient(90deg,#2f8fe6,#a9e2ff 60%,var(--gold));}
+.tier .rule{border-bottom:1px solid rgba(255,255,255,.1);margin-bottom:14px;}
+.tier p{color:var(--muted);font-size:14.5px;flex:1;}
+.tier .best{margin-top:16px;font-size:13px;color:var(--gold);font-weight:600;letter-spacing:.02em;}
+.tiernote{text-align:center;color:var(--muted);font-size:14px;margin-top:26px;}
+.tiernote b{color:#fff;}
+.why{background:linear-gradient(180deg,#0a1024,#070a16);border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:14px;}
+@media(max-width:720px){.why-grid{grid-template-columns:1fr;}}
+.why-card{text-align:center;padding:26px 20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:14px;}
+.why-card .big{font-family:'Playfair Display',serif;font-size:34px;color:var(--gold);line-height:1;margin-bottom:8px;}
+.why-card h4{font-size:16px;margin-bottom:6px;}
+.why-card p{color:var(--muted);font-size:14.5px;}
+.awline{text-align:center;color:var(--muted);font-size:13px;margin-top:22px;letter-spacing:.02em;}
+.awline b{color:var(--gold);}
+.gal{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+@media(max-width:720px){.gal{grid-template-columns:1fr;gap:12px;}}
+.gal div{padding-top:118%;background-size:cover;background-position:center;border-radius:12px;border:1px solid rgba(255,255,255,.08);}
+.galnote{text-align:center;color:#8d95a9;font-size:13px;margin-top:16px;letter-spacing:.02em;}
+.faq{max-width:820px;margin:0 auto;}
+.qa{border-bottom:1px solid rgba(255,255,255,.1);padding:20px 0;}
+.qa:first-child{border-top:1px solid rgba(255,255,255,.1);}
+.qa h4{font-family:'Playfair Display',serif;font-size:20px;font-weight:600;margin-bottom:7px;color:#fff;}
+.qa p{color:var(--muted);font-size:15px;}
+.qa p b{color:#fff;}
+.also{text-align:center;max-width:760px;margin:0 auto;}
+.also .hd{font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:12px;}
+.also p{color:var(--muted);font-size:16px;}
+.also p b{color:#fff;}
+.reviews{text-align:center;}
+.stars{color:var(--gold);font-size:26px;letter-spacing:.18em;}
+.rev-src{color:var(--muted);margin-top:8px;font-size:15px;}
+.rev-src b{color:#fff;}
+.final{position:relative;text-align:center;background:radial-gradient(70% 90% at 50% 0%,rgba(77,180,255,.16),transparent 60%),linear-gradient(180deg,#0b1022,#05070f);}
+.final h2{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,44px);font-weight:600;margin-bottom:12px;}
+.final p{color:var(--muted);max-width:600px;margin:0 auto 24px;font-size:17px;}
+.final p b{color:#fff;}
+.phone{font-family:'Playfair Display',serif;font-size:clamp(26px,5vw,40px);color:var(--blue);font-weight:600;display:inline-block;margin-bottom:18px;}
+.formhint{margin-top:26px;font-size:15px;color:var(--gold);font-weight:600;letter-spacing:.02em;}
+footer{background:#04060d;padding:38px 24px;border-top:1px solid rgba(255,255,255,.08);}
+.foot-in{max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between;}
+.foot-links{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:14px;align-items:center;}
+.foot-links a{display:inline-flex;align-items:center;gap:6px;}
+.ig{width:15px;height:15px;color:var(--blue);}
+.foot-note{color:#7f879b;font-size:12px;text-align:center;margin-top:20px;letter-spacing:.04em;}
+</style></head><body>
+<header><div class="hbar"><div class="logo"></div>
+<div class="hcta"><a class="btn btn-gold" href="tel:+18172107957" target="_top">Call / Text</a></div></div></header>
+
+<div class="hero"><div class="hero-bl"></div><div class="hero-ph"></div><div class="hero-sc"></div>
+<div class="hero-in"><span class="badge">&#9733; David's Bridal Frisco Exclusive</span>
+<h1>Your First Dance,<br><i>Above the Clouds</i></h1>
+<p class="sub">A dense white cloud rolls across your dance floor and settles low. <b>You dance on top of it.</b> The photos come out like nothing else in your album.</p>
+<div class="cta-row"><a class="btn btn-gold" href="tel:+18172107957" target="_top">Call or Text 817-210-7957</a></div></div></div>
+
+<div class="offerbar"><div class="in wrap"><b>FREE Delivery &amp; Setup</b> anywhere in DFW, exclusively for David's Bridal Frisco brides. Just mention David's Bridal when you reach out.</div></div>
+
+<section><div class="wrap"><div class="eyebrow">How it works</div>
+<h2 class="title">Here's exactly how it goes.</h2>
+<p class="lead">This is the whole thing, start to finish, so you know what your day looks like.</p>
+<div class="steps">
+<div class="step"><div class="n">One</div><h3>We set up before you need us</h3><p>We arrive well ahead of your first dance and coordinate the cue with your DJ, band, or coordinator, so everyone knows exactly when the moment comes.</p></div>
+<div class="step"><div class="n">Two</div><h3>On your cue, the cloud rolls out</h3><p>It fills the floor in seconds and sits low, so your faces stay clear and your photographer gets the shot. You're dancing on top of it, not inside it.</p></div>
+<div class="step"><div class="n">Three</div><h3>It clears on its own</h3><p>By the time the song ends, the floor is yours again. <b>We walk it ourselves</b> before your guests come back on, and they're right back out for the next song.</p></div>
+</div>
+</div></section>
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     STEVE: all numbers are live — nothing left in orange.
+     Prices: Nimbus Jr $400 / Nimbus $500 / ADJ Entour Ice $800.
+     Delivery & setup free for David's Bridal Frisco brides; no dollar
+     figure appears anywhere on the page. Ice loads: 8 / 12 / 26.5 lb (ADJ's
+     published spec — change to 30 lb here and in the meter fill if
+     your unit genuinely holds it).
+     Note: no minute counts anywhere — this matches the stance on your
+     main clouds page, which deliberately refuses to quote minutes.
+     Dry ice only. The Chauvet Cumulus is deliberately NOT on this page —
+     continuous fog is not a wedding effect.
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="why tight" id="options"><div class="wrap"><div class="eyebrow">Three ways to do it</div>
+<h2 class="title">Three machines. You pick the size of the moment.</h2>
+<p class="lead">All three are <b>dry ice</b>. The cloud rolls out for your moment, settles low across the floor, and then clears on its own. The difference between them is <b>how much cloud, and how many moments it covers.</b></p>
+<div class="tiers">
+
+<div class="tier"><h3>The First Dance</h3><div class="mach">Ultratec Nimbus Jr</div>
+<div class="price"><small>Starting at</small>$400</div>
+<div class="load">8 lb dry ice <u>&middot; one moment</u></div>
+<div class="meter" style="--fill:30%"><i></i></div><div class="rule"></div>
+<p>Built for one perfect moment. Enough cloud to cover your first dance beautifully, at the friendliest price of the three.</p>
+<div class="best">Best for: the first dance only</div></div>
+
+<div class="tier pop"><div class="flag">Most brides choose this</div><h3>The Full Floor</h3><div class="mach">Ultratec Nimbus</div>
+<div class="price"><small>Starting at</small>$500</div>
+<div class="load">12 lb dry ice <u>&middot; one moment, with margin</u></div>
+<div class="meter" style="--fill:45%"><i></i></div><div class="rule"></div>
+<p>A thicker, wider cloud that covers a full-size dance floor and has room left over if the song runs long or you want it back for one more moment.</p>
+<div class="best">Best for: first dance + a second moment</div></div>
+
+<div class="tier"><h3>The Big Reveal</h3><div class="mach">ADJ Entour Ice</div>
+<div class="price"><small>Starting at</small>$800</div>
+<div class="load">26.5 lb dry ice <u>&middot; several moments, DMX-cued</u></div>
+<div class="meter" style="--fill:100%"><i></i></div><div class="rule"></div>
+<p>The largest dry-ice load we own, and it takes a DMX cue, so the cloud lands on the beat for a grand entrance, the first dance, the father-daughter, the last song.</p>
+<div class="best">Best for: multiple moments through the night</div></div>
+
+</div>
+<div class="tiernote"><b>David's Bridal Frisco brides get delivery &amp; setup free on any of the three, anywhere in DFW.</b> Not sure which one your floor needs? Tell us your venue and the moments you want covered, and we'll tell you straight, including when the least expensive one is the right answer.</div>
+</div></section>
+
+<section><div class="wrap"><div class="eyebrow">Real DFW weddings</div><h2 class="title">This is what it actually looks like.</h2>
+<div class="gal">
+<div style="background-image:var(--i-c2)"></div>
+<div style="background-image:var(--i-hero);background-position:center 25%"></div>
+</div>
+<div class="galnote">Our own photos, from Dallas Event Audio events across the metroplex.</div>
+</div></section>
+
+<section class="why tight"><div class="wrap"><div class="eyebrow">Before you ask</div><h2 class="title">The questions every bride asks.</h2>
+<div class="faq">
+<div class="qa"><h4>Will my venue allow it?</h4><p>Almost always yes, and a lot of DFW venues have already seen us do it. Send us your venue name and we'll tell you within the day. If they need paperwork or a certificate, <b>we handle that conversation for you.</b></p></div>
+<div class="qa"><h4>Is the floor slippery afterward?</h4><p>Your floor stays good to dance on. Here's the honest version: with heavy use it can end up slightly damp, and that's exactly why <b>walking the floor is built into our setup</b>. It happens at every event, before your guests come back on.</p></div>
+<div class="qa"><h4>What about the smoke alarm?</h4><p>A dry ice cloud is chilled water vapor: the same thing you see over a cold drink, just a lot more of it. <b>In twenty years of DFW weddings it has never set an alarm off.</b> We still coordinate with your venue ahead of time and place the machine for the room, because that's how it stays a non-issue.</p></div>
+<div class="qa"><h4>How long does the cloud last?</h4><p>It depends on how hard the machine is run for your room, so instead of a minute count we start from <b>which moments you want covered</b> (just the first dance, or the entrance and the last song too) and match the machine above to that.</p></div>
+<div class="qa"><h4>Do we have to book you as our DJ?</h4><p>No. <b>We're not a DJ.</b> We work alongside whoever you've already hired, and if your DJ, band, or traveling musician needs sound gear, we can supply that too.</p></div>
+</div></div></section>
+
+<section class="tight"><div class="wrap"><div class="also"><div class="hd">Also available for David's Bridal brides</div>
+<p><b>Full-room uplighting</b> &middot; <b>custom monogram projection</b> &middot; <b>ceremony &amp; reception sound</b> &middot; <b>equipment support for your DJ, band, or traveling musician.</b> Mention what you're thinking about on the form below and we'll quote it together.</p>
+</div></div></section>
+
+<section class="why tight"><div class="wrap"><div class="eyebrow">Why Dallas Event Audio</div><h2 class="title">20+ years making it flawless.</h2>
+<div class="why-grid">
+<div class="why-card"><div class="big">20+</div><h4>Years of experience</h4><p>Two decades of lighting and sound engineering, from your first call to your last dance.</p></div>
+<div class="why-card"><div class="big">4.9&#9733;</div><h4>Rated on Google</h4><p>41 Google reviews, plus Yelp, The Knot and WeddingWire. Every one from a real DFW event.</p></div>
+<div class="why-card"><div class="big">3</div><h4>Dry ice machines in-house</h4><p>All three are ours and serviced by us, so we can match the right machine to your floor and the moments you want covered.</p></div>
+</div>
+<div class="awline"><b>The Knot Best of Weddings 2026</b> &middot; Hall of Fame &middot; <b>WeddingWire Couples' Choice</b> 2020&ndash;2024</div></div></section>
+
+<section class="tight"><div class="wrap reviews"><div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+<div class="rev-src"><b>4.9 out of 5 on Google</b> &middot; 41 reviews &middot; also reviewed on Yelp, The Knot &amp; WeddingWire</div></div></section>
+
+<section class="final" id="book"><div class="wrap">
+<span class="badge">FREE Delivery &amp; Setup &middot; David's Bridal Frisco brides</span>
+<h2 style="margin-top:18px">Let's check if your date is open.</h2>
+<p>Mention <b>David's Bridal Frisco</b> and delivery &amp; setup is on us, anywhere in the DFW metroplex. Call or text us, or use the form below.</p>
+<a class="phone" href="tel:+18172107957" target="_top">817-210-7957</a>
+<div class="cta-row"><a class="btn btn-blue" href="tel:+18172107957" target="_top">Call Now</a><a class="btn btn-ghost" href="sms:+18172107957?&body=Hi%20Dallas%20Event%20Audio%21%20I%27m%20a%20David%27s%20Bridal%20Frisco%20bride%20and%20I%27d%20love%20info%20on%20Dancing%20on%20the%20Clouds.%20My%20date%20is%20___" target="_top">Text Us</a></div>
+<div class="formhint">&#8595; &nbsp; Check your date. Fill out the quick form just below &nbsp; &#8595;</div>
+</div></section>
+<div class="spectrum"></div>
+<footer><div class="foot-in"><div class="logo f"></div>
+<div class="foot-links"><a href="tel:+18172107957" target="_top">817-210-7957</a><a href="https://www.dallaseventaudio.com">dallaseventaudio.com</a>
+<a href="https://instagram.com/dallaseventaudio"><svg class="ig" viewBox="0 0 24 24" fill="none"><rect x="2.2" y="2.2" width="19.6" height="19.6" rx="6" stroke="currentColor" stroke-width="2.2"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2.2"/><circle cx="17.6" cy="6.4" r="1.6" fill="currentColor"/></svg>@dallaseventaudio</a>
+<a href="https://instagram.com/dfwweddingdj"><svg class="ig" viewBox="0 0 24 24" fill="none"><rect x="2.2" y="2.2" width="19.6" height="19.6" rx="6" stroke="currentColor" stroke-width="2.2"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2.2"/><circle cx="17.6" cy="6.4" r="1.6" fill="currentColor"/></svg>@dfwweddingdj</a></div></div>
+<div class="foot-note">Proudly serving David's Bridal Frisco brides &middot; Servicing the DFW metroplex</div></footer>
+
+<script>
+/* Hero clip. Silent, looping, and it removes itself if it cannot play,
+   so the photo hero underneath is always the fallback. This is the same
+   dry ice clip the clouds page uses. */
+var CLOUD_VIDEO = "/videos/dancing-on-the-clouds-dry-ice-dallas-b56a24.mp4";
+/* ══════════════════════════════════════════════════════════════════════ */
+(function(){
+  if(!CLOUD_VIDEO) return;
+  var ph = document.querySelector('.hero-ph'); if(!ph) return;
+  var v = document.createElement('video');
+  v.className='hero-vid'; v.src=CLOUD_VIDEO; v.poster='/images/dancing-on-the-clouds-dry-ice-dallas-poster-5b039e.jpg';
+  v.autoplay=true; v.loop=true; v.muted=true; v.defaultMuted=true;
+  v.setAttribute('muted',''); v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline','');
+  v.onerror=function(){ v.remove(); };
+  ph.parentNode.insertBefore(v, ph.nextSibling);
+  var p=v.play(); if(p&&p.catch) p.catch(function(){ v.remove(); });
+})();
+
+/* ══ GA4 EVENT TRACKING ═══════════════════════════════════════════════════
+   Fires on the actions that matter: tapping to call, tapping to text, and
+   how far down the page a bride actually reads. GA4 sends these with
+   navigator.sendBeacon, so the hit survives the tel:/sms: handoff even
+   though that navigation leaves the page immediately.
+   ═════════════════════════════════════════════════════════════════════ */
+(function(){
+  if (typeof gtag !== 'function') return;
+
+  function send(name, params){
+    try { gtag('event', name, params || {}); } catch(e){}
+  }
+
+  /* --- call and text taps, wherever they appear on the page --- */
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href^="tel:"], a[href^="sms:"]');
+    if(!a) return;
+    var isText = a.getAttribute('href').indexOf('sms:') === 0;
+    send(isText ? 'text_tap' : 'call_tap', {
+      event_category: 'contact',
+      event_label: (a.textContent || '').trim().slice(0, 40) || 'phone link',
+      page_section: sectionOf(a),
+      value: 1
+    });
+  }, true);
+
+  /* --- which block of the page the tap came from --- */
+  function sectionOf(el){
+    var s = el.closest && el.closest('section, header, footer');
+    if(!s) return 'unknown';
+    if(s.tagName === 'HEADER') return 'sticky header';
+    if(s.tagName === 'FOOTER') return 'footer';
+    if(s.id) return s.id;
+    if(s.classList.contains('hero')) return 'hero';
+    return 'body';
+  }
+
+  /* --- outbound taps on Instagram and the main site --- */
+  document.addEventListener('click', function(e){
+    var a = e.target.closest && e.target.closest('a[href^="http"]');
+    if(!a) return;
+    send('outbound_click', {
+      event_category: 'outbound',
+      event_label: a.hostname + a.pathname,
+      page_section: sectionOf(a)
+    });
+  }, true);
+
+  /* --- scroll depth, each threshold once per visit --- */
+  var marks = [25, 50, 75, 90], hit = {};
+  function depth(){
+    var d = document.documentElement,
+        max = (d.scrollHeight - window.innerHeight);
+    if(max <= 0) return;
+    var pct = Math.round((window.scrollY / max) * 100);
+    for(var i = 0; i < marks.length; i++){
+      var m = marks[i];
+      if(pct >= m && !hit[m]){
+        hit[m] = 1;
+        send('scroll_depth', { event_category: 'engagement', event_label: m + '%', value: m });
+      }
+    }
+  }
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    if(ticking) return; ticking = true;
+    setTimeout(function(){ depth(); ticking = false; }, 250);
+  }, { passive: true });
+
+  /* --- did she reach the pricing tiers, and the form at the bottom --- */
+  if('IntersectionObserver' in window){
+    var seen = {};
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(!en.isIntersecting) return;
+        var key = en.target.getAttribute('data-ga') || en.target.id;
+        if(seen[key]) return;
+        seen[key] = 1;
+        send('section_view', { event_category: 'engagement', event_label: key });
+        io.unobserve(en.target);
+      });
+    }, { threshold: 0.4 });
+    ['#options', '#book'].forEach(function(sel){
+      var el = document.querySelector(sel);
+      if(el) io.observe(el);
+    });
+  }
+})();
+</script>
+</body></html>

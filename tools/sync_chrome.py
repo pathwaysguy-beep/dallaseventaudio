@@ -254,10 +254,20 @@ def sync(path, write=True):
     return changed, rep
 
 
+# Standalone landing pages. These have their own fonts, their own layout, no
+# site header, footer or palette dock, and their own analytics block carrying
+# campaign attribution that the shared one does not have. Syncing the chrome
+# into them would wreck them, so they are skipped entirely.
+STANDALONE = {
+    'davidsbridalfrisco/index.html',   # printed on David's Bridal Frisco flyers
+}
+
+
 def main():
     check = '--check' in sys.argv
     files = sorted(f for f in glob.glob(SITE + '/**/*.html', recursive=True)
-                   if '/tools/' not in f.replace('\\', '/'))
+                   if '/tools/' not in f.replace('\\', '/')
+                   and os.path.relpath(f, SITE).replace('\\', '/') not in STANDALONE)
     n = 0
     for f in files:
         ch, rep = sync(f, write=not check)

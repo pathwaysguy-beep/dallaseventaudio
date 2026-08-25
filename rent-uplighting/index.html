@@ -758,6 +758,14 @@ input[type=range].mx-vert{ width:22px; height:150px; }
   }
   @media (max-width:1040px){ .gshots{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
   @media (max-width:520px){ .gshots{ grid-template-columns:1fr; } }
+
+  /* Photo panels carry a real image element so the picture has alt text and
+     can be indexed. The panel keeps its gradient underneath for slots with no
+     photograph yet. Do not write literal tag syntax in this comment. */
+  .split-vis img, .slide img{
+    position:absolute; inset:0; display:block;
+    width:100%; height:100%; object-fit:cover;
+  }
 </style>
 
   <script type="application/ld+json">
@@ -1951,8 +1959,8 @@ body.nav-locked{ overflow:hidden; }
             <a class="chip" href="/our-work">See past events</a>
           </div>
         </div>
-        <div class="split-vis" style="--img:url('/images/uplighting/ballroom-uplighting-wide.jpg')">
-          <span class="slot">/images/uplighting/ballroom-uplighting-wide.jpg</span>
+        <div class="split-vis">
+          <img src="/images/uplighting/ballroom-uplighting-wide.jpg" alt="Pink uplighting around a draped reception room with round tables and an open floor" loading="lazy" width="1200" height="900">
         </div>
       </div>
     </div>
@@ -2166,8 +2174,8 @@ body.nav-locked{ overflow:hidden; }
             <span class="chip">Brand-matched color</span>
           </div>
         </div>
-        <div class="split-vis" style="--img:url('/images/uplighting/color-wash-comparison.jpg')">
-          <span class="slot">/images/uplighting/color-wash-comparison.jpg</span>
+        <div class="split-vis">
+          <img src="/images/uplighting/color-wash-comparison.jpg" alt="Two wash colors landing on the same stairwell wall, magenta below and warm red above the rail" loading="lazy" width="1536" height="1152">
         </div>
       </div>
     </div>
@@ -2188,8 +2196,8 @@ body.nav-locked{ overflow:hidden; }
             <a class="chip" href="/live-streaming-services">Live streaming</a>
           </div>
         </div>
-        <div class="split-vis" style="--img:url('/images/uplighting/corporate-brand-color-wash.jpg')">
-          <span class="slot">/images/uplighting/corporate-brand-color-wash.jpg</span>
+        <div class="split-vis">
+          <img src="/images/uplighting/corporate-brand-color-wash.jpg" alt="Green and blue uplighting along a room wall with a branded slide on the screen behind the guests" loading="lazy" width="1200" height="900">
         </div>
       </div>
     </div>
@@ -2337,8 +2345,8 @@ body.nav-locked{ overflow:hidden; }
             <a class="chip" href="/rave-and-night-club-events">Clubs &amp; raves</a>
           </div>
         </div>
-        <div class="split-vis" style="--img:url('/images/uplighting/dfw-venue-uplighting.jpg')">
-          <span class="slot">/images/uplighting/dfw-venue-uplighting.jpg</span>
+        <div class="split-vis">
+          <img src="/images/uplighting/dfw-venue-uplighting.jpg" alt="Pink uplighting along the walls of a wooden barn venue with chandeliers and tables set" loading="lazy" width="1200" height="900">
         </div>
       </div>
     </div>

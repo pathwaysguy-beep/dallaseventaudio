@@ -1,7 +1,20 @@
-# Staging only. Keeps the preview out of Google so it cannot compete with the
-# live Wix site for the same URLs. DELETE THIS BLOCK AT GO-LIVE.
+# ─── PERMANENT ────────────────────────────────────────────────────────────
+# The David's Bridal Frisco flyer page. Printed QR destination, not a page we
+# want competing in search. The page also carries a noindex meta tag; this is
+# the belt to that pair of braces, and it must survive the go-live edit below.
+/davidsbridalfrisco
+  X-Robots-Tag: noindex, nofollow
+/davidsbridalfrisco/*
+  X-Robots-Tag: noindex, nofollow
+
+# ─── STAGING ONLY. DELETE THIS BLOCK AT GO-LIVE, AND NOTHING ELSE. ────────
+# Keeps the preview out of Google so it cannot compete with the live Wix site
+# for the same URLs. Delete these three lines only, in the same commit as the
+# DNS switch. Do not replace them with index, follow: indexable is the default
+# and an explicit header ships on every response forever.
 /*
   X-Robots-Tag: noindex, nofollow
+# ─────────────────────────────────────────────────────────────────────────
 
 /fonts/*
   Cache-Control: public, max-age=31536000, immutable
@@ -9,5 +22,11 @@
 /images/*
   Cache-Control: public, max-age=31536000, immutable
 
-/*.html
+/videos/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Pages are served at extensionless directory URLs like /rent-uplighting/, so
+# the old /*.html pattern never matched and HTML fell through to the default.
+# A returning visitor could be served a stale page after a push.
+/*
   Cache-Control: public, max-age=0, must-revalidate
