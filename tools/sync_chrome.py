@@ -39,12 +39,18 @@ PALETTE = io.open(SRC + '/palette.html',      encoding='utf-8').read().rstrip()
 CSS     = io.open(SRC + '/chrome.css',        encoding='utf-8').read().rstrip()
 PALJS   = io.open(SRC + '/palette_js.html',   encoding='utf-8').read().rstrip()
 NAVJS   = io.open(SRC + '/navdrawer_js.html', encoding='utf-8').read().rstrip()
+ANALYT  = io.open(SRC + '/analytics.html',    encoding='utf-8').read().rstrip()
 
 MARK_CSS = '<!-- chrome-sync:css -->'
 MARK_JS  = '<!-- chrome-sync:js -->'
+MARK_AN  = '<!-- chrome-sync:analytics -->'
 
 STYLE_BLOCK = MARK_CSS + '\n<style>\n' + CSS + '\n</style>\n'
 JS_BLOCK    = MARK_JS + '\n' + PALJS + '\n' + NAVJS + '\n'
+# Analytics goes in <head>, not with the other scripts before </body>: the
+# per-page conversion events on /contact and /thank-you sit in the body and call
+# gtag, so gtag has to exist before them or those events silently stop firing.
+AN_BLOCK    = MARK_AN + '\n' + ANALYT + '\n'
 
 # Selectors that are the page's own stale copy of the shared chrome.
 CHROME_SEL = re.compile(
@@ -200,8 +206,19 @@ def sync(path, write=True):
     s, rep['old_header']  = drop_element(s, r'<header\b', 'header')
     s, rep['old_js']      = drop_scripts(
         s, ['navBurger', 'paletteBar', "getElementById('palToggle')"])
+    # the page's own copy of the tag: the loader and the config block only.
+    # Never the per-page conversion events, which contain gtag('event', ...)
+    # and are the reason the Ads numbers move.
+    s, rep['old_analytics'] = drop_scripts(
+        s, ['googletagmanager.com/gtag/js', "gtag('js', new Date())"])
     # previously injected blocks, so a re-run replaces rather than stacks
     s = re.sub(re.escape(MARK_CSS) + r'\s*<style>.*?</style>\s*', '', s, flags=re.S)
+    # drop_scripts above has already eaten the analytics <script>, because it
+    # matches the loader needle, so the marker is usually orphaned by the time
+    # we get here. Clear the marker unconditionally or a re-run stacks a second
+    # one and the assertion below fires.
+    s = re.sub(re.escape(MARK_AN) + r'\s*<script>.*?</script>\s*', '', s, flags=re.S)
+    s = s.replace(MARK_AN, '')
     s = s.replace(MARK_JS, '')
     s = strip_chrome_css(s, rep['css_rules_dropped'])
     # removals leave orphaned blank lines; collapse so re-running converges
@@ -212,13 +229,15 @@ def sync(path, write=True):
 
     # --- 2. insert the canonical chrome -----------------------------------
     assert '</head>' in s and '</body>' in s, path
-    s = s.replace('</head>', STYLE_BLOCK + '</head>', 1)
+    s = s.replace('</head>', AN_BLOCK + STYLE_BLOCK + '</head>', 1)
     _, at = body_open(s, path)
     s = s[:at] + '\n\n  ' + PALETTE + '\n\n  ' + HEADER + '\n\n  ' + DRAWER + '\n' + s[at:]
     s = s.replace('</body>', JS_BLOCK + '</body>', 1)
 
     # --- 3. sanity --------------------------------------------------------
-    for tok, want in [('id="navBurger"', 1), ('id="navDrawer"', 1),
+    for tok, want in [(MARK_AN, 1), ('G-5SVH2Y4BDS', 1), ('AW-966108887', 1),
+                      ('googletagmanager.com/gtag/js', 1),
+                      ('id="navBurger"', 1), ('id="navDrawer"', 1),
                       ('id="paletteBar"', 1), ('<header>', 1), ('</header>', 1),
                       ('class="pal-toggle"', 1), (MARK_CSS, 1), (MARK_JS, 1)]:
         got = s.count(tok)
@@ -243,10 +262,11 @@ def main():
     for f in files:
         ch, rep = sync(f, write=not check)
         n += ch
-        print('%-6s %-58s palette-%d drawer-%d header-%d js-%d css-%d' % (
+        print('%-6s %-56s palette-%d drawer-%d header-%d js-%d an-%d css-%d' % (
             'DRIFT' if (ch and check) else ('EDIT' if ch else 'same'),
             os.path.relpath(f, SITE), rep['old_palette'], rep['old_drawer'],
-            rep['old_header'], rep['old_js'], len(rep['css_rules_dropped'])))
+            rep['old_header'], rep['old_js'], rep['old_analytics'],
+            len(rep['css_rules_dropped'])))
     print('\n%d of %d files %s' % (n, len(files), 'drifted' if check else 'changed'))
     if check and n:
         sys.exit(1)

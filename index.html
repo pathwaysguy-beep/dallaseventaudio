@@ -407,6 +407,57 @@ html{ scroll-behavior:auto; }
 .faq-item .ans a:hover{ color:var(--a2); text-decoration-color:var(--a2); }
 </style>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What areas do you serve?", "acceptedAnswer": {"@type": "Answer", "text": "We cover the whole Dallas-Fort Worth Metroplex: Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Southlake, Grapevine, McKinney, Denton, Richardson and the mid-cities, roughly forty miles out from our base in Hurst. Further out is usually still possible; ask us with the venue address and we will tell you straight away."}}, {"@type": "Question", "name": "What is included in a DJ booking?", "acceptedAnswer": {"@type": "Answer", "text": "The DJ, the sound system, the microphones and the dance-floor lighting, delivered, set up, line-checked and run by our technician from load-in to breakdown. You are not renting a person and then sourcing the gear separately. The detail is on the DJ services page."}}, {"@type": "Question", "name": "Do you rent equipment without a DJ?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. If you have already hired your DJ, or the host is running the music themselves, we supply the rig on its own: media players, mixer, controller, DJ booth, speakers and subwoofers. It still arrives delivered, built and line-checked by our technician rather than handed over at a counter. See DJ equipment rental ."}}, {"@type": "Question", "name": "Do you offer DJ equipment rental in Dallas?", "acceptedAnswer": {"@type": "Answer", "text": "We do, across the whole Metroplex. DJ equipment rental with us means the gear is delivered, set up, tested and staffed. Our crew brings it in, rigs it and stays with it. Full list of what you can rent is on the DJ equipment rental page, and the wider audio inventory is on sound equipment rental ."}}, {"@type": "Question", "name": "How far in advance should I book?", "acceptedAnswer": {"@type": "Answer", "text": "Peak Saturdays in spring and autumn go early, so six to nine months out is comfortable for a wedding and three months for most corporate dates. That said, we keep inventory for short notice more often than people expect, so if your date is close, ask anyway."}}, {"@type": "Question", "name": "Do you provide lighting and uplighting separately?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Uplighting , dance-floor and stage lighting, monograms, pin spots and lasers can be booked on their own or added to an audio booking, which is the more common route because it means one crew and one load-in. The hub is lighting services ."}}, {"@type": "Question", "name": "What is Dancing on the Clouds?", "acceptedAnswer": {"@type": "Answer", "text": "A low-lying fog effect for a first dance or a grand entrance. The fog sits at ankle height instead of filling the room, so the couple appears to be standing on a cloud and the photographs come out beautifully. Details on the Dancing on the Clouds page."}}, {"@type": "Question", "name": "How do I get a quote?", "acceptedAnswer": {"@type": "Answer", "text": "Tell us the date, the venue and roughly how many guests, and we will come back with a straightforward quote. Tell us about your event and we'll send you a straightforward quote the same day. Contact us here or call 817-210-7957."}}, {"@type": "Question", "name": "What does AV equipment rental include?", "acceptedAnswer": {"@type": "Answer", "text": "Delivery, setup, a line check, an insured AV technician on site for the whole event, and breakdown at the end. An AV rental from us is sound, lighting, projection and effects specified as one system rather than as separate line items, and the same technician who sets it up is the one running it when your first speaker walks up. Start on the sound equipment rental page and we will fill in the rest around your room."}}, {"@type": "Question", "name": "Do you handle AV for corporate events and conferences?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Conferences, general sessions, awards nights, panels, product launches and multi-day meetings. That usually means a sound system sized to the room, presenter and lapel microphones carrying our De-Feedback system, projection and screens bright enough for the actual light in the room, and stage lighting, all from one crew and one load-in. The corporate events page has the detail."}}]}</script>
+
+<!-- chrome-sync:analytics -->
+<script>
+/* Google Analytics 4 and Google Ads, for the whole site, from one file.
+
+   Before this, the tags lived inline on /contact and /thank-you only. 37 pages
+   had no GA4 at all, so landing page attribution did not exist, and the Google
+   Ads conversion is a GA4 import which means the number the bidding runs on was
+   built from two pages.
+
+   Two things are deliberate here.
+
+   The hostname guard fires nothing anywhere except the production domain. The
+   pages.dev preview, a local file, and every headless QA run are all silent.
+   Without it, putting the tag on 41 pages would multiply the preview traffic
+   already polluting the property by roughly twenty.
+
+   window.gtag is defined even when the guard blocks, because the page specific
+   conversion events on /contact and /thank-you call it. They check
+   typeof gtag === 'function' and would silently stop working otherwise. With
+   gtag defined, those calls queue into a dataLayer that is never transported,
+   which is exactly the intended no-op off production.
+
+   The loader is appended by script rather than written into the markup, so no
+   request to googletagmanager.com happens off the production domain. Injected
+   into the head by tools/sync_chrome.py, ahead of any body script calling gtag.
+
+   Do not write literal tag syntax in this comment. The build tooling reads the
+   file as text and counts tags, and a mention of one in prose breaks the
+   balance assertions. This is the third time that has bitten. */
+(function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  var GA4 = 'G-5SVH2Y4BDS';
+  var ADS = 'AW-966108887';
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+  window.gtag = gtag;
+
+  if (PROD.indexOf(location.hostname) === -1) return;
+
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4;
+  document.head.appendChild(s);
+
+  gtag('js', new Date());
+  gtag('config', GA4);
+  gtag('config', ADS);
+})();
+</script>
 <!-- chrome-sync:css -->
 <style>
 #paletteBar{

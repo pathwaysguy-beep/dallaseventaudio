@@ -605,6 +605,56 @@ section[id]{ scroll-margin-top:96px; }
   }
   </script>
 
+<!-- chrome-sync:analytics -->
+<script>
+/* Google Analytics 4 and Google Ads, for the whole site, from one file.
+
+   Before this, the tags lived inline on /contact and /thank-you only. 37 pages
+   had no GA4 at all, so landing page attribution did not exist, and the Google
+   Ads conversion is a GA4 import which means the number the bidding runs on was
+   built from two pages.
+
+   Two things are deliberate here.
+
+   The hostname guard fires nothing anywhere except the production domain. The
+   pages.dev preview, a local file, and every headless QA run are all silent.
+   Without it, putting the tag on 41 pages would multiply the preview traffic
+   already polluting the property by roughly twenty.
+
+   window.gtag is defined even when the guard blocks, because the page specific
+   conversion events on /contact and /thank-you call it. They check
+   typeof gtag === 'function' and would silently stop working otherwise. With
+   gtag defined, those calls queue into a dataLayer that is never transported,
+   which is exactly the intended no-op off production.
+
+   The loader is appended by script rather than written into the markup, so no
+   request to googletagmanager.com happens off the production domain. Injected
+   into the head by tools/sync_chrome.py, ahead of any body script calling gtag.
+
+   Do not write literal tag syntax in this comment. The build tooling reads the
+   file as text and counts tags, and a mention of one in prose breaks the
+   balance assertions. This is the third time that has bitten. */
+(function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  var GA4 = 'G-5SVH2Y4BDS';
+  var ADS = 'AW-966108887';
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+  window.gtag = gtag;
+
+  if (PROD.indexOf(location.hostname) === -1) return;
+
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4;
+  document.head.appendChild(s);
+
+  gtag('js', new Date());
+  gtag('config', GA4);
+  gtag('config', ADS);
+})();
+</script>
 <!-- chrome-sync:css -->
 <style>
 #paletteBar{
