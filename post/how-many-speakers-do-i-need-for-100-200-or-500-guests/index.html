@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="signal">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+    --font-display:'Unbounded',sans-serif;
+    --font-body:'Space Grotesk',sans-serif;
+  }
+html[data-palette="signal"]{
+    --bg-0:#050706; --bg-1:#0a0f0c; --bg-2:#0e1512;
+    --ink:#f4f7f5; --dim:#b4c5ba;
+    --a1:#31ff6e; /* LED green */
+    --a2:#fff21c; /* LED yellow */
+    --a3:#ff1f3d; /* LED red */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 55%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(255,255,255,.08);
+    --glow: rgba(49,255,110,.35);
+  }
+html[data-palette="amber"]{
+    --bg-0:#070605; --bg-1:#0d0a06; --bg-2:#120e08;
+    --ink:#f8f3ea; --dim:#c3b7a5;
+    --a1:#e8b75c; /* gold */
+    --a2:#ffdfa0; /* warm white/spot */
+    --a3:#4fa3ff; /* cool counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 50%, var(--a2) 50%, var(--a2) 100%);
+    --card-border: rgba(232,183,92,.16);
+    --glow: rgba(232,183,92,.32);
+  }
+html[data-palette="night"]{
+    --bg-0:#05060b; --bg-1:#090b16; --bg-2:#0c0f1e;
+    --ink:#f1f3fb; --dim:#aeb5cf;
+    --a1:#2f6fff; /* electric blue */
+    --a2:#8b5cf6; /* violet */
+    --a3:#ffb020; /* amber counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 65%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(139,92,246,.16);
+    --glow: rgba(47,111,255,.35);
+  }
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+    background:var(--bg-0);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+a{color:inherit; text-decoration:none;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+.grad-text{
+    background:var(--grad);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+.hero{ position:relative; padding:110px 0 90px; overflow:hidden; }
+.hero::before{
+    content:''; position:absolute; inset:-20% -10% auto -10%; height:600px;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    opacity:.5; filter:blur(40px); pointer-events:none;
+  }
+.hero-grid{
+    position:absolute; left:0; right:0; bottom:-10%; height:70%;
+    perspective:400px; overflow:hidden; pointer-events:none; z-index:0;
+  }
+.hero-grid::before{
+    content:''; position:absolute; inset:-50% -50% 0 -50%;
+    background-image:
+      repeating-linear-gradient(to right, var(--card-border) 0 1px, transparent 1px 68px),
+      repeating-linear-gradient(to top, var(--card-border) 0 1px, transparent 1px 68px);
+    transform:rotateX(62deg);
+    transform-origin:bottom;
+    animation: gridScroll 9s linear infinite;
+    opacity:.55;
+    mask-image:linear-gradient(to top, black 0%, transparent 75%);
+    -webkit-mask-image:linear-gradient(to top, black 0%, transparent 75%);
+  }
+@keyframes gridScroll{ from{ background-position:0 0; } to{ background-position:0 136px; } }
+.hero-lasers{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+.laser{
+    position:absolute; top:-10%; width:2px; height:130%;
+    background:linear-gradient(to bottom, transparent, var(--a1), transparent);
+    opacity:0; filter:blur(.5px);
+    animation: laserSweep 6s ease-in-out infinite;
+  }
+.laser:nth-child(1){ left:8%;  background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:0s; }
+.laser:nth-child(2){ left:32%; background:linear-gradient(to bottom, transparent, var(--a2), transparent); animation-delay:1.6s; transform:rotate(6deg); }
+.laser:nth-child(3){ left:63%; background:linear-gradient(to bottom, transparent, var(--a3), transparent); animation-delay:3.1s; transform:rotate(-8deg); }
+.laser:nth-child(4){ left:85%; background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:4.3s; transform:rotate(4deg); }
+@keyframes laserSweep{
+    0%{ opacity:0; transform:translateX(-10px) rotate(var(--rot,0deg)); }
+    8%{ opacity:.55; }
+    20%{ opacity:0; }
+    100%{ opacity:0; }
+  }
+.hero-fog{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+.fog-blob{
+    position:absolute; width:60%; padding-top:60%; border-radius:50%;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    filter:blur(50px); opacity:.4;
+    animation: fogDrift 18s ease-in-out infinite alternate;
+  }
+.fog-blob.b2{ left:50%; top:20%; animation-duration:24s; animation-delay:-6s; opacity:.28; }
+@keyframes fogDrift{
+    from{ transform:translate(-8%, 0) scale(1); }
+    to{ transform:translate(8%, 6%) scale(1.15); }
+  }
+@media (prefers-reduced-motion: reduce){
+.hero-grid::before, .laser, .fog-blob{ animation:none !important; }
+.laser{ opacity:0; }
+}
+.hero-logo-wrap{ text-align:center; position:relative; z-index:1; margin-bottom:40px; }
+.hero-logo-wrap img{
+    width:min(440px, 78vw); height:auto;
+    filter:drop-shadow(0 0 60px var(--glow));
+  }
+.eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--card-border); border-radius:100px; padding:7px 16px;
+    font-size:0.881rem; color:var(--dim); letter-spacing:.04em; text-transform:uppercase;
+    margin-bottom:28px; position:relative; z-index:1;
+  }
+.eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--a1); box-shadow:0 0 8px var(--a1); }
+.hero h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.6rem, 6vw, 4.6rem); max-width:900px; position:relative; z-index:1;
+  }
+.hero p.sub{
+    font-size:1.15rem; color:var(--dim); max-width:600px; margin-top:26px; position:relative; z-index:1;
+  }
+.hero-ctas{ display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; position:relative; z-index:1; }
+.btn-primary{
+    font-weight:700; padding:16px 30px; border-radius:100px; background:var(--grad); color:#0a0a0a; font-size:1.073rem;
+  }
+.btn-secondary{
+    font-weight:600; padding:16px 30px; border-radius:100px; border:1px solid var(--card-border); color:var(--ink); font-size:1.073rem;
+  }
+.trust-row{
+    display:flex; gap:40px; flex-wrap:wrap; margin-top:64px; padding-top:34px;
+    border-top:1px solid var(--card-border); position:relative; z-index:1;
+  }
+.trust-item .num{ font-family:var(--font-display); font-weight:800; font-size:1.6rem; }
+.trust-item .label{ font-size:0.904rem; color:var(--dim); margin-top:4px; }
+.section{ padding:90px 0; }
+.section-head{ max-width:640px; margin-bottom:52px; }
+.kicker{ font-size:0.881rem; letter-spacing:.08em; text-transform:uppercase; color:var(--a1); font-weight:700; margin-bottom:14px; display:block; }
+.section-head h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.8rem,3.4vw,2.6rem); }
+.section-head p{ color:var(--dim); margin-top:14px; font-size:1.153rem; }
+.service-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; }
+.service-card{
+    background:linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 55%, transparent), color-mix(in srgb, var(--bg-1) 45%, transparent));
+    backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:20px; padding:28px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 8px 30px -18px rgba(0,0,0,.6);
+    transition:.25s; position:relative; overflow:hidden;
+  }
+.service-card:hover{ transform:translateY(-4px); border-color:var(--a1); box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 20px 50px -20px var(--glow); }
+.service-card .icon{
+    width:44px; height:44px; border-radius:12px; margin-bottom:20px;
+    background:var(--grad); display:flex; align-items:center; justify-content:center;
+    font-size:1.2rem;
+  }
+.service-card h3{ font-family:var(--font-display); font-size:1.186rem; font-weight:700; margin-bottom:10px; }
+.service-card p{ font-size:0.994rem; color:var(--dim); margin-bottom:18px; }
+.service-card .learn{ font-size:0.904rem; font-weight:700; color:var(--a1); }
+.service-card.featured{ border-color:var(--a2); }
+.tag-live{ position:absolute; top:20px; right:20px; font-size:0.82rem; text-transform:uppercase; letter-spacing:.06em; color:var(--a2); border:1px solid var(--a2); padding:3px 8px; border-radius:100px; }
+.diff{ background:var(--bg-1); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border); }
+.diff-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+.diff-visual{
+    aspect-ratio:4/3; border-radius:24px; border:1px solid var(--card-border);
+    background:
+      radial-gradient(circle at 30% 20%, var(--glow), transparent 55%),
+      linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 50%, transparent), color-mix(in srgb, var(--bg-0) 40%, transparent));
+    backdrop-filter:blur(22px) saturate(150%); -webkit-backdrop-filter:blur(22px) saturate(150%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 20px 60px -30px rgba(0,0,0,.7);
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+.diff-visual .badge{
+    font-family:var(--font-display); font-weight:800; text-align:center; font-size:1.073rem; color:var(--dim);
+    border:1px dashed var(--card-border); padding:20px; border-radius:16px;
+  }
+.diff-copy h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.7rem,3vw,2.3rem); margin-bottom:20px; }
+.diff-copy p{ color:var(--dim); margin-bottom:16px; font-size:1.13rem; }
+.diff-copy strong{ color:var(--ink); }
+@media (max-width:820px){
+.diff-grid{ grid-template-columns:1fr; }
+}
+.review-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
+.review-card{
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:18px; padding:26px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -20px rgba(0,0,0,.6);
+  }
+.stars{ color:var(--a2); letter-spacing:2px; margin-bottom:14px; font-size:1.017rem; }
+.review-card p{ font-size:1.04rem; color:var(--ink); opacity:.9; margin-bottom:16px; }
+.review-card .who{ font-size:0.904rem; color:var(--dim); font-weight:600; }
+.proof-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:16px; margin-bottom:36px; }
+.proof-badge{
+    display:flex; align-items:center; gap:14px; padding:18px 20px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -22px rgba(0,0,0,.6);
+    transition:.22s;
+  }
+.proof-badge:hover{ border-color:var(--a1); transform:translateY(-3px); box-shadow:0 16px 42px -24px var(--glow); }
+.proof-mark{
+    flex:0 0 42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:1.2rem; letter-spacing:-.02em;
+  }
+.proof-mark.g{ background:#ffffff; color:#4285f4; }
+.proof-mark.y{ background:#d32323; color:#ffffff; }
+.proof-mark.k{ background:#ffffff; color:#0f9aa0; }
+.proof-mark.w{ background:#ffffff; color:#16181d; font-size:.98rem; }
+.proof-meta .rate{
+    font-family:var(--font-display); font-weight:800; font-size:1.22rem; line-height:1.15;
+    display:flex; align-items:baseline; gap:9px;
+  }
+.proof-meta .rate .s{ color:var(--a2); font-size:.92rem; letter-spacing:1px; font-weight:400; }
+.proof-meta .cnt{ font-size:.92rem; color:var(--dim); margin-top:2px; }
+.proof-badge.tbd{ border-style:dashed; border-color:var(--a2); }
+.proof-badge.tbd .rate{ color:var(--a2); }
+.proof-badge.tbd .cnt{ color:var(--a2); opacity:.8; }
+.foot-proof{
+    display:flex; flex-wrap:wrap; align-items:center; gap:12px 26px;
+    margin-top:32px; padding-top:26px; border-top:1px solid var(--card-border);
+  }
+.foot-proof .fp{ display:inline-flex; align-items:center; gap:9px; font-size:.94rem; color:var(--dim); }
+.foot-proof .fp:hover{ color:var(--ink); }
+.foot-proof .fp b{ color:var(--ink); font-weight:700; }
+.foot-proof .fp .s{ color:var(--a2); letter-spacing:1px; }
+.foot-proof .fp .m{
+    width:24px; height:24px; border-radius:7px; display:inline-flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:.76rem;
+  }
+.foot-proof .fp .m.g{ background:#ffffff; color:#4285f4; }
+.foot-proof .fp .m.y{ background:#d32323; color:#ffffff; }
+.foot-proof .fp .m.k{ background:#ffffff; color:#0f9aa0; }
+.foot-proof .fp .m.w{ background:#ffffff; color:#16181d; font-size:.62rem; }
+@media (max-width:820px){
+.foot-proof{ gap:12px 18px; }
+}
+.final-cta{ text-align:center; padding:110px 0; position:relative; }
+.final-cta h2{ font-family:var(--font-display); font-weight:900; font-size:clamp(2rem,5vw,3.2rem); max-width:760px; margin:0 auto 22px; }
+.final-cta p{ color:var(--dim); max-width:520px; margin:0 auto 36px; }
+footer{ border-top:1px solid var(--card-border); padding:50px 0; }
+.foot-grid{ display:grid; grid-template-columns:1.6fr repeat(5,1fr); gap:34px 26px; }
+@media (max-width:1080px){
+.foot-grid{ grid-template-columns:repeat(3,1fr); }
+}
+@media (max-width:620px){
+.foot-grid{ grid-template-columns:repeat(2,1fr); }
+}
+.foot-grid .col.brand{ min-width:210px; }
+@media (max-width:1080px){
+.foot-grid .col.brand{ grid-column:1 / -1; }
+}
+.foot-contact{ margin-top:16px; }
+.foot-contact a{ display:block; margin-bottom:6px; font-size:1rem; color:var(--ink); opacity:.9; }
+.foot-contact a:hover{ color:var(--a1); opacity:1; }
+.foot-area{ font-size:.9rem; color:var(--dim); margin-top:12px; line-height:1.6; }
+.foot-grid .col h4{ font-size:0.904rem; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin-bottom:14px; }
+.foot-grid .col a, .foot-grid .col p{ display:block; font-size:0.972rem; color:var(--ink); opacity:.8; margin-bottom:8px; }
+.foot-bottom{ margin-top:40px; padding-top:24px; border-top:1px solid var(--card-border); font-size:0.881rem; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+#chatBubble{
+    position:fixed; right:22px; bottom:22px; z-index:200;
+    display:flex; align-items:center; gap:8px;
+    padding:14px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    font-weight:700; font-size:0.96rem; box-shadow:0 14px 40px -12px var(--glow);
+    cursor:pointer;
+  }
+[data-reveal]{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+[data-reveal].in{ opacity:1; transform:translateY(0); }
+.grain-overlay{
+    position:fixed; inset:0; z-index:999; pointer-events:none;
+    opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-repeat:repeat;
+  }
+.marquee{
+    border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);
+    background:var(--bg-1); overflow:hidden; padding:18px 0; position:relative;
+  }
+.marquee-track{
+    display:flex; width:max-content; gap:48px;
+    animation:marqueeScroll 32s linear infinite;
+  }
+.marquee-track span{
+    font-family:var(--font-display); font-weight:700; font-size:1.073rem;
+    letter-spacing:.04em; text-transform:uppercase; color:var(--dim);
+    display:flex; align-items:center; gap:48px; white-space:nowrap;
+  }
+.marquee-track span::after{ content:'✦'; color:var(--a1); margin-left:48px; }
+@keyframes marqueeScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+.burst-particle{
+    position:fixed; top:0; left:0; width:6px; height:6px; border-radius:50%;
+    pointer-events:none; z-index:500; will-change:transform,opacity;
+  }
+@media (prefers-reduced-motion: reduce){
+[data-reveal]{ opacity:1; transform:none; transition:none; }
+html{ scroll-behavior:auto; }
+.marquee-track{ animation:none; }
+.grain-overlay{ display:none; }
+}
+</style><title>How Many Speakers Do I Need for 100, 200 or 500 Guests?</title>
+<meta name="description" content="How many speakers you need for 100, 200 or 500 guests in Dallas, plus typical rental costs, coverage tips and what changes outdoors.">
+<link rel="canonical" href="https://www.dallaseventaudio.com/post/how-many-speakers-do-i-need-for-100-200-or-500-guests">
+<meta property="og:title" content="How Many Speakers Do I Need for 100, 200 or 500 Guests?">
+<meta property="og:description" content="How many speakers you need for 100, 200 or 500 guests in Dallas, plus typical rental costs, coverage tips and what changes outdoors.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.dallaseventaudio.com/post/how-many-speakers-do-i-need-for-100-200-or-500-guests">
+<meta property="og:site_name" content="Dallas Event Audio">
+<style>
+  .post-wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  .post-body{font-size:1.06rem;line-height:1.78;color:var(--dim)}
+  .post-body > * + *{margin-top:1.15em}
+  .post-body h2{
+    font-family:var(--font-display);font-weight:800;
+    font-size:clamp(1.35rem,2.6vw,1.85rem);line-height:1.25;
+    color:var(--ink);margin-top:2.1em;letter-spacing:-.01em;
+  }
+  .post-body h3{
+    font-family:var(--font-display);font-weight:700;
+    font-size:clamp(1.08rem,2vw,1.28rem);line-height:1.3;
+    color:var(--ink);margin-top:1.7em;
+  }
+  .post-body h2 + p, .post-body h3 + p{margin-top:.7em}
+  .post-body a{color:var(--a1);text-decoration:none;border-bottom:1px solid rgba(49,255,110,.35)}
+  .post-body a:hover{border-bottom-color:var(--a1)}
+  .post-body ul{margin-left:1.1em;padding:0}
+  .post-body li{margin:.5em 0;padding-left:.35em}
+  .post-body li::marker{color:var(--a1)}
+  .post-body strong{color:var(--ink);font-weight:600}
+  .post-foot{
+    max-width:760px;margin:56px auto 0;padding:26px 24px 0;
+    border-top:1px solid var(--card-border);
+    font-size:.92rem;color:var(--dim);
+  }
+  .post-foot a{color:var(--a1);text-decoration:none}
+  .post-nav{
+    display:flex;gap:14px;flex-wrap:wrap;
+    max-width:760px;margin:0 auto;padding:34px 24px 0;
+  }
+  .blog-grid{
+    display:grid;gap:18px;
+    grid-template-columns:repeat(auto-fill,minmax(310px,1fr));
+  }
+  .blog-card{
+    display:block;padding:24px;border-radius:14px;text-decoration:none;
+    background:var(--bg-2);border:1px solid var(--card-border);
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .blog-card:hover{border-color:rgba(49,255,110,.4);transform:translateY(-2px)}
+  .blog-card .d{
+    font-family:var(--font-display);font-weight:900;font-size:.62rem;
+    letter-spacing:.16em;text-transform:uppercase;color:var(--a1);
+  }
+  .blog-card h3{
+    font-family:var(--font-display);font-weight:700;font-size:1.02rem;
+    line-height:1.35;color:var(--ink);margin:10px 0 8px;
+  }
+  .blog-card p{font-size:.9rem;line-height:1.6;color:var(--dim);margin:0}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "How Many Speakers Do I Need for 100, 200 or 500 Guests?",
+  "description": "How many speakers you need for 100, 200 or 500 guests in Dallas, plus typical rental costs, coverage tips and what changes outdoors.",
+  "url": "https://www.dallaseventaudio.com/post/how-many-speakers-do-i-need-for-100-200-or-500-guests",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.dallaseventaudio.com/post/how-many-speakers-do-i-need-for-100-200-or-500-guests"
+  },
+  "datePublished": "2026-08-19",
+  "dateModified": "2026-08-19",
+  "author": {
+    "@type": "Organization",
+    "name": "Dallas Event Audio",
+    "url": "https://www.dallaseventaudio.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Dallas Event Audio",
+    "url": "https://www.dallaseventaudio.com"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.dallaseventaudio.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://www.dallaseventaudio.com/blog"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "How Many Speakers Do I Need for 100, 200 or 500 Guests?",
+      "item": "https://www.dallaseventaudio.com/post/how-many-speakers-do-i-need-for-100-200-or-500-guests"
+    }
+  ]
+}
+</script>
+<!-- chrome-sync:css -->
+<style>
+#paletteBar{
+    position:fixed; left:20px; bottom:22px; z-index:200;
+    display:flex; flex-direction:column; align-items:flex-start;
+    font-family:var(--font-body);
+  }
+#paletteBar .pal-toggle{
+    display:flex; align-items:center; gap:9px;
+    padding:11px 17px; border-radius:100px;
+    border:1px solid var(--card-border); background:rgba(8,9,10,.82);
+    -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+    color:var(--ink); font-family:var(--font-body); font-size:0.85rem; font-weight:600;
+    cursor:pointer; transition:border-color .2s, background .2s;
+  }
+#paletteBar .pal-toggle:hover{ border-color:var(--a1); background:rgba(8,9,10,.94); }
+#paletteBar .pal-toggle .dots{ display:flex; gap:3px; }
+#paletteBar .pal-toggle .dots i{ width:8px; height:8px; border-radius:50%; display:block; }
+#paletteBar .pal-opts{
+    display:none; flex-direction:column; gap:4px; margin-bottom:10px;
+    padding:10px; border-radius:16px; min-width:222px;
+    border:1px solid var(--card-border); background:rgba(8,9,10,.94);
+    -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px);
+    box-shadow:0 20px 50px -18px rgba(0,0,0,.9);
+  }
+#paletteBar.open .pal-opts{ display:flex; }
+#paletteBar .pal-opts .pal-head{
+    font-family:var(--font-display); font-weight:900; font-size:0.6rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--dim);
+    padding:4px 10px 8px;
+  }
+#paletteBar .pal-opts button{
+    display:flex; align-items:center; gap:10px; text-align:left; width:100%;
+    padding:9px 11px; border-radius:11px; border:1px solid transparent;
+    background:transparent; color:var(--ink);
+    font-family:var(--font-body); font-size:0.87rem; font-weight:500;
+    cursor:pointer; transition:.18s;
+  }
+#paletteBar .pal-opts button:hover{ background:rgba(255,255,255,.06); }
+#paletteBar .pal-opts button.active{ border-color:var(--a1); background:rgba(255,255,255,.05); font-weight:700; }
+#paletteBar .pal-opts button i{
+    width:22px; height:11px; border-radius:100px; flex:0 0 auto;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);
+  }
+#paletteBar .sw-signal{ background:linear-gradient(90deg,#31ff6e,#fff21c 55%,#ff1f3d); }
+#paletteBar .sw-amber { background:linear-gradient(90deg,#e8b75c,#ffdfa0); }
+#paletteBar .sw-night { background:linear-gradient(90deg,#2f6fff,#8b5cf6 65%,#ffb020); }
+@media(max-width:520px){
+  #paletteBar{ left:14px; bottom:16px; }
+  #paletteBar .pal-toggle{ padding:9px 13px; font-size:0.8rem; }
+  #paletteBar .pal-toggle .label{ display:none; }
+  #paletteBar .pal-opts{ min-width:198px; }
+}
+header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(5,6,5,.7); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--card-border);
+  }
+nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1180px; margin:0 auto; }
+.logo{ display:flex; align-items:center; }
+.logo img{
+    display:block; height:46px; width:auto;
+    filter:drop-shadow(0 0 9px rgba(255,255,255,.32)) drop-shadow(0 2px 3px rgba(0,0,0,.65));
+  }
+.col.brand .logo img{ height:38px; }
+@media (max-width:520px){
+  .logo img{ height:34px; }
+}
+.navlinks{ display:flex; align-items:center; gap:2px; font-size:0.994rem; color:var(--dim); }
+.navlinks a:hover{ color:var(--ink); }
+.nl-item{ position:relative; }
+.nl-top{
+    display:flex; align-items:center; gap:6px;
+    padding:10px 13px; border-radius:9px;
+    color:var(--dim); cursor:pointer; white-space:nowrap;
+    transition:color .15s ease, background .15s ease;
+  }
+.nl-top:hover, .nl-item:hover .nl-top, .nl-item:focus-within .nl-top{
+    color:var(--ink); background:rgba(255,255,255,.05);
+  }
+.nl-top:focus-visible{ outline:2px solid var(--a1); outline-offset:2px; }
+.nl-car{ width:10px; height:6px; opacity:.65; transition:transform .18s ease; }
+.nl-item:hover .nl-car, .nl-item:focus-within .nl-car{ transform:rotate(180deg); opacity:1; }
+.nl-menu{
+    position:absolute; top:calc(100% + 8px); left:50%; transform:translateX(-50%) translateY(-6px);
+    min-width:238px; padding:8px;
+    background:var(--bg-1); border:1px solid var(--card-border); border-radius:14px;
+    box-shadow:0 18px 44px rgba(0,0,0,.6), 0 0 0 1px rgba(0,0,0,.35);
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity .16s ease, transform .16s ease, visibility .16s;
+    z-index:120;
+  }
+.nl-menu::before{ content:""; position:absolute; top:-10px; left:0; right:0; height:10px; }
+.nl-item:hover .nl-menu, .nl-item:focus-within .nl-menu{
+    opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0);
+  }
+.nl-menu a{
+    display:block; padding:9px 12px; border-radius:8px;
+    font-size:0.93rem; color:var(--dim); white-space:nowrap;
+    transition:color .13s ease, background .13s ease;
+  }
+.nl-menu a:hover{ color:var(--ink); background:rgba(255,255,255,.06); }
+.nl-solo{ text-decoration:none; }
+.navburger{
+    display:none; width:42px; height:42px; padding:0;
+    background:transparent; border:1px solid var(--card-border); border-radius:11px;
+    cursor:pointer; flex-direction:column; align-items:center; justify-content:center; gap:5px;
+  }
+.navburger span{ display:block; width:19px; height:2px; border-radius:2px; background:var(--ink); }
+.navburger:focus-visible{ outline:2px solid var(--a1); outline-offset:2px; }
+.ndrawer{
+    position:fixed; inset:0; z-index:400;
+    background:var(--bg-0);
+    display:flex; flex-direction:column;
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity .2s ease, visibility .2s;
+    overflow-y:auto; -webkit-overflow-scrolling:touch;
+  }
+.ndrawer.open{ opacity:1; visibility:visible; pointer-events:auto; }
+.nd-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 22px; border-bottom:1px solid var(--card-border);
+    position:sticky; top:0; background:var(--bg-0); z-index:2;
+  }
+.nd-close{
+    position:relative; width:42px; height:42px; padding:0;
+    background:transparent; border:1px solid var(--card-border); border-radius:11px; cursor:pointer;
+  }
+.nd-close span{
+    position:absolute; top:50%; left:50%; width:19px; height:2px; border-radius:2px;
+    background:var(--ink); margin:-1px 0 0 -9.5px;
+  }
+.nd-close span:first-child{ transform:rotate(45deg); }
+.nd-close span:last-child{ transform:rotate(-45deg); }
+.nd-body{ padding:8px 14px 20px; flex:1 0 auto; }
+.nd-sec{ border-bottom:1px solid var(--card-border); }
+.nd-trig{
+    width:100%; display:flex; align-items:center; justify-content:space-between;
+    padding:17px 8px; background:transparent; border:0; cursor:pointer;
+    font-family:var(--font-body); font-size:1.06rem; font-weight:600;
+    color:var(--ink); text-align:left; text-decoration:none;
+  }
+.nd-trig .nl-car{ width:13px; height:8px; transition:transform .2s ease; }
+.nd-sec.open .nd-trig .nl-car{ transform:rotate(180deg); }
+.nd-panel{ display:none; padding:0 8px 14px; }
+.nd-sec.open .nd-panel{ display:block; }
+.nd-panel a{
+    display:block; padding:11px 12px; border-radius:9px;
+    font-size:0.99rem; color:var(--dim);
+  }
+.nd-panel a:hover{ color:var(--ink); background:rgba(255,255,255,.05); }
+.nd-foot{
+    display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
+    padding:20px 22px 34px; border-top:1px solid var(--card-border);
+  }
+.nd-phone{ font-size:1.06rem; font-weight:600; color:var(--ink); }
+body.nav-locked{ overflow:hidden; }
+.navright{ display:flex; align-items:center; gap:18px; }
+.phone{ font-size:0.96rem; color:var(--dim); }
+.cta-btn{
+    font-family:var(--font-body); font-weight:700; font-size:0.96rem;
+    padding:11px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    display:inline-block; white-space:nowrap;
+  }
+@media (max-width:1120px){
+  .navlinks{ gap:0; font-size:0.94rem; }
+  .nl-top{ padding:10px 9px; }
+}
+@media (max-width:980px){
+  header nav .phone{ display:none; }
+}
+@media (max-width:900px){
+  .navlinks{ display:none; }
+  .navburger{ display:flex; }
+  header nav .navright{ gap:12px; }
+}
+@media (min-width:600px){
+  .nd-head, .nd-foot{
+      padding-left:max(22px, calc((100% - 680px)/2));
+      padding-right:max(22px, calc((100% - 680px)/2));
+    }
+  .nd-body{
+      padding-left:max(14px, calc((100% - 700px)/2));
+      padding-right:max(14px, calc((100% - 700px)/2));
+    }
+}
+</style></head>
+<body>
+
+  <div id="paletteBar">
+    <div class="pal-opts" id="palOpts" role="group" aria-label="Color palette">
+      <div class="pal-head">Color palette</div>
+      <button type="button" data-p="signal" class="active" aria-pressed="true"><i class="sw-signal"></i>Signal Chain</button>
+      <button type="button" data-p="amber" aria-pressed="false"><i class="sw-amber"></i>Stage Black &amp; Amber</button>
+      <button type="button" data-p="night" aria-pressed="false"><i class="sw-night"></i>DFW Night Rig</button>
+    </div>
+    <button type="button" class="pal-toggle" id="palToggle" aria-expanded="false" aria-controls="palOpts">
+      <span class="dots"><i style="background:#31ff6e"></i><i style="background:#fff21c"></i><i style="background:#ff1f3d"></i></span>
+      <span class="label">Palette</span>
+    </button>
+  </div>
+
+  <header>
+    <nav>
+      <a class="logo" href="/" style="text-decoration:none;" aria-label="Dallas Event Audio home"><img src="/images/dea-logo.png" alt="Dallas Event Audio" width="326" height="138"></a>
+      <div class="navlinks">
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Events<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/weddings">Weddings</a>
+            <a href="/wedding-av-rental-dallas">Wedding AV Rental</a>
+            <a href="/corporate-events">Corporate Events</a>
+            <a href="/private-events">Private Events</a>
+            <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+            <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+            <a href="/college-school-university-events">College &amp; University</a>
+            <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+          </div>
+        </div>
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Audio<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/services-audio">All Audio Services</a>
+            <a href="/rent-sound-equipment">Sound Equipment Rental</a>
+            <a href="/dj-speaker-rental">DJ &amp; Party Speakers</a>
+            <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+            <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+            <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+            <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+            <a href="/feedback-free-microphone-rentals">Microphone Rental</a>
+          </div>
+        </div>
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Lighting &amp; FX<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/services-lighting">All Lighting Services</a>
+            <a href="/rent-uplighting">Uplighting</a>
+            <a href="/rent-dj-lighting">DJ Lighting</a>
+            <a href="/rent-laser-light-show">Laser Light Show</a>
+            <a href="/rent-follow-spot-light">Follow Spot</a>
+            <a href="/monogram-projector">Monogram Projector</a>
+            <a href="/rent-fog-machine">Fog &amp; Haze</a>
+            <a href="/rent-cold-sparks">Cold Sparks</a>
+            <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+          </div>
+        </div>
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Services<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/services-dj">DJ Services</a>
+            <a href="/services-photo-and-video">Photo &amp; Video</a>
+            <a href="/live-streaming-services">Live Streaming</a>
+            <a href="/projector-screen-rental">Projector &amp; Screen</a>
+            <a href="/services-extra">Special Effects &amp; Extras</a>
+            <a href="/equipment-list">Equipment List</a>
+          </div>
+        </div>
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Our Work<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/our-work">Our Work</a>
+            <a href="/gallery">Photo Gallery</a>
+            <a href="/what-others-are-saying">Reviews</a>
+            <a href="/our-story">Our Story</a>
+            <a href="/blog">Blog</a>
+          </div>
+        </div>
+        <a class="nl-top nl-solo" href="/contact">Contact</a>
+      </div>
+      <div class="navright">
+        <span class="phone">817-210-7957</span>
+        <a class="cta-btn" href="/contact">Get a Quote</a>
+        <button class="navburger" id="navBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="ndrawer" id="navDrawer" aria-hidden="true">
+    <div class="nd-head">
+      <a class="logo" href="/" style="text-decoration:none;" aria-label="Dallas Event Audio home"><img src="/images/dea-logo.png" alt="Dallas Event Audio" width="326" height="138"></a>
+      <button class="nd-close" id="navClose" type="button" aria-label="Close menu"><span></span><span></span></button>
+    </div>
+    <div class="nd-body">
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Events<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/weddings">Weddings</a>
+          <a href="/wedding-av-rental-dallas">Wedding AV Rental</a>
+          <a href="/corporate-events">Corporate Events</a>
+          <a href="/private-events">Private Events</a>
+          <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+          <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+          <a href="/college-school-university-events">College &amp; University</a>
+          <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+        </div>
+      </div>
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Audio<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/services-audio">All Audio Services</a>
+          <a href="/rent-sound-equipment">Sound Equipment Rental</a>
+          <a href="/dj-speaker-rental">DJ &amp; Party Speakers</a>
+          <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+          <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+          <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+          <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+          <a href="/feedback-free-microphone-rentals">Microphone Rental</a>
+        </div>
+      </div>
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Lighting &amp; FX<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/services-lighting">All Lighting Services</a>
+          <a href="/rent-uplighting">Uplighting</a>
+          <a href="/rent-dj-lighting">DJ Lighting</a>
+          <a href="/rent-laser-light-show">Laser Light Show</a>
+          <a href="/rent-follow-spot-light">Follow Spot</a>
+          <a href="/monogram-projector">Monogram Projector</a>
+          <a href="/rent-fog-machine">Fog &amp; Haze</a>
+          <a href="/rent-cold-sparks">Cold Sparks</a>
+          <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+        </div>
+      </div>
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Services<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/services-dj">DJ Services</a>
+          <a href="/services-photo-and-video">Photo &amp; Video</a>
+          <a href="/live-streaming-services">Live Streaming</a>
+          <a href="/projector-screen-rental">Projector &amp; Screen</a>
+          <a href="/services-extra">Special Effects &amp; Extras</a>
+          <a href="/equipment-list">Equipment List</a>
+        </div>
+      </div>
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Our Work<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/our-work">Our Work</a>
+          <a href="/gallery">Photo Gallery</a>
+          <a href="/what-others-are-saying">Reviews</a>
+          <a href="/our-story">Our Story</a>
+          <a href="/blog">Blog</a>
+        </div>
+      </div>
+      <div class="nd-sec"><a class="nd-trig nd-solo" href="/contact">Contact</a></div>
+    </div>
+    <div class="nd-foot">
+      <a class="nd-phone" href="tel:8172107957">817-210-7957</a>
+      <a class="cta-btn" href="/contact">Get a Quote</a>
+    </div>
+  </div>
+<section class="hero hero-page">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="breadcrumb" data-reveal>
+        <a href="/">Home</a><span class="sep">/</span><a href="/blog">Blog</a><span class="sep">/</span><span class="here">How Many Speakers Do I Need for 100, 200 or 500 Guests?</span>
+      </div>
+      <h1 data-reveal>How Many Speakers Do I Need for 100, 200 or 500 Guests?</h1>
+      <p class="sub" data-reveal>How many speakers you need for 100, 200 or 500 guests in Dallas, plus typical rental costs, coverage tips and what changes outdoors.</p>
+      <div class="postmeta" data-reveal>Dallas Event Audio <span class="dot">&middot;</span> Published August 19, 2026</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="post-wrap">
+      <div class="post-body">
+      <p data-reveal>For most Dallas-Fort Worth events, a pair of powered 12 inch or 15 inch speakers on stands covers up to about 150 guests in one room. From roughly 150 to 350 guests you want that same pair plus a subwoofer, or four speakers if the room is long. Above 350 guests, or outdoors, the job moves to a line array with subwoofers and a delay position for the far end of the room.</p>
+      <h2 data-reveal>What decides how many speakers you need?</h2>
+      <p data-reveal>Guest count is the starting point, but the room does most of the work. A 200 person ballroom with a low ceiling and carpet needs less power than a 200 person barn with a metal roof and a concrete floor. Three things set the count: how far the back row sits from the speakers, whether anything blocks the line of sight, and how loud the room needs to get. Dinner and speeches need even coverage at a conversational level. A dance floor needs headroom, which is where the subwoofer comes in.</p>
+      <h2 data-reveal>How many speakers for 100 guests?</h2>
+      <p data-reveal>Two speakers on stands, one on each side of the DJ or the head table. At 100 guests in a typical DFW ballroom the back row sits around 40 feet out, which a pair of 12 inch powered speakers covers with room to spare. Add one small subwoofer if there is dancing. If you are planning a <a href="/weddings">wedding with a separate ceremony space</a>, plan a second small speaker there rather than moving the reception rig mid event.</p>
+      <h2 data-reveal>How many speakers for 200 guests?</h2>
+      <p data-reveal>Two 15 inch tops and one or two subwoofers for a square room. If the room is long and narrow, which describes a lot of DFW event barns and hotel ballrooms, four tops beat two bigger ones: two up front for the dance floor and two on delay down the room, so the far tables hear speeches at the same level as the front tables. Our <a href="/rent-bassboss-subwoofers">BassBoss powered subwoofers</a> carry a 200 guest reception without the top speakers straining, so toasts stay clear once the dancing starts.</p>
+      <h2 data-reveal>How many speakers for 500 guests?</h2>
+      <p data-reveal>At 500 guests a <a href="/rent-line-array-speaker-system">line array speaker system</a> earns the truck space. An array stacks or flies several small elements per side and throws sound evenly from the front row to the back wall, so the first ten tables are not getting blasted to reach table 50. Plan on two arrays plus four to six subwoofers indoors, and a delay position if the room runs longer than about 120 feet. Corporate general sessions at this size also want front fill for the first two rows, which sit below the array coverage.</p>
+      <h2 data-reveal>Do I need a subwoofer?</h2>
+      <p data-reveal>For a wedding reception, a quinceanera or anything with dancing, yes. The tops handle voice and most of the music, and the subwoofer handles everything below about 100 Hz. Leave it out and you either lose the bottom of the music or push the tops past where they sound clean. For a conference with speeches, panels and video playback, a subwoofer is optional. It helps with program video and walk in music and costs little to add.</p>
+      <h2 data-reveal>What does speaker rental cost in Dallas-Fort Worth?</h2>
+      <p data-reveal>Typical DFW market rates: a two speaker system with stands, a mixer and a wireless microphone runs about $300 to $500 delivered and set up. Adding a subwoofer puts most packages in the $450 to $700 range. A 500 guest line array package with subwoofers, delays and an operator typically runs $1,800 to $3,500 depending on the room and the length of the event. Delivery inside the Dallas-Fort Worth metro is usually included, and Rockwall, Waxahachie and points past Southlake sometimes carry a travel line.</p>
+      <h2 data-reveal>What changes for an outdoor event?</h2>
+      <p data-reveal>Outdoors there are no walls to reflect sound back at the audience, so plan on roughly twice the speaker count for the same guest number. A 150 guest outdoor ceremony in Frisco or McKinney wants four speakers rather than two, placed closer to the guests. Wind carries sound away from the seats, so we aim the outer speakers in toward the rows rather than straight down the aisle. Power matters too: one 20 amp household circuit runs a small ceremony rig and nothing else.</p>
+      <h2 data-reveal>FAQ</h2>
+      <h3 data-reveal>Can I just use the venue's built in system?</h3>
+      <p data-reveal>Sometimes. Ceiling systems in DFW hotel ballrooms are built for background music and paging, and they are usually fine for a plated dinner with a couple of toasts. They rarely have the low end for dancing, and the house microphone is often a single wired podium mic. Ask the venue for the input list and which microphones are included before you decide.</p>
+      <h3 data-reveal>How many speakers do I need for a 300 person conference?</h3>
+      <p data-reveal>Two tops per side plus a delay pair if the room is deeper than about 80 feet, and a subwoofer if you are playing video or walk in music. Add a monitor speaker on stage so presenters can hear themselves.</p>
+      <h3 data-reveal>Do the speakers have to go on stands?</h3>
+      <p data-reveal>For anything with an audience seated at tables, yes. On the floor a speaker fires into the backs of the closest guests and never reaches the back of the room. Stands put the driver near ear height for a standing person, which is where the coverage starts.</p>
+      <h3 data-reveal>How far in advance should I book?</h3>
+      <p data-reveal>For Saturday dates from March through June and September through December, six to eight weeks out. Weekday corporate dates are usually available with two weeks notice.</p>
+      <h3 data-reveal>Can you set it up and leave?</h3>
+      <p data-reveal>Yes on <a href="/rent-sound-equipment">sound equipment rentals</a> for smaller events. For anything with speeches, a live band or more than about 200 guests, an operator on site is worth the line item.</p>
+      <h2 data-reveal>Not sure which package fits your room?</h2>
+      <p data-reveal>Tell us your guest count, your venue and whether there is dancing, and we'll send you a straightforward quote the same day. Call 817-210-7957 or <a href="/contact">request a quote</a>.</p>
+      </div>
+      <div class="post-foot" data-reveal>
+        Dallas Event Audio runs sound, lighting, video and special effects across Dallas-Fort Worth, delivered and staffed by our own technicians. <a href="/blog">Read more from the blog</a> or <a href="/contact">tell us about your event</a>.
+      </div>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <div class="wrap">
+      <h2 data-reveal>Tell us what you&rsquo;re planning and we&rsquo;ll tell you what it takes.</h2>
+      <p data-reveal>Your date, your venue and what the room has to do. That is enough for us to give you a straight answer.</p>
+      <div class="hero-ctas" style="justify-content:center" data-reveal>
+        <a class="btn-primary" href="/contact">Get a quote</a>
+        <a class="btn-secondary" href="tel:8172107957">817-210-7957</a>
+      </div>
+      <p data-reveal style="margin-top:26px">Tell us about your event and we will send you a straightforward quote the same day.</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="col brand">
+          <div class="logo"><div class="dial"></div>DEA</div>
+          <p style="margin-top:14px; max-width:250px;">Full-service AV production for Dallas-Fort Worth since 2001. Delivered, set up, and run by our on-site technician.</p>
+          <div class="foot-contact">
+            <a href="tel:8172107957">817-210-7957</a>
+            <a href="mailto:info@dallaseventaudio.com">info@dallaseventaudio.com</a>
+          </div>
+          <p class="foot-area">Serving Dallas, Fort Worth, Southlake, Arlington, Frisco, McKinney, Richardson &amp; the wider Metroplex.</p>
+        </div>
+        <div class="col">
+          <h4>Events</h4>
+          <a href="/weddings">Weddings</a>
+          <a href="/corporate-events">Corporate Events</a>
+          <a href="/private-events">Private Events</a>
+          <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+          <a href="/college-school-university-events">College &amp; University</a>
+          <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+          <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+        </div>
+        <div class="col">
+          <h4>Services</h4>
+          <a href="/services-dj">DJ Services</a>
+          <a href="/services-audio">Audio Services</a>
+          <a href="/services-lighting">Lighting Services</a>
+          <a href="/services-photo-and-video">Photo &amp; Video</a>
+          <a href="/services-extra">Extra Services</a>
+        </div>
+        <div class="col">
+          <h4>Audio Rentals</h4>
+          <a href="/rent-sound-equipment">Sound Equipment</a>
+          <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+          <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+          <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+          <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+          <a href="/live-streaming-services">Live Streaming</a>
+        </div>
+        <div class="col">
+          <h4>Lighting &amp; FX</h4>
+          <a href="/rent-uplighting">Uplighting</a>
+          <a href="/rent-laser-light-show">Laser Light Show</a>
+          <a href="/rent-follow-spot-light">Follow Spot</a>
+          <a href="/monogram-projector">Monogram Projector</a>
+          <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+          <a href="/projector-screen-rental">Projector &amp; Screen</a>
+        </div>
+        <div class="col">
+          <h4>Company</h4>
+          <a href="/our-story">Our Story</a>
+          <a href="/our-work">Our Work</a>
+          <a href="/equipment-list">Equipment List</a>
+          <a href="/sensory-friendly-event-services">Sensory-Friendly Events</a>
+          <a href="/what-others-are-saying">Reviews</a>
+          <a href="/blog">Blog</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div class="foot-proof">
+        <a class="fp" href="https://www.google.com/maps?cid=11213015373496621898" target="_blank" rel="noopener"><span class="m g">G</span> <b>4.9</b> <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span> &middot; 41 Google reviews</a>
+        <a class="fp" href="https://www.yelp.com/biz/dallas-event-audio-dallas" target="_blank" rel="noopener"><span class="m y">Y</span> <b>Yelp</b> &middot; 13 reviews &middot; 134 photos</a>
+      </div>
+      <div class="foot-bottom">
+        <span>&copy; 2026 Dallas Event Audio. Fully insured, on-site AV production.</span>
+        <span>Blog post draft, wedding fog effects</span>
+      </div>
+    </div>
+  </footer><!-- chrome-sync:js -->
+<script>
+  // Palette dock, bottom left
+  (function(){
+    const dock = document.getElementById('paletteBar');
+    const toggle = document.getElementById('palToggle');
+    const opts = Array.prototype.slice.call(document.querySelectorAll('#palOpts button'));
+    if(!dock || !toggle) return;
+
+    function store(v){ try{ window.localStorage.setItem('dea-palette', v); }catch(e){} }
+    function recall(){ try{ return window.localStorage.getItem('dea-palette'); }catch(e){ return null; } }
+
+    function apply(p){
+      document.documentElement.setAttribute('data-palette', p);
+      opts.forEach(b=>{
+        const on = b.dataset.p === p;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+
+    const saved = recall();
+    if(saved && opts.some(b=>b.dataset.p === saved)) apply(saved);
+
+    function open(state){
+      dock.classList.toggle('open', state);
+      toggle.setAttribute('aria-expanded', state ? 'true' : 'false');
+    }
+    toggle.addEventListener('click', e=>{ e.stopPropagation(); open(!dock.classList.contains('open')); });
+    opts.forEach(b=>{
+      b.addEventListener('click', ()=>{ apply(b.dataset.p); store(b.dataset.p); open(false); });
+    });
+    document.addEventListener('click', e=>{ if(!dock.contains(e.target)) open(false); });
+    document.addEventListener('keydown', e=>{ if(e.key === 'Escape') open(false); });
+  })();
+
+  // Scroll reveal
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.15});
+    document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el=>el.classList.add('in'));
+  }
+
+  // CO2 / particle burst on primary CTA click
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function burst(x, y){
+    if(reduceMotion) return;
+    const colors = ['var(--a1)','var(--a2)','var(--a3)','#ffffff'];
+    const count = 26;
+    for(let i=0;i<count;i++){
+      const p = document.createElement('span');
+      p.className = 'burst-particle';
+      const angle = (Math.PI * 2 * i) / count + Math.random()*0.4;
+      const dist = 60 + Math.random()*140;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist - 40;
+      const size = 4 + Math.random()*6;
+      p.style.width = p.style.height = size + 'px';
+      p.style.background = colors[i % colors.length];
+      p.style.boxShadow = '0 0 8px ' + colors[i % colors.length];
+      p.style.left = x + 'px';
+      p.style.top = y + 'px';
+      document.body.appendChild(p);
+      const anim = p.animate([
+        { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
+        { transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.3)`, opacity:0 }
+      ], { duration:700 + Math.random()*400, easing:'cubic-bezier(.2,.7,.3,1)' });
+      anim.onfinish = () => p.remove();
+    }
+  }
+  document.querySelectorAll('.btn-primary').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      burst(e.clientX, e.clientY);
+    });
+  });
+</script>
+<script>
+/* Mobile navigation drawer. Added 5 Aug 2026 - before this, nav links simply
+   vanished below 860px with nothing to replace them. */
+(function(){
+  var burger = document.getElementById('navBurger');
+  var drawer = document.getElementById('navDrawer');
+  var closeb = document.getElementById('navClose');
+  if(!burger || !drawer) return;
+
+  function open(){
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden','false');
+    burger.setAttribute('aria-expanded','true');
+    document.body.classList.add('nav-locked');
+  }
+  function close(){
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden','true');
+    burger.setAttribute('aria-expanded','false');
+    document.body.classList.remove('nav-locked');
+  }
+  burger.addEventListener('click', open);
+  if(closeb) closeb.addEventListener('click', close);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && drawer.classList.contains('open')) close();
+  });
+  drawer.querySelectorAll('a[href]').forEach(function(a){
+    a.addEventListener('click', function(){
+      var h = a.getAttribute('href') || '';
+      if(h.charAt(0) === '#') close();
+    });
+  });
+  drawer.querySelectorAll('.nd-sec > button.nd-trig').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var sec = btn.parentNode;
+      var isOpen = sec.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  });
+
+  /* Desktop dropdowns: hover and focus are handled in CSS. Keyboard users get
+     Enter/Space to pin a menu open, Escape to release it. */
+  document.querySelectorAll('.nl-item > .nl-top').forEach(function(top){
+    top.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        var menu = top.parentNode.querySelector('.nl-menu a');
+        if(menu) menu.focus();
+      }
+    });
+  });
+})();
+</script></body>
+</html>
