@@ -259,6 +259,19 @@ body.nav-locked{ overflow:hidden; }
       padding-right:max(14px, calc((100% - 700px)/2));
     }
 }
+
+/* Image slots waiting on a photo.
+
+   Each empty panel carries a caption naming the file that belongs there, and
+   74 of them were visible to visitors as monospace filenames sitting on top of
+   a placeholder gradient. The caption stays in the markup, because it is the
+   shot list and it belongs next to the panel it describes, but it is not shown.
+
+   The panel itself still renders its gradient, which reads as a design element
+   rather than as a missing image.
+
+   Delete this rule once every slot is filled. */
+.slot{ display:none; }
 </style>
 </head>
 <body>
@@ -427,16 +440,18 @@ body.nav-locked{ overflow:hidden; }
   </div>
 <div class="wrap">
     <span class="k">404</span>
-    <h1>That page isn't here <span>yet.</span></h1>
-    <p>This is the staging build of the new Dallas Event Audio site, so some pages that exist on the live site have not been rebuilt yet.</p>
+    <h1>That page isn't <span>here.</span></h1>
+    <p>You may have followed an old link, or there is a typo in the address. Here is where most people are headed.</p>
     <ul>
       <li><a href="/">Home</a></li>
+      <li><a href="/weddings">Weddings</a></li>
+      <li><a href="/corporate-events">Corporate events</a></li>
       <li><a href="/equipment-list">Equipment list</a></li>
       <li><a href="/our-work">Our work</a></li>
+      <li><a href="/blog">Blog</a></li>
       <li><a href="/contact">Contact</a></li>
     </ul>
-    <p>If you landed here from a real search result, the live site still has the page: call or text <a href="tel:8172107957">817-210-7957</a>.</p>
-    <div class="note">Staging only. Not indexed. Remove this wording before go-live.</div>
+    <p>Still stuck? Call or text <a href="tel:8172107957">817-210-7957</a> and we will point you straight at the right page.</p>
   </div>
 <!-- chrome-sync:js -->
 <script>

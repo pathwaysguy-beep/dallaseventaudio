@@ -1101,6 +1101,19 @@ body.nav-locked{ overflow:hidden; }
       padding-right:max(14px, calc((100% - 700px)/2));
     }
 }
+
+/* Image slots waiting on a photo.
+
+   Each empty panel carries a caption naming the file that belongs there, and
+   74 of them were visible to visitors as monospace filenames sitting on top of
+   a placeholder gradient. The caption stays in the markup, because it is the
+   shot list and it belongs next to the panel it describes, but it is not shown.
+
+   The panel itself still renders its gradient, which reads as a design element
+   rather than as a missing image.
+
+   Delete this rule once every slot is filled. */
+.slot{ display:none; }
 </style>
 </head>
 <body>
