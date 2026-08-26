@@ -25,8 +25,14 @@
 /videos/*
   Cache-Control: public, max-age=31536000, immutable
 
-# Pages are served at extensionless directory URLs like /rent-uplighting/, so
-# the old /*.html pattern never matched and HTML fell through to the default.
-# A returning visitor could be served a stale page after a push.
-/*
-  Cache-Control: public, max-age=0, must-revalidate
+# There is deliberately no catch-all Cache-Control rule here.
+#
+# Cloudflare Pages applies every rule whose pattern matches and joins repeated
+# header names with a comma, rather than letting the most specific rule win. A
+# /* Cache-Control rule is therefore appended to the three rules above, and
+# every asset goes out carrying both values at once. The restrictive one is
+# read first, which silently cancels the immutable year those rules are for.
+#
+# This file has no way to say "everything except these directories", so HTML
+# uses the platform default instead. After any change here, check that an image
+# still reports a single Cache-Control value.
