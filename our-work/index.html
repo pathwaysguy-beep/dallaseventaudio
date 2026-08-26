@@ -271,13 +271,6 @@ footer{ border-top:1px solid var(--card-border); padding:50px 0; }
 .foot-grid .col h4{ font-size:0.904rem; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin-bottom:14px; }
 .foot-grid .col a, .foot-grid .col p{ display:block; font-size:0.972rem; color:var(--ink); opacity:.8; margin-bottom:8px; }
 .foot-bottom{ margin-top:40px; padding-top:24px; border-top:1px solid var(--card-border); font-size:0.881rem; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
-#chatBubble{
-    position:fixed; right:22px; bottom:22px; z-index:200;
-    display:flex; align-items:center; gap:8px;
-    padding:14px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
-    font-weight:700; font-size:0.96rem; box-shadow:0 14px 40px -12px var(--glow);
-    cursor:pointer;
-  }
 [data-reveal]{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
 [data-reveal].in{ opacity:1; transform:translateY(0); }
 .grain-overlay{
@@ -854,6 +847,133 @@ body.nav-locked{ overflow:hidden; }
 
    Delete this rule once every slot is filled. */
 .slot{ display:none; }
+/* AV Concierge widget.
+
+   The pill keeps the id chatBubble on purpose. The sensory-friendly page
+   suppresses it by that id, together with the palette dock and every other
+   permanently-visible floating action, and the rule there carries a written
+   rationale: one action means one. Renaming the wrapper would silently undo a
+   deliberate accessibility decision on the one page built to reduce what is on
+   screen. The panel is suppressed alongside it below, which is a no-op on every
+   other page because nothing else carries the calm class. */
+
+#chatBubble{
+    position:fixed; right:22px; bottom:calc(22px + env(safe-area-inset-bottom, 0px));
+    z-index:200; display:flex; align-items:center; gap:8px;
+    padding:14px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    font-weight:700; font-size:.96rem; box-shadow:0 14px 40px -12px var(--glow);
+    cursor:pointer; user-select:none;
+    transition:transform .18s ease, opacity .18s ease;
+  }
+#chatBubble:hover{ transform:translateY(-2px); }
+#chatBubble:focus-visible{ outline:2px solid var(--ink); outline-offset:3px; }
+#chatBubble[data-open="1"]{ opacity:0; pointer-events:none; }
+
+#chatPanel{
+    position:fixed; right:22px; bottom:calc(22px + env(safe-area-inset-bottom, 0px));
+    z-index:201; width:min(384px, calc(100vw - 44px));
+    max-height:min(70vh, 620px); display:flex; flex-direction:column;
+    background:var(--bg-1); color:var(--ink);
+    border:1px solid var(--card-border); border-radius:18px; overflow:hidden;
+    box-shadow:0 30px 80px -20px rgba(0,0,0,.8);
+    font-family:var(--font-body);
+  }
+#chatPanel[hidden]{ display:none; }
+
+.cp-head{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:16px 18px; border-bottom:1px solid var(--card-border);
+    background:var(--bg-2); flex:0 0 auto;
+  }
+.cp-title{ font-family:var(--font-display); font-weight:800; font-size:.98rem; }
+.cp-sub{
+    font-family:var(--font-display); font-weight:900; font-size:.6rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1); margin-top:3px;
+  }
+.cp-close{
+    background:none; border:0; color:var(--dim); font-size:1.5rem; line-height:1;
+    cursor:pointer; padding:4px 8px; border-radius:8px;
+  }
+.cp-close:hover{ color:var(--ink); }
+.cp-close:focus-visible{ outline:2px solid var(--a1); outline-offset:2px; }
+
+.cp-log{
+    flex:1 1 auto; overflow-y:auto; padding:18px;
+    display:flex; flex-direction:column; gap:14px;
+    font-size:.94rem; line-height:1.62;
+  }
+.cp-msg{ max-width:88%; }
+.cp-msg.me{ align-self:flex-end; }
+.cp-msg .b{
+    display:inline-block; padding:10px 14px; border-radius:14px;
+    background:var(--bg-2); border:1px solid var(--card-border); color:var(--dim);
+  }
+.cp-msg.me .b{ background:var(--a1); border-color:var(--a1); color:#07120b; }
+.cp-msg .b p{ margin:0; }
+.cp-msg .b p + p, .cp-msg .b ul, .cp-msg .b ol{ margin-top:.6em; }
+.cp-msg .b ul, .cp-msg .b ol{ padding-left:1.1em; }
+.cp-msg .b li{ margin:.25em 0; }
+.cp-msg .b li::marker{ color:var(--a1); }
+.cp-msg.me .b li::marker{ color:#07120b; }
+.cp-msg .b strong{ color:var(--ink); font-weight:700; }
+.cp-msg.me .b strong{ color:#07120b; }
+.cp-msg .b a{ color:var(--a1); }
+.cp-msg.me .b a{ color:#07120b; }
+.cp-dots{ display:inline-flex; gap:5px; padding:14px; }
+.cp-dots i{
+    width:6px; height:6px; border-radius:50%; background:var(--dim);
+    animation:cpblink 1.2s infinite ease-in-out;
+  }
+.cp-dots i:nth-child(2){ animation-delay:.18s; }
+.cp-dots i:nth-child(3){ animation-delay:.36s; }
+@keyframes cpblink{ 0%,80%,100%{ opacity:.25 } 40%{ opacity:1 } }
+
+.cp-foot{
+    flex:0 0 auto; display:flex; align-items:flex-end; gap:10px;
+    padding:14px; border-top:1px solid var(--card-border); background:var(--bg-2);
+  }
+#chatInput{
+    flex:1 1 auto; resize:none; max-height:120px;
+    background:var(--bg-0); color:var(--ink);
+    border:1px solid var(--card-border); border-radius:12px;
+    padding:11px 13px; font:inherit; font-size:.94rem; line-height:1.5;
+  }
+#chatInput:focus{ outline:2px solid var(--a1); outline-offset:0; }
+#chatInput:disabled{ opacity:.5; }
+.cp-send{
+    flex:0 0 auto; width:42px; height:42px; border-radius:12px; border:0;
+    background:var(--a1); color:#07120b; font-size:1.15rem; cursor:pointer;
+  }
+.cp-send:disabled{ opacity:.4; cursor:default; }
+.cp-send:focus-visible{ outline:2px solid var(--ink); outline-offset:2px; }
+
+.cp-legal{
+    flex:0 0 auto; padding:0 16px 14px; font-size:.72rem;
+    line-height:1.5; color:var(--dim); background:var(--bg-2);
+  }
+.cp-legal a{ color:var(--a1); }
+.cp-sronly{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+  }
+
+/* On a phone the panel is a sheet, because a floating card that tall on a
+   small screen ends up with its input under the keyboard. */
+@media (max-width:520px){
+  #chatPanel{
+      right:0; left:0; bottom:0; width:100%;
+      max-height:82vh; border-radius:18px 18px 0 0; border-bottom:0;
+    }
+}
+
+@media (prefers-reduced-motion:reduce){
+  #chatBubble{ transition:none; }
+  #chatBubble:hover{ transform:none; }
+  .cp-dots i{ animation:none; opacity:.6; }
+}
+
+/* Removed, not quietened, on the sensory-friendly page. See the note above. */
+body.calm #chatPanel{ display:none; }
 </style>
 </head>
 <body>
@@ -1385,7 +1505,7 @@ body.nav-locked{ overflow:hidden; }
       </div>
     </div>
   </footer>
-<div id="chatBubble">✦ AV Concierge</div>
+
   <div class="grain-overlay" aria-hidden="true"></div>
 
   <script>
@@ -1491,6 +1611,24 @@ body.nav-locked{ overflow:hidden; }
     paint();
   })();
   </script>
+
+  <div id="chatBubble" role="button" tabindex="0" aria-controls="chatPanel" aria-expanded="false">&#10022; AV Concierge</div>
+<div id="chatPanel" role="dialog" aria-modal="false" aria-labelledby="chatTitle" hidden>
+  <div class="cp-head">
+    <div>
+      <div class="cp-title" id="chatTitle">AV Concierge</div>
+      <div class="cp-sub">Dallas Event Audio</div>
+    </div>
+    <button type="button" class="cp-close" id="chatClose" aria-label="Close the concierge">&#215;</button>
+  </div>
+  <div class="cp-log" id="chatLog" role="log" aria-live="polite" aria-atomic="false"></div>
+  <div class="cp-foot">
+    <label class="cp-sronly" for="chatInput">Your message</label>
+    <textarea id="chatInput" rows="1" placeholder="Tell us about your event" autocomplete="off"></textarea>
+    <button type="button" class="cp-send" id="chatSend" aria-label="Send">&#8593;</button>
+  </div>
+  <div class="cp-legal">Answers come from an assistant. For anything urgent, call or text <a href="tel:8172107957">817-210-7957</a>.</div>
+</div>
 <!-- chrome-sync:js -->
 <script>
   // Palette dock, bottom left
@@ -1621,6 +1759,264 @@ body.nav-locked{ overflow:hidden; }
       }
     });
   });
+})();
+</script>
+<script>
+/* AV Concierge widget.
+
+   Talks to the Cloudflare Worker that replaced the Wix http-function. The
+   request and response shapes are unchanged from the Wix version: post a
+   history array, get back reply, leadSaved and ended.
+
+   Three decisions worth knowing about.
+
+   The opening greeting is rendered locally rather than fetched. It is fixed
+   text that the system prompt already specifies, so asking the model to
+   produce it would spend a completion every time somebody clicks the pill out
+   of curiosity. The same text is seeded into the history that gets sent, so
+   the model sees a coherent transcript either way.
+
+   Model replies are markdown and go through renderMarkdown below, which
+   escapes every HTML metacharacter before it does any parsing. The reply is
+   model output rather than authored markup, so nothing in it can become a live
+   element or attribute.
+
+   The conversation is kept in sessionStorage so moving between pages does not
+   restart it. It is per tab and it disappears when the tab closes, which is
+   the right lifetime for a sales chat. */
+(function () {
+  'use strict';
+
+  var ENDPOINT = 'https://dea-concierge.pathwaysguy.workers.dev/api/chat';
+  /* After cutover, add the route www.dallaseventaudio.com/api/* to the Worker
+     in the Cloudflare dashboard and change the line above to '/api/chat'. The
+     request becomes same origin and CORS stops being involved at all. */
+
+  var MAX_TURNS = 40;               /* mirrors the cap the Worker enforces */
+  var STORE = 'dea-chat-v1';
+  var GREETING =
+    'Welcome to Dallas Event Audio 🎧 So I can help you the right ' +
+    'way — which best describes you? Planning an event, a planner or ' +
+    'coordinator sourcing for a client, a DJ, band or performer who needs us ' +
+    'to set you up, or just have a question?';
+  var TROUBLE =
+    'Sorry, I am having trouble connecting. Please call or text 817-210-7957.';
+
+  var bubble = document.getElementById('chatBubble');
+  var panel = document.getElementById('chatPanel');
+  if (!bubble || !panel) return;
+
+  var log = document.getElementById('chatLog');
+  var input = document.getElementById('chatInput');
+  var send = document.getElementById('chatSend');
+  var close = document.getElementById('chatClose');
+
+  var history = [];
+  var busy = false;
+  var ended = false;
+
+  /* ---- markdown, escaped first so model output can never become markup ---- */
+
+  var ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+  function esc(s) { return s.replace(/[&<>"']/g, function (c) { return ESC[c]; }); }
+
+  var SAFE_SCHEME = /^(?:https?:|mailto:|tel:)/i;
+  var SAFE_RELATIVE = /^\/(?!\/)/;
+  function safeHref(h) { return SAFE_SCHEME.test(h) || SAFE_RELATIVE.test(h); }
+
+  function inline(t) {
+    var out = t.replace(/\[([^[\]]+)\]\(([^()\s]+)\)/g, function (w, label, href) {
+      if (!safeHref(href)) return label;
+      return '<a href="' + href + '" target="_blank" rel="noopener noreferrer">' +
+        label + '</a>';
+    });
+    out = out.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    out = out.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    return out;
+  }
+
+  var BULLET = /^-\s+(.*)$/;
+  var NUMBERED = /^\d+\.\s+(.*)$/;
+
+  function block(b) {
+    var lines = b.split('\n').map(function (l) { return l.trim(); });
+    var allBullet = lines.every(function (l) { return BULLET.test(l); });
+    var allNumber = lines.every(function (l) { return NUMBERED.test(l); });
+    if (allBullet) {
+      return '<ul>' + lines.map(function (l) {
+        return '<li>' + inline(l.match(BULLET)[1]) + '</li>';
+      }).join('') + '</ul>';
+    }
+    if (allNumber) {
+      return '<ol>' + lines.map(function (l) {
+        return '<li>' + inline(l.match(NUMBERED)[1]) + '</li>';
+      }).join('') + '</ol>';
+    }
+    return '<p>' + lines.map(inline).join('<br>') + '</p>';
+  }
+
+  function renderMarkdown(text) {
+    if (typeof text !== 'string' || !text.length) return '';
+    return esc(text).replace(/\r\n/g, '\n')
+      .split(/\n{2,}/)
+      .map(function (b) { return b.trim(); })
+      .filter(function (b) { return b.length; })
+      .map(block)
+      .join('\n');
+  }
+
+  /* ---- transcript ---- */
+
+  function track(name, params) {
+    try { if (typeof window.gtag === 'function') window.gtag('event', name, params || {}); }
+    catch (e) {}
+  }
+
+  function paint(role, text) {
+    var row = document.createElement('div');
+    row.className = 'cp-msg' + (role === 'user' ? ' me' : '');
+    var body = document.createElement('div');
+    body.className = 'b';
+    body.innerHTML = renderMarkdown(text);
+    row.appendChild(body);
+    log.appendChild(row);
+    log.scrollTop = log.scrollHeight;
+    return row;
+  }
+
+  function thinking(on) {
+    var el = document.getElementById('cpDots');
+    if (on && !el) {
+      el = document.createElement('div');
+      el.id = 'cpDots';
+      el.className = 'cp-dots';
+      el.innerHTML = '<i></i><i></i><i></i>';
+      log.appendChild(el);
+      log.scrollTop = log.scrollHeight;
+    } else if (!on && el) {
+      el.remove();
+    }
+  }
+
+  function save() {
+    try { sessionStorage.setItem(STORE, JSON.stringify({ history: history, ended: ended })); }
+    catch (e) {}
+  }
+
+  function restore() {
+    var raw = null;
+    try { raw = sessionStorage.getItem(STORE); } catch (e) {}
+    if (raw) {
+      try {
+        var d = JSON.parse(raw);
+        if (d && Array.isArray(d.history) && d.history.length) {
+          history = d.history;
+          ended = !!d.ended;
+        }
+      } catch (e) {}
+    }
+    if (!history.length) history = [{ role: 'assistant', content: GREETING }];
+    log.innerHTML = '';
+    history.forEach(function (m) { paint(m.role, m.content); });
+    if (ended) lock();
+  }
+
+  function lock() {
+    input.disabled = true;
+    send.disabled = true;
+    input.placeholder = '';
+  }
+
+  /* ---- open and close ---- */
+
+  var lastFocus = null;
+
+  function open() {
+    lastFocus = document.activeElement;
+    panel.hidden = false;
+    bubble.setAttribute('data-open', '1');
+    bubble.setAttribute('aria-expanded', 'true');
+    if (!log.childNodes.length) restore();
+    log.scrollTop = log.scrollHeight;
+    if (!ended) input.focus();
+    track('chat_open', { event_category: 'concierge' });
+  }
+
+  function shut() {
+    panel.hidden = true;
+    bubble.removeAttribute('data-open');
+    bubble.setAttribute('aria-expanded', 'false');
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  bubble.addEventListener('click', open);
+  bubble.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+  });
+  close.addEventListener('click', shut);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !panel.hidden) shut();
+  });
+
+  /* ---- sending ---- */
+
+  input.addEventListener('input', function () {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+  });
+
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submit(); }
+  });
+  send.addEventListener('click', submit);
+
+  function submit() {
+    if (busy || ended) return;
+    var text = input.value.trim();
+    if (!text) return;
+
+    input.value = '';
+    input.style.height = 'auto';
+    history.push({ role: 'user', content: text });
+    paint('user', text);
+    track('chat_message_sent', { event_category: 'concierge' });
+
+    /* Keep the tail of a long conversation rather than letting the Worker
+       refuse the whole thing at 40 turns. The greeting stays at the front so
+       the model never loses the persona gate. */
+    if (history.length > MAX_TURNS) {
+      history = [history[0]].concat(history.slice(history.length - (MAX_TURNS - 1)));
+    }
+
+    busy = true;
+    send.disabled = true;
+    thinking(true);
+    save();
+
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ history: history })
+    })
+      .then(function (r) { return r.json().catch(function () { return {}; }); })
+      .then(function (d) {
+        thinking(false);
+        var reply = (d && d.reply) || TROUBLE;
+        history.push({ role: 'assistant', content: reply });
+        paint('assistant', reply);
+        if (d && d.leadSaved) track('generate_lead', { event_category: 'concierge' });
+        if (d && d.ended) { ended = true; lock(); }
+        save();
+      })
+      .catch(function () {
+        thinking(false);
+        paint('assistant', TROUBLE);
+      })
+      .then(function () {
+        busy = false;
+        if (!ended) { send.disabled = false; input.focus(); }
+      });
+  }
 })();
 </script>
 </body>

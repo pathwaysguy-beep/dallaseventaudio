@@ -40,13 +40,15 @@ CSS     = io.open(SRC + '/chrome.css',        encoding='utf-8').read().rstrip()
 PALJS   = io.open(SRC + '/palette_js.html',   encoding='utf-8').read().rstrip()
 NAVJS   = io.open(SRC + '/navdrawer_js.html', encoding='utf-8').read().rstrip()
 ANALYT  = io.open(SRC + '/analytics.html',    encoding='utf-8').read().rstrip()
+WIDGET  = io.open(SRC + '/widget.html',       encoding='utf-8').read().rstrip()
+WIDGJS  = io.open(SRC + '/widget_js.html',    encoding='utf-8').read().rstrip()
 
 MARK_CSS = '<!-- chrome-sync:css -->'
 MARK_JS  = '<!-- chrome-sync:js -->'
 MARK_AN  = '<!-- chrome-sync:analytics -->'
 
 STYLE_BLOCK = MARK_CSS + '\n<style>\n' + CSS + '\n</style>\n'
-JS_BLOCK    = MARK_JS + '\n' + PALJS + '\n' + NAVJS + '\n'
+JS_BLOCK    = MARK_JS + '\n' + PALJS + '\n' + NAVJS + '\n' + WIDGJS + '\n'
 # Analytics goes in <head>, not with the other scripts before </body>: the
 # per-page conversion events on /contact and /thank-you sit in the body and call
 # gtag, so gtag has to exist before them or those events silently stop firing.
@@ -56,7 +58,10 @@ AN_BLOCK    = MARK_AN + '\n' + ANALYT + '\n'
 CHROME_SEL = re.compile(
     r'(^|[\s,>])(header\b|nav\b|\.logo\b|\.navlinks\b|\.nl-[a-z]|\.navright\b|\.phone\b'
     r'|\.cta-btn\b|\.navburger\b|\.ndrawer\b|\.nd-[a-z]|body\.nav-locked\b|#paletteBar\b'
-    r'|\.pal-[a-z]|\.sw-[a-z]|#palOpts\b)')
+    r'|\.pal-[a-z]|\.sw-[a-z]|#palOpts\b'
+    # The widget. #chatBubble existed on 39 pages as an inert placeholder
+    # with its own per-page rule; naming it here is what retires those copies.
+    r'|#chatBubble\b|#chatPanel\b|\.cp-[a-z]|#chatLog\b|#chatInput\b)')
 
 # A selector that opens with a body class other than .nav-locked is a deliberate
 # per-page override of the chrome, not a stale duplicate of it.
@@ -204,8 +209,13 @@ def sync(path, write=True):
     s, rep['old_palette'] = drop_element(s, r'<div id="paletteBar"', 'div')
     s, rep['old_drawer']  = drop_element(s, r'<div class="ndrawer"', 'div')
     s, rep['old_header']  = drop_element(s, r'<header\b', 'header')
+    # The inert pill that 39 pages carried, plus any panel from an earlier run.
+    s, rep['old_widget']  = drop_element(s, r'<div id="chatPanel"', 'div')
+    s, n_pill             = drop_element(s, r'<div id="chatBubble"', 'div')
+    rep['old_widget'] += n_pill
     s, rep['old_js']      = drop_scripts(
-        s, ['navBurger', 'paletteBar', "getElementById('palToggle')"])
+        s, ['navBurger', 'paletteBar', "getElementById('palToggle')",
+            'dea-chat-v1'])
     # the page's own copy of the tag: the loader and the config block only.
     # Never the per-page conversion events, which contain gtag('event', ...)
     # and are the reason the Ads numbers move.
@@ -232,18 +242,24 @@ def sync(path, write=True):
     s = s.replace('</head>', AN_BLOCK + STYLE_BLOCK + '</head>', 1)
     _, at = body_open(s, path)
     s = s[:at] + '\n\n  ' + PALETTE + '\n\n  ' + HEADER + '\n\n  ' + DRAWER + '\n' + s[at:]
-    s = s.replace('</body>', JS_BLOCK + '</body>', 1)
+    # The widget goes last in the body, after the footer, because it is a
+    # floating overlay: last in source order means nothing later can sit on
+    # top of it, and a screen reader reaches it after the page content.
+    s = s.replace('</body>', '\n  ' + WIDGET + '\n' + JS_BLOCK + '</body>', 1)
 
     # --- 3. sanity --------------------------------------------------------
     for tok, want in [(MARK_AN, 1), ('G-5SVH2Y4BDS', 1), ('AW-966108887', 1),
                       ('googletagmanager.com/gtag/js', 1),
                       ('id="navBurger"', 1), ('id="navDrawer"', 1),
                       ('id="paletteBar"', 1), ('<header>', 1), ('</header>', 1),
-                      ('class="pal-toggle"', 1), (MARK_CSS, 1), (MARK_JS, 1)]:
+                      ('class="pal-toggle"', 1), (MARK_CSS, 1), (MARK_JS, 1),
+                      ('id="chatBubble"', 1), ('id="chatPanel"', 1),
+                      ('dea-chat-v1', 1)]:
         got = s.count(tok)
         assert got == want, '%s: %s appears %d times, expected %d' % (
             path, tok, got, want)
-    for tag in ('div', 'header', 'nav', 'button', 'section', 'a'):
+    for tag in ('div', 'header', 'nav', 'button', 'section', 'a',
+                'textarea', 'label'):
         o = len(re.findall(r'<%s\b' % tag, s))
         c = len(re.findall(r'</%s>' % tag, s))
         assert o == c, '%s: <%s> %d open vs %d close' % (path, tag, o, c)
@@ -272,11 +288,11 @@ def main():
     for f in files:
         ch, rep = sync(f, write=not check)
         n += ch
-        print('%-6s %-56s palette-%d drawer-%d header-%d js-%d an-%d css-%d' % (
+        print('%-6s %-56s palette-%d drawer-%d header-%d js-%d an-%d css-%d widget-%d' % (
             'DRIFT' if (ch and check) else ('EDIT' if ch else 'same'),
             os.path.relpath(f, SITE), rep['old_palette'], rep['old_drawer'],
             rep['old_header'], rep['old_js'], rep['old_analytics'],
-            len(rep['css_rules_dropped'])))
+            len(rep['css_rules_dropped']), rep['old_widget']))
     print('\n%d of %d files %s' % (n, len(files), 'drifted' if check else 'changed'))
     if check and n:
         sys.exit(1)

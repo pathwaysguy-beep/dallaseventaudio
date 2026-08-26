@@ -1,0 +1,258 @@
+<script>
+/* AV Concierge widget.
+
+   Talks to the Cloudflare Worker that replaced the Wix http-function. The
+   request and response shapes are unchanged from the Wix version: post a
+   history array, get back reply, leadSaved and ended.
+
+   Three decisions worth knowing about.
+
+   The opening greeting is rendered locally rather than fetched. It is fixed
+   text that the system prompt already specifies, so asking the model to
+   produce it would spend a completion every time somebody clicks the pill out
+   of curiosity. The same text is seeded into the history that gets sent, so
+   the model sees a coherent transcript either way.
+
+   Model replies are markdown and go through renderMarkdown below, which
+   escapes every HTML metacharacter before it does any parsing. The reply is
+   model output rather than authored markup, so nothing in it can become a live
+   element or attribute.
+
+   The conversation is kept in sessionStorage so moving between pages does not
+   restart it. It is per tab and it disappears when the tab closes, which is
+   the right lifetime for a sales chat. */
+(function () {
+  'use strict';
+
+  var ENDPOINT = 'https://dea-concierge.pathwaysguy.workers.dev/api/chat';
+  /* After cutover, add the route www.dallaseventaudio.com/api/* to the Worker
+     in the Cloudflare dashboard and change the line above to '/api/chat'. The
+     request becomes same origin and CORS stops being involved at all. */
+
+  var MAX_TURNS = 40;               /* mirrors the cap the Worker enforces */
+  var STORE = 'dea-chat-v1';
+  var GREETING =
+    'Welcome to Dallas Event Audio 🎧 So I can help you the right ' +
+    'way — which best describes you? Planning an event, a planner or ' +
+    'coordinator sourcing for a client, a DJ, band or performer who needs us ' +
+    'to set you up, or just have a question?';
+  var TROUBLE =
+    'Sorry, I am having trouble connecting. Please call or text 817-210-7957.';
+
+  var bubble = document.getElementById('chatBubble');
+  var panel = document.getElementById('chatPanel');
+  if (!bubble || !panel) return;
+
+  var log = document.getElementById('chatLog');
+  var input = document.getElementById('chatInput');
+  var send = document.getElementById('chatSend');
+  var close = document.getElementById('chatClose');
+
+  var history = [];
+  var busy = false;
+  var ended = false;
+
+  /* ---- markdown, escaped first so model output can never become markup ---- */
+
+  var ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+  function esc(s) { return s.replace(/[&<>"']/g, function (c) { return ESC[c]; }); }
+
+  var SAFE_SCHEME = /^(?:https?:|mailto:|tel:)/i;
+  var SAFE_RELATIVE = /^\/(?!\/)/;
+  function safeHref(h) { return SAFE_SCHEME.test(h) || SAFE_RELATIVE.test(h); }
+
+  function inline(t) {
+    var out = t.replace(/\[([^[\]]+)\]\(([^()\s]+)\)/g, function (w, label, href) {
+      if (!safeHref(href)) return label;
+      return '<a href="' + href + '" target="_blank" rel="noopener noreferrer">' +
+        label + '</a>';
+    });
+    out = out.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    out = out.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    return out;
+  }
+
+  var BULLET = /^-\s+(.*)$/;
+  var NUMBERED = /^\d+\.\s+(.*)$/;
+
+  function block(b) {
+    var lines = b.split('\n').map(function (l) { return l.trim(); });
+    var allBullet = lines.every(function (l) { return BULLET.test(l); });
+    var allNumber = lines.every(function (l) { return NUMBERED.test(l); });
+    if (allBullet) {
+      return '<ul>' + lines.map(function (l) {
+        return '<li>' + inline(l.match(BULLET)[1]) + '</li>';
+      }).join('') + '</ul>';
+    }
+    if (allNumber) {
+      return '<ol>' + lines.map(function (l) {
+        return '<li>' + inline(l.match(NUMBERED)[1]) + '</li>';
+      }).join('') + '</ol>';
+    }
+    return '<p>' + lines.map(inline).join('<br>') + '</p>';
+  }
+
+  function renderMarkdown(text) {
+    if (typeof text !== 'string' || !text.length) return '';
+    return esc(text).replace(/\r\n/g, '\n')
+      .split(/\n{2,}/)
+      .map(function (b) { return b.trim(); })
+      .filter(function (b) { return b.length; })
+      .map(block)
+      .join('\n');
+  }
+
+  /* ---- transcript ---- */
+
+  function track(name, params) {
+    try { if (typeof window.gtag === 'function') window.gtag('event', name, params || {}); }
+    catch (e) {}
+  }
+
+  function paint(role, text) {
+    var row = document.createElement('div');
+    row.className = 'cp-msg' + (role === 'user' ? ' me' : '');
+    var body = document.createElement('div');
+    body.className = 'b';
+    body.innerHTML = renderMarkdown(text);
+    row.appendChild(body);
+    log.appendChild(row);
+    log.scrollTop = log.scrollHeight;
+    return row;
+  }
+
+  function thinking(on) {
+    var el = document.getElementById('cpDots');
+    if (on && !el) {
+      el = document.createElement('div');
+      el.id = 'cpDots';
+      el.className = 'cp-dots';
+      el.innerHTML = '<i></i><i></i><i></i>';
+      log.appendChild(el);
+      log.scrollTop = log.scrollHeight;
+    } else if (!on && el) {
+      el.remove();
+    }
+  }
+
+  function save() {
+    try { sessionStorage.setItem(STORE, JSON.stringify({ history: history, ended: ended })); }
+    catch (e) {}
+  }
+
+  function restore() {
+    var raw = null;
+    try { raw = sessionStorage.getItem(STORE); } catch (e) {}
+    if (raw) {
+      try {
+        var d = JSON.parse(raw);
+        if (d && Array.isArray(d.history) && d.history.length) {
+          history = d.history;
+          ended = !!d.ended;
+        }
+      } catch (e) {}
+    }
+    if (!history.length) history = [{ role: 'assistant', content: GREETING }];
+    log.innerHTML = '';
+    history.forEach(function (m) { paint(m.role, m.content); });
+    if (ended) lock();
+  }
+
+  function lock() {
+    input.disabled = true;
+    send.disabled = true;
+    input.placeholder = '';
+  }
+
+  /* ---- open and close ---- */
+
+  var lastFocus = null;
+
+  function open() {
+    lastFocus = document.activeElement;
+    panel.hidden = false;
+    bubble.setAttribute('data-open', '1');
+    bubble.setAttribute('aria-expanded', 'true');
+    if (!log.childNodes.length) restore();
+    log.scrollTop = log.scrollHeight;
+    if (!ended) input.focus();
+    track('chat_open', { event_category: 'concierge' });
+  }
+
+  function shut() {
+    panel.hidden = true;
+    bubble.removeAttribute('data-open');
+    bubble.setAttribute('aria-expanded', 'false');
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  bubble.addEventListener('click', open);
+  bubble.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+  });
+  close.addEventListener('click', shut);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !panel.hidden) shut();
+  });
+
+  /* ---- sending ---- */
+
+  input.addEventListener('input', function () {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+  });
+
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submit(); }
+  });
+  send.addEventListener('click', submit);
+
+  function submit() {
+    if (busy || ended) return;
+    var text = input.value.trim();
+    if (!text) return;
+
+    input.value = '';
+    input.style.height = 'auto';
+    history.push({ role: 'user', content: text });
+    paint('user', text);
+    track('chat_message_sent', { event_category: 'concierge' });
+
+    /* Keep the tail of a long conversation rather than letting the Worker
+       refuse the whole thing at 40 turns. The greeting stays at the front so
+       the model never loses the persona gate. */
+    if (history.length > MAX_TURNS) {
+      history = [history[0]].concat(history.slice(history.length - (MAX_TURNS - 1)));
+    }
+
+    busy = true;
+    send.disabled = true;
+    thinking(true);
+    save();
+
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ history: history })
+    })
+      .then(function (r) { return r.json().catch(function () { return {}; }); })
+      .then(function (d) {
+        thinking(false);
+        var reply = (d && d.reply) || TROUBLE;
+        history.push({ role: 'assistant', content: reply });
+        paint('assistant', reply);
+        if (d && d.leadSaved) track('generate_lead', { event_category: 'concierge' });
+        if (d && d.ended) { ended = true; lock(); }
+        save();
+      })
+      .catch(function () {
+        thinking(false);
+        paint('assistant', TROUBLE);
+      })
+      .then(function () {
+        busy = false;
+        if (!ended) { send.disabled = false; input.focus(); }
+      });
+  }
+})();
+</script>
