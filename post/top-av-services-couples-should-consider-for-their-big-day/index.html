@@ -1321,7 +1321,7 @@ body.calm #chatPanel{ display:none; }
   }
 
   var BULLET = /^-\s+(.*)$/;
-  var NUMBERED = /^\d+\.\s+(.*)$/;
+  var NUMBERED = /^(\d+)\.\s+(.*)$/;
 
   function block(b) {
     var lines = b.split('\n').map(function (l) { return l.trim(); });
@@ -1333,8 +1333,11 @@ body.calm #chatPanel{ display:none; }
       }).join('') + '</ul>';
     }
     if (allNumber) {
-      return '<ol>' + lines.map(function (l) {
-        return '<li>' + inline(l.match(NUMBERED)[1]) + '</li>';
+      /* start comes from the number the model wrote, so a point split off into
+         its own block by a blank line still reads as two rather than one. */
+      var first = parseInt(lines[0].match(NUMBERED)[1], 10) || 1;
+      return '<ol start="' + first + '">' + lines.map(function (l) {
+        return '<li>' + inline(l.match(NUMBERED)[2]) + '</li>';
       }).join('') + '</ol>';
     }
     return '<p>' + lines.map(inline).join('<br>') + '</p>';
