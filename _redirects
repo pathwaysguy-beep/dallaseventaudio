@@ -25,12 +25,10 @@
 # Wix's built-in site search. There is no equivalent on a static site.
 /search                           /                        301
 
-# ── SAFETY NET. Delete both lines once these two pages are rebuilt. ───────
-# Both are real pages with real copy on the live site, so redirecting them is
-# a loss, not a fix: they should be rebuilt at their own URLs before go-live.
-# These lines exist only so that if the DNS switch happens first, a visitor
-# lands on the nearest relevant page instead of the 404. Rebuilding the page
-# and leaving the rule in place would make the new page unreachable, so the
-# rule has to come out in the same commit that adds the page.
-/photography-videography          /services-photo-and-video  302
-/rent-lighting-equipment          /services-lighting         302
+# ── Consolidated into the services pages ───────────────────────────
+# Neither of these is a missing page. The photography and videography content
+# is on the services page, and the lighting rental content is on the lighting
+# page. Both destinations were read to confirm they actually cover the old
+# URL's subject, so these are permanent.
+/photography-videography          /services-photo-and-video  301
+/rent-lighting-equipment          /services-lighting         301
