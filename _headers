@@ -36,3 +36,16 @@
 # This file has no way to say "everything except these directories", so HTML
 # uses the platform default instead. After any change here, check that an image
 # still reports a single Cache-Control value.
+
+# Browser and home-screen icons. These must sit at the root to be found without
+# markup, which puts them outside /images/* and left them revalidating on every
+# page load. A month, not the immutable year above: the filenames carry no
+# content hash, so an immutable year would strand a replaced logo in tab strips.
+/favicon.ico
+  Cache-Control: public, max-age=2592000
+
+/apple-touch-icon.png
+  Cache-Control: public, max-age=2592000
+
+/icon-512.png
+  Cache-Control: public, max-age=2592000
