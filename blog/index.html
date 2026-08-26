@@ -504,6 +504,12 @@ html{ scroll-behavior:auto; }
     },
     {
       "@type": "BlogPosting",
+      "headline": "Common Wedding Audio Mistakes and How To Avoid Them",
+      "url": "https://www.dallaseventaudio.com/post/common-wedding-audio-mistakes-and-how-to-avoid-them",
+      "datePublished": "2025-09-16"
+    },
+    {
+      "@type": "BlogPosting",
       "headline": "How To Manage Sound at Your Next Outdoor Event",
       "url": "https://www.dallaseventaudio.com/post/how-to-manage-sound-at-your-next-outdoor-event",
       "datePublished": "2025-08-29"
@@ -564,6 +570,12 @@ html{ scroll-behavior:auto; }
     },
     {
       "@type": "BlogPosting",
+      "headline": "Making Your Wedding Day Unique With AV Services",
+      "url": "https://www.dallaseventaudio.com/post/making-your-wedding-day-unique-with-av-services",
+      "datePublished": "2025-03-20"
+    },
+    {
+      "@type": "BlogPosting",
       "headline": "Why AV Production Matters for Corporate Events",
       "url": "https://www.dallaseventaudio.com/post/why-av-production-matters-for-corporate-events",
       "datePublished": "2025-03-13"
@@ -582,12 +594,68 @@ html{ scroll-behavior:auto; }
     },
     {
       "@type": "BlogPosting",
+      "headline": "Event Audio 101: Essential Tips for Event Planners",
+      "url": "https://www.dallaseventaudio.com/post/event-audio-101-essential-tips-for-event-planners",
+      "datePublished": "2025-02-18"
+    },
+    {
+      "@type": "BlogPosting",
       "headline": "Planning the Perfect Event with Professional AV Services",
       "url": "https://www.dallaseventaudio.com/post/planning-the-perfect-event-with-professional-av-services",
       "datePublished": "2025-02-17"
     }
   ]
 }
+</script>
+<!-- chrome-sync:analytics -->
+<script>
+/* Google Analytics 4 and Google Ads, for the whole site, from one file.
+
+   Before this, the tags lived inline on /contact and /thank-you only. 37 pages
+   had no GA4 at all, so landing page attribution did not exist, and the Google
+   Ads conversion is a GA4 import which means the number the bidding runs on was
+   built from two pages.
+
+   Two things are deliberate here.
+
+   The hostname guard fires nothing anywhere except the production domain. The
+   pages.dev preview, a local file, and every headless QA run are all silent.
+   Without it, putting the tag on 41 pages would multiply the preview traffic
+   already polluting the property by roughly twenty.
+
+   window.gtag is defined even when the guard blocks, because the page specific
+   conversion events on /contact and /thank-you call it. They check
+   typeof gtag === 'function' and would silently stop working otherwise. With
+   gtag defined, those calls queue into a dataLayer that is never transported,
+   which is exactly the intended no-op off production.
+
+   The loader is appended by script rather than written into the markup, so no
+   request to googletagmanager.com happens off the production domain. Injected
+   into the head by tools/sync_chrome.py, ahead of any body script calling gtag.
+
+   Do not write literal tag syntax in this comment. The build tooling reads the
+   file as text and counts tags, and a mention of one in prose breaks the
+   balance assertions. This is the third time that has bitten. */
+(function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  var GA4 = 'G-5SVH2Y4BDS';
+  var ADS = 'AW-966108887';
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+  window.gtag = gtag;
+
+  if (PROD.indexOf(location.hostname) === -1) return;
+
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4;
+  document.head.appendChild(s);
+
+  gtag('js', new Date());
+  gtag('config', GA4);
+  gtag('config', ADS);
+})();
 </script>
 <!-- chrome-sync:css -->
 <style>
@@ -775,7 +843,8 @@ body.nav-locked{ overflow:hidden; }
       padding-right:max(14px, calc((100% - 700px)/2));
     }
 }
-</style></head>
+</style>
+</head>
 <body>
 
   <div id="paletteBar">
@@ -974,6 +1043,7 @@ body.nav-locked{ overflow:hidden; }
         <a class="blog-card" href="/post/the-importance-of-sound-quality-in-large-venues" data-reveal><div class="d">October 13, 2025</div><h3>The Importance of Sound Quality in Large Venues</h3><p>Learn why excellent sound quality is crucial in large venues and how to overcome common acoustic challenges like echo and dead spots for any event.</p></a>
         <a class="blog-card" href="/post/tips-for-creating-the-perfect-event-atmosphere-with-lighting" data-reveal><div class="d">October 13, 2025</div><h3>Tips for Creating the Perfect Event Atmosphere With Lighting</h3><p>Many factors influence the energy in an event, and lighting is one of the most important that determines the experience and mood of the audience.</p></a>
         <a class="blog-card" href="/post/ultimate-guide-to-ensuring-a-seamless-av-setup" data-reveal><div class="d">October 13, 2025</div><h3>Ultimate Guide to Ensuring a Seamless AV Setup</h3><p>Learn how to plan, choose equipment for, and troubleshoot a seamless AV setup. This guide covers everything you need for a successful event.</p></a>
+        <a class="blog-card" href="/post/common-wedding-audio-mistakes-and-how-to-avoid-them" data-reveal><div class="d">September 16, 2025</div><h3>Common Wedding Audio Mistakes and How To Avoid Them</h3><p>Sound is an important part of a wedding, and ensuring there are as few mistakes as possible in your event's audio impacts both you and your guests.</p></a>
         <a class="blog-card" href="/post/how-to-manage-sound-at-your-next-outdoor-event" data-reveal><div class="d">August 29, 2025</div><h3>How To Manage Sound at Your Next Outdoor Event</h3><p>There are many factors that lead to a successful outdoor event, and managing the audio ensures every person feels moved by the sound around them.</p></a>
         <a class="blog-card" href="/post/benefits-of-hiring-a-dj-who-provides-their-own-equipment" data-reveal><div class="d">August 19, 2025</div><h3>Benefits of Hiring a DJ Who Provides Their Own Equipment</h3><p>Need an event DJ? Find out how hiring a DJ who provides professional equipment saves money, ensures reliability, and enhances your event experience.</p></a>
         <a class="blog-card" href="/post/the-ultimate-checklist-for-renting-audio-visual-equipment" data-reveal><div class="d">August 6, 2025</div><h3>The Ultimate Checklist for Renting Audio Visual Equipment</h3><p>Master AV equipment rentals with a comprehensive checklist. From planning to setup, ensure your event's audiovisual equipment is in top shape.</p></a>
@@ -984,9 +1054,11 @@ body.nav-locked{ overflow:hidden; }
         <a class="blog-card" href="/post/essential-tips-for-selecting-the-best-dj-for-your-event" data-reveal><div class="d">May 12, 2025</div><h3>Essential Tips for Selecting the Best DJ for Your Event</h3><p>Looking for the perfect DJ for your event? Learn essential tips on finding a skilled DJ, from evaluating experience to discussing costs and logistics.</p></a>
         <a class="blog-card" href="/post/top-features-to-look-for-in-rented-sound-systems" data-reveal><div class="d">April 29, 2025</div><h3>Top Features To Look for in Rented Sound Systems</h3><p>Whether you're hosting a corporate conference, a wedding reception, or a live music performance, crystal-clear audio is essential to keep your…</p></a>
         <a class="blog-card" href="/post/what-to-know-about-corporate-event-audio-services" data-reveal><div class="d">April 14, 2025</div><h3>What To Know About Corporate Event Audio Services</h3><p>Get expert tips on corporate audio services. Learn more about equipment, providers, budgeting, and how to ensure impactful corporate event…</p></a>
+        <a class="blog-card" href="/post/making-your-wedding-day-unique-with-av-services" data-reveal><div class="d">March 20, 2025</div><h3>Making Your Wedding Day Unique With AV Services</h3><p>Transform your wedding with exceptional AV services. From audio to lighting, explore how professional AV solutions create unique and unforgettable…</p></a>
         <a class="blog-card" href="/post/why-av-production-matters-for-corporate-events" data-reveal><div class="d">March 13, 2025</div><h3>Why AV Production Matters for Corporate Events</h3><p>Corporate events are complex undertakings that demand meticulous planning and attention to detail. While event themes, venues, and catering often…</p></a>
         <a class="blog-card" href="/post/top-questions-to-ask-before-booking-a-dj-for-your-event" data-reveal><div class="d">March 7, 2025</div><h3>Top Questions To Ask Before Booking a DJ for Your Event</h3><p>Looking for the perfect DJ for your event? From music requests to package details, discover what to ask before you book. Get pro tips to ensure…</p></a>
         <a class="blog-card" href="/post/a-beginners-guide-to-sound-equipment-rentals" data-reveal><div class="d">February 24, 2025</div><h3>A Beginner's Guide to Sound Equipment Rentals</h3><p>Need audio assistance for a wedding, corporate event, festival, or other gathering? Level up with expert tips to create high-quality event audio…</p></a>
+        <a class="blog-card" href="/post/event-audio-101-essential-tips-for-event-planners" data-reveal><div class="d">February 18, 2025</div><h3>Event Audio 101: Essential Tips for Event Planners</h3><p>Don't let the excitement surrounding your event fizzle out because of poor audio. Learn the essential audio 101 tips every event planner should know.</p></a>
         <a class="blog-card" href="/post/planning-the-perfect-event-with-professional-av-services" data-reveal><div class="d">February 17, 2025</div><h3>Planning the Perfect Event with Professional AV Services</h3><p>How a gala room turns over from the program to the dance floor on a single load in. Sound, microphones, uplighting and DJ support across Dallas-Fort…</p></a>
       </div>
     </div>
@@ -1072,7 +1144,8 @@ body.nav-locked{ overflow:hidden; }
         <span>Blog post draft, wedding fog effects</span>
       </div>
     </div>
-  </footer><!-- chrome-sync:js -->
+  </footer>
+<!-- chrome-sync:js -->
 <script>
   // Palette dock, bottom left
   (function(){
@@ -1203,5 +1276,6 @@ body.nav-locked{ overflow:hidden; }
     });
   });
 })();
-</script></body>
+</script>
+</body>
 </html>
