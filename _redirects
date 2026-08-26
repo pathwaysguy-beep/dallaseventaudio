@@ -1,5 +1,36 @@
-# Cloudflare Pages redirects: <from> <to> <status>
-# Wix era URLs that must not 404 at cutover.
-/rent-photobooth                  /services-extra          301
+# Cloudflare Pages redirects. One rule per line: from, to, status.
+#
+# Built by diffing every URL in the live Wix sitemaps (41 pages, 38 posts)
+# against the 79 files in this repo. Every live URL is either rebuilt at the
+# same path or listed below. Nothing on the live site 404s at cutover.
+#
+# Rules are matched top to bottom, so the more specific path goes first.
+
+# ── Wix URLs that no longer exist ─────────────────────────────────────────
+# The line array URL under rent-sound-equipment serves the general sound
+# equipment page's content at a slug promising line arrays. Whatever it ranks
+# for is a line array query, so it goes to the dedicated page rather than to
+# the page it was duplicating.
+/rent-sound-equipment/line-array-speaker-rental-dallas-fort-worth  /rent-line-array-speaker-system  301
+
+# Already a 301 on Wix. Preserved so the chain does not break at cutover.
+/wedding-dj-packages              /services-dj             301
+
 /rent-pa-speakers-lighting-video  /rent-sound-equipment    301
 /corporate-event-av-rental        /corporate-events        301
+
+# DEA does not do photo booths. This URL predates that decision.
+/rent-photobooth                  /services-extra          301
+
+# Wix's built-in site search. There is no equivalent on a static site.
+/search                           /                        301
+
+# ── SAFETY NET. Delete both lines once these two pages are rebuilt. ───────
+# Both are real pages with real copy on the live site, so redirecting them is
+# a loss, not a fix: they should be rebuilt at their own URLs before go-live.
+# These lines exist only so that if the DNS switch happens first, a visitor
+# lands on the nearest relevant page instead of the 404. Rebuilding the page
+# and leaving the rule in place would make the new page unreachable, so the
+# rule has to come out in the same commit that adds the page.
+/photography-videography          /services-photo-and-video  302
+/rent-lighting-equipment          /services-lighting         302
