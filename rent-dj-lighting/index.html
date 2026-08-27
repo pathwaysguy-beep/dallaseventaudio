@@ -3,8 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
     --font-display:'Unbounded',sans-serif;
@@ -725,6 +723,48 @@ a.chip::after{ content:' \2192'; opacity:.55; }
   }
   </script>
 
+<!-- chrome-sync:fonts -->
+<style>
+/* The two site faces, served from this origin instead of Google's font CDN.
+
+   Four pages already did this and the other 75 did not, which meant most of
+   the site opened two extra connections and waited on a render blocking
+   stylesheet from another host before any text could be styled. These are the
+   same files Google serves: the latin subset woff2 for each weight the design
+   system uses, four of Unbounded and four of Space Grotesk.
+
+   The unicode-range is Google's own latin range, copied verbatim. It is
+   accurate rather than cautious: the files carry no glyph outside it, so the
+   arrow, the four point star and the five point star used in the interface
+   already come from a system font, on the four self hosted pages and on
+   Google's own subset alike. Nothing about that changes here.
+
+   The two -fb families are metric matched stand ins for the real faces, built
+   from whichever of four common system fonts the reader has. size-adjust and
+   the override descriptors make a line of Arial occupy the same height as the
+   same line of Unbounded, so the swap when the real face arrives moves
+   nothing. They came from the four pages that already self hosted and are the
+   reason those pages were the good implementation rather than merely a
+   different one. They are useless without the variables below, which is why
+   both live in this file.
+
+   font-display:swap keeps text visible during the swap period, and with the
+   metric matched fallback in place the swap is no longer a layout shift. */
+:root{
+  --font-display:'Unbounded','Unbounded-fb',sans-serif;
+  --font-body:'Space Grotesk','SpaceGrotesk-fb',sans-serif;
+}
+@font-face{font-family:"Unbounded-fb";src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:125.8%;ascent-override:79.1%;descent-override:19.5%;line-gap-override:0%}
+@font-face{font-family:"SpaceGrotesk-fb";src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:105%;ascent-override:93.7%;descent-override:27.8%;line-gap-override:0%}
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/unbounded-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/unbounded-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:800;font-display:swap;src:url('/fonts/unbounded-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:900;font-display:swap;src:url('/fonts/unbounded-latin-900-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/space-grotesk-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/space-grotesk-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/space-grotesk-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/space-grotesk-latin-700-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
 <!-- chrome-sync:analytics -->
 <script>
 /* Google Analytics 4 and Google Ads, for the whole site, from one file.

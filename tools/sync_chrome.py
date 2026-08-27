@@ -42,10 +42,19 @@ NAVJS   = io.open(SRC + '/navdrawer_js.html', encoding='utf-8').read().rstrip()
 ANALYT  = io.open(SRC + '/analytics.html',    encoding='utf-8').read().rstrip()
 WIDGET  = io.open(SRC + '/widget.html',       encoding='utf-8').read().rstrip()
 WIDGJS  = io.open(SRC + '/widget_js.html',    encoding='utf-8').read().rstrip()
+FONTS   = io.open(SRC + '/fonts.html',        encoding='utf-8').read().rstrip()
 
-MARK_CSS = '<!-- chrome-sync:css -->'
-MARK_JS  = '<!-- chrome-sync:js -->'
-MARK_AN  = '<!-- chrome-sync:analytics -->'
+MARK_CSS  = '<!-- chrome-sync:css -->'
+MARK_JS   = '<!-- chrome-sync:js -->'
+MARK_AN   = '<!-- chrome-sync:analytics -->'
+MARK_FONT = '<!-- chrome-sync:fonts -->'
+
+# The two shapes of Google Fonts link, adjacent, on 74 of the 79 pages.
+GOOGLE_LINK = re.compile(
+    r'[ \t]*<link[^>]*(?:fonts\.googleapis\.com|fonts\.gstatic\.com)[^>]*>[ \t]*\n?')
+# @font-face here is only ever the site faces. The bodies contain no nested
+# braces, so a match to the first closing brace is exact rather than hopeful.
+FONT_FACE = re.compile(r'[ \t]*@font-face\s*\{[^{}]*\}[ \t]*\n?')
 
 STYLE_BLOCK = MARK_CSS + '\n<style>\n' + CSS + '\n</style>\n'
 JS_BLOCK    = MARK_JS + '\n' + PALJS + '\n' + NAVJS + '\n' + WIDGJS + '\n'
@@ -53,6 +62,11 @@ JS_BLOCK    = MARK_JS + '\n' + PALJS + '\n' + NAVJS + '\n' + WIDGJS + '\n'
 # per-page conversion events on /contact and /thank-you sit in the body and call
 # gtag, so gtag has to exist before them or those events silently stop firing.
 AN_BLOCK    = MARK_AN + '\n' + ANALYT + '\n'
+# The faces go first in the injected head block. Position does not decide the
+# cascade for @font-face, but it does decide how early the browser can start
+# the two font requests, and the :root override in the same fragment has to
+# land after the page's own :root to win.
+FONT_BLOCK  = MARK_FONT + '\n' + FONTS + '\n'
 
 # Selectors that are the page's own stale copy of the shared chrome.
 CHROME_SEL = re.compile(
@@ -230,6 +244,14 @@ def sync(path, write=True):
     s = re.sub(re.escape(MARK_AN) + r'\s*<script>.*?</script>\s*', '', s, flags=re.S)
     s = s.replace(MARK_AN, '')
     s = s.replace(MARK_JS, '')
+    # Fonts. Remove a previously injected block whole, then whatever is left:
+    # the Google links on 74 pages, and the hand written faces on the four that
+    # already self hosted. In that order a re-run strips its own output instead
+    # of stacking a second copy.
+    s = re.sub(re.escape(MARK_FONT) + r'\s*<style>.*?</style>\s*', '', s, flags=re.S)
+    s = s.replace(MARK_FONT, '')
+    s, rep['old_gfonts'] = GOOGLE_LINK.subn('', s)
+    s, rep['old_faces'] = FONT_FACE.subn('', s)
     s = strip_chrome_css(s, rep['css_rules_dropped'])
     # removals leave orphaned blank lines; collapse so re-running converges
     s = re.sub(r'\n[ \t]*\n([ \t]*\n)+', '\n\n', s)
@@ -239,7 +261,7 @@ def sync(path, write=True):
 
     # --- 2. insert the canonical chrome -----------------------------------
     assert '</head>' in s and '</body>' in s, path
-    s = s.replace('</head>', AN_BLOCK + STYLE_BLOCK + '</head>', 1)
+    s = s.replace('</head>', FONT_BLOCK + AN_BLOCK + STYLE_BLOCK + '</head>', 1)
     _, at = body_open(s, path)
     s = s[:at] + '\n\n  ' + PALETTE + '\n\n  ' + HEADER + '\n\n  ' + DRAWER + '\n' + s[at:]
     # The widget goes last in the body, after the footer, because it is a
@@ -254,7 +276,16 @@ def sync(path, write=True):
                       ('id="paletteBar"', 1), ('<header>', 1), ('</header>', 1),
                       ('class="pal-toggle"', 1), (MARK_CSS, 1), (MARK_JS, 1),
                       ('id="chatBubble"', 1), ('id="chatPanel"', 1),
-                      ('dea-chat-v1', 1)]:
+                      ('dea-chat-v1', 1),
+                      # Every page ends with one set of the ten faces and no
+                      # request to Google. A page that kept a link would be a
+                      # page whose markup this script did not understand, which
+                      # is worth failing on rather than shipping. Matched in URL
+                      # form, because the fragment's own comment names the host
+                      # it replaces.
+                      (MARK_FONT, 1), ('@font-face', 10),
+                      ('//fonts.googleapis.com', 0),
+                      ('//fonts.gstatic.com', 0)]:
         got = s.count(tok)
         assert got == want, '%s: %s appears %d times, expected %d' % (
             path, tok, got, want)
@@ -288,11 +319,13 @@ def main():
     for f in files:
         ch, rep = sync(f, write=not check)
         n += ch
-        print('%-6s %-56s palette-%d drawer-%d header-%d js-%d an-%d css-%d widget-%d' % (
-            'DRIFT' if (ch and check) else ('EDIT' if ch else 'same'),
-            os.path.relpath(f, SITE), rep['old_palette'], rep['old_drawer'],
-            rep['old_header'], rep['old_js'], rep['old_analytics'],
-            len(rep['css_rules_dropped']), rep['old_widget']))
+        print('%-6s %-52s palette-%d drawer-%d header-%d js-%d an-%d css-%d '
+              'widget-%d gfont-%d face-%d' % (
+                  'DRIFT' if (ch and check) else ('EDIT' if ch else 'same'),
+                  os.path.relpath(f, SITE), rep['old_palette'], rep['old_drawer'],
+                  rep['old_header'], rep['old_js'], rep['old_analytics'],
+                  len(rep['css_rules_dropped']), rep['old_widget'],
+                  rep['old_gfonts'], rep['old_faces']))
     print('\n%d of %d files %s' % (n, len(files), 'drifted' if check else 'changed'))
     if check and n:
         sys.exit(1)
