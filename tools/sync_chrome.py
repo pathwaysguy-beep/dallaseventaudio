@@ -248,7 +248,11 @@ def sync(path, write=True):
     # the Google links on 74 pages, and the hand written faces on the four that
     # already self hosted. In that order a re-run strips its own output instead
     # of stacking a second copy.
-    s = re.sub(re.escape(MARK_FONT) + r'\s*<style>.*?</style>\s*', '', s, flags=re.S)
+    # From the marker to the first closing style tag after it, because the
+    # fragment now opens with preload links rather than with the style block.
+    # Anchoring on the style tag alone left the links behind on a re-run and
+    # the script stopped being idempotent, which --check caught.
+    s = re.sub(re.escape(MARK_FONT) + r'.*?</style>\s*', '', s, flags=re.S)
     s = s.replace(MARK_FONT, '')
     s, rep['old_gfonts'] = GOOGLE_LINK.subn('', s)
     s, rep['old_faces'] = FONT_FACE.subn('', s)
@@ -283,7 +287,7 @@ def sync(path, write=True):
                       # is worth failing on rather than shipping. Matched in URL
                       # form, because the fragment's own comment names the host
                       # it replaces.
-                      (MARK_FONT, 1), ('@font-face', 10),
+                      (MARK_FONT, 1), ('@font-face', 16),
                       ('//fonts.googleapis.com', 0),
                       ('//fonts.gstatic.com', 0)]:
         got = s.count(tok)

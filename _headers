@@ -7,6 +7,22 @@
 /davidsbridalfrisco/*
   X-Robots-Tag: noindex, nofollow
 
+# ─── PERMANENT ────────────────────────────────────────────────────────────
+# Pages deploys the repository as it stands, so the build tooling and the repo's
+# own notes are served as pages. Nothing secret is in them, but /tools/README.md
+# opens by explaining that this is staging, and the flatten turned every
+# fragment in tools/chrome into a clean extensionless URL. The staging block
+# below is what currently keeps them out of Google, and that block is deleted at
+# go-live, so they need their own rule that survives it.
+/tools/*
+  X-Robots-Tag: noindex, nofollow
+/README.md
+  X-Robots-Tag: noindex, nofollow
+/_pages.json
+  X-Robots-Tag: noindex, nofollow
+/image-slots.csv
+  X-Robots-Tag: noindex, nofollow
+
 # ─── STAGING ONLY. DELETE THIS BLOCK AT GO-LIVE, AND NOTHING ELSE. ────────
 # Keeps the preview out of Google so it cannot compete with the live Wix site
 # for the same URLs. Delete these three lines only, in the same commit as the

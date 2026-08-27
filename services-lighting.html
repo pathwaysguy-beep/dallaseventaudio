@@ -759,6 +759,8 @@ a.chip::after{ content:' \2192'; opacity:.55; }
   </script>
 
 <!-- chrome-sync:fonts -->
+<link rel="preload" href="/fonts/unbounded-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/space-grotesk-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 /* The two site faces, served from this origin instead of Google's font CDN.
 
@@ -766,31 +768,42 @@ a.chip::after{ content:' \2192'; opacity:.55; }
    the site opened two extra connections and waited on a render blocking
    stylesheet from another host before any text could be styled. These are the
    same files Google serves: the latin subset woff2 for each weight the design
-   system uses, four of Unbounded and four of Space Grotesk.
+   system uses, four of Unbounded and four of Space Grotesk. The two weights
+   that paint the top of every page are preloaded above.
 
-   The unicode-range is Google's own latin range, copied verbatim. It is
-   accurate rather than cautious: the files carry no glyph outside it, so the
-   arrow, the four point star and the five point star used in the interface
-   already come from a system font, on the four self hosted pages and on
-   Google's own subset alike. Nothing about that changes here.
+   The unicode-range is Google's own latin range, copied verbatim, and the
+   fallback faces carry it too. That is deliberate: the files hold no glyph
+   outside it, so the arrow, the four point star and the five point star used
+   in the interface come from a system font. Without the range on the fallback
+   faces those symbols would be drawn by Arial scaled up by size-adjust, which
+   is a size change on a glyph that used to be left alone.
 
-   The two -fb families are metric matched stand ins for the real faces, built
-   from whichever of four common system fonts the reader has. size-adjust and
-   the override descriptors make a line of Arial occupy the same height as the
-   same line of Unbounded, so the swap when the real face arrives moves
-   nothing. They came from the four pages that already self hosted and are the
-   reason those pages were the good implementation rather than merely a
-   different one. They are useless without the variables below, which is why
-   both live in this file.
+   The two -fb families are metric matched stand ins, drawn from whichever of
+   four common system fonts the reader has, so a heading occupies the same
+   space before the real face arrives as after. There is one face per weight
+   because Unbounded's advance widths grow with weight while Arial's do not:
+   a single size-adjust that suits 400 is 8 percent short at 900.
 
-   font-display:swap keeps text visible during the swap period, and with the
-   metric matched fallback in place the swap is no longer a layout shift. */
+   Every size-adjust below was measured in a browser rather than derived, by
+   rendering forty real headings and forty real paragraphs from this site in
+   the real face and in the fallback and dividing. The ascent and descent
+   overrides are each the true font metric divided by that size-adjust, which
+   is what keeps the line box identical while the width is corrected.
+
+   font-display:swap keeps text visible during the swap period, and the metric
+   matching is what stops that swap moving anything. */
 :root{
   --font-display:'Unbounded','Unbounded-fb',sans-serif;
   --font-body:'Space Grotesk','SpaceGrotesk-fb',sans-serif;
 }
-@font-face{font-family:"Unbounded-fb";src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:125.8%;ascent-override:79.1%;descent-override:19.5%;line-gap-override:0%}
-@font-face{font-family:"SpaceGrotesk-fb";src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:105%;ascent-override:93.7%;descent-override:27.8%;line-gap-override:0%}
+@font-face{font-family:"Unbounded-fb";font-weight:400;src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:133.3%;ascent-override:74.6%;descent-override:18.4%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Unbounded-fb";font-weight:600;src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:138.2%;ascent-override:72.0%;descent-override:17.7%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Unbounded-fb";font-weight:800;src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:142.8%;ascent-override:69.7%;descent-override:17.2%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Unbounded-fb";font-weight:900;src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:144.7%;ascent-override:68.8%;descent-override:16.9%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"SpaceGrotesk-fb";font-weight:400;src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:110.1%;ascent-override:89.4%;descent-override:26.5%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"SpaceGrotesk-fb";font-weight:500;src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:111.2%;ascent-override:88.5%;descent-override:26.3%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"SpaceGrotesk-fb";font-weight:600;src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:110.0%;ascent-override:89.5%;descent-override:26.5%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"SpaceGrotesk-fb";font-weight:700;src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:109.1%;ascent-override:90.2%;descent-override:26.8%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:'Unbounded';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/unbounded-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:'Unbounded';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/unbounded-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:'Unbounded';font-style:normal;font-weight:800;font-display:swap;src:url('/fonts/unbounded-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
