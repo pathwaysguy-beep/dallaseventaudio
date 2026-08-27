@@ -306,7 +306,7 @@ def sync(path, write=True):
 # campaign attribution that the shared one does not have. Syncing the chrome
 # into them would wreck them, so they are skipped entirely.
 STANDALONE = {
-    'davidsbridalfrisco/index.html',   # printed on David's Bridal Frisco flyers
+    'davidsbridalfrisco.html',         # printed on David's Bridal Frisco flyers
 }
 
 
