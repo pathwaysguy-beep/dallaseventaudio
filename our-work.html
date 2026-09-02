@@ -700,6 +700,72 @@ section[id]{ scroll-margin-top:96px; }
   gtag('config', GA4);
   gtag('config', ADS);
 })();
+
+/* Contact click tracking.
+
+   Wix reported phone clicks, email clicks and WhatsApp clicks as a site total.
+   GA4 does not do this on its own: enhanced measurement counts outbound clicks
+   only for http and https links to another host, and tel, mailto and sms are
+   all excluded. So the site has to send the event itself.
+
+   One delegated listener on the document, rather than a handler per link. There
+   are 301 tel links and 80 mailto links across 79 pages, and per link binding
+   would miss anything the nav drawer or the chat widget adds after load.
+
+   Every event carries the page it happened on, which is the part Wix could not
+   answer: a phone click is worth knowing about, a phone click from
+   /rent-line-array-speaker-system is worth bidding on.
+
+   The guard above leaves gtag defined but untransported off production, so this
+   listener runs everywhere and sends nothing except on the live domain.
+
+   One page is not covered by this and should stay that way. davidsbridalfrisco
+   is excluded from the chrome sync and carries its own tap tracking under the
+   event names call_tap and text_tap. It is a live Google Ads landing page, so
+   renaming its events to match could break an Ads conversion import. Any GA4
+   report that wants the whole site has to union contact_click with call_tap.
+
+   Do not write literal tag syntax in this comment. */
+(function () {
+  var METHOD = { 'tel:': 'phone', 'mailto:': 'email', 'sms:': 'sms' };
+
+  function scheme(href) {
+    var i = href.indexOf(':');
+    return i === -1 ? '' : href.slice(0, i + 1).toLowerCase();
+  }
+
+  function section(el) {
+    var n = el;
+    while (n && n !== document.body) {
+      if (n.id) return n.id;
+      if (n.getAttribute && n.getAttribute('data-section')) {
+        return n.getAttribute('data-section');
+      }
+      n = n.parentNode;
+    }
+    return '';
+  }
+
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+
+    var raw = a.getAttribute('href') || '';
+    var m = METHOD[scheme(raw)];
+    if (!m) return;
+
+    var label = (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80);
+
+    gtag('event', 'contact_click', {
+      contact_method: m,
+      contact_target: raw.slice(0, 100),
+      link_text: label,
+      page_path: location.pathname,
+      link_section: section(a),
+      transport_type: 'beacon'
+    });
+  }, true);
+})();
 </script>
 <!-- chrome-sync:css -->
 <style>
@@ -1254,15 +1320,13 @@ body.calm #chatPanel{ display:none; }
       <div class="rail-wrap" data-reveal>
         <div class="rail" id="rail" tabindex="0" role="region" aria-label="Photo gallery of Dallas Event Audio setups. Use the left and right arrow keys to move through the photos.">
 
-          <figure class="slide" style="--img:url('/images/work/line-array-main.jpg')">
-            <figcaption><span class="tag">Audio</span>Line array flown for a full-room reception
-              <span class="slot">/images/work/line-array-main.jpg</span></figcaption>
+          <figure class="slide" style="--img:image-set(url('/images/work/bassboss-dv12-line-array-stands-dallas-ballroom-1200w.avif') type('image/avif'), url('/images/work/bassboss-dv12-line-array-stands-dallas-ballroom-1200w.webp') type('image/webp'), url('/images/work/bassboss-dv12-line-array-stands-dallas-ballroom.jpg'))">
+            <figcaption><span class="tag">Audio</span>The DV12 array up on stands, either side of the room</figcaption>
           </figure>
 
           <a class="slide" href="/post/plane-flew-over-wedding-ceremony-dallas" style="--img:image-set(url('/images/work/ceremony-outdoor-1920w.avif') type('image/avif'), url('/images/work/ceremony-outdoor-1920w.webp') type('image/webp'), url('/images/work/ceremony-outdoor.jpg'))">
             <span class="cap"><span class="tag">Ceremony</span>An outdoor ceremony, covered to the back row
-              <span class="read">Read the story</span>
-              <span class="slot">/images/work/ceremony-outdoor.jpg</span></span>
+              <span class="read">Read the story</span></span>
           </a>
 
           <figure class="slide">
@@ -1270,21 +1334,18 @@ body.calm #chatPanel{ display:none; }
             <figcaption><span class="tag">Lighting</span>Uplighting matched to the room&rsquo;s palette</figcaption>
           </figure>
 
-          <figure class="slide" style="--img:url('/images/work/monogram-floor.jpg')">
-            <figcaption><span class="tag">Lighting</span>Custom monogram thrown on the dance floor
-              <span class="slot">/images/work/monogram-floor.jpg</span></figcaption>
+          <figure class="slide" style="--img:image-set(url('/images/work/custom-monogram-projection-ballroom-wall-dfw-1920w.avif') type('image/avif'), url('/images/work/custom-monogram-projection-ballroom-wall-dfw-1920w.webp') type('image/webp'), url('/images/work/custom-monogram-projection-ballroom-wall-dfw.jpg'))">
+            <figcaption><span class="tag">Lighting</span>A custom monogram across the reception wall</figcaption>
           </figure>
 
-          <a class="slide" href="/post/projector-rental-dallas-tx" style="--img:url('/images/work/projector-screen.jpg')">
+          <a class="slide" href="/post/projector-rental-dallas-tx" style="--img:image-set(url('/images/projector-screen-rental-dallas-ballroom-1920w.avif') type('image/avif'), url('/images/projector-screen-rental-dallas-ballroom-1920w.webp') type('image/webp'), url('/images/projector-screen-rental-dallas-ballroom.jpg'))">
             <span class="cap"><span class="tag">Video</span>Front projection for a general session
-              <span class="read">Read the story</span>
-              <span class="slot">/images/work/projector-screen.jpg</span></span>
+              <span class="read">Read the story</span></span>
           </a>
 
           <a class="slide" href="/post/ambient-light-rejecting-projector-screen-rental-dallas" style="--img:image-set(url('/images/work/alr-screen-1920w.avif') type('image/avif'), url('/images/work/alr-screen-1920w.webp') type('image/webp'), url('/images/work/alr-screen.jpg'))">
             <span class="cap"><span class="tag">Video</span>An ALR screen holding its picture with the house lights up
-              <span class="read">Read the story</span>
-              <span class="slot">/images/work/alr-screen.jpg</span></span>
+              <span class="read">Read the story</span></span>
           </a>
 
           <figure class="slide">
@@ -1302,40 +1363,33 @@ body.calm #chatPanel{ display:none; }
             <figcaption><span class="tag">Effects</span>Dancing on the Clouds during a first dance</figcaption>
           </figure>
 
-          <a class="slide" href="/post/trending-av-services-in-dallas-texas-for-2026-events" style="--img:url('/images/work/corporate-stage.jpg')">
-            <span class="cap"><span class="tag">Corporate</span>A corporate stage, lit clean enough for camera
-              <span class="read">Read the story</span>
-              <span class="slot">/images/work/corporate-stage.jpg</span></span>
+          <a class="slide" href="/post/trending-av-services-in-dallas-texas-for-2026-events" style="--img:image-set(url('/images/work/led-wall-truss-lighting-bassboss-subs-outdoor-stage-dfw-1920w.avif') type('image/avif'), url('/images/work/led-wall-truss-lighting-bassboss-subs-outdoor-stage-dfw-1920w.webp') type('image/webp'), url('/images/work/led-wall-truss-lighting-bassboss-subs-outdoor-stage-dfw.jpg'))">
+            <span class="cap"><span class="tag">Corporate</span>Corporate stage outdoors, LED wall and BassBoss subs under truss
+              <span class="read">Read the story</span></span>
           </a>
 
-          <figure class="slide" style="--img:url('/images/work/wireless-mic.jpg')">
-            <figcaption><span class="tag">Microphones</span>Wireless handheld with our AI De-Feedback system running
-              <span class="slot">/images/work/wireless-mic.jpg</span></figcaption>
+          <figure class="slide" style="--img:image-set(url('/images/work/ai-de-feedback-system-live-ballroom-dallas-1200w.avif') type('image/avif'), url('/images/work/ai-de-feedback-system-live-ballroom-dallas-1200w.webp') type('image/webp'), url('/images/work/ai-de-feedback-system-live-ballroom-dallas.jpg'))">
+            <figcaption><span class="tag">Microphones</span>Our AI De-Feedback system running on a live ballroom rig</figcaption>
           </figure>
 
-          <figure class="slide" style="--img:url('/images/work/laser-show.jpg')">
-            <figcaption><span class="tag">Lasers</span>Aerial lasers over a packed floor
-              <span class="slot">/images/work/laser-show.jpg</span></figcaption>
+          <figure class="slide" style="--img:image-set(url('/images/work/aerial-laser-show-wedding-dance-floor-dfw-1200w.avif') type('image/avif'), url('/images/work/aerial-laser-show-wedding-dance-floor-dfw-1200w.webp') type('image/webp'), url('/images/work/aerial-laser-show-wedding-dance-floor-dfw.jpg'))">
+            <figcaption><span class="tag">Lasers</span>Aerial lasers over a packed floor</figcaption>
           </figure>
 
-          <figure class="slide" style="--img:url('/images/work/truss-wash.jpg')">
-            <figcaption><span class="tag">Lighting</span>Truss wash and moving heads on a raised stage
-              <span class="slot">/images/work/truss-wash.jpg</span></figcaption>
+          <figure class="slide" style="--img:image-set(url('/images/work/truss-moving-heads-led-wall-warehouse-test-dallas-1920w.avif') type('image/avif'), url('/images/work/truss-moving-heads-led-wall-warehouse-test-dallas-1920w.webp') type('image/webp'), url('/images/work/truss-moving-heads-led-wall-warehouse-test-dallas.jpg'))">
+            <figcaption><span class="tag">Lighting</span>Truss, moving heads and the LED wall, built and tested in our warehouse</figcaption>
           </figure>
 
-          <figure class="slide" style="--img:url('/images/work/cold-spark.jpg')">
-            <figcaption><span class="tag">Effects</span>Cold spark fountains framing the entrance
-              <span class="slot">/images/work/cold-spark.jpg</span></figcaption>
+          <figure class="slide" style="--img:image-set(url('/images/work/cold-spark-fountains-first-dance-the-olana-dfw-1920w.avif') type('image/avif'), url('/images/work/cold-spark-fountains-first-dance-the-olana-dfw-1920w.webp') type('image/webp'), url('/images/work/cold-spark-fountains-first-dance-the-olana-dfw.jpg'))">
+            <figcaption><span class="tag">Effects</span>Cold spark fountains on the first dance</figcaption>
           </figure>
 
-          <figure class="slide" style="--img:url('/images/work/outdoor-tent.jpg')">
-            <figcaption><span class="tag">Outdoor</span>Tented reception, power and coverage planned around the walls
-              <span class="slot">/images/work/outdoor-tent.jpg</span></figcaption>
+          <figure class="slide" style="--img:image-set(url('/images/work/outdoor-ceremony-sound-seated-audience-dfw-1920w.avif') type('image/avif'), url('/images/work/outdoor-ceremony-sound-seated-audience-dfw-1920w.webp') type('image/webp'), url('/images/work/outdoor-ceremony-sound-seated-audience-dfw.jpg'))">
+            <figcaption><span class="tag">Outdoor</span>Open-air seating, coverage planned around the whole field</figcaption>
           </figure>
 
-          <figure class="slide" style="--img:url('/images/work/load-in.jpg')">
-            <figcaption><span class="tag">Behind It</span>Load-in, hours before the first guest arrives
-              <span class="slot">/images/work/load-in.jpg</span></figcaption>
+          <figure class="slide" style="--img:image-set(url('/images/work/event-sound-system-load-in-dallas-1920w.avif') type('image/avif'), url('/images/work/event-sound-system-load-in-dallas-1920w.webp') type('image/webp'), url('/images/work/event-sound-system-load-in-dallas.jpg'))">
+            <figcaption><span class="tag">Behind It</span>Load-in, hours before the first guest arrives</figcaption>
           </figure>
 
         </div>
@@ -1355,37 +1409,26 @@ body.calm #chatPanel{ display:none; }
       </div>
 
       <div class="work-grid">
-        <figure class="wtile wide tall" data-reveal style="--img:url('/images/work/reception-dancefloor.jpg')">
-          <figcaption class="cap">A dance floor that never emptied
-            <span class="slot">/images/work/reception-dancefloor.jpg</span></figcaption>
+        <figure class="wtile wide tall" data-reveal style="--img:image-set(url('/images/work/wedding-reception-dance-floor-uplighting-dfw-1920w.avif') type('image/avif'), url('/images/work/wedding-reception-dance-floor-uplighting-dfw-1920w.webp') type('image/webp'), url('/images/work/wedding-reception-dance-floor-uplighting-dfw.jpg'))">
+          <figcaption class="cap">A dance floor that stayed full to the last song</figcaption>
         </figure>
-        <figure class="wtile" data-reveal style="--img:url('/images/work/stage-monitors.jpg')">
-          <figcaption class="cap">Monitors set for a live set
-            <span class="slot">/images/work/stage-monitors.jpg</span></figcaption>
+        <figure class="wtile" data-reveal style="--img:image-set(url('/images/gallery/stage-monitors-band-soundcheck-fort-worth-1200w.avif') type('image/avif'), url('/images/gallery/stage-monitors-band-soundcheck-fort-worth-1200w.webp') type('image/webp'), url('/images/gallery/stage-monitors-band-soundcheck-fort-worth.jpg'))">
+          <figcaption class="cap">Monitors set for a live set</figcaption>
         </figure>
         <figure class="wtile" data-reveal style="--img:image-set(url('/images/work/podium-keynote-1200w.avif') type('image/avif'), url('/images/work/podium-keynote-1200w.webp') type('image/webp'), url('/images/work/podium-keynote.jpg'))">
-          <figcaption class="cap">Podium and lectern mic for a keynote
-            <span class="slot">/images/work/podium-keynote.jpg</span></figcaption>
+          <figcaption class="cap">Podium and lectern mic for a keynote</figcaption>
         </figure>
         <figure class="wtile" data-reveal style="--img:image-set(url('/images/work/gobo-wall-1920w.avif') type('image/avif'), url('/images/work/gobo-wall-1920w.webp') type('image/webp'), url('/images/work/gobo-wall.jpg'))">
-          <figcaption class="cap">Pattern wash across a ballroom wall
-            <span class="slot">/images/work/gobo-wall.jpg</span></figcaption>
+          <figcaption class="cap">Pattern wash across a ballroom wall</figcaption>
         </figure>
-        <figure class="wtile" data-reveal style="--img:url('/images/work/fog-beams.jpg')">
-          <figcaption class="cap">Haze doing its job, beams doing theirs
-            <span class="slot">/images/work/fog-beams.jpg</span></figcaption>
+        <figure class="wtile" data-reveal style="--img:image-set(url('/images/work/haze-light-beams-dance-floor-dallas-1920w.avif') type('image/avif'), url('/images/work/haze-light-beams-dance-floor-dallas-1920w.webp') type('image/webp'), url('/images/work/haze-light-beams-dance-floor-dallas.jpg'))">
+          <figcaption class="cap">Haze in the air, so every beam has something to land on</figcaption>
         </figure>
-        <figure class="wtile wide" data-reveal style="--img:url('/images/work/rave-crowd.jpg')">
-          <figcaption class="cap">Late set, full room, system still clean
-            <span class="slot">/images/work/rave-crowd.jpg</span></figcaption>
+        <figure class="wtile wide" data-reveal style="--img:image-set(url('/images/work/rave-crowd-concert-sound-system-dallas-1920w.avif') type('image/avif'), url('/images/work/rave-crowd-concert-sound-system-dallas-1920w.webp') type('image/webp'), url('/images/work/rave-crowd-concert-sound-system-dallas.jpg'))">
+          <figcaption class="cap">Late set, full room, system still clean</figcaption>
         </figure>
-        <figure class="wtile" data-reveal style="--img:url('/images/work/cable-run.jpg')">
-          <figcaption class="cap">Cable run taped and out of the aisle
-            <span class="slot">/images/work/cable-run.jpg</span></figcaption>
-        </figure>
-        <figure class="wtile" data-reveal style="--img:url('/images/work/photo-booth.jpg')">
-          <figcaption class="cap">Photo booth tucked into the corner it belongs in
-            <span class="slot">/images/work/photo-booth.jpg</span></figcaption>
+        <figure class="wtile" data-reveal style="--img:image-set(url('/images/work/audio-racks-cable-dressed-outdoor-stadium-dfw-1200w.avif') type('image/avif'), url('/images/work/audio-racks-cable-dressed-outdoor-stadium-dfw-1200w.webp') type('image/webp'), url('/images/work/audio-racks-cable-dressed-outdoor-stadium-dfw.jpg'))">
+          <figcaption class="cap">Racks and cable dressed before doors</figcaption>
         </figure>
       </div>
     </div>

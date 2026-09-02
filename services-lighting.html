@@ -862,6 +862,72 @@ a.chip::after{ content:' \2192'; opacity:.55; }
   gtag('config', GA4);
   gtag('config', ADS);
 })();
+
+/* Contact click tracking.
+
+   Wix reported phone clicks, email clicks and WhatsApp clicks as a site total.
+   GA4 does not do this on its own: enhanced measurement counts outbound clicks
+   only for http and https links to another host, and tel, mailto and sms are
+   all excluded. So the site has to send the event itself.
+
+   One delegated listener on the document, rather than a handler per link. There
+   are 301 tel links and 80 mailto links across 79 pages, and per link binding
+   would miss anything the nav drawer or the chat widget adds after load.
+
+   Every event carries the page it happened on, which is the part Wix could not
+   answer: a phone click is worth knowing about, a phone click from
+   /rent-line-array-speaker-system is worth bidding on.
+
+   The guard above leaves gtag defined but untransported off production, so this
+   listener runs everywhere and sends nothing except on the live domain.
+
+   One page is not covered by this and should stay that way. davidsbridalfrisco
+   is excluded from the chrome sync and carries its own tap tracking under the
+   event names call_tap and text_tap. It is a live Google Ads landing page, so
+   renaming its events to match could break an Ads conversion import. Any GA4
+   report that wants the whole site has to union contact_click with call_tap.
+
+   Do not write literal tag syntax in this comment. */
+(function () {
+  var METHOD = { 'tel:': 'phone', 'mailto:': 'email', 'sms:': 'sms' };
+
+  function scheme(href) {
+    var i = href.indexOf(':');
+    return i === -1 ? '' : href.slice(0, i + 1).toLowerCase();
+  }
+
+  function section(el) {
+    var n = el;
+    while (n && n !== document.body) {
+      if (n.id) return n.id;
+      if (n.getAttribute && n.getAttribute('data-section')) {
+        return n.getAttribute('data-section');
+      }
+      n = n.parentNode;
+    }
+    return '';
+  }
+
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+
+    var raw = a.getAttribute('href') || '';
+    var m = METHOD[scheme(raw)];
+    if (!m) return;
+
+    var label = (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80);
+
+    gtag('event', 'contact_click', {
+      contact_method: m,
+      contact_target: raw.slice(0, 100),
+      link_text: label,
+      page_path: location.pathname,
+      link_section: section(a),
+      transport_type: 'beacon'
+    });
+  }, true);
+})();
 </script>
 <!-- chrome-sync:css -->
 <style>

@@ -667,7 +667,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
       {
         "@type": "Question",
         "name": "What is a monogram projector?",
-        "acceptedAnswer": { "@type": "Answer", "text": "A monogram projector is a lighting fixture that puts a custom design, usually your names and date or a company logo, onto a wall, a ceiling or a floor. The design lives in a file we build for you, and the projector shows it as light rather than as a printed sign." }
+        "acceptedAnswer": { "@type": "Answer", "text": "A monogram projector is a lighting fixture that puts a custom design, usually your names and date or a company logo, onto a wall or a ceiling. The design lives in a file we build for you, and the projector shows it as light rather than as a printed sign." }
       },
       {
         "@type": "Question",
@@ -681,8 +681,8 @@ a.chip::after{ content:' \2192'; opacity:.55; }
       },
       {
         "@type": "Question",
-        "name": "Can you project the monogram on the dance floor?",
-        "acceptedAnswer": { "@type": "Answer", "text": "We can, and in a dark room a dance floor monogram reads well. A wall or a ceiling is the safer choice, because guests stand on a dance floor and break up the design. Send us your floor plan and we will tell you which surface holds the design better in your room." }
+        "name": "Which surface should the monogram go on?",
+        "acceptedAnswer": { "@type": "Answer", "text": "A wall or a ceiling, every time. Those surfaces hold the whole design all night and stay clear in photographs, because the light lands on a flat plane with nobody standing in it. Send us your floor plan and we will pick the wall that carries it best in your room." }
       },
       {
         "@type": "Question",
@@ -841,6 +841,72 @@ a.chip::after{ content:' \2192'; opacity:.55; }
   gtag('js', new Date());
   gtag('config', GA4);
   gtag('config', ADS);
+})();
+
+/* Contact click tracking.
+
+   Wix reported phone clicks, email clicks and WhatsApp clicks as a site total.
+   GA4 does not do this on its own: enhanced measurement counts outbound clicks
+   only for http and https links to another host, and tel, mailto and sms are
+   all excluded. So the site has to send the event itself.
+
+   One delegated listener on the document, rather than a handler per link. There
+   are 301 tel links and 80 mailto links across 79 pages, and per link binding
+   would miss anything the nav drawer or the chat widget adds after load.
+
+   Every event carries the page it happened on, which is the part Wix could not
+   answer: a phone click is worth knowing about, a phone click from
+   /rent-line-array-speaker-system is worth bidding on.
+
+   The guard above leaves gtag defined but untransported off production, so this
+   listener runs everywhere and sends nothing except on the live domain.
+
+   One page is not covered by this and should stay that way. davidsbridalfrisco
+   is excluded from the chrome sync and carries its own tap tracking under the
+   event names call_tap and text_tap. It is a live Google Ads landing page, so
+   renaming its events to match could break an Ads conversion import. Any GA4
+   report that wants the whole site has to union contact_click with call_tap.
+
+   Do not write literal tag syntax in this comment. */
+(function () {
+  var METHOD = { 'tel:': 'phone', 'mailto:': 'email', 'sms:': 'sms' };
+
+  function scheme(href) {
+    var i = href.indexOf(':');
+    return i === -1 ? '' : href.slice(0, i + 1).toLowerCase();
+  }
+
+  function section(el) {
+    var n = el;
+    while (n && n !== document.body) {
+      if (n.id) return n.id;
+      if (n.getAttribute && n.getAttribute('data-section')) {
+        return n.getAttribute('data-section');
+      }
+      n = n.parentNode;
+    }
+    return '';
+  }
+
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+
+    var raw = a.getAttribute('href') || '';
+    var m = METHOD[scheme(raw)];
+    if (!m) return;
+
+    var label = (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80);
+
+    gtag('event', 'contact_click', {
+      contact_method: m,
+      contact_target: raw.slice(0, 100),
+      link_text: label,
+      page_path: location.pathname,
+      link_section: section(a),
+      transport_type: 'beacon'
+    });
+  }, true);
 })();
 </script>
 <!-- chrome-sync:css -->
@@ -1607,7 +1673,7 @@ body.calm #chatPanel{ display:none; }
       <div class="faq-list">
         <details class="faq-item" data-reveal>
           <summary>What is a monogram projector?</summary>
-          <div class="ans"><p>A monogram projector is a lighting fixture that puts a custom design, usually your names and date or a company logo, onto a wall, a ceiling or a floor. The design lives in a file we build for you, and the projector shows it as light rather than as a printed sign.</p></div>
+          <div class="ans"><p>A monogram projector is a lighting fixture that puts a custom design, usually your names and date or a company logo, onto a wall or a ceiling. The design lives in a file we build for you, and the projector shows it as light rather than as a printed sign.</p></div>
         </details>
         <details class="faq-item" data-reveal>
           <summary>Can the monogram be more than our initials?</summary>
@@ -1618,8 +1684,8 @@ body.calm #chatPanel{ display:none; }
           <div class="ans"><p>It will be visible, and it will be soft. The room light level is what decides how a projected monogram reads, more than the fixture does. If you want it crisp in photographs, plan on the monogram being at its strongest after dinner, when the venue brings the house lights down for dancing.</p></div>
         </details>
         <details class="faq-item" data-reveal>
-          <summary>Can you project the monogram on the dance floor?</summary>
-          <div class="ans"><p>We can, and in a dark room a dance floor monogram reads well. A wall or a ceiling is the safer choice, because guests stand on a dance floor and break up the design. Send us your floor plan and we will tell you which surface holds the design better in your room.</p></div>
+          <summary>Which surface should the monogram go on?</summary>
+          <div class="ans"><p>A wall or a ceiling, every time. Those surfaces hold the whole design all night and stay clear in photographs, because the light lands on a flat plane with nobody standing in it. Send us your floor plan and we will pick the wall that carries it best in your room.</p></div>
         </details>
         <details class="faq-item" data-reveal>
           <summary>Is the projection full color or one color?</summary>
