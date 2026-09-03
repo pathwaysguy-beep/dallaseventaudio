@@ -177,6 +177,10 @@ a{color:inherit; text-decoration:none;}
 .service-card .learn{ font-size:0.904rem; font-weight:700; color:var(--a1); }
 .service-card.featured{ border-color:var(--a2); }
 .tag-live{ position:absolute; top:20px; right:20px; font-size:0.82rem; text-transform:uppercase; letter-spacing:.06em; color:var(--a2); border:1px solid var(--a2); padding:3px 8px; border-radius:100px; }
+.laserclip{ margin:38px auto 0; max-width:330px; }
+.laserclip video{ width:100%; display:block; border-radius:20px; border:1px solid var(--card-border);
+    box-shadow:0 24px 60px -34px rgba(0,0,0,.75); background:var(--bg-2); }
+.laserclip figcaption{ margin-top:12px; font-size:.9rem; color:var(--dim); line-height:1.6; text-align:center; }
 .diff{ background:var(--bg-1); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border); }
 .diff-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
 .diff-visual{
@@ -188,6 +192,8 @@ a{color:inherit; text-decoration:none;}
     box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 20px 60px -30px rgba(0,0,0,.7);
     display:flex; align-items:center; justify-content:center; position:relative;
   }
+.diff-visual{ overflow:hidden; margin:0; padding:0; }
+.diff-visual img{ width:100%; height:100%; object-fit:cover; display:block; border-radius:23px; }
 .diff-visual .badge{
     font-family:var(--font-display); font-weight:800; text-align:center; font-size:1.073rem; color:var(--dim);
     border:1px dashed var(--card-border); padding:20px; border-radius:16px;
@@ -1278,6 +1284,12 @@ body.calm #chatPanel{ display:none; }
         <h2>Licensed, local, and sized to your room.</h2>
         <p>Most laser quotes hand you one system and hope it fits. We run multiple laser power tiers so you're not overpaying for more laser than your venue needs, and so a 150-guest ballroom doesn't get the same rig as an outdoor festival stage. We look at the room first, then tell you what it takes.</p>
       </div>
+      <figure class="laserclip" data-reveal>
+        <video muted loop playsinline autoplay preload="metadata"
+               poster="/images/laser-light-show-beams-dallas-poster.jpg"
+               aria-label="Laser beams fanning out across the ceiling and over a standing crowd through haze at a Dallas event"><source src="/videos/laser-light-show-beams-dallas.webm" type="video/webm"><source src="/videos/laser-light-show-beams-dallas.mp4" type="video/mp4"></video>
+        <figcaption>Beams fanning across the ceiling and terminating well above head height, over a full floor in Dallas.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -1356,11 +1368,7 @@ body.calm #chatPanel{ display:none; }
             <div class="step"><div class="n">4</div><p>Airspace coordination: required for outdoor shows, handled by us before your event date.</p></div>
           </div>
         </div>
-        <div class="diff-visual" data-reveal>
-          <div class="badge">
-            [ real laser show photo/video<br>goes here, graded<br>to match this palette ]
-          </div>
-        </div>
+        <figure class="diff-visual" data-reveal><picture><source type="image/avif" srcset="/images/work/aerial-laser-beams-over-crowd-rave-dallas-480w.avif 480w, /images/work/aerial-laser-beams-over-crowd-rave-dallas-768w.avif 768w, /images/work/aerial-laser-beams-over-crowd-rave-dallas-1200w.avif 1200w, /images/work/aerial-laser-beams-over-crowd-rave-dallas-1920w.avif 1920w" sizes="(max-width:900px) 92vw, 44vw"><source type="image/webp" srcset="/images/work/aerial-laser-beams-over-crowd-rave-dallas-480w.webp 480w, /images/work/aerial-laser-beams-over-crowd-rave-dallas-768w.webp 768w, /images/work/aerial-laser-beams-over-crowd-rave-dallas-1200w.webp 1200w, /images/work/aerial-laser-beams-over-crowd-rave-dallas-1920w.webp 1920w" sizes="(max-width:900px) 92vw, 44vw"><img src="/images/work/aerial-laser-beams-over-crowd-rave-dallas.jpg" alt="Aerial laser beams fanning out over a standing crowd through haze at a Dallas-Fort Worth rave" loading="lazy" width="1920" height="1440"></picture></figure>
       </div>
     </div>
   </section>
