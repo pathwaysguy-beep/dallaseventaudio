@@ -860,8 +860,13 @@ a.chip::after{ content:' \2192'; opacity:.55; }
    answer: a phone click is worth knowing about, a phone click from
    /rent-line-array-speaker-system is worth bidding on.
 
-   The guard above leaves gtag defined but untransported off production, so this
-   listener runs everywhere and sends nothing except on the live domain.
+   The same hostname guard is repeated below. The loader guard alone would have
+   been enough to stop anything reaching the network, because gtag is left
+   defined but untransported off production. It would not have stopped the
+   listener binding and pushing into a dataLayer nobody drains, which grows for
+   as long as a preview tab is open and reads, to anyone inspecting it, like
+   events are being collected. Guarding the listener too costs one line and
+   makes the preview genuinely inert.
 
    One page is not covered by this and should stay that way. davidsbridalfrisco
    is excluded from the chrome sync and carries its own tap tracking under the
@@ -871,6 +876,9 @@ a.chip::after{ content:' \2192'; opacity:.55; }
 
    Do not write literal tag syntax in this comment. */
 (function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  if (PROD.indexOf(location.hostname) === -1) return;
+
   var METHOD = { 'tel:': 'phone', 'mailto:': 'email', 'sms:': 'sms' };
 
   function scheme(href) {
@@ -1488,11 +1496,10 @@ body.calm #chatPanel{ display:none; }
           <figcaption>Low lying fog under a first dance in Dallas</figcaption>
         </figure>
         <figure class="gshot" data-reveal>
-          <img src="/images/gallery/wireless-lapel-microphone-outdoor-wedding-ceremony-dfw.jpg" alt="A wireless lapel microphone clipped to an officiant at an outdoor Dallas-Fort Worth wedding ceremony" loading="lazy" width="800" height="600">
-          <figcaption>Wireless lapel microphone on an officiant, outdoor ceremony</figcaption>
+          <picture><source type="image/avif" srcset="/images/work/outdoor-ceremony-sound-seated-audience-dfw-480w.avif 480w, /images/work/outdoor-ceremony-sound-seated-audience-dfw-768w.avif 768w, /images/work/outdoor-ceremony-sound-seated-audience-dfw-1200w.avif 1200w, /images/work/outdoor-ceremony-sound-seated-audience-dfw-1920w.avif 1920w" sizes="(max-width: 640px) 332px, 269px"><source type="image/webp" srcset="/images/work/outdoor-ceremony-sound-seated-audience-dfw-480w.webp 480w, /images/work/outdoor-ceremony-sound-seated-audience-dfw-768w.webp 768w, /images/work/outdoor-ceremony-sound-seated-audience-dfw-1200w.webp 1200w, /images/work/outdoor-ceremony-sound-seated-audience-dfw-1920w.webp 1920w" sizes="(max-width: 640px) 332px, 269px"><img src="/images/work/outdoor-ceremony-sound-seated-audience-dfw.jpg" alt="Outdoor wedding ceremony sound for a seated audience at a Dallas-Fort Worth venue, run on two lapel microphones" loading="lazy" width="800" height="600"></picture>
+          <figcaption>Lapel microphones on an outdoor DFW ceremony</figcaption>
         </figure>
         <figure class="gshot" data-reveal>
-          <img src="/images/gallery/wedding-reception-speakers-on-stands-head-table-dfw.jpg" alt="Reception speakers on stands positioned beside the head table at a DFW wedding" loading="lazy" width="800" height="600">
           <figcaption>Reception speakers placed for the head table and the floor</figcaption>
         </figure>
       </div>
@@ -1516,7 +1523,6 @@ body.calm #chatPanel{ display:none; }
 
       <div class="gshots">
         <figure class="gshot" data-reveal>
-          <img src="/images/gallery/corporate-general-session-stage-dallas-hotel-ballroom.jpg" alt="A general session stage with speakers and lighting set up in a Dallas hotel ballroom for a corporate conference" loading="lazy" width="800" height="600">
           <figcaption>General session stage in a Dallas hotel ballroom</figcaption>
         </figure>
         <figure class="gshot" data-reveal>
@@ -1528,7 +1534,6 @@ body.calm #chatPanel{ display:none; }
           <figcaption>Projector and screen for an Irving presentation</figcaption>
         </figure>
         <figure class="gshot" data-reveal>
-          <img src="/images/gallery/panel-discussion-microphones-conference-dallas.jpg" alt="Four panelists seated with individual microphones at a Dallas conference panel discussion" loading="lazy" width="800" height="600">
           <figcaption>One microphone per panelist at a Dallas conference</figcaption>
         </figure>
       </div>
@@ -1564,7 +1569,6 @@ body.calm #chatPanel{ display:none; }
           <figcaption>Column wash in a Plano grand ballroom</figcaption>
         </figure>
         <figure class="gshot" data-reveal>
-          <img src="/images/gallery/custom-color-uplighting-corporate-brand-event-dallas.jpg" alt="Uplighting matched to a company brand color across a Dallas corporate event space" loading="lazy" width="800" height="600">
           <figcaption>Uplighting matched to a brand color, Dallas</figcaption>
         </figure>
       </div>
@@ -1592,15 +1596,13 @@ body.calm #chatPanel{ display:none; }
           <figcaption>Dry ice clouds holding at floor level, Dallas</figcaption>
         </figure>
         <figure class="gshot" data-reveal>
-          <img src="/images/gallery/haze-lighting-beams-band-stage-fort-worth.jpg" alt="Haze in the air giving stage lighting beams visible shape above a band in Fort Worth" loading="lazy" width="800" height="600">
-          <figcaption>Haze giving the beams shape over a Fort Worth stage</figcaption>
+          <picture><source type="image/avif" srcset="/images/work/haze-light-beams-dance-floor-dallas-480w.avif 480w, /images/work/haze-light-beams-dance-floor-dallas-768w.avif 768w, /images/work/haze-light-beams-dance-floor-dallas-1200w.avif 1200w, /images/work/haze-light-beams-dance-floor-dallas-1920w.avif 1920w" sizes="(max-width: 640px) 332px, 269px"><source type="image/webp" srcset="/images/work/haze-light-beams-dance-floor-dallas-480w.webp 480w, /images/work/haze-light-beams-dance-floor-dallas-768w.webp 768w, /images/work/haze-light-beams-dance-floor-dallas-1200w.webp 1200w, /images/work/haze-light-beams-dance-floor-dallas-1920w.webp 1920w" sizes="(max-width: 640px) 332px, 269px"><img src="/images/work/haze-light-beams-dance-floor-dallas.jpg" alt="Haze giving shape to lighting beams over a dance floor at a Dallas event" loading="lazy" width="800" height="600"></picture>
+          <figcaption>Haze giving lighting beams their shape</figcaption>
         </figure>
         <figure class="gshot" data-reveal>
-          <img src="/images/gallery/fog-machine-grand-entrance-reception-dfw.jpg" alt="Fog rolling across the floor for a grand entrance at a Dallas-Fort Worth reception" loading="lazy" width="800" height="600">
           <figcaption>Fog for a grand entrance at a DFW reception</figcaption>
         </figure>
         <figure class="gshot" data-reveal>
-          <img src="/images/gallery/low-lying-fog-outdoor-ceremony-exit-denton.jpg" alt="Low lying fog along an outdoor aisle for a ceremony exit at a Denton venue" loading="lazy" width="800" height="600">
           <figcaption>Low lying fog on an outdoor aisle, Denton</figcaption>
         </figure>
       </div>
@@ -1624,20 +1626,19 @@ body.calm #chatPanel{ display:none; }
 
       <div class="gshots">
         <figure class="gshot" data-reveal>
-          <img src="/images/gallery/green-laser-beams-over-dance-floor-dallas-club.jpg" alt="Green laser beams fanning out over a packed dance floor at a Dallas club night" loading="lazy" width="800" height="600">
-          <figcaption>Green beams over a Dallas dance floor</figcaption>
+          <picture><source type="image/avif" srcset="/images/work/aerial-laser-show-wedding-dance-floor-dfw-480w.avif 480w, /images/work/aerial-laser-show-wedding-dance-floor-dfw-768w.avif 768w, /images/work/aerial-laser-show-wedding-dance-floor-dfw-1200w.avif 1200w, /images/work/aerial-laser-show-wedding-dance-floor-dfw-1600w.avif 1600w" sizes="(max-width: 640px) 332px, 269px"><source type="image/webp" srcset="/images/work/aerial-laser-show-wedding-dance-floor-dfw-480w.webp 480w, /images/work/aerial-laser-show-wedding-dance-floor-dfw-768w.webp 768w, /images/work/aerial-laser-show-wedding-dance-floor-dfw-1200w.webp 1200w, /images/work/aerial-laser-show-wedding-dance-floor-dfw-1600w.webp 1600w" sizes="(max-width: 640px) 332px, 269px"><img src="/images/work/aerial-laser-show-wedding-dance-floor-dfw.jpg" alt="Aerial laser beams fanning out over a wedding dance floor at a Dallas-Fort Worth reception" loading="lazy" width="800" height="600"></picture>
+          <figcaption>Aerial laser beams over a DFW dance floor</figcaption>
         </figure>
         <figure class="gshot" data-reveal>
-          <img src="/images/gallery/laser-light-show-aerial-beams-rave-dfw.jpg" alt="Aerial laser beams cutting through haze above a crowd at a DFW rave" loading="lazy" width="800" height="600">
           <figcaption>Aerial laser beams through haze at a DFW rave</figcaption>
         </figure>
         <figure class="gshot" data-reveal>
-          <img src="/images/gallery/moving-head-lighting-dj-booth-dallas-nightclub.jpg" alt="Moving head fixtures lighting a DJ booth at a Dallas nightclub" loading="lazy" width="800" height="600">
-          <figcaption>Moving heads over a Dallas DJ booth</figcaption>
+          <picture><source type="image/avif" srcset="/images/work/truss-moving-heads-led-wall-warehouse-test-dallas-480w.avif 480w, /images/work/truss-moving-heads-led-wall-warehouse-test-dallas-768w.avif 768w, /images/work/truss-moving-heads-led-wall-warehouse-test-dallas-1200w.avif 1200w, /images/work/truss-moving-heads-led-wall-warehouse-test-dallas-1920w.avif 1920w" sizes="(max-width: 640px) 332px, 269px"><source type="image/webp" srcset="/images/work/truss-moving-heads-led-wall-warehouse-test-dallas-480w.webp 480w, /images/work/truss-moving-heads-led-wall-warehouse-test-dallas-768w.webp 768w, /images/work/truss-moving-heads-led-wall-warehouse-test-dallas-1200w.webp 1200w, /images/work/truss-moving-heads-led-wall-warehouse-test-dallas-1920w.webp 1920w" sizes="(max-width: 640px) 332px, 269px"><img src="/images/work/truss-moving-heads-led-wall-warehouse-test-dallas.jpg" alt="Moving head fixtures on truss beside an LED wall, set up and tested in the Dallas Event Audio warehouse" loading="lazy" width="800" height="600"></picture>
+          <figcaption>Moving heads and an LED wall on truss</figcaption>
         </figure>
         <figure class="gshot" data-reveal>
-          <img src="/images/gallery/cold-spark-fountains-dance-floor-entrance-dallas.jpg" alt="Cold spark fountains firing on either side of a dance floor entrance at a Dallas event" loading="lazy" width="800" height="600">
-          <figcaption>Cold spark fountains at a dance floor entrance</figcaption>
+          <picture><source type="image/avif" srcset="/images/work/cold-spark-fountains-first-dance-the-olana-dfw-480w.avif 480w, /images/work/cold-spark-fountains-first-dance-the-olana-dfw-768w.avif 768w, /images/work/cold-spark-fountains-first-dance-the-olana-dfw-1200w.avif 1200w, /images/work/cold-spark-fountains-first-dance-the-olana-dfw-1920w.avif 1920w" sizes="(max-width: 640px) 332px, 269px"><source type="image/webp" srcset="/images/work/cold-spark-fountains-first-dance-the-olana-dfw-480w.webp 480w, /images/work/cold-spark-fountains-first-dance-the-olana-dfw-768w.webp 768w, /images/work/cold-spark-fountains-first-dance-the-olana-dfw-1200w.webp 1200w, /images/work/cold-spark-fountains-first-dance-the-olana-dfw-1920w.webp 1920w" sizes="(max-width: 640px) 332px, 269px"><img src="/images/work/cold-spark-fountains-first-dance-the-olana-dfw.jpg" alt="Cold spark fountains firing behind a couple during their first dance at The Olana in Hickory Creek, Texas" loading="lazy" width="800" height="600"></picture>
+          <figcaption>Cold spark fountains on a first dance at The Olana</figcaption>
         </figure>
       </div>
 
@@ -1655,14 +1656,10 @@ body.calm #chatPanel{ display:none; }
       <div class="section-head" data-reveal style="max-width:860px;">
         <span class="kicker">Sound Systems</span>
         <h2>Sound system photos: speakers, subwoofers and the console</h2>
-        <p class="sub">What a rig looks like once it is built for the room, from a reception pair to a flown array on an outdoor stage. The inventory behind these photos is on the <a href="/rent-sound-equipment">sound system rental</a> page.</p>
+        <p class="sub">What a rig looks like once it is built for the room, from a reception pair to a full array on an outdoor stage. The inventory behind these photos is on the <a href="/rent-sound-equipment">sound system rental</a> page.</p>
       </div>
 
       <div class="gshots">
-        <figure class="gshot" data-reveal>
-          <img src="/images/gallery/line-array-speaker-system-flown-outdoor-stage-dfw.jpg" alt="A flown line array speaker system hanging beside an outdoor stage at a Dallas-Fort Worth event" loading="lazy" width="800" height="600">
-          <figcaption>Flown line array beside a DFW outdoor stage</figcaption>
-        </figure>
         <figure class="gshot" data-reveal>
           <picture><source type="image/avif" srcset="/images/gallery/bassboss-subwoofers-stacked-dance-floor-dallas-480w.avif 480w, /images/gallery/bassboss-subwoofers-stacked-dance-floor-dallas-768w.avif 768w, /images/gallery/bassboss-subwoofers-stacked-dance-floor-dallas-1200w.avif 1200w, /images/gallery/bassboss-subwoofers-stacked-dance-floor-dallas-1920w.avif 1920w" sizes="(max-width: 640px) 332px, 269px"><source type="image/webp" srcset="/images/gallery/bassboss-subwoofers-stacked-dance-floor-dallas-480w.webp 480w, /images/gallery/bassboss-subwoofers-stacked-dance-floor-dallas-768w.webp 768w, /images/gallery/bassboss-subwoofers-stacked-dance-floor-dallas-1200w.webp 1200w, /images/gallery/bassboss-subwoofers-stacked-dance-floor-dallas-1920w.webp 1920w" sizes="(max-width: 640px) 332px, 269px"><img src="/images/gallery/bassboss-subwoofers-stacked-dance-floor-dallas.jpg" alt="BassBoss subwoofers stacked at the edge of a dance floor at a Dallas party" loading="lazy" width="800" height="600"></picture>
           <figcaption>Subwoofers stacked at a Dallas dance floor</figcaption>
@@ -1672,7 +1669,6 @@ body.calm #chatPanel{ display:none; }
           <figcaption>Front of house console, Fort Worth band show</figcaption>
         </figure>
         <figure class="gshot" data-reveal>
-          <img src="/images/gallery/stage-monitors-band-soundcheck-arlington.jpg" alt="Stage monitor wedges positioned across the deck during a band soundcheck in Arlington" loading="lazy" width="800" height="600">
           <figcaption>Monitor wedges set for a soundcheck in Arlington</figcaption>
         </figure>
       </div>

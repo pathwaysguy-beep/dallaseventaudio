@@ -711,7 +711,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
       {"@type":"Question","name":"Do you deliver sound equipment in Dallas?",
        "acceptedAnswer":{"@type":"Answer","text":"Yes. Delivery and setup are part of every rental. We deliver across Dallas, Fort Worth, Plano, Southlake, Frisco, Arlington, Irving, McKinney, Garland and the surrounding metroplex, and we set the system up, tune it to the room and keep a technician on it for the event rather than leaving it with you."}},
       {"@type":"Question","name":"How much does it cost to rent PA speakers in Dallas?",
-       "acceptedAnswer":{"@type":"Answer","text":"We do not publish a price range, because the honest range would run from a two-speaker party rig to a flown line array and would misprice both. What decides your number is the size and shape of the room, how many spaces need audio, what has to happen through the system and how difficult the load-in is. Send the date, the venue and a rough guest count and you will normally have an itemized quote back the same day, with delivery, setup and the technician already included."}},
+       "acceptedAnswer":{"@type":"Answer","text":"We do not publish a price range, because the honest range would run from a two-speaker party rig to a full line array and would misprice both. What decides your number is the size and shape of the room, how many spaces need audio, what has to happen through the system and how difficult the load-in is. Send the date, the venue and a rough guest count and you will normally have an itemized quote back the same day, with delivery, setup and the technician already included."}},
       {"@type":"Question","name":"What is included in a rental?",
        "acceptedAnswer":{"@type":"Answer","text":"Delivery, setup, tuning and collection are included in every booking, and the reason is worth spelling out. Placement, gain structure, tuning and having someone on the system during the event are the parts that decide whether it sounds right, and they cannot be handed over in a road case. It also means nothing is your responsibility to transport, return or troubleshoot."}},
       {"@type":"Question","name":"Can DJs and presenters connect to your systems?",
@@ -729,7 +729,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
       {"@type":"Question","name":"Do you rent sound equipment for weddings?",
        "acceptedAnswer":{"@type":"Answer","text":"Constantly, and it is worth planning as three separate audio events rather than one. A ceremony needs discreet coverage and lapel or podium microphones, cocktails need something small and distributed, and the reception needs tops, subwoofers and a technician who can move between speeches and dancing without a gap. We normally set all of it in one visit."}},
       {"@type":"Question","name":"Can I rent a line array system?",
-       "acceptedAnswer":{"@type":"Answer","text":"Yes, for festivals, raves, club nights, large general sessions and any room long or tall enough that a point-source system would be shouting at the front row to reach the back. Line array bookings include the rigging or ground support the venue requires and the crew to fly it safely; they are not something we would ever hand over unstaffed."}},
+       "acceptedAnswer":{"@type":"Answer","text":"Yes, for festivals, raves, club nights, large general sessions and any room long or tall enough that a point-source system would be shouting at the front row to reach the back. Line array bookings include the heavy duty stands or ground support the venue requires and the crew to set it up safely. Every one of them goes out staffed."}},
       {"@type":"Question","name":"How far in advance should I book?",
        "acceptedAnswer":{"@type":"Answer","text":"As soon as your date is set, particularly for a Saturday between spring and the end of the year. That said, short-notice bookings work more often than people expect. If your date is close, call or text 817-210-7957 rather than assuming it is too late, and we will tell you honestly what is still available."}},
       {"@type":"Question","name":"How do I get a quote for sound equipment rental?",
@@ -870,8 +870,13 @@ a.chip::after{ content:' \2192'; opacity:.55; }
    answer: a phone click is worth knowing about, a phone click from
    /rent-line-array-speaker-system is worth bidding on.
 
-   The guard above leaves gtag defined but untransported off production, so this
-   listener runs everywhere and sends nothing except on the live domain.
+   The same hostname guard is repeated below. The loader guard alone would have
+   been enough to stop anything reaching the network, because gtag is left
+   defined but untransported off production. It would not have stopped the
+   listener binding and pushing into a dataLayer nobody drains, which grows for
+   as long as a preview tab is open and reads, to anyone inspecting it, like
+   events are being collected. Guarding the listener too costs one line and
+   makes the preview genuinely inert.
 
    One page is not covered by this and should stay that way. davidsbridalfrisco
    is excluded from the chrome sync and carries its own tap tracking under the
@@ -881,6 +886,9 @@ a.chip::after{ content:' \2192'; opacity:.55; }
 
    Do not write literal tag syntax in this comment. */
 (function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  if (PROD.indexOf(location.hostname) === -1) return;
+
   var METHOD = { 'tel:': 'phone', 'mailto:': 'email', 'sms:': 'sms' };
 
   function scheme(href) {
@@ -1521,7 +1529,7 @@ body.calm #chatPanel{ display:none; }
         <div class="gear-card" data-reveal>
           <div class="gn">05</div>
           <h3>Line array systems</h3>
-          <p>Long, tall or loud rooms: festivals, raves, night clubs, large-venue general sessions, anything where a point-source system would be shouting at the front row to reach the back one. Line array rental comes with the rigging, the ground support or flying hardware the venue requires, and the crew to fly it safely.</p>
+          <p>Long, tall or loud rooms: festivals, raves, night clubs, large-venue general sessions, anything where a point-source system would be shouting at the front row to reach the back one. Line array rental comes with the heavy duty stands or the ground support the venue requires, and the crew to set it up safely.</p>
           <div class="chips">
             <a class="chip" href="/rent-line-array-speaker-system">Line array speaker systems</a>
           </div>
@@ -1608,7 +1616,7 @@ body.calm #chatPanel{ display:none; }
         </div>
         <div class="room" data-reveal>
           <h3>Club night, rave or festival stage<span>Loud, long or outdoors</span></h3>
-          <p>Line array over ground-stacked or flown rigging, serious subwoofer arrays underneath, DJ equipment in a proper booth, and enough headroom that nothing is working at its limit for six hours. Usually booked as a full production package alongside lighting and lasers. See <a href="/rave-and-night-club-events">rave and night club events</a>.</p>
+          <p>A line array up on stands over a ground stacked subwoofer array, serious low end underneath, DJ equipment in a proper booth, and enough headroom that nothing is working at its limit for six hours. Usually booked as a full production package alongside lighting and lasers. See <a href="/rave-and-night-club-events">rave and night club events</a>.</p>
         </div>
       </div>
     </div>
@@ -1849,7 +1857,7 @@ body.calm #chatPanel{ display:none; }
         </details>
         <details class="faq-item" data-reveal>
           <summary>How much does it cost to rent PA speakers in Dallas?</summary>
-          <div class="ans">We do not publish a price range, because the honest range would run from a two-speaker party rig to a flown line array and would misprice both. What decides your number is the size and shape of the room, how many spaces need audio, what has to happen through the system and how difficult the load-in is. Send the date, the venue and a rough guest count and you will normally have an itemized quote back the same day, with delivery, setup and the technician already included.</div>
+          <div class="ans">We do not publish a price range, because the honest range would run from a two-speaker party rig to a full line array and would misprice both. What decides your number is the size and shape of the room, how many spaces need audio, what has to happen through the system and how difficult the load-in is. Send the date, the venue and a rough guest count and you will normally have an itemized quote back the same day, with delivery, setup and the technician already included.</div>
         </details>
         <details class="faq-item" data-reveal>
           <summary>What is included in a rental?</summary>
@@ -1885,7 +1893,7 @@ body.calm #chatPanel{ display:none; }
         </details>
         <details class="faq-item" data-reveal>
           <summary>Can I rent a line array system?</summary>
-          <div class="ans">Yes, for festivals, raves, club nights, large general sessions and any room long or tall enough that a point-source system would be shouting at the front row to reach the back. Line array bookings include the rigging or ground support the venue requires and the crew to fly it safely; they are not something we would ever hand over unstaffed.</div>
+          <div class="ans">Yes, for festivals, raves, club nights, large general sessions and any room long or tall enough that a point-source system would be shouting at the front row to reach the back. Line array bookings include the heavy duty stands or ground support the venue requires and the crew to set it up safely. Every one of them goes out staffed.</div>
         </details>
         <details class="faq-item" data-reveal>
           <summary>How far in advance should I book?</summary>

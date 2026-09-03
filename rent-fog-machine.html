@@ -870,8 +870,13 @@ a.chip::after{ content:' \2192'; opacity:.55; }
    answer: a phone click is worth knowing about, a phone click from
    /rent-line-array-speaker-system is worth bidding on.
 
-   The guard above leaves gtag defined but untransported off production, so this
-   listener runs everywhere and sends nothing except on the live domain.
+   The same hostname guard is repeated below. The loader guard alone would have
+   been enough to stop anything reaching the network, because gtag is left
+   defined but untransported off production. It would not have stopped the
+   listener binding and pushing into a dataLayer nobody drains, which grows for
+   as long as a preview tab is open and reads, to anyone inspecting it, like
+   events are being collected. Guarding the listener too costs one line and
+   makes the preview genuinely inert.
 
    One page is not covered by this and should stay that way. davidsbridalfrisco
    is excluded from the chrome sync and carries its own tap tracking under the
@@ -881,6 +886,9 @@ a.chip::after{ content:' \2192'; opacity:.55; }
 
    Do not write literal tag syntax in this comment. */
 (function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  if (PROD.indexOf(location.hostname) === -1) return;
+
   var METHOD = { 'tel:': 'phone', 'mailto:': 'email', 'sms:': 'sms' };
 
   function scheme(href) {

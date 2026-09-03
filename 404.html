@@ -7,7 +7,11 @@
 <title>Page not found | Dallas Event Audio</title>
 <style>
 :root{ --bg-0:#050706; --ink:#f4f6f5; --dim:#98a5a0; --a1:#31ff6e; --a2:#fff21c; --a3:#ff1f3d;
-         --card-border:rgba(255,255,255,.10); }
+         --card-border:rgba(255,255,255,.10);
+         --bg-1:#0a0f0c; --bg-2:#0e1512;
+         --grad: linear-gradient(100deg,var(--a1),var(--a2) 55%,var(--a3));
+         --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+         --glow: rgba(49,255,110,.35); }
 *{ box-sizing:border-box; }
 body{ margin:0; background:var(--bg-0); color:var(--dim); min-height:100vh;
         font-family:'Space Grotesk',system-ui,-apple-system,Segoe UI,Roboto,sans-serif; line-height:1.7; }
@@ -143,8 +147,13 @@ ul{ padding-left:1.1rem; }
    answer: a phone click is worth knowing about, a phone click from
    /rent-line-array-speaker-system is worth bidding on.
 
-   The guard above leaves gtag defined but untransported off production, so this
-   listener runs everywhere and sends nothing except on the live domain.
+   The same hostname guard is repeated below. The loader guard alone would have
+   been enough to stop anything reaching the network, because gtag is left
+   defined but untransported off production. It would not have stopped the
+   listener binding and pushing into a dataLayer nobody drains, which grows for
+   as long as a preview tab is open and reads, to anyone inspecting it, like
+   events are being collected. Guarding the listener too costs one line and
+   makes the preview genuinely inert.
 
    One page is not covered by this and should stay that way. davidsbridalfrisco
    is excluded from the chrome sync and carries its own tap tracking under the
@@ -154,6 +163,9 @@ ul{ padding-left:1.1rem; }
 
    Do not write literal tag syntax in this comment. */
 (function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  if (PROD.indexOf(location.hostname) === -1) return;
+
   var METHOD = { 'tel:': 'phone', 'mailto:': 'email', 'sms:': 'sms' };
 
   function scheme(href) {

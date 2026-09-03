@@ -750,7 +750,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
       {"@type":"Question","name":"Do you provide microphones and a mixing console too?",
        "acceptedAnswer":{"@type":"Answer","text":"Yes, on the same quote and the same truck. This page covers the array and the subwoofers under it, so for what the microphone package holds see our wireless microphone rental page. Every microphone on it runs through our AI-powered De-Feedback system."}},
       {"@type":"Question","name":"How many guests can your line array cover?",
-       "acceptedAnswer":{"@type":"Answer","text":"Two per side with front fill and delay positions covers festival scale crowds. For anything above roughly 2,000 guests we want to walk the site or review a venue plan first, because at that size the room and the sight lines decide the design more than the head count does."}},
+       "acceptedAnswer":{"@type":"Answer","text":"Two DV12 a side is the top of the stack. With front fill and a delay position that covers the ballrooms, gymnasiums, halls and outdoor events we are booked for most often. Past about 1,500 guests we want to walk the site or review a venue plan before quoting, because the depth of the field and the sight lines decide the design more than the head count does."}},
       {"@type":"Question","name":"When do I need a line array instead of a regular PA system?",
        "acceptedAnswer":{"@type":"Answer","text":"Below about 250 guests in a normal room, a good point source PA is the right tool and an array is more rig than the event needs. Above that, or outdoors, or in a long room with a balcony or hard surfaces, an array is what keeps every seat sounding the same."}},
       {"@type":"Question","name":"How far do you travel?",
@@ -893,8 +893,13 @@ a.chip::after{ content:' \2192'; opacity:.55; }
    answer: a phone click is worth knowing about, a phone click from
    /rent-line-array-speaker-system is worth bidding on.
 
-   The guard above leaves gtag defined but untransported off production, so this
-   listener runs everywhere and sends nothing except on the live domain.
+   The same hostname guard is repeated below. The loader guard alone would have
+   been enough to stop anything reaching the network, because gtag is left
+   defined but untransported off production. It would not have stopped the
+   listener binding and pushing into a dataLayer nobody drains, which grows for
+   as long as a preview tab is open and reads, to anyone inspecting it, like
+   events are being collected. Guarding the listener too costs one line and
+   makes the preview genuinely inert.
 
    One page is not covered by this and should stay that way. davidsbridalfrisco
    is excluded from the chrome sync and carries its own tap tracking under the
@@ -904,6 +909,9 @@ a.chip::after{ content:' \2192'; opacity:.55; }
 
    Do not write literal tag syntax in this comment. */
 (function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  if (PROD.indexOf(location.hostname) === -1) return;
+
   var METHOD = { 'tel:': 'phone', 'mailto:': 'email', 'sms:': 'sms' };
 
   function scheme(href) {
@@ -1513,7 +1521,7 @@ body.calm #chatPanel{ display:none; }
           <h3>1,500 guests and up<span>Two per side plus delay positions</span></h3>
           <div class="room-body">
             <p class="spec"><span>Rig</span> 2 DV12 per side &middot; full sub array &middot; delay positions</p>
-            <p>Festivals, concerts and main-stage productions. Two cabinets a side is the top of the stack, and past a certain depth of field we add delay positions rather than push the mains harder. For anything at this scale we want to walk the site or review a venue plan before we quote it.</p>
+            <p>Festivals, concerts and large outdoor events. Two cabinets a side is the top of the stack, so past a certain depth of field the answer is a delay position further into the crowd rather than more boxes on the stand. At this size we want to walk the site or review a venue plan before we quote it, because the depth of the field and the sight lines decide the design.</p>
           </div>
         </div>
 
@@ -1858,7 +1866,7 @@ body.calm #chatPanel{ display:none; }
         </details>
         <details class="faq-item" data-reveal>
           <summary>How many guests can your line array cover?</summary>
-          <div class="ans">Two per side with front fill and delay positions covers festival scale crowds. For anything above roughly 2,000 guests we want to walk the site or review a venue plan first, because at that size the room and the sight lines decide the design more than the head count does.</div>
+          <div class="ans">Two DV12 a side is the top of the stack. With front fill and a delay position that covers the ballrooms, gymnasiums, halls and outdoor events we are booked for most often. Past about 1,500 guests we want to walk the site or review a venue plan before quoting, because the depth of the field and the sight lines decide the design more than the head count does.</div>
         </details>
         <details class="faq-item" data-reveal>
           <summary>When do I need a line array instead of a regular PA system?</summary>

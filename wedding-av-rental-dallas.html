@@ -815,7 +815,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
         "name": "Our DJ is traveling and only brings a controller. Can he plug into your system?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes. We set the whole front of house before he lands: speakers on stands or flown, subwoofers for the dance floor, a booth at working height, power and balanced inputs ready for his controller. He plugs in, sets his levels and plays. We can also cover the ceremony an hour earlier and hand a checked system across for the reception, which is what usually happens when there is live music at the ceremony and a DJ at the reception."
+          "text": "Yes. We set the whole front of house before he lands: speakers on stands, subwoofers for the dance floor, a booth at working height, power and balanced inputs ready for his controller. He plugs in, sets his levels and plays. We can also cover the ceremony an hour earlier and hand a checked system across for the reception, which is what usually happens when there is live music at the ceremony and a DJ at the reception."
         }
       },
       {
@@ -993,8 +993,13 @@ a.chip::after{ content:' \2192'; opacity:.55; }
    answer: a phone click is worth knowing about, a phone click from
    /rent-line-array-speaker-system is worth bidding on.
 
-   The guard above leaves gtag defined but untransported off production, so this
-   listener runs everywhere and sends nothing except on the live domain.
+   The same hostname guard is repeated below. The loader guard alone would have
+   been enough to stop anything reaching the network, because gtag is left
+   defined but untransported off production. It would not have stopped the
+   listener binding and pushing into a dataLayer nobody drains, which grows for
+   as long as a preview tab is open and reads, to anyone inspecting it, like
+   events are being collected. Guarding the listener too costs one line and
+   makes the preview genuinely inert.
 
    One page is not covered by this and should stay that way. davidsbridalfrisco
    is excluded from the chrome sync and carries its own tap tracking under the
@@ -1004,6 +1009,9 @@ a.chip::after{ content:' \2192'; opacity:.55; }
 
    Do not write literal tag syntax in this comment. */
 (function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  if (PROD.indexOf(location.hostname) === -1) return;
+
   var METHOD = { 'tel:': 'phone', 'mailto:': 'email', 'sms:': 'sms' };
 
   function scheme(href) {
@@ -1631,7 +1639,7 @@ body.calm #chatPanel{ display:none; }
         <div class="gear-card" data-reveal>
           <div class="gn">01</div>
           <h3>Front of house PA</h3>
-          <p class="spec"><span>Rig</span> Powered tops on poles or flown &middot; subwoofers sized to the room &middot; digital console</p>
+          <p class="spec"><span>Rig</span> Powered tops on stands &middot; subwoofers sized to the room &middot; digital console</p>
           <p>A system sized for the guest count and the ceiling, not whatever came off the shelf. For a band, that usually means real low end under the kick and the bass rather than a pair of speakers on sticks doing everything. Bigger rooms and receptions with a dance floor at the end get subwoofers, and the largest go to a line array.</p>
           <div class="chips">
             <a class="chip" href="/rent-sound-equipment">Sound equipment rental</a>
@@ -1694,7 +1702,7 @@ body.calm #chatPanel{ display:none; }
           <span class="kicker">Traveling DJs</span>
           <h2>Rent DJ equipment for a wedding and just show up and plug in</h2>
           <p class="spec"><span>Rig</span> Powered tops and subs &middot; DJ booth and table &middot; balanced inputs for your controller &middot; wireless microphone &middot; optional ceremony coverage</p>
-          <p>A destination DJ flying into Dallas-Fort Worth for one wedding is not going to check speakers. We put the whole front of house up before you land: tops on stands or flown, subs under the dance floor, a booth at the right height, power and a pair of balanced inputs ready for whatever controller comes out of your bag. You plug in, set your levels and play.</p>
+          <p>A destination DJ flying into Dallas-Fort Worth for one wedding is not going to check speakers. We put the whole front of house up before you land: tops on stands, subs under the dance floor, a booth at the right height, power and a pair of balanced inputs ready for whatever controller comes out of your bag. You plug in, set your levels and play.</p>
           <p>We also cover the part of the night that is not yours. Plenty of couples hire a DJ for the reception and have a string quartet, a guitarist or an officiant with no amplification at the ceremony an hour earlier and a hundred yards away. We handle the ceremony setup and the handoff: we run the ceremony system through the vows and the announcements, then hand a working, checked system over to you for the reception with a wireless microphone already set and running clean. Optional on-site technician support is there for the whole night if you would rather have someone watching the front of house.</p>
           <p>If you would rather we ran the whole night, we do that too. Our own DJs work weddings in the Metroplex every weekend, and the packages are on the DJ pages.</p>
           <div class="chips">
@@ -1885,7 +1893,7 @@ body.calm #chatPanel{ display:none; }
         </details>
         <details class="faq-item" data-reveal>
           <summary>Our DJ is traveling and only brings a controller. Can he plug into your system?</summary>
-          <div class="ans">Yes. We set the whole front of house before he lands: speakers on stands or flown, subwoofers for the dance floor, a booth at working height, power and balanced inputs ready for his controller. He plugs in, sets his levels and plays. We can also cover the ceremony an hour earlier and hand a checked system across for the reception, which is what usually happens when there is live music at the ceremony and a DJ at the reception.</div>
+          <div class="ans">Yes. We set the whole front of house before he lands: speakers on stands, subwoofers for the dance floor, a booth at working height, power and balanced inputs ready for his controller. He plugs in, sets his levels and plays. We can also cover the ceremony an hour earlier and hand a checked system across for the reception, which is what usually happens when there is live music at the ceremony and a DJ at the reception.</div>
         </details>
         <details class="faq-item" data-reveal>
           <summary>What is included in a rental?</summary>

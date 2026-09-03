@@ -631,7 +631,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
         {"@type":"Offer","itemOffered":{"@type":"Service","name":"DJ mixer rental","description":"Club-standard DJ mixers wired into the house system with gain structure set before doors.","url":"https://www.dallaseventaudio.com/rent-sound-equipment/cdj-rental-dallas#dj-gear"}},
         {"@type":"Offer","itemOffered":{"@type":"Service","name":"DJ controller and all-in-one system rental","description":"All-in-one DJ systems and controllers for hosts and DJs who prefer a single unit.","url":"https://www.dallaseventaudio.com/rent-sound-equipment/cdj-rental-dallas#dj-gear"}},
         {"@type":"Offer","itemOffered":{"@type":"Service","name":"DJ booth, table and facade rental","description":"DJ booths, tables and facades that hide the cabling and make the front of house look finished.","url":"https://www.dallaseventaudio.com/rent-sound-equipment/cdj-rental-dallas#dj-gear"}},
-        {"@type":"Offer","itemOffered":{"@type":"Service","name":"DJ speaker and sound system rental","description":"Speakers and full DJ sound systems sized to the room, flown or on stands, tuned on site.","url":"https://www.dallaseventaudio.com/rent-sound-equipment/cdj-rental-dallas#dj-speaker-rental"}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"DJ speaker and sound system rental","description":"Speakers and full DJ sound systems sized to the room, on stands or stacked, tuned on site.","url":"https://www.dallaseventaudio.com/rent-sound-equipment/cdj-rental-dallas#dj-speaker-rental"}},
         {"@type":"Offer","itemOffered":{"@type":"Service","name":"Subwoofer rental for DJs","description":"BassBoss subwoofers for dance floors that need low end you feel rather than hear.","url":"https://www.dallaseventaudio.com/rent-bassboss-subwoofers"}},
         {"@type":"Offer","itemOffered":{"@type":"Service","name":"Microphone rental with De-Feedback","description":"Wireless handhelds, lavaliers and podium microphones with our AI-powered De-Feedback system included as standard.","url":"https://www.dallaseventaudio.com/feedback-free-microphone-rentals"}},
         {"@type":"Offer","itemOffered":{"@type":"Service","name":"Wedding DJ equipment rental","description":"Ceremony, cocktail hour and reception audio treated as three separate audio events, delivered, set up and sound checked with whoever is DJing.","url":"https://www.dallaseventaudio.com/rent-sound-equipment/cdj-rental-dallas#wedding-dj-equipment-rental"}},
@@ -802,8 +802,13 @@ a.chip::after{ content:' \2192'; opacity:.55; }
    answer: a phone click is worth knowing about, a phone click from
    /rent-line-array-speaker-system is worth bidding on.
 
-   The guard above leaves gtag defined but untransported off production, so this
-   listener runs everywhere and sends nothing except on the live domain.
+   The same hostname guard is repeated below. The loader guard alone would have
+   been enough to stop anything reaching the network, because gtag is left
+   defined but untransported off production. It would not have stopped the
+   listener binding and pushing into a dataLayer nobody drains, which grows for
+   as long as a preview tab is open and reads, to anyone inspecting it, like
+   events are being collected. Guarding the listener too costs one line and
+   makes the preview genuinely inert.
 
    One page is not covered by this and should stay that way. davidsbridalfrisco
    is excluded from the chrome sync and carries its own tap tracking under the
@@ -813,6 +818,9 @@ a.chip::after{ content:' \2192'; opacity:.55; }
 
    Do not write literal tag syntax in this comment. */
 (function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  if (PROD.indexOf(location.hostname) === -1) return;
+
   var METHOD = { 'tel:': 'phone', 'mailto:': 'email', 'sms:': 'sms' };
 
   function scheme(href) {

@@ -821,8 +821,13 @@ a.chip::after{ content:' \2192'; opacity:.55; }
    answer: a phone click is worth knowing about, a phone click from
    /rent-line-array-speaker-system is worth bidding on.
 
-   The guard above leaves gtag defined but untransported off production, so this
-   listener runs everywhere and sends nothing except on the live domain.
+   The same hostname guard is repeated below. The loader guard alone would have
+   been enough to stop anything reaching the network, because gtag is left
+   defined but untransported off production. It would not have stopped the
+   listener binding and pushing into a dataLayer nobody drains, which grows for
+   as long as a preview tab is open and reads, to anyone inspecting it, like
+   events are being collected. Guarding the listener too costs one line and
+   makes the preview genuinely inert.
 
    One page is not covered by this and should stay that way. davidsbridalfrisco
    is excluded from the chrome sync and carries its own tap tracking under the
@@ -832,6 +837,9 @@ a.chip::after{ content:' \2192'; opacity:.55; }
 
    Do not write literal tag syntax in this comment. */
 (function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  if (PROD.indexOf(location.hostname) === -1) return;
+
   var METHOD = { 'tel:': 'phone', 'mailto:': 'email', 'sms:': 'sms' };
 
   function scheme(href) {
@@ -1484,7 +1492,7 @@ body.calm #chatPanel{ display:none; }
         <div class="mic-card" data-reveal>
           <div class="tag">Department 03</div>
           <h3>DJ</h3>
-          <p>Our DJs work off our own rig, on CDJs and controllers we maintain, through the same speakers our sound department would have flown anyway. That is the whole argument for booking both from one company. The DJ knows what the system will do at eleven o'clock because it is the system they were standing behind at the last four events.</p>
+          <p>Our DJs work off our own rig, on CDJs and controllers we maintain, through the same speakers our sound department would have brought anyway. That is the whole argument for booking both from one company. The DJ knows what the system will do at eleven o'clock because it is the system they were standing behind at the last four events.</p>
           <div class="best"><em>Where to look next</em><a href="/services-dj">DJ services</a>, <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ rental</a> and <a href="/services-audio">PA speakers, lighting and video rental</a>.</div>
         </div>
 

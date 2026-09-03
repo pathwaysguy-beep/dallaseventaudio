@@ -466,10 +466,6 @@ a.event-chip{ display:flex; flex-direction:column; text-decoration:none; }
     background:linear-gradient(to top, rgba(6,6,8,.88), rgba(6,6,8,.45) 55%, transparent);
     font-size:.9rem; font-weight:600; line-height:1.35;
   }
-.shot figcaption .slot{
-    display:block; margin-top:4px; font-size:.74rem; font-weight:500;
-    letter-spacing:.03em; color:var(--dim); font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
-  }
 .shot-note{
     margin-top:20px; font-size:.92rem; color:var(--dim);
   }
@@ -726,8 +722,13 @@ a.event-chip{ display:flex; flex-direction:column; text-decoration:none; }
    answer: a phone click is worth knowing about, a phone click from
    /rent-line-array-speaker-system is worth bidding on.
 
-   The guard above leaves gtag defined but untransported off production, so this
-   listener runs everywhere and sends nothing except on the live domain.
+   The same hostname guard is repeated below. The loader guard alone would have
+   been enough to stop anything reaching the network, because gtag is left
+   defined but untransported off production. It would not have stopped the
+   listener binding and pushing into a dataLayer nobody drains, which grows for
+   as long as a preview tab is open and reads, to anyone inspecting it, like
+   events are being collected. Guarding the listener too costs one line and
+   makes the preview genuinely inert.
 
    One page is not covered by this and should stay that way. davidsbridalfrisco
    is excluded from the chrome sync and carries its own tap tracking under the
@@ -737,6 +738,9 @@ a.event-chip{ display:flex; flex-direction:column; text-decoration:none; }
 
    Do not write literal tag syntax in this comment. */
 (function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  if (PROD.indexOf(location.hostname) === -1) return;
+
   var METHOD = { 'tel:': 'phone', 'mailto:': 'email', 'sms:': 'sms' };
 
   function scheme(href) {
@@ -1559,9 +1563,6 @@ body.calm #chatPanel{ display:none; }
   </section>
 
   <!-- ---------- gallery: real wedding photos ---------- -->
-  <!-- Drop real .jpg files at the paths in each --img and the tiles fill in.
-       Until then the gradient fallback shows. Before launch, hide the filename
-       hints with:  .shot figcaption .slot{ display:none; }  -->
   <section class="section" id="gallery">
     <div class="wrap">
       <div class="section-head" data-reveal>
@@ -1576,18 +1577,18 @@ body.calm #chatPanel{ display:none; }
         </figure>
         <figure class="shot" data-reveal style="--img:image-set(url('/images/weddings/ceremony-outdoor-1920w.avif') type('image/avif'), url('/images/weddings/ceremony-outdoor-1920w.webp') type('image/webp'), url('/images/weddings/ceremony-outdoor.jpg'))">
           <figcaption>Outdoor ceremony, speakers placed for the back row
-            <span class="slot">/images/weddings/ceremony-outdoor.jpg</span></figcaption>
+            </figcaption>
         </figure>
         <figure class="shot" data-reveal style="--img:image-set(url('/images/weddings/uplighting-ballroom-1920w.avif') type('image/avif'), url('/images/weddings/uplighting-ballroom-1920w.webp') type('image/webp'), url('/images/weddings/uplighting-ballroom.jpg'))">
           <figcaption>Uplighting matched to the palette
-            <span class="slot">/images/weddings/uplighting-ballroom.jpg</span></figcaption>
+            </figcaption>
         </figure>
-        <figure class="shot" data-reveal style="--img:image-set(url('/images/weddings/monogram-floor-1200w.avif') type('image/avif'), url('/images/weddings/monogram-floor-1200w.webp') type('image/webp'), url('/images/weddings/monogram-floor.jpg'))">
-          <figcaption>Monogram on the dance floor</figcaption>
+        <figure class="shot" data-reveal style="--img:image-set(url('/images/weddings/monogram-plank-wall-1200w.avif') type('image/avif'), url('/images/weddings/monogram-plank-wall-1200w.webp') type('image/webp'), url('/images/weddings/monogram-plank-wall.jpg'))">
+          <figcaption>Monogram on a plank wall at the reception</figcaption>
         </figure>
         <figure class="shot" data-reveal style="--img:image-set(url('/images/weddings/dancing-on-clouds-1200w.avif') type('image/avif'), url('/images/weddings/dancing-on-clouds-1200w.webp') type('image/webp'), url('/images/weddings/dancing-on-clouds.jpg'))">
           <figcaption>Dancing on the Clouds, first dance
-            <span class="slot">/images/weddings/dancing-on-clouds.jpg</span></figcaption>
+            </figcaption>
         </figure>
         <figure class="shot wide" data-reveal style="--img:image-set(url('/images/weddings/band-front-of-house-1200w.avif') type('image/avif'), url('/images/weddings/band-front-of-house-1200w.webp') type('image/webp'), url('/images/weddings/band-front-of-house.jpg'))">
           <figcaption>Front-of-house for a live wedding band</figcaption>

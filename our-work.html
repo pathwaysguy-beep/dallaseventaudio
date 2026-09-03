@@ -716,8 +716,13 @@ section[id]{ scroll-margin-top:96px; }
    answer: a phone click is worth knowing about, a phone click from
    /rent-line-array-speaker-system is worth bidding on.
 
-   The guard above leaves gtag defined but untransported off production, so this
-   listener runs everywhere and sends nothing except on the live domain.
+   The same hostname guard is repeated below. The loader guard alone would have
+   been enough to stop anything reaching the network, because gtag is left
+   defined but untransported off production. It would not have stopped the
+   listener binding and pushing into a dataLayer nobody drains, which grows for
+   as long as a preview tab is open and reads, to anyone inspecting it, like
+   events are being collected. Guarding the listener too costs one line and
+   makes the preview genuinely inert.
 
    One page is not covered by this and should stay that way. davidsbridalfrisco
    is excluded from the chrome sync and carries its own tap tracking under the
@@ -727,6 +732,9 @@ section[id]{ scroll-margin-top:96px; }
 
    Do not write literal tag syntax in this comment. */
 (function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  if (PROD.indexOf(location.hostname) === -1) return;
+
   var METHOD = { 'tel:': 'phone', 'mailto:': 'email', 'sms:': 'sms' };
 
   function scheme(href) {
@@ -1265,7 +1273,7 @@ body.calm #chatPanel{ display:none; }
       <div class="breadcrumb" data-reveal>
         <a href="/">Home</a><span class="sep">/</span><span class="here">Our Work</span>
       </div>
-      <h1 data-reveal>Rooms we&rsquo;ve run, <span class="grad-text">rigs we&rsquo;ve flown,</span> nights that landed.</h1>
+      <h1 data-reveal>Rooms we&rsquo;ve run, <span class="grad-text">rigs we&rsquo;ve stacked,</span> nights that landed.</h1>
       <p class="sub" data-reveal>Ballrooms, backyards, stadium suites, corporate general sessions and dance floors that would not quit. Every photo below shows our own gear and our own technician at a real Dallas-Fort Worth event.</p>
 
       <div class="stat-row" data-reveal>
@@ -1320,7 +1328,7 @@ body.calm #chatPanel{ display:none; }
       <div class="rail-wrap" data-reveal>
         <div class="rail" id="rail" tabindex="0" role="region" aria-label="Photo gallery of Dallas Event Audio setups. Use the left and right arrow keys to move through the photos.">
 
-          <figure class="slide" style="--img:image-set(url('/images/work/bassboss-dv12-line-array-stands-dallas-ballroom-1200w.avif') type('image/avif'), url('/images/work/bassboss-dv12-line-array-stands-dallas-ballroom-1200w.webp') type('image/webp'), url('/images/work/bassboss-dv12-line-array-stands-dallas-ballroom.jpg'))">
+          <figure class="slide" style="--img:image-set(url('/images/work/bassboss-dv12-line-array-stands-dallas-ballroom-1600w.avif') type('image/avif'), url('/images/work/bassboss-dv12-line-array-stands-dallas-ballroom-1600w.webp') type('image/webp'), url('/images/work/bassboss-dv12-line-array-stands-dallas-ballroom.jpg'))">
             <figcaption><span class="tag">Audio</span>The DV12 array up on stands, either side of the room</figcaption>
           </figure>
 
@@ -1372,7 +1380,7 @@ body.calm #chatPanel{ display:none; }
             <figcaption><span class="tag">Microphones</span>Our AI De-Feedback system running on a live ballroom rig</figcaption>
           </figure>
 
-          <figure class="slide" style="--img:image-set(url('/images/work/aerial-laser-show-wedding-dance-floor-dfw-1200w.avif') type('image/avif'), url('/images/work/aerial-laser-show-wedding-dance-floor-dfw-1200w.webp') type('image/webp'), url('/images/work/aerial-laser-show-wedding-dance-floor-dfw.jpg'))">
+          <figure class="slide" style="--img:image-set(url('/images/work/aerial-laser-show-wedding-dance-floor-dfw-1600w.avif') type('image/avif'), url('/images/work/aerial-laser-show-wedding-dance-floor-dfw-1600w.webp') type('image/webp'), url('/images/work/aerial-laser-show-wedding-dance-floor-dfw.jpg'))">
             <figcaption><span class="tag">Lasers</span>Aerial lasers over a packed floor</figcaption>
           </figure>
 

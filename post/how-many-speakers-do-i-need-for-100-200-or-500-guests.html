@@ -533,8 +533,13 @@ html{ scroll-behavior:auto; }
    answer: a phone click is worth knowing about, a phone click from
    /rent-line-array-speaker-system is worth bidding on.
 
-   The guard above leaves gtag defined but untransported off production, so this
-   listener runs everywhere and sends nothing except on the live domain.
+   The same hostname guard is repeated below. The loader guard alone would have
+   been enough to stop anything reaching the network, because gtag is left
+   defined but untransported off production. It would not have stopped the
+   listener binding and pushing into a dataLayer nobody drains, which grows for
+   as long as a preview tab is open and reads, to anyone inspecting it, like
+   events are being collected. Guarding the listener too costs one line and
+   makes the preview genuinely inert.
 
    One page is not covered by this and should stay that way. davidsbridalfrisco
    is excluded from the chrome sync and carries its own tap tracking under the
@@ -544,6 +549,9 @@ html{ scroll-behavior:auto; }
 
    Do not write literal tag syntax in this comment. */
 (function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  if (PROD.indexOf(location.hostname) === -1) return;
+
   var METHOD = { 'tel:': 'phone', 'mailto:': 'email', 'sms:': 'sms' };
 
   function scheme(href) {
@@ -1099,7 +1107,7 @@ body.calm #chatPanel{ display:none; }
       <h2 data-reveal>How many speakers for 200 guests?</h2>
       <p data-reveal>Two 15 inch tops and one or two subwoofers for a square room. If the room is long and narrow, which describes a lot of DFW event barns and hotel ballrooms, four tops beat two bigger ones: two up front for the dance floor and two on delay down the room, so the far tables hear speeches at the same level as the front tables. Our <a href="/rent-bassboss-subwoofers">BassBoss powered subwoofers</a> carry a 200 guest reception without the top speakers straining, so toasts stay clear once the dancing starts.</p>
       <h2 data-reveal>How many speakers for 500 guests?</h2>
-      <p data-reveal>At 500 guests a <a href="/rent-line-array-speaker-system">line array speaker system</a> earns the truck space. An array stacks or flies several small elements per side and throws sound evenly from the front row to the back wall, so the first ten tables are not getting blasted to reach table 50. Plan on two arrays plus four to six subwoofers indoors, and a delay position if the room runs longer than about 120 feet. Corporate general sessions at this size also want front fill for the first two rows, which sit below the array coverage.</p>
+      <p data-reveal>At 500 guests a <a href="/rent-line-array-speaker-system">line array speaker system</a> earns the truck space. An array stacks several small elements per side and throws sound evenly from the front row to the back wall, so the first ten tables are not getting blasted to reach table 50. Plan on two arrays plus four to six subwoofers indoors, and a delay position if the room runs longer than about 120 feet. Corporate general sessions at this size also want front fill for the first two rows, which sit below the array coverage.</p>
       <h2 data-reveal>Do I need a subwoofer?</h2>
       <p data-reveal>For a wedding reception, a quinceanera or anything with dancing, yes. The tops handle voice and most of the music, and the subwoofer handles everything below about 100 Hz. Leave it out and you either lose the bottom of the music or push the tops past where they sound clean. For a conference with speeches, panels and video playback, a subwoofer is optional. It helps with program video and walk in music and costs little to add.</p>
       <h2 data-reveal>What does speaker rental cost in Dallas-Fort Worth?</h2>

@@ -586,18 +586,18 @@ a.proof-badge, a.proof-badge .go{ transition:none; }
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      {"@type":"Question","name":"How fast will I hear back from Dallas Event Audio?",
-       "acceptedAnswer":{"@type":"Answer","text":"The same day. We are reachable around the clock, and a text with your date and venue usually gets an answer on availability within the hour. If the date is already booked we say so immediately."}},
-      {"@type":"Question","name":"What if I don't know what equipment I need?",
-       "acceptedAnswer":{"@type":"Answer","text":"That is most people, and working it out is our job. Tell us the room, the headcount and what is supposed to happen during the event, and we come back with what it takes."}},
+      {"@type":"Question","name":"How fast will I hear back?",
+       "acceptedAnswer":{"@type":"Answer","text":"The same day. We’re reachable around the clock, and if you text us a date and a venue you’ll usually have an answer on whether we’re open within the hour. If we’re already booked for your date, we’ll say so immediately rather than letting you wait on a maybe."}},
+      {"@type":"Question","name":"I don’t know what equipment I need. Is that a problem?",
+       "acceptedAnswer":{"@type":"Answer","text":"That is most people, and working it out is our job. Tell us the room, the headcount, and what is supposed to happen during the event, and we will come back with what it takes. You can book us without knowing the difference between a line array and a point source."}},
       {"@type":"Question","name":"What is included in a rental?",
-       "acceptedAnswer":{"@type":"Answer","text":"We deliver, set up, run and strike everything ourselves. Every booking is turnkey: delivery, setup, testing and collection are included. What varies is whether our technician stays to run the system or hands it over working to your own DJ. An insured technician is on-site for the whole event."}},
-      {"@type":"Question","name":"Can you provide a certificate of insurance for my venue?",
-       "acceptedAnswer":{"@type":"Answer","text":"Yes. Send the venue's requirements with your inquiry and we handle it. We are fully insured and used to venue paperwork."}},
-      {"@type":"Question","name":"How far in advance should I book event AV in Dallas-Fort Worth?",
-       "acceptedAnswer":{"@type":"Answer","text":"Earlier is better for peak spring and fall Saturdays, which get claimed a long way out. We do take short-notice events, so it is still worth asking if your date is close."}},
-      {"@type":"Question","name":"Can you work with a DJ, band or planner we already hired?",
-       "acceptedAnswer":{"@type":"Answer","text":"Regularly. Traveling DJs and live bands walk into a system that is already set up, line-checked and staffed, and we coordinate load-in directly with your planner."}}
+       "acceptedAnswer":{"@type":"Answer","text":"We deliver, set up, run, and strike everything ourselves. Every booking is turnkey: delivery, setup, testing and collection are included. What varies is whether our technician stays to run the system or hands it over working to your own DJ. An insured technician is on-site for the whole event, so nobody on your team ends up troubleshooting a mixing board in formalwear."}},
+      {"@type":"Question","name":"My venue needs a certificate of insurance.",
+       "acceptedAnswer":{"@type":"Answer","text":"Send us the venue’s requirements with your inquiry and we’ll handle it. We are fully insured and used to venue paperwork, so your coordinator gets it from us before they ask."}},
+      {"@type":"Question","name":"How far in advance should I reach out?",
+       "acceptedAnswer":{"@type":"Answer","text":"Earlier is better for peak dates, because spring and fall Saturdays get claimed a long way out. We do take short-notice events, so if your date is close it is worth asking."}},
+      {"@type":"Question","name":"Can you work with the DJ, band, or planner we already have?",
+       "acceptedAnswer":{"@type":"Answer","text":"Regularly. Traveling DJs and live bands walk into a system that’s already set up, line-checked, and staffed. Planners get a load-in time and a technician who sticks to it. Just tell us who else is involved and we’ll coordinate directly with them."}}
     ]
   }
   </script>
@@ -732,8 +732,13 @@ a.proof-badge, a.proof-badge .go{ transition:none; }
    answer: a phone click is worth knowing about, a phone click from
    /rent-line-array-speaker-system is worth bidding on.
 
-   The guard above leaves gtag defined but untransported off production, so this
-   listener runs everywhere and sends nothing except on the live domain.
+   The same hostname guard is repeated below. The loader guard alone would have
+   been enough to stop anything reaching the network, because gtag is left
+   defined but untransported off production. It would not have stopped the
+   listener binding and pushing into a dataLayer nobody drains, which grows for
+   as long as a preview tab is open and reads, to anyone inspecting it, like
+   events are being collected. Guarding the listener too costs one line and
+   makes the preview genuinely inert.
 
    One page is not covered by this and should stay that way. davidsbridalfrisco
    is excluded from the chrome sync and carries its own tap tracking under the
@@ -743,6 +748,9 @@ a.proof-badge, a.proof-badge .go{ transition:none; }
 
    Do not write literal tag syntax in this comment. */
 (function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  if (PROD.indexOf(location.hostname) === -1) return;
+
   var METHOD = { 'tel:': 'phone', 'mailto:': 'email', 'sms:': 'sms' };
 
   function scheme(href) {

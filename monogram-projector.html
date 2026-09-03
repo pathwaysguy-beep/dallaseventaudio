@@ -597,7 +597,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
     "name": "Monogram Projector Rental",
     "serviceType": "Monogram projector rental and custom gobo projection",
     "url": "https://www.dallaseventaudio.com/monogram-projector",
-    "description": "Custom monogram projector rental across the Dallas-Fort Worth Metroplex. We design the artwork with you, build the full color projection file, then deliver, aim and focus a laser gobo projector on the wall, ceiling or dance floor you pick, for weddings, corporate events and private parties.",
+    "description": "Custom monogram projector rental across the Dallas-Fort Worth Metroplex. We design the artwork with you, build the full color projection file, then deliver, aim and focus a laser gobo projector on the wall or ceiling you pick, for weddings, corporate events and private parties.",
     "provider": {
       "@type": "Organization",
       "name": "Dallas Event Audio",
@@ -620,7 +620,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
           "itemOffered": {
             "@type": "Service",
             "name": "Wedding monogram projector rental",
-            "description": "A custom wedding monogram carrying your names, your date, a phrase or a crest, projected on the wall behind the head table, on the ceiling or on the dance floor, designed with you and installed and focused by our technician."
+            "description": "A custom wedding monogram carrying your names, your date, a phrase or a crest, projected on the wall behind the head table or on the ceiling, designed with you and installed and focused by our technician."
           }
         },
         {
@@ -858,8 +858,13 @@ a.chip::after{ content:' \2192'; opacity:.55; }
    answer: a phone click is worth knowing about, a phone click from
    /rent-line-array-speaker-system is worth bidding on.
 
-   The guard above leaves gtag defined but untransported off production, so this
-   listener runs everywhere and sends nothing except on the live domain.
+   The same hostname guard is repeated below. The loader guard alone would have
+   been enough to stop anything reaching the network, because gtag is left
+   defined but untransported off production. It would not have stopped the
+   listener binding and pushing into a dataLayer nobody drains, which grows for
+   as long as a preview tab is open and reads, to anyone inspecting it, like
+   events are being collected. Guarding the listener too costs one line and
+   makes the preview genuinely inert.
 
    One page is not covered by this and should stay that way. davidsbridalfrisco
    is excluded from the chrome sync and carries its own tap tracking under the
@@ -869,6 +874,9 @@ a.chip::after{ content:' \2192'; opacity:.55; }
 
    Do not write literal tag syntax in this comment. */
 (function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  if (PROD.indexOf(location.hostname) === -1) return;
+
   var METHOD = { 'tel:': 'phone', 'mailto:': 'email', 'sms:': 'sms' };
 
   function scheme(href) {
@@ -1510,7 +1518,7 @@ body.calm #chatPanel{ display:none; }
           <h2>Wedding monogram and wedding logo projection</h2>
           <p>Most of the monograms we project are for weddings, and a wedding monogram does not have to be two initials in a circle. One couple this June used three lines: a phrase they had been saying all year, their names, and their date, with a heart and a filigree rule under it. Another put their names and the date under a crest. A third went with a gold serif monogram inside a double ring with watercolor peonies and eucalyptus around it.</p>
           <p>If you have a logo, a crest, a family mark or a piece of artwork from your invitation suite, we can project that too. That is the same answer for a wedding logo projector as it is for a corporate one, and it is why the phrase wedding logo projection exists at all. Anything that can be drawn can be a gobo.</p>
-          <p>Where it goes is your call. A wall behind the head table is the usual choice, because it lands in every photo of the toasts. Ceiling projection works in rooms with a flat light-colored ceiling. Dance floor projection reads well in a dark room and then gets walked on, so we generally point people to a wall or the ceiling first and look at the floor with you as an option.</p>
+          <p>Where it goes is your call between a wall and a ceiling. A wall behind the head table is the usual choice, because it lands in every photo of the toasts and it holds the whole design all night. Ceiling projection works in rooms with a flat light-colored ceiling and gives you the effect where there is no clear wall to use. Send us your floor plan and we will pick the surface that carries it best in your room.</p>
           <p>If you have your own DJ and are renting gear only, a wedding monogram can ride along on our <a href="/wedding-av-rental-dallas">wedding AV packages</a>. If you want the whole night handled, start at <a href="/weddings">wedding services</a> instead.</p>
         </div>
         <figure class="split-vis">
@@ -1594,7 +1602,7 @@ body.calm #chatPanel{ display:none; }
             <h3>Private parties and milestones <span>name, age or message</span></h3>
           </div>
           <div class="room-body">
-            <p class="spec"><span>Design</span> name, age, pattern or message &middot; 1 projector &middot; wall or dance floor</p>
+            <p class="spec"><span>Design</span> name, age, pattern or message &middot; 1 projector &middot; wall or ceiling</p>
             <p>Birthdays, anniversaries, quinces, retirements and graduations. A name and a number, a school mark, a pattern, or a line the guest of honor is known for. In a room with dark walls a repeating pattern reads better than a single large mark.</p>
             <p>Backyard and rented-hall parties work fine as long as there is a surface and the room can get dark. <a href="/private-events">Private event services</a> covers sound and the rest of the lighting.</p>
           </div>

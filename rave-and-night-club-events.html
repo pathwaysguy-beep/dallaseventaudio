@@ -799,7 +799,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
         "name": "Can you provide the sound system for a warehouse rave in Dallas?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Yes, and it comes with our crew. We deliver the system, stack or fly it for the room, tune it against the concrete, run it live all night and load it out at the end. Warehouse and pop up spaces need the power path confirmed in the advance, so tell us the address early. Send the date, the venue, the expected head count and the curfew and we will quote it."
+          "text": "Yes, and it comes with our crew. We deliver the system, stack it or stand it for the room, tune it against the concrete, run it live all night and load it out at the end. Warehouse and pop up spaces need the power path confirmed in the advance, so tell us the address early. Send the date, the venue, the expected head count and the curfew and we will quote it."
         }
       },
       {
@@ -992,8 +992,13 @@ a.chip::after{ content:' \2192'; opacity:.55; }
    answer: a phone click is worth knowing about, a phone click from
    /rent-line-array-speaker-system is worth bidding on.
 
-   The guard above leaves gtag defined but untransported off production, so this
-   listener runs everywhere and sends nothing except on the live domain.
+   The same hostname guard is repeated below. The loader guard alone would have
+   been enough to stop anything reaching the network, because gtag is left
+   defined but untransported off production. It would not have stopped the
+   listener binding and pushing into a dataLayer nobody drains, which grows for
+   as long as a preview tab is open and reads, to anyone inspecting it, like
+   events are being collected. Guarding the listener too costs one line and
+   makes the preview genuinely inert.
 
    One page is not covered by this and should stay that way. davidsbridalfrisco
    is excluded from the chrome sync and carries its own tap tracking under the
@@ -1003,6 +1008,9 @@ a.chip::after{ content:' \2192'; opacity:.55; }
 
    Do not write literal tag syntax in this comment. */
 (function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  if (PROD.indexOf(location.hostname) === -1) return;
+
   var METHOD = { 'tel:': 'phone', 'mailto:': 'email', 'sms:': 'sms' };
 
   function scheme(href) {
@@ -1578,7 +1586,7 @@ body.calm #chatPanel{ display:none; }
           <span class="kicker">How It Works</span>
           <h2>We bring the club with us</h2>
           <p>A rave is a room that was something else that morning. A warehouse in the Design District, a leased industrial bay off Irving Boulevard, a bar with a back room, a venue whose house system was specified for a band and gives up the moment a kick drum sits under it. The production is the event, and it arrives on a truck.</p>
-          <p>Every rave and night club event we take is a full service rental. Our crew delivers the rig, flies or stacks it where the room needs it, tunes it against the actual walls, runs it live for the length of the night and strikes it at the end. The people operating the system are ours, and every cable goes back out with us.</p>
+          <p>Every rave and night club event we take is a full service rental. Our crew delivers the rig, stacks or stands it where the room needs it, tunes it against the actual walls, runs it live for the length of the night and strikes it at the end. The people operating the system are ours, and every cable goes back out with us.</p>
           <p>Audio, lighting, rave visuals and DJ service come from the same company on the same quote. One advance, one crew and one load in, instead of three vendors meeting each other in a loading dock at four in the afternoon.</p>
           <div class="chips">
             <a class="chip" href="/rent-sound-equipment">Sound equipment rental</a>
@@ -1609,7 +1617,7 @@ body.calm #chatPanel{ display:none; }
         <div class="gear-card" data-reveal>
           <div class="gn">02</div>
           <h3>Line array for a large room</h3>
-          <p class="spec"><span>Rig</span> Line array speaker system &middot; flown or stacked with fills</p>
+          <p class="spec"><span>Rig</span> Line array speaker system &middot; on stands or stacked with fills</p>
           <p>Once a room is deep, point source boxes make the front too loud before the back is loud enough. A <a href="/rent-line-array-speaker-system">line array speaker system</a> keeps the level closer to even from the barricade to the back wall, which is what lets you run a warehouse rave at club volume without punishing the first thirty people. Fills cover the corners the array does not reach.</p>
         </div>
         <div class="gear-card" data-reveal>
@@ -1860,7 +1868,7 @@ body.calm #chatPanel{ display:none; }
       <div class="faq-list">
         <details class="faq-item" data-reveal>
           <summary>Can you provide the sound system for a warehouse rave in Dallas?</summary>
-          <div class="ans">Yes, and it comes with our crew. We deliver the system, stack or fly it for the room, tune it against the concrete, run it live all night and load it out at the end. Warehouse and pop up spaces need the power path confirmed in the advance, so tell us the address early. Send the date, the venue, the expected head count and the curfew and we will quote it.</div>
+          <div class="ans">Yes, and it comes with our crew. We deliver the system, stack it or stand it for the room, tune it against the concrete, run it live all night and load it out at the end. Warehouse and pop up spaces need the power path confirmed in the advance, so tell us the address early. Send the date, the venue, the expected head count and the curfew and we will quote it.</div>
         </details>
         <details class="faq-item" data-reveal>
           <summary>How much sound does a rave need compared to a normal party?</summary>

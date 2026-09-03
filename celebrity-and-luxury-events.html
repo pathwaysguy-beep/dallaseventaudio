@@ -993,8 +993,13 @@ a.chip::after{ content:' \2192'; opacity:.55; }
    answer: a phone click is worth knowing about, a phone click from
    /rent-line-array-speaker-system is worth bidding on.
 
-   The guard above leaves gtag defined but untransported off production, so this
-   listener runs everywhere and sends nothing except on the live domain.
+   The same hostname guard is repeated below. The loader guard alone would have
+   been enough to stop anything reaching the network, because gtag is left
+   defined but untransported off production. It would not have stopped the
+   listener binding and pushing into a dataLayer nobody drains, which grows for
+   as long as a preview tab is open and reads, to anyone inspecting it, like
+   events are being collected. Guarding the listener too costs one line and
+   makes the preview genuinely inert.
 
    One page is not covered by this and should stay that way. davidsbridalfrisco
    is excluded from the chrome sync and carries its own tap tracking under the
@@ -1004,6 +1009,9 @@ a.chip::after{ content:' \2192'; opacity:.55; }
 
    Do not write literal tag syntax in this comment. */
 (function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  if (PROD.indexOf(location.hostname) === -1) return;
+
   var METHOD = { 'tel:': 'phone', 'mailto:': 'email', 'sms:': 'sms' };
 
   function scheme(href) {
@@ -1543,7 +1551,7 @@ body.calm #chatPanel{ display:none; }
         <a href="/">Home</a><span class="sep">/</span><a href="/private-events">Private Events</a><span class="sep">/</span><span class="here">Luxury Event Sound Services</span>
       </div>
       <h1 data-reveal>Luxury event sound system rental in Dallas: <span class="grad-text">discreet audio for private rooms.</span></h1>
-      <p class="sub" data-reveal>Audio for luxury events where the guest list is private and the room was styled by somebody who does not want to look at a speaker on a stick. Flat Panel Audio DML500 panels flown in a line array configuration, BassBoss ZV28 subwoofers underneath, Shure wireless microphones, and one audio engineer who tunes the room and stays for the night. We sign an NDA when you need one.</p>
+      <p class="sub" data-reveal>Audio for luxury events where the guest list is private and the room was styled by somebody who does not want to look at a speaker on a stick. Flat Panel Audio DML500 panels set in a line array configuration, BassBoss ZV28 subwoofers underneath, Shure wireless microphones, and one audio engineer who tunes the room and stays for the night. We sign an NDA when you need one.</p>
       <div class="stat-row" data-reveal>
         <div class="stat"><div class="num">NDA</div><div class="lbl">Signed on request, with no photos and nothing posted to social media</div></div>
         <div class="stat"><div class="num">165&deg;</div><div class="lbl">Horizontal and vertical coverage per DML500 panel, even across a private room</div></div>
@@ -1746,7 +1754,7 @@ body.calm #chatPanel{ display:none; }
         <div class="split-copy">
           <span class="kicker">The Room</span>
           <h2>Private event spaces that are difficult to put a sound system in</h2>
-          <p>Luxury venues in Dallas share a set of problems. Hard surfaces everywhere, because stone and glass photograph well. Ceilings that are either far too high or low enough that a line array has to be flown carefully. Sightlines a designer has already committed to. And frequently a rule that nothing may be drilled, taped or leaned against a wall.</p>
+          <p>Luxury venues in Dallas share a set of problems. Hard surfaces everywhere, because stone and glass photograph well. Ceilings that are either far too high or low enough that the array height has to be worked out carefully. Sightlines a designer has already committed to. And frequently a rule that nothing may be drilled, taped or leaned against a wall.</p>
           <p>Flat panels answer most of that at once. A DML500 has almost no visual footprint, it can hang, sit on a low-profile base or ground stack, and its diffuse wavefront puts less energy into the hard reflective surfaces that make a marble room ring. We walk the space before the event wherever the venue allows it, and we come back with a plan that names where each panel and each subwoofer goes.</p>
           <p>Homes, penthouses, private clubs, galleries, hotel suites, rooftop terraces and event houses across the Dallas-Fort Worth Metroplex are all rooms we have worked in. If your venue has a house engineer or a preferred vendor list, we work inside it.</p>
           <p>Some rooms are better served by conventional cabinets than by panels, and we carry those as well. If a tented terrace or a warehouse space wants a conventional <a href="/services-audio">PA speaker</a> sound system instead, we will say so when we size the rig rather than sell you the panels for their own sake.</p>

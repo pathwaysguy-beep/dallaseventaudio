@@ -787,6 +787,9 @@ a.chip::after{ content:' \2192'; opacity:.55; }
 @media (max-width:940px){
 .form-layout{ grid-template-columns:1fr; }
 }
+.form-card h3{ font-family:var(--font-display); font-size:1.3rem; font-weight:700; margin-bottom:16px; }
+.form-card p{ color:var(--dim); line-height:1.75; margin-bottom:16px; }
+.form-card p:last-of-type{ margin-bottom:0; }
 .form-card{
     padding:34px; border-radius:20px;
     background:color-mix(in srgb, var(--bg-2) 55%, transparent);
@@ -797,80 +800,8 @@ a.chip::after{ content:' \2192'; opacity:.55; }
 @media (max-width:520px){
 .form-card{ padding:24px 20px; }
 }
-.fld{ margin-bottom:20px; }
-.fld-row{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
-@media (max-width:620px){
-.fld-row{ grid-template-columns:1fr; gap:0; }
-}
-.fld label, .fld .lgd{
-    display:block; font-size:.88rem; font-weight:700; letter-spacing:.02em;
-    margin-bottom:8px; color:var(--ink);
-  }
-.fld label .req{ color:var(--a3); margin-left:3px; }
-.fld .hint{ font-size:.82rem; color:var(--dim); font-weight:500; margin-top:6px; }
-.fld input[type=text],
-  .fld input[type=email],
-  .fld input[type=tel],
-  .fld input[type=date],
-  .fld select,
-  .fld textarea{
-    width:100%; font:inherit; font-size:1rem; color:var(--ink);
-    background:color-mix(in srgb, var(--bg-0) 70%, transparent);
-    border:1px solid var(--card-border); border-radius:12px;
-    padding:13px 15px; transition:border-color .18s, box-shadow .18s;
-    -webkit-appearance:none; appearance:none;
-  }
-.fld textarea{ min-height:130px; resize:vertical; line-height:1.6; }
-.fld select{
-    background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),linear-gradient(135deg,currentColor 50%,transparent 50%);
-    background-position:calc(100% - 20px) calc(50% + 2px), calc(100% - 14px) calc(50% + 2px);
-    background-size:6px 6px, 6px 6px; background-repeat:no-repeat; padding-right:42px;
-  }
-.fld input::placeholder, .fld textarea::placeholder{ color:var(--dim); opacity:.75; }
-.fld input:focus, .fld select:focus, .fld textarea:focus{
-    outline:none; border-color:var(--a1);
-    box-shadow:0 0 0 3px color-mix(in srgb, var(--a1) 22%, transparent);
-  }
-.fld input:user-invalid, .fld select:user-invalid, .fld textarea:user-invalid{
-    border-color:var(--a3);
-  }
-.chk-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(168px,1fr)); gap:10px; }
-.chk{
-    display:flex; align-items:center; gap:10px; cursor:pointer;
-    padding:12px 14px; border-radius:12px; font-size:.94rem;
-    background:color-mix(in srgb, var(--bg-0) 55%, transparent);
-    border:1px solid var(--card-border); transition:.18s;
-  }
-.chk:hover{ border-color:var(--a1); }
-.chk input{
-    -webkit-appearance:none; appearance:none; margin:0;
-    width:18px; height:18px; flex:0 0 18px; border-radius:5px;
-    border:1.5px solid var(--card-border); background:transparent;
-    display:grid; place-content:center; transition:.15s; cursor:pointer;
-  }
-.chk input::after{
-    content:''; width:9px; height:9px; border-radius:2px;
-    transform:scale(0); transition:.15s; background:#0a0a0a;
-  }
-.chk input:checked{ background:var(--a1); border-color:var(--a1); }
-.chk input:checked::after{ transform:scale(1); }
-.chk input:focus-visible{ outline:2px solid var(--a1); outline-offset:2px; }
-.chk:has(input:checked){ border-color:var(--a1); background:color-mix(in srgb, var(--a1) 9%, transparent); }
-.fld label.chk{
-    display:flex; align-items:center; gap:10px; margin-bottom:0;
-    font-size:.94rem; font-weight:600; letter-spacing:0; line-height:1.35;
-  }
 .form-submit{ margin-top:28px; display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
-.form-submit .btn-primary{ border:0; cursor:pointer; font:inherit; font-weight:700; }
 .form-note{ font-size:.88rem; color:var(--dim); }
-.form-msg{
-    display:none; margin-top:22px; padding:18px 20px; border-radius:14px;
-    font-size:.98rem; line-height:1.6;
-    border:1px solid var(--a1); color:var(--ink);
-    background:color-mix(in srgb, var(--a1) 12%, transparent);
-  }
-.form-msg.show{ display:block; }
-.form-msg b{ font-family:var(--font-display); display:block; margin-bottom:4px; }
 .side-card{
     padding:28px; border-radius:18px; margin-bottom:18px;
     background:color-mix(in srgb, var(--bg-2) 48%, transparent);
@@ -893,7 +824,6 @@ a.chip::after{ content:' \2192'; opacity:.55; }
 .assure{ display:grid; gap:11px; }
 .assure div{ display:flex; gap:10px; align-items:flex-start; font-size:.94rem; color:var(--dim); }
 .assure .tick{ color:var(--a1); font-weight:800; flex:0 0 auto; }
-.form-card .lgd{ font-family:var(--font-body); }
 .cloudpage .form-layout{ margin-top:38px; }
 @media (max-width:940px){
 .cloudpage .form-layout{ margin-top:30px; }
@@ -1495,8 +1425,13 @@ html[data-palette="cryo"] .kicker{ letter-spacing:.14em; }
    answer: a phone click is worth knowing about, a phone click from
    /rent-line-array-speaker-system is worth bidding on.
 
-   The guard above leaves gtag defined but untransported off production, so this
-   listener runs everywhere and sends nothing except on the live domain.
+   The same hostname guard is repeated below. The loader guard alone would have
+   been enough to stop anything reaching the network, because gtag is left
+   defined but untransported off production. It would not have stopped the
+   listener binding and pushing into a dataLayer nobody drains, which grows for
+   as long as a preview tab is open and reads, to anyone inspecting it, like
+   events are being collected. Guarding the listener too costs one line and
+   makes the preview genuinely inert.
 
    One page is not covered by this and should stay that way. davidsbridalfrisco
    is excluded from the chrome sync and carries its own tap tracking under the
@@ -1506,6 +1441,9 @@ html[data-palette="cryo"] .kicker{ letter-spacing:.14em; }
 
    Do not write literal tag syntax in this comment. */
 (function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  if (PROD.indexOf(location.hostname) === -1) return;
+
   var METHOD = { 'tel:': 'phone', 'mailto:': 'email', 'sms:': 'sms' };
 
   function scheme(href) {
@@ -2384,119 +2322,20 @@ body.calm #chatPanel{ display:none; }
       <div class="section-head" data-reveal>
         <span class="kicker">Request a fog quote</span>
         <h2>Tell us the venue and the moment. We&rsquo;ll tell you which size.</h2>
-        <p>This form asks the handful of things that decide the answer: the date, the room, which moments you want the cloud on and how long they run. Answer what you know and leave the rest blank. Working the rest out is our job.</p>
+        <p>Which size we bring comes down to the date, the room, which moments you want the cloud on and how long they run. Here is what to have ready before you send it over.</p>
       </div>
 
       <div class="form-layout">
         <div class="form-card" data-reveal>
-          <form id="cloudsForm" novalidate>
-            <input type="hidden" name="form_id" value="clouds_quote">
-            <input type="hidden" name="service_line" value="Dry ice and low lying fog">
-            <input type="hidden" name="page_source" value="/rent-dancing-on-the-clouds-low-lyin">
-            <input type="hidden" name="gclid" id="h-gclid" value="">
-            <input type="hidden" name="utm_source" id="h-utm-source" value="">
-            <input type="hidden" name="utm_medium" id="h-utm-medium" value="">
-            <input type="hidden" name="utm_campaign" id="h-utm-campaign" value="">
-            <input type="hidden" name="utm_term" id="h-utm-term" value="">
-            <input type="hidden" name="referrer" id="h-referrer" value="">
-
-            <div class="fld-row">
-              <div class="fld">
-                <label for="c-name">Your name<span class="req">*</span></label>
-                <input type="text" id="c-name" name="full_name" autocomplete="name" required placeholder="First and last">
-              </div>
-              <div class="fld">
-                <label for="c-phone">Phone<span class="req">*</span></label>
-                <input type="tel" id="c-phone" name="phone_number" autocomplete="tel" required placeholder="817-555-0100">
-              </div>
-            </div>
-
-            <div class="fld-row">
-              <div class="fld">
-                <label for="c-email">Email<span class="req">*</span></label>
-                <input type="email" id="c-email" name="email" autocomplete="email" required placeholder="you@example.com">
-              </div>
-              <div class="fld">
-                <label for="c-date">Event date<span class="req">*</span></label>
-                <input type="date" id="c-date" name="event_date" required>
-                <span class="hint">If the date is not locked in yet, put your best guess.</span>
-              </div>
-            </div>
-
-            <div class="fld-row">
-              <div class="fld">
-                <label for="c-type">Type of event<span class="req">*</span></label>
-                <select id="c-type" name="event_type" required>
-                  <option value="">Choose one</option>
-                  <option>Wedding</option>
-                  <option>Quincea&ntilde;era</option>
-                  <option>Birthday or milestone</option>
-                  <option>Corporate event or reveal</option>
-                  <option>Photo shoot</option>
-                  <option>Video shoot or music video</option>
-                  <option>School or university event</option>
-                  <option>Other</option>
-                </select>
-              </div>
-              <div class="fld">
-                <label for="c-venue">Venue<span class="req">*</span></label>
-                <input type="text" id="c-venue" name="venue" required placeholder="Venue name, or the city">
-                <span class="hint">We probably know the room. It changes which size we bring.</span>
-              </div>
-            </div>
-
-            <div class="fld">
-              <label for="c-floor">How big is the dance floor or the space the cloud needs to cover?</label>
-              <select id="c-floor" name="floor_size">
-                <option value="">Not sure yet. That is fine</option>
-                <option>Small, intimate floor, chapel aisle, tight reception room</option>
-                <option>Standard reception dance floor</option>
-                <option>Large ballroom floor</option>
-                <option>Long grand entrance walk or corridor</option>
-                <option>Outdoor or tented</option>
-              </select>
-            </div>
-
-            <div class="fld">
-              <span class="lgd">Which moments do you want the cloud on?</span>
-              <div class="chk-grid">
-                <label class="chk"><input type="checkbox" name="cloud_moments" value="Grand entrance"> Grand entrance</label>
-                <label class="chk"><input type="checkbox" name="cloud_moments" value="First dance"> First dance</label>
-                <label class="chk"><input type="checkbox" name="cloud_moments" value="Parent dances"> Parent dances</label>
-                <label class="chk"><input type="checkbox" name="cloud_moments" value="Ceremony exit or last dance"> Ceremony exit or last dance</label>
-                <label class="chk"><input type="checkbox" name="cloud_moments" value="Cake, reveal or toast"> Cake, reveal or toast</label>
-                <label class="chk"><input type="checkbox" name="cloud_moments" value="All-night atmosphere"> All-night atmosphere</label>
-                <label class="chk"><input type="checkbox" name="cloud_moments" value="Photo or video takes"> Photo or video takes</label>
-                <label class="chk"><input type="checkbox" name="cloud_moments" value="Not sure yet"> Not sure yet</label>
-              </div>
-              <span class="hint">This is the answer that shapes the quote more than any other. How many moments there are, and how far apart they sit in the night, is what decides the size we bring.</span>
-            </div>
-
-            <div class="fld">
-              <span class="lgd">Anything else running alongside it?</span>
-              <div class="chk-grid">
-                <label class="chk"><input type="checkbox" name="services" value="DJ"> DJ</label>
-                <label class="chk"><input type="checkbox" name="services" value="Uplighting"> Uplighting</label>
-                <label class="chk"><input type="checkbox" name="services" value="Dance floor lighting"> Dance floor lighting</label>
-                <label class="chk"><input type="checkbox" name="services" value="Sound / PA"> Sound &amp; PA</label>
-                <label class="chk"><input type="checkbox" name="services" value="Photo and video"> Photo &amp; video</label>
-                <label class="chk"><input type="checkbox" name="services" value="Fog only"> Just the fog</label>
-              </div>
-              <span class="hint">When the same crew runs the fog and the music, the cue is far easier to land. Worth knowing either way.</span>
-            </div>
-
-            <div class="fld">
-              <label for="c-notes">Anything else we should know</label>
-              <textarea id="c-notes" name="message" placeholder="Is the floor raised or carpeted? Are there floor vents or heavy air conditioning? Has the venue said anything about dry ice? Do you already have a running order? Any of that helps."></textarea>
-            </div>
-
-            <div class="form-submit">
-              <button type="submit" class="btn-primary">Send my event details</button>
-              <span class="form-note">Tell us about your event and we will send you a straightforward quote the same day.</span>
-            </div>
-
-            <div class="form-msg" id="cloudsMsg" role="status" aria-live="polite"></div>
-          </form>
+          <h3>What to have ready</h3>
+          <p>Five things decide which size machine we bring, and they fit in one message: the date, the venue or the city, what kind of event it is, roughly how big the dance floor is, and which moments you want the cloud on.</p>
+          <p>The moments matter most. How many there are, and how far apart they sit in the night, is what sets the size more than anything else. Grand entrance, first dance, parent dances, a ceremony exit or last dance, a cake or reveal, all night atmosphere, photo or video takes: tell us which ones and we will size it around them.</p>
+          <p>If anything is running alongside it, a DJ, uplighting, dance floor lighting or sound, say so in the same message. When the same crew runs the fog and the music the cue is far easier to land.</p>
+          <p>Answer what you know and leave the rest. Working the rest out is our job.</p>
+          <div class="form-submit">
+            <a class="btn-primary" href="/contact">Get a quote</a>
+            <span class="form-note">Tell us about your event and we will send you a straightforward quote the same day.</span>
+          </div>
         </div>
 
         <div>
@@ -2611,65 +2450,6 @@ body.calm #chatPanel{ display:none; }
   }, {passive:true});
 })();
 
-(function(){
-  var f = document.getElementById('cloudsForm');
-  if(!f) return;
-
-  /* attribution: stamp where this lead actually came from, so the
-     HoneyBook "Unknown" lead-source bucket stops swallowing this page. */
-  try{
-    var qs = new URLSearchParams(window.location.search);
-    var map = {
-      'h-gclid':'gclid', 'h-utm-source':'utm_source', 'h-utm-medium':'utm_medium',
-      'h-utm-campaign':'utm_campaign', 'h-utm-term':'utm_term'
-    };
-    Object.keys(map).forEach(function(id){
-      var el = document.getElementById(id);
-      if(el) el.value = qs.get(map[id]) || '';
-    });
-    var ref = document.getElementById('h-referrer');
-    if(ref) ref.value = document.referrer || 'direct';
-  }catch(err){}
-
-  var msg = document.getElementById('cloudsMsg');
-  f.addEventListener('submit', function(e){
-    e.preventDefault();
-    var bad = null;
-    ['c-name','c-phone','c-email','c-date','c-type','c-venue'].forEach(function(id){
-      var el = document.getElementById(id);
-      if(el && !el.checkValidity() && !bad) bad = el;
-    });
-    if(bad){
-      msg.className = 'form-msg show';
-      msg.style.borderColor = 'var(--a3)';
-      msg.style.background = 'color-mix(in srgb, var(--a3) 12%, transparent)';
-      msg.innerHTML = '<b>Almost there.</b>We still need a few details before we can tell you which size, check the highlighted fields above.';
-      bad.focus();
-      return;
-    }
-
-    var moments = [].slice.call(f.querySelectorAll('input[name=cloud_moments]:checked')).map(function(c){ return c.value; });
-
-    /* separate conversion signal for this page only */
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: 'generate_lead',
-      form_id: 'clouds_quote',
-      service_line: 'dry_ice_low_lying_fog',
-      page_source: '/rent-dancing-on-the-clouds-low-lyin',
-      event_type: (document.getElementById('c-type') || {}).value || '',
-      cloud_moments: moments.join('|'),
-      moment_count: moments.length
-    });
-
-    msg.className = 'form-msg show';
-    msg.style.borderColor = 'var(--a1)';
-    msg.style.background = 'color-mix(in srgb, var(--a1) 12%, transparent)';
-    msg.innerHTML = '<b>Got it, thank you.</b>Your details are on their way and you’ll hear back today with the size we would bring and why. If your date is close and you’d rather not wait, call or text 817-210-7957 any time.';
-    f.querySelector('button[type=submit]').textContent = 'Sent';
-    msg.scrollIntoView({behavior:'smooth', block:'center'});
-  });
-})();
 </script>
 
 <script>
