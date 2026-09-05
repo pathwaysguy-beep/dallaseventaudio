@@ -439,6 +439,11 @@ a.chip::after{ content:' \2192'; opacity:.55; }
       radial-gradient(circle at 76% 80%, color-mix(in srgb, var(--a2) 18%, transparent), transparent 60%);
     background-size:cover; background-position:center; background-repeat:no-repeat;
   }
+.split-vis .vis-note{
+    position:absolute; left:0; right:0; bottom:0; padding:34px 18px 15px;
+    background:linear-gradient(to top, rgba(6,6,8,.92), transparent);
+    font-size:.78rem; color:var(--dim); line-height:1.5; letter-spacing:.01em;
+  }
 .split-vis .slot{
     position:absolute; left:0; right:0; bottom:0; padding:30px 16px 13px;
     background:linear-gradient(to top, rgba(6,6,8,.9), transparent);
@@ -1420,8 +1425,8 @@ body.calm #chatPanel{ display:none; }
             <a class="chip" href="/contact">Ask about your venue</a>
           </div>
         </div>
-        <div class="split-vis" style="--img:url('/images/follow-spot/follow-spot-grand-entrance.jpg')">
-          <span class="slot">/images/follow-spot/follow-spot-grand-entrance.jpg</span>
+        <div class="split-vis" style="--img:image-set(url('/images/follow-spot/follow-spot-grand-entrance-1920w.avif') type('image/avif'), url('/images/follow-spot/follow-spot-grand-entrance-1920w.webp') type('image/webp'), url('/images/follow-spot/follow-spot-grand-entrance.jpg'))">
+          <span class="vis-note">Illustration. One beam, one person, and a room dark enough for it to matter.</span>
         </div>
       </div>
     </div>
