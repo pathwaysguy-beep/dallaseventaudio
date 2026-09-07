@@ -461,6 +461,9 @@ a.chip::after{ content:' \2192'; opacity:.55; }
       radial-gradient(circle at 76% 80%, color-mix(in srgb, var(--a2) 18%, transparent), transparent 60%);
     background-size:cover; background-position:center; background-repeat:no-repeat;
   }
+.split-vis video{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;
+  }
 .split-vis img{
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
   }
@@ -1535,8 +1538,8 @@ body.calm #chatPanel{ display:none; }
             <a class="chip" href="/gallery">Real DFW events we&rsquo;ve run</a>
           </div>
         </div>
-        <div class="split-vis">
-          <span class="slot">/images/effects/co2-cannon-rental-dallas-dance-floor.jpg</span>
+        <div class="split-vis" style="--img:url('/images/co2-cannon-plume-dallas-event-poster.jpg')">
+          <video muted loop playsinline autoplay preload="none" data-lazy data-webm="/videos/co2-cannon-plume-dallas-event.webm" data-mp4="/videos/co2-cannon-plume-dallas-event.mp4" poster="/images/co2-cannon-plume-dallas-event-poster.jpg" aria-label="A white CO2 plume shooting to the ceiling of a decorated gym at a Dallas-Fort Worth school event"></video>
         </div>
       </div>
 
@@ -1957,6 +1960,37 @@ body.calm #chatPanel{ display:none; }
   </footer>
 
   <div class="grain-overlay" aria-hidden="true"></div>
+
+<script>
+/* Lazy video. An autoplaying video ignores preload and fetches immediately, so
+   the source is held in data attributes and attached when the clip is one
+   viewport away. Same pattern as the laser page. */
+(function () {
+  var vids = [].slice.call(document.querySelectorAll('video[data-lazy]'));
+  if (!vids.length) return;
+  function attach(v) {
+    if (v.dataset.lazyDone) return;
+    v.dataset.lazyDone = '1';
+    ['webm', 'mp4'].forEach(function (k) {
+      if (!v.dataset[k]) return;
+      var s = document.createElement('source');
+      s.src = v.dataset[k];
+      s.type = k === 'webm' ? 'video/webm' : 'video/mp4';
+      v.appendChild(s);
+    });
+    v.load();
+    var p = v.play();
+    if (p && p.catch) p.catch(function () {});
+  }
+  if (!('IntersectionObserver' in window)) { vids.forEach(attach); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { attach(e.target); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '100% 0px' });
+  vids.forEach(function (v) { io.observe(v); });
+})();
+</script>
 
   <div id="chatBubble" role="button" tabindex="0" aria-controls="chatPanel" aria-expanded="false">&#10022; AV Concierge</div>
 <div id="chatPanel" role="dialog" aria-modal="false" aria-labelledby="chatTitle" hidden>
