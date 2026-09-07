@@ -390,6 +390,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
     position:relative; border-radius:20px; overflow:hidden;
     aspect-ratio:4/3; border:1px solid var(--card-border);
     background-color:var(--bg-2);
+    --img:none;
     background-image:var(--img),
       radial-gradient(circle at 32% 24%, color-mix(in srgb, var(--a1) 20%, transparent), transparent 62%),
       radial-gradient(circle at 74% 82%, color-mix(in srgb, var(--a2) 17%, transparent), transparent 60%);
@@ -465,6 +466,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
     position:relative; border-radius:20px; overflow:hidden;
     aspect-ratio:4/3; border:1px solid var(--card-border);
     background-color:var(--bg-2);
+    --img:none;
     background-image:var(--img),
       radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--a1) 22%, transparent), transparent 62%),
       radial-gradient(circle at 76% 80%, color-mix(in srgb, var(--a2) 18%, transparent), transparent 60%);
@@ -1487,10 +1489,10 @@ body.calm #chatPanel{ display:none; }
       </div>
       <p class="prose" data-reveal>These two photos are the same wall in the same ballroom. On the left the chandeliers and house lights are at full, and the monogram is there but soft. On the right the room is down for the first dance with blue uplighting on the walls, and the same monogram is the brightest thing in the room. The projector settings were identical in both frames.</p>
       <div class="pair" data-reveal>
-        <figure class="frame" style="--img:url('/images/monogram-projector-gobo-dallas-poster-4a8e0a.jpg')">
+        <figure class="frame">
           <figcaption>Monogram projection on a ballroom wall with the house lights up.<span class="slot">monogram-ballroom-house-lights-up.jpg</span></figcaption>
         </figure>
-        <figure class="frame tall" style="--img:url('/images/monogram-projector-gobo-dallas-poster-15ca9f.jpg')">
+        <figure class="frame tall">
           <figcaption>The same wall with the lights down and blue uplighting behind a wedding monogram.<span class="slot">monogram-ballroom-lights-down-blue-uplighting.jpg</span></figcaption>
         </figure>
       </div>
@@ -1549,20 +1551,20 @@ body.calm #chatPanel{ display:none; }
       </div>
       <p class="prose" data-reveal>A gobo is the disc that sits in front of a light and cuts the beam into a shape. When a lighting company says custom gobo monogram, they mean what a bride means by wedding monogram: your design, put up as light. The difference between an old gobo and what we run is color. A cut metal gobo gives you one color, usually white. A laser projector reproduces a full color file, so the design on the left below is projected on the right with its gold rings and its watercolor florals intact.</p>
       <div class="pair" data-reveal>
-        <figure class="frame fit" style="--img:url('/images/monogram-projector-gobo-dallas-poster-9c13e4.jpg')">
+        <figure class="frame fit">
           <figcaption>Full color gold and floral wedding monogram design file.<span class="slot">full-color-gold-floral-monogram-design-file.png</span></figcaption>
         </figure>
-        <figure class="frame tall" style="--img:url('/images/monogram-projector-gobo-dallas-poster-293ab6.jpg')">
+        <figure class="frame tall">
           <figcaption>The same monogram projected on a board and batten wall in daylight.<span class="slot">full-color-monogram-projected-board-and-batten-daylight.jpg</span></figcaption>
         </figure>
       </div>
       <p class="prose" data-reveal>That second frame is also a daylight test, and we are showing it on purpose. The design on painted siding in the afternoon is soft and low in contrast. Outdoors a projected monogram needs full dark and a light-colored surface to land on, so an outdoor gobo projection is a post-sunset item on the timeline.</p>
       <p class="prose" data-reveal>The pair below is the part clients ask about right after they approve a proof. What you sign off on is black artwork on a cream background, because that is how a design reads on a screen and on paper. The projection file is the inverse of it: white artwork on transparent. A projector adds light, so wherever your design is dark on the proof, the projection file has to be empty. We build both files, we show you both, and the thing on the wall matches the thing you approved.</p>
       <div class="pair" data-reveal>
-        <figure class="frame fit" style="--img:url('/images/monogram-projector-gobo-dallas-poster-6e6af2.jpg')">
+        <figure class="frame fit">
           <figcaption>Wedding monogram design proof in black on cream.<span class="slot">wedding-monogram-design-proof-black-on-cream.jpg</span></figcaption>
         </figure>
-        <figure class="frame fit" style="--img:url('/images/monogram-projector-gobo-dallas-poster-3d31ec.jpg')">
+        <figure class="frame fit">
           <figcaption>The same design inverted to white for projection.<span class="slot">wedding-monogram-projection-file-white-inverted.png</span></figcaption>
         </figure>
       </div>
@@ -1987,7 +1989,7 @@ body.calm #chatPanel{ display:none; }
   var STORE = 'dea-chat-v1';
   var GREETING =
     'Welcome to Dallas Event Audio 🎧 So I can help you the right ' +
-    'way — which best describes you? Planning an event, a planner or ' +
+    'way: which best describes you? Planning an event, a planner or ' +
     'coordinator sourcing for a client, a DJ, band or performer who needs us ' +
     'to set you up, or just have a question?';
   var TROUBLE =

@@ -448,6 +448,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
     position:relative; border-radius:20px; overflow:hidden;
     aspect-ratio:4/3; border:1px solid var(--card-border);
     background-color:var(--bg-2);
+    --img:none;
     background-image:var(--img),
       radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--a1) 22%, transparent), transparent 62%),
       radial-gradient(circle at 76% 80%, color-mix(in srgb, var(--a2) 18%, transparent), transparent 60%);
@@ -1587,7 +1588,7 @@ body.calm #chatPanel{ display:none; }
             <a class="chip" href="/contact">Ask about your event</a>
           </div>
         </div>
-        <div class="split-vis" style="--img:url('/images/equipment-list/dallas-event-audio-warehouse-inventory.jpg')">
+        <div class="split-vis">
           <span class="slot">/images/equipment-list/dallas-event-audio-warehouse-inventory.jpg</span>
         </div>
       </div>
@@ -1714,7 +1715,7 @@ body.calm #chatPanel{ display:none; }
             <a class="chip" href="/services-audio">On-site audio engineer</a>
           </div>
         </div>
-        <div class="split-vis" style="--img:url('/images/equipment-list/allen-heath-sq5-mixing-console-rental-dallas.jpg')">
+        <div class="split-vis">
           <span class="slot">/images/equipment-list/allen-heath-sq5-mixing-console-rental-dallas.jpg</span>
         </div>
       </div>
@@ -1737,7 +1738,7 @@ body.calm #chatPanel{ display:none; }
             <a class="chip" href="/corporate-events">Corporate &amp; conference AV</a>
           </div>
         </div>
-        <div class="split-vis" style="--img:url('/images/equipment-list/shure-wireless-microphone-rental-dallas.jpg')">
+        <div class="split-vis">
           <span class="slot">/images/equipment-list/shure-wireless-microphone-rental-dallas.jpg</span>
         </div>
       </div>
@@ -1930,7 +1931,7 @@ body.calm #chatPanel{ display:none; }
             <a class="chip" href="/services-photo-and-video">Photo &amp; video</a>
           </div>
         </div>
-        <div class="split-vis" style="--img:url('/images/equipment-list/live-streaming-camera-setup-dallas-event.jpg')">
+        <div class="split-vis">
           <span class="slot">/images/equipment-list/live-streaming-camera-setup-dallas-event.jpg</span>
         </div>
       </div>
@@ -2289,7 +2290,7 @@ body.calm #chatPanel{ display:none; }
   var STORE = 'dea-chat-v1';
   var GREETING =
     'Welcome to Dallas Event Audio 🎧 So I can help you the right ' +
-    'way — which best describes you? Planning an event, a planner or ' +
+    'way: which best describes you? Planning an event, a planner or ' +
     'coordinator sourcing for a client, a DJ, band or performer who needs us ' +
     'to set you up, or just have a question?';
   var TROUBLE =

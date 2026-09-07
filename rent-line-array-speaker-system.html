@@ -455,6 +455,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
     position:relative; border-radius:20px; overflow:hidden;
     aspect-ratio:4/3; border:1px solid var(--card-border);
     background-color:var(--bg-2);
+    --img:none;
     background-image:var(--img),
       radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--a1) 22%, transparent), transparent 62%),
       radial-gradient(circle at 76% 80%, color-mix(in srgb, var(--a2) 18%, transparent), transparent 60%);
@@ -1570,7 +1571,7 @@ body.calm #chatPanel{ display:none; }
           <p>The difference is not just volume. A bigger point-source system played louder makes the front rows uncomfortable before it makes the back rows clear. An array changes the shape of the coverage rather than the amount of it, which is why we reach for one as soon as the room gets long, tall or full.</p>
           <p>If you are not sure which side of that line your event sits on, send us the venue name and the headcount. We quote both ways when it is genuinely close, and we will tell you if the smaller system is the better buy. For events that land on the smaller side, our <a href="/rent-sound-equipment">PA and sound system rental</a> page covers the whole range.</p>
         </div>
-        <div class="split-vis" data-reveal style="--img:url('/images/pa-system-rental-dfw-general-session.jpg')">
+        <div class="split-vis" data-reveal>
           <span class="slot">/images/pa-system-rental-dfw-general-session.jpg</span>
         </div>
       </div>
@@ -2152,7 +2153,7 @@ body.calm #chatPanel{ display:none; }
   var STORE = 'dea-chat-v1';
   var GREETING =
     'Welcome to Dallas Event Audio 🎧 So I can help you the right ' +
-    'way — which best describes you? Planning an event, a planner or ' +
+    'way: which best describes you? Planning an event, a planner or ' +
     'coordinator sourcing for a client, a DJ, band or performer who needs us ' +
     'to set you up, or just have a question?';
   var TROUBLE =

@@ -479,6 +479,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
     position:relative; border-radius:20px; overflow:hidden;
     aspect-ratio:4/3; border:1px solid var(--card-border);
     background-color:var(--bg-2);
+    --img:none;
     background-image:var(--img),
       radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--a1) 22%, transparent), transparent 62%),
       radial-gradient(circle at 76% 80%, color-mix(in srgb, var(--a2) 18%, transparent), transparent 60%);
@@ -1608,7 +1609,7 @@ body.calm #chatPanel{ display:none; }
             <a class="chip" href="/services-dj">DJ services</a>
           </div>
         </div>
-        <div class="split-vis" data-reveal style="--img:url('/images/lighting/lighting-and-sound-crew.jpg');">
+        <div class="split-vis" data-reveal>
           <span class="slot">/images/lighting/lighting-and-sound-crew.jpg</span>
         </div>
       </div>
@@ -1668,7 +1669,7 @@ body.calm #chatPanel{ display:none; }
             <a class="chip" href="/projector-screen-rental">Projector &amp; screen</a>
           </div>
         </div>
-        <div class="split-vis" data-reveal style="--img:url('/images/lighting/corporate-general-session.jpg');">
+        <div class="split-vis" data-reveal>
           <span class="slot">/images/lighting/corporate-general-session.jpg</span>
         </div>
       </div>
@@ -1825,52 +1826,52 @@ body.calm #chatPanel{ display:none; }
       <div class="faq-list">
         <details class="faq-item" data-reveal>
           <summary>Do you do lighting design, or just deliver the equipment?</summary>
-          <p>Design first, always. We work out the plan for your specific venue (surfaces, fixture count, color, cue timing, power and rigging) as part of quoting the job, then we install it, run it live or program it to your run sheet, and strike it. There is no version of this where fixtures arrive and someone on your side works out where they go.</p>
+          <div class="ans">Design first, always. We work out the plan for your specific venue (surfaces, fixture count, color, cue timing, power and rigging) as part of quoting the job, then we install it, run it live or program it to your run sheet, and strike it. There is no version of this where fixtures arrive and someone on your side works out where they go.</div>
         </details>
 
         <details class="faq-item" data-reveal>
           <summary>Can I book lighting only, without a DJ or sound?</summary>
-          <p>Yes, and we do it regularly. If you already have a DJ, a band or in-house AV, we supply the lighting and coordinate with them directly on cues and timing. Most of our events are lighting and sound together because the cues line up better that way, but it is not a requirement.</p>
+          <div class="ans">Yes, and we do it regularly. If you already have a DJ, a band or in-house AV, we supply the lighting and coordinate with them directly on cues and timing. Most of our events are lighting and sound together because the cues line up better that way, but it is not a requirement.</div>
         </details>
 
         <details class="faq-item" data-reveal>
           <summary>What is included in a rental?</summary>
-          <p>We deliver, place, rig, focus, program and strike everything ourselves. Lighting that has to be run gets a technician on site for the whole event: follow spot, laser shows, moving lights and anything cued to the show. DJ and dance floor lighting runs sound reactive by default, so we deliver it, aim it, set the mode and come back after the event to strike, and a lighting engineer is available on request to run the looks live. Uplighting and monogram projection are programmed to your run sheet at load-in and hold on their own, and our crew comes back afterward to strike them. Where a technician is already on site for another part of your booking, they can take those fixtures live as well. We deliver, place and collect every fixture ourselves. Programming lighting in the actual room, with the house lights at the level you will really have, is most of what makes it look designed rather than rented.</p>
+          <div class="ans">We deliver, place, rig, focus, program and strike everything ourselves. Lighting that has to be run gets a technician on site for the whole event: follow spot, laser shows, moving lights and anything cued to the show. DJ and dance floor lighting runs sound reactive by default, so we deliver it, aim it, set the mode and come back after the event to strike, and a lighting engineer is available on request to run the looks live. Uplighting and monogram projection are programmed to your run sheet at load-in and hold on their own, and our crew comes back afterward to strike them. Where a technician is already on site for another part of your booking, they can take those fixtures live as well. We deliver, place and collect every fixture ourselves. Programming lighting in the actual room, with the house lights at the level you will really have, is most of what makes it look designed rather than rented.</div>
         </details>
 
         <details class="faq-item" data-reveal>
           <summary>How far in advance should I book event lighting?</summary>
-          <p>Earlier is better, particularly for Saturdays in spring and fall and anywhere in December. That said, we would always rather you asked late than not at all. Tell us the date and we will tell you straight away whether we have the crew and the fixtures free.</p>
+          <div class="ans">Earlier is better, particularly for Saturdays in spring and fall and anywhere in December. That said, we would always rather you asked late than not at all. Tell us the date and we will tell you straight away whether we have the crew and the fixtures free.</div>
         </details>
 
         <details class="faq-item" data-reveal>
           <summary>Can you match our brand colors?</summary>
-          <p>Yes. Send hex values from your brand guidelines, a swatch or a photograph and we will match it. We will also tell you honestly what that color does in your particular room, because a shade that is perfect on screen can read very differently washed across a wall, and it is better to adjust it with you standing in the room than to have you see it for the first time at the event.</p>
+          <div class="ans">Yes. Send hex values from your brand guidelines, a swatch or a photograph and we will match it. We will also tell you honestly what that color does in your particular room, because a shade that is perfect on screen can read very differently washed across a wall, and it is better to adjust it with you standing in the room than to have you see it for the first time at the event.</div>
         </details>
 
         <details class="faq-item" data-reveal>
           <summary>Do you light conference rooms and board meetings?</summary>
-          <p>Yes, and it is a meaningful part of what we do. Meeting rooms, board and council chambers, general sessions and breakouts all get lit for the camera as much as the room: proper front light on whoever is presenting, an ambient level that leaves the screen readable, and none of the flat overhead wash that makes everyone on a stream look exhausted.</p>
+          <div class="ans">Yes, and it is a meaningful part of what we do. Meeting rooms, board and council chambers, general sessions and breakouts all get lit for the camera as much as the room: proper front light on whoever is presenting, an ambient level that leaves the screen readable, and none of the flat overhead wash that makes everyone on a stream look exhausted.</div>
         </details>
 
         <details class="faq-item" data-reveal>
           <summary>Will lighting work at an outdoor or tented venue?</summary>
-          <p>Yes, with a different plan. Outdoors the power is usually somewhere else and the walls are missing, so we work with battery fixtures and light what is there: trees, a facade, tent poles and peaks, an entrance. We also plan for the light changing completely partway through the evening, which is the step most outdoor setups skip.</p>
+          <div class="ans">Yes, with a different plan. Outdoors the power is usually somewhere else and the walls are missing, so we work with battery fixtures and light what is there: trees, a facade, tent poles and peaks, an entrance. We also plan for the light changing completely partway through the evening, which is the step most outdoor setups skip.</div>
         </details>
 
         <details class="faq-item" data-reveal>
           <summary>Our venue has its own lighting. Do we still need you?</summary>
-          <p>Sometimes not, and we will say so. House lighting is generally built to make a room usable rather than to make it look like anything, and it is rarely dimmable in the way an event needs. Tell us the venue and we will tell you what its lighting genuinely does, including when the honest answer is that you need less from us than you thought.</p>
+          <div class="ans">Sometimes not, and we will say so. House lighting is generally built to make a room usable rather than to make it look like anything, and it is rarely dimmable in the way an event needs. Tell us the venue and we will tell you what its lighting genuinely does, including when the honest answer is that you need less from us than you thought.</div>
         </details>
 
         <details class="faq-item" data-reveal>
           <summary>Do you work with our planner, photographer and videographer?</summary>
-          <p>Directly, and we prefer it. Lighting affects every one of them. The photographer cares about color temperature and where the saturated tones sit, the videographer cares about front light and flicker, the planner cares about load-in windows. Being in that conversation early prevents nearly every lighting problem we have seen turn up on an event day.</p>
+          <div class="ans">Directly, and we prefer it. Lighting affects every one of them. The photographer cares about color temperature and where the saturated tones sit, the videographer cares about front light and flicker, the planner cares about load-in windows. Being in that conversation early prevents nearly every lighting problem we have seen turn up on an event day.</div>
         </details>
 
         <details class="faq-item" data-reveal>
           <summary>What areas of Dallas-Fort Worth do you cover?</summary>
-          <p>The whole Metroplex: roughly a forty-mile radius from the mid-cities, covering Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Southlake, McKinney, Richardson, Grapevine, Denton and everywhere in between. If your venue is further out, ask anyway and we will tell you honestly whether it works.</p>
+          <div class="ans">The whole Metroplex: roughly a forty-mile radius from the mid-cities, covering Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Southlake, McKinney, Richardson, Grapevine, Denton and everywhere in between. If your venue is further out, ask anyway and we will tell you honestly whether it works.</div>
         </details>
       </div>
     </div>
@@ -2150,7 +2151,7 @@ body.calm #chatPanel{ display:none; }
   var STORE = 'dea-chat-v1';
   var GREETING =
     'Welcome to Dallas Event Audio 🎧 So I can help you the right ' +
-    'way — which best describes you? Planning an event, a planner or ' +
+    'way: which best describes you? Planning an event, a planner or ' +
     'coordinator sourcing for a client, a DJ, band or performer who needs us ' +
     'to set you up, or just have a question?';
   var TROUBLE =

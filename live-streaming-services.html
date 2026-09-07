@@ -443,6 +443,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
     position:relative; border-radius:20px; overflow:hidden;
     aspect-ratio:4/3; border:1px solid var(--card-border);
     background-color:var(--bg-2);
+    --img:none;
     background-image:var(--img),
       radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--a1) 22%, transparent), transparent 62%),
       radial-gradient(circle at 76% 80%, color-mix(in srgb, var(--a2) 18%, transparent), transparent 60%);
@@ -1598,7 +1599,7 @@ body.calm #chatPanel{ display:none; }
           <p>We take the stream audio from our own microphones instead. The presenter&rsquo;s lapel, the handheld going around the Q&amp;A, the podium microphone and the panel table are all on our console. Each one is treated individually, then summed into a stereo feed and patched into the video switcher on a dedicated audio input. What the stream carries is the mix, the same one the room hears, minus the room.</p>
           <p>On top of that, every microphone runs through our <a href="/feedback-free-microphone-rentals">AI-powered De-Feedback processing</a>. It watches for the frequencies that are about to ring and pulls them down before they do, which means we can run gain high enough for a soft-spoken presenter to be genuinely clear without the system howling. Remote viewers get the benefit twice over: the speech is louder relative to the room, and it is not sitting on top of the low-level ring that makes long streams exhausting to listen to.</p>
         </div>
-        <div class="split-vis" style="--img:url('/images/live-streaming/live-stream-board-feed-audio-mixer-dallas.jpg')">
+        <div class="split-vis">
           <span class="slot">/images/live-streaming/live-stream-board-feed-audio-mixer-dallas.jpg</span>
         </div>
       </div>
@@ -1712,7 +1713,7 @@ body.calm #chatPanel{ display:none; }
           <p>The practical advantage is that we are already your audio company for the day. The room reinforcement, the presenter microphones, the playback from the laptop on the podium and the stream are one system with one operator behind it. One crew handles the sound and the stream, brings its own adapters, and you only have to explain the day once. Load-in is one crew, one time.</p>
           <p>For a conference running breakouts, we can stream the main room while the breakout rooms get their own audio, all quoted together. Our <a href="/corporate-events">corporate events page</a> covers the rest of what that day looks like, and <a href="/rent-sound-equipment">sound and AV equipment rental</a> covers the room systems underneath it.</p>
         </div>
-        <div class="split-vis" style="--img:url('/images/live-streaming/corporate-live-streaming-dallas-conference.jpg')">
+        <div class="split-vis">
           <span class="slot">/images/live-streaming/corporate-live-streaming-dallas-conference.jpg</span>
         </div>
       </div>
@@ -1729,7 +1730,7 @@ body.calm #chatPanel{ display:none; }
           <p>What we bring to it is the same thing that makes the corporate streams work. The ceremony microphones are already ours, which means the vows are on a lapel and a discreet podium microphone going through our console, not on a camera at the back of the aisle. A ceremony is the hardest audio in the entire event: two people speaking quietly, outdoors as often as not, with wind and a string quartet and a hundred guests breathing. A camera microphone does not stand a chance at it. A processed lapel feed does.</p>
           <p>We keep the camera positions unobtrusive and work to whatever your officiant, venue and photographer have already agreed. If we are handling your ceremony and reception audio anyway, adding the stream is a small extension of a system that is already in the room, see <a href="/weddings">wedding audio</a> for the rest of it.</p>
         </div>
-        <div class="split-vis" style="--img:url('/images/live-streaming/wedding-live-stream-dallas-ceremony.jpg')">
+        <div class="split-vis">
           <span class="slot">/images/live-streaming/wedding-live-stream-dallas-ceremony.jpg</span>
         </div>
       </div>
@@ -2180,7 +2181,7 @@ body.calm #chatPanel{ display:none; }
   var STORE = 'dea-chat-v1';
   var GREETING =
     'Welcome to Dallas Event Audio 🎧 So I can help you the right ' +
-    'way — which best describes you? Planning an event, a planner or ' +
+    'way: which best describes you? Planning an event, a planner or ' +
     'coordinator sourcing for a client, a DJ, band or performer who needs us ' +
     'to set you up, or just have a question?';
   var TROUBLE =
