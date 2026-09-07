@@ -1,0 +1,36 @@
+{
+  "name": "dea-concierge",
+  "main": "src/index.js",
+  "workers_dev": true,
+  "preview_urls": true,
+  "compatibility_date": "2026-08-01",
+  "vars": {
+    "ALLOWED_ORIGINS": "https://www.dallaseventaudio.com,https://dallaseventaudio.com,https://dallaseventaudio.pages.dev",
+    "DAILY_CAP": "400",
+    "LEAD_FROM": "onboarding@resend.dev",
+    "LEAD_TO": "pathwaysguy@gmail.com",
+    "MODEL": "claude-sonnet-4-5"
+  },
+  "ratelimits": [
+    {
+      "name": "CHAT_LIMIT",
+      "namespace_id": "1001",
+      "simple": {
+        "limit": 12,
+        "period": 60
+      }
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_id": "01d0d578-822c-400c-9065-b2484b6d586c"
+    }
+  ],
+  "kv_namespaces": [
+    {
+      "id": "c966e79f1d6b44ba99e3bdc6e68934cd",
+      "binding": "RATE"
+    }
+  ]
+}
