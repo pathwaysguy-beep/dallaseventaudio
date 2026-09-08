@@ -2160,6 +2160,7 @@ body.calm #chatPanel{ display:none; }
     document.getElementById('mxf-'+c.k).value=v[c.k];
     document.getElementById('mxv-'+c.k).textContent=v[c.k];
   });
+  paintReadout(mix());
 
   /* Start the fade the first time the stage scrolls into view, pause it
      whenever the stage leaves the viewport, and pick it back up on return.

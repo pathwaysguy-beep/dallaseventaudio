@@ -380,9 +380,14 @@ html{ scroll-behavior:auto; }
   "datePublished": "2026-04-21",
   "dateModified": "2026-04-21",
   "author": {
-    "@type": "Organization",
-    "name": "Dallas Event Audio",
-    "url": "https://www.dallaseventaudio.com"
+    "@type": "Person",
+    "name": "Steve",
+    "url": "https://www.dallaseventaudio.com/our-story",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Dallas Event Audio",
+      "url": "https://www.dallaseventaudio.com"
+    }
   },
   "publisher": {
     "@type": "Organization",
@@ -417,6 +422,11 @@ html{ scroll-behavior:auto; }
   ]
 }</script>
 
+<style>
+/* byline link in the post meta line */
+.postmeta a{ color:var(--a1); text-decoration:none; }
+.postmeta a:hover{ text-decoration:underline; }
+</style>
 <!-- chrome-sync:fonts -->
 <link rel="preload" href="/fonts/unbounded-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/space-grotesk-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -1096,7 +1106,7 @@ body.calm #chatPanel{ display:none; }
       </div>
       <h1 data-reveal>Trending AV Services in Dallas, Texas for 2026 Events</h1>
       <p class="sub" data-reveal>Discover the top AV services trending in Dallas for 2026, from LED video walls and hybrid event streaming to premium sound, wireless microphones, uplighting, and immersive event production.</p>
-      <div class="postmeta" data-reveal>Dallas Event Audio <span class="dot">&middot;</span> Published April 21, 2026</div>
+      <div class="postmeta" data-reveal>By <a href="/our-story">Steve</a>, Dallas Event Audio <span class="dot">&middot;</span> Published April 21, 2026</div>
     </div>
   </section>
 
