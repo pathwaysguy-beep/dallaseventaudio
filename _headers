@@ -23,6 +23,26 @@
 /image-slots.csv
   X-Robots-Tag: noindex, nofollow
 
+# ─── PERMANENT ────────────────────────────────────────────────────────────
+# The concierge Worker's source lives in the repo under dea-concierge/ so it
+# has a history, and Pages deploys the repo as it stands, so the prompt and
+# the config are served as pages. Nothing secret is in them (the API keys are
+# Worker secrets, never in the repo), but there is no reason for Google to
+# index a system prompt.
+/dea-concierge/*
+  X-Robots-Tag: noindex, nofollow
+
+# ─── PERMANENT ────────────────────────────────────────────────────────────
+# Static assets never change in place: a new photo, clip or font gets a new
+# filename. So browsers can keep them for a month instead of revalidating on
+# every visit, which is what Lighthouse flags as an inefficient cache policy.
+/images/*
+  Cache-Control: public, max-age=2592000
+/videos/*
+  Cache-Control: public, max-age=2592000
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # ─── STAGING ONLY. DELETE THIS BLOCK AT GO-LIVE, AND NOTHING ELSE. ────────
 # Keeps the preview out of Google so it cannot compete with the live Wix site
 # for the same URLs. Delete these three lines only, in the same commit as the

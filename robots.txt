@@ -1,3 +1,5 @@
 # Staging. Replace at go-live.
 User-agent: *
 Disallow: /
+
+Sitemap: https://www.dallaseventaudio.com/sitemap.xml

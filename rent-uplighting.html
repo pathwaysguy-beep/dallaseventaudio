@@ -352,6 +352,11 @@ html{ scroll-behavior:auto; }
   <meta name="description" content="Battery powered wireless LED uplighting for weddings and events across Dallas-Fort Worth. Delivered, placed, color matched and programmed by our own crew.">
   <link rel="canonical" href="https://www.dallaseventaudio.com/rent-uplighting">
   <meta property="og:title" content="Uplighting Rental Dallas-Fort Worth | Dallas Event Audio">
+  <meta property="og:image" content="https://www.dallaseventaudio.com/images/uplighting/uplighting-amber-wood-wall-barn-hall.jpg">
+  <meta property="og:image:width" content="1600">
+  <meta property="og:image:height" content="1200">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.dallaseventaudio.com/images/uplighting/uplighting-amber-wood-wall-barn-hall.jpg">
   <meta property="og:description" content="Battery powered wireless LED uplighting for weddings and events across Dallas-Fort Worth. Delivered, placed, color matched and programmed by our own crew.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.dallaseventaudio.com/rent-uplighting">
@@ -1880,6 +1885,10 @@ body.calm #chatPanel{ display:none; }
 
   var cv=document.getElementById('mxStage');
   if(!cv || !cv.getContext) return;
+  /* Phones get a half-size drawing buffer, scaled up by CSS. Every blur in
+     draw() costs in proportion to the pixel count, and a 1560 by 960 buffer
+     took close to a second per frame on a mid-range phone. */
+  if(window.innerWidth<900){ cv.width=780; cv.height=480; }
   var ctx=cv.getContext('2d');
   var W=cv.width, H=cv.height;
   var FLOOR=H*0.78, WALLTOP=H*0.06;
@@ -2097,8 +2106,19 @@ body.calm #chatPanel{ display:none; }
   var SEQ=[PRESETS[0].v,PRESETS[2].v,PRESETS[5].v,PRESETS[6].v,PRESETS[8].v,PRESETS[4].v];
   function lerp(a,b,t){ var o={}; CH.forEach(function(c){ o[c.k]=Math.round(a[c.k]+(b[c.k]-a[c.k])*t); }); return o; }
   function now(){ return (window.performance && window.performance.now) ? window.performance.now() : +new Date(); }
+  /* The stage is a 1560 by 960 canvas drawn with stacked blur filters, so
+     one frame costs real time on a phone. The fade therefore paints at most
+     about 20 times a second rather than on every animation frame, and it
+     only runs while the stage is on screen; see the observer below. Before
+     this, the loop ran at full frame rate from 900 ms after load for as long
+     as the tab was open, whether or not the mixer was in view, and
+     Lighthouse on a mobile profile put the page's blocking time in the tens
+     of seconds. */
+  var FRAME_MS=50;
   function tick(){
-    var t=now(), dt=Math.min(400, t-fadeLast); fadeLast=t;
+    var t=now(), dt=Math.min(400, t-fadeLast);
+    if(dt<FRAME_MS){ fadeId=window.requestAnimationFrame(tick); return; }
+    fadeLast=t;
     fadeT+=dt/LEG_MS;
     while(fadeT>=1){ fadeT-=1; fadeStep=(fadeStep+1)%SEQ.length; }
     var from=SEQ[fadeStep], to=SEQ[(fadeStep+1)%SEQ.length];
@@ -2130,12 +2150,43 @@ body.calm #chatPanel{ display:none; }
     } else { done(false); }
   });
 
-  /* open on a wedding blush so the first frame is not black */
-  setAll(PRESETS[0].v);
+  /* open on a wedding blush so the first frame is not black. The sliders
+     are set now; the first paint waits until the stage is in view, because
+     one paint is the most expensive thing on the page. */
+  var firstPaintDone=false;
+  function paintOnce(){ if(!firstPaintDone){ firstPaintDone=true; draw(); } }
+  CH.forEach(function(c){
+    v[c.k]=PRESETS[0].v[c.k]|0;
+    document.getElementById('mxf-'+c.k).value=v[c.k];
+    document.getElementById('mxv-'+c.k).textContent=v[c.k];
+  });
 
-  if(window.matchMedia && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    window.setTimeout(function(){ if(!fadeId){ fadeBtn.click(); } }, 900);
+  /* Start the fade the first time the stage scrolls into view, pause it
+     whenever the stage leaves the viewport, and pick it back up on return.
+     Nothing runs for a visitor who never reaches the mixer, and nothing runs
+     while they read the rest of the page. */
+  var wantsMotion = !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var pausedByScroll=false, autoStarted=false;
+  if(wantsMotion && 'IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){
+          /* start once on first sight, and resume only a fade this code
+             paused; a fade the visitor stopped by hand stays stopped */
+          paintOnce();
+          if(!autoStarted || pausedByScroll){ autoStarted=true; pausedByScroll=false; if(!fadeId){ fadeBtn.click(); } }
+        } else if(fadeId){
+          stopFade(); pausedByScroll=true;
+        }
+      });
+    },{ threshold:0.15 });
+    io.observe(cv);
+  } else {
+    paintOnce();
   }
+  document.addEventListener('visibilitychange',function(){
+    if(document.hidden && fadeId){ stopFade(); pausedByScroll=true; }
+  });
 })();
 </script>
   </section>
