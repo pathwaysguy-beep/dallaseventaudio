@@ -99,6 +99,28 @@ Profile shows a street address. Open, needing photos: 33 empty slots, the
 follow spot operator above all. Open, at cutover: the staging blocks,
 `#paletteBar`, sitemap submission, two weeks watching Search Console.
 
+## The story pass (standing queue, started 8 September 2026)
+
+The copy gates are clean site-wide. What keeps a reader on a page is
+different: a scene from a real night instead of a definition, at least one
+job Steve actually ran, and every paragraph saying what happens on the day
+rather than what the service "provides." The pass goes page by page, in
+traffic order, and each page ships as its own small bundle so Steve can
+judge the voice before the next one. Corporate-events was the first. Steve
+supplies the examples (a line or two per page is enough: the venue type, what
+went wrong or right, what the client noticed); Claude writes them in and the
+SEO gate holds the keywords. Never invent a job, a venue or a client. Keep
+client names out unless Steve says otherwise. Remaining, roughly in order:
+weddings, rent-uplighting, rent-dancing-on-the-clouds-low-lyin,
+rent-sound-equipment, services-dj, feedback-free-microphone-rentals,
+live-streaming-services, projector-screen-rental, monogram-projector,
+rent-laser-light-show, rent-fog-machine, rent-cold-sparks,
+rent-line-array-speaker-system, rent-bassboss-subwoofers, rent-dj-lighting,
+services-lighting, services-audio, services-extra, private-events,
+rave-and-night-club-events, college-school-university-events,
+live-music-and-band-events, celebrity-and-luxury-events, equipment-list,
+our-story, then the rest.
+
 ## If you are a new session
 
 Clone this repo, load the `dea-*` skills, read this file and `dea-ship`,
