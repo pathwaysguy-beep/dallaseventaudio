@@ -85,15 +85,19 @@ stored in the D1 database `dea-leads`. The widget's local greeting in
 `tools/chrome/widget_js.html` must stay identical to the prompt's greeting.
 `tools/scan_site.py` rebuilds the page digest the prompt is generated from.
 
-## Where things stand on 7 September 2026
+## Where things stand on 9 September 2026
 
 Done: all 78 pages rebuilt and gated; blog copy pass; concierge v3 prompt
 deployed and answering from page prose; SEO review against Google's 2026
 updates (`SEO-REVIEW-2026-09-07.md` at the repo root; its fixes are in
 the repo).
 
-Open, needing Steve: the long-term plan for the 30 generic Wix-era posts;
-confirming the review count on the homepage. Settled 9 September: DEA is a
+Posts, settled 9 September: Steve's rule is that a post with zero clicks in
+the last three months of Search Console is worth no work on the new site, so
+the 25 silent posts stay exactly as they are (slugs and all) and the 13 that
+earn clicks got the story pass, their photos and their links (bundles 44,
+47, 48). Re-pull the three-month click list before touching any post again.
+Open, needing Steve: confirming the review count on the homepage. Settled 9 September: DEA is a
 service-area business with no street address, so the city-level schema stands
 (and now names Tarrant, Dallas, Denton and Collin counties plus Dallas and
 Fort Worth in `areaServed`); AI crawlers are allowed at go-live, and the
@@ -102,8 +106,13 @@ ready robots file is `tools/robots.go-live.txt`, to be copied over
 since: the byline (Steve), the story pass on every top-level page, the
 negative scan (dea-negative-scan, headings clean site-wide), the concierge
 prompt v4, and `/llms.txt` (rebuilt by `tools/build_llms.py` after any title
-or description change; every URL in it is the www host). Open, needing
-photos: two slots, the SQ-5 console and the mic and speaker set. Open, at
+or description change; every URL in it is the www host). Done 9 September as well: the CDJ page opens with a six-card lineup
+(CDJ-3000 pair, DJM-900NXS2, DJM-A9, XDJ-AZ, XDJ-RX3, DDJ-FLX6), every card
+on Steve's own photo; the gallery carries the recent photos and clips (47
+tiles). The SQ-5 slot is filled (warehouse bench shot, swap for a show photo when
+one exists). Open, needing a photo: one slot, the mic and speaker set on
+the microphone page (a still from Steve's wedding speech clip, DV12 plus
+Shure Beta 58 on De-Feedback, once the clip arrives whole). Open, at
 cutover: the staging blocks, `#paletteBar`, sitemap submission, two weeks
 watching Search Console. Cutover mechanics, in order: move the nameservers
 to Cloudflare before touching any record at Wix; add both
@@ -127,16 +136,12 @@ judge the voice before the next one. Corporate-events was the first. Steve
 supplies the examples (a line or two per page is enough: the venue type, what
 went wrong or right, what the client noticed); Claude writes them in and the
 SEO gate holds the keywords. Never invent a job, a venue or a client. Keep
-client names out unless Steve says otherwise. Remaining, roughly in order:
-weddings, rent-uplighting, rent-dancing-on-the-clouds-low-lyin,
-rent-sound-equipment, services-dj, feedback-free-microphone-rentals,
-live-streaming-services, projector-screen-rental, monogram-projector,
-rent-laser-light-show, rent-fog-machine, rent-cold-sparks,
-rent-line-array-speaker-system, rent-bassboss-subwoofers, rent-dj-lighting,
-services-lighting, services-audio, services-extra, private-events,
-rave-and-night-club-events, college-school-university-events,
-live-music-and-band-events, celebrity-and-luxury-events, equipment-list,
-our-story, then the rest.
+client names out unless Steve says otherwise. Every top-level page, our-story and the 13
+click-earning posts are done. Posts carry their photos in a `.post-fig`
+figure (responsive picture, lazy) and the De-Feedback post carries the
+ceremony clip with sound in a `.post-demo` block; reuse both when a post
+gets a photo. Floor monograms are never marketed and photo booths are never
+offered, so read for those when an older post is touched.
 
 ## If you are a new session
 
