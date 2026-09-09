@@ -110,9 +110,10 @@ or description change; every URL in it is the www host). Done 9 September as wel
 (CDJ-3000 pair, DJM-900NXS2, DJM-A9, XDJ-AZ, XDJ-RX3, DDJ-FLX6), every card
 on Steve's own photo; the gallery carries the recent photos and clips (47
 tiles). The SQ-5 slot is filled (warehouse bench shot, swap for a show photo when
-one exists). Open, needing a photo: one slot, the mic and speaker set on
-the microphone page (a still from Steve's wedding speech clip, DV12 plus
-Shure Beta 58 on De-Feedback, once the clip arrives whole). Open, at
+one exists). The mic and speaker slot on the microphone page is filled from a still of
+Steve's wedding speech clip (DV12, Shure Beta 58, De-Feedback), so every
+image slot on the site is filled; the `.slot{display:none}` rule in the
+shared chrome CSS can go whenever the chrome is next touched. Open, at
 cutover: the staging blocks, `#paletteBar`, sitemap submission, two weeks
 watching Search Console. Cutover mechanics, in order: move the nameservers
 to Cloudflare before touching any record at Wix; add both
