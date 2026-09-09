@@ -92,12 +92,25 @@ deployed and answering from page prose; SEO review against Google's 2026
 updates (`SEO-REVIEW-2026-09-07.md` at the repo root; its fixes are in
 the repo).
 
-Open, needing Steve: a named author byline for the posts; the long-term plan
-for the 30 generic Wix-era posts; whether to allow AI crawlers at go-live;
-confirming the review count on the homepage; whether the Google Business
-Profile shows a street address. Open, needing photos: 33 empty slots, the
-follow spot operator above all. Open, at cutover: the staging blocks,
-`#paletteBar`, sitemap submission, two weeks watching Search Console.
+Open, needing Steve: the long-term plan for the 30 generic Wix-era posts;
+whether to allow AI crawlers at go-live; confirming the review count on the
+homepage; whether the Google Business Profile shows a street address. Done
+since: the byline (Steve), the story pass on every top-level page, the
+negative scan (dea-negative-scan, headings clean site-wide), the concierge
+prompt v4, and `/llms.txt` (rebuilt by `tools/build_llms.py` after any title
+or description change; every URL in it is the www host). Open, needing
+photos: two slots, the SQ-5 console and the mic and speaker set. Open, at
+cutover: the staging blocks, `#paletteBar`, sitemap submission, two weeks
+watching Search Console. Cutover mechanics, in order: move the nameservers
+to Cloudflare before touching any record at Wix; add both
+`www.dallaseventaudio.com` and the apex as Pages custom domains, with a
+Cloudflare redirect rule sending apex to www that keeps path and query;
+SSL mode Full (strict); leave HSTS off or at a short max-age for the first
+week, and no preload until every subdomain is confirmed on HTTPS; then test
+a handful of old Wix URLs over http and non-www with `curl -I` and confirm
+each lands on its final page in one hop. Redirect rules keep query strings
+(gclid tested on the preview) and now have trailing-slash twins. The Worker
+already allows the www and apex origins and rate-limits by IP.
 
 ## The story pass (standing queue, started 8 September 2026)
 

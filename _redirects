@@ -77,3 +77,35 @@
 /search-results                      /                              301
 /home                                /                              301
 /blog/page/*                         /blog                          301
+
+# ─── TRAILING SLASH TWINS ───────────────────────────────────────────────────
+# Pages matches a redirect source literally and only normalizes the slash on
+# paths that exist, so /old-page/ (a shape Wix links and some backlinks use)
+# fell through to 404. Verified 9 Sep 2026 on the preview. One twin per rule.
+/rent-sound-equipment/line-array-speaker-rental-dallas-fort-worth/  /rent-line-array-speaker-system  301
+/photography-videography/  /services-photo-and-video  301
+/rent-video-projector/  /projector-screen-rental  301
+/tectonic-speakers-for-sale/  /flat-panel-audio-dml500  301
+/tectonic-speakers/  /flat-panel-audio-dml500  301
+/rent-pa-speakers-lighting-video/  /services-audio  301
+/dj-services/  /services-dj  301
+/edm-music-festival-dj/  /services-dj  301
+/3k-5k-run-dj/  /services-dj  301
+/birthday-party-dj/  /services-dj  301
+/grand-opening-dj/  /services-dj  301
+/wedding-dj-packages/  /services-dj  301
+/corporate-event-dj/  /corporate-events  301
+/corporate-event-av-rental/  /corporate-events  301
+/services-4/  /corporate-events  301
+/celeberty-luxary-event-av-services/  /celebrity-and-luxury-events  301
+/rent-lighting-equipment/  /services-lighting  301
+/copy-of-lighting-services/  /services-lighting  301
+/rent-laser-and-fog-machine/  /rent-fog-machine  301
+/laser-light-show/  /rent-laser-light-show  301
+/rent-photobooth/  /services-photo-and-video  301
+/davids-bridal-frisco/  /davidsbridalfrisco  301
+/david-s-bridal-firsco/  /davidsbridalfrisco  301
+/blank/  /davidsbridalfrisco  301
+/search/  /  301
+/search-results/  /  301
+/home/  /  301

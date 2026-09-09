@@ -1,4 +1,10 @@
 # ─── PERMANENT ────────────────────────────────────────────────────────────
+# llms.txt is the plain-text guide for AI crawlers, rebuilt by tools/build_llms.py.
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=86400
+
+# ─── PERMANENT ────────────────────────────────────────────────────────────
 # The David's Bridal Frisco flyer page. Printed QR destination, not a page we
 # want competing in search. The page also carries a noindex meta tag; this is
 # the belt to that pair of braces, and it must survive the go-live edit below.
