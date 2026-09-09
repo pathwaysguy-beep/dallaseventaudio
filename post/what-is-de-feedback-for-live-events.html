@@ -317,6 +317,14 @@ html{ scroll-behavior:auto; }
 <meta property="og:site_name" content="Dallas Event Audio">
 <style>
   .post-wrap{max-width:760px;margin:0 auto;padding:0 24px}
+  .post-fig{margin:1.6em 0}
+  .post-fig img{display:block;width:100%;height:auto;border-radius:14px;border:1px solid var(--card-border)}
+  .post-demo{margin:1.6em 0}
+  .post-demo video{width:100%;height:auto;display:block;border-radius:14px;border:1px solid var(--card-border);background:#000}
+  .post-demo .spec{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:14px 0 10px;padding-bottom:12px;border-bottom:1px solid var(--card-border);font-size:.92rem;color:var(--ink);line-height:1.5}
+  .post-demo .spec span{font-family:var(--font-display);font-weight:900;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--a1);flex:0 0 auto}
+  .post-demo p{margin:0}
+  .post-fig figcaption{margin-top:.6em;font-size:.88rem;line-height:1.5;color:var(--dim)}
   .post-body{font-size:1.06rem;line-height:1.78;color:var(--dim)}
   .post-body > * + *{margin-top:1.15em}
   .post-body h2{
@@ -1116,39 +1124,57 @@ body.calm #chatPanel{ display:none; }
   <section class="section">
     <div class="post-wrap">
       <div class="post-body">
-      <p data-reveal>Clear speech can make or break an event. Whether you are running a corporate meeting, wedding toast, school presentation, worship service, or live performance, people need to hear the speaker clearly without distracting squeals, muddy room sound, or overwhelming background noise. That is where De-Feedback can make a major difference.</p>
+      <p data-reveal>Clear speech can make or break an event. Whether you are running a corporate meeting, wedding toast, school presentation, worship service, or live performance, people need to hear the speaker clearly, with the squeal, the room and the background noise out of the way. That is where De-Feedback can make a major difference.</p>
       <p data-reveal>De-Feedback is an AI-powered live audio processing tool designed to help audio systems achieve more gain before feedback while also reducing room reverb and some background noise on vocal sources. In simple terms, it helps spoken word and vocals sound cleaner, more present, and easier to understand in challenging spaces.</p>
       <h2 data-reveal>What Is Audio Feedback?</h2>
-      <p data-reveal>Audio feedback is the high-pitched ringing or squealing that happens when sound from a loudspeaker re-enters a microphone, gets amplified again, and repeats in a loop. This is a common problem in live sound, especially when microphones are used in reverberant rooms, near loudspeakers, or by inexperienced presenters who do not hold the mic correctly.</p>
-      <p data-reveal>Traditionally, audio engineers fight feedback by "ringing out" the system with EQ. That process still matters, but it can also lead to aggressive EQ cuts that reduce vocal quality and headroom. De-Feedback is designed to reduce the need to burn so many EQ bands just to keep the mic stable.</p>
+      <p data-reveal>Audio feedback is the high-pitched ringing or squealing that happens when sound from a loudspeaker re-enters a microphone, gets amplified again, and repeats in a loop. It shows up most in reverberant rooms, with microphones close to loudspeakers, and with presenters who hold the mic at their waist.</p>
+      <p data-reveal>Audio engineers have always tamed feedback by "ringing out" the system with EQ. That process still matters, and done heavily it costs vocal quality and headroom. De-Feedback is designed to keep the mic stable with far fewer EQ bands spent on it.</p>
       <h2 data-reveal>How De-Feedback Helps in Real-World Events</h2>
       <p data-reveal>The biggest advantage of De-Feedback is that it can help spoken word remain clear and intelligible in spaces that are normally difficult for microphones. That includes large wedding venues, gymnasiums, ballrooms, churches, school auditoriums, and outdoor events with challenging speaker placement. The official product guidance says it works for both small and large venues, indoors and outdoors.</p>
       <p data-reveal>This can be especially useful when:</p>
       <ul><li>a speaker holds the microphone too low,</li><li>the venue is overly reverberant,</li><li>you need more vocal level before feedback,</li><li>lavalier or handheld microphones must stay natural-sounding,</li><li>or speech clarity is more important than raw volume.</li></ul>
+      <h2 data-reveal>What De-Feedback Sounds Like at an Outdoor Ceremony</h2>
+      <div class="post-demo" data-reveal>
+        <video controls playsinline preload="none" poster="/images/weddings/outdoor-wedding-ceremony-sound-de-feedback-dallas-poster.jpg" width="720" height="540" aria-label="Outdoor wedding ceremony in a downtown Dallas garden, recorded from the seats, with the ceremony sound system running">
+          <source src="/videos/outdoor-wedding-ceremony-sound-de-feedback-dallas.webm" type="video/webm">
+          <source src="/videos/outdoor-wedding-ceremony-sound-de-feedback-dallas.mp4" type="video/mp4">
+        </video>
+        <p class="spec"><span>Rig</span> 2 lapel microphones on De-Feedback &middot; 2 EV ZLX speakers &middot; condenser over the string quartet</p>
+        <p>Sound on. A downtown Dallas garden, open air on every side, recorded on a phone from the guest chairs. This is what the rows hear: the officiant and the vows at conversation level, the quartet underneath, and the microphones open the whole time with De-Feedback doing its work.</p>
+      </div>
+      <p data-reveal>Outdoors is the hard case. The speakers get help from nothing, every microphone is open to the whole garden, and this is where the extra gain before feedback pays for itself. The same rig handled a ceremony where <a href="/post/plane-flew-over-wedding-ceremony-dallas">a plane crossed the vows</a>, and the recording is the one the couple kept.</p>
       <h2 data-reveal>Better Speech Intelligibility, With the Tone Intact</h2>
       <p data-reveal>One reason De-Feedback stands out is that it is designed to reduce feedback and to clean up some of the room sound and background noise that make speech harder to understand. The result can be a voice that feels more direct and focused, which is especially valuable for wedding toasts, corporate presenters, officiants, and emcees.</p>
       <p data-reveal>According to the product FAQ, the plugin is calibrated best for singular human speech vocals and singing. That makes it a strong fit for events where clear vocal communication matters more than anything else.</p>
-      <h2 data-reveal>Does De-Feedback Replace Good Audio Engineering?</h2>
-      <p data-reveal>No. Good system design still matters.</p>
-      <p data-reveal>A quality microphone, proper speaker placement, correct gain structure, and smart EQ are still important parts of a professional live sound setup. De-Feedback is best viewed as a powerful tool that supports an already well-designed system. The manufacturer also notes that it does not prevent all feedback and that proper EQ may still be needed in more extreme situations.</p>
+      <h2 data-reveal>De-Feedback Works on Top of Good Audio Engineering</h2>
+      <p data-reveal>Good system design still does most of the work.</p>
+      <p data-reveal>A quality microphone, proper speaker placement, correct gain structure, and smart EQ are still important parts of a professional live sound setup. De-Feedback is best viewed as a powerful tool that supports an already well-designed system. The manufacturer is clear that proper EQ still has a place in extreme situations, and so are we.</p>
       <p data-reveal>In other words, the best results usually come from combining strong audio engineering practices with smart processing tools.</p>
       <h2 data-reveal>Does De-Feedback Add Latency?</h2>
       <p data-reveal>The product documentation says the plugin itself runs at zero added latency, and that the meaningful latency comes from the computer and audio interface path rather than from the plugin itself. For live event work, that is important because excessive latency can make a system feel unnatural for both presenters and performers.</p>
       <h2 data-reveal>Where De-Feedback Can Make the Biggest Impact</h2>
       <p data-reveal>At Dallas Event Audio, this type of processing fits events where vocal clarity is the priority. That may include:</p>
       <h3 data-reveal>Weddings</h3>
-      <p data-reveal><a href="/wedding-av-rental-dallas">Wedding ceremonies and toasts</a> often happen in reflective rooms where speech can get muddy fast. De-Feedback can help keep officiants, vows, and speeches more intelligible, even when mic technique is not perfect.</p>
+      <p data-reveal><a href="/wedding-av-rental-dallas">Wedding ceremonies and toasts</a> often happen in reflective rooms where speech can get muddy fast. De-Feedback keeps officiants, vows, and speeches intelligible, even when the mic is held at the waist. Every wireless microphone on our <a href="/feedback-free-microphone-rentals">microphone rentals</a> carries it as standard.</p>
       <h3 data-reveal>Corporate events</h3>
-      <p data-reveal>In meetings, presentations, and conferences, people need to understand every word. Cleaner speech can make your event feel more polished and more professional. Your own blog already emphasizes how critical clear audio is for corporate events.</p>
+      <p data-reveal>In meetings, presentations, and conferences, people need to understand every word. Cleaner speech makes the event feel more polished and more professional. Every microphone we send to a <a href="/corporate-events">corporate event</a> runs through De-Feedback, so the podium, the lapel and the audience handheld sit at the same clean level, and the live stream feed carries the same processed speech the room hears.</p>
+      <figure class="post-fig" data-reveal>
+        <picture>
+          <source type="image/avif" srcset="/images/work/ai-de-feedback-system-live-ballroom-dallas-480w.avif 480w, /images/work/ai-de-feedback-system-live-ballroom-dallas-768w.avif 768w, /images/work/ai-de-feedback-system-live-ballroom-dallas-1200w.avif 1200w" sizes="(max-width: 808px) calc(100vw - 48px), 712px">
+          <source type="image/webp" srcset="/images/work/ai-de-feedback-system-live-ballroom-dallas-480w.webp 480w, /images/work/ai-de-feedback-system-live-ballroom-dallas-768w.webp 768w, /images/work/ai-de-feedback-system-live-ballroom-dallas-1200w.webp 1200w" sizes="(max-width: 808px) calc(100vw - 48px), 712px">
+          <img src="/images/work/ai-de-feedback-system-live-ballroom-dallas.jpg" alt="The De-Feedback processor on top of an audio interface at front of house, with a corporate session under way in a Dallas hotel ballroom" width="1200" height="900" loading="lazy">
+        </picture>
+        <figcaption>The De-Feedback processor at front of house during a corporate session in a Dallas hotel ballroom. Every microphone in the room runs through it.</figcaption>
+      </figure>
       <h3 data-reveal>Schools, churches, and community spaces</h3>
-      <p data-reveal>These venues often have difficult acoustics, high ceilings, reflective walls, and flexible seating arrangements. De-Feedback can be especially useful when you need more usable vocal level without making the system harsh or unstable.</p>
+      <p data-reveal>These venues often have difficult acoustics, high ceilings, reflective walls, and flexible seating arrangements. De-Feedback is at its most useful when you need more usable vocal level and the system has to stay smooth and stable.</p>
       <h3 data-reveal>Large or reverberant venues</h3>
-      <p data-reveal>Your blog already highlights how sound quality becomes more challenging in larger spaces. In these environments, tools that reduce room reverb and improve vocal isolation can help people stay engaged with the message.</p>
+      <p data-reveal>Sound quality gets harder in larger spaces, and our post on <a href="/post/the-importance-of-sound-quality-in-large-venues">sound quality in large venues</a> covers why. In these environments, tools that reduce room reverb and improve vocal isolation can help people stay engaged with the message.</p>
       <h2 data-reveal>Why This Matters for Guest Experience</h2>
-      <p data-reveal>Guests may not know what De-Feedback is, but they notice the result immediately. They notice when speeches are easy to understand. They notice when the microphone does not squeal. They notice when the presenter sounds confident and clear instead of distant and washed out.</p>
+      <p data-reveal>Guests rarely know what De-Feedback is, but they notice the result immediately. They notice when speeches are easy to understand. They notice when the microphone stays quiet between sentences. They notice when the presenter sounds confident and clear from the back row.</p>
       <p data-reveal>That is the real value: better communication, fewer distractions, and a more professional event experience.</p>
       <h2 data-reveal>Final Thoughts on De-Feedback</h2>
-      <p data-reveal>De-Feedback works on top of a proper audio setup, and the setup does most of the work. But it is a serious tool for improving gain before feedback, reducing room reverb, and helping live vocals cut through with better clarity. For events where speech intelligibility matters, that can be a major upgrade.</p>
+      <p data-reveal>De-Feedback works on top of a proper audio setup, and the setup does most of the work. It is also a serious tool for improving gain before feedback, reducing room reverb, and helping live vocals cut through with better clarity. For events where speech intelligibility matters, that can be a major upgrade.</p>
       <p data-reveal>If you are planning a wedding, corporate event, school function, or private event in Dallas-Fort Worth and want cleaner, more intelligible live audio, Dallas Event Audio can help design a system that takes advantage of <a href="/feedback-free-microphone-rentals">the right microphones, placement, mixing</a>, and De-Feedback processing for your venue.</p>
       </div>
       <div class="post-foot" data-reveal>
