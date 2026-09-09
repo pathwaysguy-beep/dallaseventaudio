@@ -1,0 +1,33 @@
+# Go-live robots.txt for www.dallaseventaudio.com. Copy this file over
+# /robots.txt in the same commit as the DNS switch (it replaces the staging
+# file that carries Disallow: / for everyone). Decision of 9 September 2026:
+# search and AI crawlers are all allowed; the Worker source and the build
+# tooling stay out.
+
+User-agent: *
+Allow: /
+Disallow: /dea-concierge/
+Disallow: /tools/
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://www.dallaseventaudio.com/sitemap.xml

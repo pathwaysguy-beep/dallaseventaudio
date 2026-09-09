@@ -43,16 +43,24 @@
     "latitude": 32.8235,
     "longitude": -97.1706
   },
-  "areaServed": {
-    "@type": "GeoCircle",
-    "geoMidpoint": {
-      "@type": "GeoCoordinates",
-      "latitude": 32.8235,
-      "longitude": -97.1706
+  "areaServed": [
+    {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": 32.8235,
+        "longitude": -97.1706
+      },
+      "geoRadius": "64000",
+      "description": "Dallas-Fort Worth Metroplex, approximately 40 miles from Hurst, TX"
     },
-    "geoRadius": "64000",
-    "description": "Dallas-Fort Worth Metroplex, approximately 40 miles from Hurst, TX"
-  },
+    { "@type": "AdministrativeArea", "name": "Tarrant County", "sameAs": "https://en.wikipedia.org/wiki/Tarrant_County,_Texas" },
+    { "@type": "AdministrativeArea", "name": "Dallas County", "sameAs": "https://en.wikipedia.org/wiki/Dallas_County,_Texas" },
+    { "@type": "AdministrativeArea", "name": "Denton County", "sameAs": "https://en.wikipedia.org/wiki/Denton_County,_Texas" },
+    { "@type": "AdministrativeArea", "name": "Collin County", "sameAs": "https://en.wikipedia.org/wiki/Collin_County,_Texas" },
+    { "@type": "City", "name": "Fort Worth", "sameAs": "https://en.wikipedia.org/wiki/Fort_Worth,_Texas" },
+    { "@type": "City", "name": "Dallas", "sameAs": "https://en.wikipedia.org/wiki/Dallas" }
+  ],
   "contactPoint": {
     "@type": "ContactPoint",
     "contactType": "sales",

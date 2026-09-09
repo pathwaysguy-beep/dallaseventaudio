@@ -93,8 +93,12 @@ updates (`SEO-REVIEW-2026-09-07.md` at the repo root; its fixes are in
 the repo).
 
 Open, needing Steve: the long-term plan for the 30 generic Wix-era posts;
-whether to allow AI crawlers at go-live; confirming the review count on the
-homepage; whether the Google Business Profile shows a street address. Done
+confirming the review count on the homepage. Settled 9 September: DEA is a
+service-area business with no street address, so the city-level schema stands
+(and now names Tarrant, Dallas, Denton and Collin counties plus Dallas and
+Fort Worth in `areaServed`); AI crawlers are allowed at go-live, and the
+ready robots file is `tools/robots.go-live.txt`, to be copied over
+`/robots.txt` in the cutover commit. Done
 since: the byline (Steve), the story pass on every top-level page, the
 negative scan (dea-negative-scan, headings clean site-wide), the concierge
 prompt v4, and `/llms.txt` (rebuilt by `tools/build_llms.py` after any title
