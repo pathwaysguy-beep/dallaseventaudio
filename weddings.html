@@ -387,6 +387,13 @@ section[id]{ scroll-margin-top:96px; }
 .award-card .txt span{ color:var(--dim); font-size:.9rem; }
 a.service-card{ display:flex; flex-direction:column; text-decoration:none; }
 a.service-card .learn{ margin-top:auto; }
+.audio-demo{ margin-top:34px; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:30px; align-items:center; }
+.audio-demo video{ width:100%; height:auto; display:block; border-radius:20px; border:1px solid var(--card-border); background:#000; }
+.audio-demo-copy h3{ margin:10px 0 14px; font-family:var(--font-display); font-weight:800; font-size:1.35rem; line-height:1.2; }
+.audio-demo-copy p{ margin:0; color:var(--dim); line-height:1.7; }
+.audio-demo-copy .spec{ display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin:0 0 14px; padding-bottom:12px; border-bottom:1px solid var(--card-border); font-family:var(--font-body); font-size:.92rem; color:var(--ink); line-height:1.5; }
+.audio-demo-copy .spec span{ font-family:var(--font-display); font-weight:900; font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; color:var(--a1); flex:0 0 auto; }
+@media (max-width:860px){ .audio-demo{ grid-template-columns:1fr; gap:18px; } }
 .step-list{ counter-reset:step; display:grid; gap:14px; margin-top:26px; }
 .step{
     display:flex; gap:16px; align-items:flex-start;
@@ -1319,7 +1326,7 @@ body.calm #chatPanel{ display:none; }
     <div class="wrap">
       <div class="section-head" data-reveal style="max-width:860px;">
         <span class="kicker">Wedding AV in Dallas-Fort Worth</span>
-        <h2>Full hearts, and a dance floor nobody wants to leave.</h2>
+        <h2>Full hearts, and a dance floor that stays full to the last song.</h2>
         <p>When you picture the day, you see the ceremony under the oaks, the toast that lands, the last song with everyone still in the room. Nobody pictures an empty dance floor, or a microphone that squeals through the vows. You brought everyone together and rented the venue so people would <em>stay</em>. That's the job.</p>
         <p>Dallas Event Audio has been working DFW weddings since 2001. Every booking includes an insured technician on-site from load-in to the last song, with sound, lighting, and effects run by the same people who own the gear.</p>
         <p>Wedding audio equipment rental, wedding lighting and the effects that go with them all come from one crew and one delivery. We cover ceremony sound, reception sound systems, and everything in the room between them, at venues across Dallas, Fort Worth, McKinney, Southlake, Frisco, Rockwall and Waxahachie.</p>
@@ -1383,6 +1390,18 @@ body.calm #chatPanel{ display:none; }
         <div class="step" data-reveal>
           <div class="n">5</div>
           <p><span class="lead">Then it moves to the reception.</span> The same team strikes the ceremony rig and has cocktail hour and the reception up before your guests find their seats.</p>
+        </div>
+      </div>
+      <div class="audio-demo" data-reveal>
+        <video controls playsinline preload="none" poster="/images/weddings/outdoor-wedding-ceremony-sound-de-feedback-dallas-poster.jpg" width="720" height="540" aria-label="Outdoor wedding ceremony in a downtown Dallas garden, recorded from the seats, with the ceremony sound system running">
+          <source src="/videos/outdoor-wedding-ceremony-sound-de-feedback-dallas.webm" type="video/webm">
+          <source src="/videos/outdoor-wedding-ceremony-sound-de-feedback-dallas.mp4" type="video/mp4">
+        </video>
+        <div class="audio-demo-copy">
+          <span class="kicker">Hear it, sound on</span>
+          <h3>An outdoor ceremony from the seats</h3>
+          <p class="spec"><span>Rig</span> 2 lapel microphones on De-Feedback &middot; 2 EV ZLX speakers &middot; condenser over the string quartet</p>
+          <p>A downtown Dallas garden, open air on every side, recorded on a phone from the guest chairs. This is what the rows hear: the officiant and the vows at conversation level, the quartet underneath, and the microphones open the whole time with the feedback suppression doing its work.</p>
         </div>
       </div>
     </div>
