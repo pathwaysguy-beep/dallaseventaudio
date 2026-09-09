@@ -445,6 +445,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
       radial-gradient(circle at 76% 80%, color-mix(in srgb, var(--a2) 18%, transparent), transparent 60%);
     background-size:cover; background-position:center; background-repeat:no-repeat;
   }
+.split-vis video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .split-vis .slot{
     position:absolute; left:0; right:0; bottom:0; padding:30px 16px 13px;
     background:linear-gradient(to top, rgba(6,6,8,.9), transparent);
@@ -1485,15 +1486,15 @@ body.calm #chatPanel{ display:none; }
           <h2>An entrance and a first dance want opposite things from the same machine.</h2>
           <p>For an entrance, the fog is doing crowd work. It fills the doorway and the floor in front of it so that when the doors open you are walking out of a cloud rather than into an empty room. The cloud gets laid down in roughly the thirty seconds before the doors move, heavy enough to read on camera and thin enough that the guests craning to see you can still see you. Because it is a moving shot, the effect is run as a short burst and then allowed to thin as you cross the floor.</p>
           <p>For a first dance, the fog is doing the opposite job. It sits still, it stays low, and it has to hold for three or four minutes so the two of you appear to be standing on a surface rather than in a haze. That is a different setup, a different density and, on most floors, a different machine from a doorway burst.</p>
-          <p>Plenty of couples want both, and both fit on the same setup night with the same technician, two cues instead of one. What matters is saying so early, so the room is prepared for each. On our events that goes into the timeline with your DJ or coordinator before anyone touches a machine.</p>
+          <p>Plenty of couples want both, and both fit on the same setup night with the same technician, two cues instead of one. What matters is saying so early, so the room is prepared for each. On our events that goes into the timeline with your DJ or coordinator before anyone touches a machine. The clip beside this is that same low-lying layer under a live band on a church stage, fired on the downbeat of the song. Same machine, same technician, a different cue.</p>
           <div class="chips">
             <a class="chip" href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
             <a class="chip" href="/weddings">Wedding production</a>
             <a class="chip" href="/contact">Check your date</a>
           </div>
         </div>
-        <div class="split-vis">
-          <span class="slot">/images/fog/fog-machine-wedding-entrance-doorway.jpg</span>
+        <div class="split-vis" style="--img:url('/images/fog/live-band-low-lying-fog-church-stage-dallas-poster.jpg')">
+          <video muted loop playsinline autoplay preload="none" data-lazy data-webm="/videos/live-band-low-lying-fog-church-stage-dallas.webm" data-mp4="/videos/live-band-low-lying-fog-church-stage-dallas.mp4" poster="/images/fog/live-band-low-lying-fog-church-stage-dallas-poster.jpg" aria-label="A live band on a church stage playing above a floor-level dry ice cloud, with the congregation in front of the stage"></video>
         </div>
       </div>
     </div>
@@ -1767,6 +1768,37 @@ body.calm #chatPanel{ display:none; }
   </footer>
 
   <div class="grain-overlay" aria-hidden="true"></div>
+
+<script>
+/* Lazy video. An autoplaying video ignores preload and fetches immediately, so
+   the source is held in data attributes and attached when the clip is one
+   viewport away. Same pattern as the laser page. */
+(function () {
+  var vids = [].slice.call(document.querySelectorAll('video[data-lazy]'));
+  if (!vids.length) return;
+  function attach(v) {
+    if (v.dataset.lazyDone) return;
+    v.dataset.lazyDone = '1';
+    ['webm', 'mp4'].forEach(function (k) {
+      if (!v.dataset[k]) return;
+      var s = document.createElement('source');
+      s.src = v.dataset[k];
+      s.type = k === 'webm' ? 'video/webm' : 'video/mp4';
+      v.appendChild(s);
+    });
+    v.load();
+    var p = v.play();
+    if (p && p.catch) p.catch(function () {});
+  }
+  if (!('IntersectionObserver' in window)) { vids.forEach(attach); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { attach(e.target); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '100% 0px' });
+  vids.forEach(function (v) { io.observe(v); });
+})();
+</script>
 
   <div id="chatBubble" role="button" tabindex="0" aria-controls="chatPanel" aria-expanded="false">&#10022; AV Concierge</div>
 <div id="chatPanel" role="dialog" aria-modal="false" aria-labelledby="chatTitle" hidden>

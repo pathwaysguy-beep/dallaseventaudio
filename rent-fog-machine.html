@@ -469,6 +469,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
 .split-vis img{
     position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
   }
+.split-vis video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
 .split-vis .slot{
     position:absolute; left:0; right:0; bottom:0; padding:30px 16px 13px;
     background:linear-gradient(to top, rgba(6,6,8,.9), transparent);
@@ -1522,8 +1523,8 @@ body.calm #chatPanel{ display:none; }
             <a class="chip" href="/gallery">Real DFW events we&rsquo;ve run</a>
           </div>
         </div>
-        <div class="split-vis">
-          <span class="slot">/images/fog/fog-machine-wedding-entrance-dallas.jpg</span>
+        <div class="split-vis" style="--img:url('/images/fog/grand-entrance-low-lying-fog-stage-dallas-poster.jpg')">
+          <video muted loop playsinline autoplay preload="none" data-lazy data-webm="/videos/grand-entrance-low-lying-fog-stage-dallas.webm" data-mp4="/videos/grand-entrance-low-lying-fog-stage-dallas.mp4" poster="/images/fog/grand-entrance-low-lying-fog-stage-dallas-poster.jpg" aria-label="A performer in a white gown walking through a knee-deep low-lying fog cloud on a stage, with the audience beyond it"></video>
         </div>
       </div>
     </div>
@@ -1939,6 +1940,37 @@ body.calm #chatPanel{ display:none; }
   </footer>
 
   <div class="grain-overlay" aria-hidden="true"></div>
+
+<script>
+/* Lazy video. An autoplaying video ignores preload and fetches immediately, so
+   the source is held in data attributes and attached when the clip is one
+   viewport away. Same pattern as the laser page. */
+(function () {
+  var vids = [].slice.call(document.querySelectorAll('video[data-lazy]'));
+  if (!vids.length) return;
+  function attach(v) {
+    if (v.dataset.lazyDone) return;
+    v.dataset.lazyDone = '1';
+    ['webm', 'mp4'].forEach(function (k) {
+      if (!v.dataset[k]) return;
+      var s = document.createElement('source');
+      s.src = v.dataset[k];
+      s.type = k === 'webm' ? 'video/webm' : 'video/mp4';
+      v.appendChild(s);
+    });
+    v.load();
+    var p = v.play();
+    if (p && p.catch) p.catch(function () {});
+  }
+  if (!('IntersectionObserver' in window)) { vids.forEach(attach); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { attach(e.target); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '100% 0px' });
+  vids.forEach(function (v) { io.observe(v); });
+})();
+</script>
 
   <div id="chatBubble" role="button" tabindex="0" aria-controls="chatPanel" aria-expanded="false">&#10022; AV Concierge</div>
 <div id="chatPanel" role="dialog" aria-modal="false" aria-labelledby="chatTitle" hidden>
