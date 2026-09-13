@@ -167,6 +167,12 @@ an average position of 12 with three clicks in a year; it is one page that
 links down into the lanes, never a Fort Worth copy of a lane page. The
 podium photo on it is the gallery's Fort Worth award ceremony shot, which
 carries a client's step-and-repeat; Steve has seen it in the gallery.
+Bundle 53 put the in-body links to `/fort-worth` in: the Fort Worth chip in
+every service-area chip row, the footer brand line and Events column on
+every page, and one sentence each on the home, DJ, weddings, projector, TV,
+uplighting and our-story pages, so the page has contextual links and not
+only the menu. The DJ page got its own venue list (wedding venues, hotels,
+clubs and restaurants we have DJ'd in) from the same HoneyBook pull.
 
 ## The story pass (standing queue, started 8 September 2026)
 
