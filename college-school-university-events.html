@@ -347,6 +347,25 @@ html{ scroll-behavior:auto; }
 .fspot.fs-live::before{ animation:none; background-size:100% 100%; }
 .fspot.fs-press{ transform:none; }
 }
+
+  .venues{margin-top:8px}
+  .venues .lede{margin-top:10px;max-width:760px;color:var(--dim);font-size:1.05rem;line-height:1.7}
+  .venue-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px 32px;margin-top:30px}
+  .venue-cols h3{font-family:var(--font-display);font-weight:900;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--a1);margin:0 0 12px;padding-bottom:10px;border-bottom:1px solid var(--card-border)}
+  .venue-cols ul{list-style:none;margin:0;padding:0}
+  .venue-cols li{font-size:.98rem;line-height:1.55;color:var(--ink);opacity:.9;padding:5px 0;border-bottom:1px solid color-mix(in srgb, var(--card-border) 60%, transparent)}
+  .venue-cols li:last-child{border-bottom:0}
+  .venue-note{margin-top:22px;font-size:.92rem;color:var(--dim);max-width:760px;line-height:1.6}
+  @media (max-width:900px){.venue-cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:560px){.venue-cols{grid-template-columns:1fr}}
+  .owner-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:40px;align-items:start}
+  @media (max-width:900px){.owner-grid{grid-template-columns:1fr}}
+  .owner-note{padding:30px 32px;border-radius:20px;background:color-mix(in srgb, var(--bg-2) 52%, transparent);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);border:1px solid var(--card-border);box-shadow:inset 0 1px 0 rgba(255,255,255,.05);position:relative;overflow:hidden}
+  .owner-note::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grad);opacity:.7}
+  .owner-note p{margin-top:14px;font-size:1.08rem;line-height:1.75;color:var(--ink)}
+  .owner-note .sig{margin-top:20px;padding-top:16px;border-top:1px solid var(--card-border);font-size:.92rem;color:var(--dim)}
+  .owner-note .sig b{color:var(--ink);font-weight:700}
+  .owner-note .sig a{color:var(--a1);text-decoration:none}
 </style>
   <title>College and School Event AV Rental in Dallas-Fort Worth</title>
   <meta name="description" content="Sound systems, DJs, microphones and lighting for college and school events across Dallas-Fort Worth. Tailgate parties, talent shows, galas and graduations.">
@@ -1920,6 +1939,61 @@ body.calm #chatPanel{ display:none; }
         <h3>Booking a band for a campus concert?</h3>
         <p>Input lists, stage monitoring and backline sit on their own page. Start with <a href="/live-music-and-band-events">live music and band events</a> and we will pick it up from there. You can also see <a href="/gallery">real DFW events we've run</a> in the photo gallery.</p>
       </div>
+    </div>
+  </section>
+
+  <section class="section" id="venues">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="kicker">Rooms we know</span>
+        <h2>Campuses, schools and athletic venues across Dallas-Fort Worth we have run events on</h2>
+        <p class="lede">From our own calendar of booked school, campus and sporting events. If your campus is here, we know the load-in rules, the power, the room and who signs the paperwork.</p>
+      </div>
+      <div class="venue-cols">
+        <div>
+          <h3>Universities and schools</h3>
+          <ul>
+            <li>Southern Methodist University</li>
+            <li>TCU</li>
+            <li>The University of Texas at Arlington</li>
+            <li>Grapevine Faith Christian School</li>
+            <li>Dallas Christian School</li>
+            <li>Centennial High School</li>
+            <li>Krum High School</li>
+            <li>Shackelford Junior High School</li>
+            <li>Parkhill Junior High School</li>
+            <li>Walsh Elementary School</li>
+            <li>Hicks Elementary School</li>
+            <li>Gene and Ruby Nichols Elementary School</li>
+            <li>Arlington Career Institute</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Athletic venues and fieldhouses</h3>
+          <ul>
+            <li>Sport Support Athletic Center</li>
+            <li>Duncanville Fieldhouse</li>
+            <li>Drive Nation Sports</li>
+            <li>Plano Sports Authority</li>
+            <li>Fieldhouse USA Mansfield</li>
+            <li>Rough Rider Stadium</li>
+            <li>TCU Stadium</li>
+            <li>Choctaw Stadium</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Campus lawns and event rooms</h3>
+          <ul>
+            <li>SMU Dallas Hall Lawn</li>
+            <li>SMU Ware Lawn</li>
+            <li>The Bowden</li>
+            <li>Omni Las Colinas</li>
+            <li>HALL Park Hotel, Frisco</li>
+            <li>UNT Union, Denton</li>
+          </ul>
+        </div>
+      </div>
+      <p class="venue-note" data-reveal>Every name on this list is a room we have loaded into for a booked event, taken from our own calendar. If your venue is a new one for us, we walk it or the floor plan before the truck loads.</p>
     </div>
   </section>
 

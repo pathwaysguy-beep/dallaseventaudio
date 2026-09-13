@@ -173,6 +173,21 @@ every page, and one sentence each on the home, DJ, weddings, projector, TV,
 uplighting and our-story pages, so the page has contextual links and not
 only the menu. The DJ page got its own venue list (wedding venues, hotels,
 clubs and restaurants we have DJ'd in) from the same HoneyBook pull.
+Bundle 54 added the last two lists, on the college page (schools, campuses
+and athletic venues, from projects typed School Event and Sporting Event)
+and the live music page (theaters, bars, breweries and ballrooms from
+projects typed Concert/Music). That is the full set: home, weddings,
+corporate, private events, DJ, Fort Worth, college, live music. Rental
+pages, wedding AV rental, rave and the posts stay without one on purpose;
+repeating the block further would read as boilerplate.
+Bundle 55 linked `/tv-rental-dallas` from the body of the pages that already
+mentioned TVs (corporate events, equipment list, wedding AV rental, photo
+and video, our story, projector page), the same fix the Fort Worth page got
+in bundle 53. Any new page needs its in-body links in the same bundle it
+ships in; the menu alone is not enough. Bundle 55 also repaired the our-story
+FAQPage schema, which bundle 53 broke by putting the Fort Worth anchor tag
+inside a JSON answer: sentence replacements must never touch text inside
+`application/ld+json`, and every bundle now checks that every block parses.
 
 ## The story pass (standing queue, started 8 September 2026)
 
