@@ -314,6 +314,25 @@ html{ scroll-behavior:auto; }
 .marquee-track{ animation:none; }
 .grain-overlay{ display:none; }
 }
+
+  .venues{margin-top:8px}
+  .venues .lede{margin-top:10px;max-width:760px;color:var(--dim);font-size:1.05rem;line-height:1.7}
+  .venue-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px 32px;margin-top:30px}
+  .venue-cols h3{font-family:var(--font-display);font-weight:900;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--a1);margin:0 0 12px;padding-bottom:10px;border-bottom:1px solid var(--card-border)}
+  .venue-cols ul{list-style:none;margin:0;padding:0}
+  .venue-cols li{font-size:.98rem;line-height:1.55;color:var(--ink);opacity:.9;padding:5px 0;border-bottom:1px solid color-mix(in srgb, var(--card-border) 60%, transparent)}
+  .venue-cols li:last-child{border-bottom:0}
+  .venue-note{margin-top:22px;font-size:.92rem;color:var(--dim);max-width:760px;line-height:1.6}
+  @media (max-width:900px){.venue-cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:560px){.venue-cols{grid-template-columns:1fr}}
+  .owner-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:40px;align-items:start}
+  @media (max-width:900px){.owner-grid{grid-template-columns:1fr}}
+  .owner-note{padding:30px 32px;border-radius:20px;background:color-mix(in srgb, var(--bg-2) 52%, transparent);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);border:1px solid var(--card-border);box-shadow:inset 0 1px 0 rgba(255,255,255,.05);position:relative;overflow:hidden}
+  .owner-note::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grad);opacity:.7}
+  .owner-note p{margin-top:14px;font-size:1.08rem;line-height:1.75;color:var(--ink)}
+  .owner-note .sig{margin-top:20px;padding-top:16px;border-top:1px solid var(--card-border);font-size:.92rem;color:var(--dim)}
+  .owner-note .sig b{color:var(--ink);font-weight:700}
+  .owner-note .sig a{color:var(--a1);text-decoration:none}
 </style>
 <style>
 section[id]{ scroll-margin-top:96px; }
@@ -1154,6 +1173,7 @@ body.calm #chatPanel{ display:none; }
             <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
             <a href="/college-school-university-events">College &amp; University</a>
             <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+            <a href="/fort-worth">Fort Worth</a>
           </div>
         </div>
         <div class="nl-item">
@@ -1232,6 +1252,7 @@ body.calm #chatPanel{ display:none; }
           <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
           <a href="/college-school-university-events">College &amp; University</a>
           <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+          <a href="/fort-worth">Fort Worth</a>
         </div>
       </div>
       <div class="nd-sec">
@@ -1716,6 +1737,81 @@ body.calm #chatPanel{ display:none; }
   </section>
 
   <!-- ---------- FAQ ---------- -->
+  <section class="section" id="venues">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="kicker">Rooms we know</span>
+        <h2>Wedding venues across Dallas-Fort Worth we have run receptions in</h2>
+        <p class="lede">From our own calendar of booked weddings. If your venue is here, we know the ceremony site, the dock, the power and where the DJ booth goes.</p>
+      </div>
+      <div class="venue-cols">
+        <div>
+          <h3>Wedding venues</h3>
+          <ul>
+            <li>The Springs Event Venues</li>
+            <li>Lofty Spaces</li>
+            <li>The Bowden</li>
+            <li>The Hillside Estate</li>
+            <li>Stoney Ridge Villa</li>
+            <li>The Olana</li>
+            <li>Brighton Abbey</li>
+            <li>Towering Oaks</li>
+            <li>D'Vine Grace Vineyard</li>
+            <li>Firefly Gardens</li>
+            <li>Arrowwood Weddings + Events</li>
+            <li>The Carlisle Room</li>
+            <li>Southfork Ranch</li>
+            <li>Hamptons Event Venue</li>
+            <li>The Belle Manor</li>
+            <li>Stone Crest Venue</li>
+          </ul>
+        </div>
+        <div>
+          <h3>More wedding venues</h3>
+          <ul>
+            <li>Avalon Legacy Ranch</li>
+            <li>Dallas Palms</li>
+            <li>Brake &amp; Clutch Warehouse</li>
+            <li>Aristide McKinney</li>
+            <li>Aristide Colleyville</li>
+            <li>Knotting Hill Place</li>
+            <li>McKinney Cotton Mill</li>
+            <li>The Grand Ivory</li>
+            <li>Chandelier Farms</li>
+            <li>Bella Woods</li>
+            <li>Ashton Depot</li>
+            <li>Verona Villa</li>
+            <li>Classic Oaks</li>
+            <li>The Nest at Ruth Farms</li>
+            <li>Reflections Venue and Gardens</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Hotels, clubs and churches</h3>
+          <ul>
+            <li>Fairmont Dallas</li>
+            <li>Hilton Anatole</li>
+            <li>Omni Dallas Hotel</li>
+            <li>Sheraton Dallas</li>
+            <li>The Adolphus</li>
+            <li>Hotel ZaZa Uptown</li>
+            <li>Crescent Hotel</li>
+            <li>Gaylord Texan</li>
+            <li>Colonial Country Club</li>
+            <li>Shady Oaks Country Club</li>
+            <li>Lakewood Country Club</li>
+            <li>Cedar Creek Country Club</li>
+            <li>Primera Iglesia Bautista</li>
+            <li>Good Shepherd Catholic Community</li>
+            <li>Keystone Church</li>
+            <li>Grace Community Church</li>
+          </ul>
+        </div>
+      </div>
+      <p class="venue-note" data-reveal>Every name on this list is a room we have loaded into for a booked event, taken from our own calendar. If your venue is a new one for us, we walk it or the floor plan before the truck loads.</p>
+    </div>
+  </section>
+
   <section class="section" id="faq" style="background:var(--bg-1); border-top:1px solid var(--card-border);">
     <div class="wrap">
       <div class="section-head" data-reveal>
@@ -1759,7 +1855,7 @@ body.calm #chatPanel{ display:none; }
   <section class="final-cta" id="contact">
     <div class="wrap">
       <h2 data-reveal>Send us the date and the venue. We'll tell you <span class="grad-text">what it takes.</span></h2>
-      <p data-reveal>Your date, your venue, and roughly how many guests is enough for us to come back with a straightforward quote. We will send you a straightforward quote the same day.</p>
+      <p data-reveal>Your date, your venue, and roughly how many guests is enough for us to come back with a straightforward quote. We will send you a straightforward quote within 24 hours.</p>
       <div data-reveal style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
         <a class="btn-primary" href="/contact">Check Your Wedding Date</a>
         <a class="btn-secondary" href="tel:8172107957">Call or Text 817-210-7957</a>

@@ -149,6 +149,25 @@ Delta press event photos (TV on a stand, step and repeat) are on hold until
 Steve clears the client branding; the page can take one in the corporate
 split whenever he does.
 
+Done 13 September (bundle 52): the response promise changed site-wide from
+"a straightforward quote the same day" to "you'll hear back from us today,
+with a straightforward quote within 24 hours" (Steve is behind a booth some
+nights; the contact FAQ says a show-day reply may come late). The same
+wording goes into the HoneyBook auto-reply and email templates, which are
+Steve's to edit. The home page carries an owner note (Steve's three
+sentences, no headshot by his choice) beside a "Rooms we know" venue list;
+weddings, corporate events and private events carry longer venue lists for
+their kind of room, and `/fort-worth` (under Events in the header) carries
+the Tarrant County list. Every venue name came from HoneyBook: past projects
+marked Busy with a location on record (935 of them), venues only, never a
+client company, lists kept in `/tmp/dea/p44/venues.py` at build time and
+now only in the pages. Add a venue only after a booked job there.
+`/fort-worth` exists because Search Console shows 43 Fort Worth queries at
+an average position of 12 with three clicks in a year; it is one page that
+links down into the lanes, never a Fort Worth copy of a lane page. The
+podium photo on it is the gallery's Fort Worth award ceremony shot, which
+carries a client's step-and-repeat; Steve has seen it in the gallery.
+
 ## The story pass (standing queue, started 8 September 2026)
 
 The copy gates are clean site-wide. What keeps a reader on a page is

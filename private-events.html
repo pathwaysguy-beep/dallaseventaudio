@@ -347,6 +347,25 @@ html{ scroll-behavior:auto; }
 .fspot.fs-live::before{ animation:none; background-size:100% 100%; }
 .fspot.fs-press{ transform:none; }
 }
+
+  .venues{margin-top:8px}
+  .venues .lede{margin-top:10px;max-width:760px;color:var(--dim);font-size:1.05rem;line-height:1.7}
+  .venue-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px 32px;margin-top:30px}
+  .venue-cols h3{font-family:var(--font-display);font-weight:900;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--a1);margin:0 0 12px;padding-bottom:10px;border-bottom:1px solid var(--card-border)}
+  .venue-cols ul{list-style:none;margin:0;padding:0}
+  .venue-cols li{font-size:.98rem;line-height:1.55;color:var(--ink);opacity:.9;padding:5px 0;border-bottom:1px solid color-mix(in srgb, var(--card-border) 60%, transparent)}
+  .venue-cols li:last-child{border-bottom:0}
+  .venue-note{margin-top:22px;font-size:.92rem;color:var(--dim);max-width:760px;line-height:1.6}
+  @media (max-width:900px){.venue-cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:560px){.venue-cols{grid-template-columns:1fr}}
+  .owner-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:40px;align-items:start}
+  @media (max-width:900px){.owner-grid{grid-template-columns:1fr}}
+  .owner-note{padding:30px 32px;border-radius:20px;background:color-mix(in srgb, var(--bg-2) 52%, transparent);backdrop-filter:blur(16px) saturate(140%);-webkit-backdrop-filter:blur(16px) saturate(140%);border:1px solid var(--card-border);box-shadow:inset 0 1px 0 rgba(255,255,255,.05);position:relative;overflow:hidden}
+  .owner-note::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grad);opacity:.7}
+  .owner-note p{margin-top:14px;font-size:1.08rem;line-height:1.75;color:var(--ink)}
+  .owner-note .sig{margin-top:20px;padding-top:16px;border-top:1px solid var(--card-border);font-size:.92rem;color:var(--dim)}
+  .owner-note .sig b{color:var(--ink);font-weight:700}
+  .owner-note .sig a{color:var(--a1);text-decoration:none}
 </style>
   <title>Party Speaker Rental Dallas | Private Event AV</title>
   <meta name="description" content="Party speaker rental and private event AV in Dallas-Fort Worth. Sound, lighting and a DJ for birthdays, graduations, holiday parties and galas, run for you.">
@@ -1416,6 +1435,7 @@ body.calm #chatPanel{ display:none; }
             <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
             <a href="/college-school-university-events">College &amp; University</a>
             <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+            <a href="/fort-worth">Fort Worth</a>
           </div>
         </div>
         <div class="nl-item">
@@ -1494,6 +1514,7 @@ body.calm #chatPanel{ display:none; }
           <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
           <a href="/college-school-university-events">College &amp; University</a>
           <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+          <a href="/fort-worth">Fort Worth</a>
         </div>
       </div>
       <div class="nd-sec">
@@ -1866,6 +1887,64 @@ body.calm #chatPanel{ display:none; }
     </div>
   </section>
 
+  <section class="section" id="venues">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="kicker">Rooms we know</span>
+        <h2>Restaurants, clubs and venues across Dallas-Fort Worth we have run parties in</h2>
+        <p class="lede">From our own calendar of booked private events. Private dining rooms, country clubs, event venues and hotels where we know the room, the power and how loud the neighbors let it get.</p>
+      </div>
+      <div class="venue-cols">
+        <div>
+          <h3>Restaurants and private dining</h3>
+          <ul>
+            <li>Nick &amp; Sam's</li>
+            <li>Monarch</li>
+            <li>Ocean Prime</li>
+            <li>The Green Elephant</li>
+            <li>Marie Gabrielle Restaurant and Gardens</li>
+            <li>Howell and Dragon</li>
+            <li>Ozona Grill and Bar</li>
+            <li>New Artisan Distillery</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Country clubs</h3>
+          <ul>
+            <li>Colonial Country Club</li>
+            <li>Shady Oaks Country Club</li>
+            <li>Lakewood Country Club</li>
+            <li>Cedar Creek Country Club</li>
+            <li>City Club of Fort Worth</li>
+            <li>The Clubs of Stonebridge Ranch</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Event venues and hotels</h3>
+          <ul>
+            <li>The Springs Event Venues</li>
+            <li>Lofty Spaces</li>
+            <li>The Bowden</li>
+            <li>The Hillside Estate</li>
+            <li>Stoney Ridge Villa</li>
+            <li>The Olana</li>
+            <li>Brighton Abbey</li>
+            <li>Towering Oaks</li>
+            <li>D'Vine Grace Vineyard</li>
+            <li>Firefly Gardens</li>
+            <li>Fairmont Dallas</li>
+            <li>Hilton Anatole</li>
+            <li>Omni Dallas Hotel</li>
+            <li>Sheraton Dallas</li>
+            <li>The Adolphus</li>
+            <li>Hotel ZaZa Uptown</li>
+          </ul>
+        </div>
+      </div>
+      <p class="venue-note" data-reveal>Every name on this list is a room we have loaded into for a booked event, taken from our own calendar. If your venue is a new one for us, we walk it or the floor plan before the truck loads.</p>
+    </div>
+  </section>
+
   <section class="section" id="faq">
     <div class="wrap">
       <div class="section-head" data-reveal style="max-width:820px;">
@@ -1913,7 +1992,7 @@ body.calm #chatPanel{ display:none; }
   <section class="final-cta" id="quote">
     <div class="wrap">
       <h2 data-reveal>Tell us about the party. <span class="grad-text">We'll bring the sound, the lights and the music.</span></h2>
-      <p data-reveal>Tell us about your event and we'll send you a straightforward quote the same day.</p>
+      <p data-reveal>Tell us about your event and you'll hear back from us today, with a straightforward quote within 24 hours.</p>
       <div class="hero-ctas" data-reveal>
         <a class="cta-btn btn-primary" href="/contact">Request a quote</a>
         <a class="cta-btn btn-secondary" href="/gallery">See our work</a>
