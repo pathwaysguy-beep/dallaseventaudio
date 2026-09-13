@@ -126,6 +126,29 @@ each lands on its final page in one hop. Redirect rules keep query strings
 (gclid tested on the preview) and now have trailing-slash twins. The Worker
 already allows the www and apex origins and rate-limits by IP.
 
+Done 13 September (bundle 51): a fourth video lane, `/tv-rental-dallas`
+(32, 43 and 65 inch TVs on rolling stands, confidence monitors, TV versus
+projector screen, corporate and trade show, weddings and covered outdoor
+events). It was built on the projector page shell and lives in the Video
+group of `tools/build_llms.py`, `sitemap.xml` and `_pages.json`. Keyword
+Planner for the DFW DMA puts every TV rental term at 10 searches a month
+(`/tmp` notes are gone; the numbers are in the bundle message), so the page
+is a long-tail catch, not a head term. The header changed with it: Events,
+Audio, DJ Services (a plain link to `/services-dj`), Lighting & FX (now
+ending with Special Effects & Extras), Video (Projector & Screen, TV Rental,
+Live Streaming, Photo & Video), Our Work (now carrying Equipment List) and
+Contact. The phone number hides below 1080px so the header holds at 1024.
+The DJ page now runs intro, event types (nine cards, with 5K Runs & Charity
+Events added on Steve's brief: charity hosted, outdoor capable PA with the DJ
+rig and the DJ, generator or battery bank when there is no power), what is
+included, and only then the comparison sections. Every footer used to carry
+a leftover draft label next to the copyright ("Blog post draft, wedding fog
+effects" on 39 pages); it now reads "Serving Dallas-Fort Worth since 2001."
+and every footer links the TV page. The two "Hurst" stat rows are gone.
+Delta press event photos (TV on a stand, step and repeat) are on hold until
+Steve clears the client branding; the page can take one in the corporate
+split whenever he does.
+
 ## The story pass (standing queue, started 8 September 2026)
 
 The copy gates are clean site-wide. What keeps a reader on a page is

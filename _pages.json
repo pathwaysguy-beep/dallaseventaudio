@@ -85,6 +85,11 @@
   "from": "dea-private-events-draft-v2.html"
  },
  {
+  "url": "/tv-rental-dallas",
+  "file": "tv-rental-dallas.html",
+  "from": "bundle51"
+ },
+ {
   "url": "/projector-screen-rental",
   "file": "projector-screen-rental.html",
   "from": "dea-projector-draft-v2.html"

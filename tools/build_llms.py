@@ -11,7 +11,7 @@ GROUPS = [
  ('Event types', ['weddings','wedding-av-rental-dallas','corporate-events','private-events','live-music-and-band-events','college-school-university-events','rave-and-night-club-events','celebrity-and-luxury-events','sensory-friendly-event-services']),
  ('Sound', ['services-audio','rent-sound-equipment','rent-line-array-speaker-system','rent-bassboss-subwoofers','dj-speaker-rental','flat-panel-audio-dml500','feedback-free-microphone-rentals','equipment-list']),
  ('Lighting and effects', ['services-lighting','rent-uplighting','rent-dj-lighting','monogram-projector','rent-laser-light-show','rent-follow-spot-light','rent-fog-machine','rent-dancing-on-the-clouds-low-lyin','rent-cold-sparks','services-extra']),
- ('Video', ['projector-screen-rental','live-streaming-services','services-photo-and-video']),
+ ('Video', ['projector-screen-rental','tv-rental-dallas','live-streaming-services','services-photo-and-video']),
  ('DJ', ['services-dj','rent-sound-equipment/cdj-rental-dallas']),
  ('The company', ['our-story','our-work','gallery','what-others-are-saying','contact']),
 ]
