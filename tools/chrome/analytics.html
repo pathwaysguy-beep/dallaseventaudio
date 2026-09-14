@@ -120,4 +120,49 @@
     });
   }, true);
 })();
+/* Meta pixel, for the whole site, from the same file.
+
+   Same production hostname guard as GA4 above: the pixel loads only on the
+   production domain, so the pages.dev preview, local files and headless QA
+   never contact connect.facebook.net. window.fbq is defined everywhere as the
+   standard queueing stub, so the Lead call on /thank-you never throws off
+   production; off production the queue is simply never transported.
+
+   The loader waits for the window load event and then a timeout, so it runs
+   after first paint and stays out of LCP and TBT. PageView fires from here on
+   every page. Lead fires from /thank-you next to the GA4 form_submit_thankyou
+   event, which is the same quote request action Google Ads imports.
+
+   There is no noscript image fallback on purpose: an image tag has no way to
+   respect the hostname guard, so it would fire from every preview and QA run.
+
+   Do not write literal tag syntax in this comment. */
+(function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  var PIXEL = '338389045071642';
+
+  if (!window.fbq) {
+    var n = window.fbq = function () {
+      n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+    };
+    if (!window._fbq) window._fbq = n;
+    n.push = n; n.loaded = true; n.version = '2.0'; n.queue = [];
+  }
+
+  if (PROD.indexOf(location.hostname) === -1) return;
+
+  function load() {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://connect.facebook.net/en_US/fbevents.js';
+    document.head.appendChild(s);
+    window.fbq('init', PIXEL);
+    window.fbq('track', 'PageView');
+  }
+  if (document.readyState === 'complete') {
+    setTimeout(load, 0);
+  } else {
+    window.addEventListener('load', function () { setTimeout(load, 0); });
+  }
+})();
 </script>

@@ -184,7 +184,15 @@ Bundle 55 linked `/tv-rental-dallas` from the body of the pages that already
 mentioned TVs (corporate events, equipment list, wedding AV rental, photo
 and video, our story, projector page), the same fix the Fort Worth page got
 in bundle 53. Any new page needs its in-body links in the same bundle it
-ships in; the menu alone is not enough. Bundle 55 also repaired the our-story
+ships in; the menu alone is not enough.
+Bundle 56 (14 September) added the Meta pixel (338389045071642) to the shared
+analytics fragment under the same production hostname guard as GA4: stub
+`window.fbq` everywhere, loader after the load event on production only,
+PageView on every page, Lead on /thank-you beside form_submit_thankyou,
+ordered after init. No noscript image, because an image cannot respect the
+guard. The Wix site keeps its own pixel until cutover so the audience keeps
+building; both sites carry the same pixel ID, so nothing changes in Meta at
+cutover. Bundle 55 also repaired the our-story
 FAQPage schema, which bundle 53 broke by putting the Fort Worth anchor tag
 inside a JSON answer: sentence replacements must never touch text inside
 `application/ld+json`, and every bundle now checks that every block parses.
