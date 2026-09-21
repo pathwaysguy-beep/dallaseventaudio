@@ -222,6 +222,20 @@ answering. Bundle 58, the same evening: Steve wants the palette dock on the
 live site, so the one hiding rule from bundle 57 is removed again and the
 chrome resynced. The dock is a visitor feature now, not a review tool.
 
+Bundle 61 (21 September, first PageSpeed pass after go-live): mobile home
+page scored 66 with the largest paint at 6.9 s, desktop 93. The same page
+scored 97 in a local Lighthouse run where the production-only tags do not
+load, so the gap was the Google tag downloading in the head on a slow
+phone. The gtag loader now waits for the load event like the Meta pixel
+(the stub and dataLayer stay immediate, nothing is lost). The hero lasers,
+fog and grid animation are off under 700px. Accessibility items from the
+same report, all site-wide: the palette toggle has an aria-label (its text
+label is hidden at phone width), the footer "Fort Worth" inline link is
+underlined, the footer column titles are h3 (they were h4 after an h2, a
+skipped level), and every page's content sits in a main landmark between
+the header and footer. Local Lighthouse mobile: accessibility 90 to 100,
+performance unchanged, no layout shift introduced.
+
 ## The story pass (standing queue, started 8 September 2026)
 
 The copy gates are clean site-wide. What keeps a reader on a page is

@@ -1050,14 +1050,25 @@ body.calm .section-head{ margin-bottom:var(--sp-4); }
 
   if (PROD.indexOf(location.hostname) === -1) return;
 
-  var s = document.createElement('script');
-  s.async = true;
-  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4;
-  document.head.appendChild(s);
-
   gtag('js', new Date());
   gtag('config', GA4);
   gtag('config', ADS);
+
+  /* The loader waits for the load event, the same way the Meta pixel below
+     does. On a slow phone the 188 KiB tag was downloading and executing in
+     the same window as the fonts and the hero image, and PageSpeed measured
+     the home page's largest paint at 6.9 seconds on mobile with the tag in
+     the head against 2.3 seconds without it. Every gtag call made before the
+     loader runs queues in the dataLayer and is transported when it arrives,
+     so nothing is lost; the page_view is simply stamped a second or two later. */
+  function loadTag() {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4;
+    document.head.appendChild(s);
+  }
+  if (document.readyState === 'complete') { setTimeout(loadTag, 0); }
+  else { window.addEventListener('load', function () { setTimeout(loadTag, 0); }); }
 })();
 
 /* Contact click tracking.
@@ -1517,7 +1528,7 @@ body.calm #chatPanel{ display:none; }
       <button type="button" data-p="amber" aria-pressed="false"><i class="sw-amber"></i>Stage Black &amp; Amber</button>
       <button type="button" data-p="night" aria-pressed="false"><i class="sw-night"></i>DFW Night Rig</button>
     </div>
-    <button type="button" class="pal-toggle" id="palToggle" aria-expanded="false" aria-controls="palOpts">
+    <button type="button" class="pal-toggle" id="palToggle" aria-label="Color palette" aria-expanded="false" aria-controls="palOpts">
       <span class="dots"><i style="background:#31ff6e"></i><i style="background:#fff21c"></i><i style="background:#ff1f3d"></i></span>
       <span class="label">Palette</span>
     </button>
@@ -1817,7 +1828,7 @@ body.calm #chatPanel{ display:none; }
             <a href="tel:8172107957">817-210-7957</a>
             <a href="mailto:info@dallaseventaudio.com">info@dallaseventaudio.com</a>
           </div>
-          <p class="foot-area">Serving Dallas, <a href="/fort-worth" style="display:inline;">Fort Worth</a>, Southlake, Arlington, Frisco, McKinney, Richardson &amp; the wider Metroplex.</p>
+          <p class="foot-area">Serving Dallas, <a href="/fort-worth" style="display:inline;text-decoration:underline;">Fort Worth</a>, Southlake, Arlington, Frisco, McKinney, Richardson &amp; the wider Metroplex.</p>
         </div>
         <div class="col">
           <div class="foot-h">Events</div>

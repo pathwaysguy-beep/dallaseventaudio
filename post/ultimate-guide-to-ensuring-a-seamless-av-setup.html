@@ -114,6 +114,10 @@ a{color:inherit; text-decoration:none;}
 .hero-grid::before, .laser, .fog-blob{ animation:none !important; }
 .laser{ opacity:0; }
 }
+@media (max-width:700px){
+.hero-lasers, .hero-fog{ display:none; }
+.hero-grid::before{ animation:none; }
+}
 .hero-logo-wrap{ text-align:center; position:relative; z-index:1; margin-bottom:40px; }
 .hero-logo-wrap img{
     width:min(440px, 78vw); height:auto;
@@ -266,7 +270,7 @@ footer{ border-top:1px solid var(--card-border); padding:50px 0; }
 .foot-contact a{ display:block; margin-bottom:6px; font-size:1rem; color:var(--ink); opacity:.9; }
 .foot-contact a:hover{ color:var(--a1); opacity:1; }
 .foot-area{ font-size:.9rem; color:var(--dim); margin-top:12px; line-height:1.6; }
-.foot-grid .col h4{ font-size:0.904rem; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin-bottom:14px; }
+.foot-grid .col h3{ font-size:0.904rem; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin-bottom:14px; }
 .foot-grid .col a, .foot-grid .col p{ display:block; font-size:0.972rem; color:var(--ink); opacity:.8; margin-bottom:8px; }
 .foot-bottom{ margin-top:40px; padding-top:24px; border-top:1px solid var(--card-border); font-size:0.881rem; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
 [data-reveal]{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
@@ -524,14 +528,25 @@ html{ scroll-behavior:auto; }
 
   if (PROD.indexOf(location.hostname) === -1) return;
 
-  var s = document.createElement('script');
-  s.async = true;
-  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4;
-  document.head.appendChild(s);
-
   gtag('js', new Date());
   gtag('config', GA4);
   gtag('config', ADS);
+
+  /* The loader waits for the load event, the same way the Meta pixel below
+     does. On a slow phone the 188 KiB tag was downloading and executing in
+     the same window as the fonts and the hero image, and PageSpeed measured
+     the home page's largest paint at 6.9 seconds on mobile with the tag in
+     the head against 2.3 seconds without it. Every gtag call made before the
+     loader runs queues in the dataLayer and is transported when it arrives,
+     so nothing is lost; the page_view is simply stamped a second or two later. */
+  function loadTag() {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4;
+    document.head.appendChild(s);
+  }
+  if (document.readyState === 'complete') { setTimeout(loadTag, 0); }
+  else { window.addEventListener('load', function () { setTimeout(loadTag, 0); }); }
 })();
 
 /* Contact click tracking.
@@ -991,7 +1006,7 @@ body.calm #chatPanel{ display:none; }
       <button type="button" data-p="amber" aria-pressed="false"><i class="sw-amber"></i>Stage Black &amp; Amber</button>
       <button type="button" data-p="night" aria-pressed="false"><i class="sw-night"></i>DFW Night Rig</button>
     </div>
-    <button type="button" class="pal-toggle" id="palToggle" aria-expanded="false" aria-controls="palOpts">
+    <button type="button" class="pal-toggle" id="palToggle" aria-label="Color palette" aria-expanded="false" aria-controls="palOpts">
       <span class="dots"><i style="background:#31ff6e"></i><i style="background:#fff21c"></i><i style="background:#ff1f3d"></i></span>
       <span class="label">Palette</span>
     </button>
@@ -1150,6 +1165,8 @@ body.calm #chatPanel{ display:none; }
       <a class="cta-btn" href="/contact">Get a Quote</a>
     </div>
   </div>
+<main id="main">
+
 <section class="hero hero-page">
     <div class="hero-grid" aria-hidden="true"></div>
     <div class="wrap">
@@ -1227,6 +1244,7 @@ body.calm #chatPanel{ display:none; }
     </div>
   </section>
 
+  </main>
   <footer>
     <div class="wrap">
       <div class="foot-grid">
@@ -1237,10 +1255,10 @@ body.calm #chatPanel{ display:none; }
             <a href="tel:8172107957">817-210-7957</a>
             <a href="mailto:info@dallaseventaudio.com">info@dallaseventaudio.com</a>
           </div>
-          <p class="foot-area">Serving Dallas, <a href="/fort-worth" style="display:inline;">Fort Worth</a>, Southlake, Arlington, Frisco, McKinney, Richardson &amp; the wider Metroplex.</p>
+          <p class="foot-area">Serving Dallas, <a href="/fort-worth" style="display:inline;text-decoration:underline;">Fort Worth</a>, Southlake, Arlington, Frisco, McKinney, Richardson &amp; the wider Metroplex.</p>
         </div>
         <div class="col">
-          <h4>Events</h4>
+          <h3>Events</h3>
           <a href="/weddings">Weddings</a>
           <a href="/corporate-events">Corporate Events</a>
           <a href="/private-events">Private Events</a>
@@ -1251,7 +1269,7 @@ body.calm #chatPanel{ display:none; }
           <a href="/fort-worth">Fort Worth</a>
         </div>
         <div class="col">
-          <h4>Services</h4>
+          <h3>Services</h3>
           <a href="/services-dj">DJ Services</a>
           <a href="/services-audio">Audio Services</a>
           <a href="/services-lighting">Lighting Services</a>
@@ -1259,7 +1277,7 @@ body.calm #chatPanel{ display:none; }
           <a href="/services-extra">Extra Services</a>
         </div>
         <div class="col">
-          <h4>Audio Rentals</h4>
+          <h3>Audio Rentals</h3>
           <a href="/rent-sound-equipment">Sound Equipment</a>
           <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
           <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
@@ -1268,7 +1286,7 @@ body.calm #chatPanel{ display:none; }
           <a href="/live-streaming-services">Live Streaming</a>
         </div>
         <div class="col">
-          <h4>Lighting &amp; FX</h4>
+          <h3>Lighting &amp; FX</h3>
           <a href="/rent-uplighting">Uplighting</a>
           <a href="/rent-laser-light-show">Laser Light Show</a>
           <a href="/rent-follow-spot-light">Follow Spot</a>
@@ -1278,7 +1296,7 @@ body.calm #chatPanel{ display:none; }
           <a href="/tv-rental-dallas">TV Rental</a>
         </div>
         <div class="col">
-          <h4>Company</h4>
+          <h3>Company</h3>
           <a href="/our-story">Our Story</a>
           <a href="/our-work">Our Work</a>
           <a href="/equipment-list">Equipment List</a>
