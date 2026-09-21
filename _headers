@@ -53,15 +53,6 @@
 /fonts/*
   Cache-Control: public, max-age=31536000, immutable
 
-# ─── STAGING ONLY. DELETE THIS BLOCK AT GO-LIVE, AND NOTHING ELSE. ────────
-# Keeps the preview out of Google so it cannot compete with the live Wix site
-# for the same URLs. Delete these three lines only, in the same commit as the
-# DNS switch. Do not replace them with index, follow: indexable is the default
-# and an explicit header ships on every response forever.
-/*
-  X-Robots-Tag: noindex, nofollow
-# ─────────────────────────────────────────────────────────────────────────
-
 /fonts/*
   Cache-Control: public, max-age=31536000, immutable
 

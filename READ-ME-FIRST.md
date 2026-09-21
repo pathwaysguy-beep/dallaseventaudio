@@ -197,6 +197,20 @@ FAQPage schema, which bundle 53 broke by putting the Fort Worth anchor tag
 inside a JSON answer: sentence replacements must never touch text inside
 `application/ld+json`, and every bundle now checks that every block parses.
 
+Go-live (bundle 57, built 14 September, held for the cutover day, target
+Sunday 20 September): the staging block is gone from `_headers` (the three
+lines and nothing else), `robots.txt` is the go-live file, and the palette
+dock is hidden by one rule at the end of the shared chrome CSS rather than
+removed, so `tools/sync_chrome.py` keeps its invariants. The runbook is
+`dea-go-live-runbook.md` in Steve's Downloads and in the chat: email is
+Microsoft 365 (MX to outlook.com, SPF, two DKIM CNAMEs, DMARC, the MS= and
+google-site-verification TXT records), and every one of those records has to
+exist in the Cloudflare zone before the nameservers leave `wixdns.net`. Order
+on the day: push this bundle, add both hostnames as Pages custom domains,
+apex-to-www redirect rule with the query string preserved, SSL Full strict,
+then the nameservers. Rollback is the two Wix nameservers back at the
+registrar. Wix stays untouched for two weeks after.
+
 ## The story pass (standing queue, started 8 September 2026)
 
 The copy gates are clean site-wide. What keeps a reader on a page is
