@@ -211,6 +211,17 @@ apex-to-www redirect rule with the query string preserved, SSL Full strict,
 then the nameservers. Rollback is the two Wix nameservers back at the
 registrar. Wix stays untouched for two weeks after.
 
+Live (20 September 2026, evening, origin e6d6a20 then 58): the cutover
+went as written. Zone `dallaseventaudio.com` on Cloudflare Free with
+nameservers `betty` and `dakota.ns.cloudflare.com`, all 18 records DNS only
+except the two Pages hostnames, SSL Full (strict), redirect rule "Apex to
+www" (wildcard, 301, query string preserved), both hostnames Active on the
+Pages project. Verified from Steve's Chrome on the real domain: 84 URLs 200,
+55 redirects one hop, GA4, Ads and the Meta pixel firing, concierge
+answering. Bundle 58, the same evening: Steve wants the palette dock on the
+live site, so the one hiding rule from bundle 57 is removed again and the
+chrome resynced. The dock is a visitor feature now, not a review tool.
+
 ## The story pass (standing queue, started 8 September 2026)
 
 The copy gates are clean site-wide. What keeps a reader on a page is
