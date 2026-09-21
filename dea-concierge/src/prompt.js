@@ -125,7 +125,7 @@ PROJECTION, SCREENS AND VIDEO
 - Elite Screens CLR, 150 inch light-rejecting screen
 - Elite Screens, 120 inch tripod screen, matte white
 - Monogram projector, also called "logo in light." Available for ANY event type. Popular for weddings (couple's monogram) and corporate branding (company logo). Walls and ceilings only.
-- TVs, 33 inch, 43 inch, 65 inch
+- TVs, 32 inch, 43 inch, 65 inch
 - Live streaming, single or multi-camera. Available for ANY event type.
 
 DJ EQUIPMENT
