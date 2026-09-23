@@ -272,7 +272,7 @@ footer{ border-top:1px solid var(--card-border); padding:50px 0; }
 .foot-area{ font-size:.9rem; color:var(--dim); margin-top:12px; line-height:1.6; }
 .foot-grid .col h3{ font-size:0.904rem; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin-bottom:14px; }
 .foot-grid .col a, .foot-grid .col p{ display:block; font-size:0.972rem; color:var(--ink); opacity:.8; margin-bottom:8px; }
-.foot-bottom{ margin-top:40px; padding-top:24px; border-top:1px solid var(--card-border); font-size:0.881rem; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+.foot-bottom{ margin-top:40px; padding-top:24px; padding-bottom:72px; border-top:1px solid var(--card-border); font-size:0.881rem; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
 [data-reveal]{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
 [data-reveal].in{ opacity:1; transform:translateY(0); }
 .grain-overlay{
@@ -465,8 +465,16 @@ html{ scroll-behavior:auto; }
    overrides are each the true font metric divided by that size-adjust, which
    is what keeps the line box identical while the width is corrected.
 
-   font-display:swap keeps text visible during the swap period, and the metric
-   matching is what stops that swap moving anything. */
+   Unbounded uses font-display:swap: the headline face is the brand, so it is
+   worth a late repaint to get it. Space Grotesk, the body face, uses
+   font-display:optional since bundle 62. On a fast connection the preloaded
+   file arrives inside the short block period and the page renders in Space
+   Grotesk exactly as before. On a slow phone the browser paints the
+   metric matched fallback and keeps it for that page view while the real
+   file caches for the next one, instead of repainting every paragraph when
+   the file lands. PageSpeed measured the hero subtitle as the largest
+   contentful paint at 5.9 s on mobile, and that repaint was the delay. The
+   metric matching is what keeps either face in the same line box. */
 :root{
   --font-display:'Unbounded','Unbounded-fb',sans-serif;
   --font-body:'Space Grotesk','SpaceGrotesk-fb',sans-serif;
@@ -483,10 +491,10 @@ html{ scroll-behavior:auto; }
 @font-face{font-family:'Unbounded';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/unbounded-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:'Unbounded';font-style:normal;font-weight:800;font-display:swap;src:url('/fonts/unbounded-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:'Unbounded';font-style:normal;font-weight:900;font-display:swap;src:url('/fonts/unbounded-latin-900-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/space-grotesk-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:swap;src:url('/fonts/space-grotesk-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/space-grotesk-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/space-grotesk-latin-700-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:400;font-display:optional;src:url('/fonts/space-grotesk-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:optional;src:url('/fonts/space-grotesk-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:600;font-display:optional;src:url('/fonts/space-grotesk-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:optional;src:url('/fonts/space-grotesk-latin-700-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 </style>
 <!-- chrome-sync:analytics -->
 <script>
@@ -1302,7 +1310,7 @@ body.calm #chatPanel{ display:none; }
       </div>
       <div class="foot-bottom">
         <span>&copy; 2026 Dallas Event Audio. Fully insured, on-site AV production.</span>
-        <span>Serving Dallas-Fort Worth since 2001.</span>
+        <span>Serving Dallas-Fort Worth since 2001. <a href="/privacy" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">Privacy</a></span>
       </div>
     </div>
   </footer>
@@ -1478,7 +1486,14 @@ body.calm #chatPanel{ display:none; }
 
    The conversation is kept in sessionStorage so moving between pages does not
    restart it. It is per tab and it disappears when the tab closes, which is
-   the right lifetime for a sales chat. */
+   the right lifetime for a sales chat.
+
+   Since bundle 62 each conversation carries a random id, made on the first
+   message and kept with the history, and each turn also names the page path
+   it was sent from. The Worker keeps the conversation under that id so Steve
+   gets a morning digest of what people asked and where they stopped. The id
+   is not a cookie, is never reused across tabs, and the path is sent without
+   its query string. */
 (function () {
   'use strict';
 
@@ -1509,6 +1524,24 @@ body.calm #chatPanel{ display:none; }
   var history = [];
   var busy = false;
   var ended = false;
+  var sid = '';
+
+  function newSid() {
+    var out = '';
+    try {
+      var a = new Uint8Array(12);
+      crypto.getRandomValues(a);
+      for (var i = 0; i < a.length; i++) out += ('0' + a[i].toString(16)).slice(-2);
+    } catch (e) {
+      out = '';
+      while (out.length < 24) out += Math.floor(Math.random() * 16).toString(16);
+    }
+    return out;
+  }
+
+  function pagePath() {
+    try { return location.pathname.split('?')[0].slice(0, 200); } catch (e) { return '/'; }
+  }
 
   /* ---- markdown, escaped first so model output can never become markup ---- */
 
@@ -1597,7 +1630,7 @@ body.calm #chatPanel{ display:none; }
   }
 
   function save() {
-    try { sessionStorage.setItem(STORE, JSON.stringify({ history: history, ended: ended })); }
+    try { sessionStorage.setItem(STORE, JSON.stringify({ history: history, ended: ended, sid: sid })); }
     catch (e) {}
   }
 
@@ -1610,6 +1643,7 @@ body.calm #chatPanel{ display:none; }
         if (d && Array.isArray(d.history) && d.history.length) {
           history = d.history;
           ended = !!d.ended;
+          if (typeof d.sid === 'string' && /^[a-f0-9]{16,40}$/.test(d.sid)) sid = d.sid;
         }
       } catch (e) {}
     }
@@ -1675,6 +1709,7 @@ body.calm #chatPanel{ display:none; }
 
     input.value = '';
     input.style.height = 'auto';
+    if (!sid) sid = newSid();
     history.push({ role: 'user', content: text });
     paint('user', text);
     track('chat_message_sent', { event_category: 'concierge' });
@@ -1694,7 +1729,7 @@ body.calm #chatPanel{ display:none; }
     fetch(ENDPOINT, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ history: history })
+      body: JSON.stringify({ history: history, sid: sid, page: pagePath() })
     })
       .then(function (r) { return r.json().catch(function () { return {}; }); })
       .then(function (d) {

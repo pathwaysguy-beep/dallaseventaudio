@@ -236,6 +236,29 @@ skipped level), and every page's content sits in a main landmark between
 the header and footer. Local Lighthouse mobile: accessibility 90 to 100,
 performance unchanged, no layout shift introduced.
 
+Bundle 62 (23 September): four things. Space Grotesk, the body face, is
+font-display:optional (Unbounded stays on swap); PageSpeed timed the hero
+subtitle's font repaint as the mobile largest paint, and the metric matched
+fallback keeps the line box identical either way. The concierge now keeps
+every conversation: the widget makes a random id on the first message,
+keeps it in sessionStorage beside the history, and sends it with the page
+path on every turn; the Worker upserts the transcript into the D1
+`conversations` table (schema in `dea-concierge/sql/0001_conversations.sql`,
+run once with `wrangler d1 execute DB --remote`). A cron in wrangler.jsonc
+(12:00 UTC, so 7 am Dallas in summer) runs `scheduled()`, which has Claude
+summarize the previous Dallas day's conversations and emails the digest to
+LEAD_TO through Resend; the `digests` table stops a double send, and an
+empty day sends nothing. POST /api/digest with an `x-digest-key` header
+runs it by hand, only if the DIGEST_KEY secret exists. Old pages cached
+without the widget change send no id and are not stored. Tests:
+`npm test` in dea-concierge (plain node, stubbed D1 and fetch). New page
+/privacy, built from the thank-you page's frame with the conversion script
+removed, indexable, in the sitemap at 0.3, in llms.txt under The company,
+linked as "Privacy" in the footer bottom row of all 81 pages. The footer
+bottom row also gained 72px of bottom padding site-wide because the
+concierge and palette pills covered the copyright line at the bottom of
+every page on phones.
+
 ## The story pass (standing queue, started 8 September 2026)
 
 The copy gates are clean site-wide. What keeps a reader on a page is

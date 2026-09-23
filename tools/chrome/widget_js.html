@@ -20,7 +20,14 @@
 
    The conversation is kept in sessionStorage so moving between pages does not
    restart it. It is per tab and it disappears when the tab closes, which is
-   the right lifetime for a sales chat. */
+   the right lifetime for a sales chat.
+
+   Since bundle 62 each conversation carries a random id, made on the first
+   message and kept with the history, and each turn also names the page path
+   it was sent from. The Worker keeps the conversation under that id so Steve
+   gets a morning digest of what people asked and where they stopped. The id
+   is not a cookie, is never reused across tabs, and the path is sent without
+   its query string. */
 (function () {
   'use strict';
 
@@ -51,6 +58,24 @@
   var history = [];
   var busy = false;
   var ended = false;
+  var sid = '';
+
+  function newSid() {
+    var out = '';
+    try {
+      var a = new Uint8Array(12);
+      crypto.getRandomValues(a);
+      for (var i = 0; i < a.length; i++) out += ('0' + a[i].toString(16)).slice(-2);
+    } catch (e) {
+      out = '';
+      while (out.length < 24) out += Math.floor(Math.random() * 16).toString(16);
+    }
+    return out;
+  }
+
+  function pagePath() {
+    try { return location.pathname.split('?')[0].slice(0, 200); } catch (e) { return '/'; }
+  }
 
   /* ---- markdown, escaped first so model output can never become markup ---- */
 
@@ -139,7 +164,7 @@
   }
 
   function save() {
-    try { sessionStorage.setItem(STORE, JSON.stringify({ history: history, ended: ended })); }
+    try { sessionStorage.setItem(STORE, JSON.stringify({ history: history, ended: ended, sid: sid })); }
     catch (e) {}
   }
 
@@ -152,6 +177,7 @@
         if (d && Array.isArray(d.history) && d.history.length) {
           history = d.history;
           ended = !!d.ended;
+          if (typeof d.sid === 'string' && /^[a-f0-9]{16,40}$/.test(d.sid)) sid = d.sid;
         }
       } catch (e) {}
     }
@@ -217,6 +243,7 @@
 
     input.value = '';
     input.style.height = 'auto';
+    if (!sid) sid = newSid();
     history.push({ role: 'user', content: text });
     paint('user', text);
     track('chat_message_sent', { event_category: 'concierge' });
@@ -236,7 +263,7 @@
     fetch(ENDPOINT, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ history: history })
+      body: JSON.stringify({ history: history, sid: sid, page: pagePath() })
     })
       .then(function (r) { return r.json().catch(function () { return {}; }); })
       .then(function (d) {

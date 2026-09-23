@@ -203,5 +203,10 @@
   "url": "/what-others-are-saying",
   "file": "what-others-are-saying.html",
   "from": "dea-what-others-are-saying-draft-v3.html"
+ },
+ {
+  "url": "/privacy",
+  "file": "privacy.html",
+  "from": "bundle 62, built from thank-you.html"
  }
 ]

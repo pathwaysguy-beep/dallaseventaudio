@@ -4,6 +4,11 @@
   "workers_dev": true,
   "preview_urls": true,
   "compatibility_date": "2026-08-01",
+  // Morning digest of yesterday's chats. 12:00 UTC is 7 am Dallas in summer,
+  // 6 am in winter. Handled by scheduled() in src/index.js.
+  "triggers": {
+    "crons": ["0 12 * * *"]
+  },
   "vars": {
     "ALLOWED_ORIGINS": "https://www.dallaseventaudio.com,https://dallaseventaudio.com,https://dallaseventaudio.pages.dev",
     "DAILY_CAP": "400",

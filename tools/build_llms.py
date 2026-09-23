@@ -13,7 +13,7 @@ GROUPS = [
  ('Lighting and effects', ['services-lighting','rent-uplighting','rent-dj-lighting','monogram-projector','rent-laser-light-show','rent-follow-spot-light','rent-fog-machine','rent-dancing-on-the-clouds-low-lyin','rent-cold-sparks','services-extra']),
  ('Video', ['projector-screen-rental','tv-rental-dallas','live-streaming-services','services-photo-and-video']),
  ('DJ', ['services-dj','rent-sound-equipment/cdj-rental-dallas']),
- ('The company', ['our-story','our-work','gallery','what-others-are-saying','contact']),
+ ('The company', ['our-story','our-work','gallery','what-others-are-saying','contact','privacy']),
 ]
 HOST = 'https://www.dallaseventaudio.com'
 out = ['# Dallas Event Audio', '',
