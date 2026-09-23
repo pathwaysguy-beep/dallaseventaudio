@@ -904,21 +904,52 @@ a.chip::after{ content:' \2192'; opacity:.55; }
   gtag('config', GA4);
   gtag('config', ADS);
 
-  /* The loader waits for the load event, the same way the Meta pixel below
-     does. On a slow phone the 188 KiB tag was downloading and executing in
-     the same window as the fonts and the hero image, and PageSpeed measured
-     the home page's largest paint at 6.9 seconds on mobile with the tag in
-     the head against 2.3 seconds without it. Every gtag call made before the
-     loader runs queues in the dataLayer and is transported when it arrives,
-     so nothing is lost; the page_view is simply stamped a second or two later. */
+  /* When the third party tags load (bundle 63).
+
+     Bundle 61 moved the loader from the head to the load event and mobile
+     PageSpeed went from 66 to 76. The largest paint stayed at 5.9 s though,
+     against 2.3 s for the same page with no tags at all, and a lab test
+     showed why: on a fast connection the load event fires before the slow
+     phone has finished its first paint, so the 190 KiB tag and the 200 KiB
+     pixel still land in front of the hero text. A timer clears it. A
+     script injected 3 s after load leaves the paint alone.
+
+     So the tags now load at the first scroll, tap or key press, or 3 s
+     after the load event, whichever comes first. Every gtag and fbq call
+     made before then queues and is transported when the script arrives.
+     What changes: a visitor who leaves inside 3 s without touching the
+     screen is no longer counted as a session. That visit was a bounce
+     with nothing to attribute, and a converting visitor always trips the
+     gate long before the thank-you page. The thank-you page itself is the
+     exception and loads at once, because its conversion event is the one
+     thing that must not wait. */
   function loadTag() {
     var s = document.createElement('script');
     s.async = true;
     s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4;
     document.head.appendChild(s);
   }
-  if (document.readyState === 'complete') { setTimeout(loadTag, 0); }
-  else { window.addEventListener('load', function () { setTimeout(loadTag, 0); }); }
+  window.__deaWhenReady = window.__deaWhenReady || function (fn) {
+    var fired = false;
+    var EVENTS = ['scroll', 'pointerdown', 'keydown', 'touchstart'];
+    function go() {
+      if (fired) return;
+      fired = true;
+      EVENTS.forEach(function (t) { window.removeEventListener(t, go, true); });
+      setTimeout(fn, 0);
+    }
+    function arm() {
+      var p = location.pathname.replace(/\.html$/, '');
+      if (p === '/thank-you') { go(); return; }
+      EVENTS.forEach(function (t) {
+        window.addEventListener(t, go, { capture: true, passive: true });
+      });
+      setTimeout(go, 3000);
+    }
+    if (document.readyState === 'complete') { arm(); }
+    else { window.addEventListener('load', arm); }
+  };
+  window.__deaWhenReady(loadTag);
 })();
 
 /* Contact click tracking.
@@ -1025,19 +1056,22 @@ a.chip::after{ content:' \2192'; opacity:.55; }
 
   if (PROD.indexOf(location.hostname) === -1) return;
 
+  /* init and PageView queue right away so that any Lead the thank-you page
+     queues later sits behind init in the queue, whenever the script lands. */
+  window.fbq('init', PIXEL);
+  window.fbq('track', 'PageView');
+
   function load() {
     var s = document.createElement('script');
     s.async = true;
     s.src = 'https://connect.facebook.net/en_US/fbevents.js';
     document.head.appendChild(s);
-    window.fbq('init', PIXEL);
-    window.fbq('track', 'PageView');
   }
-  if (document.readyState === 'complete') {
-    setTimeout(load, 0);
-  } else {
-    window.addEventListener('load', function () { setTimeout(load, 0); });
-  }
+  /* Same gate as the Google tag above: first interaction or 3 s after load,
+     at once on the thank-you page. */
+  if (window.__deaWhenReady) { window.__deaWhenReady(load); }
+  else if (document.readyState === 'complete') { setTimeout(load, 0); }
+  else { window.addEventListener('load', function () { setTimeout(load, 0); }); }
 })();
 </script>
 <!-- chrome-sync:css -->

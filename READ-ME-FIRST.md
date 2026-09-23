@@ -259,6 +259,22 @@ bottom row also gained 72px of bottom padding site-wide because the
 concierge and palette pills covered the copyright line at the bottom of
 every page on phones.
 
+Bundle 63 (23 September): the third party tags wait for the first scroll,
+tap or key press, or 3 s after the load event, whichever is first. After
+bundle 62 the mobile home page still measured its largest paint at 5.9 s
+(score 67 to 76 depending on the run) while the same page with no tags
+measures 2.3 s locally. A lab test reproduced it: a 190 KiB script
+injected on the load event moved local LCP from 2.3 s to 3.4 s, and a
+requestAnimationFrame gate did nothing, because on a fast connection load
+fires before a slow phone's first paint; a 3 s timer restored 2.3 s. The
+gate lives in tools/chrome/analytics.html as window.__deaWhenReady and
+both loaders use it. The thank-you page loads at once so its conversion
+never waits, and the pixel's init and PageView now queue before any
+Lead. The measurement cost is visitors who leave inside 3 s without
+touching the screen; they stop appearing as sessions. The font change in
+bundle 62 turned out to be neutral in Lighthouse and stays because it is
+right for real phones.
+
 ## The story pass (standing queue, started 8 September 2026)
 
 The copy gates are clean site-wide. What keeps a reader on a page is
