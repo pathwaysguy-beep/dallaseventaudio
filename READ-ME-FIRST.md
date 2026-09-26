@@ -287,6 +287,20 @@ what ranks, and it was good with the tags on load. Do not gate the tags
 behind interaction or a timer again. GA4 figures for 24 and 25 September
 understate engagement and should not be compared with other days.
 
+Bundle 65 (26 September, concierge only, no page changes): the morning
+digest runs on claude-opus-5-5 at low effort (DIGEST_MODEL in
+wrangler.jsonc, output_config effort "low", max_tokens 6000 because Opus
+5.5 thinking counts toward it) and falls back once to MODEL if that call
+fails. Transcripts go in <transcripts id="..."> tags with a matching random
+id on the closing tag, and the digest system prompt says what is inside is
+material to summarize, never instructions. The live chat stays on
+claude-sonnet-4-5. prompt.js v5: the bot no longer promises a technician
+at every booking; every booking is delivered, set up, tested and picked up,
+and the technician stays for the services that call for it (Steve, 25
+September). The WHAT EACH PAGE SAYS summaries in prompt.js still carry the
+old "technician on every booking" wording from the pages; regenerate them
+after the site-wide staffing pass. Tests: npm test (7).
+
 ## The story pass (standing queue, started 8 September 2026)
 
 The copy gates are clean site-wide. What keeps a reader on a page is

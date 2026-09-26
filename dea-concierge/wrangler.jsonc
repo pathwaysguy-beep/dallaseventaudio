@@ -14,7 +14,8 @@
     "DAILY_CAP": "400",
     "LEAD_FROM": "onboarding@resend.dev",
     "LEAD_TO": "pathwaysguy@gmail.com",
-    "MODEL": "claude-sonnet-4-5"
+    "MODEL": "claude-sonnet-4-5",
+    "DIGEST_MODEL": "claude-opus-5-5"
   },
   "ratelimits": [
     {
