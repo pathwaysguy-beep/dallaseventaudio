@@ -275,6 +275,18 @@ touching the screen; they stop appearing as sessions. The font change in
 bundle 62 turned out to be neutral in Lighthouse and stays because it is
 right for real phones.
 
+Bundle 64 (26 September): bundle 63's tag gate is reverted. The Google tag
+and Meta pixel load on the load event again, as in bundle 61; the pixel
+still queues init and PageView up front. In the two days the gate was live,
+GA4 engagement fell from about 75% to about 45% and pages per session from
+2.3 to 1.6 with sessions flat, because GA4 times engagement from when the
+tag loads and a fast click-through lost its page view; a paid visitor who
+tapped through before the tag loaded also lost the gclid. Lab mobile
+PageSpeed returns to the 70s. Field data (Cloudflare RUM, 92% good LCP) is
+what ranks, and it was good with the tags on load. Do not gate the tags
+behind interaction or a timer again. GA4 figures for 24 and 25 September
+understate engagement and should not be compared with other days.
+
 ## The story pass (standing queue, started 8 September 2026)
 
 The copy gates are clean site-wide. What keeps a reader on a page is
