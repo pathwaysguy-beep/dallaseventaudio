@@ -297,6 +297,8 @@ a.service-card:focus-visible{ outline:2px solid var(--a1); outline-offset:3px; }
     box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 20px 60px -30px rgba(0,0,0,.7);
     display:flex; align-items:center; justify-content:center; position:relative;
   }
+.diff-visual{ overflow:hidden; }
+.diff-visual video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
 .diff-visual .badge{
     font-family:var(--font-display); font-weight:800; text-align:center; font-size:1.073rem; color:var(--dim);
     border:1px dashed var(--card-border); padding:20px; border-radius:16px;
@@ -1340,7 +1342,7 @@ body.calm #chatPanel{ display:none; }
           <p>Real gear, real technicians, one point of contact from your first quote to the last song of the night.</p>
         </div>
         <div class="diff-visual" data-reveal>
-          <div class="badge">[ real event photo/video<br>goes here, graded<br>to match this palette ]</div>
+          <video muted loop playsinline autoplay preload="none" data-lazy data-webm="/videos/home-av-production-reel-dallas.webm" data-mp4="/videos/home-av-production-reel-dallas.mp4" poster="/images/home-av-production-reel-dallas-poster.jpg" aria-label="A montage of Dallas Event Audio events: a projected monogram over a full dance floor, uplighting at a gala, an outdoor wedding ceremony, a first dance on low-lying fog, laser beams, a CO2 plume and a grand entrance through fog"></video>
         </div>
       </div>
     </div>
@@ -1615,6 +1617,37 @@ body.calm #chatPanel{ display:none; }
   </footer>
 
   <div class="grain-overlay" aria-hidden="true"></div>
+
+<script>
+/* Lazy video. An autoplaying video ignores preload and fetches immediately, so
+   the source is held in data attributes and attached when the clip is one
+   viewport away. Same pattern as the laser page. */
+(function () {
+  var vids = [].slice.call(document.querySelectorAll('video[data-lazy]'));
+  if (!vids.length) return;
+  function attach(v) {
+    if (v.dataset.lazyDone) return;
+    v.dataset.lazyDone = '1';
+    ['webm', 'mp4'].forEach(function (k) {
+      if (!v.dataset[k]) return;
+      var s = document.createElement('source');
+      s.src = v.dataset[k];
+      s.type = k === 'webm' ? 'video/webm' : 'video/mp4';
+      v.appendChild(s);
+    });
+    v.load();
+    var p = v.play();
+    if (p && p.catch) p.catch(function () {});
+  }
+  if (!('IntersectionObserver' in window)) { vids.forEach(attach); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { attach(e.target); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '100% 0px' });
+  vids.forEach(function (v) { io.observe(v); });
+})();
+</script>
 
   <div id="chatBubble" role="button" tabindex="0" aria-controls="chatPanel" aria-expanded="false">&#10022; AV Concierge</div>
 <div id="chatPanel" role="dialog" aria-modal="false" aria-labelledby="chatTitle" hidden>
