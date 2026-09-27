@@ -328,6 +328,15 @@ llms-full.txt (tools/build_llms.py writes both). prompt.js v6 regenerates
 WHAT EACH PAGE SAYS. wrangler.jsonc now mirrors the dashboard's logs
 setting. Deploy the Worker after pushing.
 
+Done 27 September (bundle 71; 70 was handed to the video chat): the base
+location reads ZIP 76053 wherever the site said the company is in or works
+out from Hurst (Steve, 27 September). Hurst stays where it is a city we
+serve, in city lists and chips. The Organization schema address carries
+postalCode 76053 in place of addressLocality. CO2 cannons keep the
+technician. The single-item FAQs on equipment-list and gallery now say CDJs
+and DJ mixers rent on their own, and everything else goes out as part of a
+package.
+
 ## The story pass (standing queue, started 8 September 2026)
 
 The copy gates are clean site-wide. What keeps a reader on a page is

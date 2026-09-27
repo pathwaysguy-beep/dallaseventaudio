@@ -211,7 +211,7 @@ EVENT TYPES
 - /sensory-friendly-event-services: Here is everything we do, on one page. Each service gets one sentence and one link. Pick what you need and skip the rest. Dancing on the Clouds is a low white cloud that covers the floor for a first dance. We set up screens and projectors that show words, slides and photos to the room. You can also just tell us about the day, and we will point you to the right one. Write to us in your own words and we'll send you a straightforward quote within 24 hours.
 
 THE COMPANY
-- /our-story: We are a full service event production company in Hurst, Texas, between Dallas and Fort Worth. We own the sound, lighting and DJ equipment we send out, we deliver, set up, test and pick up all of it ourselves, with a technician on site for the services that call for one, and we have been in business since 2001. This is the short version of our story and how the work gets done.
+- /our-story: We are a full service event production company in ZIP 76053, between Dallas and Fort Worth. We own the sound, lighting and DJ equipment we send out, we deliver, set up, test and pick up all of it ourselves, with a technician on site for the services that call for one, and we have been in business since 2001. This is the short version of our story and how the work gets done.
 
 OTHER PAGES, no digest needed
 - /contact, to get a quote. /our-work and /gallery, past events with photos. /what-others-are-saying, reviews. /blog, notes from real events.

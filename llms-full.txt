@@ -77,7 +77,7 @@ Most people arrive here searching for AV rental in Dallas, or for audio visual e
 Most bookings start with sound system rental. PA speakers sized to the room rather than to a catalog, subwoofers when the dance floor needs low end you can feel, monitors for the people on the microphone, and a line check before doors open. Speaker rental with us means the system is tuned to the room you are standing in, at the volume that room wants. The full inventory sits on the sound equipment rental page, with the touring-grade end of it on the line array and subwoofer pages.
 Weddings get their own treatment, because wedding sound equipment rental is really three audio events wearing one name. A ceremony that has to carry vows outdoors, a cocktail hour that has to sit under conversation, and a reception that has to hold a full dance floor are three different rigs, and we spec them as three. Every microphone in the ceremony rig carries our AI-powered De-Feedback system as standard, so the vows land clean. The wedding AV page walks through the day hour by hour.
 Corporate event AV in Dallas fills the rest of the calendar: conferences, general sessions, awards nights, panels and product launches, where the audio has to be invisible and the slides have to be readable from the back row. Live sound services, projection and screens , presenter microphones and stage lighting come from the same crew and the same load-in, which is the whole reason it goes quietly. See corporate events for how a typical day is built.
-Booking event lighting and sound rental together is the norm here rather than the exception, because the cues line up when one crew owns both. And if you are searching for AV rentals in Dallas-Fort Worth from anywhere inside roughly forty miles of Hurst (Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Southlake, Grapevine, McKinney, Denton and the mid-cities), you are inside our normal service area, and we have been working it since 2001.
+Booking event lighting and sound rental together is the norm here rather than the exception, because the cues line up when one crew owns both. And if you are searching for AV rentals in Dallas-Fort Worth from anywhere inside roughly forty miles of ZIP 76053 (Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Southlake, Grapevine, McKinney, Denton and the mid-cities), you are inside our normal service area, and we have been working it since 2001.
 What DFW Says
 ## 4.9 out of 5, from the people who booked us.
 G
@@ -144,7 +144,7 @@ Before You Ask
 ## The questions we get most.
 If yours is further out, ask us directly and we answer today.
 What areas do you serve?
-We cover the whole Dallas-Fort Worth Metroplex: Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Southlake, Grapevine, McKinney, Denton, Richardson and the mid-cities, roughly forty miles out from our base in Hurst. Further out is usually still possible; ask us with the venue address and we will tell you straight away.
+We cover the whole Dallas-Fort Worth Metroplex: Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Southlake, Grapevine, McKinney, Denton, Richardson and the mid-cities, roughly forty miles out from our base in ZIP 76053. Further out is usually still possible; ask us with the venue address and we will tell you straight away.
 What is included in a DJ booking?
 The DJ, the sound system, the microphones and the dance-floor lighting, delivered, set up, line-checked and run by our technician from load-in to breakdown. The person and the gear come together, on one booking. The detail is on the DJ services page.
 Do you rent equipment without a DJ?
@@ -731,7 +731,7 @@ Speaker counts and screen sizes come from your guest count, your room and your t
 It is a common combination and it is one rig, not two. The band plays the dinner and the first set, the DJ takes the late dance floor, and both work off the same front of house with a changeover we plan in advance instead of during cocktail hour.
 Where We Work
 ## Wedding venues across the Dallas-Fort Worth Metroplex
-We work from Hurst, between Dallas and Fort Worth, and cover roughly a 40 mile radius. If your venue is further out, ask anyway and we will tell you honestly whether it works.
+We work from ZIP 76053, between Dallas and Fort Worth, and cover roughly a 40 mile radius. If your venue is further out, ask anyway and we will tell you honestly whether it works.
 Dallas
 Fort Worth
 Plano
@@ -1139,7 +1139,7 @@ Our crew delivers, rigs and tunes the system before guests arrive, and sets the 
 When you book a DJ or an AV technician, they stay through the party and move the levels as the evening changes. At the end our crew takes the whole rig out and every cable leaves with us.
 Service Area
 ## Private event audio visual services across the Dallas-Fort Worth Metroplex
-We work roughly a 40 mile radius from Hurst, which sits between Dallas and Fort Worth. If your venue is further out, ask anyway and we will tell you honestly whether it works.
+We work roughly a 40 mile radius from ZIP 76053, which sits between Dallas and Fort Worth. If your venue is further out, ask anyway and we will tell you honestly whether it works.
 ### Dallas
 Downtown ballrooms, Design District warehouses, Deep Ellum venues and private homes across the city.
 ### Fort Worth
@@ -1225,7 +1225,7 @@ Earlier than feels necessary. May and June fill first because every high school 
 Do you cover galas and fundraisers?
 Yes. A gala runs on its program, so we treat the podium, the wireless handhelds, the video playback and the screens as one system, and we recommend an AV technician on it the whole night. We set the podium microphone level with a person standing at it, take the video audio as a source instead of pointing a microphone at a laptop, and keep a spare microphone live for the auction.
 What areas around Dallas do you serve?
-The Dallas-Fort Worth Metroplex, roughly a 40 mile radius from Hurst, Texas. That includes Dallas, Fort Worth, Plano, Frisco, Arlington, Irving, McKinney, Denton, Grapevine, Southlake and the surrounding cities. If your venue is further out, ask anyway and we will tell you honestly whether it works.
+The Dallas-Fort Worth Metroplex, roughly a 40 mile radius from ZIP 76053. That includes Dallas, Fort Worth, Plano, Frisco, Arlington, Irving, McKinney, Denton, Grapevine, Southlake and the surrounding cities. If your venue is further out, ask anyway and we will tell you honestly whether it works.
 ## Tell us about the party. We'll bring the sound, the lights and the music.
 Tell us about your event and you'll hear back from us today, with a straightforward quote within 24 hours.
 Request a quote
@@ -1346,7 +1346,7 @@ Our crew builds the system, tunes it to the empty room, sets the vocal microphon
 An engineer stays on the console through every set and changeover to the last song, then the rig comes out on schedule and every cable leaves with us.
 Service Area
 ## Live event production across the Dallas-Fort Worth Metroplex
-We work roughly a 40 mile radius from Hurst, which sits between Dallas and Fort Worth. If your venue is further out, ask anyway and we will tell you honestly whether it works.
+We work roughly a 40 mile radius from ZIP 76053, which sits between Dallas and Fort Worth. If your venue is further out, ask anyway and we will tell you honestly whether it works.
 ### Dallas
 Deep Ellum rooms, Design District spaces, Fair Park stages and downtown venues.
 ### Fort Worth
@@ -1437,7 +1437,7 @@ Yes, and it is mostly a planning job. We build the patch around the channels eve
 Can you do an outdoor concert or a festival stage?
 Yes. Outdoors the coverage has to come from placement and array design rather than from volume, so we plan the throw for where the crowd will stand, keep the level off the property line where a permit requires it, and confirm the power path and weather cover in the advance. Tell us the site and the expected head count and we will size the system for it.
 What areas around Dallas do you cover for live music events?
-The Dallas-Fort Worth Metroplex, roughly a 40 mile radius from Hurst, Texas. That includes Dallas, Fort Worth, Arlington, Denton, Irving, Plano, Frisco, Grapevine, Garland, Mesquite and the surrounding cities. If your venue is further out, ask anyway and we will tell you honestly whether it works.
+The Dallas-Fort Worth Metroplex, roughly a 40 mile radius from ZIP 76053. That includes Dallas, Fort Worth, Arlington, Denton, Irving, Plano, Frisco, Grapevine, Garland, Mesquite and the surrounding cities. If your venue is further out, ask anyway and we will tell you honestly whether it works.
 ## Tell us about the show. We'll bring the sound, the stage and the lights.
 Tell us about your event and you'll hear back from us today, with a straightforward quote within 24 hours.
 Request a quote
@@ -1584,7 +1584,7 @@ Step 04
 A technician stays with the system for the whole event, then the rig comes out on schedule and every cable leaves with us.
 Service Area
 ## Campus AV across the Dallas-Fort Worth Metroplex
-We work roughly a 40 mile radius from Hurst, which sits between Dallas and Fort Worth. If your campus is further out, ask anyway and we will tell you honestly whether it works.
+We work roughly a 40 mile radius from ZIP 76053, which sits between Dallas and Fort Worth. If your campus is further out, ask anyway and we will tell you honestly whether it works.
 ### Dallas
 University campuses, private schools and district event centers across the city.
 ### Fort Worth
@@ -1667,7 +1667,7 @@ Yes. Student ensembles, jazz bands, alumni acts and booked headliners all get a 
 What is included in a campus rental?
 Every campus rental is full service, so the gear is delivered, set up, tuned and operated by our crew and then loaded back out. Our crew delivers it, runs it and loads it back out. It is also why the quote is one number instead of a rental line plus a labor line.
 What areas around Dallas do you cover?
-The Dallas-Fort Worth Metroplex, roughly a 40 mile radius from Hurst, Texas. That includes Dallas, Fort Worth, Arlington, Denton, Irving, Plano, Frisco, Grapevine, Southlake, Garland, Mesquite and the surrounding cities. If your campus is further out, ask anyway and we will tell you honestly whether it works.
+The Dallas-Fort Worth Metroplex, roughly a 40 mile radius from ZIP 76053. That includes Dallas, Fort Worth, Arlington, Denton, Irving, Plano, Frisco, Grapevine, Southlake, Garland, Mesquite and the surrounding cities. If your campus is further out, ask anyway and we will tell you honestly whether it works.
 ## Tell us about the campus event. We'll bring the sound, the DJ and the lights.
 Tell us about your event and you'll hear back from us today, with a straightforward quote within 24 hours.
 Request a quote
@@ -1788,7 +1788,7 @@ Our crew rigs the system, tunes it to the empty room and adjusts once bodies are
 A technician holds the system through every changeover until the last record, then the whole rig comes out on schedule and every cable leaves with us.
 Service Area
 ## Rave and night club production across the Dallas-Fort Worth Metroplex
-We work roughly a 40 mile radius from Hurst, which sits between Dallas and Fort Worth. If your venue is further out, ask anyway and we will tell you honestly whether it works.
+We work roughly a 40 mile radius from ZIP 76053, which sits between Dallas and Fort Worth. If your venue is further out, ask anyway and we will tell you honestly whether it works.
 ### Dallas
 Deep Ellum rooms, Design District warehouses, Fair Park lots and downtown club spaces.
 ### Fort Worth
@@ -1837,7 +1837,7 @@ No. We are an event production company and everything we bring goes back out on 
 Can I book a private rave setup at a house or a rented hall?
 Yes, and it is a normal booking for us. The gear scales down to what the space and the power can take, so a back yard or a rented hall gets a real system, lighting, haze and a DJ at the size the room supports. Outdoors we aim the coverage inward and keep the level off the property line, which is usually what keeps a private rave running to its curfew.
 What areas around Dallas do you cover?
-The Dallas-Fort Worth Metroplex, roughly a 40 mile radius from Hurst, Texas. That includes Dallas, Fort Worth, Arlington, Irving, Denton, Plano, Frisco, Grapevine, Garland, Mesquite and the surrounding cities. If your venue is further out, ask anyway and we will tell you honestly whether it works.
+The Dallas-Fort Worth Metroplex, roughly a 40 mile radius from ZIP 76053. That includes Dallas, Fort Worth, Arlington, Irving, Denton, Plano, Frisco, Grapevine, Garland, Mesquite and the surrounding cities. If your venue is further out, ask anyway and we will tell you honestly whether it works.
 ## Tell us about the night. We'll bring the sound, the lights and the lasers.
 Tell us about your event and you'll hear back from us today, with a straightforward quote within 24 hours.
 Request a quote
@@ -1964,7 +1964,7 @@ Somebody is at the console the whole night. When the event ends we break the sys
 This page covers our sound services: the speakers, the subwoofers, the microphones and the engineer. We also do lighting , photo and video , DJ services and live streaming for private events, and any of it can go on the same quote. Ask for it and we will price it together.
 Service Area
 ## Luxury event sound services across Dallas-Fort Worth
-We deliver and run private event sound out of Hurst, between the two cities, and cover roughly forty miles in every direction. If your venue sits further out, ask anyway and we will tell you honestly whether it works.
+We deliver and run private event sound out of ZIP 76053, between the two cities, and cover roughly forty miles in every direction. If your venue sits further out, ask anyway and we will tell you honestly whether it works.
 Dallas
 Fort Worth
 Highland Park
@@ -1994,7 +1994,7 @@ Regularly. Homes, penthouses, private clubs, galleries, hotel suites and rooftop
 Can the same system handle speeches and then a dance floor?
 Yes, and that is how most private galas run. During dinner and the program the priority is intelligibility, so the panels and the feedback control carry the room. After the speeches the subwoofers come up and the same rig becomes a dance system, with no changeover happening in front of your guests.
 How far outside Dallas will you travel?
-Our service radius is roughly forty miles from Hurst, which covers Dallas, Fort Worth and most of the Metroplex including Highland Park, Southlake, Westlake, Plano, Frisco and Grapevine. If your venue sits outside that, ask anyway and we will tell you honestly whether it works.
+Our service radius is roughly forty miles from ZIP 76053, which covers Dallas, Fort Worth and most of the Metroplex including Highland Park, Southlake, Westlake, Plano, Frisco and Grapevine. If your venue sits outside that, ask anyway and we will tell you honestly whether it works.
 Next Step
 ## Tell us about your event and you'll hear back from us today, with a straightforward quote within 24 hours
 Give us the date, the venue and roughly how many people will be in the room, and mention whether you need an NDA. We will come back with a system sized for the space, the crew who will be in the building, and a price for the whole thing delivered, set up, tuned, run and struck.
@@ -2079,7 +2079,7 @@ Providing audio visual services in Dallas-Fort Worth since 2001
 1
 Company for the whole job. Audio, lighting, video and the crew to run it
 40 mi
-Service radius from our base in Hurst, between Dallas and Fort Worth
+Service radius from our base in ZIP 76053, between Dallas and Fort Worth
 COI
 Fully insured. Certificates sent straight to your venue
 Audio Visual Company Dallas · AV Services · Live Sound Services · Event Sound Services · Corporate Event Audio · Wireless Microphones · Line Array Systems · Sound Engineer On Site · Insured Since 2001 ·
@@ -2179,7 +2179,7 @@ Step 04
 When you book an engineer, they stay on the room for the event, riding levels and handling microphones. Otherwise we sound check with your DJ or mixing engineer and hand it off. Either way we pack everything out afterward.
 Areas We Serve
 ## Where we provide audio services
-We are based in Hurst, roughly halfway between Dallas and Fort Worth, and work within about forty miles of it. These are the cities we are in most weeks.
+We are based in ZIP 76053, roughly halfway between Dallas and Fort Worth, and work within about forty miles of it. These are the cities we are in most weeks.
 ### Dallas
 Downtown ballrooms, Design District warehouses, Deep Ellum venues and everything between.
 ### Fort Worth
@@ -2229,7 +2229,7 @@ Sometimes, and we will tell you honestly which case you are in. House systems in
 How far ahead should I book event sound services?
 For a Saturday in wedding season, two to six months is normal and the good dates go first. For corporate work a few weeks is usually fine. We do take short-notice bookings when the equipment and a crew are free, so it is always worth asking, even the same week. Send the date and we will tell you straight away whether we have it.
 What areas of Dallas-Fort Worth do you serve?
-The whole metroplex, roughly a forty-mile radius from our base in Hurst: Dallas, Fort Worth, Plano, Frisco, Arlington, Irving, Southlake, McKinney, Denton, Grapevine, Richardson, Garland and everywhere in between. If your venue is further out, ask anyway and we will tell you honestly whether it works.
+The whole metroplex, roughly a forty-mile radius from our base in ZIP 76053: Dallas, Fort Worth, Plano, Frisco, Arlington, Irving, Southlake, McKinney, Denton, Grapevine, Richardson, Garland and everywhere in between. If your venue is further out, ask anyway and we will tell you honestly whether it works.
 ## Tell us the date and the venue. We'll spec the audio.
 Tell us about your event and you'll hear back from us today, with a straightforward quote within 24 hours.
 Request a quote
@@ -2394,7 +2394,7 @@ Everything the company does on the sound side, including production work that go
 Uplighting, dance floor lighting, lasers, fog and haze, on the same booking and the same load-in as your audio.
 Areas We Serve
 ## Where we deliver
-We are based in Hurst, roughly halfway between Dallas and Fort Worth, and deliver within about forty miles of it. These are the cities we are in most weeks.
+We are based in ZIP 76053, roughly halfway between Dallas and Fort Worth, and deliver within about forty miles of it. These are the cities we are in most weeks.
 ### Dallas
 Downtown ballrooms, Design District warehouses, Deep Ellum venues and everything between.
 ### Fort Worth
@@ -2589,7 +2589,7 @@ Estates, tents and open ground where a pair of speakers on poles runs out fast.
 Riders, advance paperwork and a system that meets the spec that was sent over.
 Where we work
 ## PA system rental across the Dallas-Fort Worth metro
-If you are searching for PA system rental near me from anywhere inside the metro, you are inside our standard service area. We work roughly forty miles out from Hurst, which covers the cities below and everything between them. For larger productions we travel outside DFW, so ask about your date rather than assuming it is too far.
+If you are searching for PA system rental near me from anywhere inside the metro, you are inside our standard service area. We work roughly forty miles out from ZIP 76053, which covers the cities below and everything between them. For larger productions we travel outside DFW, so ask about your date rather than assuming it is too far.
 Dallas
 Fort Worth
 Arlington
@@ -2636,7 +2636,7 @@ Two DV12 a side is the top of the stack. With front fill and a delay position th
 When do I need a line array instead of a regular PA system?
 Below about 250 guests in a normal room, a good point source PA is the right tool and an array is more rig than the event needs. Above that, or outdoors, or in a long room with a balcony or hard surfaces, an array is what keeps every seat sounding the same.
 How far do you travel?
-The whole Dallas-Fort Worth metro is standard, which means Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Denton, McKinney and everything in between, roughly forty miles out from Hurst. We travel outside DFW for larger productions, so ask.
+The whole Dallas-Fort Worth metro is standard, which means Dallas, Fort Worth, Arlington, Plano, Frisco, Irving, Denton, McKinney and everything in between, roughly forty miles out from ZIP 76053. We travel outside DFW for larger productions, so ask.
 What happens if something fails during the event?
 Our engineer is there the whole time and we carry redundancy on the critical path, which means a spare cabinet and spare amp modules. Every DV12 has its amplification inside the box, so a swap takes minutes rather than a rack rebuild.
 ## Send us the venue and the head count.
@@ -2808,7 +2808,7 @@ DML500 flat panel speakers
 Subs only, tuned to your tops
 Service area
 ## Subwoofer rental near me: where we deliver across Dallas-Fort Worth
-We deliver, set up and run subwoofer rentals across roughly a forty mile radius of Hurst, which covers most of the Metroplex. If your venue is further out, ask anyway and we will tell you honestly whether it works for your date.
+We deliver, set up and run subwoofer rentals across roughly a forty mile radius of ZIP 76053, which covers most of the Metroplex. If your venue is further out, ask anyway and we will tell you honestly whether it works for your date.
 Dallas
 Fort Worth
 Arlington
@@ -2851,7 +2851,7 @@ It depends on guest count, music style, and whether the room is enclosed. As a r
 Do you deliver and set up subwoofer rentals in Dallas and Fort Worth?
 Yes. Every rental is full-service. We deliver, place and tune the rig, sound check it with your DJ or your mixing console, then come back after your event to strike and load out. Delivery, setup, tuning and pickup are all included rather than added.
 What areas do you serve around Dallas-Fort Worth?
-We commonly serve Dallas, Fort Worth, Arlington, Irving, Grapevine, Plano, Frisco, Richardson and Denton, within roughly a forty mile radius of Hurst. Outside that, ask about availability and we will tell you honestly whether it works for your date.
+We commonly serve Dallas, Fort Worth, Arlington, Irving, Grapevine, Plano, Frisco, Richardson and Denton, within roughly a forty mile radius of ZIP 76053. Outside that, ask about availability and we will tell you honestly whether it works for your date.
 What is included in a rental?
 Dallas Event Audio is a full-service company, so delivery, setup, a sound check with your audio source and pickup are part of every rental. That is also why the rig arrives tuned and working rather than as a pile of boxes.
 Can I rent subwoofers only and use my own tops or the venue PA?
@@ -3008,7 +3008,7 @@ Full system rental
 Matched to your boxes on site
 Service area
 ## DJ speaker rental near me: where we deliver across Dallas-Fort Worth
-We deliver, set up, sound check and collect DJ and party speaker rentals across roughly a forty mile radius of Hurst, which covers most of the Metroplex. If your venue is further out, ask anyway and we will tell you honestly whether it works for your date.
+We deliver, set up, sound check and collect DJ and party speaker rentals across roughly a forty mile radius of ZIP 76053, which covers most of the Metroplex. If your venue is further out, ask anyway and we will tell you honestly whether it works for your date.
 Dallas
 Fort Worth
 Arlington
@@ -3053,7 +3053,7 @@ Yes. Every rental is full-service. We deliver, place and cable the speakers, pow
 Does a technician stay for the whole event?
 On a DJ speaker rental your DJ runs the show. We deliver the speakers and subs, place them for the room, run the cabling, power up, set gain structure, tune the rig to the room and sound check it with your DJ, then we leave and come back after the gig to collect. Your DJ runs their own show on a system that is already working. If you would like an AV technician to stay and run the system, ask and we will add one to the quote.
 What areas do you serve around Dallas-Fort Worth?
-We commonly serve Dallas, Fort Worth, Arlington, Irving, Grapevine, Plano, Frisco, Richardson and Denton, within roughly a forty mile radius of Hurst. Outside that, ask about availability and we will tell you honestly whether it works for your date.
+We commonly serve Dallas, Fort Worth, Arlington, Irving, Grapevine, Plano, Frisco, Richardson and Denton, within roughly a forty mile radius of ZIP 76053. Outside that, ask about availability and we will tell you honestly whether it works for your date.
 What is included in a DJ speaker rental?
 No. Dallas Event Audio is a full-service company, so delivery, placement, tuning, the sound check and pickup are part of every rental. You never set up a speaker, carry a case or return anything, and the rig arrives working rather than as a pile of boxes and cables.
 Can I rent DJ speakers and use my own controller or mixer?
@@ -3183,7 +3183,7 @@ The full range of speakers, mixers, microphones and playback.
 For large rooms and outdoor events where a panel will not reach.
 Where We Work
 ## Flat panel speaker rental across the Dallas-Fort Worth Metroplex
-We work from Hurst, between Dallas and Fort Worth, and cover roughly a 40 mile radius. If your venue is further out, ask anyway and we will tell you honestly whether it works.
+We work from ZIP 76053, between Dallas and Fort Worth, and cover roughly a 40 mile radius. If your venue is further out, ask anyway and we will tell you honestly whether it works.
 Dallas
 Fort Worth
 Plano
@@ -3213,7 +3213,7 @@ It comes from the shape of the room and where people are sitting, not from the g
 What is included in a rental?
 We deliver, place, tune, sound check and collect. Delivery, setup, a sound check with your audio source and breakdown are included in every booking, and we handle the transport both ways. Panels are placed for coverage, cable is run and dressed clear of walkways, microphones are rung out before doors and the system is connected to your mixer or playback source. An AV technician can stay to ride levels if you'd like one. Every rental is fully insured and venues that need a certificate of insurance get one before load in.
 Do you rent flat panel speakers outside Dallas?
-We cover the whole Dallas-Fort Worth Metroplex, roughly a forty mile radius from our base in Hurst: Dallas, Fort Worth, Plano, Frisco, Arlington, Irving, Southlake, McKinney, Denton, Grapevine, Richardson and Garland among them. If your venue is further out, ask anyway. We take work beyond the radius when the schedule allows and we will tell you straight away whether yours is one of them.
+We cover the whole Dallas-Fort Worth Metroplex, roughly a forty mile radius from our base in ZIP 76053: Dallas, Fort Worth, Plano, Frisco, Arlington, Irving, Southlake, McKinney, Denton, Grapevine, Richardson and Garland among them. If your venue is further out, ask anyway. We take work beyond the radius when the schedule allows and we will tell you straight away whether yours is one of them.
 ## Send us the room and what is happening in it. We'll tell you what covers it.
 Tell us about your event and you'll hear back from us today, with a straightforward quote within 24 hours.
 Request a quote
@@ -3412,7 +3412,7 @@ Renting and delivering event equipment in Dallas-Fort Worth since 2001
 1
 Quote covers the gear, the delivery, the setup and the crew who test it
 40 mi
-Delivery radius from our warehouse in Hurst, between Dallas and Fort Worth
+Delivery radius from our warehouse in ZIP 76053, between Dallas and Fort Worth
 COI
 Fully insured. Certificates sent straight to your venue before load-in
 Equipment List · PA Speaker Rental · Subwoofer Rental · Line Array · Wireless Microphones · DJ Equipment Rental · Uplighting · Projection · Fog And Haze · Delivered And Tested ·
@@ -3591,7 +3591,7 @@ We build every package custom, and this list is what we own rather than the limi
 FAQ
 ## Equipment list questions
 Can I rent one item from the equipment list on its own?
-No. Everything on this list goes out as part of a production package that includes delivery, setup, tuning and strike afterward, with an operator for the event on the services that call for one. That is because placement, gain structure and a line check in the room are what decide whether a room sounds right, and none of that arrives in a road case. If you need a single item for an afternoon, tell us and we will point you toward a company that rents over a counter.
+CDJs and DJ mixers are the exception, and they rent on their own: delivered, set up and sound checked with your DJ, then picked up after the event. Everything else on this list goes out as part of a package that includes delivery, setup, testing and pickup, with an operator on the services that call for one, because a single microphone or light rarely justifies a delivery and a setup by itself. Tell us about the event and we will put together the smallest package that covers it.
 What is included in a rental?
 Delivery, setup, tuning and collection are included. We deliver to the venue, build the system inside the load-in window, tune it to the room, test it and take it away afterward, and a technician runs it for the event on the services that call for one. Your team does not touch a cable at any point in that.
 Why are there no quantities on this equipment list?
@@ -3603,7 +3603,7 @@ No. We do not carry inflatable screens or outdoor movie screens in any size. Our
 What if the equipment I need is not on this list?
 Ask anyway. This list is what we own, and we regularly bring in staging, backline and specialty items through vendors we have worked with for years, quoted and run as part of the same production. If it is genuinely outside what we do, we will say so today rather than let you wait on it.
 Do you deliver across Dallas-Fort Worth?
-Yes. We are based in Hurst, roughly halfway between Dallas and Fort Worth, and work within about forty miles of it: Dallas, Fort Worth, Plano, Frisco, Arlington, Irving, Southlake, McKinney, Denton, Grapevine, Richardson, Garland and everywhere in between. If your venue is further out, ask anyway and we will tell you honestly whether it works.
+Yes. We are based in ZIP 76053, roughly halfway between Dallas and Fort Worth, and work within about forty miles of it: Dallas, Fort Worth, Plano, Frisco, Arlington, Irving, Southlake, McKinney, Denton, Grapevine, Richardson, Garland and everywhere in between. If your venue is further out, ask anyway and we will tell you honestly whether it works.
 Is an operator included with the equipment?
 Yes, on the services that call for one (DJ, live sound, corporate and streaming) and whenever you ask. A technician builds the system, line-checks it, sets the microphone levels and stays on it for the event, handling levels, music, microphone changes and the handoffs between segments. For larger events we add a monitor engineer, a stage hand and a lighting operator. When your own DJ or engineer is running it, we sound check the system with them and pick it up after the event. When a technician stays, the person who tuned the system in the afternoon is the person behind it in the evening.
 ## Tell us the room and the date. We'll spec the gear.
@@ -4611,11 +4611,11 @@ Two rounds of changes are normal, and the timeline is comfortable as long as we 
 A technician places the projector, aims it, focuses the edges and tests the design against the room light, and our crew picks it up after the event. For a more complex lighting setup, a lighting engineer can stay through the event as an option.
 Coverage
 ## Monogram projector rental across Dallas-Fort Worth
-Roughly forty miles from Hurst, which puts most of the Metroplex inside the delivery radius.
+Roughly forty miles from ZIP 76053, which puts most of the Metroplex inside the delivery radius.
 ### Dallas side
 Dallas, Plano, Frisco, McKinney, Allen, Richardson, Addison, Irving, Las Colinas and the Design District. Downtown venues with loading-dock rules are a normal week for us.
 ### Fort Worth side
-Fort Worth, Arlington, Grapevine, Southlake, Colleyville, Keller, Hurst, Euless, Bedford, Mansfield and Weatherford. Our shop is in Hurst, so this half is close in.
+Fort Worth, Arlington, Grapevine, Southlake, Colleyville, Keller, Hurst, Euless, Bedford, Mansfield and Weatherford. Our shop is in ZIP 76053, so this half is close in.
 ### Further out
 Denton, Waxahachie, Granbury, Corsicana and the hill-country ranch venues past them. If your venue is further out, ask anyway and we will tell you honestly whether it works.
 We have been putting lighting and audio in these rooms since 2001, which is usually the difference on a monogram: knowing before we arrive which wall in a given venue takes a projected design and which one has a sconce in the middle of it. There are real DFW events we've run in the photo gallery if you want to see the rooms.
@@ -4638,7 +4638,7 @@ Yes. Corporate logo projection is the same service with a different file. We pro
 Do you set the monogram projector up, or do we?
 We set it up. A technician brings the projector, the stand or clamp and the cable, places the fixture where the beam is clean, focuses the design and tests it against the room light, and our crew picks it up after the event. A technician handles every part of it, from the proof to the focus.
 What areas of Dallas-Fort Worth do you cover?
-We cover roughly forty miles from Hurst, which takes in Dallas, Fort Worth, Arlington, Irving, Plano, Frisco, McKinney, Denton, Grapevine, Southlake and the venues in between. If your venue is further out, ask anyway and we will tell you honestly whether it works.
+We cover roughly forty miles from ZIP 76053, which takes in Dallas, Fort Worth, Arlington, Irving, Plano, Frisco, McKinney, Denton, Grapevine, Southlake and the venues in between. If your venue is further out, ask anyway and we will tell you honestly whether it works.
 ## Tell us the venue and the wall.
 Tell us about your event and you'll hear back from us today, with a straightforward quote within 24 hours. Include your date, your venue and your names or your logo, and the proof can be in your inbox the same week.
 Request a quote
@@ -5341,7 +5341,7 @@ We confirm the effect with the venue, and where one is involved, with the alarm 
 ### Full insurance
 We are insured and can provide a certificate naming your venue. Most Dallas-Fort Worth venues ask for one, and several require it before a fog effect comes through the door.
 ### Since 2001, across the Metroplex
-We are based in Hurst and work roughly forty miles out across Dallas-Fort Worth. We have run this effect in most of the ballrooms and barns you are likely to be looking at.
+We are based in ZIP 76053 and work roughly forty miles out across Dallas-Fort Worth. We have run this effect in most of the ballrooms and barns you are likely to be looking at.
 What that adds up to on the day is this: our technician is there to handle the machine, track the timing and manage the ice, and everyone in your party is free to watch the dance floor. That is the whole service.
 Questions we get every week
 ## Dry ice and low lying fog, answered
@@ -5973,7 +5973,7 @@ When microphones are part of the setup they go out with our AI-powered De-Feedba
 For rooms that suit a display better than a projected image, we can talk you through whether a large flat panel display would serve you better than a projector and screen, and we also rent flat panel audio for the sound side of those rooms. Small rooms with high ambient light sometimes fall on that side of the line, and we will say so.
 Where we work
 ## Projector rental for events across Dallas-Fort Worth
-We deliver projector and screen rentals to hotels, wedding venues, corporate campuses, churches, schools and event spaces inside roughly a forty mile radius of Hurst.
+We deliver projector and screen rentals to hotels, wedding venues, corporate campuses, churches, schools and event spaces inside roughly a forty mile radius of ZIP 76053.
 Dallas
 Fort Worth
 Plano
@@ -6344,7 +6344,7 @@ The switcher, the encoding laptop, the console and the cameras all need clean, u
 We need the load-in window to include a real test, the stream going live to your platform, checked from a second device outside the building, with a microphone open and somebody listening. Building the rig is the quick part. Confirming that what leaves the room arrives at the other end takes the rest of the window, and we plan the schedule around it.
 Service Area
 ## Where we stream
-We work across Dallas-Fort Worth, roughly forty miles out from our base in Hurst, which puts most of the metroplex comfortably inside the radius.
+We work across Dallas-Fort Worth, roughly forty miles out from our base in ZIP 76053, which puts most of the metroplex comfortably inside the radius.
 ### Dallas
 Downtown hotel ballrooms, Design District spaces and corporate conference centers.
 ### Fort Worth
@@ -6398,7 +6398,7 @@ Yes. Ceremony audio is the hardest audio at any event, two people speaking quiet
 How much do live streaming services cost in Dallas?
 Every quote is written for the job, because a one-camera briefing in a hotel meeting room and a four-camera awards night with breakout audio are different work and any range wide enough to cover both would be useless to you. What moves the number is the camera count, how many hours the crew is on site, how much microphone coverage the room needs and whether we are also running the sound for the live audience. Send us the date and the venue and you will get a real quote back within 24 hours.
 How far do you travel?
-We are based in Hurst, between Dallas and Fort Worth, and cover roughly a forty-mile radius as standard, which takes in almost all of the metroplex. Events further out are usually still possible, ask, and we will tell you plainly whether it works.
+We are based in ZIP 76053, between Dallas and Fort Worth, and cover roughly a forty-mile radius as standard, which takes in almost all of the metroplex. Events further out are usually still possible, ask, and we will tell you plainly whether it works.
 ## Tell us the date, the venue and the platform. We’ll spec the stream.
 The date, the room, roughly how many people are in it and where the stream needs to go is enough to get a real quote back, with the cameras, the switcher, the audio and the technician already in the number. Tell us about your event and you’ll hear back from us today, with a straightforward quote within 24 hours.
 Get Your Quote
@@ -6520,7 +6520,7 @@ Yes. The stream and the local recording run at the same time from the same rig, 
 Do you shoot photography as well?
 Yes. Our Sony A7 cameras shoot full frame stills and 4K video, and the same crew runs both, so your event photographer in Dallas-Fort Worth and your video crew are the same people, and the photographs and the video are booked and quoted as one event. The still positions and the camera angles are planned together when we lay out the room, so both stay clear of each other’s shots.
 Do you cover events outside Dallas?
-We cover the Dallas-Fort Worth Metroplex, roughly a 40 mile radius from Hurst, Texas. That includes Dallas, Fort Worth, Plano, Frisco, Arlington, Irving, McKinney, Denton, Grapevine, Southlake and the surrounding cities. If your venue is further out, ask anyway and we will tell you honestly whether it works.
+We cover the Dallas-Fort Worth Metroplex, roughly a 40 mile radius from ZIP 76053. That includes Dallas, Fort Worth, Plano, Frisco, Arlington, Irving, McKinney, Denton, Grapevine, Southlake and the surrounding cities. If your venue is further out, ask anyway and we will tell you honestly whether it works.
 What do we get after the event?
 The live switched program, the isolated file from each camera and the audio track from the console. Tell us up front what the footage is for, whether that is a highlight edit, internal training, a sponsor deliverable or a recap posted the next morning, and we spec the camera positions and the recording format around that.
 Can you record a conference with several rooms running at once?
@@ -6955,11 +6955,11 @@ Call or Text 817-210-7957
 
 Page: About Dallas Event Audio | DFW AV Company Since 2001
 URL: https://www.dallaseventaudio.com/our-story
-Summary: Dallas Event Audio is a full service event company in Hurst, TX. We own the sound, lighting and DJ equipment we send out and have run DFW events since 2001.
+Summary: Dallas Event Audio is a full service event company in ZIP 76053. We own the sound, lighting and DJ equipment we send out and have run DFW events since 2001.
 
 Home / Our Story
 # About Dallas Event Audio: the crew behind the sound since 2001.
-We are a full service event production company in Hurst, Texas, between Dallas and Fort Worth. We own the sound, lighting and DJ equipment we send out, we deliver, set up, test and pick up all of it ourselves, with a technician on site for the services that call for one, and we have been in business since 2001. This is the short version of our story and how the work gets done.
+We are a full service event production company in ZIP 76053, between Dallas and Fort Worth. We own the sound, lighting and DJ equipment we send out, we deliver, set up, test and pick up all of it ourselves, with a technician on site for the services that call for one, and we have been in business since 2001. This is the short version of our story and how the work gets done.
 2001
 In business since 2001, insured every year since
 40 mi
@@ -6968,7 +6968,7 @@ Service radius from the Mid-Cities (76053), covering most of the Dallas-Fort Wor
 One crew for audio, lighting and DJ, loading in together on one phone number
 100%
 Full service rental only. We deliver, set up, tune, test and strike every system
-Dallas Event Audio · Since 2001 · Hurst, Texas · Sound · Lighting · DJ · Photo & Video · Full Service Rental ·
+Dallas Event Audio · Since 2001 · ZIP 76053 · Sound · Lighting · DJ · Photo & Video · Full Service Rental ·
 The Short Version
 ## An event company that owns its own gear and delivers it
 The story of Dallas Event Audio starts in 2001 with a pair of 15 inch Mackie subwoofers, a set of JBL JRX200 speakers and a Crown I-Tech amplifier. I swapped the compression drivers for Selenium D220Ti units, which made the whole rig sound better than it had any right to, and my DJ friends and live band friends rented that setup for years of events. It paid for the next step: BassBoss SSP118 subwoofers under Yamaha DZR12 speakers, a combination that still makes me smile.
@@ -7004,7 +7004,7 @@ At the end of the night we coil, pack and load out. The returning is ours, and t
 Every piece of equipment we own is for rental. It has been rentals from the start, and today every rental is white glove and turnkey: we deliver, set up, tune, test and strike the system with our own crew, and a technician stays to run it for the services that call for one. That is the only way to promise that the gear in your room sounds the way it did in our shop and that the night runs the way it was planned. If you want to see the inventory before you ask for a quote, the equipment list is public.
 What We Own
 ## Four departments, one crew, one invoice
-Most events need more than one of these, and booking them from one company is how load in days go smoothly. Everything below comes off the same trucks, from the same warehouse in Hurst.
+Most events need more than one of these, and booking them from one company is how load in days go smoothly. Everything below comes off the same trucks, from the same warehouse in ZIP 76053.
 Department 01
 ### Sound
 Speakers, subwoofers, wireless microphones, consoles and the cable that ties them together. Our inventory includes Flat Panel Audio DML500 panels, BassBoss subwoofers, Yamaha DZR and EV powered speakers, and Shure wireless microphone systems. Every microphone package ships with AI-powered De-Feedback, which is why your cocktail hour is ours to set up rather than to ring out.
@@ -7041,8 +7041,8 @@ Campus events run on a tight schedule with a tighter budget and a lot of people 
 The one category where the system gets pushed for six hours straight. Headroom, subwoofer count and thermal margin are the whole conversation, and the lighting and laser rig has to survive the same night. See rave and night club events .
 Service Area
 ## Based in Hurst, working across Dallas-Fort Worth
-We're based in Hurst, which sits between Dallas and Fort Worth. That was the plan. It puts a loaded truck inside forty minutes of most of the Metroplex, and it means a second run for a late addition is a short drive.
-Our normal service radius is about forty miles from Hurst. That covers Dallas, Fort Worth, Arlington, Southlake, Grapevine, Plano, Frisco, McKinney, Richardson, Irving, Denton and most of the venues in between. If your venue sits outside that, ask anyway and we will tell you honestly whether it works.
+We're based in ZIP 76053, which sits between Dallas and Fort Worth. That was the plan. It puts a loaded truck inside forty minutes of most of the Metroplex, and it means a second run for a late addition is a short drive.
+Our normal service radius is about forty miles from ZIP 76053. That covers Dallas, Fort Worth, Arlington, Southlake, Grapevine, Plano, Frisco, McKinney, Richardson, Irving, Denton and most of the venues in between. If your venue sits outside that, ask anyway and we will tell you honestly whether it works.
 We're insured and we have been every year we have been in business, so most venues in the area already have our certificate on file. If yours needs one made out a particular way, send us the requirements with the booking and we will have it back the same day.
 ### Since 2001
 Twenty five years of events in the same market, under the same name, with the same phone number.
@@ -7057,13 +7057,13 @@ Straight Answers
 How long has Dallas Event Audio been in business?
 Since 2001. We have been running event sound, lighting and DJ services across the Dallas-Fort Worth Metroplex under the same name for twenty five years, and we have carried insurance every one of those years.
 Where are you based and how far do you travel?
-We're based in Hurst, Texas, between Dallas and Fort Worth. Our normal service radius is roughly forty miles from Hurst, which covers Dallas, Fort Worth, Arlington, Southlake, Grapevine, Plano, Frisco, McKinney and most of the Metroplex. If your venue is further out, ask anyway and we will tell you honestly whether it works.
+We're based in ZIP 76053, between Dallas and Fort Worth. Our normal service radius is roughly forty miles from ZIP 76053, which covers Dallas, Fort Worth, Arlington, Southlake, Grapevine, Plano, Frisco, McKinney and most of the Metroplex. If your venue is further out, ask anyway and we will tell you honestly whether it works.
 What is included in a rental?
 Everything. Every rental is full service, which means we deliver the equipment, set it up, make the connections, tune the system to the room, test it and strike it afterward. We deliver, set up and collect every rental ourselves. A technician from our crew stays to run it for the services that call for one, such as DJ, live sound, corporate and live streaming, and whenever you ask.
 Do you sell equipment?
 Every piece of equipment we own is for rental. Dallas Event Audio started by hosting events on its own gear and renting it out to other people in the trade, and everything we offer today is a full service rental with our crew attached to it, which is the only way we can stand behind how the system sounds in your room.
 Do you own your equipment or sub rent it?
-We own it. The speakers, subwoofers, microphones, consoles, lighting and DJ equipment in a normal booking all come out of our own warehouse in Hurst. On the rare item a client asks for that sits outside our inventory, we say so up front.
+We own it. The speakers, subwoofers, microphones, consoles, lighting and DJ equipment in a normal booking all come out of our own warehouse in ZIP 76053. On the rare item a client asks for that sits outside our inventory, we say so up front.
 Are you a DJ company or a sound company?
 Both, and that is the point. We're an event production company that also DJs. The person on the decks and the speakers behind them come from the same crew, they load in together, and you have one number to call. It keeps the two halves of the night on one team.
 What kinds of events do you work on?
@@ -7208,7 +7208,7 @@ Photographing our own DFW events since 2001
 7
 Seven categories, so you can go straight to the work that looks like your event
 40 mi
-Every photo shot inside 40 miles of Hurst, between Dallas and Fort Worth
+Every photo shot inside 40 miles of ZIP 76053, between Dallas and Fort Worth
 Full
 Full service jobs only: delivered, set up, tested and picked up by our crew
 Photo Gallery · Real DFW Events · Wedding Uplighting · Corporate Stages · Fog & Clouds · Laser Light Shows · Sound Systems · Dallas-Fort Worth ·
@@ -7345,9 +7345,9 @@ The color will, and the effect usually will, though the room decides how much of
 Can I bring one of these photos to you and ask for that setup?
 That is the fastest way to book. Send the photo with your date and venue and we will tell you what is in it, what it takes to reproduce in your room and what it costs to run. It saves a lot of back and forth compared with describing an effect in words.
 Do you rent this equipment out without a crew?
-No. Everything in these photos was delivered, set up, tested and collected by our own crew, and that is the only way we work. Our crew delivers every system, sets it up and takes it away again, and a technician stays to run it for the services that call for one. Every booking is a full service rental.
+Everything in these photos was delivered, set up, tested and collected by our own crew, and a technician stays to run it for the services that call for one. CDJs and DJ mixers rent on their own, delivered and sound checked with your DJ. Everything else goes out as part of a package, because a single microphone or light rarely justifies a delivery and a setup by itself.
 What part of Dallas-Fort Worth do you cover?
-Roughly a 40 mile radius from Hurst, Texas, which sits between Dallas and Fort Worth. That covers Dallas, Fort Worth, Arlington, Irving, Plano, Frisco, Denton, Grapevine, Garland, Mesquite and the cities around them. If your venue is further out, ask anyway and we will tell you honestly whether it works.
+Roughly a 40 mile radius from ZIP 76053, which sits between Dallas and Fort Worth. That covers Dallas, Fort Worth, Arlington, Irving, Plano, Frisco, Denton, Grapevine, Garland, Mesquite and the cities around them. If your venue is further out, ask anyway and we will tell you honestly whether it works.
 ## See something you want at your event? Tell us the date and the venue.
 Tell us about your event and you'll hear back from us today, with a straightforward quote within 24 hours.
 Request a quote
@@ -8943,7 +8943,7 @@ If you're looking for professional AV rental in Dallas , TX, look no further tha
 ## Bringing Your Event to Life with Professional AV Services
 A successful event is one that leaves your audience inspired, entertained, and connected. High-quality and professional AV services are at the heart of planning the perfect event.
 From understanding your AV needs and selecting the right equipment to incorporating the latest technology trends and choosing an expert AV partner, integrating professional AV services ensures your event leaves a lasting legacy.
-Dallas Event Audio has been running rooms like this across Dallas-Fort Worth since 2001. We are insured, we cover about forty miles out from Hurst, and everything we send is delivered, set up, tested and picked up by our crew, with an on-site technician for the services that call for it. Tell us about your gala and we'll send you a straightforward quote within 24 hours.
+Dallas Event Audio has been running rooms like this across Dallas-Fort Worth since 2001. We are insured, we cover about forty miles out from ZIP 76053, and everything we send is delivered, set up, tested and picked up by our crew, with an on-site technician for the services that call for it. Tell us about your gala and we'll send you a straightforward quote within 24 hours.
 Dallas Event Audio runs sound, lighting, video and special effects across Dallas-Fort Worth, delivered, set up, tested and picked up by our own crew. Read more from the blog or tell us about your event .
 ## Tell us what you’re planning and we’ll tell you what it takes.
 Your date, your venue and what the room has to do. That is enough for us to give you a straight answer.
