@@ -9,6 +9,19 @@
   "triggers": {
     "crons": ["0 12 * * *"]
   },
+  // Logs switched on in the dashboard on 27 Sep 2026; mirrored here so a
+  // wrangler deploy keeps them on.
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "invocation_logs": true,
+      "persist": true
+    },
+    "traces": {
+      "enabled": false
+    }
+  },
   "vars": {
     "ALLOWED_ORIGINS": "https://www.dallaseventaudio.com,https://dallaseventaudio.com,https://dallaseventaudio.pages.dev",
     "DAILY_CAP": "400",

@@ -301,6 +301,33 @@ September). The WHAT EACH PAGE SAYS summaries in prompt.js still carry the
 old "technician on every booking" wording from the pages; regenerate them
 after the site-wide staffing pass. Tests: npm test (7).
 
+Done 27 September (bundle 69): the site-wide staffing pass, on Steve's
+page-by-page answers of 27 September (kept in the bundle message). Speaker,
+subwoofer, DV12, DML500 and CDJ rentals are delivered, sound checked with the
+client's source and picked up; fog and haze are placed and tested for the
+DJ or planner to cue (Dancing on the Clouds is the one we run); uplighting,
+DJ lighting, monogram, projector and TV are set up, tested and picked up,
+with a technician or lighting engineer on request; sound equipment and audio
+services carry a tech on request, recommended for complex setups; weddings
+say DJ packages include the DJ, ceremony-only includes a one hour ceremony
+audio engineer, and traveling DJs and bands get setup, sound check and
+pickup after the send off. Corporate, line array, luxury, rave and club,
+college, sensory-friendly, live music, streaming, photo and video, cold
+sparks, clouds, lasers and follow spot keep the technician. The footer line
+on 82 pages and the post-foot line on 37 posts changed to "delivered, set
+up, tested and picked up by our own crew". Keyword pass from the 12-month
+Search Console export: corporate AV services and corporate audio visual
+services (corporate-events title, H1, H2s), Dallas event videographer
+(services-photo-and-video title and H1), an audio equipment and sound system
+rental section on rent-sound-equipment, "Rent sound equipment for your
+wedding" on wedding-av-rental-dallas, "Rent DJ equipment for a wedding" on
+the CDJ page, AV rental wording on the homepage. Stat rows now say "Service
+radius from the Mid-Cities (76053)". Three old Wix post URLs 301 to their
+new homes. llms.txt carries a key facts list and links a generated
+llms-full.txt (tools/build_llms.py writes both). prompt.js v6 regenerates
+WHAT EACH PAGE SAYS. wrangler.jsonc now mirrors the dashboard's logs
+setting. Deploy the Worker after pushing.
+
 ## The story pass (standing queue, started 8 September 2026)
 
 The copy gates are clean site-wide. What keeps a reader on a page is
