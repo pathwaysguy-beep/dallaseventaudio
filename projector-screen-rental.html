@@ -306,6 +306,13 @@ html{ scroll-behavior:auto; }
 .marquee-track{ animation:none; }
 .grain-overlay{ display:none; }
 }
+  .vid-lead{ position:relative; width:100%; aspect-ratio:16/9; margin:44px 0 6px;
+    border-radius:18px; overflow:hidden; border:1px solid var(--card-border); background:var(--bg-2); }
+  .vid-lead .vid{ display:block; width:100%; height:100%; object-fit:cover; background:var(--bg-2); }
+  @media (max-width:780px){
+    .vid-lead{ aspect-ratio:9/16; max-width:460px; margin-left:auto; margin-right:auto; border-radius:14px; }
+  }
+  @media (prefers-reduced-motion: reduce){ .vid-lead .vid{ display:none; } }
 </style>
   <title>Projector and Screen Rental Dallas | Dallas Event Audio</title>
   <meta name="description" content="Projector and screen rental in Dallas-Fort Worth. Laser projectors and matched screens delivered, set up and tuned for your room. Request a quote today.">
@@ -1632,6 +1639,46 @@ body.calm #chatPanel{ display:none; }
           <span class="visually-hidden">A projector and ambient light rejecting screen running video for a seated audience at a Dallas private event.</span>
         </div>
       </div>
+      <div class="vid-lead" data-reveal>
+        <video class="vid" id="projClip" playsinline muted loop autoplay preload="none"
+               poster="/images/projector-screen-ust-alr-explainer-dallas-poster.jpg"
+               data-landscape="/videos/projector-screen-ust-alr-explainer-dallas"
+               data-portrait="/videos/projector-screen-ust-alr-explainer-dallas-vertical"
+               data-poster-landscape="/images/projector-screen-ust-alr-explainer-dallas-poster.jpg"
+               data-poster-portrait="/images/projector-screen-ust-alr-explainer-dallas-vertical-poster.jpg"
+               aria-label="Animation of our projector setup: an ultra short throw projector a few inches from the screen, a 3-chip LCD making 4,000 color lumens, an ambient light rejecting screen holding contrast under house lights, and a matte white screen seen from every seat with the lights dimmed"></video>
+      </div>
+      <script>
+      /* Two cuts of the same piece, picked by width before anything loads, and
+         attached only when the clip is one viewport away. */
+      (function () {
+        var v = document.getElementById('projClip');
+        if (!v) return;
+        var mq = window.matchMedia('(max-width: 780px)');
+        var live = false;
+        function pick() {
+          var base = v.getAttribute(mq.matches ? 'data-portrait' : 'data-landscape');
+          v.setAttribute('poster', v.getAttribute(mq.matches ? 'data-poster-portrait' : 'data-poster-landscape'));
+          if (!live) return;
+          while (v.firstChild) v.removeChild(v.firstChild);
+          [['webm', 'video/webm'], ['mp4', 'video/mp4']].forEach(function (k) {
+            var s = document.createElement('source');
+            s.src = base + '.' + k[0]; s.type = k[1]; v.appendChild(s);
+          });
+          v.load();
+          var pr = v.play(); if (pr && pr.catch) pr.catch(function () {});
+        }
+        pick();
+        if (mq.addEventListener) mq.addEventListener('change', pick);
+        else if (mq.addListener) mq.addListener(pick);
+        function go() { if (live) return; live = true; pick(); }
+        if (!('IntersectionObserver' in window)) { go(); return; }
+        var io = new IntersectionObserver(function (e) {
+          if (e[0].isIntersecting) { go(); io.disconnect(); }
+        }, { rootMargin: '100% 0px' });
+        io.observe(v);
+      })();
+      </script>
     </div>
   </section>
 
