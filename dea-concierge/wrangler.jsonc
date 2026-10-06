@@ -25,8 +25,8 @@
   "vars": {
     "ALLOWED_ORIGINS": "https://www.dallaseventaudio.com,https://dallaseventaudio.com,https://dallaseventaudio.pages.dev",
     "DAILY_CAP": "400",
-    "LEAD_FROM": "onboarding@resend.dev",
-    "LEAD_TO": "pathwaysguy@gmail.com",
+    "LEAD_FROM": "concierge@dallaseventaudio.com",
+    "LEAD_TO": "steve@dallaseventaudio.com",
     "MODEL": "claude-sonnet-4-5",
     "DIGEST_MODEL": "claude-opus-5-5"
   },
