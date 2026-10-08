@@ -94,9 +94,8 @@ function validateHistory(raw) {
 }
 __name(validateHistory, "validateHistory");
 function hasUsableContact(lead) {
-  const name = String(lead.name || "").trim();
   const contact = String(lead.contact || "").trim();
-  if (!name || !contact) return false;
+  if (!contact) return false;
   const looksEmail = extractEmail(contact) !== null;
   const digits = (contact.match(/\d/g) || []).length;
   return looksEmail || digits >= 7;
