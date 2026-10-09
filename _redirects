@@ -115,3 +115,12 @@
 /post/de-feedback-for-live-events/  /post/what-is-de-feedback-for-live-events  301
 /post/how-many-speakers-for-100-200-or-500-guests  /post/how-many-speakers-do-i-need-for-100-200-or-500-guests  301
 /post/how-many-speakers-for-100-200-or-500-guests/  /post/how-many-speakers-do-i-need-for-100-200-or-500-guests  301
+
+# ── Retired services ──────────────────────────────────────────────────────
+# Cold sparks retired 9 Oct 2026 (Steve's call: permits take weeks and a
+# fire marshal shutdown is out of our hands). The page had a few impressions
+# a month and no conversions; its searches are for special effects, so it
+# goes to the effects page, which covers CO2, lasers, fog and the clouds.
+/rent-cold-sparks       /services-extra  301
+/rent-cold-sparks/      /services-extra  301
+/rent-cold-sparks.html  /services-extra  301
