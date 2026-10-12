@@ -1,9 +1,13 @@
 # Read me first: where the rebuild stands, and how to pick it up cold
 
-Written 7 September 2026 so that any new session, on any machine, can resume
-without the chat that got us here. Everything that matters lives in one of
-three places: this repo, the nine `dea-*` skills saved in Steve's Claude
-account, and the Cloudflare account. Nothing important lives only in a chat.
+Written 7 September 2026 and brought up to date on 12 October 2026 (bundle 76)
+so that any new session, on any machine, can resume without the chat that got
+us here. Everything that matters lives in one of
+three places: this repo, the `dea-*` skills saved in Steve's Claude account
+(eleven of them as of 12 October), and the Cloudflare account. The private
+side (leads, analytics figures, the open to-do list) lives in the "Dallas Event
+Audio" project in Steve's Claude account, in its DEA status file, because this
+repo is public. Nothing important lives only in a chat.
 
 ## The shape of the project
 
@@ -21,8 +25,11 @@ as the DNS switch. The live site is still Wix until that day.
 
 Claude works in a cloud sandbox and cannot push. Every change ships as a
 numbered zip (`dea-bundleNN.zip`) holding an `apply.sh` and a `payload/`.
-Steve unzips it in `~/Downloads` on the Mac, runs `bash bundleNN/apply.sh`,
-then `cd ~/dallaseventaudio && git push`. The script checks the repo is at
+Steve unzips it in `~/Downloads` on the MacBook, runs `bash bundleNN/apply.sh`,
+then `cd ~/dallaseventaudio && git push`. He also works from a Windows desktop
+in PowerShell, where the bundle's `files/` folder is copied in with robocopy
+and committed by hand (`npm.cmd` and `npx.cmd` there, never the bare names).
+Ask which computer he is on before sending any commands. The script checks the repo is at
 the commit the bundle was built against, copies the payload in, and commits
 with a message that explains the change. The full protocol, including the
 mistakes it exists to prevent, is the `dea-ship` skill.
@@ -34,7 +41,8 @@ older one is declared dead in the message.
 
 ## The gates every change passes
 
-- `python3 tools/sync_chrome.py --check` must print `0 of 79 files drifted`.
+- `python3 tools/sync_chrome.py --check` must print `0 of N files drifted`
+  (82 as of 12 October 2026).
   The header, nav drawer, palette dock, fonts, analytics, widget and shared
   CSS are fragments in `tools/chrome/` and this script stamps them into every
   page. Page-local scripts go above the `<!-- chrome-sync:js -->` marker.
@@ -337,6 +345,70 @@ technician. The single-item FAQs on equipment-list and gallery now say CDJs
 and DJ mixers rent on their own, and everything else goes out as part of a
 package.
 
+Bundles 66 to 68 (26 September): the homepage production reel replaced the
+photo and video placeholder (66); a gig post, a daytime country club wedding
+in McKinney (67); a projector and screen explainer on the projector rental
+page (68).
+
+Bundle 72 (5 October): the business is named in the opening line of 18
+service pages; The Knot, WeddingWire, YouTube and Instagram joined the
+business profile links (`sameAs`); ChatGPT, Claude and Perplexity search
+agents are allowed by name in robots.txt; chat leads now go from concierge@
+to steve@ (wrangler.jsonc). Bundle 73 (5 October) added Facebook and
+LinkedIn to the same profile links. The LinkedIn company page is id
+112493261, administered from steve@dallaseventaudio.com.
+
+Bundle 74 (7 October): concierge prompt v7. The bot asks for contact details
+once, as the last step, and a phone number or an email alone counts as a lead
+(`hasUsableContact` no longer needs a name). It never corrects a client's
+model names. It names the DJ inventory when it fits (XDJ-RX3, XDJ-AZ,
+CDJ-3000s, DJM-900NXS2, DJM-A9, DDJ-FLX6), says quotes come "within 24
+hours" and never "today" or "same day", and handles insurance in one line:
+DEA is insured and provides a certificate of insurance to any venue that
+requires one; it never says rentals include insurance for the client or who
+is responsible for the gear. Generators are in the power inventory. The
+privacy page and the McKinney post now say "within 24 hours".
+
+Bundle 75 (9 October): cold sparks are retired, on Steve's decision after a
+fire marshal shut down a client's cold spark setup that ignored the floor
+plan; permits take weeks and the risk is not worth it. `/rent-cold-sparks`
+301s to `/services-extra` (all three URL forms) and the page is gone from the
+header, drawer, footer, sitemap, `_pages.json`, `build_llms.py` and every
+in-body mention, including the platinum wedding package. Where a page offered
+sparks for an entrance or a first dance it now offers a CO2 burst and Dancing
+on the Clouds. `/services-extra` reads "CO2 cannons, lasers, fog and
+clouds." Concierge prompt v8 never opens with "No": it says DEA does not
+offer cold sparks and leads with CO2 for an entrance and the clouds for a
+first dance. The one client testimonial that mentions cold sparks on
+`/what-others-are-saying` stays, because it is the client's own words.
+
+## Where things stand on 12 October 2026
+
+Origin is at bundle 75 (610f625). The next bundle number is 77; 76 is this
+update to this file, and 70 stays reserved for the video chat.
+
+Cloudflare: the apex now 301s to www (redirect rule "Apex to www" with the
+apex record proxied), and Crawler Hints is on, so Cloudflare pings IndexNow
+when pages change. Search Console, GA4 and Bing all see the www host.
+
+The chat digest emails "Concierge digest YYYY-MM-DD" to steve@ every morning.
+Concierge v8 should be confirmed as deployed (`npx wrangler deployments
+list`, or ask the chat about cold sparks) if it has not been already.
+
+Still saying "same day" on purpose until Steve decides: the reply promise on
+the contact FAQ, `/services-dj`, the clouds page and the sensory-friendly
+page. Everything else says "within 24 hours".
+
+Queued work, in Steve's order: the corporate events rebuild (its page sits
+on page two for about twenty corporate queries with almost no clicks; start
+with the search-intent check in `dea-page-rebuild`, and use only jobs and
+venue names Steve supplies); embedding the Week 1 clouds video on the clouds
+page and the channel trailer on the homepage (click to load, VideoObject
+schema); Microsoft Clarity heatmaps once Steve sends a project ID (with a
+line on the privacy page); a local SEO audit with `dea-local-seo-audit`;
+then DJ and lighting content passes, the live streaming page, and pruning
+or redirecting the old posts that earn nothing.
+
 ## The story pass (standing queue, started 8 September 2026)
 
 The copy gates are clean site-wide. What keeps a reader on a page is
@@ -359,4 +431,6 @@ offered, so read for those when an older post is touched.
 
 Clone this repo, load the `dea-*` skills, read this file and `dea-ship`,
 fetch origin, and ask Steve for nothing until you have read the last three
-commit messages. They are written to be read.
+commit messages. They are written to be read. Then read the DEA status file
+in the Claude project for the private to-do list, and keep both up to date:
+this file in the next bundle, the status file by handing Steve a new copy.

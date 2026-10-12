@@ -1,3 +1,5 @@
+> **Historical.** This README describes the pre-launch staging build of early September 2026. The site has been live on Cloudflare Pages at www.dallaseventaudio.com since 20 September 2026. Start with `READ-ME-FIRST.md`.
+
 # dallaseventaudio.com — staging build
 
 Static site. No build step, no dependencies. Every page is a finished HTML file
