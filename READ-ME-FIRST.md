@@ -1,6 +1,6 @@
 # Read me first: where the rebuild stands, and how to pick it up cold
 
-Written 7 September 2026 and brought up to date on 12 October 2026 (bundle 76)
+Written 7 September 2026 and brought up to date on 12 October 2026 (bundle 78)
 so that any new session, on any machine, can resume without the chat that got
 us here. Everything that matters lives in one of
 three places: this repo, the `dea-*` skills saved in Steve's Claude account
@@ -384,8 +384,39 @@ first dance. The one client testimonial that mentions cold sparks on
 
 ## Where things stand on 12 October 2026
 
-Origin is at bundle 75 (610f625). The next bundle number is 77; 76 is this
-update to this file, and 70 stays reserved for the video chat.
+Origin is at bundle 76 (009c286). Bundle 78 is the corporate events
+rebuild and replaces bundle 77, which was never pushed; the next bundle
+number is 79, and 70 stays reserved for the video chat.
+
+Bundle 78 (12 October), corporate events rebuild. Twelve months
+of Search Console: about twenty corporate queries on the page, essentially
+no clicks; the best positions are the Dallas-modified ones ("corporate av
+dallas" 8.3, "corporate av services dallas" 8.4, "corporate event av dallas"
+18, "conference av services dallas" 23), the broad ones sit at 34 to 47.
+Search intent, checked in Steve's Chrome: the Dallas terms return vendor
+event AV pages, a local pack and one list (PartySlate, which already lists
+DEA); the broad "corporate audio visual" terms are shared with permanent
+installers (Ford AV, Texadia, CTI, Avidex), which is not DEA's work, so the
+page aims at the Dallas event terms. Changes: the scrolling keyword strip
+and the keyword tags under the six room headings are gone (they read as
+stuffing and Google saw "General session and keynotekeynote AV Dallas");
+each tag's phrase now opens its card's prose. Four corporate reviews from
+/what-others-are-saying (Kaleb G., Will S., Blake B. on Yelp, Brandon Klekar
+on Google) sit in a new "In Their Words" section. The "cheaper
+equipment-only quote" paragraph (implied pricing) became a line on event AV
+versus permanent installs, with a matching FAQ. The SEO diff reports drops
+on marquee-only terms on purpose. The what-others-are-saying Organization
+schema no longer lists cold sparks (missed by bundle 75). Two of Steve's
+jobs are written in: a training class at the Infomart (7 October 2026, two
+EV ZLX speakers and an Epson 700U on a framed screen) in the breakout card,
+and a medical symposium at the Renaissance Plano Legacy West (10 October
+2026, Legacy ballroom: two ALR screens with an Epson each, two DV12s,
+De-Feedback wireless mics, uplighting, logo projection) in the general
+session card. Client names stay off the page. Infomart Dallas joined the
+venue list (HoneyBook project marked Busy). The companion post
+/post/why-av-production-matters-for-corporate-events was re-angled in the
+same bundle to "What Is AV Production?" (slug unchanged), linking up to
+/corporate-events#av-production from its body.
 
 Cloudflare: the apex now 301s to www (redirect rule "Apex to www" with the
 apex record proxied), and Crawler Hints is on, so Cloudflare pings IndexNow
@@ -399,10 +430,9 @@ Still saying "same day" on purpose until Steve decides: the reply promise on
 the contact FAQ, `/services-dj`, the clouds page and the sensory-friendly
 page. Everything else says "within 24 hours".
 
-Queued work, in Steve's order: the corporate events rebuild (its page sits
-on page two for about twenty corporate queries with almost no clicks; start
-with the search-intent check in `dea-page-rebuild`, and use only jobs and
-venue names Steve supplies); embedding the Week 1 clouds video on the clouds
+Queued work, in Steve's order: photos from the Infomart and Renaissance
+Plano jobs for the corporate page (the chat copies lost their EXIF, and the
+symposium shots carry the client's logo, so clear branding first); embedding the Week 1 clouds video on the clouds
 page and the channel trailer on the homepage (click to load, VideoObject
 schema); Microsoft Clarity heatmaps once Steve sends a project ID (with a
 line on the privacy page); a local SEO audit with `dea-local-seo-audit`;
