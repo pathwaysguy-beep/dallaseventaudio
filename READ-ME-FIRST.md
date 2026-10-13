@@ -1,6 +1,6 @@
 # Read me first: where the rebuild stands, and how to pick it up cold
 
-Written 7 September 2026 and brought up to date on 12 October 2026 (bundle 78)
+Written 7 September 2026 and brought up to date on 12 October 2026 (bundle 79)
 so that any new session, on any machine, can resume without the chat that got
 us here. Everything that matters lives in one of
 three places: this repo, the `dea-*` skills saved in Steve's Claude account
@@ -384,9 +384,9 @@ first dance. The one client testimonial that mentions cold sparks on
 
 ## Where things stand on 12 October 2026
 
-Origin is at bundle 76 (009c286). Bundle 78 is the corporate events
-rebuild and replaces bundle 77, which was never pushed; the next bundle
-number is 79, and 70 stays reserved for the video chat.
+Origin is at bundle 78 (05aea18). Bundle 79 is the video embeds and the
+corporate job photos; the next bundle number is 80, and 70 stays reserved
+for the video chat. Bundle 77 was never pushed.
 
 Bundle 78 (12 October), corporate events rebuild. Twelve months
 of Search Console: about twenty corporate queries on the page, essentially
@@ -430,11 +430,22 @@ Still saying "same day" on purpose until Steve decides: the reply promise on
 the contact FAQ, `/services-dj`, the clouds page and the sensory-friendly
 page. Everything else says "within 24 hours".
 
-Queued work, in Steve's order: photos from the Infomart and Renaissance
-Plano jobs for the corporate page (the chat copies lost their EXIF, and the
-symposium shots carry the client's logo, so clear branding first); embedding the Week 1 clouds video on the clouds
-page and the channel trailer on the homepage (click to load, VideoObject
-schema); Microsoft Clarity heatmaps once Steve sends a project ID (with a
+Bundle 79 (12 October): YouTube embeds, click to load. The channel trailer
+(UXXZR4QP1Y0, 0:47) sits in a new #video section on the homepage before the
+reviews, and "Dancing on the Clouds: How the First Dance Cloud Works"
+(DS_KD0NOuPA, 0:49) sits in the #dancing-on-the-clouds section of the clouds
+page. Each is a .yt box with the YouTube preview image and a play button; a
+page-local script swaps in a youtube-nocookie iframe on click, so nothing
+from YouTube but the preview image loads before a visitor presses play. Each
+page carries a VideoObject block, and the privacy page says so in one
+paragraph. The corporate page gained a .job-figs row of three photos under
+the room cards: the symposium panel, the same ballroom before doors (the
+host's projected logo blurred on Steve's call, kept in frame to show logo
+projection), and the Infomart training room (the screen's wireless HDMI
+splash, which showed a Wi-Fi name and password, blurred). They are 16:9,
+not the usual 4:3, because the subject runs edge to edge in all three.
+
+Queued work, in Steve's order: Microsoft Clarity heatmaps once Steve sends a project ID (with a
 line on the privacy page); a local SEO audit with `dea-local-seo-audit`;
 then DJ and lighting content passes, the live streaming page, and pruning
 or redirecting the old posts that earn nothing.

@@ -306,6 +306,17 @@ html{ scroll-behavior:auto; }
 .marquee-track{ animation:none; }
 .grain-overlay{ display:none; }
 }
+.yt{ position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; border:1px solid var(--card-border); background:#000; margin-top:28px; }
+.yt button{ all:unset; cursor:pointer; position:absolute; inset:0; display:block; }
+.yt img{ width:100%; height:100%; object-fit:cover; display:block; opacity:.86; transition:opacity .2s; }
+.yt button:hover img, .yt button:focus-visible img{ opacity:1; }
+.yt button:focus-visible{ outline:2px solid var(--a1); outline-offset:-4px; }
+.yt .yt-btn{ position:absolute; left:50%; top:50%; width:76px; height:76px; margin:-38px 0 0 -38px; border-radius:50%; background:color-mix(in srgb, var(--a1) 88%, #000); box-shadow:0 10px 30px -8px rgba(0,0,0,.7); }
+.yt .yt-btn::after{ content:""; position:absolute; left:31px; top:24px; border-style:solid; border-width:14px 0 14px 22px; border-color:transparent transparent transparent #0b0b0b; }
+.yt .yt-cap{ position:absolute; left:16px; bottom:14px; right:16px; font-size:.86rem; color:#fff; text-shadow:0 1px 6px rgba(0,0,0,.8); }
+.yt iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+.yt-note{ margin-top:10px; font-size:.84rem; color:var(--dim); }
+.yt-h{ margin-top:34px; }
 </style>
   <title>Dancing on the Clouds, Dry Ice Fog Rental | Dallas Event Audio</title>
   <meta name="description" content="Dry ice and low lying fog machine rental in Dallas-Fort Worth. Four sizes of cloud, delivered and run by our on-site technician. Dancing on the clouds, done right.">
@@ -1156,7 +1167,8 @@ html[data-palette="cryo"] .kicker{ letter-spacing:.14em; }
 }
 </style>
 
-  <script type="application/ld+json">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "VideoObject", "name": "Dancing on the Clouds: How the First Dance Cloud Works", "description": "A knee-deep cloud for your first dance, and why it stays on the floor: how dry ice and heated water make a cold fog that sinks, why the cloud lasts only as long as the ice, and how it is timed to your song.", "thumbnailUrl": ["https://i.ytimg.com/vi/DS_KD0NOuPA/hqdefault.jpg"], "uploadDate": "2026-10-05T19:24:27-07:00", "duration": "PT49S", "embedUrl": "https://www.youtube.com/embed/DS_KD0NOuPA", "contentUrl": "https://www.youtube.com/watch?v=DS_KD0NOuPA", "publisher": {"@type": "Organization", "name": "Dallas Event Audio", "url": "https://www.dallaseventaudio.com/"}}</script>
+<script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -2132,6 +2144,16 @@ body.calm #chatPanel{ display:none; }
       <p class="prose" data-reveal>Dancing on the clouds is a knee-deep layer of white fog laid flat across the dance floor. It stays down at floor level, leaves the air above it clear, and holds its edge at the tables. The couple stands above it rather than inside it, which is the whole point: from the front row and from the photographer&rsquo;s position, the floor disappears and the two of you appear to be standing on a cloud.</p>
       <p class="prose" data-reveal>It works because the fog is chilled. Warm fog rises and fills a room; cold fog sinks and stays. All four of our sizes do that same job by a slightly different route, three chill the fog by passing it through a basket of dry ice, and the fourth chills it with an onboard ultrasonic water system and runs on fluid alone.</p>
       <p class="prose" data-reveal>People search for this effect under half a dozen names, dancing on the clouds, a cloud machine, low lying fog, ground fog, dry ice fog, a low fog machine for a first dance. They are all the same look. What differs is which machine gets used, how long the cloud holds, and whether anyone is standing there running it.</p>
+      <h3 class="yt-h" data-reveal>How the first dance cloud works, in under a minute</h3>
+      <p class="prose" data-reveal>Why the fog sinks instead of filling the room, why it lasts as long as the dry ice does, and how we time it to your song.</p>
+      <div class="yt" data-reveal data-yt="DS_KD0NOuPA" data-title="Dancing on the Clouds: How the First Dance Cloud Works">
+        <button type="button" aria-label="Play video: Dancing on the Clouds: How the First Dance Cloud Works">
+          <img src="https://i.ytimg.com/vi/DS_KD0NOuPA/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
+          <span class="yt-btn" aria-hidden="true"></span>
+          <span class="yt-cap">How the first dance cloud works, 0:49</span>
+        </button>
+      </div>
+      <p class="yt-note" data-reveal>The video loads from YouTube when you press play. <a href="https://www.youtube.com/watch?v=DS_KD0NOuPA" rel="noopener">Watch on YouTube</a>.</p>
       <div class="pull" data-reveal>
         <p>A dry ice cloud lasts as long as the dry ice load lasts. The size of the ice basket is what sets that.</p>
         <div class="attr">The one thing nobody tells you before you book</div>
@@ -2649,6 +2671,22 @@ body.calm #chatPanel{ display:none; }
   </footer>
 
   <div class="grain-overlay" aria-hidden="true"></div>
+
+<script>
+(function(){
+  document.querySelectorAll('.yt[data-yt]').forEach(function(box){
+    var b=box.querySelector('button'); if(!b) return;
+    b.addEventListener('click',function(){
+      var f=document.createElement('iframe');
+      f.src='https://www.youtube-nocookie.com/embed/'+box.getAttribute('data-yt')+'?autoplay=1&rel=0&playsinline=1';
+      f.title=box.getAttribute('data-title')||'Video';
+      f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';
+      f.allowFullscreen=true;
+      box.innerHTML=''; box.appendChild(f);
+    });
+  });
+})();
+</script>
 
   <div id="chatBubble" role="button" tabindex="0" aria-controls="chatPanel" aria-expanded="false">&#10022; AV Concierge</div>
 <div id="chatPanel" role="dialog" aria-modal="false" aria-labelledby="chatTitle" hidden>
