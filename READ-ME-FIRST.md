@@ -1,6 +1,6 @@
 # Read me first: where the rebuild stands, and how to pick it up cold
 
-Written 7 September 2026 and brought up to date on 12 October 2026 (bundle 79)
+Written 7 September 2026 and brought up to date on 12 October 2026 (bundle 80)
 so that any new session, on any machine, can resume without the chat that got
 us here. Everything that matters lives in one of
 three places: this repo, the `dea-*` skills saved in Steve's Claude account
@@ -384,8 +384,8 @@ first dance. The one client testimonial that mentions cold sparks on
 
 ## Where things stand on 12 October 2026
 
-Origin is at bundle 78 (05aea18). Bundle 79 is the video embeds and the
-corporate job photos; the next bundle number is 80, and 70 stays reserved
+Origin is at bundle 79 (612a12e). Bundle 80 is the corporate page follow-up
+from a Gemini review; the next bundle number is 81, and 70 stays reserved
 for the video chat. Bundle 77 was never pushed.
 
 Bundle 78 (12 October), corporate events rebuild. Twelve months
@@ -444,6 +444,22 @@ host's projected logo blurred on Steve's call, kept in frame to show logo
 projection), and the Infomart training room (the screen's wireless HDMI
 splash, which showed a Wi-Fi name and password, blurred). They are 16:9,
 not the usual 4:3, because the subject runs edge to edge in all three.
+
+Bundle 80 (12 October, late): corporate page follow-up after Steve ran the
+page past Gemini. The intro now says the work is event AV, packed out after
+the program, and names the two October jobs with a link down to the photo
+row (#jobs, with a scroll margin for the sticky header). A "Check your date"
+chip row follows the photos and another follows the reviews. The "What AV
+production covers" lede is shorter. The homepage's in-body link to the
+corporate page now reads "corporate event AV services in Dallas" (the
+homepage held that query at position 32, which is the cannibalization the
+rebuild flagged). Held on purpose: the title and H1, until a Search
+Console re-pull around 26 October shows whether bundles 78 to 80 moved
+clicks; if they did not, test "Corporate AV Company Dallas-Fort Worth |
+Dallas Event Audio". Gemini's other points were already on the page (venue
+list, certificate of insurance, 24 hour quotes, alt text, schema) or broke
+house rules (negative framing in a description, a certificate promised
+"within 24 hours").
 
 Queued work, in Steve's order: Microsoft Clarity heatmaps once Steve sends a project ID (with a
 line on the privacy page); a local SEO audit with `dea-local-seo-audit`;
