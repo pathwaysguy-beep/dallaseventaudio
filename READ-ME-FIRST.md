@@ -1,6 +1,6 @@
 # Read me first: where the rebuild stands, and how to pick it up cold
 
-Written 7 September 2026 and brought up to date on 12 October 2026 (bundle 80)
+Written 7 September 2026 and brought up to date on 12 October 2026 (bundle 81)
 so that any new session, on any machine, can resume without the chat that got
 us here. Everything that matters lives in one of
 three places: this repo, the `dea-*` skills saved in Steve's Claude account
@@ -384,9 +384,9 @@ first dance. The one client testimonial that mentions cold sparks on
 
 ## Where things stand on 12 October 2026
 
-Origin is at bundle 79 (612a12e). Bundle 80 is the corporate page follow-up
-from a Gemini review; the next bundle number is 81, and 70 stays reserved
-for the video chat. Bundle 77 was never pushed.
+Origin is at bundle 80 (2705027). Bundle 81 is the quick wins from the
+14 October site-wide review; the next bundle number is 82, and 70 stays
+reserved for the video chat. Bundle 77 was never pushed.
 
 Bundle 78 (12 October), corporate events rebuild. Twelve months
 of Search Console: about twenty corporate queries on the page, essentially
@@ -460,6 +460,16 @@ Dallas Event Audio". Gemini's other points were already on the page (venue
 list, certificate of insurance, 24 hour quotes, alt text, schema) or broke
 house rules (negative framing in a description, a certificate promised
 "within 24 hours").
+
+Bundle 81 (14 October): quick wins from a site-wide review (the full review,
+with 90-day numbers per page, is in the Claude project as
+claude/site-review-2026-10-14.md because it carries analytics). The
+microphone page title now leads with "Wireless Microphone Rental Dallas",
+its best query (9.4, zero clicks); "party speaker rental" on
+rent-sound-equipment and private-events now links to /dj-speaker-rental; and
+/rent-laser-light-show gained the BreadcrumbList every other service page
+has. Rebuild order from the review: projector and screen rental, services
+lighting, the clouds page and wedding fog post split, rent-sound-equipment.
 
 Queued work, in Steve's order: Microsoft Clarity heatmaps once Steve sends a project ID (with a
 line on the privacy page); a local SEO audit with `dea-local-seo-audit`;
