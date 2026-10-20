@@ -850,6 +850,29 @@ a.proof-badge:hover .go{ opacity:1; color:var(--a1); transform:translateX(2px); 
   else { window.addEventListener('load', function () { setTimeout(load, 0); }); }
 })();
 </script>
+<script>
+/* Microsoft Clarity heatmaps and session recordings, for the whole site (bundle 82).
+   Project z0idn3mm8n. Same production hostname guard as GA4 and the Meta pixel,
+   so previews, pages.dev builds and local QA never record. The tag loads on the
+   window load event, like the other two, so it stays out of the largest paint.
+   Clarity masks text typed into form fields by default; leave masking on. */
+(function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  var ID = 'z0idn3mm8n';
+  if (PROD.indexOf(location.hostname) === -1) return;
+  window.clarity = window.clarity || function () {
+    (window.clarity.q = window.clarity.q || []).push(arguments);
+  };
+  function load() {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.clarity.ms/tag/' + ID;
+    document.head.appendChild(s);
+  }
+  if (document.readyState === 'complete') { setTimeout(load, 0); }
+  else { window.addEventListener('load', function () { setTimeout(load, 0); }); }
+})();
+</script>
 <!-- chrome-sync:css -->
 <style>
 #paletteBar{
@@ -1354,7 +1377,7 @@ body.calm #chatPanel{ display:none; }
         <a href="/">Home</a><span class="sep">/</span><span class="here">Privacy</span>
       </div>
       <h1 data-reveal>Privacy policy. <span class="grad-text">What we keep and why.</span></h1>
-      <p class="sub" data-reveal>This page explains what dallaseventaudio.com collects when you visit, ask a question in the chat, or send us a quote request, which services help us handle it, and how to reach us about any of it. It was last updated on 23 September 2026 and applies to every page on this site.</p>
+      <p class="sub" data-reveal>This page explains what dallaseventaudio.com collects when you visit, ask a question in the chat, or send us a quote request, which services help us handle it, and how to reach us about any of it. It was last updated on 20 October 2026 and applies to every page on this site.</p>
     </div>
   </section>
 
@@ -1419,8 +1442,8 @@ body.calm #chatPanel{ display:none; }
       </div>
       <div class="band" data-reveal>
         <h3>Google, Meta and Cloudflare</h3>
-        <p>Google Analytics records the pages you visit, how long you stay, the device and browser, an approximate location from your IP address, and the search or ad that brought you here. We use it to see which pages are working and which ones need attention. Google Ads conversion tracking notes when a visit that started from one of our ads ends in a quote request, and the Meta pixel does the same for visits that started on Facebook or Instagram. Both let us pay for the ads that bring real events and stop paying for the ones that bring none. Cloudflare Web Analytics counts visits and page speed anonymously, and leaves your browser as it found it.</p>
-        <p>Google and Meta set cookies to do this and may combine what they see here with what they know about you from elsewhere, under their own privacy policies. You can limit that in your Google account's ad settings, in your Facebook ad preferences, and with your browser's cookie controls, and the site keeps working either way.</p>
+        <p>Google Analytics records the pages you visit, how long you stay, the device and browser, an approximate location from your IP address, and the search or ad that brought you here. We use it to see which pages are working and which ones need attention. Google Ads conversion tracking notes when a visit that started from one of our ads ends in a quote request, and the Meta pixel does the same for visits that started on Facebook or Instagram. Both let us pay for the ads that bring real events and stop paying for the ones that bring none. Microsoft Clarity shows us, as heatmaps and anonymous session replays, where visitors scroll and click, so we can see which parts of a page help and which get skipped. It masks anything typed into a form, so what you enter never reaches it. Cloudflare Web Analytics counts visits and page speed anonymously, and leaves your browser as it found it.</p>
+        <p>Google, Meta and Microsoft set cookies to do this and may combine what they see here with what they know about you from elsewhere, under their own privacy policies. You can limit that in your Google account's ad settings, in your Facebook ad preferences, at Microsoft's privacy dashboard, and with your browser's cookie controls, and the site keeps working either way.</p>
         <p>The site is hosted on Cloudflare Pages, and like every host Cloudflare keeps short-lived server logs, including your IP address, to run and protect the site.</p>
         <p>A few pages show a video from our YouTube channel. The preview image comes from YouTube, and the player itself loads only when you press play, using YouTube&rsquo;s privacy-enhanced mode. Once it plays, YouTube&rsquo;s own privacy policy applies.</p>
       </div>
@@ -1436,7 +1459,7 @@ body.calm #chatPanel{ display:none; }
       </div>
       <div class="band" data-reveal>
         <h3>It stays with us and the services that help us</h3>
-        <p>Your information stays with Dallas Event Audio and the services described above: HoneyBook for quotes and event files, Anthropic for generating chat replies, Google, Meta and Cloudflare for analytics, advertising and hosting, and the email service that delivers chat leads to our inbox. Each of them handles it in order to provide that service to us. We would hand it to anyone else only if the law required it.</p>
+        <p>Your information stays with Dallas Event Audio and the services described above: HoneyBook for quotes and event files, Anthropic for generating chat replies, Google, Meta, Microsoft and Cloudflare for analytics, advertising and hosting, and the email service that delivers chat leads to our inbox. Each of them handles it in order to provide that service to us. We would hand it to anyone else only if the law required it.</p>
         <p>Quote requests and event files are kept for as long as we might work together again, because clients come back year after year and the record of what worked in their room is part of the service. Chat conversations are kept so we can keep improving the concierge. You can ask for any of it to be deleted, and unless we are required to keep a record, for instance a signed contract or an invoice, we will delete it.</p>
         <p>This site is written for adults planning events. If a child has sent us something, tell us and we will remove it.</p>
       </div>

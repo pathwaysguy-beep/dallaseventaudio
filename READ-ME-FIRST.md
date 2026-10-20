@@ -382,11 +382,11 @@ offer cold sparks and leads with CO2 for an entrance and the clouds for a
 first dance. The one client testimonial that mentions cold sparks on
 `/what-others-are-saying` stays, because it is the client's own words.
 
-## Where things stand on 12 October 2026
+## Where things stand on 20 October 2026
 
-Origin is at bundle 80 (2705027). Bundle 81 is the quick wins from the
-14 October site-wide review; the next bundle number is 82, and 70 stays
-reserved for the video chat. Bundle 77 was never pushed.
+Origin is at bundle 81 (6d65569). Bundle 82 adds Microsoft Clarity; the next
+bundle number is 83, and 70 stays reserved for the video chat. Bundle 77 was
+never pushed.
 
 Bundle 78 (12 October), corporate events rebuild. Twelve months
 of Search Console: about twenty corporate queries on the page, essentially
@@ -471,8 +471,14 @@ rent-sound-equipment and private-events now links to /dj-speaker-rental; and
 has. Rebuild order from the review: projector and screen rental, services
 lighting, the clouds page and wedding fog post split, rent-sound-equipment.
 
-Queued work, in Steve's order: Microsoft Clarity heatmaps once Steve sends a project ID (with a
-line on the privacy page); a local SEO audit with `dea-local-seo-audit`;
+Bundle 82 (20 October): Microsoft Clarity heatmaps and session recordings,
+project z0idn3mm8n, added to `tools/chrome/analytics.html` beside GA4 and the
+Meta pixel, so it reaches every synced page. Same production hostname guard
+and load-event timing as the other two tags; leave Clarity's form masking on.
+The privacy page names Clarity and Microsoft. davidsbridalfrisco.html sits
+outside the chrome sync and does not carry it.
+
+Queued work, in Steve's order: a local SEO audit with `dea-local-seo-audit`;
 then DJ and lighting content passes, the live streaming page, and pruning
 or redirecting the old posts that earn nothing.
 

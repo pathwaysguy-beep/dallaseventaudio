@@ -1007,6 +1007,29 @@ a.chip::after{ content:' \2192'; opacity:.55; }
   else { window.addEventListener('load', function () { setTimeout(load, 0); }); }
 })();
 </script>
+<script>
+/* Microsoft Clarity heatmaps and session recordings, for the whole site (bundle 82).
+   Project z0idn3mm8n. Same production hostname guard as GA4 and the Meta pixel,
+   so previews, pages.dev builds and local QA never record. The tag loads on the
+   window load event, like the other two, so it stays out of the largest paint.
+   Clarity masks text typed into form fields by default; leave masking on. */
+(function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  var ID = 'z0idn3mm8n';
+  if (PROD.indexOf(location.hostname) === -1) return;
+  window.clarity = window.clarity || function () {
+    (window.clarity.q = window.clarity.q || []).push(arguments);
+  };
+  function load() {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.clarity.ms/tag/' + ID;
+    document.head.appendChild(s);
+  }
+  if (document.readyState === 'complete') { setTimeout(load, 0); }
+  else { window.addEventListener('load', function () { setTimeout(load, 0); }); }
+})();
+</script>
 <!-- chrome-sync:css -->
 <style>
 #paletteBar{
