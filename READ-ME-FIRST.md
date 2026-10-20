@@ -42,7 +42,7 @@ older one is declared dead in the message.
 ## The gates every change passes
 
 - `python3 tools/sync_chrome.py --check` must print `0 of N files drifted`
-  (82 as of 12 October 2026).
+  (84 as of 20 October 2026).
   The header, nav drawer, palette dock, fonts, analytics, widget and shared
   CSS are fragments in `tools/chrome/` and this script stamps them into every
   page. Page-local scripts go above the `<!-- chrome-sync:js -->` marker.
@@ -384,9 +384,9 @@ first dance. The one client testimonial that mentions cold sparks on
 
 ## Where things stand on 20 October 2026
 
-Origin is at bundle 82 (7e9afe8). Bundle 83 embeds the speakers video and
-strips pricing from the speakers post; the next bundle number is 84, and 70
-stays reserved for the video chat. Bundle 77 was never pushed.
+Origin is at bundle 83 (d292af1). Bundle 84 adds two posts; the next bundle
+number is 85, and 70 stays reserved for the video chat. Bundle 77 was never
+pushed.
 
 Bundle 78 (12 October), corporate events rebuild. Twelve months
 of Search Console: about twenty corporate queries on the page, essentially
@@ -487,6 +487,18 @@ its "What does speaker rental cost" section (dollar ranges) in favor of "What
 comes with a speaker rental?", its description no longer promises rental costs
 (blog card and llms updated to match), and the subwoofer answer no longer says
 a sub "costs little". The separate AV-cost pricing post is untouched.
+
+Bundle 84 (20 October): two new posts, both feeding /corporate-events.
+/post/corporate-holiday-party-av-dallas (holiday party sound, lighting and
+video at 50, 150 or 300 guests, and when to book December; venues named on
+Steve's say-so, clients never) and
+/post/how-to-choose-an-av-company-for-a-conference-or-gala (ten questions,
+written for the long AI-search questions that were landing on the corporate
+page). Both built from the speakers post template, with BlogPosting and
+BreadcrumbList schema, blog cards, ItemList entries, sitemap, _pages.json and
+llms. The corporate page links to each from its holiday card and its
+"why companies choose" intro. Both use existing corporate photos; Steve owes
+holiday party photos to swap in.
 
 Queued work, in Steve's order: a local SEO audit with `dea-local-seo-audit`;
 then DJ and lighting content passes, the live streaming page, and pruning
