@@ -306,8 +306,18 @@ html{ scroll-behavior:auto; }
 .marquee-track{ animation:none; }
 .grain-overlay{ display:none; }
 }
+.yt{ position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; border:1px solid var(--card-border); background:#000; margin-top:20px; }
+.yt button{ all:unset; cursor:pointer; position:absolute; inset:0; display:block; }
+.yt img{ width:100%; height:100%; object-fit:cover; display:block; opacity:.86; transition:opacity .2s; }
+.yt button:hover img, .yt button:focus-visible img{ opacity:1; }
+.yt button:focus-visible{ outline:2px solid var(--a1); outline-offset:-4px; }
+.yt .yt-btn{ position:absolute; left:50%; top:50%; width:76px; height:76px; margin:-38px 0 0 -38px; border-radius:50%; background:color-mix(in srgb, var(--a1) 88%, #000); box-shadow:0 10px 30px -8px rgba(0,0,0,.6); }
+.yt .yt-btn::after{ content:""; position:absolute; left:31px; top:24px; border-style:solid; border-width:14px 0 14px 22px; border-color:transparent transparent transparent #0b0b0b; }
+.yt .yt-cap{ position:absolute; left:16px; bottom:14px; right:16px; font-size:.86rem; color:#fff; text-shadow:0 1px 6px rgba(0,0,0,.8); }
+.yt iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+.yt-note{ margin-top:10px; font-size:.84rem; color:var(--dim); }
 </style><title>How Many Speakers Do I Need for 100, 200 or 500 Guests?</title>
-<meta name="description" content="How many speakers you need for 100, 200 or 500 guests in Dallas, plus typical rental costs, coverage tips and what changes outdoors.">
+<meta name="description" content="How many speakers you need for 100, 200 or 500 guests in Dallas, with coverage tips, when to add a subwoofer and what changes outdoors.">
 <link rel="canonical" href="https://www.dallaseventaudio.com/post/how-many-speakers-do-i-need-for-100-200-or-500-guests">
 <meta property="og:title" content="How Many Speakers Do I Need for 100, 200 or 500 Guests?">
 <meta property="og:image" content="https://www.dallaseventaudio.com/images/og/dallas-event-audio-og.jpg">
@@ -315,7 +325,7 @@ html{ scroll-behavior:auto; }
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://www.dallaseventaudio.com/images/og/dallas-event-audio-og.jpg">
-<meta property="og:description" content="How many speakers you need for 100, 200 or 500 guests in Dallas, plus typical rental costs, coverage tips and what changes outdoors.">
+<meta property="og:description" content="How many speakers you need for 100, 200 or 500 guests in Dallas, with coverage tips, when to add a subwoofer and what changes outdoors.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://www.dallaseventaudio.com/post/how-many-speakers-do-i-need-for-100-200-or-500-guests">
 <meta property="og:site_name" content="Dallas Event Audio">
@@ -373,19 +383,20 @@ html{ scroll-behavior:auto; }
   }
   .blog-card p{font-size:.9rem;line-height:1.6;color:var(--dim);margin:0}
 </style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "VideoObject", "name": "How Many Speakers Do You Need for 100, 200 or 500 Guests?", "description": "How Dallas Event Audio sizes a sound system: two powered speakers on stands for about 100 guests, a subwoofer once there is dancing, delay speakers for long rooms, line arrays at 500, and about twice the speakers outdoors.", "thumbnailUrl": ["https://i.ytimg.com/vi/bZxNyXIbGZw/hqdefault.jpg"], "uploadDate": "2026-10-20T14:25:00-05:00", "duration": "PT1M15S", "embedUrl": "https://www.youtube.com/embed/bZxNyXIbGZw", "contentUrl": "https://www.youtube.com/watch?v=bZxNyXIbGZw", "publisher": {"@type": "Organization", "name": "Dallas Event Audio", "url": "https://www.dallaseventaudio.com/"}}</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "headline": "How Many Speakers Do I Need for 100, 200 or 500 Guests?",
-  "description": "How many speakers you need for 100, 200 or 500 guests in Dallas, plus typical rental costs, coverage tips and what changes outdoors.",
+  "description": "How many speakers you need for 100, 200 or 500 guests in Dallas, with coverage tips, when to add a subwoofer and what changes outdoors.",
   "url": "https://www.dallaseventaudio.com/post/how-many-speakers-do-i-need-for-100-200-or-500-guests",
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": "https://www.dallaseventaudio.com/post/how-many-speakers-do-i-need-for-100-200-or-500-guests"
   },
   "datePublished": "2026-08-19",
-  "dateModified": "2026-08-19",
+  "dateModified": "2026-10-20",
   "author": {
     "@type": "Person",
     "name": "Steve",
@@ -1221,7 +1232,7 @@ body.calm #chatPanel{ display:none; }
         <a href="/">Home</a><span class="sep">/</span><a href="/blog">Blog</a><span class="sep">/</span><span class="here">How Many Speakers Do I Need for 100, 200 or 500 Guests?</span>
       </div>
       <h1 data-reveal>How Many Speakers Do I Need for 100, 200 or 500 Guests?</h1>
-      <p class="sub" data-reveal>How many speakers you need for 100, 200 or 500 guests in Dallas, plus typical rental costs, coverage tips and what changes outdoors.</p>
+      <p class="sub" data-reveal>How many speakers you need for 100, 200 or 500 guests in Dallas, with coverage tips, when to add a subwoofer and what changes outdoors.</p>
       <div class="postmeta" data-reveal>By <a href="/our-story">Steve</a>, Dallas Event Audio <span class="dot">&middot;</span> Published August 19, 2026</div>
     </div>
   </section>
@@ -1230,6 +1241,14 @@ body.calm #chatPanel{ display:none; }
     <div class="post-wrap">
       <div class="post-body">
       <p data-reveal>For most Dallas-Fort Worth events, a pair of powered 12 inch or 15 inch speakers on stands covers up to about 150 guests in one room. From roughly 150 to 350 guests you want that same pair plus a subwoofer, or four speakers if the room is long. Above 350 guests, or outdoors, the job moves to a line array with subwoofers and a delay position for the far end of the room.</p>
+            <div class="yt" data-reveal data-yt="bZxNyXIbGZw" data-title="How Many Speakers Do You Need for 100, 200 or 500 Guests?">
+        <button type="button" aria-label="Play video: How Many Speakers Do You Need for 100, 200 or 500 Guests?">
+          <img src="https://i.ytimg.com/vi/bZxNyXIbGZw/hqdefault.jpg" alt="" width="480" height="360" loading="lazy" decoding="async">
+          <span class="yt-btn" aria-hidden="true"></span>
+          <span class="yt-cap">The same answer as a video, 1:15</span>
+        </button>
+      </div>
+      <p class="yt-note" data-reveal>The video loads from YouTube when you press play. <a href="https://www.youtube.com/watch?v=bZxNyXIbGZw" rel="noopener">Watch on YouTube</a>.</p>
       <h2 data-reveal>What decides how many speakers you need?</h2>
       <p data-reveal>Guest count is the starting point, but the room does most of the work. A 200 person ballroom with a low ceiling and carpet needs less power than a 200 person barn with a metal roof and a concrete floor. Three things set the count: how far the back row sits from the speakers, whether anything blocks the line of sight, and how loud the room needs to get. Dinner and speeches need even coverage at a conversational level. A dance floor needs headroom, which is where the subwoofer comes in.</p>
       <p data-reveal>The rig scales in both directions. A church sanctuary this year ran on two <a href="/flat-panel-audio-dml500">DML500 flat panel speakers</a> on stands with two subwoofers on the floor, panels chosen because they blend into a limestone wall. A convention center stage in Dallas carried a country band on the same panels over a BassBoss SSP118 subwoofer. Same idea, different count.</p>
@@ -1240,9 +1259,9 @@ body.calm #chatPanel{ display:none; }
       <h2 data-reveal>How many speakers for 500 guests?</h2>
       <p data-reveal>At 500 guests a <a href="/rent-line-array-speaker-system">line array speaker system</a> earns the truck space. An array stacks several small elements per side and throws sound evenly from the front row to the back wall, so table 50 hears the same level as table one. Plan on two arrays plus four to six subwoofers indoors, and a delay position if the room runs longer than about 120 feet. Corporate general sessions at this size also want front fill for the first two rows, which sit below the array coverage.</p>
       <h2 data-reveal>Do I need a subwoofer?</h2>
-      <p data-reveal>For a wedding reception, a quinceanera or anything with dancing, yes. The tops handle voice and most of the music, and the subwoofer handles everything below about 100 Hz. Leave it out and you either lose the bottom of the music or push the tops past where they sound clean. For a conference with speeches, panels and video playback, a subwoofer is optional. It helps with program video and walk in music and costs little to add.</p>
-      <h2 data-reveal>What does speaker rental cost in Dallas-Fort Worth?</h2>
-      <p data-reveal>Typical DFW market rates: a two speaker system with stands, a mixer and a wireless microphone runs about $300 to $500 delivered and set up. Adding a subwoofer puts most packages in the $450 to $700 range. A 500 guest line array package with subwoofers, delays and an operator typically runs $1,800 to $3,500 depending on the room and the length of the event. Delivery inside the Dallas-Fort Worth metro is usually included, and Rockwall, Waxahachie and points past Southlake sometimes carry a travel line. The longer version, with what a package includes, is in our guide to <a href="/post/av-equipment-rental-dallas-fort-worth-cost">AV equipment rental cost in Dallas-Fort Worth</a>.</p>
+      <p data-reveal>For a wedding reception, a quinceanera or anything with dancing, yes. The tops handle voice and most of the music, and the subwoofer handles everything below about 100 Hz. Leave it out and you either lose the bottom of the music or push the tops past where they sound clean. For a conference with speeches, panels and video playback, a subwoofer is optional. It helps with program video and walk in music, and it is an easy addition to the rig.</p>
+      <h2 data-reveal>What comes with a speaker rental?</h2>
+      <p data-reveal>Every speaker rental is delivered, set up, tested and picked up by our crew: the speakers, stands, cabling and a mixer, plus wireless microphones running our AI-powered De-Feedback system when there are toasts or speeches, and an on-site technician for the events that call for one. Tell us your guest count, your venue and whether there will be dancing, and we will send a straightforward quote within 24 hours.</p>
       <h2 data-reveal>What changes for an outdoor event?</h2>
       <p data-reveal>Outdoors, sound that passes the last row keeps going, so plan on roughly twice the speaker count for the same guest number. A 150 guest outdoor ceremony in Frisco or McKinney wants four speakers rather than two, placed closer to the guests. Wind carries sound away from the seats, so we aim the outer speakers in toward the rows rather than straight down the aisle. Power matters too: a small ceremony rig wants its own 20 amp circuit, with the caterer's coffee urns on a different one.</p>
       <p data-reveal>An outdoor ceremony this year is a good picture of the small end. Lapel microphones on the officiant and the couple, a condenser microphone on the string quartet, and two EV ZLX speakers at the front rows, with our <a href="/feedback-free-microphone-rentals">De-Feedback system</a> on the microphones so the level could come up outdoors and every word carried to the back row. You can hear that ceremony on our <a href="/weddings">weddings page</a>.</p>
@@ -1359,6 +1378,22 @@ body.calm #chatPanel{ display:none; }
       </div>
     </div>
   </footer>
+
+<script>
+(function(){
+  document.querySelectorAll('.yt[data-yt]').forEach(function(box){
+    var b=box.querySelector('button'); if(!b) return;
+    b.addEventListener('click',function(){
+      var f=document.createElement('iframe');
+      f.src='https://www.youtube-nocookie.com/embed/'+box.getAttribute('data-yt')+'?autoplay=1&rel=0&playsinline=1';
+      f.title=box.getAttribute('data-title')||'Video';
+      f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';
+      f.allowFullscreen=true;
+      box.innerHTML=''; box.appendChild(f);
+    });
+  });
+})();
+</script>
 
   <div id="chatBubble" role="button" tabindex="0" aria-controls="chatPanel" aria-expanded="false">&#10022; AV Concierge</div>
 <div id="chatPanel" role="dialog" aria-modal="false" aria-labelledby="chatTitle" hidden>

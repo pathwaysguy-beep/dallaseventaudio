@@ -7591,7 +7591,7 @@ Summary: How Dallas Event Audio handles what you share on this site: the quote f
 
 Home / Privacy
 # Privacy policy. What we keep and why.
-This page explains what dallaseventaudio.com collects when you visit, ask a question in the chat, or send us a quote request, which services help us handle it, and how to reach us about any of it. It was last updated on 23 September 2026 and applies to every page on this site.
+This page explains what dallaseventaudio.com collects when you visit, ask a question in the chat, or send us a quote request, which services help us handle it, and how to reach us about any of it. It was last updated on 20 October 2026 and applies to every page on this site.
 The Short Version
 ## What we collect and what it is for
 Most of what we know about you, you tell us on purpose, so we can quote and run your event.
@@ -7619,15 +7619,15 @@ Analytics and Advertising
 ## The tags that run on every page
 Four services, and what each one sees.
 ### Google, Meta and Cloudflare
-Google Analytics records the pages you visit, how long you stay, the device and browser, an approximate location from your IP address, and the search or ad that brought you here. We use it to see which pages are working and which ones need attention. Google Ads conversion tracking notes when a visit that started from one of our ads ends in a quote request, and the Meta pixel does the same for visits that started on Facebook or Instagram. Both let us pay for the ads that bring real events and stop paying for the ones that bring none. Cloudflare Web Analytics counts visits and page speed anonymously, and leaves your browser as it found it.
-Google and Meta set cookies to do this and may combine what they see here with what they know about you from elsewhere, under their own privacy policies. You can limit that in your Google account's ad settings, in your Facebook ad preferences, and with your browser's cookie controls, and the site keeps working either way.
+Google Analytics records the pages you visit, how long you stay, the device and browser, an approximate location from your IP address, and the search or ad that brought you here. We use it to see which pages are working and which ones need attention. Google Ads conversion tracking notes when a visit that started from one of our ads ends in a quote request, and the Meta pixel does the same for visits that started on Facebook or Instagram. Both let us pay for the ads that bring real events and stop paying for the ones that bring none. Microsoft Clarity shows us, as heatmaps and anonymous session replays, where visitors scroll and click, so we can see which parts of a page help and which get skipped. It masks anything typed into a form, so what you enter never reaches it. Cloudflare Web Analytics counts visits and page speed anonymously, and leaves your browser as it found it.
+Google, Meta and Microsoft set cookies to do this and may combine what they see here with what they know about you from elsewhere, under their own privacy policies. You can limit that in your Google account's ad settings, in your Facebook ad preferences, at Microsoft's privacy dashboard, and with your browser's cookie controls, and the site keeps working either way.
 The site is hosted on Cloudflare Pages, and like every host Cloudflare keeps short-lived server logs, including your IP address, to run and protect the site.
 A few pages show a video from our YouTube channel. The preview image comes from YouTube, and the player itself loads only when you press play, using YouTube’s privacy-enhanced mode. Once it plays, YouTube’s own privacy policy applies.
 Keeping and Sharing
 ## How long we keep it, and who sees it
 The people who see your information are us and the services named on this page.
 ### It stays with us and the services that help us
-Your information stays with Dallas Event Audio and the services described above: HoneyBook for quotes and event files, Anthropic for generating chat replies, Google, Meta and Cloudflare for analytics, advertising and hosting, and the email service that delivers chat leads to our inbox. Each of them handles it in order to provide that service to us. We would hand it to anyone else only if the law required it.
+Your information stays with Dallas Event Audio and the services described above: HoneyBook for quotes and event files, Anthropic for generating chat replies, Google, Meta, Microsoft and Cloudflare for analytics, advertising and hosting, and the email service that delivers chat leads to our inbox. Each of them handles it in order to provide that service to us. We would hand it to anyone else only if the law required it.
 Quote requests and event files are kept for as long as we might work together again, because clients come back year after year and the record of what worked in their room is part of the service. Chat conversations are kept so we can keep improving the concierge. You can ask for any of it to be deleted, and unless we are required to keep a record, for instance a signed contract or an invoice, we will delete it.
 This site is written for adults planning events. If a child has sent us something, tell us and we will remove it.
 Questions
@@ -8332,13 +8332,15 @@ Tell us about your event and you'll hear back from us today, with a straightforw
 
 Page: How Many Speakers Do I Need for 100, 200 or 500 Guests?
 URL: https://www.dallaseventaudio.com/post/how-many-speakers-do-i-need-for-100-200-or-500-guests
-Summary: How many speakers you need for 100, 200 or 500 guests in Dallas, plus typical rental costs, coverage tips and what changes outdoors.
+Summary: How many speakers you need for 100, 200 or 500 guests in Dallas, with coverage tips, when to add a subwoofer and what changes outdoors.
 
 Home / Blog / How Many Speakers Do I Need for 100, 200 or 500 Guests?
 # How Many Speakers Do I Need for 100, 200 or 500 Guests?
-How many speakers you need for 100, 200 or 500 guests in Dallas, plus typical rental costs, coverage tips and what changes outdoors.
+How many speakers you need for 100, 200 or 500 guests in Dallas, with coverage tips, when to add a subwoofer and what changes outdoors.
 By Steve , Dallas Event Audio · Published August 19, 2026
 For most Dallas-Fort Worth events, a pair of powered 12 inch or 15 inch speakers on stands covers up to about 150 guests in one room. From roughly 150 to 350 guests you want that same pair plus a subwoofer, or four speakers if the room is long. Above 350 guests, or outdoors, the job moves to a line array with subwoofers and a delay position for the far end of the room.
+The same answer as a video, 1:15
+The video loads from YouTube when you press play. Watch on YouTube .
 ## What decides how many speakers you need?
 Guest count is the starting point, but the room does most of the work. A 200 person ballroom with a low ceiling and carpet needs less power than a 200 person barn with a metal roof and a concrete floor. Three things set the count: how far the back row sits from the speakers, whether anything blocks the line of sight, and how loud the room needs to get. Dinner and speeches need even coverage at a conversational level. A dance floor needs headroom, which is where the subwoofer comes in.
 The rig scales in both directions. A church sanctuary this year ran on two DML500 flat panel speakers on stands with two subwoofers on the floor, panels chosen because they blend into a limestone wall. A convention center stage in Dallas carried a country band on the same panels over a BassBoss SSP118 subwoofer. Same idea, different count.
@@ -8349,9 +8351,9 @@ Two 15 inch tops and one or two subwoofers for a square room. If the room is lon
 ## How many speakers for 500 guests?
 At 500 guests a line array speaker system earns the truck space. An array stacks several small elements per side and throws sound evenly from the front row to the back wall, so table 50 hears the same level as table one. Plan on two arrays plus four to six subwoofers indoors, and a delay position if the room runs longer than about 120 feet. Corporate general sessions at this size also want front fill for the first two rows, which sit below the array coverage.
 ## Do I need a subwoofer?
-For a wedding reception, a quinceanera or anything with dancing, yes. The tops handle voice and most of the music, and the subwoofer handles everything below about 100 Hz. Leave it out and you either lose the bottom of the music or push the tops past where they sound clean. For a conference with speeches, panels and video playback, a subwoofer is optional. It helps with program video and walk in music and costs little to add.
-## What does speaker rental cost in Dallas-Fort Worth?
-Typical DFW market rates: a two speaker system with stands, a mixer and a wireless microphone runs about $300 to $500 delivered and set up. Adding a subwoofer puts most packages in the $450 to $700 range. A 500 guest line array package with subwoofers, delays and an operator typically runs $1,800 to $3,500 depending on the room and the length of the event. Delivery inside the Dallas-Fort Worth metro is usually included, and Rockwall, Waxahachie and points past Southlake sometimes carry a travel line. The longer version, with what a package includes, is in our guide to AV equipment rental cost in Dallas-Fort Worth .
+For a wedding reception, a quinceanera or anything with dancing, yes. The tops handle voice and most of the music, and the subwoofer handles everything below about 100 Hz. Leave it out and you either lose the bottom of the music or push the tops past where they sound clean. For a conference with speeches, panels and video playback, a subwoofer is optional. It helps with program video and walk in music, and it is an easy addition to the rig.
+## What comes with a speaker rental?
+Every speaker rental is delivered, set up, tested and picked up by our crew: the speakers, stands, cabling and a mixer, plus wireless microphones running our AI-powered De-Feedback system when there are toasts or speeches, and an on-site technician for the events that call for one. Tell us your guest count, your venue and whether there will be dancing, and we will send a straightforward quote within 24 hours.
 ## What changes for an outdoor event?
 Outdoors, sound that passes the last row keeps going, so plan on roughly twice the speaker count for the same guest number. A 150 guest outdoor ceremony in Frisco or McKinney wants four speakers rather than two, placed closer to the guests. Wind carries sound away from the seats, so we aim the outer speakers in toward the rows rather than straight down the aisle. Power matters too: a small ceremony rig wants its own 20 amp circuit, with the caterer's coffee urns on a different one.
 An outdoor ceremony this year is a good picture of the small end. Lapel microphones on the officiant and the couple, a condenser microphone on the string quartet, and two EV ZLX speakers at the front rows, with our De-Feedback system on the microphones so the level could come up outdoors and every word carried to the back row. You can hear that ceremony on our weddings page .

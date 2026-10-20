@@ -384,9 +384,9 @@ first dance. The one client testimonial that mentions cold sparks on
 
 ## Where things stand on 20 October 2026
 
-Origin is at bundle 81 (6d65569). Bundle 82 adds Microsoft Clarity; the next
-bundle number is 83, and 70 stays reserved for the video chat. Bundle 77 was
-never pushed.
+Origin is at bundle 82 (7e9afe8). Bundle 83 embeds the speakers video and
+strips pricing from the speakers post; the next bundle number is 84, and 70
+stays reserved for the video chat. Bundle 77 was never pushed.
 
 Bundle 78 (12 October), corporate events rebuild. Twelve months
 of Search Console: about twenty corporate queries on the page, essentially
@@ -477,6 +477,16 @@ Meta pixel, so it reaches every synced page. Same production hostname guard
 and load-event timing as the other two tags; leave Clarity's form masking on.
 The privacy page names Clarity and Microsoft. davidsbridalfrisco.html sits
 outside the chrome sync and does not carry it.
+
+Bundle 83 (20 October): the YouTube explainer "How Many Speakers Do You Need
+for 100, 200 or 500 Guests?" (bZxNyXIbGZw, motion graphics built with
+HyperFrames, narration by the ElevenLabs voice "Hope") is embedded on
+/post/how-many-speakers-do-i-need-for-100-200-or-500-guests with the same
+click-to-load box and VideoObject schema as the clouds page. The same post lost
+its "What does speaker rental cost" section (dollar ranges) in favor of "What
+comes with a speaker rental?", its description no longer promises rental costs
+(blog card and llms updated to match), and the subwoofer answer no longer says
+a sub "costs little". The separate AV-cost pricing post is untouched.
 
 Queued work, in Steve's order: a local SEO audit with `dea-local-seo-audit`;
 then DJ and lighting content passes, the live streaming page, and pruning
