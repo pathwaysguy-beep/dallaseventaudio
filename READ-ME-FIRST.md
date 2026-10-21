@@ -384,9 +384,9 @@ first dance. The one client testimonial that mentions cold sparks on
 
 ## Where things stand on 20 October 2026
 
-Origin is at bundle 83 (d292af1). Bundle 84 adds two posts; the next bundle
-number is 85, and 70 stays reserved for the video chat. Bundle 77 was never
-pushed.
+Origin is at bundle 84 (cec9f9c). Bundle 85 is a contact page conversion
+pass; the next bundle number is 86, and 70 stays reserved for the video chat.
+Bundle 77 was never pushed.
 
 Bundle 78 (12 October), corporate events rebuild. Twelve months
 of Search Console: about twenty corporate queries on the page, essentially
@@ -499,6 +499,19 @@ BreadcrumbList schema, blog cards, ItemList entries, sitemap, _pages.json and
 llms. The corporate page links to each from its holiday card and its
 "why companies choose" intro. Both use existing corporate photos; Steve owes
 holiday party photos to swap in.
+
+Bundle 85 (21 October): contact page conversion pass, from the first day of
+Clarity data (half of desktop contact visitors never scrolled past 20%, and
+the HoneyBook form starts about two screens down on desktop and four on a
+phone). A Request a Quote button in the hero and the header Get a Quote button
+(rewritten on this page only by a small page-local script, header copy only,
+drawer untouched) both jump to the form card, id quote-form. The duplicate
+lead paragraph above the form folded into the section intro. "Same-Day Reply"
+became "Reply Within 24 Hours" in the badge and marquee, and the FAQ answer
+dropped "same day" (FAQPage schema matches). The email address keeps to one
+line on desktop (val-email class, break point after the @ on narrow screens).
+The Knot proof line grammar fixed. Note that the HoneyBook form itself still
+lists cold spark machines; that lives in HoneyBook, not the repo.
 
 Queued work, in Steve's order: a local SEO audit with `dea-local-seo-audit`;
 then DJ and lighting content passes, the live streaming page, and pruning
