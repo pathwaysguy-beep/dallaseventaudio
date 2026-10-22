@@ -191,8 +191,14 @@ ul{ padding-left:1.1rem; }
    One page is not covered by this and should stay that way. davidsbridalfrisco
    is excluded from the chrome sync and carries its own tap tracking under the
    event names call_tap and text_tap. It is a live Google Ads landing page, so
-   renaming its events to match could break an Ads conversion import. Any GA4
-   report that wants the whole site has to union contact_click with call_tap.
+   renaming its events to match could break an Ads conversion import.
+
+   Since 21 October the rest of the site sends those same two names as well,
+   next to contact_click: a phone tap also sends call_tap and a text tap also
+   sends text_tap. Both are GA4 key events (counted once per session) so Google
+   Ads can import them, and using the David's Bridal names means one key event
+   covers every page. contact_click stays as the detailed record of all three
+   methods, email included; email taps are deliberately not a key event.
 
    Do not write literal tag syntax in this comment. */
 (function () {
@@ -236,6 +242,15 @@ ul{ padding-left:1.1rem; }
       link_section: section(a),
       transport_type: 'beacon'
     });
+
+    var lead = m === 'phone' ? 'call_tap' : (m === 'sms' ? 'text_tap' : '');
+    if (lead) {
+      gtag('event', lead, {
+        page_path: location.pathname,
+        link_section: section(a),
+        transport_type: 'beacon'
+      });
+    }
   }, true);
 })();
 /* Meta pixel, for the whole site, from the same file.

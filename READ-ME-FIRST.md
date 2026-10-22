@@ -384,8 +384,8 @@ first dance. The one client testimonial that mentions cold sparks on
 
 ## Where things stand on 20 October 2026
 
-Origin is at bundle 86 (7c6c607). Bundle 87 shrinks the concierge pill on
-phones; the next bundle number is 88, and 70 stays reserved for the video
+Origin is at bundle 87 (16430e6). Bundle 88 sends call_tap and text_tap
+site-wide; the next bundle number is 89, and 70 stays reserved for the video
 chat.
 Bundle 77 was never pushed.
 
@@ -536,6 +536,18 @@ label lives in two spans in tools/chrome/widget.html (cb-label and cb-short)
 and the bubble carries aria-label "AV Concierge chat". Desktop is unchanged.
 The id chatBubble is untouched, so the sensory-friendly page still suppresses
 it.
+
+Bundle 88 (21 October): phone and text taps count as leads. The shared
+listener in tools/chrome/analytics.html still sends contact_click for every
+tel, sms and mailto tap, and now also sends call_tap for a phone tap and
+text_tap for a text tap, the same names the David's Bridal page already used.
+Both were created in GA4 on 21 October as key events (Create with code, no
+default value, counted once per session). Email taps are deliberately not a
+key event. Google Ads imports them as Secondary conversions first, so they
+show up in reports without steering bidding; promoting them to Primary is a
+later decision. Tested by routing the production hostname to the local tree:
+a tel tap pushed contact_click plus call_tap, an sms tap contact_click plus
+text_tap, a mailto tap contact_click only.
 
 Queued work, in Steve's order: a local SEO audit with `dea-local-seo-audit`;
 then DJ and lighting content passes, the live streaming page, and pruning
