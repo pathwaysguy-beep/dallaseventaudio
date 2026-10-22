@@ -1448,9 +1448,28 @@ body.calm #chatPanel{ display:none; }
       dock.classList.toggle('open', state);
       toggle.setAttribute('aria-expanded', state ? 'true' : 'false');
     }
-    toggle.addEventListener('click', e=>{ e.stopPropagation(); open(!dock.classList.contains('open')); });
+    /* Usage tracking, added 22 October 2026: the dock stays on the site as a
+       playful extra, so record how often visitors open it and which palette
+       they pick. GA4 gets palette_open and palette_change (with the palette
+       name and page), and Clarity gets the same two names as custom events so
+       its recordings can be filtered to people who played with it. Both calls
+       are guarded, because gtag only transports on production and clarity
+       only exists there. */
+    function track(name, params){
+      try{ if(typeof window.gtag === 'function') window.gtag('event', name, params); }catch(e){}
+      try{ if(typeof window.clarity === 'function') window.clarity('event', name); }catch(e){}
+    }
+    toggle.addEventListener('click', e=>{
+      e.stopPropagation();
+      const opening = !dock.classList.contains('open');
+      open(opening);
+      if(opening) track('palette_open', { page_path: location.pathname });
+    });
     opts.forEach(b=>{
-      b.addEventListener('click', ()=>{ apply(b.dataset.p); store(b.dataset.p); open(false); });
+      b.addEventListener('click', ()=>{
+        apply(b.dataset.p); store(b.dataset.p); open(false);
+        track('palette_change', { palette: b.dataset.p, page_path: location.pathname });
+      });
     });
     document.addEventListener('click', e=>{ if(!dock.contains(e.target)) open(false); });
     document.addEventListener('keydown', e=>{ if(e.key === 'Escape') open(false); });

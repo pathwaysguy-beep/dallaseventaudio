@@ -384,9 +384,8 @@ first dance. The one client testimonial that mentions cold sparks on
 
 ## Where things stand on 20 October 2026
 
-Origin is at bundle 88 (92de805). Bundle 89 rewrites the opening of 11
-pages and adds a gear line; the next bundle number is 90, and 70 stays reserved
-for the video chat.
+Origin is at bundle 89 (5982898). Bundle 90 adds palette dock tracking; the
+next bundle number is 91, and 70 stays reserved for the video chat.
 Bundle 77 was never pushed.
 
 Bundle 78 (12 October), corporate events rebuild. Twelve months
@@ -564,6 +563,14 @@ added to the equipment list uplighting card and the concierge inventory in
 dea-concierge/src/prompt.js, which needs a wrangler deploy to go live.
 Steve's BassBoss inventory: SSP118-MK3, VS21-MK3 and ZV28-MK3 subs and DV12-MK3
 tops, one per stand or a 2x2 array; quantities are not published.
+
+Bundle 90 (22 October): the palette dock stays. Steve's call, 22 October
+2026: it is a fun way for visitors to play with the site, not a review tool to
+remove. tools/chrome/palette_js.html now sends GA4 palette_open (page_path)
+when the dock opens and palette_change (palette, page_path) when a theme is
+picked, and pushes the same two names to Clarity as custom events. Both calls
+are guarded. To see which palette people pick in GA4 reports, register
+"palette" as an event-scoped custom dimension in GA4 admin.
 
 Queued work, in Steve's order: a local SEO audit with `dea-local-seo-audit`;
 then DJ and lighting content passes, the live streaming page, and pruning
