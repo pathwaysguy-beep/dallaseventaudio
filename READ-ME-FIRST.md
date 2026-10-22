@@ -384,9 +384,9 @@ first dance. The one client testimonial that mentions cold sparks on
 
 ## Where things stand on 20 October 2026
 
-Origin is at bundle 87 (16430e6). Bundle 88 sends call_tap and text_tap
-site-wide; the next bundle number is 89, and 70 stays reserved for the video
-chat.
+Origin is at bundle 88 (92de805). Bundle 89 rewrites the opening of 11
+pages and adds a gear line; the next bundle number is 90, and 70 stays reserved
+for the video chat.
 Bundle 77 was never pushed.
 
 Bundle 78 (12 October), corporate events rebuild. Twelve months
@@ -548,6 +548,22 @@ show up in reports without steering bidding; promoting them to Primary is a
 later decision. Tested by routing the production hostname to the local tree:
 a tel tap pushed contact_click plus call_tap, an sms tap contact_click plus
 text_tap, a mailto tap contact_click only.
+
+Bundle 89 (22 October): unique openings and gear lines on 11 pages
+(subwoofers, line array, DJ and party speakers, sound equipment, projectors,
+clouds, uplighting, DJ services, DJ lighting, audio services, corporate
+events). Every opening had started "Dallas Event Audio rents ... across
+Dallas-Fort Worth" and spent half its length on delivery and setup; each now
+leads with the page's top Search Console cluster from the last 90 days and is
+shorter. A p.gear-line under each H1 names the gear DEA owns, model names only
+from the inventory (lighting by function, per the standing rule, except the
+ADJ WMX1 MK3 WOLFMIX controller Steve added as an uplighting option on 22
+October). The rent-sound-equipment and services-audio openings keep "Dallas
+Event Audio" because those pages rank for the brand. The WMX1 MK3 was also
+added to the equipment list uplighting card and the concierge inventory in
+dea-concierge/src/prompt.js, which needs a wrangler deploy to go live.
+Steve's BassBoss inventory: SSP118-MK3, VS21-MK3 and ZV28-MK3 subs and DV12-MK3
+tops, one per stand or a 2x2 array; quantities are not published.
 
 Queued work, in Steve's order: a local SEO audit with `dea-local-seo-audit`;
 then DJ and lighting content passes, the live streaming page, and pruning

@@ -139,6 +139,7 @@ MICROPHONES
 
 LIGHTING (describe these by what they do; DEA does not market lighting by brand)
 - Uplights, RGBAW-UV, battery powered, wireless DMX
+- ADJ WMX1 MK3 WOLFMIX lighting controller, optional with uplighting, for live looks changed in time with the music
 - Moving head lights
 - Lasers
 - Follow spot
