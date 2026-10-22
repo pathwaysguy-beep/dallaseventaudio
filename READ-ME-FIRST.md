@@ -384,9 +384,9 @@ first dance. The one client testimonial that mentions cold sparks on
 
 ## Where things stand on 20 October 2026
 
-Origin is at bundle 85 (c62fe5d). Bundle 86 puts quote and call buttons in
-the first screen of every service page; the next bundle number is 87, and 70
-stays reserved for the video chat.
+Origin is at bundle 86 (7c6c607). Bundle 87 shrinks the concierge pill on
+phones; the next bundle number is 88, and 70 stays reserved for the video
+chat.
 Bundle 77 was never pushed.
 
 Bundle 78 (12 October), corporate events rebuild. Twelve months
@@ -528,6 +528,14 @@ own buttons. On the home page the duplicate hero logo shrank (440px to 300px,
 button row sits under the H1. Blog posts were left alone on purpose. The CSS
 for the rows sits right after each page's base hero-ctas rule, because the
 base rule's display:flex would otherwise win.
+
+Bundle 87 (21 October): the AV Concierge pill on phones (700px and under) is
+now a short "Ask" pill tucked 14px from the corner, about 71 by 41 pixels
+instead of the full label, because it sat over the new hero call button. The
+label lives in two spans in tools/chrome/widget.html (cb-label and cb-short)
+and the bubble carries aria-label "AV Concierge chat". Desktop is unchanged.
+The id chatBubble is untouched, so the sensory-friendly page still suppresses
+it.
 
 Queued work, in Steve's order: a local SEO audit with `dea-local-seo-audit`;
 then DJ and lighting content passes, the live streaming page, and pruning
