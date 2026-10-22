@@ -384,8 +384,9 @@ first dance. The one client testimonial that mentions cold sparks on
 
 ## Where things stand on 20 October 2026
 
-Origin is at bundle 84 (cec9f9c). Bundle 85 is a contact page conversion
-pass; the next bundle number is 86, and 70 stays reserved for the video chat.
+Origin is at bundle 85 (c62fe5d). Bundle 86 puts quote and call buttons in
+the first screen of every service page; the next bundle number is 87, and 70
+stays reserved for the video chat.
 Bundle 77 was never pushed.
 
 Bundle 78 (12 October), corporate events rebuild. Twelve months
@@ -512,6 +513,21 @@ dropped "same day" (FAQPage schema matches). The email address keeps to one
 line on desktop (val-email class, break point after the @ on narrow screens).
 The Knot proof line grammar fixed. Note that the HoneyBook form itself still
 lists cold spark machines; that lives in HoneyBook, not the repo.
+
+Bundle 86 (21 October): above-the-fold pass. A Playwright scan of every page
+at 1440x900 and on an iPhone 13 found that only contact, laser and weddings had
+a quote button in the first screen; on the other service pages the first
+in-page quote button was the final CTA, 8,000 to 37,000 pixels down, and
+Clarity showed the header Get a Quote taking half of all clicks on the
+projector page. 34 hero-page pages now carry two copies of a two-button row
+(Request a Quote to /contact, Call 817-210-7957 to tel): hero-ctas-d after the
+intro paragraph for desktop, hero-ctas-m straight after the H1 for phones
+(700px and under), so exactly one shows. Weddings got the phone copy of its
+own buttons. On the home page the duplicate hero logo shrank (440px to 300px,
+40vw on phones), the phone hero padding and eyebrow tightened, and the phone
+button row sits under the H1. Blog posts were left alone on purpose. The CSS
+for the rows sits right after each page's base hero-ctas rule, because the
+base rule's display:flex would otherwise win.
 
 Queued work, in Steve's order: a local SEO audit with `dea-local-seo-audit`;
 then DJ and lighting content passes, the live streaming page, and pruning

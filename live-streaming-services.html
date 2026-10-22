@@ -138,6 +138,17 @@ a{color:inherit; text-decoration:none;}
     font-size:1.15rem; color:var(--dim); max-width:600px; margin-top:26px; position:relative; z-index:1;
   }
 .hero-ctas{ display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; position:relative; z-index:1; }
+.hero-ctas-top{ margin-top:30px; }
+.hero-ctas-m{ display:none; }
+@media (max-width:700px){
+.hero-ctas-m{ display:flex; flex-wrap:nowrap; margin-top:22px; gap:10px; }
+.hero-ctas-d{ display:none; }
+.hero-ctas-m a{ flex:1 1 0; min-width:0; text-align:center; white-space:nowrap; padding:14px 8px; font-size:.95rem; }
+}
+@media (max-width:370px){
+.hero-ctas-m{ flex-wrap:wrap; }
+.hero-ctas-m a{ flex-basis:100%; }
+}
 .btn-primary{
     font-weight:700; padding:16px 30px; border-radius:100px; background:var(--grad); color:#0a0a0a; font-size:1.073rem;
   }
@@ -1565,7 +1576,15 @@ body.calm #chatPanel{ display:none; }
         <a href="/">Home</a><span class="sep">/</span><a href="/services-audio">Audio</a><span class="sep">/</span><span class="here">Live Streaming Services</span>
       </div>
       <h1 data-reveal>Live streaming services in Dallas-Fort Worth, <span class="grad-text">with audio your remote audience can follow.</span></h1>
+      <div class="hero-ctas hero-ctas-top hero-ctas-m" data-reveal>
+        <a class="btn-primary" href="/contact">Request a Quote</a>
+        <a class="btn-secondary" href="tel:8172107957">Call 817-210-7957</a>
+      </div>
       <p class="sub" data-reveal>Up to four Sony 4K cameras, switched live on site, streamed to whichever platform you already use. The part that decides the stream is the sound: your microphone receivers run through AI-powered De-Feedback and then our mixer, then straight into the video switcher as a clean board feed. The people watching from a laptop hear the same processed speech the room hears, carried off the console into the switcher rather than off a camera.</p>
+      <div class="hero-ctas hero-ctas-top hero-ctas-d" data-reveal>
+        <a class="btn-primary" href="/contact">Request a Quote</a>
+        <a class="btn-secondary" href="tel:8172107957">Call 817-210-7957</a>
+      </div>
 
       <div class="stat-row" data-reveal>
         <div class="stat">

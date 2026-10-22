@@ -150,6 +150,16 @@ a{color:inherit; text-decoration:none;}
     font-size:1.15rem; color:var(--dim); max-width:600px; margin-top:26px; position:relative; z-index:1;
   }
 .hero-ctas{ display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; position:relative; z-index:1; }
+.hero-ctas-m{ display:none; }
+@media (max-width:700px){
+.hero-ctas-m{ display:flex; flex-wrap:nowrap; margin-top:22px; gap:10px; }
+.hero-ctas-d{ display:none; }
+.hero-ctas-m a{ flex:1 1 0; min-width:0; text-align:center; white-space:nowrap; padding:14px 8px; font-size:.95rem; }
+}
+@media (max-width:370px){
+.hero-ctas-m{ flex-wrap:wrap; }
+.hero-ctas-m a{ flex-basis:100%; }
+}
 .btn-primary{
     font-weight:700; padding:16px 30px; border-radius:100px; background:var(--grad); color:#0a0a0a; font-size:1.073rem;
   }
@@ -1430,8 +1440,12 @@ body.calm #chatPanel{ display:none; }
         <div class="award-badge"><span class="pulse"></span> 6&times; WeddingWire Couples&rsquo; Choice &middot; 3&times; Knot Best of Weddings</div>
       </div>
       <h1 data-reveal>Wedding <span class="grad-text">AV Services</span> in Dallas-Fort Worth</h1>
+      <div class="hero-ctas hero-ctas-m" data-reveal>
+        <a class="btn-primary" href="/contact">Check Your Wedding Date</a>
+        <a class="btn-secondary" href="tel:8172107957">Call 817-210-7957</a>
+      </div>
       <p class="sub" data-reveal>Dallas Event Audio provides wedding sound, DJs, lighting and effects across Dallas-Fort Worth. Ceremony sound your back row can hear. A reception system that holds a full dance floor. Uplighting, monograms, and effects that make the photos. All of it delivered, set up and tested by our crew, and picked up after the send off. Every cable is ours to run.</p>
-      <div class="hero-ctas" data-reveal>
+      <div class="hero-ctas hero-ctas-d" data-reveal>
         <a class="btn-primary" href="/contact">Check Your Wedding Date</a>
         <a class="btn-secondary" href="#reception">See What We Bring</a>
       </div>

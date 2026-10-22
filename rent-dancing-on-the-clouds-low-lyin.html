@@ -138,6 +138,17 @@ a{color:inherit; text-decoration:none;}
     font-size:1.15rem; color:var(--dim); max-width:600px; margin-top:26px; position:relative; z-index:1;
   }
 .hero-ctas{ display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; position:relative; z-index:1; }
+.hero-ctas-top{ margin-top:30px; }
+.hero-ctas-m{ display:none; }
+@media (max-width:700px){
+.hero-ctas-m{ display:flex; flex-wrap:nowrap; margin-top:22px; gap:10px; }
+.hero-ctas-d{ display:none; }
+.hero-ctas-m a{ flex:1 1 0; min-width:0; text-align:center; white-space:nowrap; padding:14px 8px; font-size:.95rem; }
+}
+@media (max-width:370px){
+.hero-ctas-m{ flex-wrap:wrap; }
+.hero-ctas-m a{ flex-basis:100%; }
+}
 .btn-primary{
     font-weight:700; padding:16px 30px; border-radius:100px; background:var(--grad); color:#0a0a0a; font-size:1.073rem;
   }
@@ -2117,7 +2128,15 @@ body.calm #chatPanel{ display:none; }
         <a href="/">Home</a><span class="sep">/</span><a href="/services-lighting">Lighting Services</a><span class="sep">/</span><span class="here">Dry Ice &amp; Low Lying Fog</span>
       </div>
       <h1>Dancing on the clouds and <span class="grad-text">dry ice low lying fog</span> rental in Dallas-Fort Worth</h1>
+      <div class="hero-ctas hero-ctas-top hero-ctas-m" data-reveal>
+        <a class="btn-primary" href="/contact">Request a Quote</a>
+        <a class="btn-secondary" href="tel:8172107957">Call 817-210-7957</a>
+      </div>
       <p class="sub">Dallas Event Audio rents dancing on the clouds, the low-lying dry ice fog effect for a first dance, across Dallas-Fort Worth. The dancing on the clouds effect, run properly. We own it in four sizes and bring the one your floor and your moment call for, with an on-site technician on every booking and the cloud timed to land on the beat your first dance starts on.</p>
+      <div class="hero-ctas hero-ctas-top hero-ctas-d" data-reveal>
+        <a class="btn-primary" href="/contact">Request a Quote</a>
+        <a class="btn-secondary" href="tel:8172107957">Call 817-210-7957</a>
+      </div>
       <div class="stat-row">
         <div class="stat"><div class="num">4</div><div class="lbl">Sizes of the effect. We bring the one your floor and your moment call for</div></div>
         <div class="stat"><div class="num">100%</div><div class="lbl">Delivered, set up, cued and operated by our technician</div></div>
