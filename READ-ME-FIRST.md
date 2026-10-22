@@ -384,8 +384,8 @@ first dance. The one client testimonial that mentions cold sparks on
 
 ## Where things stand on 20 October 2026
 
-Origin is at bundle 89 (5982898). Bundle 90 adds palette dock tracking; the
-next bundle number is 91, and 70 stays reserved for the video chat.
+Origin is at bundle 90 (f01fd71). Bundle 91 rebuilds the BassBoss subwoofer
+page; the next bundle number is 92, and 70 stays reserved for the video chat.
 Bundle 77 was never pushed.
 
 Bundle 78 (12 October), corporate events rebuild. Twelve months
@@ -570,7 +570,27 @@ remove. tools/chrome/palette_js.html now sends GA4 palette_open (page_path)
 when the dock opens and palette_change (palette, page_path) when a theme is
 picked, and pushes the same two names to Clarity as custom events. Both calls
 are guarded. To see which palette people pick in GA4 reports, register
-"palette" as an event-scoped custom dimension in GA4 admin.
+"palette" as an event-scoped custom dimension in GA4 admin. (Done 22 October:
+custom dimension "Palette".)
+
+Bundle 91 (22 October): /rent-bassboss-subwoofers rebuilt around Steve's own
+photos and published specs. The four model cards are reordered subs first
+(SSP118, VS21, ZV28, then the DV12 top), each with a 4:3 photo and a
+"Published" spec line taken from the bassboss.com product pages (Steve, 22
+October: the website is more current than the cut sheets, so use its figures).
+A two-photo strip follows: Rave & Buster's at Dave & Buster's (event cleared,
+naming approved by Steve) and the VS21s beside the ZV28s in the shop. A new
+#compare section has three tables (single 18, single 21, double 18) comparing
+BassBoss with QSC, JBL, RCF, Mackie, Electro-Voice and Yamaha, every figure
+from the maker's own page or sheet, checked October 2026: low end with the
+tolerance each maker publishes, output as the published peak figure at 1 m,
+amplifier wattage deliberately left off, sources linked. Two FAQs added
+(BassBoss vs QSC/JBL/RCF; which BassBoss sub to rent), FAQPage schema matches,
+meta description names the models. Photos live in /images/subwoofers/; the
+DV12 photo is cropped to keep a QSC speaker out of frame (DEA does not stock
+QSC). The "larger BASSBOSS boxes are available" addon is unchanged and still
+claims gear outside the inventory; Steve to confirm or cut. Full research:
+project doc claude/bassboss-rebuild-research.md.
 
 Queued work, in Steve's order: a local SEO audit with `dea-local-seo-audit`;
 then DJ and lighting content passes, the live streaming page, and pruning
