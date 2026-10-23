@@ -617,6 +617,15 @@ setups). Open question for Steve: the long throw card says a 124 inch tripod
 or 144 inch screen while the gear line says 120 inch; left as is until he
 confirms the sizes.
 
+Bundle 94 (23 October): two quote buttons that scrolled instead of leaving
+the page now go straight to /contact. On the clouds page the final "Get a
+fog machine quote" button pointed at #quote, a section higher on the same
+page with no form, so it scrolled visitors back up (Steve found it). On the
+home page both hero "Get Your Quote" buttons pointed at #contact, the closing
+section, which added a step before the form. Only those three hrefs change.
+Rule: a quote button links to /contact, never to an anchor, except on
+/contact itself where the anchor is the form.
+
 Queued work, in Steve's order: a local SEO audit with `dea-local-seo-audit`;
 then DJ and lighting content passes, the live streaming page, and pruning
 or redirecting the old posts that earn nothing.
