@@ -626,6 +626,17 @@ section, which added a step before the form. Only those three hrefs change.
 Rule: a quote button links to /contact, never to an anchor, except on
 /contact itself where the anchor is the form.
 
+Bundle 95 (23 October): /contact. Steve's call: the hero line "Call, text,
+email, or send the form below..." is cut to bring the form up the page (the
+24-hour promise still shows in the badge, the side card and elsewhere). A
+one-line note now sits above the HoneyBook form: "Only your email, event date
+and event type are required. The rest helps us quote faster." Why: GA4 showed
+/contact visits up since the move but thank-you views falling (about 9% of
+visits by mid October), and Clarity showed about 30% of desktop visitors
+scrolling past the whole form without sending it. Steve's test submission on
+23 October reached /thank-you and HoneyBook, so the form itself works. The
+form's fields stay as they are (DJ, photo and video are real services).
+
 Queued work, in Steve's order: a local SEO audit with `dea-local-seo-audit`;
 then DJ and lighting content passes, the live streaming page, and pruning
 or redirecting the old posts that earn nothing.
