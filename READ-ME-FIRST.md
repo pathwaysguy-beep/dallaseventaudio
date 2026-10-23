@@ -384,8 +384,9 @@ first dance. The one client testimonial that mentions cold sparks on
 
 ## Where things stand on 20 October 2026
 
-Origin is at bundle 90 (f01fd71). Bundle 91 rebuilds the BassBoss subwoofer
-page; the next bundle number is 92, and 70 stays reserved for the video chat.
+Origin is at bundle 91 (6e3e1a4). Bundle 93 is cumulative (it carries the
+unpushed 92 plus the projector work; 92 is dead); the next bundle number is 94,
+and 70 stays reserved for the video chat.
 Bundle 77 was never pushed.
 
 Bundle 78 (12 October), corporate events rebuild. Twelve months
@@ -588,9 +589,33 @@ amplifier wattage deliberately left off, sources linked. Two FAQs added
 (BassBoss vs QSC/JBL/RCF; which BassBoss sub to rent), FAQPage schema matches,
 meta description names the models. Photos live in /images/subwoofers/; the
 DV12 photo is cropped to keep a QSC speaker out of frame (DEA does not stock
-QSC). The "larger BASSBOSS boxes are available" addon is unchanged and still
-claims gear outside the inventory; Steve to confirm or cut. Full research:
+QSC). Full research:
 project doc claude/bassboss-rebuild-research.md.
+
+Bundle 92 (22 October): Steve cut the "bigger BASSBOSS boxes" claim (double
+and quad 21s, MFLA modules), which is outside the inventory. The block is gone
+from /rent-bassboss-subwoofers; on /dj-speaker-rental the same addon now reads
+"When the room outgrows a pair of speakers" and names only owned gear (SSP118,
+VS21, ZV28 and the DV12 array), keeping its links to the subwoofer and line
+array pages. llms-full.txt rebuilt.
+
+Bundle 93 (22 October), projector cannibalization fix. Search Console showed
+/post/projector-rental-dallas-tx ranking for the service page's head terms
+("projector rental" 129 impressions at 22.8, "projector rental near me" 75 at
+18, "rent a projector" 73 at 16.4) while /projector-screen-rental sat at about
+15 to 17 on the same terms. The post keeps its slug and is re-angled to its
+own queries (projector for an office or business presentation, meeting
+projector): new title, H1, description, sub, body, FAQ, dateModified, and the
+blog.html and our-work.html cards and schema names. The head-term words drop
+on purpose, so the SEO diff on the post FAILS by design (word count -18%,
+"projector rental" headings gone); the service page diff passes. The post
+still links to /projector-screen-rental three times. On the service page: a
+"Where to rent a projector and screen near you" block with Fort Worth wording
+in the service area section, a near-me FAQ (visible and schema), the guide
+link re-labelled, and "community screenings" removed (no outdoor movie
+setups). Open question for Steve: the long throw card says a 124 inch tripod
+or 144 inch screen while the gear line says 120 inch; left as is until he
+confirms the sizes.
 
 Queued work, in Steve's order: a local SEO audit with `dea-local-seo-audit`;
 then DJ and lighting content passes, the live streaming page, and pruning
