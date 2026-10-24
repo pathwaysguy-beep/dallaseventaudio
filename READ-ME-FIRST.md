@@ -637,6 +637,18 @@ scrolling past the whole form without sending it. Steve's test submission on
 23 October reached /thank-you and HoneyBook, so the form itself works. The
 form's fields stay as they are (DJ, photo and video are real services).
 
+Bundle 96 (24 October): Chauvet DJ Geyser P7 LED fog jets added. Steve
+switched to the Geyser P7 (he owns them; never publish quantities). New
+section #geyser-fog-jet on /rent-fog-machine between haze and high density
+fog, with an Offer in the Service schema (FAQ unchanged), and a new card 05
+in the fog section of /equipment-list (Power, cable and stands is now 06; the
+ItemList description names the P7). Positioning, Steve's call: CO2 stays on
+offer and in the ads, and the P7 is the substitute for longer lasting effects
+or venues that will not take cylinders. Specs from chauvetdj.com: 17,000 cfm,
+seven 9 W RGBA+UV LEDs in two zones, QDF fluid, 0.7 gal tank, 4 minute heat
+up, 1,290 W, 18.16 lb, 15 DMX channels plus wireless remote. The concierge
+prompt does not list the P7 yet.
+
 Queued work, in Steve's order: a local SEO audit with `dea-local-seo-audit`;
 then DJ and lighting content passes, the live streaming page, and pruning
 or redirecting the old posts that earn nothing.
