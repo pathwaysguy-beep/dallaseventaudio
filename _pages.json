@@ -223,5 +223,10 @@
     "url": "/post/corporate-holiday-party-av-dallas",
     "file": "post/corporate-holiday-party-av-dallas.html",
     "from": "bundle 84, companion post built from the speakers post template"
+  },
+  {
+    "url": "/post/product-launch-keynote-frontiers-of-flight-museum",
+    "file": "post/product-launch-keynote-frontiers-of-flight-museum.html",
+    "from": "bundle 101, gig post built from daytime-country-club-wedding-mckinney.html"
   }
 ]

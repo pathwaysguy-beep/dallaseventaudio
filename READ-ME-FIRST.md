@@ -711,6 +711,20 @@ bot to link each service or equipment page it names, written as markdown
 links on the words with the path only, up to three per answer. The prompt
 change needs `npx wrangler deploy` from dea-concierge/ to go live.
 
+## Frontiers of Flight keynote post (bundle 101, 26 October 2026)
+
+Gig post /post/product-launch-keynote-frontiers-of-flight-museum: a software company's product launch keynote in the
+main hall of the Frontiers of Flight Museum (Dallas Love Field), with the Epson
+700U ultra short throw projector on the stage, the ambient light rejecting
+screen, two speakers on tripods, three lapel mics and a handheld on De-Feedback.
+Five photos in images/blog (4:3 ladder, no EXIF on the originals, so no date in
+the copy). The client is unnamed in text, alt and filenames; its slides stay on
+screen in the photos, the same as the other projector photos. The presenter photo
+replaced the Class A hangar shot in the projector page's ultra short throw slot;
+the old ultra-short-throw-projector-rental-dallas image files are now unused.
+The projector page links the post from that section. Built by patch.py on top of
+bundle 100, so the post inherits whatever chrome 100 carried.
+
 ## The story pass (standing queue, started 8 September 2026)
 
 The copy gates are clean site-wide. What keeps a reader on a page is
