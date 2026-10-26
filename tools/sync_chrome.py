@@ -317,7 +317,7 @@ STANDALONE = {
 def main():
     check = '--check' in sys.argv
     files = sorted(f for f in glob.glob(SITE + '/**/*.html', recursive=True)
-                   if '/tools/' not in f.replace('\\', '/')
+                   if not re.search(r'/(tools|node_modules|dea-concierge|\.wrangler|\.git)/', f.replace('\\', '/'))
                    and os.path.relpath(f, SITE).replace('\\', '/') not in STANDALONE)
     n = 0
     for f in files:

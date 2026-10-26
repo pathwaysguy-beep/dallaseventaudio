@@ -725,6 +725,14 @@ the old ultra-short-throw-projector-rental-dallas image files are now unused.
 The projector page links the post from that section. Built by patch.py on top of
 bundle 100, so the post inherits whatever chrome 100 carried.
 
+## Tools skip node_modules (bundle 102, 26 October 2026)
+
+tools/sync_chrome.py, tools/image_gaps.py and tools/optimize_images.py glob every
+.html under the repo. Running `npx wrangler deploy` installs dea-concierge/node_modules,
+which contains HTML files, and sync_chrome.py then crashed with "no </head>". All three
+now skip tools/, node_modules/, dea-concierge/, .wrangler/ and .git/. node_modules stays
+gitignored; leave it in place.
+
 ## The story pass (standing queue, started 8 September 2026)
 
 The copy gates are clean site-wide. What keeps a reader on a page is

@@ -61,7 +61,7 @@ def scan():
     have = on_disk()
     pages = collections.OrderedDict()
     files = sorted(f for f in glob.glob(SITE + '/**/*.html', recursive=True)
-                   if '/tools/' not in f.replace('\\', '/'))
+                   if not re.search(r'/(tools|node_modules|dea-concierge|\.wrangler|\.git)/', f.replace('\\', '/')))
     for f in files:
         rel = os.path.relpath(f, SITE).replace('\\', '/')
         s = io.open(f, encoding='utf-8', errors='replace').read()

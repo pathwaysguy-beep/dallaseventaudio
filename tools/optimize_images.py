@@ -156,7 +156,7 @@ def process(path, write=True):
 def main():
     check = '--check' in sys.argv
     files = sorted(f for f in glob.glob(SITE + '/**/*.html', recursive=True)
-                   if '/tools/' not in f.replace('\\', '/'))
+                   if not re.search(r'/(tools|node_modules|dea-concierge|\.wrangler|\.git)/', f.replace('\\', '/')))
     n = ti = tc = 0
     for f in files:
         ch, rep = process(f, write=not check)
