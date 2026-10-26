@@ -711,6 +711,24 @@ bot to link each service or equipment page it names, written as markdown
 links on the words with the path only, up to three per answer. The prompt
 change needs `npx wrangler deploy` from dea-concierge/ to go live.
 
+Bundle 103 (26 October 2026), venues by service: each venue `<li>` also
+carries `data-s`, the services booked there (past jobs only), from the same
+booking analysis as the list: sound, dj, mics (wireless mics and De-Feedback),
+uplighting, stage (moving heads and stage lighting), projection, lasers, fog
+(fog and haze), clouds, co2, stream (live streaming), tvs. Tokens are sorted
+most booked first. Cold sparks, photo booths, monograms, labor, delivery and
+fees are never tags. Up to three pills sit beside each name (`.vtags` holding
+`.vtag` spans, the old Clouds pill style), most booked first; Clouds always
+shows where it applies, replacing the third pill if needed. 41 venues come from
+older proposals with no line items and show no pills; they still appear under
+All services. A second filter row, `#serviceFilter` (buttons with `data-s`),
+sits under the event-type row with small "Event type" and "Service" labels;
+the Dancing on the Clouds button moved from the event row to the service row
+(the `clouds` token stays in `data-t` too). Event type, service and search
+combine. GA4 `venue_filter` sends `service_<token>` for service buttons. The
+section intro links the service pages and names the AI-powered De-Feedback
+system with wireless mics. No counts are shown, per the venue rules.
+
 ## Frontiers of Flight keynote post (bundle 101, 26 October 2026)
 
 Gig post /post/product-launch-keynote-frontiers-of-flight-museum: a software company's product launch keynote in the
