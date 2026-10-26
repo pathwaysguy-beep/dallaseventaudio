@@ -1329,6 +1329,15 @@ body.nav-locked{ overflow:hidden; }
 .cp-send:disabled{ opacity:.4; cursor:default; }
 .cp-send:focus-visible{ outline:2px solid var(--ink); outline-offset:2px; }
 
+.cp-quick{ display:flex; flex-wrap:wrap; gap:8px; }
+.cp-quick button{
+    font:inherit; font-size:.95rem; padding:10px 14px; min-height:44px;
+    border-radius:999px; border:1px solid var(--a1); background:transparent;
+    color:var(--ink); cursor:pointer; text-align:left;
+  }
+.cp-quick button:hover{ background:color-mix(in srgb, var(--a1) 14%, transparent); }
+.cp-quick button:focus-visible{ outline:2px solid var(--a1); outline-offset:2px; }
+
 .cp-legal{
     flex:0 0 auto; padding:0 16px 14px; font-size:.8rem;
     line-height:1.5; color:var(--dim); background:var(--bg-2);
@@ -1344,7 +1353,7 @@ body.nav-locked{ overflow:hidden; }
 @media (max-width:520px){
   #chatPanel{
       right:0; left:0; bottom:0; width:100%;
-      max-height:82vh; border-radius:18px 18px 0 0; border-bottom:0;
+      max-height:82vh; max-height:82dvh; border-radius:18px 18px 0 0; border-bottom:0;
     }
 }
 
@@ -2294,11 +2303,18 @@ body.calm #chatPanel{ display:none; }
 
   var MAX_TURNS = 40;               /* mirrors the cap the Worker enforces */
   var STORE = 'dea-chat-v1';
+  var FOLLOW = 'dea-chat-follow';   /* set when a chat link is followed */
   var GREETING =
     'Welcome to Dallas Event Audio 🎧 So I can help you the right ' +
     'way: which best describes you? Planning an event, a planner or ' +
     'coordinator sourcing for a client, a DJ, band or performer who needs us ' +
     'to set you up, or just have a question?';
+  /* Tap-to-answer choices for the greeting's question. Clarity showed a phone
+     visitor tapping the greeting over and over, reading the four choices as
+     buttons, so now they are buttons. Each one sends its text as the visitor's
+     first message, exactly as if it had been typed. */
+  var CHOICES = ['Planning an event', 'Planner or coordinator',
+    'DJ, band or performer', 'Just have a question'];
   var TROUBLE =
     'Sorry, I am having trouble connecting. Please call or text 817-210-7957.';
 
@@ -2342,9 +2358,16 @@ body.calm #chatPanel{ display:none; }
   var SAFE_RELATIVE = /^\/(?!\/)/;
   function safeHref(h) { return SAFE_SCHEME.test(h) || SAFE_RELATIVE.test(h); }
 
+  /* A link to a page of this site opens in the same window, and the chat
+     reopens on that page with the conversation intact (see FOLLOW below).
+     Anything off the site still opens in a new tab. */
+  var OWN = /^https?:\/\/(?:www\.)?dallaseventaudio\.com(?=\/|$)/i;
   function inline(t) {
     var out = t.replace(/\[([^[\]]+)\]\(([^()\s]+)\)/g, function (w, label, href) {
       if (!safeHref(href)) return label;
+      if (SAFE_RELATIVE.test(href) || OWN.test(href)) {
+        return '<a href="' + href.replace(OWN, '') + '" data-own="1">' + label + '</a>';
+      }
       return '<a href="' + href + '" target="_blank" rel="noopener noreferrer">' +
         label + '</a>';
     });
@@ -2441,7 +2464,54 @@ body.calm #chatPanel{ display:none; }
     log.innerHTML = '';
     history.forEach(function (m) { paint(m.role, m.content); });
     if (ended) lock();
+    quick();
   }
+
+  function quick() {
+    var old = document.getElementById('cpQuick');
+    if (old) old.remove();
+    if (ended || busy || history.length !== 1) return;
+    var row = document.createElement('div');
+    row.id = 'cpQuick';
+    row.className = 'cp-quick';
+    CHOICES.forEach(function (c) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.textContent = c;
+      b.addEventListener('click', function () {
+        input.value = c;
+        track('chat_quick_reply', { event_category: 'concierge', choice: c });
+        submit();
+      });
+      row.appendChild(b);
+    });
+    log.appendChild(row);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  /* iPhone keyboards. On a phone the panel is a sheet pinned to the bottom of
+     the layout viewport, and iOS Safari does not shrink that viewport when the
+     keyboard opens, so the keyboard could cover the input. visualViewport
+     reports the part of the page the keyboard leaves visible; the sheet is
+     lifted and capped to it whenever it changes. Desktop is left alone. */
+  var vv = window.visualViewport;
+  function fit() {
+    if (panel.hidden || !vv || window.innerWidth > 520) {
+      panel.style.bottom = '';
+      panel.style.maxHeight = '';
+      return;
+    }
+    var covered = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
+    panel.style.bottom = covered + 'px';
+    panel.style.maxHeight = Math.round(vv.height * 0.92) + 'px';
+    log.scrollTop = log.scrollHeight;
+  }
+  if (vv) {
+    vv.addEventListener('resize', fit);
+    vv.addEventListener('scroll', fit);
+  }
+  input.addEventListener('focus', function () { setTimeout(fit, 250); });
+  input.addEventListener('blur', function () { setTimeout(fit, 250); });
 
   function lock() {
     input.disabled = true;
@@ -2460,7 +2530,10 @@ body.calm #chatPanel{ display:none; }
     bubble.setAttribute('aria-expanded', 'true');
     if (!log.childNodes.length) restore();
     log.scrollTop = log.scrollHeight;
-    if (!ended) input.focus();
+    fit();
+    /* No automatic focus on a phone: it pops the keyboard over the greeting
+       and its choices before anyone has read them. */
+    if (!ended && window.innerWidth > 520) input.focus();
     track('chat_open', { event_category: 'concierge' });
   }
 
@@ -2471,6 +2544,13 @@ body.calm #chatPanel{ display:none; }
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
 
+  log.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest ? e.target.closest('a[data-own]') : null;
+    if (!a) return;
+    try { sessionStorage.setItem(FOLLOW, '1'); } catch (err) {}
+    track('chat_link_click', { event_category: 'concierge', link_url: a.getAttribute('href') });
+  });
+
   bubble.addEventListener('click', open);
   bubble.addEventListener('keydown', function (e) {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
@@ -2479,6 +2559,11 @@ body.calm #chatPanel{ display:none; }
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && !panel.hidden) shut();
   });
+
+  /* A visitor who followed a link inside the chat lands with it open. */
+  var follow = null;
+  try { follow = sessionStorage.getItem(FOLLOW); sessionStorage.removeItem(FOLLOW); } catch (e) {}
+  if (follow === '1') open();
 
   /* ---- sending ---- */
 
@@ -2499,6 +2584,8 @@ body.calm #chatPanel{ display:none; }
 
     input.value = '';
     input.style.height = 'auto';
+    var q = document.getElementById('cpQuick');
+    if (q) q.remove();
     if (!sid) sid = newSid();
     history.push({ role: 'user', content: text });
     paint('user', text);
@@ -2537,7 +2624,10 @@ body.calm #chatPanel{ display:none; }
       })
       .then(function () {
         busy = false;
-        if (!ended) { send.disabled = false; input.focus(); }
+        if (!ended) {
+          send.disabled = false;
+          if (window.innerWidth > 520 || document.activeElement === input) input.focus();
+        }
       });
   }
 })();

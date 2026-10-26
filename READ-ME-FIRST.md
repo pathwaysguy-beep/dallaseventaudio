@@ -385,7 +385,7 @@ first dance. The one client testimonial that mentions cold sparks on
 ## Where things stand on 20 October 2026
 
 Origin is at bundle 91 (6e3e1a4). Bundle 93 is cumulative (it carries the
-unpushed 92 plus the projector work; 92 is dead); the next bundle number is 94,
+unpushed 92 plus the projector work; 92 is dead); the next bundle number is 99,
 and 70 stays reserved for the video chat.
 Bundle 77 was never pushed.
 
@@ -668,6 +668,48 @@ regenerate it rather than editing names one by one. The clouds page gained a
 Company column, our-work, weddings and fort-worth. Venue guide pages wait
 until event photos are matched to venues. `sync_chrome.py --check` now covers
 85 files.
+
+Bundle 98 (26 October 2026), venues by event type: Steve wanted the page to
+read as every kind of event, not mainly Clouds. Each venue `<li>` now carries
+`data-t` (wedding, corporate, private, music, gala, school, worship, sports,
+clouds) taken from the HoneyBook project type of the booked jobs there
+(Busy projects first; a venue with no Busy match falls back to its other
+projects). A filter row of buttons above the search box (All venues, Weddings,
+Corporate events, Private parties, Live music and club nights, Galas and
+fundraisers, School and university, Church events, Sporting events, Dancing on
+the Clouds) works together with the search; on phones the row swipes
+sideways. No counts are shown, per the venue rules. 8 venues have no event
+type on record and appear under All venues only. The filter fires a GA4
+event `venue_filter` with the filter name. Sub, section intro, H2 and meta
+description now name the event types and link the event pages.
+
+Bundle 99 (26 October 2026), cumulative: carries bundle 98 (venues by event
+type; 98 was never pushed and is dead) plus two AV Concierge fixes in
+`tools/chrome/widget_js.html` and `chrome.css`, synced to all 85 pages.
+Steve saw the iPhone keyboard cover the chat input now and then, and Clarity
+showed a phone visitor tapping the greeting about 15 times as if its four
+choices were buttons. (1) On phones the chat no longer focuses the input when
+it opens, so the keyboard stays down until the visitor taps the box, and a
+visualViewport listener lifts and caps the bottom sheet to the area the
+keyboard leaves visible (iOS Safari does not shrink the layout viewport, and
+82vh ignored the keyboard; 82dvh is now the CSS fallback). Desktop is
+unchanged. (2) Under the greeting, four tap-to-answer buttons (Planning an
+event, Planner or coordinator, DJ, band or performer, Just have a question)
+send their text as the first message and disappear; GA4 event
+chat_quick_reply carries the choice. The Worker and its prompt are untouched.
+
+Bundle 100 (26 October 2026), cumulative: carries 98 and 99 (both never
+pushed, both dead) plus chat links that keep the visitor on the site. A link
+the concierge writes to a page of this site (a path, or a full
+dallaseventaudio.com URL) now opens in the same window instead of a new tab;
+clicking it sets the sessionStorage flag `dea-chat-follow`, and the next page
+opens the chat with the conversation intact (the history was already kept in
+sessionStorage). A plain reload does not reopen it. Off-site links still open
+in a new tab. GA4 event chat_link_click carries the path. The prompt
+(dea-concierge/src/prompt.js, rule 11 and the page digest intro) now asks the
+bot to link each service or equipment page it names, written as markdown
+links on the words with the path only, up to three per answer. The prompt
+change needs `npx wrangler deploy` from dea-concierge/ to go live.
 
 ## The story pass (standing queue, started 8 September 2026)
 
