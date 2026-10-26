@@ -1,0 +1,2733 @@
+<!DOCTYPE html>
+<html lang="en" data-palette="signal">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preload" as="font" type="font/woff2" href="/fonts/unbounded-latin-800-normal.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/space-grotesk-latin-400-normal.woff2" crossorigin>
+<style>
+</style>
+<style>
+:root{
+    --font-display:'Unbounded','Unbounded-fb',sans-serif;
+    --font-body:'Space Grotesk','SpaceGrotesk-fb',sans-serif;
+  }
+html[data-palette="signal"]{
+    --bg-0:#050706; --bg-1:#0a0f0c; --bg-2:#0e1512;
+    --ink:#f4f7f5; --dim:#b4c5ba;
+    --a1:#31ff6e; /* LED green */
+    --a2:#fff21c; /* LED yellow */
+    --a3:#ff1f3d; /* LED red */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 55%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(255,255,255,.08);
+    --glow: rgba(49,255,110,.35);
+  }
+html[data-palette="amber"]{
+    --bg-0:#070605; --bg-1:#0d0a06; --bg-2:#120e08;
+    --ink:#f8f3ea; --dim:#c3b7a5;
+    --a1:#e8b75c; /* gold */
+    --a2:#ffdfa0; /* warm white/spot */
+    --a3:#4fa3ff; /* cool counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 50%, var(--a2) 50%, var(--a2) 100%);
+    --card-border: rgba(232,183,92,.16);
+    --glow: rgba(232,183,92,.32);
+  }
+html[data-palette="night"]{
+    --bg-0:#05060b; --bg-1:#090b16; --bg-2:#0c0f1e;
+    --ink:#f1f3fb; --dim:#aeb5cf;
+    --a1:#2f6fff; /* electric blue */
+    --a2:#8b5cf6; /* violet */
+    --a3:#ffb020; /* amber counterpoint */
+    --grad: linear-gradient(100deg,var(--a1),var(--a2) 65%,var(--a3));
+    --grad-hard: linear-gradient(90deg, var(--a1) 0%, var(--a1) 33%, var(--a2) 33%, var(--a2) 66%, var(--a3) 66%, var(--a3) 100%);
+    --card-border: rgba(139,92,246,.16);
+    --glow: rgba(47,111,255,.35);
+  }
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+    background:var(--bg-0);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:17px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+a{color:inherit; text-decoration:none;}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px;}
+.grad-text{
+    background:var(--grad);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+.hero{ position:relative; padding:110px 0 90px; overflow:hidden; }
+.hero::before{
+    content:''; position:absolute; inset:-20% -10% auto -10%; height:600px;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    opacity:.5; filter:blur(40px); pointer-events:none;
+  }
+.hero-grid{
+    position:absolute; left:0; right:0; bottom:-10%; height:70%;
+    perspective:400px; overflow:hidden; pointer-events:none; z-index:0;
+  }
+.hero-grid::before{
+    content:''; position:absolute; inset:-50% -50% 0 -50%;
+    background-image:
+      repeating-linear-gradient(to right, var(--card-border) 0 1px, transparent 1px 68px),
+      repeating-linear-gradient(to top, var(--card-border) 0 1px, transparent 1px 68px);
+    transform:rotateX(62deg);
+    transform-origin:bottom;
+    animation: gridScroll 9s linear infinite;
+    opacity:.55;
+    mask-image:linear-gradient(to top, black 0%, transparent 75%);
+    -webkit-mask-image:linear-gradient(to top, black 0%, transparent 75%);
+  }
+@keyframes gridScroll{ from{ background-position:0 0; } to{ background-position:0 136px; } }
+.hero-lasers{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+.laser{
+    position:absolute; top:-10%; width:2px; height:130%;
+    background:linear-gradient(to bottom, transparent, var(--a1), transparent);
+    opacity:0; filter:blur(.5px);
+    animation: laserSweep 6s ease-in-out infinite;
+  }
+.laser:nth-child(1){ left:8%;  background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:0s; }
+.laser:nth-child(2){ left:32%; background:linear-gradient(to bottom, transparent, var(--a2), transparent); animation-delay:1.6s; transform:rotate(6deg); }
+.laser:nth-child(3){ left:63%; background:linear-gradient(to bottom, transparent, var(--a3), transparent); animation-delay:3.1s; transform:rotate(-8deg); }
+.laser:nth-child(4){ left:85%; background:linear-gradient(to bottom, transparent, var(--a1), transparent); animation-delay:4.3s; transform:rotate(4deg); }
+@keyframes laserSweep{
+    0%{ opacity:0; transform:translateX(-10px) rotate(var(--rot,0deg)); }
+    8%{ opacity:.55; }
+    20%{ opacity:0; }
+    100%{ opacity:0; }
+  }
+.hero-fog{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+.fog-blob{
+    position:absolute; width:60%; padding-top:60%; border-radius:50%;
+    background:radial-gradient(closest-side, var(--glow), transparent 70%);
+    filter:blur(50px); opacity:.4;
+    animation: fogDrift 18s ease-in-out infinite alternate;
+  }
+.fog-blob.b2{ left:50%; top:20%; animation-duration:24s; animation-delay:-6s; opacity:.28; }
+@keyframes fogDrift{
+    from{ transform:translate(-8%, 0) scale(1); }
+    to{ transform:translate(8%, 6%) scale(1.15); }
+  }
+@media (prefers-reduced-motion: reduce){
+.hero-grid::before, .laser, .fog-blob{ animation:none !important; }
+.laser{ opacity:0; }
+}
+@media (max-width:700px){
+.hero-lasers, .hero-fog{ display:none; }
+.hero-grid::before{ animation:none; }
+}
+.hero-logo-wrap{ text-align:center; position:relative; z-index:1; margin-bottom:40px; }
+.hero-logo-wrap img{
+    width:min(440px, 78vw); height:auto;
+    filter:drop-shadow(0 0 60px var(--glow));
+  }
+.eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--card-border); border-radius:100px; padding:7px 16px;
+    font-size:0.881rem; color:var(--dim); letter-spacing:.04em; text-transform:uppercase;
+    margin-bottom:28px; position:relative; z-index:1;
+  }
+.eyebrow .dot{ width:7px; height:7px; border-radius:50%; background:var(--a1); box-shadow:0 0 8px var(--a1); }
+.hero h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.6rem, 6vw, 4.6rem); max-width:900px; position:relative; z-index:1;
+  }
+.hero p.sub{
+    font-size:1.15rem; color:var(--dim); max-width:600px; margin-top:26px; position:relative; z-index:1;
+  }
+.hero-ctas{ display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; position:relative; z-index:1; }
+.hero-ctas-top{ margin-top:30px; }
+.hero-ctas-m{ display:none; }
+@media (max-width:700px){
+.hero-ctas-m{ display:flex; flex-wrap:nowrap; margin-top:22px; gap:10px; }
+.hero-ctas-d{ display:none; }
+.hero-ctas-m a{ flex:1 1 0; min-width:0; text-align:center; white-space:nowrap; padding:14px 8px; font-size:.95rem; }
+}
+@media (max-width:370px){
+.hero-ctas-m{ flex-wrap:wrap; }
+.hero-ctas-m a{ flex-basis:100%; }
+}
+.btn-primary{
+    font-weight:700; padding:16px 30px; border-radius:100px; background:var(--grad); color:#0a0a0a; font-size:1.073rem;
+  }
+.btn-secondary{
+    font-weight:600; padding:16px 30px; border-radius:100px; border:1px solid var(--card-border); color:var(--ink); font-size:1.073rem;
+  }
+.trust-row{
+    display:flex; gap:40px; flex-wrap:wrap; margin-top:64px; padding-top:34px;
+    border-top:1px solid var(--card-border); position:relative; z-index:1;
+  }
+.trust-item .num{ font-family:var(--font-display); font-weight:800; font-size:1.6rem; }
+.trust-item .label{ font-size:0.904rem; color:var(--dim); margin-top:4px; }
+.section{ padding:90px 0; }
+.section-head{ max-width:640px; margin-bottom:52px; }
+.kicker{ font-size:0.881rem; letter-spacing:.08em; text-transform:uppercase; color:var(--a1); font-weight:700; margin-bottom:14px; display:block; }
+.section-head h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.8rem,3.4vw,2.6rem); }
+.section-head p{ color:var(--dim); margin-top:14px; font-size:1.153rem; }
+.service-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:20px; }
+.service-card{
+    background:linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 55%, transparent), color-mix(in srgb, var(--bg-1) 45%, transparent));
+    backdrop-filter:blur(18px) saturate(140%); -webkit-backdrop-filter:blur(18px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:20px; padding:28px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 8px 30px -18px rgba(0,0,0,.6);
+    transition:.25s; position:relative; overflow:hidden;
+  }
+.service-card:hover{ transform:translateY(-4px); border-color:var(--a1); box-shadow:inset 0 1px 0 rgba(255,255,255,.08), 0 20px 50px -20px var(--glow); }
+.service-card .icon{
+    width:44px; height:44px; border-radius:12px; margin-bottom:20px;
+    background:var(--grad); display:flex; align-items:center; justify-content:center;
+    font-size:1.2rem;
+  }
+.service-card h3{ font-family:var(--font-display); font-size:1.186rem; font-weight:700; margin-bottom:10px; }
+.service-card p{ font-size:0.994rem; color:var(--dim); margin-bottom:18px; }
+.service-card .learn{ font-size:0.904rem; font-weight:700; color:var(--a1); }
+.service-card.featured{ border-color:var(--a2); }
+.tag-live{ position:absolute; top:20px; right:20px; font-size:0.82rem; text-transform:uppercase; letter-spacing:.06em; color:var(--a2); border:1px solid var(--a2); padding:3px 8px; border-radius:100px; }
+.diff{ background:var(--bg-1); border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border); }
+.diff-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+.diff-visual{
+    aspect-ratio:4/3; border-radius:24px; border:1px solid var(--card-border);
+    background:
+      radial-gradient(circle at 30% 20%, var(--glow), transparent 55%),
+      linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 50%, transparent), color-mix(in srgb, var(--bg-0) 40%, transparent));
+    backdrop-filter:blur(22px) saturate(150%); -webkit-backdrop-filter:blur(22px) saturate(150%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.06), 0 20px 60px -30px rgba(0,0,0,.7);
+    display:flex; align-items:center; justify-content:center; position:relative;
+  }
+.diff-visual .badge{
+    font-family:var(--font-display); font-weight:800; text-align:center; font-size:1.073rem; color:var(--dim);
+    border:1px dashed var(--card-border); padding:20px; border-radius:16px;
+  }
+.diff-copy h2{ font-family:var(--font-display); font-weight:800; font-size:clamp(1.7rem,3vw,2.3rem); margin-bottom:20px; }
+.diff-copy p{ color:var(--dim); margin-bottom:16px; font-size:1.13rem; }
+.diff-copy strong{ color:var(--ink); }
+@media (max-width:820px){
+.diff-grid{ grid-template-columns:1fr; }
+}
+.review-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; }
+.review-card{
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border); border-radius:18px; padding:26px;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -20px rgba(0,0,0,.6);
+  }
+.stars{ color:var(--a2); letter-spacing:2px; margin-bottom:14px; font-size:1.017rem; }
+.review-card p{ font-size:1.04rem; color:var(--ink); opacity:.9; margin-bottom:16px; }
+.review-card .who{ font-size:0.904rem; color:var(--dim); font-weight:600; }
+.proof-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:16px; margin-bottom:36px; }
+.proof-badge{
+    display:flex; align-items:center; gap:14px; padding:18px 20px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 10px 30px -22px rgba(0,0,0,.6);
+    transition:.22s;
+  }
+.proof-badge:hover{ border-color:var(--a1); transform:translateY(-3px); box-shadow:0 16px 42px -24px var(--glow); }
+.proof-mark{
+    flex:0 0 42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:1.2rem; letter-spacing:-.02em;
+  }
+.proof-mark.g{ background:#ffffff; color:#4285f4; }
+.proof-mark.y{ background:#d32323; color:#ffffff; }
+.proof-mark.k{ background:#ffffff; color:#0f9aa0; }
+.proof-mark.w{ background:#ffffff; color:#16181d; font-size:.98rem; }
+.proof-meta .rate{
+    font-family:var(--font-display); font-weight:800; font-size:1.22rem; line-height:1.15;
+    display:flex; align-items:baseline; gap:9px;
+  }
+.proof-meta .rate .s{ color:var(--a2); font-size:.92rem; letter-spacing:1px; font-weight:400; }
+.proof-meta .cnt{ font-size:.92rem; color:var(--dim); margin-top:2px; }
+.proof-badge.tbd{ border-style:dashed; border-color:var(--a2); }
+.proof-badge.tbd .rate{ color:var(--a2); }
+.proof-badge.tbd .cnt{ color:var(--a2); opacity:.8; }
+.foot-proof{
+    display:flex; flex-wrap:wrap; align-items:center; gap:12px 26px;
+    margin-top:32px; padding-top:26px; border-top:1px solid var(--card-border);
+  }
+.foot-proof .fp{ display:inline-flex; align-items:center; gap:9px; font-size:.94rem; color:var(--dim); }
+.foot-proof .fp:hover{ color:var(--ink); }
+.foot-proof .fp b{ color:var(--ink); font-weight:700; }
+.foot-proof .fp .s{ color:var(--a2); letter-spacing:1px; }
+.foot-proof .fp .m{
+    width:24px; height:24px; border-radius:7px; display:inline-flex; align-items:center; justify-content:center;
+    font-family:var(--font-display); font-weight:900; font-size:.76rem;
+  }
+.foot-proof .fp .m.g{ background:#ffffff; color:#4285f4; }
+.foot-proof .fp .m.y{ background:#d32323; color:#ffffff; }
+.foot-proof .fp .m.k{ background:#ffffff; color:#0f9aa0; }
+.foot-proof .fp .m.w{ background:#ffffff; color:#16181d; font-size:.62rem; }
+@media (max-width:820px){
+.foot-proof{ gap:12px 18px; }
+}
+.final-cta{ text-align:center; padding:110px 0; position:relative; }
+.final-cta h2{ font-family:var(--font-display); font-weight:900; font-size:clamp(2rem,5vw,3.2rem); max-width:760px; margin:0 auto 22px; }
+.final-cta p{ color:var(--dim); max-width:520px; margin:0 auto 36px; }
+footer{ border-top:1px solid var(--card-border); padding:50px 0; }
+.foot-grid{ display:grid; grid-template-columns:1.6fr repeat(5,1fr); gap:34px 26px; }
+@media (max-width:1080px){
+.foot-grid{ grid-template-columns:repeat(3,1fr); }
+}
+@media (max-width:620px){
+.foot-grid{ grid-template-columns:repeat(2,1fr); }
+}
+.foot-grid .col.brand{ min-width:210px; }
+@media (max-width:1080px){
+.foot-grid .col.brand{ grid-column:1 / -1; }
+}
+.foot-contact{ margin-top:16px; }
+.foot-contact a{ display:block; margin-bottom:6px; font-size:1rem; color:var(--ink); opacity:.9; }
+.foot-contact a:hover{ color:var(--a1); opacity:1; }
+.foot-area{ font-size:.9rem; color:var(--dim); margin-top:12px; line-height:1.6; }
+.foot-grid .col h3{ font-size:0.904rem; text-transform:uppercase; letter-spacing:.06em; color:var(--dim); margin-bottom:14px; }
+.foot-grid .col a, .foot-grid .col p{ display:block; font-size:0.972rem; color:var(--ink); opacity:.8; margin-bottom:8px; }
+.foot-bottom{ margin-top:40px; padding-top:24px; padding-bottom:72px; border-top:1px solid var(--card-border); font-size:0.881rem; color:var(--dim); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+[data-reveal]{ opacity:0; transform:translateY(18px); transition:opacity .7s ease, transform .7s ease; }
+[data-reveal].in{ opacity:1; transform:translateY(0); }
+.grain-overlay{
+    position:fixed; inset:0; z-index:999; pointer-events:none;
+    opacity:.05; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-repeat:repeat;
+  }
+.marquee{
+    border-top:1px solid var(--card-border); border-bottom:1px solid var(--card-border);
+    background:var(--bg-1); overflow:hidden; padding:18px 0; position:relative;
+  }
+.marquee-track{
+    display:flex; width:max-content; gap:48px;
+    animation:marqueeScroll 32s linear infinite;
+  }
+.marquee-track span{
+    font-family:var(--font-display); font-weight:700; font-size:1.073rem;
+    letter-spacing:.04em; text-transform:uppercase; color:var(--dim);
+    display:flex; align-items:center; gap:48px; white-space:nowrap;
+  }
+.marquee-track span::after{ content:'✦'; color:var(--a1); margin-left:48px; }
+@keyframes marqueeScroll{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+.burst-particle{
+    position:fixed; top:0; left:0; width:6px; height:6px; border-radius:50%;
+    pointer-events:none; z-index:500; will-change:transform,opacity;
+  }
+@media (prefers-reduced-motion: reduce){
+[data-reveal]{ opacity:1; transform:none; transition:none; }
+html{ scroll-behavior:auto; }
+.marquee-track{ animation:none; }
+.grain-overlay{ display:none; }
+}
+[data-img]{--img:linear-gradient(transparent,transparent)}
+</style>
+  <title>Venues We&#x27;ve Worked in Dallas-Fort Worth | Dallas Event Audio</title>
+  <meta name="description" content="More than 300 Dallas-Fort Worth event venues where our crew has delivered sound, lighting, DJ and Dancing on the Clouds, from hotel ballrooms to ranch weddings.">
+  <link rel="canonical" href="https://www.dallaseventaudio.com/venues">
+  <meta property="og:title" content="Venues We&#x27;ve Worked in Dallas-Fort Worth | Dallas Event Audio">
+  <meta property="og:image" content="https://www.dallaseventaudio.com/images/rent-line-array-speaker-system/bassboss-dv12-pa-system-stands-dj-booth-dallas.jpg">
+  <meta property="og:image:width" content="1920">
+  <meta property="og:image:height" content="1440">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.dallaseventaudio.com/images/rent-line-array-speaker-system/bassboss-dv12-pa-system-stands-dj-booth-dallas.jpg">
+  <meta property="og:description" content="More than 300 Dallas-Fort Worth event venues where our crew has delivered sound, lighting, DJ and Dancing on the Clouds, from hotel ballrooms to ranch weddings.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.dallaseventaudio.com/venues">
+<style>
+section[id]{ scroll-margin-top:96px; }
+.hero.hero-page{ padding:64px 0 62px; }
+.breadcrumb{
+    font-size:.881rem; color:var(--dim); letter-spacing:.03em;
+    position:relative; z-index:1; margin-bottom:22px;
+  }
+.breadcrumb a{ color:var(--dim); }
+.breadcrumb a:hover{ color:var(--a1); }
+.breadcrumb .sep{ opacity:.45; margin:0 8px; }
+.breadcrumb .here{ color:var(--ink); opacity:.75; }
+.hero-page h1{
+    font-family:var(--font-display); font-weight:900; line-height:1.04;
+    font-size:clamp(2.3rem, 5.2vw, 4rem); max-width:980px; position:relative; z-index:1;
+  }
+.hero-page .sub{
+    font-size:1.18rem; color:var(--dim); max-width:720px; margin-top:24px;
+    position:relative; z-index:1;
+  }
+.stat-row{
+    display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:14px;
+    margin-top:40px; position:relative; z-index:1;
+  }
+.stat{
+    padding:18px 20px; border-radius:14px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  }
+.stat .num{
+    font-family:var(--font-display); font-weight:900; font-size:1.7rem; line-height:1;
+    background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+.stat .lbl{ margin-top:8px; font-size:.86rem; color:var(--dim); line-height:1.45; }
+@media (max-width:860px){
+.stat-row{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+}
+@media (max-width:480px){
+.stat-row{ grid-template-columns:1fr; }
+}
+.dj-grid{
+    display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:18px;
+    margin-top:38px;
+  }
+@media (max-width:860px){
+.dj-grid{ grid-template-columns:1fr; }
+}
+.dj-card{
+    position:relative; overflow:hidden;
+    padding:30px 30px 28px; border-radius:20px;
+    background:color-mix(in srgb, var(--bg-2) 52%, transparent);
+    backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s, box-shadow .3s;
+  }
+.dj-card::before{
+    content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+    background:var(--grad); opacity:.5; transition:opacity .3s;
+  }
+.dj-card:hover{
+    border-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transform:translateY(-3px);
+    box-shadow:0 24px 60px -34px var(--glow), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+.dj-card:hover::before{ opacity:1; }
+.dj-card .tag{
+    font-family:var(--font-display); font-weight:900; font-size:.7rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1);
+  }
+.dj-card h3{
+    margin-top:12px; font-family:var(--font-display); font-weight:900; line-height:1.12;
+    font-size:clamp(1.3rem, 2.1vw, 1.6rem);
+  }
+.dj-card p{ margin-top:14px; font-size:1rem; line-height:1.72; color:var(--dim); }
+.dj-card p b, .dj-card p strong{ color:var(--ink); font-weight:700; }
+.dj-card .best{
+    margin-top:18px; padding-top:15px; border-top:1px solid var(--card-border);
+    font-size:.87rem; line-height:1.6; color:var(--dim);
+  }
+.dj-card .best em{ font-style:normal; font-weight:800; color:var(--a2); letter-spacing:.04em;
+    text-transform:uppercase; font-size:.72rem; display:block; margin-bottom:6px; }
+.chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+.chip{
+    display:inline-block; padding:6px 13px; border-radius:100px;
+    font-size:.79rem; font-weight:600; letter-spacing:.02em;
+    color:var(--dim); text-decoration:none;
+    border:1px solid var(--card-border);
+    background:color-mix(in srgb, var(--bg-0) 45%, transparent);
+    transition:.2s;
+  }
+a.chip:hover{ color:var(--a1); border-color:color-mix(in srgb, var(--a1) 55%, transparent); }
+a.chip::after{ content:' \2192'; opacity:.55; }
+.room-list{ margin-top:36px; border-top:1px solid var(--card-border); }
+.room{
+    display:grid; grid-template-columns:280px 1fr; gap:32px;
+    padding:24px 0; border-bottom:1px solid var(--card-border);
+    transition:border-color .3s;
+  }
+.room:hover{ border-bottom-color:color-mix(in srgb, var(--a1) 40%, transparent); }
+.room h3{
+    font-family:var(--font-display); font-weight:800; font-size:1.1rem; line-height:1.35;
+  }
+.room h3 span{ display:block; margin-top:6px; font-size:.76rem; font-weight:700;
+    letter-spacing:.09em; text-transform:uppercase; color:var(--a1); opacity:.85; }
+.room p{ font-size:1rem; line-height:1.72; color:var(--dim); }
+.room p b{ color:var(--ink); font-weight:700; }
+@media (max-width:860px){
+.room{ grid-template-columns:1fr; gap:12px; }
+}
+.addon{
+    margin-top:24px; padding:28px 30px; border-radius:18px;
+    border:1px dashed color-mix(in srgb, var(--a1) 32%, var(--card-border));
+    background:color-mix(in srgb, var(--bg-1) 40%, transparent);
+  }
+.addon h3{ font-family:var(--font-display); font-size:1.16rem; font-weight:800; }
+.addon p{ margin-top:10px; font-size:.98rem; color:var(--dim); line-height:1.7; }
+.split{
+    display:grid; grid-template-columns:1.05fr .95fr; gap:44px; align-items:center;
+  }
+.split.flip .split-copy{ order:2; }
+.split.flip .split-vis{ order:1; }
+.split-copy h2{
+    font-family:var(--font-display); font-weight:900; line-height:1.1;
+    font-size:clamp(1.85rem, 3.4vw, 2.7rem);
+  }
+.split-copy p{ margin-top:18px; font-size:1.04rem; line-height:1.75; color:var(--dim); }
+.split-copy p b{ color:var(--ink); font-weight:700; }
+.split-vis{
+    position:relative; border-radius:20px; overflow:hidden;
+    aspect-ratio:4/3; border:1px solid var(--card-border);
+    background-color:var(--bg-2);
+    --img:none;
+    background-image:var(--img),
+      radial-gradient(circle at 30% 25%, color-mix(in srgb, var(--a1) 22%, transparent), transparent 62%),
+      radial-gradient(circle at 76% 80%, color-mix(in srgb, var(--a2) 18%, transparent), transparent 60%);
+    background-size:cover; background-position:center; background-repeat:no-repeat;
+  }
+.split-vis .slot{
+    position:absolute; left:0; right:0; bottom:0; padding:30px 16px 13px;
+    background:linear-gradient(to top, rgba(6,6,8,.9), transparent);
+    font-size:.72rem; color:var(--dim); letter-spacing:.03em;
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+@media (max-width:860px){
+.split{ grid-template-columns:1fr; gap:26px; }
+.split.flip .split-copy{ order:1; }
+.split.flip .split-vis{ order:2; }
+}
+.flow{ display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:16px; margin-top:34px; }
+@media (max-width:1040px){
+.flow{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+}
+@media (max-width:620px){
+.flow{ grid-template-columns:1fr; }
+}
+.flow-step{
+    position:relative; padding:26px 22px 24px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    border:1px solid var(--card-border);
+    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  }
+.flow-step .n{
+    font-family:var(--font-display); font-weight:900; font-size:.7rem;
+    letter-spacing:.15em; text-transform:uppercase; color:var(--a1);
+  }
+.flow-step h3{ margin-top:12px; font-family:var(--font-display); font-size:1.06rem; font-weight:800; }
+.flow-step p{ margin-top:9px; font-size:.92rem; color:var(--dim); line-height:1.62; }
+.trust-grid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:32px; }
+@media (max-width:860px){
+.trust-grid{ grid-template-columns:1fr; }
+}
+.trust-card{
+    padding:24px 24px 22px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 45%, transparent);
+    border:1px solid var(--card-border);
+  }
+.trust-card h3{ font-family:var(--font-display); font-size:1.02rem; font-weight:800; }
+.trust-card p{ margin-top:9px; font-size:.92rem; color:var(--dim); line-height:1.62; }
+.vgrid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; margin-top:34px; }
+@media (max-width:1040px){
+.vgrid{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+}
+@media (max-width:860px){
+.vgrid{ grid-template-columns:1fr; }
+}
+.vcard{
+    display:block; position:relative; overflow:hidden; text-decoration:none;
+    padding:24px 24px 22px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-2) 48%, transparent);
+    backdrop-filter:blur(12px) saturate(140%); -webkit-backdrop-filter:blur(12px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s, box-shadow .3s;
+  }
+.vcard::before{
+    content:''; position:absolute; left:0; right:0; top:0; height:2px;
+    background:var(--grad); opacity:.45; transition:opacity .3s;
+  }
+.vcard:hover{
+    border-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transform:translateY(-3px);
+    box-shadow:0 22px 54px -34px var(--glow), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+.vcard:hover::before{ opacity:1; }
+.vcard h3{
+    font-family:var(--font-display); font-weight:800; font-size:1.06rem; line-height:1.3;
+    color:var(--ink);
+  }
+.vcard h3::after{ content:' \2192'; color:var(--a1); opacity:.7; }
+.vcard p{ margin-top:10px; font-size:.93rem; color:var(--dim); line-height:1.64; }
+.band{
+    margin-top:34px; padding:30px 32px; border-radius:20px;
+    background:
+      radial-gradient(circle at 12% 18%, color-mix(in srgb, var(--a1) 12%, transparent), transparent 58%),
+      color-mix(in srgb, var(--bg-1) 55%, transparent);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+  }
+.band h3{ font-family:var(--font-display); font-weight:900; font-size:clamp(1.2rem,2vw,1.5rem); line-height:1.18; }
+.band p{ margin-top:14px; font-size:1.02rem; line-height:1.74; color:var(--dim); }
+.band p b{ color:var(--ink); font-weight:700; }
+@media (max-width:820px){
+.band{ padding:24px 22px; }
+}
+.gear-grid{
+    display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:18px; margin-top:38px;
+  }
+@media (max-width:1040px){
+.gear-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+}
+@media (max-width:760px){
+.gear-grid{ grid-template-columns:1fr; }
+}
+.gear-card{
+    position:relative; overflow:hidden; display:flex; flex-direction:column;
+    padding:28px 26px 24px; border-radius:18px;
+    background:color-mix(in srgb, var(--bg-2) 50%, transparent);
+    backdrop-filter:blur(14px) saturate(140%); -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border:1px solid var(--card-border);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+    transition:border-color .3s, transform .3s, box-shadow .3s;
+  }
+.gear-card::before{
+    content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+    background:var(--grad); opacity:.42; transition:opacity .3s;
+  }
+.gear-card:hover{
+    border-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transform:translateY(-3px);
+    box-shadow:0 22px 56px -34px var(--glow), inset 0 1px 0 rgba(255,255,255,.05);
+  }
+.gear-card:hover::before{ opacity:1; }
+.gear-card .gn{
+    font-family:var(--font-display); font-weight:900; font-size:.68rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1);
+  }
+.gear-card h3{
+    margin-top:11px; font-family:var(--font-display); font-weight:900; line-height:1.18;
+    font-size:clamp(1.14rem, 1.8vw, 1.34rem);
+  }
+.gear-card p{ margin-top:12px; font-size:.97rem; line-height:1.7; color:var(--dim); }
+.gear-card p b{ color:var(--ink); font-weight:700; }
+.gear-card .chips{ margin-top:auto; padding-top:18px; }
+.cost-grid{
+    display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px; margin-top:34px;
+  }
+@media (max-width:820px){
+.cost-grid{ grid-template-columns:1fr; }
+}
+.cost-factor{
+    padding:24px 26px 22px; border-radius:16px;
+    background:color-mix(in srgb, var(--bg-1) 46%, transparent);
+    border:1px solid var(--card-border);
+  }
+.cost-factor h3{
+    font-family:var(--font-display); font-weight:800; font-size:1.04rem; line-height:1.3;
+  }
+.cost-factor h3 span{
+    display:block; margin-bottom:7px; font-size:.68rem; font-weight:900;
+    letter-spacing:.15em; text-transform:uppercase; color:var(--a2); opacity:.9;
+  }
+.cost-factor p{ margin-top:10px; font-size:.94rem; color:var(--dim); line-height:1.68; }
+.city-grid{
+    display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:14px; margin-top:32px;
+  }
+@media (max-width:900px){
+.city-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+}
+@media (max-width:520px){
+.city-grid{ grid-template-columns:1fr; }
+}
+.city{
+    padding:20px 22px 18px; border-radius:14px;
+    background:color-mix(in srgb, var(--bg-2) 44%, transparent);
+    border:1px solid var(--card-border);
+    transition:border-color .3s;
+  }
+.city:hover{ border-color:color-mix(in srgb, var(--a1) 38%, transparent); }
+.city h3{ font-family:var(--font-display); font-weight:800; font-size:1rem; }
+.city p{ margin-top:8px; font-size:.9rem; color:var(--dim); line-height:1.6; }
+.faq-list{ margin-top:32px; border-top:1px solid var(--card-border); }
+.faq-item{ border-bottom:1px solid var(--card-border); }
+.faq-item summary{
+    list-style:none; cursor:pointer; padding:22px 44px 22px 0; position:relative;
+    font-family:var(--font-display); font-weight:700; font-size:1.06rem; line-height:1.45;
+    transition:color .2s;
+  }
+.faq-item summary::-webkit-details-marker{ display:none; }
+.faq-item summary:hover{ color:var(--a1); }
+.faq-item summary::after{
+    content:'+'; position:absolute; right:6px; top:50%; transform:translateY(-50%);
+    font-size:1.5rem; font-weight:400; line-height:1; color:var(--a1); transition:transform .25s;
+  }
+.faq-item[open] summary::after{ transform:translateY(-50%) rotate(45deg); }
+.faq-item .ans{ padding:0 44px 24px 0; font-size:1rem; line-height:1.75; color:var(--dim); }
+.faq-item .ans a{ color:var(--a1); }
+@media (max-width:820px){
+.hero.hero-page{ padding:44px 0 50px; }
+.dj-card{ padding:26px 22px 24px; }
+}
+@media (prefers-reduced-motion: reduce){
+.dj-card, .vcard{ transition:none; }
+}
+.wrap p a:not(.chip):not(.btn-primary):not(.btn-secondary),
+  .addon a:not(.chip){
+    color:var(--a1);
+    text-decoration:underline;
+    text-decoration-thickness:1px;
+    text-underline-offset:3px;
+    text-decoration-color:color-mix(in srgb, var(--a1) 45%, transparent);
+    transition:color .2s ease, text-decoration-color .2s ease;
+  }
+.wrap p a:not(.chip):not(.btn-primary):not(.btn-secondary):hover,
+  .addon a:not(.chip):hover{ color:var(--a2); text-decoration-color:var(--a2); }
+.spec{
+      display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+      margin:0 0 14px; padding-bottom:12px;
+      border-bottom:1px solid var(--card-border);
+      font-family:var(--font-body); font-size:.92rem; color:var(--ink); line-height:1.5;
+    }
+.spec span{
+      font-family:var(--font-display); font-weight:900; font-size:.66rem;
+      letter-spacing:.16em; text-transform:uppercase; color:var(--a1); flex:0 0 auto;
+    }
+
+  /* Photo panels carry a real image element so the picture has alt text and
+     can be indexed. The panel keeps its own background gradient underneath,
+     which is what still shows in a slot with no photograph yet.
+     Do not write literal tag syntax in this comment: the build scripts read the
+     file as text and count tags. */
+  .split-vis img, .slide img{
+    position:absolute; inset:0; display:block;
+    width:100%; height:100%; object-fit:cover;
+  }
+</style>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Event AV at Dallas-Fort Worth venues",
+  "serviceType": "Event AV, DJ and lighting services",
+  "url": "https://www.dallaseventaudio.com/venues",
+  "description": "Sound, wireless microphones with the AI-powered De-Feedback system, lighting, DJ services, projection and Dancing on the Clouds at event venues across Dallas-Fort Worth, delivered, set up, tested and picked up by Dallas Event Audio's own crew, with an on-site technician for the services that call for one.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Dallas Event Audio",
+    "url": "https://www.dallaseventaudio.com/",
+    "telephone": "+1-817-210-7957"
+  },
+  "areaServed": [
+    {
+      "@type": "City",
+      "name": "Dallas, TX"
+    },
+    {
+      "@type": "City",
+      "name": "Fort Worth, TX"
+    },
+    {
+      "@type": "City",
+      "name": "McKinney, TX"
+    },
+    {
+      "@type": "City",
+      "name": "Irving, TX"
+    },
+    {
+      "@type": "City",
+      "name": "Arlington, TX"
+    },
+    {
+      "@type": "City",
+      "name": "Plano, TX"
+    },
+    {
+      "@type": "City",
+      "name": "Aubrey, TX"
+    },
+    {
+      "@type": "City",
+      "name": "Frisco, TX"
+    },
+    {
+      "@type": "City",
+      "name": "Weatherford, TX"
+    },
+    {
+      "@type": "City",
+      "name": "Carrollton, TX"
+    },
+    {
+      "@type": "City",
+      "name": "Addison, TX"
+    },
+    {
+      "@type": "City",
+      "name": "Grand Prairie, TX"
+    },
+    {
+      "@type": "City",
+      "name": "Grapevine, TX"
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Have you worked at my venue before?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Search the list on this page. It covers the event venues on our booking records since late 2020, grouped by city, and we have worked many more rooms since we started in 2001. If your venue is here, our crew has already loaded in, found the power and set up a show in that room."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if my venue is new to you?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We will advance it before your event. We call the venue coordinator to confirm the load-in window, the door or dock, the elevator and the power, and we plan the setup around the room. New venues are part of every season for us."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you send a certificate of insurance to the venue?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Dallas Event Audio is insured, and we send a certificate of insurance to any venue that requires one, ahead of load-in."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you run Dancing on the Clouds at my venue?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Venues marked Clouds on this list have had our Dancing on the Clouds low lying fog for a first dance. For any other venue, we confirm the venue's fog policy and its smoke detector setup with the coordinator before the quote goes out."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you coordinate load-in and setup with the venue?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Our crew delivers, sets up, tests and picks up every booking, with an on-site technician for the services that call for one, and we work out the timing with the venue coordinator so the room is ready before your guests arrive."
+      }
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.dallaseventaudio.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Venues We've Worked",
+      "item": "https://www.dallaseventaudio.com/venues"
+    }
+  ]
+}
+  </script>
+
+<style>
+/* venues page */
+.visually-hidden{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.vtools{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:0 0 28px}
+.vtools input{flex:1 1 280px;max-width:460px;font:inherit;font-size:1rem;padding:14px 16px;border-radius:12px;border:1px solid var(--card-border);background:var(--bg-1);color:var(--ink);box-sizing:border-box}
+.vtools input:focus-visible{outline:2px solid var(--a1);outline-offset:2px}
+.vtools .vcount{font-size:.92rem;color:var(--dim)}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:22px;align-items:start}
+.vgroup{background:linear-gradient(160deg, color-mix(in srgb, var(--bg-2) 55%, transparent), color-mix(in srgb, var(--bg-1) 45%, transparent));border:1px solid var(--card-border);border-radius:20px;padding:24px 26px;min-width:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 8px 30px -18px rgba(0,0,0,.6)}
+.vgroup-wide{grid-column:1/-1}
+.vgroup-wide .vlist{columns:3 260px;column-gap:28px}
+.vgroup h3{margin:0 0 12px;font-size:1.05rem}
+.vlist{list-style:none;margin:0;padding:0}
+.vlist li{padding:5px 0;line-height:1.4;break-inside:avoid;font-size:.95rem;color:var(--ink)}
+.vlist .vcity{color:var(--dim);font-size:.85rem}
+.vlist .vcity::before{content:"\00b7 ";}
+.vtag{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--a1);color:var(--a1);vertical-align:1px}
+.vgroup[hidden]{display:none}
+.vempty{color:var(--dim)}
+</style>
+<!-- chrome-sync:fonts -->
+<link rel="preload" href="/fonts/unbounded-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/space-grotesk-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* The two site faces, served from this origin instead of Google's font CDN.
+
+   Four pages already did this and the other 75 did not, which meant most of
+   the site opened two extra connections and waited on a render blocking
+   stylesheet from another host before any text could be styled. These are the
+   same files Google serves: the latin subset woff2 for each weight the design
+   system uses, four of Unbounded and four of Space Grotesk. The two weights
+   that paint the top of every page are preloaded above.
+
+   The unicode-range is Google's own latin range, copied verbatim, and the
+   fallback faces carry it too. That is deliberate: the files hold no glyph
+   outside it, so the arrow, the four point star and the five point star used
+   in the interface come from a system font. Without the range on the fallback
+   faces those symbols would be drawn by Arial scaled up by size-adjust, which
+   is a size change on a glyph that used to be left alone.
+
+   The two -fb families are metric matched stand ins, drawn from whichever of
+   four common system fonts the reader has, so a heading occupies the same
+   space before the real face arrives as after. There is one face per weight
+   because Unbounded's advance widths grow with weight while Arial's do not:
+   a single size-adjust that suits 400 is 8 percent short at 900.
+
+   Every size-adjust below was measured in a browser rather than derived, by
+   rendering forty real headings and forty real paragraphs from this site in
+   the real face and in the fallback and dividing. The ascent and descent
+   overrides are each the true font metric divided by that size-adjust, which
+   is what keeps the line box identical while the width is corrected.
+
+   Unbounded uses font-display:swap: the headline face is the brand, so it is
+   worth a late repaint to get it. Space Grotesk, the body face, uses
+   font-display:optional since bundle 62. On a fast connection the preloaded
+   file arrives inside the short block period and the page renders in Space
+   Grotesk exactly as before. On a slow phone the browser paints the
+   metric matched fallback and keeps it for that page view while the real
+   file caches for the next one, instead of repainting every paragraph when
+   the file lands. PageSpeed measured the hero subtitle as the largest
+   contentful paint at 5.9 s on mobile, and that repaint was the delay. The
+   metric matching is what keeps either face in the same line box. */
+:root{
+  --font-display:'Unbounded','Unbounded-fb',sans-serif;
+  --font-body:'Space Grotesk','SpaceGrotesk-fb',sans-serif;
+}
+@font-face{font-family:"Unbounded-fb";font-weight:400;src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:133.3%;ascent-override:74.6%;descent-override:18.4%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Unbounded-fb";font-weight:600;src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:138.2%;ascent-override:72.0%;descent-override:17.7%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Unbounded-fb";font-weight:800;src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:142.8%;ascent-override:69.7%;descent-override:17.2%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Unbounded-fb";font-weight:900;src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:144.7%;ascent-override:68.8%;descent-override:16.9%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"SpaceGrotesk-fb";font-weight:400;src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:110.1%;ascent-override:89.4%;descent-override:26.5%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"SpaceGrotesk-fb";font-weight:500;src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:111.2%;ascent-override:88.5%;descent-override:26.3%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"SpaceGrotesk-fb";font-weight:600;src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:110.0%;ascent-override:89.5%;descent-override:26.5%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"SpaceGrotesk-fb";font-weight:700;src:local("Arial"),local("Liberation Sans"),local("Roboto"),local("Helvetica Neue");size-adjust:109.1%;ascent-override:90.2%;descent-override:26.8%;line-gap-override:0%;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/unbounded-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/unbounded-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:800;font-display:swap;src:url('/fonts/unbounded-latin-800-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:900;font-display:swap;src:url('/fonts/unbounded-latin-900-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:400;font-display:optional;src:url('/fonts/space-grotesk-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500;font-display:optional;src:url('/fonts/space-grotesk-latin-500-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:600;font-display:optional;src:url('/fonts/space-grotesk-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:700;font-display:optional;src:url('/fonts/space-grotesk-latin-700-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+</style>
+<!-- chrome-sync:analytics -->
+<script>
+/* Google Analytics 4 and Google Ads, for the whole site, from one file.
+
+   Before this, the tags lived inline on /contact and /thank-you only. 37 pages
+   had no GA4 at all, so landing page attribution did not exist, and the Google
+   Ads conversion is a GA4 import which means the number the bidding runs on was
+   built from two pages.
+
+   Two things are deliberate here.
+
+   The hostname guard fires nothing anywhere except the production domain. The
+   pages.dev preview, a local file, and every headless QA run are all silent.
+   Without it, putting the tag on 41 pages would multiply the preview traffic
+   already polluting the property by roughly twenty.
+
+   window.gtag is defined even when the guard blocks, because the page specific
+   conversion events on /contact and /thank-you call it. They check
+   typeof gtag === 'function' and would silently stop working otherwise. With
+   gtag defined, those calls queue into a dataLayer that is never transported,
+   which is exactly the intended no-op off production.
+
+   The loader is appended by script rather than written into the markup, so no
+   request to googletagmanager.com happens off the production domain. Injected
+   into the head by tools/sync_chrome.py, ahead of any body script calling gtag.
+
+   Do not write literal tag syntax in this comment. The build tooling reads the
+   file as text and counts tags, and a mention of one in prose breaks the
+   balance assertions. This is the third time that has bitten. */
+(function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  var GA4 = 'G-5SVH2Y4BDS';
+  var ADS = 'AW-966108887';
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+  window.gtag = gtag;
+
+  if (PROD.indexOf(location.hostname) === -1) return;
+
+  gtag('js', new Date());
+  gtag('config', GA4);
+  gtag('config', ADS);
+
+  /* When the third party tags load (bundle 64).
+
+     The loader waits for the load event, then injects the Google tag. Every
+     gtag call made before it arrives queues in the dataLayer and is sent
+     when the script lands, so nothing is lost.
+
+     History, so nobody repeats it. In the head, this 190 KiB tag cost the
+     mobile lab test its largest paint (6.9 s). Moving it to the load event
+     (bundle 61) took the home page from 66 to 76. Bundle 63 went further and
+     held both tags until the first scroll or tap or 3 s after load, which
+     scored 98 in the lab, and it was reverted after two days because it
+     broke the measurement. GA4 starts its engagement clock when the tag
+     loads, so a 12 s visit read as 9 s and counted as unengaged, and the
+     engagement rate fell from about 75% to about 45% overnight. Pages per
+     session fell from 2.3 to 1.6 because a visitor who clicked through in
+     the first seconds lost a page view. Worst, a paid visitor who tapped
+     through before the tag loaded never had the ad click id saved, so a
+     later inquiry could not be credited to the ad. Real visitors never
+     felt the difference: Cloudflare's field data had 92% of visits at a
+     good largest paint with the tags on load. The lab score is not worth
+     the data. */
+  function loadTag() {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4;
+    document.head.appendChild(s);
+  }
+  if (document.readyState === 'complete') { setTimeout(loadTag, 0); }
+  else { window.addEventListener('load', function () { setTimeout(loadTag, 0); }); }
+})();
+
+/* Contact click tracking.
+
+   Wix reported phone clicks, email clicks and WhatsApp clicks as a site total.
+   GA4 does not do this on its own: enhanced measurement counts outbound clicks
+   only for http and https links to another host, and tel, mailto and sms are
+   all excluded. So the site has to send the event itself.
+
+   One delegated listener on the document, rather than a handler per link. There
+   are 301 tel links and 80 mailto links across 79 pages, and per link binding
+   would miss anything the nav drawer or the chat widget adds after load.
+
+   Every event carries the page it happened on, which is the part Wix could not
+   answer: a phone click is worth knowing about, a phone click from
+   /rent-line-array-speaker-system is worth bidding on.
+
+   The same hostname guard is repeated below. The loader guard alone would have
+   been enough to stop anything reaching the network, because gtag is left
+   defined but untransported off production. It would not have stopped the
+   listener binding and pushing into a dataLayer nobody drains, which grows for
+   as long as a preview tab is open and reads, to anyone inspecting it, like
+   events are being collected. Guarding the listener too costs one line and
+   makes the preview genuinely inert.
+
+   One page is not covered by this and should stay that way. davidsbridalfrisco
+   is excluded from the chrome sync and carries its own tap tracking under the
+   event names call_tap and text_tap. It is a live Google Ads landing page, so
+   renaming its events to match could break an Ads conversion import.
+
+   Since 21 October the rest of the site sends those same two names as well,
+   next to contact_click: a phone tap also sends call_tap and a text tap also
+   sends text_tap. Both are GA4 key events (counted once per session) so Google
+   Ads can import them, and using the David's Bridal names means one key event
+   covers every page. contact_click stays as the detailed record of all three
+   methods, email included; email taps are deliberately not a key event.
+
+   Do not write literal tag syntax in this comment. */
+(function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  if (PROD.indexOf(location.hostname) === -1) return;
+
+  var METHOD = { 'tel:': 'phone', 'mailto:': 'email', 'sms:': 'sms' };
+
+  function scheme(href) {
+    var i = href.indexOf(':');
+    return i === -1 ? '' : href.slice(0, i + 1).toLowerCase();
+  }
+
+  function section(el) {
+    var n = el;
+    while (n && n !== document.body) {
+      if (n.id) return n.id;
+      if (n.getAttribute && n.getAttribute('data-section')) {
+        return n.getAttribute('data-section');
+      }
+      n = n.parentNode;
+    }
+    return '';
+  }
+
+  document.addEventListener('click', function (e) {
+    var a = e.target && e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+
+    var raw = a.getAttribute('href') || '';
+    var m = METHOD[scheme(raw)];
+    if (!m) return;
+
+    var label = (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80);
+
+    gtag('event', 'contact_click', {
+      contact_method: m,
+      contact_target: raw.slice(0, 100),
+      link_text: label,
+      page_path: location.pathname,
+      link_section: section(a),
+      transport_type: 'beacon'
+    });
+
+    var lead = m === 'phone' ? 'call_tap' : (m === 'sms' ? 'text_tap' : '');
+    if (lead) {
+      gtag('event', lead, {
+        page_path: location.pathname,
+        link_section: section(a),
+        transport_type: 'beacon'
+      });
+    }
+  }, true);
+})();
+/* Meta pixel, for the whole site, from the same file.
+
+   Same production hostname guard as GA4 above: the pixel loads only on the
+   production domain, so the pages.dev preview, local files and headless QA
+   never contact connect.facebook.net. window.fbq is defined everywhere as the
+   standard queueing stub, so the Lead call on /thank-you never throws off
+   production; off production the queue is simply never transported.
+
+   The loader waits for the window load event and then a timeout, so it runs
+   after first paint and stays out of LCP and TBT. PageView fires from here on
+   every page. Lead fires from /thank-you next to the GA4 form_submit_thankyou
+   event, which is the same quote request action Google Ads imports.
+
+   There is no noscript image fallback on purpose: an image tag has no way to
+   respect the hostname guard, so it would fire from every preview and QA run.
+
+   Do not write literal tag syntax in this comment. */
+(function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  var PIXEL = '338389045071642';
+
+  if (!window.fbq) {
+    var n = window.fbq = function () {
+      n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+    };
+    if (!window._fbq) window._fbq = n;
+    n.push = n; n.loaded = true; n.version = '2.0'; n.queue = [];
+  }
+
+  if (PROD.indexOf(location.hostname) === -1) return;
+
+  /* init and PageView queue right away so that any Lead the thank-you page
+     queues later sits behind init in the queue, whenever the script lands. */
+  window.fbq('init', PIXEL);
+  window.fbq('track', 'PageView');
+
+  function load() {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://connect.facebook.net/en_US/fbevents.js';
+    document.head.appendChild(s);
+  }
+  /* Loads on the load event, the same as the Google tag above. */
+  if (document.readyState === 'complete') { setTimeout(load, 0); }
+  else { window.addEventListener('load', function () { setTimeout(load, 0); }); }
+})();
+</script>
+<script>
+/* Microsoft Clarity heatmaps and session recordings, for the whole site (bundle 82).
+   Project z0idn3mm8n. Same production hostname guard as GA4 and the Meta pixel,
+   so previews, pages.dev builds and local QA never record. The tag loads on the
+   window load event, like the other two, so it stays out of the largest paint.
+   Clarity masks text typed into form fields by default; leave masking on. */
+(function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  var ID = 'z0idn3mm8n';
+  if (PROD.indexOf(location.hostname) === -1) return;
+  window.clarity = window.clarity || function () {
+    (window.clarity.q = window.clarity.q || []).push(arguments);
+  };
+  function load() {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.clarity.ms/tag/' + ID;
+    document.head.appendChild(s);
+  }
+  if (document.readyState === 'complete') { setTimeout(load, 0); }
+  else { window.addEventListener('load', function () { setTimeout(load, 0); }); }
+})();
+</script>
+<!-- chrome-sync:css -->
+<style>
+#paletteBar{
+    position:fixed; left:20px; bottom:22px; z-index:200;
+    display:flex; flex-direction:column; align-items:flex-start;
+    font-family:var(--font-body);
+  }
+#paletteBar .pal-toggle{
+    display:flex; align-items:center; gap:9px;
+    padding:11px 17px; border-radius:100px;
+    border:1px solid var(--card-border); background:rgba(8,9,10,.82);
+    -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);
+    color:var(--ink); font-family:var(--font-body); font-size:0.85rem; font-weight:600;
+    cursor:pointer; transition:border-color .2s, background .2s;
+  }
+#paletteBar .pal-toggle:hover{ border-color:var(--a1); background:rgba(8,9,10,.94); }
+#paletteBar .pal-toggle .dots{ display:flex; gap:3px; }
+#paletteBar .pal-toggle .dots i{ width:8px; height:8px; border-radius:50%; display:block; }
+#paletteBar .pal-opts{
+    display:none; flex-direction:column; gap:4px; margin-bottom:10px;
+    padding:10px; border-radius:16px; min-width:222px;
+    border:1px solid var(--card-border); background:rgba(8,9,10,.94);
+    -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px);
+    box-shadow:0 20px 50px -18px rgba(0,0,0,.9);
+  }
+#paletteBar.open .pal-opts{ display:flex; }
+#paletteBar .pal-opts .pal-head{
+    font-family:var(--font-display); font-weight:900; font-size:0.6rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--dim);
+    padding:4px 10px 8px;
+  }
+#paletteBar .pal-opts button{
+    display:flex; align-items:center; gap:10px; text-align:left; width:100%;
+    padding:9px 11px; border-radius:11px; border:1px solid transparent;
+    background:transparent; color:var(--ink);
+    font-family:var(--font-body); font-size:0.87rem; font-weight:500;
+    cursor:pointer; transition:.18s;
+  }
+#paletteBar .pal-opts button:hover{ background:rgba(255,255,255,.06); }
+#paletteBar .pal-opts button.active{ border-color:var(--a1); background:rgba(255,255,255,.05); font-weight:700; }
+#paletteBar .pal-opts button i{
+    width:22px; height:11px; border-radius:100px; flex:0 0 auto;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);
+  }
+#paletteBar .sw-signal{ background:linear-gradient(90deg,#31ff6e,#fff21c 55%,#ff1f3d); }
+#paletteBar .sw-amber { background:linear-gradient(90deg,#e8b75c,#ffdfa0); }
+#paletteBar .sw-night { background:linear-gradient(90deg,#2f6fff,#8b5cf6 65%,#ffb020); }
+@media(max-width:520px){
+  #paletteBar{ left:14px; bottom:16px; }
+  #paletteBar .pal-toggle{ padding:9px 13px; font-size:0.8rem; }
+  #paletteBar .pal-toggle .label{ display:none; }
+  #paletteBar .pal-opts{ min-width:198px; }
+}
+header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(5,6,5,.7); backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--card-border);
+  }
+nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1180px; margin:0 auto; }
+.logo{ display:flex; align-items:center; }
+.logo img{
+    display:block; height:46px; width:auto;
+    filter:drop-shadow(0 0 9px rgba(255,255,255,.32)) drop-shadow(0 2px 3px rgba(0,0,0,.65));
+  }
+.col.brand .logo img{ height:38px; }
+@media (max-width:520px){
+  .logo img{ height:34px; }
+}
+.navlinks{ display:flex; align-items:center; gap:2px; font-size:0.994rem; color:var(--dim); }
+.navlinks a:hover{ color:var(--ink); }
+.nl-item{ position:relative; }
+.nl-top{
+    display:flex; align-items:center; gap:6px;
+    padding:10px 13px; border-radius:9px;
+    color:var(--dim); cursor:pointer; white-space:nowrap;
+    transition:color .15s ease, background .15s ease;
+  }
+.nl-top:hover, .nl-item:hover .nl-top, .nl-item:focus-within .nl-top{
+    color:var(--ink); background:rgba(255,255,255,.05);
+  }
+.nl-top:focus-visible{ outline:2px solid var(--a1); outline-offset:2px; }
+.nl-car{ width:10px; height:6px; opacity:.65; transition:transform .18s ease; }
+.nl-item:hover .nl-car, .nl-item:focus-within .nl-car{ transform:rotate(180deg); opacity:1; }
+.nl-menu{
+    position:absolute; top:calc(100% + 8px); left:50%; transform:translateX(-50%) translateY(-6px);
+    min-width:238px; padding:8px;
+    background:var(--bg-1); border:1px solid var(--card-border); border-radius:14px;
+    box-shadow:0 18px 44px rgba(0,0,0,.6), 0 0 0 1px rgba(0,0,0,.35);
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity .16s ease, transform .16s ease, visibility .16s;
+    z-index:120;
+  }
+.nl-menu::before{ content:""; position:absolute; top:-10px; left:0; right:0; height:10px; }
+.nl-item:hover .nl-menu, .nl-item:focus-within .nl-menu{
+    opacity:1; visibility:visible; pointer-events:auto; transform:translateX(-50%) translateY(0);
+  }
+.nl-menu a{
+    display:block; padding:9px 12px; border-radius:8px;
+    font-size:0.93rem; color:var(--dim); white-space:nowrap;
+    transition:color .13s ease, background .13s ease;
+  }
+.nl-menu a:hover{ color:var(--ink); background:rgba(255,255,255,.06); }
+.nl-solo{ text-decoration:none; }
+.navburger{
+    display:none; width:42px; height:42px; padding:0;
+    background:transparent; border:1px solid var(--card-border); border-radius:11px;
+    cursor:pointer; flex-direction:column; align-items:center; justify-content:center; gap:5px;
+  }
+.navburger span{ display:block; width:19px; height:2px; border-radius:2px; background:var(--ink); }
+.navburger:focus-visible{ outline:2px solid var(--a1); outline-offset:2px; }
+.ndrawer{
+    position:fixed; inset:0; z-index:400;
+    background:var(--bg-0);
+    display:flex; flex-direction:column;
+    opacity:0; visibility:hidden; pointer-events:none;
+    transition:opacity .2s ease, visibility .2s;
+    overflow-y:auto; -webkit-overflow-scrolling:touch;
+  }
+.ndrawer.open{ opacity:1; visibility:visible; pointer-events:auto; }
+.nd-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 22px; border-bottom:1px solid var(--card-border);
+    position:sticky; top:0; background:var(--bg-0); z-index:2;
+  }
+.nd-close{
+    position:relative; width:42px; height:42px; padding:0;
+    background:transparent; border:1px solid var(--card-border); border-radius:11px; cursor:pointer;
+  }
+.nd-close span{
+    position:absolute; top:50%; left:50%; width:19px; height:2px; border-radius:2px;
+    background:var(--ink); margin:-1px 0 0 -9.5px;
+  }
+.nd-close span:first-child{ transform:rotate(45deg); }
+.nd-close span:last-child{ transform:rotate(-45deg); }
+.nd-body{ padding:8px 14px 20px; flex:1 0 auto; }
+.nd-sec{ border-bottom:1px solid var(--card-border); }
+.nd-trig{
+    width:100%; display:flex; align-items:center; justify-content:space-between;
+    padding:17px 8px; background:transparent; border:0; cursor:pointer;
+    font-family:var(--font-body); font-size:1.06rem; font-weight:600;
+    color:var(--ink); text-align:left; text-decoration:none;
+  }
+.nd-trig .nl-car{ width:13px; height:8px; transition:transform .2s ease; }
+.nd-sec.open .nd-trig .nl-car{ transform:rotate(180deg); }
+.nd-panel{ display:none; padding:0 8px 14px; }
+.nd-sec.open .nd-panel{ display:block; }
+.nd-panel a{
+    display:block; padding:11px 12px; border-radius:9px;
+    font-size:0.99rem; color:var(--dim);
+  }
+.nd-panel a:hover{ color:var(--ink); background:rgba(255,255,255,.05); }
+.nd-foot{
+    display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
+    padding:20px 22px 34px; border-top:1px solid var(--card-border);
+  }
+.nd-phone{ font-size:1.06rem; font-weight:600; color:var(--ink); }
+body.nav-locked{ overflow:hidden; }
+.navright{ display:flex; align-items:center; gap:18px; }
+.phone{ font-size:0.96rem; color:var(--dim); text-decoration:none; white-space:nowrap; }
+.phone:hover{ color:var(--ink); }
+.cta-btn{
+    font-family:var(--font-body); font-weight:700; font-size:0.96rem;
+    padding:11px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    display:inline-block; white-space:nowrap;
+  }
+@media (max-width:1120px){
+  .navlinks{ gap:0; font-size:0.94rem; }
+  .nl-top{ padding:10px 9px; }
+}
+@media (max-width:1080px){
+  header nav .phone{ display:none; }
+}
+@media (max-width:900px){
+  .navlinks{ display:none; }
+  .navburger{ display:flex; }
+  header nav .navright{ gap:12px; }
+}
+@media (min-width:600px){
+  .nd-head, .nd-foot{
+      padding-left:max(22px, calc((100% - 680px)/2));
+      padding-right:max(22px, calc((100% - 680px)/2));
+    }
+  .nd-body{
+      padding-left:max(14px, calc((100% - 700px)/2));
+      padding-right:max(14px, calc((100% - 700px)/2));
+    }
+}
+
+/* Image slots waiting on a photo.
+
+   Each empty panel carries a caption naming the file that belongs there, and
+   74 of them were visible to visitors as monospace filenames sitting on top of
+   a placeholder gradient. The caption stays in the markup, because it is the
+   shot list and it belongs next to the panel it describes, but it is not shown.
+
+   The panel itself still renders its gradient, which reads as a design element
+   rather than as a missing image.
+
+   Delete this rule once every slot is filled. */
+.slot{ display:none; }
+/* AV Concierge widget.
+
+   The pill keeps the id chatBubble on purpose. The sensory-friendly page
+   suppresses it by that id, together with the palette dock and every other
+   permanently-visible floating action, and the rule there carries a written
+   rationale: one action means one. Renaming the wrapper would silently undo a
+   deliberate accessibility decision on the one page built to reduce what is on
+   screen. The panel is suppressed alongside it below, which is a no-op on every
+   other page because nothing else carries the calm class. */
+
+#chatBubble{
+    position:fixed; right:22px; bottom:calc(22px + env(safe-area-inset-bottom, 0px));
+    z-index:200; display:flex; align-items:center; gap:8px;
+    padding:14px 20px; border-radius:100px; background:var(--grad); color:#0a0a0a;
+    font-weight:700; font-size:.96rem; box-shadow:0 14px 40px -12px var(--glow);
+    cursor:pointer; user-select:none;
+    transition:transform .18s ease, opacity .18s ease;
+  }
+#chatBubble:hover{ transform:translateY(-2px); }
+#chatBubble:focus-visible{ outline:2px solid var(--ink); outline-offset:3px; }
+#chatBubble[data-open="1"]{ opacity:0; pointer-events:none; }
+#chatBubble .cb-short{ display:none; }
+
+/* On a phone the pill shrinks to a short Ask button tucked into the corner,
+   because the full label sat over the hero quote and call buttons. */
+@media (max-width:700px){
+  #chatBubble{
+      right:14px; bottom:calc(14px + env(safe-area-inset-bottom, 0px));
+      padding:9px 14px; gap:6px; font-size:.86rem;
+    }
+  #chatBubble .cb-label{ display:none; }
+  #chatBubble .cb-short{ display:inline; }
+}
+
+#chatPanel{
+    position:fixed; right:22px; bottom:calc(22px + env(safe-area-inset-bottom, 0px));
+    z-index:201; width:min(420px, calc(100vw - 44px));
+    max-height:min(76vh, 680px); display:flex; flex-direction:column;
+    background:var(--bg-1); color:var(--ink);
+    border:1px solid var(--card-border); border-radius:18px; overflow:hidden;
+    box-shadow:0 30px 80px -20px rgba(0,0,0,.8);
+    font-family:var(--font-body);
+  }
+#chatPanel[hidden]{ display:none; }
+
+.cp-head{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:16px 18px; border-bottom:1px solid var(--card-border);
+    background:var(--bg-2); flex:0 0 auto;
+  }
+.cp-title{ font-family:var(--font-display); font-weight:800; font-size:1.05rem; }
+.cp-sub{
+    font-family:var(--font-display); font-weight:900; font-size:.6rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--a1); margin-top:3px;
+  }
+.cp-close{
+    background:none; border:0; color:var(--dim); font-size:1.5rem; line-height:1;
+    cursor:pointer; padding:4px 8px; border-radius:8px;
+  }
+.cp-close:hover{ color:var(--ink); }
+.cp-close:focus-visible{ outline:2px solid var(--a1); outline-offset:2px; }
+
+.cp-log{
+    flex:1 1 auto; overflow-y:auto; padding:18px;
+    display:flex; flex-direction:column; gap:16px;
+    font-size:1.02rem; line-height:1.6;
+  }
+.cp-msg{ max-width:88%; }
+.cp-msg.me{ align-self:flex-end; }
+.cp-msg .b{
+    display:inline-block; padding:12px 15px; border-radius:14px;
+    background:var(--bg-2); border:1px solid var(--card-border); color:var(--ink);
+  }
+.cp-msg.me .b{ background:var(--a1); border-color:var(--a1); color:#07120b; }
+.cp-msg .b p{ margin:0; }
+.cp-msg .b p + p, .cp-msg .b ul, .cp-msg .b ol{ margin-top:.6em; }
+.cp-msg .b ul, .cp-msg .b ol{ padding-left:1.1em; }
+.cp-msg .b li{ margin:.25em 0; }
+.cp-msg .b li::marker{ color:var(--a1); }
+.cp-msg.me .b li::marker{ color:#07120b; }
+.cp-msg .b strong{ color:var(--ink); font-weight:700; }
+.cp-msg.me .b strong{ color:#07120b; }
+.cp-msg .b a{ color:var(--a1); }
+.cp-msg.me .b a{ color:#07120b; }
+.cp-dots{ display:inline-flex; gap:5px; padding:14px; }
+.cp-dots i{
+    width:6px; height:6px; border-radius:50%; background:var(--dim);
+    animation:cpblink 1.2s infinite ease-in-out;
+  }
+.cp-dots i:nth-child(2){ animation-delay:.18s; }
+.cp-dots i:nth-child(3){ animation-delay:.36s; }
+@keyframes cpblink{ 0%,80%,100%{ opacity:.25 } 40%{ opacity:1 } }
+
+.cp-foot{
+    flex:0 0 auto; display:flex; align-items:flex-end; gap:10px;
+    padding:14px; border-top:1px solid var(--card-border); background:var(--bg-2);
+  }
+#chatInput{
+    flex:1 1 auto; resize:none; max-height:120px;
+    background:var(--bg-0); color:var(--ink);
+    border:1px solid var(--card-border); border-radius:12px;
+    padding:12px 14px; font:inherit; font-size:1rem; line-height:1.5;
+  }
+#chatInput:focus{ outline:2px solid var(--a1); outline-offset:0; }
+#chatInput:disabled{ opacity:.5; }
+.cp-send{
+    flex:0 0 auto; width:42px; height:42px; border-radius:12px; border:0;
+    background:var(--a1); color:#07120b; font-size:1.15rem; cursor:pointer;
+  }
+.cp-send:disabled{ opacity:.4; cursor:default; }
+.cp-send:focus-visible{ outline:2px solid var(--ink); outline-offset:2px; }
+
+.cp-legal{
+    flex:0 0 auto; padding:0 16px 14px; font-size:.8rem;
+    line-height:1.5; color:var(--dim); background:var(--bg-2);
+  }
+.cp-legal a{ color:var(--a1); }
+.cp-sronly{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+  }
+
+/* On a phone the panel is a sheet, because a floating card that tall on a
+   small screen ends up with its input under the keyboard. */
+@media (max-width:520px){
+  #chatPanel{
+      right:0; left:0; bottom:0; width:100%;
+      max-height:82vh; border-radius:18px 18px 0 0; border-bottom:0;
+    }
+}
+
+@media (prefers-reduced-motion:reduce){
+  #chatBubble{ transition:none; }
+  #chatBubble:hover{ transform:none; }
+  .cp-dots i{ animation:none; opacity:.6; }
+}
+
+/* Removed, not quietened, on the sensory-friendly page. See the note above. */
+body.calm #chatPanel{ display:none; }
+</style>
+</head>
+<body>
+
+  <div id="paletteBar">
+    <div class="pal-opts" id="palOpts" role="group" aria-label="Color palette">
+      <div class="pal-head">Color palette</div>
+      <button type="button" data-p="signal" class="active" aria-pressed="true"><i class="sw-signal"></i>Signal Chain</button>
+      <button type="button" data-p="amber" aria-pressed="false"><i class="sw-amber"></i>Stage Black &amp; Amber</button>
+      <button type="button" data-p="night" aria-pressed="false"><i class="sw-night"></i>DFW Night Rig</button>
+    </div>
+    <button type="button" class="pal-toggle" id="palToggle" aria-label="Color palette" aria-expanded="false" aria-controls="palOpts">
+      <span class="dots"><i style="background:#31ff6e"></i><i style="background:#fff21c"></i><i style="background:#ff1f3d"></i></span>
+      <span class="label">Palette</span>
+    </button>
+  </div>
+
+  <header>
+    <nav>
+      <a class="logo" href="/" style="text-decoration:none;" aria-label="Dallas Event Audio home"><img src="/images/dea-logo.png" alt="Dallas Event Audio" width="326" height="138"></a>
+      <div class="navlinks">
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Events<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/weddings">Weddings</a>
+            <a href="/wedding-av-rental-dallas">Wedding AV Rental</a>
+            <a href="/corporate-events">Corporate Events</a>
+            <a href="/private-events">Private Events</a>
+            <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+            <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+            <a href="/college-school-university-events">College &amp; University</a>
+            <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+            <a href="/fort-worth">Fort Worth</a>
+          </div>
+        </div>
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Audio<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/services-audio">All Audio Services</a>
+            <a href="/rent-sound-equipment">Sound Equipment Rental</a>
+            <a href="/dj-speaker-rental">DJ &amp; Party Speakers</a>
+            <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+            <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+            <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+            <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+            <a href="/feedback-free-microphone-rentals">Microphone Rental</a>
+          </div>
+        </div>
+        <a class="nl-top nl-solo" href="/services-dj">DJ Services</a>
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Lighting &amp; FX<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/services-lighting">All Lighting Services</a>
+            <a href="/rent-uplighting">Uplighting</a>
+            <a href="/rent-dj-lighting">DJ Lighting</a>
+            <a href="/rent-laser-light-show">Laser Light Show</a>
+            <a href="/rent-follow-spot-light">Follow Spot</a>
+            <a href="/monogram-projector">Monogram Projector</a>
+            <a href="/rent-fog-machine">Fog &amp; Haze</a>
+            <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+            <a href="/services-extra">Special Effects &amp; Extras</a>
+          </div>
+        </div>
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Video<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/projector-screen-rental">Projector &amp; Screen</a>
+            <a href="/tv-rental-dallas">TV Rental</a>
+            <a href="/live-streaming-services">Live Streaming</a>
+            <a href="/services-photo-and-video">Photo &amp; Video</a>
+          </div>
+        </div>
+        <div class="nl-item">
+          <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Our Work<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div class="nl-menu">
+            <a href="/our-work">Our Work</a>
+            <a href="/venues">Venues We've Worked</a>
+            <a href="/gallery">Photo Gallery</a>
+            <a href="/equipment-list">Equipment List</a>
+            <a href="/what-others-are-saying">Reviews</a>
+            <a href="/our-story">Our Story</a>
+            <a href="/blog">Blog</a>
+          </div>
+        </div>
+        <a class="nl-top nl-solo" href="/contact">Contact</a>
+      </div>
+      <div class="navright">
+        <a class="phone" href="tel:8172107957">817-210-7957</a>
+        <a class="cta-btn" href="/contact">Get a Quote</a>
+        <button class="navburger" id="navBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer"><span></span><span></span><span></span></button>
+      </div>
+    </nav>
+  </header>
+
+  <div class="ndrawer" id="navDrawer" aria-hidden="true">
+    <div class="nd-head">
+      <a class="logo" href="/" style="text-decoration:none;" aria-label="Dallas Event Audio home"><img src="/images/dea-logo.png" alt="Dallas Event Audio" width="326" height="138"></a>
+      <button class="nd-close" id="navClose" type="button" aria-label="Close menu"><span></span><span></span></button>
+    </div>
+    <div class="nd-body">
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Events<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/weddings">Weddings</a>
+          <a href="/wedding-av-rental-dallas">Wedding AV Rental</a>
+          <a href="/corporate-events">Corporate Events</a>
+          <a href="/private-events">Private Events</a>
+          <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+          <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+          <a href="/college-school-university-events">College &amp; University</a>
+          <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+          <a href="/fort-worth">Fort Worth</a>
+        </div>
+      </div>
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Audio<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/services-audio">All Audio Services</a>
+          <a href="/rent-sound-equipment">Sound Equipment Rental</a>
+          <a href="/dj-speaker-rental">DJ &amp; Party Speakers</a>
+          <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+          <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+          <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+          <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+          <a href="/feedback-free-microphone-rentals">Microphone Rental</a>
+        </div>
+      </div>
+      <div class="nd-sec"><a class="nd-trig nd-solo" href="/services-dj">DJ Services</a></div>
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Lighting &amp; FX<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/services-lighting">All Lighting Services</a>
+          <a href="/rent-uplighting">Uplighting</a>
+          <a href="/rent-dj-lighting">DJ Lighting</a>
+          <a href="/rent-laser-light-show">Laser Light Show</a>
+          <a href="/rent-follow-spot-light">Follow Spot</a>
+          <a href="/monogram-projector">Monogram Projector</a>
+          <a href="/rent-fog-machine">Fog &amp; Haze</a>
+          <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+          <a href="/services-extra">Special Effects &amp; Extras</a>
+        </div>
+      </div>
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Video<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/projector-screen-rental">Projector &amp; Screen</a>
+          <a href="/tv-rental-dallas">TV Rental</a>
+          <a href="/live-streaming-services">Live Streaming</a>
+          <a href="/services-photo-and-video">Photo &amp; Video</a>
+        </div>
+      </div>
+      <div class="nd-sec">
+        <button class="nd-trig" type="button" aria-expanded="false">Our Work<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="nd-panel">
+          <a href="/our-work">Our Work</a>
+          <a href="/venues">Venues We've Worked</a>
+          <a href="/gallery">Photo Gallery</a>
+          <a href="/equipment-list">Equipment List</a>
+          <a href="/what-others-are-saying">Reviews</a>
+          <a href="/our-story">Our Story</a>
+          <a href="/blog">Blog</a>
+        </div>
+      </div>
+      <div class="nd-sec"><a class="nd-trig nd-solo" href="/contact">Contact</a></div>
+    </div>
+    <div class="nd-foot">
+      <a class="nd-phone" href="tel:8172107957">817-210-7957</a>
+      <a class="cta-btn" href="/contact">Get a Quote</a>
+    </div>
+  </div>
+<main id="main">
+
+<section class="hero hero-page">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="breadcrumb" data-reveal>
+        <a href="/">Home</a><span class="sep">/</span><span class="here">Venues We've Worked</span>
+      </div>
+      <h1 data-reveal>Venues we've worked across <span class="grad-text">Dallas-Fort Worth.</span></h1>
+      <div class="hero-ctas hero-ctas-top hero-ctas-m" data-reveal>
+        <a class="btn-primary" href="/contact">Request a Quote</a>
+        <a class="btn-secondary" href="tel:8172107957">Call 817-210-7957</a>
+      </div>
+      <p class="sub" data-reveal>These are the Dallas-Fort Worth event venues where our crew has delivered, set up and run sound, lighting, DJ and effects: hotel ballrooms, ranch and barn wedding venues, museums, restaurants, breweries and convention centers. Search for yours below. If it is here, we have already loaded into that room and know where the power is.</p>
+      <div class="hero-ctas hero-ctas-top hero-ctas-d" data-reveal>
+        <a class="btn-primary" href="/contact">Request a Quote</a>
+        <a class="btn-secondary" href="tel:8172107957">Call 817-210-7957</a>
+      </div>
+
+      <div class="stat-row" data-reveal>
+        <div class="stat">
+          <div class="num">300+</div>
+          <div class="lbl">Event venues on our booking records across Dallas-Fort Worth</div>
+        </div>
+        <div class="stat">
+          <div class="num">70+</div>
+          <div class="lbl">Cities and towns, from Dallas and Fort Worth to the ranch venues out past them</div>
+        </div>
+        <div class="stat">
+          <div class="num">2001</div>
+          <div class="lbl">Delivering and setting up event equipment in Dallas-Fort Worth since 2001</div>
+        </div>
+        <div class="stat">
+          <div class="num">COI</div>
+          <div class="lbl">Fully insured. Certificates sent straight to your venue before load-in</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Venues We've Worked &middot; Wedding Venues &middot; Hotel Ballrooms &middot; Museums &middot; Ranch Venues &middot; Convention Centers &middot; Restaurants &middot; Breweries &middot; Dallas &middot; Fort Worth &middot;&nbsp;</span>
+      <span>Venues We've Worked &middot; Wedding Venues &middot; Hotel Ballrooms &middot; Museums &middot; Ranch Venues &middot; Convention Centers &middot; Restaurants &middot; Breweries &middot; Dallas &middot; Fort Worth &middot;&nbsp;</span>
+    </div>
+  </div>
+
+  <section class="section" id="venues">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">By City</span>
+        <h2>Event venues we've worked, by city</h2>
+        <p>Venues are grouped by city, and the smaller towns are listed together under Across North Texas. A Clouds tag marks the venues where we have run <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a> for a first dance. Every booking at every one of these venues was delivered, set up, tested and picked up by our crew.</p>
+      </div>
+      <div class="vtools" data-reveal>
+        <label class="visually-hidden" for="venueSearch">Search venues or cities</label>
+        <input id="venueSearch" type="search" placeholder="Search a venue or city" autocomplete="off">
+        <span class="vcount" id="venueCount" aria-live="polite">316 venues</span>
+      </div>
+      <p class="vempty" id="venueEmpty" hidden>That venue would be a new one for us. <a href="/contact">Tell us about your event</a> and we will advance the room with your coordinator.</p>
+      <div class="vgrid">
+        <div class="vgroup vgroup-wide" data-reveal>
+          <h3>Dallas</h3>
+          <ul class="vlist">
+            <li data-v="the adolphus dallas">The Adolphus</li>
+            <li data-v="arlington hall at turtle creek park dallas">Arlington Hall at Turtle Creek Park</li>
+            <li data-v="arts district mansion dallas">Arts District Mansion</li>
+            <li data-v="ballroom surge event space dallas">Ballroom Surge Event Space <span class="vtag">Clouds</span></li>
+            <li data-v="the beeman hotel dallas">The Beeman Hotel</li>
+            <li data-v="brake &amp; clutch warehouse dallas">Brake &amp; Clutch Warehouse <span class="vtag">Clouds</span></li>
+            <li data-v="the carlisle room dallas">The Carlisle Room <span class="vtag">Clouds</span></li>
+            <li data-v="casa de montecristo cigar lounge dallas">Casa de Montecristo Cigar Lounge</li>
+            <li data-v="the charles dallas">The Charles</li>
+            <li data-v="cotton bowl stadium dallas">Cotton Bowl Stadium</li>
+            <li data-v="the crescent club dallas">The Crescent Club</li>
+            <li data-v="dallas arboretum and botanical garden dallas">Dallas Arboretum and Botanical Garden</li>
+            <li data-v="the dallas entrepreneur center at redbird dallas">The Dallas Entrepreneur Center at RedBird</li>
+            <li data-v="dallas market center dallas">Dallas Market Center</li>
+            <li data-v="dallas petroleum club dallas">Dallas Petroleum Club</li>
+            <li data-v="dec on dragon dallas">DEC on Dragon</li>
+            <li data-v="doubletree by hilton dallas campbell centre dallas">DoubleTree by Hilton Dallas Campbell Centre</li>
+            <li data-v="doubletree by hilton dallas near the galleria dallas">DoubleTree by Hilton Dallas Near the Galleria</li>
+            <li data-v="dress up event hall dallas">Dress Up Event Hall</li>
+            <li data-v="el fenix dallas">El Fenix</li>
+            <li data-v="the empire room dallas">The Empire Room</li>
+            <li data-v="the exchange food hall dallas">The Exchange Food Hall</li>
+            <li data-v="fairmont dallas dallas">Fairmont Dallas <span class="vtag">Clouds</span></li>
+            <li data-v="the filter building dallas">The Filter Building</li>
+            <li data-v="four corners brewing company dallas">Four Corners Brewing Company</li>
+            <li data-v="frontiers of flight museum dallas">Frontiers of Flight Museum</li>
+            <li data-v="gallery defi dallas">Gallery DeFi</li>
+            <li data-v="gilley&#x27;s dallas dallas">Gilley&#x27;s Dallas</li>
+            <li data-v="green elephant dallas">Green Elephant</li>
+            <li data-v="the hall of state dallas">The Hall of State</li>
+            <li data-v="the hall on dragon dallas">The Hall on Dragon</li>
+            <li data-v="the henry dallas">The Henry</li>
+            <li data-v="hilton anatole dallas">Hilton Anatole</li>
+            <li data-v="hilton dallas lincoln centre dallas">Hilton Dallas Lincoln Centre</li>
+            <li data-v="hotel crescent court dallas">Hotel Crescent Court</li>
+            <li data-v="hotel zaza dallas uptown dallas">Hotel ZaZa Dallas Uptown</li>
+            <li data-v="house of jones dallas">House of Jones</li>
+            <li data-v="howell and dragon dallas">Howell and Dragon</li>
+            <li data-v="hyatt regency dallas dallas">Hyatt Regency Dallas</li>
+            <li data-v="jaxon beer garden dallas">Jaxon Beer Garden</li>
+            <li data-v="the joule dallas">The Joule</li>
+            <li data-v="kay bailey hutchison convention center dallas">Kay Bailey Hutchison Convention Center</li>
+            <li data-v="kimpton pittman hotel dallas">Kimpton Pittman Hotel</li>
+            <li data-v="knife dallas dallas">Knife Dallas</li>
+            <li data-v="krimson park dallas">Krimson Park <span class="vtag">Clouds</span></li>
+            <li data-v="the landmark prime rib dallas">The Landmark Prime Rib</li>
+            <li data-v="las almas rotas dallas">Las Almas Rotas</li>
+            <li data-v="le méridien dallas dallas">Le Méridien Dallas</li>
+            <li data-v="local public eatery dallas">LOCAL Public Eatery</li>
+            <li data-v="lofty spaces dallas">Lofty Spaces <span class="vtag">Clouds</span></li>
+            <li data-v="lorenzo hotel dallas">Lorenzo Hotel</li>
+            <li data-v="loro dallas">Loro</li>
+            <li data-v="maggiano&#x27;s little italy northpark dallas">Maggiano&#x27;s Little Italy NorthPark</li>
+            <li data-v="maguire&#x27;s dallas">Maguire&#x27;s</li>
+            <li data-v="margaret hunt hill bridge dallas">Margaret Hunt Hill Bridge</li>
+            <li data-v="marie gabrielle restaurant and gardens dallas">Marie Gabrielle Restaurant and Gardens</li>
+            <li data-v="the mason dallas">The Mason</li>
+            <li data-v="meso maya dallas">Meso Maya</li>
+            <li data-v="museum of biblical art dallas">Museum of Biblical Art</li>
+            <li data-v="nasher sculpture center dallas">Nasher Sculpture Center</li>
+            <li data-v="new artisan distillery dallas">New Artisan Distillery</li>
+            <li data-v="nick &amp; sam&#x27;s dallas">Nick &amp; Sam&#x27;s</li>
+            <li data-v="nobu dallas dallas">Nobu Dallas</li>
+            <li data-v="northwood club dallas">Northwood Club</li>
+            <li data-v="nuvo room dallas">Nuvo Room</li>
+            <li data-v="oak cliff brewing dallas">Oak Cliff Brewing</li>
+            <li data-v="oak highlands brewery dallas">Oak Highlands Brewery</li>
+            <li data-v="ocean prime dallas">Ocean Prime</li>
+            <li data-v="the oceanaire seafood room dallas">The Oceanaire Seafood Room</li>
+            <li data-v="omni dallas hotel dallas">Omni Dallas Hotel <span class="vtag">Clouds</span></li>
+            <li data-v="park city club dallas">Park City Club</li>
+            <li data-v="park house dallas">Park House</li>
+            <li data-v="perkins chapel dallas">Perkins Chapel</li>
+            <li data-v="perot museum of nature and science dallas">Perot Museum of Nature and Science</li>
+            <li data-v="rainbow vomit dallas">Rainbow Vomit</li>
+            <li data-v="renaissance dallas hotel dallas">Renaissance Dallas Hotel</li>
+            <li data-v="river pig saloon dallas">River Pig Saloon</li>
+            <li data-v="rosewood mansion on turtle creek dallas">Rosewood Mansion on Turtle Creek</li>
+            <li data-v="saint rocco&#x27;s dallas">Saint Rocco&#x27;s</li>
+            <li data-v="sammons center for the arts dallas">Sammons Center for the Arts</li>
+            <li data-v="samuel lynne galleries dallas">Samuel Lynne Galleries</li>
+            <li data-v="sandaga 813 dallas">SANDAGA 813</li>
+            <li data-v="sheraton dallas hotel dallas">Sheraton Dallas Hotel</li>
+            <li data-v="sky blu rooftop bar dallas">Sky Blu Rooftop Bar</li>
+            <li data-v="skyline ranch &amp; event center dallas">Skyline Ranch &amp; Event Center</li>
+            <li data-v="texas discovery gardens dallas">Texas Discovery Gardens</li>
+            <li data-v="texas theatre dallas">Texas Theatre</li>
+            <li data-v="trinity forest golf club dallas">Trinity Forest Golf Club</li>
+            <li data-v="trinity groves dallas">Trinity Groves</li>
+            <li data-v="trinity river audubon center dallas">Trinity River Audubon Center</li>
+            <li data-v="tru by hilton dallas market center dallas">Tru by Hilton Dallas Market Center</li>
+            <li data-v="the victor dallas">The Victor</li>
+            <li data-v="wellington centre dallas">Wellington Centre</li>
+            <li data-v="the westin dallas downtown dallas">The Westin Dallas Downtown</li>
+            <li data-v="the westin dallas park central dallas">The Westin Dallas Park Central <span class="vtag">Clouds</span></li>
+            <li data-v="the whiskey spot dallas">The Whiskey Spot</li>
+            <li data-v="winfrey point dallas">Winfrey Point</li>
+            <li data-v="y.o. ranch steakhouse dallas">Y.O. Ranch Steakhouse</li>
+            <li data-v="zuri event center dallas">Zuri Event Center <span class="vtag">Clouds</span></li>
+          </ul>
+        </div>
+        <div class="vgroup vgroup-wide" data-reveal>
+          <h3>Fort Worth</h3>
+          <ul class="vlist">
+            <li data-v="amon carter center at lena pope fort worth">Amon Carter Center at Lena Pope</li>
+            <li data-v="the ashton depot fort worth">The Ashton Depot</li>
+            <li data-v="bowie house fort worth">Bowie House</li>
+            <li data-v="c.r. smith museum fort worth">C.R. Smith Museum</li>
+            <li data-v="city club of fort worth fort worth">City Club of Fort Worth <span class="vtag">Clouds</span></li>
+            <li data-v="colonial country club fort worth">Colonial Country Club <span class="vtag">Clouds</span></li>
+            <li data-v="the crescent hotel fort worth">The Crescent Hotel</li>
+            <li data-v="dalmore event venue fort worth">Dalmore Event Venue <span class="vtag">Clouds</span></li>
+            <li data-v="del frisco&#x27;s double eagle steakhouse fort worth">Del Frisco&#x27;s Double Eagle Steakhouse</li>
+            <li data-v="fort works art fort worth">Fort Works Art</li>
+            <li data-v="the fort worth club fort worth">The Fort Worth Club</li>
+            <li data-v="fort worth convention center fort worth">Fort Worth Convention Center</li>
+            <li data-v="fort worth zoo fort worth">Fort Worth Zoo</li>
+            <li data-v="gold mountain gallery fort worth">Gold Mountain Gallery</li>
+            <li data-v="grace manor events fort worth">Grace Manor Events</li>
+            <li data-v="holiday inn fort worth alliance fort worth">Holiday Inn Fort Worth Alliance</li>
+            <li data-v="hotel drover fort worth">Hotel Drover</li>
+            <li data-v="hyena&#x27;s comedy night club fort worth">Hyena&#x27;s Comedy Night Club</li>
+            <li data-v="joe t. garcia&#x27;s fort worth">Joe T. Garcia&#x27;s</li>
+            <li data-v="marriott dfw airport south fort worth">Marriott DFW Airport South</li>
+            <li data-v="marty leonard community chapel fort worth">Marty Leonard Community Chapel</li>
+            <li data-v="omni fort worth hotel fort worth">Omni Fort Worth Hotel</li>
+            <li data-v="the paddock at champions circle fort worth">The Paddock at Champions Circle <span class="vtag">Clouds</span></li>
+            <li data-v="panther island brewing fort worth">Panther Island Brewing</li>
+            <li data-v="radisson hotel fort worth north fossil creek fort worth">Radisson Hotel Fort Worth North Fossil Creek</li>
+            <li data-v="ridglea country club fort worth">Ridglea Country Club</li>
+            <li data-v="ridglea theater fort worth">Ridglea Theater</li>
+            <li data-v="river ranch stockyards fort worth">River Ranch Stockyards</li>
+            <li data-v="roy pope grocery fort worth">Roy Pope Grocery</li>
+            <li data-v="second rodeo brewing fort worth">Second Rodeo Brewing</li>
+            <li data-v="sheraton fort worth downtown hotel fort worth">Sheraton Fort Worth Downtown Hotel</li>
+            <li data-v="texas motor speedway fort worth">Texas Motor Speedway</li>
+            <li data-v="town talk foods fort worth">Town Talk Foods</li>
+            <li data-v="the vintage rail fort worth">The Vintage Rail</li>
+          </ul>
+        </div>
+        <div class="vgroup" data-reveal>
+          <h3>McKinney</h3>
+          <ul class="vlist">
+            <li data-v="adriatica village mckinney">Adriatica Village <span class="vtag">Clouds</span></li>
+            <li data-v="aristide mckinney mckinney">Aristide McKinney <span class="vtag">Clouds</span></li>
+            <li data-v="avalon legacy ranch mckinney">Avalon Legacy Ranch</li>
+            <li data-v="the backyard venue mckinney">The Backyard Venue</li>
+            <li data-v="the clubs of stonebridge ranch mckinney">The Clubs of Stonebridge Ranch</li>
+            <li data-v="d&#x27;vine grace vineyard mckinney">D&#x27;Vine Grace Vineyard <span class="vtag">Clouds</span></li>
+            <li data-v="mckinney cotton mill mckinney">McKinney Cotton Mill</li>
+            <li data-v="mckinney flour mill mckinney">McKinney Flour Mill <span class="vtag">Clouds</span></li>
+            <li data-v="the rosemary wedding venue mckinney">The RoseMary Wedding Venue</li>
+            <li data-v="the sanctuary music and events mckinney">The Sanctuary Music and Events <span class="vtag">Clouds</span></li>
+            <li data-v="sheraton mckinney hotel mckinney">Sheraton McKinney Hotel</li>
+            <li data-v="stone crest venue mckinney">Stone Crest Venue</li>
+          </ul>
+        </div>
+        <div class="vgroup" data-reveal>
+          <h3>Irving</h3>
+          <ul class="vlist">
+            <li data-v="curry leaf restaurant bar &amp; banquet irving">Curry Leaf Restaurant Bar &amp; Banquet</li>
+            <li data-v="hackberry creek country club irving">Hackberry Creek Country Club</li>
+            <li data-v="hyatt house dallas/las colinas irving">Hyatt House Dallas/Las Colinas</li>
+            <li data-v="irving convention center at las colinas irving">Irving Convention Center at Las Colinas <span class="vtag">Clouds</span></li>
+            <li data-v="marriott dallas las colinas irving">Marriott Dallas Las Colinas <span class="vtag">Clouds</span></li>
+            <li data-v="nylo las colinas hotel irving">NYLO Las Colinas Hotel</li>
+            <li data-v="omni las colinas hotel irving">Omni Las Colinas Hotel</li>
+            <li data-v="rayleigh underground irving">Rayleigh Underground <span class="vtag">Clouds</span></li>
+            <li data-v="slps community center irving">SLPS Community Center <span class="vtag">Clouds</span></li>
+            <li data-v="toyota music factory irving">Toyota Music Factory</li>
+            <li data-v="the westin irving convention center at las colinas irving">The Westin Irving Convention Center at Las Colinas</li>
+          </ul>
+        </div>
+        <div class="vgroup" data-reveal>
+          <h3>Arlington</h3>
+          <ul class="vlist">
+            <li data-v="at&amp;t stadium arlington">AT&amp;T Stadium</li>
+            <li data-v="bowman springs park arlington">Bowman Springs Park</li>
+            <li data-v="j. gilligan&#x27;s bar &amp; grill arlington">J. Gilligan&#x27;s Bar &amp; Grill</li>
+            <li data-v="levitt pavilion arlington arlington">Levitt Pavilion Arlington</li>
+            <li data-v="live! by loews arlington">Live! by Loews</li>
+            <li data-v="national medal of honor museum arlington">National Medal of Honor Museum</li>
+            <li data-v="sheraton arlington hotel arlington">Sheraton Arlington Hotel <span class="vtag">Clouds</span></li>
+            <li data-v="the springs event venue, arlington arlington">The Springs Event Venue, Arlington <span class="vtag">Clouds</span></li>
+            <li data-v="texas live! arlington">Texas Live!</li>
+          </ul>
+        </div>
+        <div class="vgroup" data-reveal>
+          <h3>Plano</h3>
+          <ul class="vlist">
+            <li data-v="crystal banquet plano">Crystal Banquet</li>
+            <li data-v="elegance ballroom and events center plano">Elegance Ballroom and Events Center <span class="vtag">Clouds</span></li>
+            <li data-v="hilton dallas/plano granite park plano">Hilton Dallas/Plano Granite Park</li>
+            <li data-v="italian village plano">Italian Village</li>
+            <li data-v="red tail pavilion plano">Red Tail Pavilion</li>
+            <li data-v="reflections venue and gardens plano">Reflections Venue and Gardens <span class="vtag">Clouds</span></li>
+            <li data-v="renaissance dallas at plano legacy west hotel plano">Renaissance Dallas at Plano Legacy West Hotel <span class="vtag">Clouds</span></li>
+            <li data-v="sixty vines plano">Sixty Vines</li>
+            <li data-v="union bear brewing co. plano">Union Bear Brewing Co.</li>
+          </ul>
+        </div>
+        <div class="vgroup" data-reveal>
+          <h3>Aubrey</h3>
+          <ul class="vlist">
+            <li data-v="bella cavalli events aubrey">Bella Cavalli Events</li>
+            <li data-v="bliss ranch aubrey">Bliss Ranch <span class="vtag">Clouds</span></li>
+            <li data-v="brighton abbey aubrey">Brighton Abbey <span class="vtag">Clouds</span></li>
+            <li data-v="the grove in aubrey aubrey">The Grove in Aubrey</li>
+            <li data-v="the milestone aubrey aubrey">The Milestone Aubrey <span class="vtag">Clouds</span></li>
+            <li data-v="morgan creek barn aubrey">Morgan Creek Barn</li>
+            <li data-v="oak + ivy venue aubrey">Oak + Ivy Venue</li>
+            <li data-v="the springs event venue, aubrey aubrey">The Springs Event Venue, Aubrey <span class="vtag">Clouds</span></li>
+          </ul>
+        </div>
+        <div class="vgroup" data-reveal>
+          <h3>Frisco</h3>
+          <ul class="vlist">
+            <li data-v="hall park hotel frisco">HALL Park Hotel</li>
+            <li data-v="hyatt regency frisco frisco">Hyatt Regency Frisco</li>
+            <li data-v="magnolia terrace frisco">Magnolia Terrace</li>
+            <li data-v="omni frisco hotel frisco">Omni Frisco Hotel</li>
+            <li data-v="roughriders stadium frisco">Roughriders Stadium</li>
+            <li data-v="stonebriar country club frisco">Stonebriar Country Club</li>
+            <li data-v="verona villa frisco">Verona Villa <span class="vtag">Clouds</span></li>
+          </ul>
+        </div>
+        <div class="vgroup" data-reveal>
+          <h3>Weatherford</h3>
+          <ul class="vlist">
+            <li data-v="black ranch event center at willow lake weatherford">Black Ranch Event Center at Willow Lake</li>
+            <li data-v="canyon west golf course weatherford">Canyon West Golf Course</li>
+            <li data-v="clark gardens weatherford">Clark Gardens</li>
+            <li data-v="diamond h3 ranch weatherford">Diamond H3 Ranch</li>
+            <li data-v="dove ridge vineyard weatherford">Dove Ridge Vineyard</li>
+            <li data-v="the hamptons of weatherford weatherford">The Hamptons of Weatherford</li>
+            <li data-v="the springs event venue, weatherford weatherford">The Springs Event Venue, Weatherford <span class="vtag">Clouds</span></li>
+          </ul>
+        </div>
+        <div class="vgroup" data-reveal>
+          <h3>Carrollton</h3>
+          <ul class="vlist">
+            <li data-v="camera ready studios carrollton">Camera Ready Studios</li>
+            <li data-v="courtyard by marriott dallas carrollton carrollton">Courtyard by Marriott Dallas Carrollton <span class="vtag">Clouds</span></li>
+            <li data-v="dallas palms carrollton">Dallas Palms</li>
+            <li data-v="hall of lights carrollton">Hall of Lights <span class="vtag">Clouds</span></li>
+            <li data-v="luxor banquet hall carrollton">Luxor Banquet Hall <span class="vtag">Clouds</span></li>
+            <li data-v="the windsor at hebron park carrollton">The Windsor at Hebron Park</li>
+          </ul>
+        </div>
+        <div class="vgroup" data-reveal>
+          <h3>Addison</h3>
+          <ul class="vlist">
+            <li data-v="arthur&#x27;s steakhouse addison">Arthur&#x27;s Steakhouse</li>
+            <li data-v="cavanaugh flight museum addison">Cavanaugh Flight Museum <span class="vtag">Clouds</span></li>
+            <li data-v="renaissance dallas addison hotel addison">Renaissance Dallas Addison Hotel</li>
+            <li data-v="venue forty|50 addison">Venue Forty|50</li>
+          </ul>
+        </div>
+        <div class="vgroup" data-reveal>
+          <h3>Grand Prairie</h3>
+          <ul class="vlist">
+            <li data-v="enchanted event hall grand prairie">Enchanted Event Hall</li>
+            <li data-v="grand prairie events &amp; convention center grand prairie">Grand Prairie Events &amp; Convention Center</li>
+            <li data-v="lone star park grand prairie">Lone Star Park</li>
+            <li data-v="ruthe jackson center grand prairie">Ruthe Jackson Center <span class="vtag">Clouds</span></li>
+          </ul>
+        </div>
+        <div class="vgroup" data-reveal>
+          <h3>Grapevine</h3>
+          <ul class="vlist">
+            <li data-v="courtyard by marriott dfw airport north/grapevine grapevine">Courtyard by Marriott DFW Airport North/Grapevine</li>
+            <li data-v="embassy suites dfw airport north grapevine">Embassy Suites DFW Airport North</li>
+            <li data-v="gaylord texan resort &amp; convention center grapevine">Gaylord Texan Resort &amp; Convention Center</li>
+            <li data-v="hotel vin grapevine">Hotel Vin</li>
+          </ul>
+        </div>
+        <div class="vgroup vgroup-wide" data-reveal>
+          <h3>Across North Texas</h3>
+          <ul class="vlist">
+            <li data-v="aledo community center aledo">Aledo Community Center <span class="vcity">Aledo</span></li>
+            <li data-v="alexis event venue haltom city">Alexis Event Venue <span class="vcity">Haltom City</span> <span class="vtag">Clouds</span></li>
+            <li data-v="anchors event center mansfield">Anchors Event Center <span class="vcity">Mansfield</span></li>
+            <li data-v="apricus venue corinth">Apricus Venue <span class="vcity">Corinth</span></li>
+            <li data-v="aristide colleyville colleyville">Aristide Colleyville <span class="vcity">Colleyville</span> <span class="vtag">Clouds</span></li>
+            <li data-v="aristide flower mound flower mound">Aristide Flower Mound <span class="vcity">Flower Mound</span> <span class="vtag">Clouds</span></li>
+            <li data-v="arrowwood weddings + events palmer">Arrowwood Weddings + Events <span class="vcity">Palmer</span></li>
+            <li data-v="ashton gardens corinth corinth">Ashton Gardens Corinth <span class="vcity">Corinth</span></li>
+            <li data-v="azle deer cove azle">Azle Deer Cove <span class="vcity">Azle</span></li>
+            <li data-v="barnhill vineyard anna">BarnHill Vineyard <span class="vcity">Anna</span></li>
+            <li data-v="bear creek golf club dfw airport">Bear Creek Golf Club <span class="vcity">DFW Airport</span></li>
+            <li data-v="bella woods wedding and event center midlothian">Bella Woods Wedding and Event Center <span class="vcity">Midlothian</span> <span class="vtag">Clouds</span></li>
+            <li data-v="the belle manor burleson">The Belle Manor <span class="vcity">Burleson</span> <span class="vtag">Clouds</span></li>
+            <li data-v="bentley station lake dallas">Bentley Station <span class="vcity">Lake Dallas</span></li>
+            <li data-v="best day ever ranch whitewright">Best Day Ever Ranch <span class="vcity">Whitewright</span></li>
+            <li data-v="bethel rock wedding venue leonard">Bethel Rock Wedding Venue <span class="vcity">Leonard</span></li>
+            <li data-v="big sky event hall royse city">Big Sky Event Hall <span class="vcity">Royse City</span></li>
+            <li data-v="the big white barn decatur">The Big White Barn <span class="vcity">Decatur</span></li>
+            <li data-v="the bowden keller">The Bowden <span class="vcity">Keller</span> <span class="vtag">Clouds</span></li>
+            <li data-v="the castle at rockwall rockwall">The Castle at Rockwall <span class="vcity">Rockwall</span></li>
+            <li data-v="cedar creek country club kemp">Cedar Creek Country Club <span class="vcity">Kemp</span> <span class="vtag">Clouds</span></li>
+            <li data-v="chandelier farms terrell">Chandelier Farms <span class="vcity">Terrell</span> <span class="vtag">Clouds</span></li>
+            <li data-v="chandler&#x27;s gardens celina">Chandler&#x27;s Gardens <span class="vcity">Celina</span></li>
+            <li data-v="chapel at palacios westlake">Chapel at Palacios <span class="vcity">Westlake</span></li>
+            <li data-v="chapel at riverwalk flower mound">Chapel at Riverwalk <span class="vcity">Flower Mound</span></li>
+            <li data-v="chapel creek ranch denton">Chapel Creek Ranch <span class="vcity">Denton</span></li>
+            <li data-v="chef point bar &amp; restaurant colleyville">Chef Point Bar &amp; Restaurant <span class="vcity">Colleyville</span></li>
+            <li data-v="the cinnamon barn princeton">The Cinnamon Barn <span class="vcity">Princeton</span> <span class="vtag">Clouds</span></li>
+            <li data-v="classic oaks wedding &amp; event venue mansfield">Classic Oaks Wedding &amp; Event Venue <span class="vcity">Mansfield</span></li>
+            <li data-v="courtyard by marriott dallas allen at the event center allen">Courtyard by Marriott Dallas Allen at the Event Center <span class="vcity">Allen</span></li>
+            <li data-v="craft &amp; vine roanoke">Craft &amp; Vine <span class="vcity">Roanoke</span></li>
+            <li data-v="cross creek ranch parker">Cross Creek Ranch <span class="vcity">Parker</span> <span class="vtag">Clouds</span></li>
+            <li data-v="denton civic center denton">Denton Civic Center <span class="vcity">Denton</span></li>
+            <li data-v="double s ranch glen rose">Double S Ranch <span class="vcity">Glen Rose</span></li>
+            <li data-v="doubletree by hilton dallas richardson richardson">DoubleTree by Hilton Dallas Richardson <span class="vcity">Richardson</span></li>
+            <li data-v="the eagle historic warehouse hillsboro">The Eagle Historic Warehouse <span class="vcity">Hillsboro</span></li>
+            <li data-v="elks lodge desoto">Elks Lodge <span class="vcity">DeSoto</span> <span class="vtag">Clouds</span></li>
+            <li data-v="the emerson kaufman">The Emerson <span class="vcity">Kaufman</span></li>
+            <li data-v="firefly gardens midlothian">Firefly Gardens <span class="vcity">Midlothian</span> <span class="vtag">Clouds</span></li>
+            <li data-v="flourish events mesquite">Flourish Events <span class="vcity">Mesquite</span></li>
+            <li data-v="the french farmhouse venue collinsville">The French Farmhouse Venue <span class="vcity">Collinsville</span> <span class="vtag">Clouds</span></li>
+            <li data-v="the gardenia venue valley view">The Gardenia Venue <span class="vcity">Valley View</span> <span class="vtag">Clouds</span></li>
+            <li data-v="garland convention &amp; reception center garland">Garland Convention &amp; Reception Center <span class="vcity">Garland</span></li>
+            <li data-v="genesis ballroom garland">Genesis Ballroom <span class="vcity">Garland</span> <span class="vtag">Clouds</span></li>
+            <li data-v="the grand view mansfield">The Grand View <span class="vcity">Mansfield</span></li>
+            <li data-v="gray acres country wedding &amp; events pottsboro">Gray Acres Country Wedding &amp; Events <span class="vcity">Pottsboro</span></li>
+            <li data-v="hampton inn &amp; suites dallas-mesquite mesquite">Hampton Inn &amp; Suites Dallas-Mesquite <span class="vcity">Mesquite</span></li>
+            <li data-v="the hamptons event venue red oak">The Hamptons Event Venue <span class="vcity">Red Oak</span> <span class="vtag">Clouds</span></li>
+            <li data-v="hawthorn hills krum">Hawthorn Hills <span class="vcity">Krum</span></li>
+            <li data-v="the hay bale wedding and events venue scurry">The Hay Bale Wedding and Events Venue <span class="vcity">Scurry</span> <span class="vtag">Clouds</span></li>
+            <li data-v="herradero ballroom alvarado">Herradero Ballroom <span class="vcity">Alvarado</span> <span class="vtag">Clouds</span></li>
+            <li data-v="the hills of luella sherman">The Hills of Luella <span class="vcity">Sherman</span></li>
+            <li data-v="the hillside estate cross roads">The Hillside Estate <span class="vcity">Cross Roads</span> <span class="vtag">Clouds</span></li>
+            <li data-v="hilton garden inn dallas lewisville lewisville">Hilton Garden Inn Dallas Lewisville <span class="vcity">Lewisville</span></li>
+            <li data-v="hilton richardson dallas richardson">Hilton Richardson Dallas <span class="vcity">Richardson</span></li>
+            <li data-v="hr ranch terrell">HR Ranch <span class="vcity">Terrell</span></li>
+            <li data-v="hyatt place dallas/the colony the colony">Hyatt Place Dallas/The Colony <span class="vcity">The Colony</span></li>
+            <li data-v="iron gables paradise">Iron Gables <span class="vcity">Paradise</span></li>
+            <li data-v="the keller roundhouse keller">The Keller Roundhouse <span class="vcity">Keller</span></li>
+            <li data-v="knotting hill place little elm">Knotting Hill Place <span class="vcity">Little Elm</span> <span class="vtag">Clouds</span></li>
+            <li data-v="lone star mansion burleson">Lone Star Mansion <span class="vcity">Burleson</span></li>
+            <li data-v="lost oak winery burleson">Lost Oak Winery <span class="vcity">Burleson</span></li>
+            <li data-v="lucky spur ranch retreat justin">Lucky Spur Ranch Retreat <span class="vcity">Justin</span></li>
+            <li data-v="margot hill malakoff">Margot Hill <span class="vcity">Malakoff</span> <span class="vtag">Clouds</span></li>
+            <li data-v="marriott dallas/fort worth westlake westlake">Marriott Dallas/Fort Worth Westlake <span class="vcity">Westlake</span></li>
+            <li data-v="the milestone krum krum">The Milestone Krum <span class="vcity">Krum</span> <span class="vtag">Clouds</span></li>
+            <li data-v="montclair colleyville">Montclair <span class="vcity">Colleyville</span> <span class="vtag">Clouds</span></li>
+            <li data-v="the n at hardway ranch bluff dale">The N at Hardway Ranch <span class="vcity">Bluff Dale</span></li>
+            <li data-v="the nest at ruth farms ponder">The Nest at Ruth Farms <span class="vcity">Ponder</span></li>
+            <li data-v="the olana hickory creek">The Olana <span class="vcity">Hickory Creek</span> <span class="vtag">Clouds</span></li>
+            <li data-v="one preston event venues gunter">One Preston Event Venues <span class="vcity">Gunter</span> <span class="vtag">Clouds</span></li>
+            <li data-v="the orchard event venue &amp; retreat azle">The Orchard Event Venue &amp; Retreat <span class="vcity">Azle</span> <span class="vtag">Clouds</span></li>
+            <li data-v="paradise cove at lake grapevine southlake">Paradise Cove at Lake Grapevine <span class="vcity">Southlake</span></li>
+            <li data-v="the pearl at sabine creek royse city">The Pearl at Sabine Creek <span class="vcity">Royse City</span></li>
+            <li data-v="pennington field bedford">Pennington Field <span class="vcity">Bedford</span></li>
+            <li data-v="primrose hill wedding and events van alstyne">Primrose Hill Wedding and Events <span class="vcity">Van Alstyne</span></li>
+            <li data-v="roadrunner ranch ferris">Roadrunner Ranch <span class="vcity">Ferris</span> <span class="vtag">Clouds</span></li>
+            <li data-v="roma palace banquet hall garland">Roma Palace Banquet Hall <span class="vcity">Garland</span></li>
+            <li data-v="rough rider stadium saginaw">Rough Rider Stadium <span class="vcity">Saginaw</span></li>
+            <li data-v="rustic grace estate van alstyne">Rustic Grace Estate <span class="vcity">Van Alstyne</span></li>
+            <li data-v="shady oaks country club westworth village">Shady Oaks Country Club <span class="vcity">Westworth Village</span></li>
+            <li data-v="social oak trophy club">Social Oak <span class="vcity">Trophy Club</span></li>
+            <li data-v="southfork ranch parker">Southfork Ranch <span class="vcity">Parker</span></li>
+            <li data-v="the space on west main allen">The Space on West Main <span class="vcity">Allen</span></li>
+            <li data-v="the springs event venue, alvarado alvarado">The Springs Event Venue, Alvarado <span class="vcity">Alvarado</span> <span class="vtag">Clouds</span></li>
+            <li data-v="the springs event venue, anna anna">The Springs Event Venue, Anna <span class="vcity">Anna</span> <span class="vtag">Clouds</span></li>
+            <li data-v="the springs event venue, rockwall manor terrell">The Springs Event Venue, Rockwall Manor <span class="vcity">Terrell</span> <span class="vtag">Clouds</span></li>
+            <li data-v="the springs event venue, valley view valley view">The Springs Event Venue, Valley View <span class="vcity">Valley View</span> <span class="vtag">Clouds</span></li>
+            <li data-v="the springs event venue, waxahachie waxahachie">The Springs Event Venue, Waxahachie <span class="vcity">Waxahachie</span> <span class="vtag">Clouds</span></li>
+            <li data-v="stillwater meadow aledo">Stillwater Meadow <span class="vcity">Aledo</span></li>
+            <li data-v="stoney ridge villa azle">Stoney Ridge Villa <span class="vcity">Azle</span> <span class="vtag">Clouds</span></li>
+            <li data-v="the texan athens">The Texan <span class="vcity">Athens</span></li>
+            <li data-v="texas star golf course euless">Texas Star Golf Course <span class="vcity">Euless</span></li>
+            <li data-v="texoma event center denison">Texoma Event Center <span class="vcity">Denison</span></li>
+            <li data-v="the thirsty turtle north richland hills">The Thirsty Turtle <span class="vcity">North Richland Hills</span></li>
+            <li data-v="towering oaks event and retreat center valley view">Towering Oaks Event and Retreat Center <span class="vcity">Valley View</span></li>
+            <li data-v="the tribute at the colony the colony">The Tribute at The Colony <span class="vcity">The Colony</span></li>
+            <li data-v="the venue at waterstone celina">The Venue at Waterstone <span class="vcity">Celina</span></li>
+            <li data-v="waxahachie civic center waxahachie">Waxahachie Civic Center <span class="vcity">Waxahachie</span> <span class="vtag">Clouds</span></li>
+            <li data-v="the westin dallas southlake southlake">The Westin Dallas Southlake <span class="vcity">Southlake</span></li>
+            <li data-v="the wildflower wedding &amp; special event venue waxahachie">The Wildflower Wedding &amp; Special Event Venue <span class="vcity">Waxahachie</span></li>
+            <li data-v="the wildwood inn denton">The Wildwood Inn <span class="vcity">Denton</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="new-venue">
+    <div class="wrap">
+      <div class="split" data-reveal>
+        <div class="split-copy">
+          <span class="kicker">New Venue</span>
+          <h2>Booking a venue that's new to us</h2>
+          <p>We advance every new room before event day. Our crew calls the venue coordinator to confirm the load-in window, the door or dock, any elevator, and where the power is, and asks about house rules for fog, haze and sound levels. The plan for your event is built around those answers, and the certificate of insurance goes to the venue ahead of load-in.</p>
+          <p>Then the event runs like it does at any venue on this page: we deliver, set up, test and pick up, with an on-site technician for the services that call for one. Wireless microphones run our AI-powered <a href="/feedback-free-microphone-rentals">De-Feedback system</a>, so toasts and speeches stay clear in rooms we are seeing for the first time.</p>
+        </div>
+        <div class="split-copy">
+          <span class="kicker">What We Bring</span>
+          <h2>Services at these venues</h2>
+          <p><a href="/services-audio">Sound systems and wireless microphones</a>, <a href="/services-lighting">event lighting</a> and <a href="/rent-uplighting">uplighting</a>, <a href="/services-dj">DJ services</a>, <a href="/projector-screen-rental">projectors and screens</a>, <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>, <a href="/monogram-projector">monogram projection</a> and <a href="/live-streaming-services">live streaming</a>. See them in action on <a href="/our-work">our work</a> page and in the <a href="/gallery">photo gallery</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="wrap">
+      <div class="section-head" data-reveal style="max-width:820px;">
+        <span class="kicker">FAQ</span>
+        <h2>Venue questions</h2>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item" data-reveal>
+          <summary>Have you worked at my venue before?</summary>
+          <div class="ans">Search the list on this page. It covers the event venues on our booking records since late 2020, grouped by city, and we have worked many more rooms since we started in 2001. If your venue is here, our crew has already loaded in, found the power and set up a show in that room.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>What if my venue is new to you?</summary>
+          <div class="ans">We will advance it before your event. We call the venue coordinator to confirm the load-in window, the door or dock, the elevator and the power, and we plan the setup around the room. New venues are part of every season for us.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do you send a certificate of insurance to the venue?</summary>
+          <div class="ans">Yes. Dallas Event Audio is insured, and we send a certificate of insurance to any venue that requires one, ahead of load-in.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Can you run Dancing on the Clouds at my venue?</summary>
+          <div class="ans">Venues marked Clouds on this list have had our Dancing on the Clouds low lying fog for a first dance. For any other venue, we confirm the venue&#x27;s fog policy and its smoke detector setup with the coordinator before the quote goes out.</div>
+        </details>
+        <details class="faq-item" data-reveal>
+          <summary>Do you coordinate load-in and setup with the venue?</summary>
+          <div class="ans">Yes. Our crew delivers, sets up, tests and picks up every booking, with an on-site technician for the services that call for one, and we work out the timing with the venue coordinator so the room is ready before your guests arrive.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+<section class="final-cta" id="quote">
+    <div class="wrap">
+      <h2 data-reveal>Tell us the venue and the date. <span class="grad-text">We'll plan the room.</span></h2>
+      <p data-reveal>Tell us about your event and you'll hear back from us today, with a straightforward quote within 24 hours.</p>
+      <div class="hero-ctas" data-reveal>
+        <a class="cta-btn btn-primary" href="/contact">Request a quote</a>
+        <a class="cta-btn btn-secondary" href="/our-work">See our work</a>
+      </div>
+    </div>
+  </section>
+
+  </main>
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="col brand">
+          <div class="logo"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUYAAACKCAYAAADWiuOLAAAi/0lEQVR42u19f3BU15Xmd2+/11JAYoREILZGgDGZSnlMsbUru5Yduya2GU+NHcVb+IeCY0ywSa2TgUC5xuv841VUqd3EO7sUxGwtNZGxAQ+MEptaLNszY7DXrjDFrqM/VgVxUTX4B5ZFCq0ELBK2ul/3vftH39vcfuof773u291qna9KhYD3ul/fPve75zvn3HMZCARCY6EPHP0Qq95wV3vMWweGewGAObgbAOBhWdH7XVwEAJnCuwAAibcBwJXuqbFmbzSxHolZ90gwMMhGGUJGVkQg1DlCkk7TCTQl1iPR9SY2xVpxUMzgQkkyLEGSOfe7uChTeBcSb7vSPXX+mnc+3QuvkYack9URCPVLiE0n0BTWE0tNQujfxRTSkUlRE6L/fg/LYi14LNaKgynmne1swZddb+FQ1lslYiQQCJUmw9ggXO0lJtYjseoNd3UYwkl/iLSWvrYeU0whLaYy78NbEct6q3fCJWIkEAgV9w7TvfDAIFe94a7ueguHRKt3vOt2fDcrq0vhJ9WN9YkZXNBxSJLSBAKhooSYWI9E0wk0db2JTcvfxliKeWeZg7vBsFInUGK/glPyNZX0/vhb3rlsjNAmPCzT3mniNyFijfqzy/rLdVDyhUCoFSG+g7jO8DadQNPSBB5hLn7Om3GjlqkmHOl+4+NveeeCJGNig3DTvfC63sKhWAsei5KAMSVy0ftdXPzsXnSWk5nWz1svX49DFkogVBexQbhpBi+BTPzQ414fS2Ajb0VMTCEtvNmkyFsR86a8dQDONb2DeAJ5SmYMpB9BCr0AJN5OT12XuUHjjh7z1qWnsu5TptzHxd3wsAwuLmry5q2IpaczZT1BniuHtN/EJr4QX/38Il7QpFgvBEkeI4FQLfSB4yeQYJBZDxF4SRNi0XtViczofdhUyDMTQsxKfHDOK0Yyq95wV2vS1ITJJDZKYMvo/TgUmNT6wFfd5q5Kxb33eTNuFDO4ID38ePQD/C36IWKDcNOPIFXLukgiRgKhCtC1hQDQ9SY2FZPMRSWeltN94KJPxIKQYGwQ7tk//3vnD651xZbccMs3SrzFyEdX/9H5ettffBmULD/+lncu7DhkayyNzHaWIO/PlP7U0nskYiQQbHuJALI7UbjXxxwlSQMi61G6uOgk3T/9j+sOngeAjR0bvTwe41oAywF0AriJMXYzgJUA1oR88tMAPpVSfgTgEwBjAD4bvDw4UuB9g3mofeCxWxDrXIxPZ42Bi4vwsEwyHBmPY2tiPRK18h6JGAkESzA9nq43sSmwbPYRomQ44gq33++ZGUS4jjG2PiIBhoUmzBMATgEYMcmwGEma3iJz8fNCi0P2cyuJXgvvkYiRQLAonbWXGGvBY4Fls96r7OHH/6b9j//H4LrfTfmIpwfAHYyxe6pAhEGJ8gCAoXwkmf03I7YYxGNWiZ1X9KJghiOIGAmEOSqdw3qJZpztP//rI3+nJWtsEK73sNBkuLPOR2AoH0mOj51p+W9/8+svDt32n64nXYKOiek96ppHy9KaiJFAsCGd38KhoLFEkxAP3ieP3MVYSpPJkhtu2cIY21oHnmFoSCl3AzjJOT9qepGr32pa4TFvXdjQgimtbXfzIWIkECpIimGks+kNrZ9++Ncv9f56phEIMZ/cllIOANhnepHZZJTERp14CSKtcxIzluKORIwEQiXks8o6B5aJqi7RTKocmTzi9i7ufYoxtqdRh0pKuaMQQQZeTGZwwUm6f2oz7kjESCBUwFPU8cRAstmXcVUScwNjrK9BPMSgMvvZjf97TbNOLmXHsJT3qP5f13TaIEdqIkEglIH0h0hDgrnSPVWqYYOWgo50v6FJUQjRLaU8xhh7db6QIgCoJFLP4LrfTR2ZPOJCgo3ej0OOdL8hU3jX3Kc9C4o0U8w72/UmNunmG+QxEgj1KqWZd7aglzTbS9zeyLK5lMfIOX9aCOFqWT1rd1AAD9wc10p6jkSMBEIFkFO8bExof0xMEaKrPMSeeTpcp6WU3dkxMgvBjf3kgaW1BXIkKU0gVABazo3ej0MS2AIXF7PSOZcUNzDGEvOYFFGQFAGgH0I32dDSWi8wJTy8lyopq8ljJBAseY5guHf91MPf12U481k6G6R4O+d82JTQpcay6QSaliYxECRrHaZnJREjgVBNqJij/qsqw3l+DuxasU2KOzjnLwQhRQ1/0Xy1yJGkNIFQafRDHJk84iov0f1O+3deJVKUu8OSIgB4Dwv8UP6Qow989D5sSk/jlYKy2qwKkGD4SXTHjzxGAqHC0JNfJVmGMY/KcArgdNG4Yolx1F73Yyc2Iue4BsNz1EmusctYme6F5/faiRgJhBqTovp1LWPsAxoRQErZpBeKsKRodugpRI46yXVhCk+ke+FVYqsgnflCIFQYakLr7W9jc+jRdXPbisl+lWwJTYpZz02VNQkhbuecD4+PnWm5YfBWjN6HTV1vAbFWPGaSIiRYmpW/f7pqHmO+8ygIgSYYjVuEcau1zVXyrJUaeL3dlfB2pZQPcc6Pho0rGt7iLpOkdUb7yOQRd2PHRk+fm5Mtmi9TPhMI80nSEiKMmxBiu5RSRP0RQuyK8j2Uen8hxAYg04HoOgNX3sFzqmigTwG4iUwvMA7rei8Az9NwhMKzyuPYAOAOGo7AOAlgSNlcOSGAIb3dLyxX6O+tUL0nY+xVIcRDnPOj42NnWm44eWuiEtK5qlLa+KDdFIiOFJsZpqLgSGPXpCZRgkYj1Ljt4Jy/oOburoixxrIy0EG5IkyheKRQSJXG/FEyu9Ar7rAq99hKwxFqcu9WE6WHRiM09mmSUufJRBn/bk1UUTLQQR0oxtgHQohuW3F468RYziDP48l9Qv26FlQDFzoEof4kCR1+MfbKsbtyMtBGzWdwucvYi/6ynpLoA48NouS11mKMpmtMkzs0Tqk/19FQhJNxAEbUJNtJwxFpMY5kd0qGD0chRc65J6U8FoEn1jDGhhXHoOh7S7DYr+Cke+GlAVFqu2A1pDRN7giTW62I62k4Qk3Od0hGl70YI2z4Jup2P02KKoMd9TtbA+D5Yu8bG4QLBqnP5FENPmTNpDTFyKJPbuP8YEJwnCQZHW0x5pwPG15cGM+t3Az09nK9e8bYTiHEhlmSWoJBgqV74TWdQFPXm9iUYt7ZWCsOrnrDXQ0JVkhWWyFGY+WgGFl4HFZf7lM0FKExRDHtSIvxgEGKT4W89yFTEockxQ2VqrhQZTzdpkTP0GKm4e0ygY9jrTgIAGIGFzzu9dVSSpOMjiCjOeceyejwpEiLcXkyOqzd6WRLRFLsVtv9KgbG2HOcc+/999+XkGCr3nBXd72FQ8zFz+FhWbbphIdlTGLjqjfc1XpvdVWJkWQ0yegqjt0BNW5UGhZhMTY8rZ6A4x0p2RK2LCckeoQQ2++6666UkMIBACaxMd+xCLwVMY97fVXzGH3pc1q5w+EkkWJ5HiPJ6KosxkNhky3llOWEdMb26Pf6+FveOclwJF//RjGFtOk1+rcVWosxgmJk5UzuzTQU4ceNSsMi4bAhowPZnRlXDEOK6j2qcUzs85rsx+PYWqjjt+k1xn6VW7pohRgpRhZp5d5NMjry2J1Q40YxbcsyWknoUHFFfW2ZZTlhvMadOhGTWI9EKa8x27+x7zofVpQYfTKaJjfJ6Gphn1qMKaYdQUarvwaxu9NRJHSlynJCkuNzmotc4fYX8xpvbMF3AKDpzutJGCsxRprc0eUgqAaPZHQVF2Pj95J2J6V8MqKjtKEGjVB6tNdYMtbo4uexQbiJe5C0RowUIytrctNWNpLRVbU7TWCl7E6FegJnoW2W5VTaa4SHZSsWuivAIHXpTsWIkWR0WZP7AI1bZJyimHYkm9vtaxpRCoeDJlx8ZTkv1vBj9ugOPJt+m/w45xRBn5zWSRinI8OJNpIvNLlJRlcLp41mvmR30WV0ydpP7X1p4itGioYXWg8nJD4KAP39TEgPPy6WhGk6gabEeiRsESNN7ugymmrwwnk9A0SKFZHRQeyuRwixqxg55jnEquYxX8bYPfoYBFe6pwrKaQBLE3gEyDSdqAgx+lznnWRzoSa3jpHRVrboMppi2tEUCsLYnSqD2c459/wNG/LUKtbLYrVmyQ233AtcT8Lkk9S8FTEw3KvldKU9Rlq5w2OfMlLayhZSRkP1XiS7C70YHzD+GippxRjbI6U8ZjpDJilWq1YxsoqVeJs348a8ctrB3ZBgiXuQ5NYegEAy2u7kpt6LlZHRUWo/exhjCd3qy/Agd9WjYlSerltSTntYtupN92YwyIp18LY4uU+HrZ+ygHU26rCqcITBkJTypw06uUdsLsZSyocAfFbDz7fcUplL2UcYGITzqhBiN4BnATxV52G0tQCGz92XOL/yBL9YsLHElLcOwLmyidH2EQbKMxiu5YgKIWzJXKtHGEgpD9R67Cx/L7Zi2qc550dr/NmWW7KJso4wyOeNAdg5B8zlUQDDnHOv6y28G2vFY3k9x0yc8ZBT4Te2gcO1Pjzd1uTD9SMMbG1lG2rwg+d7LJHHO3Vgc7YSSvuM95g3Wyhz1KzE22IGdwO5XqOYwQXm4G6gQodh2ZTRUI1bbZ0fG9ATtjH5BixvZRtqZENXY2crpn24xjZnK6F02lduM5+qINbo8XWleyrlebOktJbXsUG4TgXJw5aMrrqBVskTPmVzK5uS0V4jWrjOhNpcjGtsc7Y84QHjr/OxLeBaAMMffZH8ZEUbyxtnBIAVC90VlZLStvapnqz1BLTtCUsp11t8/u4GNO6Rai3GNfyMtjxh8yTA+biFch2AYfYISxeLM3rMW1cRYrQZI6sVIVZx8lnxDmq1cd82VLb4qEVP/nCNbc61HdOex7WfN103JLwN4LFZV7i4iBTu5fVKHjBq/GooaWx5woepMDm6Xdj25Gv8+azJ6Pne5IUxdnPJi5S85vVKHr7q/FoN5FZbk4+2skVfLGGp7rNOYtpWZfQ8t7uVP5Q/5EDhQm/eihiT2MgrQB62YhUkowmzFkvLvRdP1srm9J+2PeF5bndr9sq9MT8R5nwXM7ggGY44ZZKHrUFuZBlNRxiUaRdSyoaKaWtPzvZibFOqzzWcuy9xfsXf8y3pqYz3CABjzd5o4jfw0A8ROflic3IbnkEtZfR6m5PbYg1eQ5Nig8e0q5FQmu92txbAMACM3o9DmX/yfd194JGJUa3cmy1PgqqSYzU9YWrPFnqxPGG77rOWn89yI5ER4z3I7hRig3CdDvDUJET6Q6TxE0gwyEgeY6PLaJtnYtMRBmVhn+W6z0aNae8mGZ2D5dpjTPfCy8m+9F//tZw6Rlsy+kQtZbTtyUcyumwFYWUxNhZF1EKpWJTRoU4CJJRJjBZT/qfmgYym3ovRFktrnnytt09KKW3ZRNgjDAhhibFKm9yHayyjbXvCdIRBxMXSoiffKYTYUMPP1wmLCSX1O9ldFTzGamxyr5WMttbuSS0qdIRBxMUS9rZP7mnEgfMllMjuwnBBxPusb3InGU3QiyUlrEhG1zUxWp7cjdzuyfYRBg0vo2n7JMnouiRGIxlidZ9qjcfDtie8jkwu2mJJHmP4xdiYs2R315E9x0dMshYxyVrSeUKKUWKMDdfuyZAbO21O7vnUSr6Si2WNEyNzFfpYXpDdFfAKO+S0SZIAwN6LNYcmxkaV0TYnXxWOMGhkHLbsyTe8jCa7m4URPxnmkmRqOjAxVrnjTFU9Rf25GGN9JKPrU0ZT4iC8jDb+SnaXB2zo30t5q/wkywcfAfJaJlnFUvinsFK6Ido9mZ6pEGK7xXIN8yTA9WSOkWU0eTzRFmOyO998TP1oKwcAecd/bZYXsZg14XJ2rBZm49g9oYixEY4w8JXmPG9zUz31XqzIYkkyOuTk12eJk93NwqfxvfsTOXM0gcU5HKeI0glBJFY3uduOL+aRzi9WwRM5bHMrW4NjiGR0pPlkbpIgUswdm48CXXcNQ2E8xjkro33SeUOVDoqyfhKglHJ3o3qLlLCqiIym2s9cZGOKOC972R/gst9j1AhMjHP1CINqSucqy+ghzvnTjWrBlo8waFgZDTrCoBjGsvPTwZ+wQlxXKvkyl3sv1kg653g9VWpK0bCg+rtoizHJ6ILIFnezhejJ5y3KBBazFWwwUIwR9hu3WumBp7OaNTpjechyU4pTjWq9JKMjg44wKOJNv//++/8HyNQvyotycbGLnSBGartxqy0pJoTYVYtW7mZCCRbbszWwhAbJ6PJkNB1hMAuf3nXXXamSV6VwkHfIaaeWMtqWpwhgLWPsuRrJiSEAz1qW0e/MAxlN9Xckoys5PteL3s/LXjQDuIpMmHERJJAp1ZGpAB6j5QBuD2MsEWFVDII1NRr83QCeNTLgd1gijZ0AGtEjGGKMPUCJg0igIwyKIxt6kg7+JOd/FEHKRVjMUvinksRoOUYWBXUbc5JSPsQ5P6okvGsQGCHEqk51n+UrMKr9nO1QTfz+w7OAii/+cx5OWwSJq2D4OhsEZP62Y1WQ0Q016FLK2zUp6gUFmfZshJCruuq9SDI6pFKh3ovFwwxLO2+dlpAM52Wvls6zlNhXcYl3yGmxzVlQqh8jkWIJg5RSdhc4p4ZayYdcYGwfYTBPZDTZXYHxYWBylow28f/wYwBAf5qXykpTrKKEdDY9bNPjJjkTejzpCAOS0XbHp5CMBmDKaCBPjNGU0TTIBaXzk4Z3AyPZ4lINXnky2lZMWyXGPqnh57vJUsyZjjAIEGaQkEyeZ73ZWGIeGc3eizWLyTSKluvQIBecXM8G2K1DNXghFxvYPcLgdK23T6r2aTst2OQBwxbJ7mbjsJbR6Q/ZHVgtZ+8EXAQpr2GIP5iakK85S4BUUWKkWEWuAe7gnL+QTzr7PW7ayhZ6bN+x3UW91nWfFhshD9ERBkUW3Muxs0IIF5djTfKf5eOFZDT7OvsRICG/mZ7JK6UpVhFcOhcIQZCMjriqw+JhZNVobVfEJlxLNkFHGBRfEPszRxZwpF9hf4PVABtHdveLXJrhv5xsdEfmaAOe74skGX3d8PxZ5wATi+RMRBlt+zCyWpwnZLnXAJ0EWGL+CiFc+ZqzhC2Sj5qkCBgkqbLR7C4s0P/HaXIXls6MsQfCehokZ6LJaFjcPlnLY3kt12WaJwFS7adv/mpHRn6euk97hznXLIXDxpHCCjYIICuj80ppipEFk85VlkyNDNtHGNTsWN4qNBLxDK+Uypx8iwYAyNecJdJN/dLvLWbJ8So7HOuQ02KStZjHqTp5vsj5HKsYUvWJoeNRtJWtPLlj81jeGn8+W56weYQB2V0ebxEAxJfpv2YF0m5sHCn2ldgzaaRmOYicZHR50rlKkqlhSdFmTNvsol4rOW3xeAE6CbDwYrhPCOGKSdbCFslHC8loeZUdZg+mJvhrTpvpLeYlxvkoo5WX+IJuABHWU6R95ZHHXTcqtlUadrIWn6saMhp0hEEhm+rnnHsfXf3HTMbZczpxjh3M5y3yr8SeAXJjiznEOI9jZENSyibdACJg1rmQjCbjjDD+ajG+x+brVwppwOkrnLCspoymY3kLK5CjQgj3621/8SXvkNPswdRE7DG5hXlOp7zKDvu9Rfmas8TvLQK+GON8ilWorUJPmwtD1Neqw/Zsc0ZGW4xpV/Q8oTTgxJAJ4Ju/l4DVhBLZ3Wzl5y/kF5Oshb0Xa2YPpiYAbBF78D8Z8Ev2ldgzYjLdgvfyv5bjm9zr58sA5mkTVo+SqZG/gxM2TwI0zxMqF8fb0By7gpnjbWj+l63xZbHR5PlC5FiFXgMko/N/3zvyLYQZbzA1LSZZC/pigu9IHQRwMI2U+v5S0/lej/m+yESDj1/krHMJYqzVgVtz2ZCb1GI8AjuJl6Zyv2eT/I63oXntwswpczEev+0Xo8lRAOgHRAGb6GaMfWBZ6ZDdqXmtO7+X+q7la84S5T0WV4G24yH1JJ0rSYpVkkyNLqOtbpWrBCkeb0PzRDs2a1IEgNhU8rl+QNzRhniRl7CVUKKTAANI6EJgD6Ym0gEOAcxeYLGsoK6kc6VI0edp7yTzjCSjrW2VK+f+PoDHgNRkV3xFWiR/q13C33voAADEsWWiHb9ZcgkHjreh+c+uYMaQtrZ7DYxU4T3mki3dHnYRDBIfdoyVW8cvGgmfSil/GmYXSwSsbcBxs419yu5usjB2n0LteohKiv2AON6G5rRI/jaHEA2MOdg/2RV/r8MXb7Q5n6SUA8brz/t+BiquOGyjTpWZ3k+jDFi+jto2z69upLEjZGT0la54Z2wq+VxyIb6djxgB4AYXkzEev61tNDlmeiLVsLdanZleR6S4m3P+tBDCxY/iLt+b+qKixFhImxf7Ys17glwXxEiieHSlnqNY3KFScjroa4cd53zXB7nW9Fgq8RzljEmQ9/d5WGU/c77XD/sd9nOe1l7j2oX4rBAxAsCKJF5qu4KtpqSuxsI/DxKlxTAr2SImWQugs9Dlwwk7IYKuhmFXzUo+RznF2mFg4/NFWSDCeMc2xyTId57v/6PcU+j9omzlzPfvmugmW+O3AcmPC91/Po4tV9qAtivYOtkVX9ExmjxvSF0bWDfPm7wMSSkfksf+ymGce+lX2EuKELeISdYitjkLKuI9CiG6pZTHpJQj6ueYKrqdtZoaweXugNftEkJs1/+Wb3XO85puKW/PuGZDsXvM5zA+30jQ9wn6/vo1pZQj5uf1/6ned4N6nmP+a0s884h/vAuNg36fAtd2G8+b95nL8RRD2sYu39gU+3wj5lhrewpgo0FtQ49H9p7ktieaAGCiHZtHliJd6Cf1VXgT7dhs3iOE2C6lFPRT0Z9jur8iAKRfYS+J15EQryORfoW99KuHEQMAsc1ZUAli3C6lFGrCblC/78o3YfWPMqSC1xnGLtQECEJyu9T1bqnrjecQ6p7tpZ7DICX9UzYJqIkk8r1uAWLU46HHvLvYtaWe2f8cWcNRz1SIGPX3rEhxQyESizgmBW3Dd13WNgy7yzsexjh3m/ZagvD0dW5AG91g2qAmueNtaAaAK20YKEaOI0uRJnK0T4qa9MQePC5eRyL9M6TSP0NKk6MmTS2tyyHGXarIVgc1R0oQnv6yR/R9JYyuO4jHqL0B05Mt4WHuMp7jWJHn6DavK/T5yiEBv6dRgsBGAoxxzjPrawuMg2t4lcIgkaIesbmgVCquaBJuQNvYUIzEzHH2eZciiEea7xnyjbPxWrPuSQNOGnAmu+IrxjsxTuRYG1IcHzvTUogUTXIUryMhX3OWiEnWUg45cl0LpVdjZEoAThaahIyxPapY+h0Aa3zb4kzogvF1qkJ/WFfpF5isK/XkUhm3D3Scxnx/Y1fBTinlDmTKM3qKkNyIlHKHlHJA1betYYzdXIGsoC5OHpJSnlCv3VMszqbfX/08W+SZl6vr31H3fFLCq1sjpexXpxj2wCgT8ccffQvUWCkPPQQpuoyxVwPaho6/dSrb2ArVeNW8x18Err53vdNjpNhzK7v+tMTjL9d/qteedY/ONHeMJs/HePy2UuPRFsPARDs2x/fuTyS3PdHEOX9BSvkQCJGzz4KxB5f87F8Ivjf1hdiDx+UX2C9/l5HNOdeqfxNfpv+ad8hp9MVE5OSLMoSVjLEX1QTbDdU8NGfPYcZIt6tJ94k2ZmXkwwVe/7QZKJZSHihCMtqg+zThFDH+R3G9c8pKTQQFCj2f8gWrT/ufowycVmOnX/9TxtjRIuR4Sr1/f4Ci1NNmAa+UEgXGWddRDqmfe4r1ITQaN5xG7g6UspJQhm2cVN9hMdtY7rONNWqRQ6HPp8biHjUWeXcw+e0pQKF3p3rtPt/iBT85pgEnNpo8P9kVX/V5In8y5gYXk5cALBrHixPtQHzv/gMqSXBUCHG7jS2CDU6KOzjnL8hjf+WwB/7LF+lX2EtyVG4quBj+MdIAwHWDiD5EJkYWtPTGnwUMcp9/9S/ldQTNKoZ5jjBlL1E8pbCvG2RMwpbqRMnoVzpDHeU7Ma8POhZB7gk6LmG/Q52pnmjH5jEH+/2kaP590Tjap1vx5JJLODA+dqZlaeet08qrHgYdfxGEFHMaveAv+X+Xy/E9AGCfIy3/cLbHCAD8j5yvsQdTE+Vmp1lYgyqneDXMvfXyHDZg6/2jNtmth89WSdsod9EISo5tMQz8joH7SVETIwDMLMTL6db4TztGk+cNMn6etpEWVmH6zCVAZZjTqV/I5fge+zzjERYiRbYAT/AdOFiJkh0WtiA2jNcR5rXr5TnK8RorOVltPXM1FgebtmGDPMOOs94CqMnxUhyX85GixtWluNQxhhuzkhxIUWec/PHEid9/+B+Wdt46nSVFmbqc99o/RMz0HCtJink9RgKBUBomObZM4cWrS3EpHyma0NLaJGVFjvO+p6KWztmx+T56EcfBovdYIkUgXJt2AoGgoL2/JZdwYLoVTy4aR/uicbRrgsyHlim8eKUNA2nAkcf2u+oAtQdU1npeNiJRVQxNmhTFNmeB+AEGNCnKVH7ZnPXsPsZ3K02K5DESCBX2HIPcM7MQL+sthIvPz1wwMulPMcb2zJOh09UZeb1EPyEyJxNfzGUvZzHfm/qi0qRIxEggVJAcdf/GYnIaAFwvs5tGe555MvqNnJw5LaUcYEMv72MPPOFpLxHp1C+kyGSd8xKVnxgtkiJJaQKhQrL6eBuadRH4zEK8XOja6VY8qYvG/T0cjeYnT0spb1c1xY1EiDuklN2c8xfYA0948th+V3wfvdJLXS1GijkepMAh26RIHiOBYMFzPN6G5tuAvc3Xcie7ltDFWpTlq/HE9U0Kc7H+8bSUcgCqOTGQ2S7pJPb/W8RxUKYQ095goXhi1ltM4nH+SwxqL9MWKRIxEggWyFF7g/64o19CF3sdP0GqeOS/AnDHHJHZQ1LKA2YMUR7b78qe7wH/jm+QHH/rl8f5iJE5SMsUYkzgu/yXGBTbnAXoT/NK9V0kYiQQqkiO77bB+bMrmNFxR/4lnllyCQdCnEldEONjZ1qW3HDLvYok76kjT3JIbbcd8m/VBADdabtofaI/6cLxMmLOj2xLZyJGAqHK0rrQ34PcO9GOzY7AnenW+E91Btu8LrntiSbnFwNrkDmf+6YqE+WQlPIjZJrO5CVD//NqchM/wAA4NhUjRu0lVkM6EzESCDWQ1kHkc777JjtxQWe5ry7FJf4lnmELM4dwlZDha5Fp1nGH6ia1Uv13WNLU9ZWfGiT42cTvPzyrd6jM8gxRZG//NmeB3JtKsm1O3O81alL0e4lybypZrpdNIBAahEwn2rF5xkUq3894J8Yn2rF5siu+Iszrjo+daVEZ8O5iP+NjZ1rGx8606L6ShZDc9kRT2I7Z2b6KP8CA+Eskcn6+j17/dbUAeYwEQp1K8CttGPBntvPh6lJcil/D6ymO37CF8feATP9IG88mtjkLLh/jX5XXkt90BO5MLsS3ASDG47f5j5It9vnYNieu3MSM15jE45f/If6/OkaT56uVYCFiJBDmGCmmAcdzo586aJIlAGjCNLH4AfF/U3g8JzM8deyVr2Wl7bXkN/XvmgQ7WjInJk5O53YU0smloLHAbDMN5RXqe6odSyRiJBAa0FuMCqcNEgDMzkDtSSzOIYf20htANEHGr+F186TEMJ8VyLRzu/sKUvUSS3TIFAmE+iPHKZuTXpFiPjKMiuRCfDt9BQ5Gk2NB79Eeo9ybSsaqdCY3eYwEwhwmRgC43I7vOgJ3VtpzNImxKDm0B9syrL3GMHHGegftlSYQ6gwxZCTlkks40HYFW10PzdOteHJmIV4u1tas1tAxyStd8c65/h0QMRIIdew5au9Lk2THGG689rX4zdUgSXmp+GFSk9OY9CdhgExSZ66PPUlpAmGOSGvtTfr/70pXvNMsnynV9qxcKT05jclqlQcRMRIIhLJIMh9ZAplSGyCTIAFKJ1x0pjp+Da8DgL/kJx8Jms0zGmGc/z8dVTBOtJPrvwAAAABJRU5ErkJggg==" alt="Dallas Event Audio" width="326" height="138"></div>
+          <p style="margin-top:14px; max-width:250px;">Full-service AV production for Dallas-Fort Worth since 2001. Delivered, set up, tested and picked up by our own crew.</p>
+          <div class="foot-contact">
+            <a href="tel:8172107957">817-210-7957</a>
+            <a href="mailto:info@dallaseventaudio.com">info@dallaseventaudio.com</a>
+          </div>
+          <p class="foot-area">Serving Dallas, <a href="/fort-worth" style="display:inline;text-decoration:underline;">Fort Worth</a>, Southlake, Arlington, Frisco, McKinney, Richardson &amp; the wider Metroplex.</p>
+        </div>
+        <div class="col">
+          <h3>Events</h3>
+          <a href="/weddings">Weddings</a>
+          <a href="/wedding-av-rental-dallas">Wedding AV Rental</a>
+          <a href="/corporate-events">Corporate Events</a>
+          <a href="/private-events">Private Events</a>
+          <a href="/live-music-and-band-events">Live Music &amp; Bands</a>
+          <a href="/rave-and-night-club-events">Rave &amp; Nightclub</a>
+          <a href="/college-school-university-events">College &amp; University</a>
+          <a href="/celebrity-and-luxury-events">Celebrity &amp; Luxury</a>
+          <a href="/fort-worth">Fort Worth</a>
+        </div>
+        <div class="col">
+          <h3>Audio</h3>
+          <a href="/services-audio">All Audio Services</a>
+          <a href="/rent-sound-equipment">Sound Equipment Rental</a>
+          <a href="/dj-speaker-rental">DJ &amp; Party Speakers</a>
+          <a href="/rent-bassboss-subwoofers">BassBoss Subwoofers</a>
+          <a href="/rent-line-array-speaker-system">Line Array Systems</a>
+          <a href="/flat-panel-audio-dml500">DML500 Flat Panel</a>
+          <a href="/rent-sound-equipment/cdj-rental-dallas">CDJ Rental</a>
+          <a href="/feedback-free-microphone-rentals">Microphone Rental</a>
+        </div>
+        <div class="col">
+          <h3>Lighting &amp; FX</h3>
+          <a href="/services-lighting">All Lighting Services</a>
+          <a href="/rent-uplighting">Uplighting</a>
+          <a href="/rent-dj-lighting">DJ Lighting</a>
+          <a href="/rent-laser-light-show">Laser Light Show</a>
+          <a href="/rent-follow-spot-light">Follow Spot</a>
+          <a href="/monogram-projector">Monogram Projector</a>
+          <a href="/rent-fog-machine">Fog &amp; Haze</a>
+          <a href="/rent-dancing-on-the-clouds-low-lyin">Dancing on the Clouds</a>
+        </div>
+        <div class="col">
+          <h3>Services</h3>
+          <a href="/services-dj">DJ Services</a>
+          <a href="/services-photo-and-video">Photo &amp; Video</a>
+          <a href="/live-streaming-services">Live Streaming</a>
+          <a href="/projector-screen-rental">Projector &amp; Screen</a>
+          <a href="/tv-rental-dallas">TV Rental</a>
+          <a href="/services-extra">Special Effects &amp; Extras</a>
+          <a href="/equipment-list">Equipment List</a>
+          <a href="/sensory-friendly-event-services">Sensory-Friendly Events</a>
+        </div>
+        <div class="col">
+          <h3>Company</h3>
+          <a href="/our-work">Our Work</a>
+          <a href="/venues">Venues We've Worked</a>
+          <a href="/gallery">Photo Gallery</a>
+          <a href="/what-others-are-saying">Reviews</a>
+          <a href="/our-story">Our Story</a>
+          <a href="/blog">Blog</a>
+          <a href="/contact">Contact</a>
+        </div>
+      </div>
+      <div class="foot-proof">
+        <a class="fp" href="https://www.google.com/maps?cid=11213015373496621898" target="_blank" rel="noopener"><span class="m g">G</span> <b>4.9</b> <span class="s">&#9733;&#9733;&#9733;&#9733;&#9733;</span> &middot; 41 Google reviews</a>
+        <a class="fp" href="https://www.yelp.com/biz/dallas-event-audio-dallas" target="_blank" rel="noopener"><span class="m y">Y</span> <b>Yelp</b> &middot; 13 reviews &middot; 134 photos</a>
+      </div>
+      <div class="foot-bottom">
+        <span>&copy; 2026 Dallas Event Audio. Fully insured, on-site AV production.</span>
+        <span>Serving Dallas-Fort Worth since 2001. <a href="/privacy" style="color:inherit;text-decoration:underline;text-underline-offset:3px;">Privacy</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="grain-overlay" aria-hidden="true"></div>
+
+<script>
+(function(){
+  var box=document.getElementById('venueSearch'); if(!box) return;
+  var groups=[].slice.call(document.querySelectorAll('.vgroup'));
+  var count=document.getElementById('venueCount'); var empty=document.getElementById('venueEmpty');
+  var total=document.querySelectorAll('.vlist li').length;
+  function run(){
+    var q=box.value.trim().toLowerCase(); var shown=0;
+    groups.forEach(function(g){
+      var any=false;
+      [].forEach.call(g.querySelectorAll('li'),function(li){
+        var hit=!q||li.getAttribute('data-v').indexOf(q)>-1||(g.querySelector('h3').textContent.toLowerCase().indexOf(q)>-1);
+        li.hidden=!hit; if(hit){any=true;shown++;}
+      });
+      g.hidden=!any;
+    });
+    count.textContent=q?(shown+' of '+total+' venues'):(total+' venues');
+    empty.hidden=shown>0;
+  }
+  box.addEventListener('input',run); run();
+})();
+</script>
+
+  <div id="chatBubble" role="button" tabindex="0" aria-controls="chatPanel" aria-expanded="false" aria-label="AV Concierge chat">&#10022; <span class="cb-label">AV Concierge</span><span class="cb-short" aria-hidden="true">Ask</span></div>
+<div id="chatPanel" role="dialog" aria-modal="false" aria-labelledby="chatTitle" hidden>
+  <div class="cp-head">
+    <div>
+      <div class="cp-title" id="chatTitle">AV Concierge</div>
+      <div class="cp-sub">Dallas Event Audio</div>
+    </div>
+    <button type="button" class="cp-close" id="chatClose" aria-label="Close the concierge">&#215;</button>
+  </div>
+  <div class="cp-log" id="chatLog" role="log" aria-live="polite" aria-atomic="false"></div>
+  <div class="cp-foot">
+    <label class="cp-sronly" for="chatInput">Your message</label>
+    <textarea id="chatInput" rows="1" placeholder="Tell us about your event" autocomplete="off"></textarea>
+    <button type="button" class="cp-send" id="chatSend" aria-label="Send">&#8593;</button>
+  </div>
+  <div class="cp-legal">Answers come from an assistant. For anything urgent, call or text <a href="tel:8172107957">817-210-7957</a>.</div>
+</div>
+<!-- chrome-sync:js -->
+<script>
+  // Palette dock, bottom left
+  (function(){
+    const dock = document.getElementById('paletteBar');
+    const toggle = document.getElementById('palToggle');
+    const opts = Array.prototype.slice.call(document.querySelectorAll('#palOpts button'));
+    if(!dock || !toggle) return;
+
+    function store(v){ try{ window.localStorage.setItem('dea-palette', v); }catch(e){} }
+    function recall(){ try{ return window.localStorage.getItem('dea-palette'); }catch(e){ return null; } }
+
+    function apply(p){
+      document.documentElement.setAttribute('data-palette', p);
+      opts.forEach(b=>{
+        const on = b.dataset.p === p;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    }
+
+    const saved = recall();
+    if(saved && opts.some(b=>b.dataset.p === saved)) apply(saved);
+
+    function open(state){
+      dock.classList.toggle('open', state);
+      toggle.setAttribute('aria-expanded', state ? 'true' : 'false');
+    }
+    /* Usage tracking, added 22 October 2026: the dock stays on the site as a
+       playful extra, so record how often visitors open it and which palette
+       they pick. GA4 gets palette_open and palette_change (with the palette
+       name and page), and Clarity gets the same two names as custom events so
+       its recordings can be filtered to people who played with it. Both calls
+       are guarded, because gtag only transports on production and clarity
+       only exists there. */
+    function track(name, params){
+      try{ if(typeof window.gtag === 'function') window.gtag('event', name, params); }catch(e){}
+      try{ if(typeof window.clarity === 'function') window.clarity('event', name); }catch(e){}
+    }
+    toggle.addEventListener('click', e=>{
+      e.stopPropagation();
+      const opening = !dock.classList.contains('open');
+      open(opening);
+      if(opening) track('palette_open', { page_path: location.pathname });
+    });
+    opts.forEach(b=>{
+      b.addEventListener('click', ()=>{
+        apply(b.dataset.p); store(b.dataset.p); open(false);
+        track('palette_change', { palette: b.dataset.p, page_path: location.pathname });
+      });
+    });
+    document.addEventListener('click', e=>{ if(!dock.contains(e.target)) open(false); });
+    document.addEventListener('keydown', e=>{ if(e.key === 'Escape') open(false); });
+  })();
+
+  // Scroll reveal
+  if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:.15});
+    document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(el=>el.classList.add('in'));
+  }
+
+  // CO2 / particle burst on primary CTA click
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function burst(x, y){
+    if(reduceMotion) return;
+    const colors = ['var(--a1)','var(--a2)','var(--a3)','#ffffff'];
+    const count = 26;
+    for(let i=0;i<count;i++){
+      const p = document.createElement('span');
+      p.className = 'burst-particle';
+      const angle = (Math.PI * 2 * i) / count + Math.random()*0.4;
+      const dist = 60 + Math.random()*140;
+      const dx = Math.cos(angle) * dist;
+      const dy = Math.sin(angle) * dist - 40;
+      const size = 4 + Math.random()*6;
+      p.style.width = p.style.height = size + 'px';
+      p.style.background = colors[i % colors.length];
+      p.style.boxShadow = '0 0 8px ' + colors[i % colors.length];
+      p.style.left = x + 'px';
+      p.style.top = y + 'px';
+      document.body.appendChild(p);
+      const anim = p.animate([
+        { transform:'translate(-50%,-50%) scale(1)', opacity:1 },
+        { transform:`translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.3)`, opacity:0 }
+      ], { duration:700 + Math.random()*400, easing:'cubic-bezier(.2,.7,.3,1)' });
+      anim.onfinish = () => p.remove();
+    }
+  }
+  document.querySelectorAll('.btn-primary').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      burst(e.clientX, e.clientY);
+    });
+  });
+</script>
+<script>
+/* Mobile navigation drawer. Added 5 Aug 2026 - before this, nav links simply
+   vanished below 860px with nothing to replace them. */
+(function(){
+  var burger = document.getElementById('navBurger');
+  var drawer = document.getElementById('navDrawer');
+  var closeb = document.getElementById('navClose');
+  if(!burger || !drawer) return;
+
+  function open(){
+    drawer.classList.add('open');
+    drawer.setAttribute('aria-hidden','false');
+    burger.setAttribute('aria-expanded','true');
+    document.body.classList.add('nav-locked');
+  }
+  function close(){
+    drawer.classList.remove('open');
+    drawer.setAttribute('aria-hidden','true');
+    burger.setAttribute('aria-expanded','false');
+    document.body.classList.remove('nav-locked');
+  }
+  burger.addEventListener('click', open);
+  if(closeb) closeb.addEventListener('click', close);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && drawer.classList.contains('open')) close();
+  });
+  drawer.querySelectorAll('a[href]').forEach(function(a){
+    a.addEventListener('click', function(){
+      var h = a.getAttribute('href') || '';
+      if(h.charAt(0) === '#') close();
+    });
+  });
+  drawer.querySelectorAll('.nd-sec > button.nd-trig').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var sec = btn.parentNode;
+      var isOpen = sec.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  });
+
+  /* Desktop dropdowns: hover and focus are handled in CSS. Keyboard users get
+     Enter/Space to pin a menu open, Escape to release it. */
+  document.querySelectorAll('.nl-item > .nl-top').forEach(function(top){
+    top.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        var menu = top.parentNode.querySelector('.nl-menu a');
+        if(menu) menu.focus();
+      }
+    });
+  });
+})();
+</script>
+<script>
+/* AV Concierge widget.
+
+   Talks to the Cloudflare Worker that replaced the Wix http-function. The
+   request and response shapes are unchanged from the Wix version: post a
+   history array, get back reply, leadSaved and ended.
+
+   Three decisions worth knowing about.
+
+   The opening greeting is rendered locally rather than fetched. It is fixed
+   text that the system prompt already specifies, so asking the model to
+   produce it would spend a completion every time somebody clicks the pill out
+   of curiosity. The same text is seeded into the history that gets sent, so
+   the model sees a coherent transcript either way.
+
+   Model replies are markdown and go through renderMarkdown below, which
+   escapes every HTML metacharacter before it does any parsing. The reply is
+   model output rather than authored markup, so nothing in it can become a live
+   element or attribute.
+
+   The conversation is kept in sessionStorage so moving between pages does not
+   restart it. It is per tab and it disappears when the tab closes, which is
+   the right lifetime for a sales chat.
+
+   Since bundle 62 each conversation carries a random id, made on the first
+   message and kept with the history, and each turn also names the page path
+   it was sent from. The Worker keeps the conversation under that id so Steve
+   gets a morning digest of what people asked and where they stopped. The id
+   is not a cookie, is never reused across tabs, and the path is sent without
+   its query string. */
+(function () {
+  'use strict';
+
+  var ENDPOINT = 'https://dea-concierge.pathwaysguy.workers.dev/api/chat';
+  /* After cutover, add the route www.dallaseventaudio.com/api/* to the Worker
+     in the Cloudflare dashboard and change the line above to '/api/chat'. The
+     request becomes same origin and CORS stops being involved at all. */
+
+  var MAX_TURNS = 40;               /* mirrors the cap the Worker enforces */
+  var STORE = 'dea-chat-v1';
+  var GREETING =
+    'Welcome to Dallas Event Audio 🎧 So I can help you the right ' +
+    'way: which best describes you? Planning an event, a planner or ' +
+    'coordinator sourcing for a client, a DJ, band or performer who needs us ' +
+    'to set you up, or just have a question?';
+  var TROUBLE =
+    'Sorry, I am having trouble connecting. Please call or text 817-210-7957.';
+
+  var bubble = document.getElementById('chatBubble');
+  var panel = document.getElementById('chatPanel');
+  if (!bubble || !panel) return;
+
+  var log = document.getElementById('chatLog');
+  var input = document.getElementById('chatInput');
+  var send = document.getElementById('chatSend');
+  var close = document.getElementById('chatClose');
+
+  var history = [];
+  var busy = false;
+  var ended = false;
+  var sid = '';
+
+  function newSid() {
+    var out = '';
+    try {
+      var a = new Uint8Array(12);
+      crypto.getRandomValues(a);
+      for (var i = 0; i < a.length; i++) out += ('0' + a[i].toString(16)).slice(-2);
+    } catch (e) {
+      out = '';
+      while (out.length < 24) out += Math.floor(Math.random() * 16).toString(16);
+    }
+    return out;
+  }
+
+  function pagePath() {
+    try { return location.pathname.split('?')[0].slice(0, 200); } catch (e) { return '/'; }
+  }
+
+  /* ---- markdown, escaped first so model output can never become markup ---- */
+
+  var ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+  function esc(s) { return s.replace(/[&<>"']/g, function (c) { return ESC[c]; }); }
+
+  var SAFE_SCHEME = /^(?:https?:|mailto:|tel:)/i;
+  var SAFE_RELATIVE = /^\/(?!\/)/;
+  function safeHref(h) { return SAFE_SCHEME.test(h) || SAFE_RELATIVE.test(h); }
+
+  function inline(t) {
+    var out = t.replace(/\[([^[\]]+)\]\(([^()\s]+)\)/g, function (w, label, href) {
+      if (!safeHref(href)) return label;
+      return '<a href="' + href + '" target="_blank" rel="noopener noreferrer">' +
+        label + '</a>';
+    });
+    out = out.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    out = out.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    return out;
+  }
+
+  var BULLET = /^-\s+(.*)$/;
+  var NUMBERED = /^(\d+)\.\s+(.*)$/;
+
+  function block(b) {
+    var lines = b.split('\n').map(function (l) { return l.trim(); });
+    var allBullet = lines.every(function (l) { return BULLET.test(l); });
+    var allNumber = lines.every(function (l) { return NUMBERED.test(l); });
+    if (allBullet) {
+      return '<ul>' + lines.map(function (l) {
+        return '<li>' + inline(l.match(BULLET)[1]) + '</li>';
+      }).join('') + '</ul>';
+    }
+    if (allNumber) {
+      /* start comes from the number the model wrote, so a point split off into
+         its own block by a blank line still reads as two rather than one. */
+      var first = parseInt(lines[0].match(NUMBERED)[1], 10) || 1;
+      return '<ol start="' + first + '">' + lines.map(function (l) {
+        return '<li>' + inline(l.match(NUMBERED)[2]) + '</li>';
+      }).join('') + '</ol>';
+    }
+    return '<p>' + lines.map(inline).join('<br>') + '</p>';
+  }
+
+  function renderMarkdown(text) {
+    if (typeof text !== 'string' || !text.length) return '';
+    return esc(text).replace(/\r\n/g, '\n')
+      .split(/\n{2,}/)
+      .map(function (b) { return b.trim(); })
+      .filter(function (b) { return b.length; })
+      .map(block)
+      .join('\n');
+  }
+
+  /* ---- transcript ---- */
+
+  function track(name, params) {
+    try { if (typeof window.gtag === 'function') window.gtag('event', name, params || {}); }
+    catch (e) {}
+  }
+
+  function paint(role, text) {
+    var row = document.createElement('div');
+    row.className = 'cp-msg' + (role === 'user' ? ' me' : '');
+    var body = document.createElement('div');
+    body.className = 'b';
+    body.innerHTML = renderMarkdown(text);
+    row.appendChild(body);
+    log.appendChild(row);
+    log.scrollTop = log.scrollHeight;
+    return row;
+  }
+
+  function thinking(on) {
+    var el = document.getElementById('cpDots');
+    if (on && !el) {
+      el = document.createElement('div');
+      el.id = 'cpDots';
+      el.className = 'cp-dots';
+      el.innerHTML = '<i></i><i></i><i></i>';
+      log.appendChild(el);
+      log.scrollTop = log.scrollHeight;
+    } else if (!on && el) {
+      el.remove();
+    }
+  }
+
+  function save() {
+    try { sessionStorage.setItem(STORE, JSON.stringify({ history: history, ended: ended, sid: sid })); }
+    catch (e) {}
+  }
+
+  function restore() {
+    var raw = null;
+    try { raw = sessionStorage.getItem(STORE); } catch (e) {}
+    if (raw) {
+      try {
+        var d = JSON.parse(raw);
+        if (d && Array.isArray(d.history) && d.history.length) {
+          history = d.history;
+          ended = !!d.ended;
+          if (typeof d.sid === 'string' && /^[a-f0-9]{16,40}$/.test(d.sid)) sid = d.sid;
+        }
+      } catch (e) {}
+    }
+    if (!history.length) history = [{ role: 'assistant', content: GREETING }];
+    log.innerHTML = '';
+    history.forEach(function (m) { paint(m.role, m.content); });
+    if (ended) lock();
+  }
+
+  function lock() {
+    input.disabled = true;
+    send.disabled = true;
+    input.placeholder = '';
+  }
+
+  /* ---- open and close ---- */
+
+  var lastFocus = null;
+
+  function open() {
+    lastFocus = document.activeElement;
+    panel.hidden = false;
+    bubble.setAttribute('data-open', '1');
+    bubble.setAttribute('aria-expanded', 'true');
+    if (!log.childNodes.length) restore();
+    log.scrollTop = log.scrollHeight;
+    if (!ended) input.focus();
+    track('chat_open', { event_category: 'concierge' });
+  }
+
+  function shut() {
+    panel.hidden = true;
+    bubble.removeAttribute('data-open');
+    bubble.setAttribute('aria-expanded', 'false');
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  bubble.addEventListener('click', open);
+  bubble.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+  });
+  close.addEventListener('click', shut);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !panel.hidden) shut();
+  });
+
+  /* ---- sending ---- */
+
+  input.addEventListener('input', function () {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+  });
+
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submit(); }
+  });
+  send.addEventListener('click', submit);
+
+  function submit() {
+    if (busy || ended) return;
+    var text = input.value.trim();
+    if (!text) return;
+
+    input.value = '';
+    input.style.height = 'auto';
+    if (!sid) sid = newSid();
+    history.push({ role: 'user', content: text });
+    paint('user', text);
+    track('chat_message_sent', { event_category: 'concierge' });
+
+    /* Keep the tail of a long conversation rather than letting the Worker
+       refuse the whole thing at 40 turns. The greeting stays at the front so
+       the model never loses the persona gate. */
+    if (history.length > MAX_TURNS) {
+      history = [history[0]].concat(history.slice(history.length - (MAX_TURNS - 1)));
+    }
+
+    busy = true;
+    send.disabled = true;
+    thinking(true);
+    save();
+
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ history: history, sid: sid, page: pagePath() })
+    })
+      .then(function (r) { return r.json().catch(function () { return {}; }); })
+      .then(function (d) {
+        thinking(false);
+        var reply = (d && d.reply) || TROUBLE;
+        history.push({ role: 'assistant', content: reply });
+        paint('assistant', reply);
+        if (d && d.leadSaved) track('generate_lead', { event_category: 'concierge' });
+        if (d && d.ended) { ended = true; lock(); }
+        save();
+      })
+      .catch(function () {
+        thinking(false);
+        paint('assistant', TROUBLE);
+      })
+      .then(function () {
+        busy = false;
+        if (!ended) { send.disabled = false; input.focus(); }
+      });
+  }
+})();
+</script>
+</body>
+</html>

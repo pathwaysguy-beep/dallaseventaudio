@@ -227,7 +227,7 @@ Laser projectors with ambient light rejecting screens for rooms that stay lit, l
 Pairs with live streaming , corporate AV production .
 Rooms we know
 ## Fort Worth venues we have run events in
-Taken from our own calendar of booked jobs on the Tarrant County side. If your venue is on this list, we know the dock, the power and the room.
+Taken from our own calendar of booked jobs on the Tarrant County side. If your venue is on this list, we know the dock, the power and the room. The full list across Dallas-Fort Worth is on our venues we've worked page.
 ### Fort Worth
 CR Smith Museum
 TCU
@@ -510,7 +510,7 @@ Ty Baker, WeddingWire
 Read more reviews
 Rooms we know
 ## Wedding venues across Dallas-Fort Worth we have run receptions in
-From our own calendar of booked weddings. If your venue is here, we know the ceremony site, the dock, the power and where the DJ booth goes.
+From our own calendar of booked weddings. If your venue is here, we know the ceremony site, the dock, the power and where the DJ booth goes. Every venue we have worked, for every kind of event, is on our venues we've worked page.
 ### Wedding venues
 The Springs Event Venues
 Lofty Spaces
@@ -3672,6 +3672,10 @@ The dancing on the clouds effect for a first dance. The Nimbus Jr, the Nimbus an
 Spec RGB LED cannons · a pair of handheld LED guns · 20 lb siphon tube cylinders in house
 CO2 blasts on a drop, with LED color in the plume. We carry 20 lb siphon tube cylinders in house, and larger cylinders come from a third party gas vendor we coordinate with. See special effects and extras .
 05
+### Chauvet DJ Geyser P7 fog jets
+Spec 17,000 CFM · 7 RGBA+UV LEDs · DMX and wireless remote · water based fluid
+LED fog jets that fire a colored column of fog on a drop, the CO2 look made from fog fluid, so a blast can run longer and repeat through a whole set. Mounted straight up or sideways from truss. See fog machine rental .
+06
 ### Power, cable and stands
 Spec Distribution · cable and matting · speaker and lighting stands · venue supplied power
 The unglamorous half of the truck, and the half that keeps a venue safe and a floor plan intact. The venue supplies the power, so we walk the room in advance and confirm the circuits are where the rig needs them, rather than finding out on the day. Cable gets dressed and matted instead of taped down in a hurry.
@@ -5208,6 +5212,15 @@ Because both are DMX addressable, they run from the same console as your lightin
 Event lighting
 Lasers in haze
 Follow spot rental
+Geyser Fog Jet Rental
+## LED fog jets: the Chauvet DJ Geyser P7.
+Machine Geyser P7 · 17,000 cfm · 7 RGBA+UV LEDs · DMX or wireless remote
+The Geyser P7 fires a column of fog lit from the inside by seven RGBA+UV LEDs in two color zones, so a single blast can come out in two tones. It is the blast on the drop look people book CO2 jets for, made from water based fog fluid. It mounts pointing straight up from the floor or the stage lip, or sideways from truss, and it runs from DMX alongside your lighting or from its wireless remote, with a color assigned to each button.
+Because it runs on fluid instead of a gas cylinder, a Geyser can hold a longer blast and repeat it through a whole set. That makes it our pick for longer lasting effects, and for venues that ask us to leave CO2 cylinders at the shop. When you want the colder, sharper hit of real CO2, we still bring CO2 jets and handheld guns , and plenty of shows use both.
+The numbers: 17,000 cfm of output, a 0.7 gallon tank, a four minute heat up, 1,290 W on 120 V, and 18 lb per unit. Like every fog effect on this page, we clear it with your venue and its alarm monitoring company before the date, then place, test and address it on DMX so your DJ or lighting operator can fire it on the cue.
+CO2 and special effects
+Event lighting
+Equipment list
 High Density Fog Machine Rental
 ## High density fog: the Froggy’s Fog Titan 1200.
 Machine Titan 1200 · 1,300 W · five-liter reservoir · variable 0 to 100 percent
@@ -5475,6 +5488,81 @@ Stills work runs to an unpredictable length while a dry ice load runs to a fixed
 Same logic, higher stakes, because a video crew resets and reshoots. We will usually recommend the continuous machine for the base layer and hold a dry ice unit for the one hero shot that needs a genuinely dense cloud.
 ### Will the effect suit your room?
 Some rooms need a different plan: a heavily air-conditioned space with floor vents will pull the layer apart, and a raised or carpeted floor changes how it behaves. Tell us the venue and we will tell you honestly how it will look, and where a room calls for something else we will suggest what that is. See more of our lighting services or browse our work .
+Venues
+## Venues where we've run Dancing on the Clouds
+Low lying fog for a first dance at Dallas-Fort Worth wedding venues, ballrooms, ranches and event halls. If your venue is on this list, our crew has already loaded the machine into that room, cleared the effect with the coordinator and run it on cue. See every venue we have worked, for every service, on our venues we've worked page.
+Adriatica Village McKinney
+Alexis Event Venue Haltom City
+Aristide Colleyville Colleyville
+Aristide Flower Mound Flower Mound
+Aristide McKinney McKinney
+Ballroom Surge Event Space Dallas
+Bella Woods Wedding and Event Center Midlothian
+The Belle Manor Burleson
+Bliss Ranch Aubrey
+The Bowden Keller
+Brake & Clutch Warehouse Dallas
+Brighton Abbey Aubrey
+The Carlisle Room Dallas
+Cavanaugh Flight Museum Addison
+Cedar Creek Country Club Kemp
+Chandelier Farms Terrell
+The Cinnamon Barn Princeton
+City Club of Fort Worth Fort Worth
+Colonial Country Club Fort Worth
+Courtyard by Marriott Dallas Carrollton Carrollton
+Cross Creek Ranch Parker
+D'Vine Grace Vineyard McKinney
+Dalmore Event Venue Fort Worth
+Elegance Ballroom and Events Center Plano
+Elks Lodge DeSoto
+Fairmont Dallas Dallas
+Firefly Gardens Midlothian
+The French Farmhouse Venue Collinsville
+The Gardenia Venue Valley View
+Genesis Ballroom Garland
+Hall of Lights Carrollton
+The Hamptons Event Venue Red Oak
+The Hay Bale Wedding and Events Venue Scurry
+Herradero Ballroom Alvarado
+The Hillside Estate Cross Roads
+Irving Convention Center at Las Colinas Irving
+Knotting Hill Place Little Elm
+Krimson Park Dallas
+Lofty Spaces Dallas
+Luxor Banquet Hall Carrollton
+Margot Hill Malakoff
+Marriott Dallas Las Colinas Irving
+McKinney Flour Mill McKinney
+The Milestone Aubrey Aubrey
+The Milestone Krum Krum
+Montclair Colleyville
+The Olana Hickory Creek
+Omni Dallas Hotel Dallas
+One Preston Event Venues Gunter
+The Orchard Event Venue & Retreat Azle
+The Paddock at Champions Circle Fort Worth
+Rayleigh Underground Irving
+Reflections Venue and Gardens Plano
+Renaissance Dallas at Plano Legacy West Hotel Plano
+Roadrunner Ranch Ferris
+Ruthe Jackson Center Grand Prairie
+The Sanctuary Music and Events McKinney
+Sheraton Arlington Hotel Arlington
+SLPS Community Center Irving
+The Springs Event Venue, Alvarado Alvarado
+The Springs Event Venue, Anna Anna
+The Springs Event Venue, Arlington Arlington
+The Springs Event Venue, Aubrey Aubrey
+The Springs Event Venue, Rockwall Manor Terrell
+The Springs Event Venue, Valley View Valley View
+The Springs Event Venue, Waxahachie Waxahachie
+The Springs Event Venue, Weatherford Weatherford
+Stoney Ridge Villa Azle
+Verona Villa Frisco
+Waxahachie Civic Center Waxahachie
+The Westin Dallas Park Central Dallas
+Zuri Event Center Dallas
 What a booking includes
 ## Delivered, set up, cued and operated
 Every one of these is included on every cloud booking, and every one of them is there in the quote from the start.
@@ -7162,7 +7250,7 @@ Fuse Marketing
 DFW Social 40
 SPAN Transit
 Scalosoft
-Venues are used to us. If yours needs a certificate of insurance or a load-in window locked down in advance, we handle that part before anyone has to ask. And a good share of the names above have booked us more than once, which is the number we pay attention to.
+Venues are used to us. If yours needs a certificate of insurance or a load-in window locked down in advance, we handle that part before anyone has to ask. And a good share of the names above have booked us more than once, which is the number we pay attention to. The full list, grouped by city, is on our venues we've worked page.
 “
 Amazing to work with! Very communicative, hired in a year in advance and never left me hanging without a response to a call, email or text message. He was dependable, early (which beats being on time when it comes to weddings) and was fully prepared for the evening.
 Adrienne Brown
@@ -7185,6 +7273,388 @@ Brightness, screen size and laptop hookup for an office presentation or training
 Send the date, the venue and roughly how many people, and we’ll send you a straightforward quote within 24 hours.
 Get Your Quote
 Call or Text 817-210-7957
+
+---
+
+Page: Venues We've Worked in Dallas-Fort Worth
+URL: https://www.dallaseventaudio.com/venues
+Summary: More than 300 Dallas-Fort Worth event venues where our crew has delivered sound, lighting, DJ and Dancing on the Clouds, from hotel ballrooms to ranch weddings.
+
+Home / Venues We've Worked
+# Venues we've worked across Dallas-Fort Worth.
+Request a Quote
+Call 817-210-7957
+These are the Dallas-Fort Worth event venues where our crew has delivered, set up and run sound, lighting, DJ and effects: hotel ballrooms, ranch and barn wedding venues, museums, restaurants, breweries and convention centers. Search for yours below. If it is here, we have already loaded into that room and know where the power is.
+Request a Quote
+Call 817-210-7957
+300+
+Event venues on our booking records across Dallas-Fort Worth
+70+
+Cities and towns, from Dallas and Fort Worth to the ranch venues out past them
+2001
+Delivering and setting up event equipment in Dallas-Fort Worth since 2001
+COI
+Fully insured. Certificates sent straight to your venue before load-in
+Venues We've Worked · Wedding Venues · Hotel Ballrooms · Museums · Ranch Venues · Convention Centers · Restaurants · Breweries · Dallas · Fort Worth ·
+By City
+## Event venues we've worked, by city
+Venues are grouped by city, and the smaller towns are listed together under Across North Texas. A Clouds tag marks the venues where we have run Dancing on the Clouds for a first dance. Every booking at every one of these venues was delivered, set up, tested and picked up by our crew.
+Search venues or cities
+316 venues
+That venue would be a new one for us. Tell us about your event and we will advance the room with your coordinator.
+### Dallas
+The Adolphus
+Arlington Hall at Turtle Creek Park
+Arts District Mansion
+Ballroom Surge Event Space Clouds
+The Beeman Hotel
+Brake & Clutch Warehouse Clouds
+The Carlisle Room Clouds
+Casa de Montecristo Cigar Lounge
+The Charles
+Cotton Bowl Stadium
+The Crescent Club
+Dallas Arboretum and Botanical Garden
+The Dallas Entrepreneur Center at RedBird
+Dallas Market Center
+Dallas Petroleum Club
+DEC on Dragon
+DoubleTree by Hilton Dallas Campbell Centre
+DoubleTree by Hilton Dallas Near the Galleria
+Dress Up Event Hall
+El Fenix
+The Empire Room
+The Exchange Food Hall
+Fairmont Dallas Clouds
+The Filter Building
+Four Corners Brewing Company
+Frontiers of Flight Museum
+Gallery DeFi
+Gilley's Dallas
+Green Elephant
+The Hall of State
+The Hall on Dragon
+The Henry
+Hilton Anatole
+Hilton Dallas Lincoln Centre
+Hotel Crescent Court
+Hotel ZaZa Dallas Uptown
+House of Jones
+Howell and Dragon
+Hyatt Regency Dallas
+Jaxon Beer Garden
+The Joule
+Kay Bailey Hutchison Convention Center
+Kimpton Pittman Hotel
+Knife Dallas
+Krimson Park Clouds
+The Landmark Prime Rib
+Las Almas Rotas
+Le Méridien Dallas
+LOCAL Public Eatery
+Lofty Spaces Clouds
+Lorenzo Hotel
+Loro
+Maggiano's Little Italy NorthPark
+Maguire's
+Margaret Hunt Hill Bridge
+Marie Gabrielle Restaurant and Gardens
+The Mason
+Meso Maya
+Museum of Biblical Art
+Nasher Sculpture Center
+New Artisan Distillery
+Nick & Sam's
+Nobu Dallas
+Northwood Club
+Nuvo Room
+Oak Cliff Brewing
+Oak Highlands Brewery
+Ocean Prime
+The Oceanaire Seafood Room
+Omni Dallas Hotel Clouds
+Park City Club
+Park House
+Perkins Chapel
+Perot Museum of Nature and Science
+Rainbow Vomit
+Renaissance Dallas Hotel
+River Pig Saloon
+Rosewood Mansion on Turtle Creek
+Saint Rocco's
+Sammons Center for the Arts
+Samuel Lynne Galleries
+SANDAGA 813
+Sheraton Dallas Hotel
+Sky Blu Rooftop Bar
+Skyline Ranch & Event Center
+Texas Discovery Gardens
+Texas Theatre
+Trinity Forest Golf Club
+Trinity Groves
+Trinity River Audubon Center
+Tru by Hilton Dallas Market Center
+The Victor
+Wellington Centre
+The Westin Dallas Downtown
+The Westin Dallas Park Central Clouds
+The Whiskey Spot
+Winfrey Point
+Y.O. Ranch Steakhouse
+Zuri Event Center Clouds
+### Fort Worth
+Amon Carter Center at Lena Pope
+The Ashton Depot
+Bowie House
+C.R. Smith Museum
+City Club of Fort Worth Clouds
+Colonial Country Club Clouds
+The Crescent Hotel
+Dalmore Event Venue Clouds
+Del Frisco's Double Eagle Steakhouse
+Fort Works Art
+The Fort Worth Club
+Fort Worth Convention Center
+Fort Worth Zoo
+Gold Mountain Gallery
+Grace Manor Events
+Holiday Inn Fort Worth Alliance
+Hotel Drover
+Hyena's Comedy Night Club
+Joe T. Garcia's
+Marriott DFW Airport South
+Marty Leonard Community Chapel
+Omni Fort Worth Hotel
+The Paddock at Champions Circle Clouds
+Panther Island Brewing
+Radisson Hotel Fort Worth North Fossil Creek
+Ridglea Country Club
+Ridglea Theater
+River Ranch Stockyards
+Roy Pope Grocery
+Second Rodeo Brewing
+Sheraton Fort Worth Downtown Hotel
+Texas Motor Speedway
+Town Talk Foods
+The Vintage Rail
+### McKinney
+Adriatica Village Clouds
+Aristide McKinney Clouds
+Avalon Legacy Ranch
+The Backyard Venue
+The Clubs of Stonebridge Ranch
+D'Vine Grace Vineyard Clouds
+McKinney Cotton Mill
+McKinney Flour Mill Clouds
+The RoseMary Wedding Venue
+The Sanctuary Music and Events Clouds
+Sheraton McKinney Hotel
+Stone Crest Venue
+### Irving
+Curry Leaf Restaurant Bar & Banquet
+Hackberry Creek Country Club
+Hyatt House Dallas/Las Colinas
+Irving Convention Center at Las Colinas Clouds
+Marriott Dallas Las Colinas Clouds
+NYLO Las Colinas Hotel
+Omni Las Colinas Hotel
+Rayleigh Underground Clouds
+SLPS Community Center Clouds
+Toyota Music Factory
+The Westin Irving Convention Center at Las Colinas
+### Arlington
+AT&T Stadium
+Bowman Springs Park
+J. Gilligan's Bar & Grill
+Levitt Pavilion Arlington
+Live! by Loews
+National Medal of Honor Museum
+Sheraton Arlington Hotel Clouds
+The Springs Event Venue, Arlington Clouds
+Texas Live!
+### Plano
+Crystal Banquet
+Elegance Ballroom and Events Center Clouds
+Hilton Dallas/Plano Granite Park
+Italian Village
+Red Tail Pavilion
+Reflections Venue and Gardens Clouds
+Renaissance Dallas at Plano Legacy West Hotel Clouds
+Sixty Vines
+Union Bear Brewing Co.
+### Aubrey
+Bella Cavalli Events
+Bliss Ranch Clouds
+Brighton Abbey Clouds
+The Grove in Aubrey
+The Milestone Aubrey Clouds
+Morgan Creek Barn
+Oak + Ivy Venue
+The Springs Event Venue, Aubrey Clouds
+### Frisco
+HALL Park Hotel
+Hyatt Regency Frisco
+Magnolia Terrace
+Omni Frisco Hotel
+Roughriders Stadium
+Stonebriar Country Club
+Verona Villa Clouds
+### Weatherford
+Black Ranch Event Center at Willow Lake
+Canyon West Golf Course
+Clark Gardens
+Diamond H3 Ranch
+Dove Ridge Vineyard
+The Hamptons of Weatherford
+The Springs Event Venue, Weatherford Clouds
+### Carrollton
+Camera Ready Studios
+Courtyard by Marriott Dallas Carrollton Clouds
+Dallas Palms
+Hall of Lights Clouds
+Luxor Banquet Hall Clouds
+The Windsor at Hebron Park
+### Addison
+Arthur's Steakhouse
+Cavanaugh Flight Museum Clouds
+Renaissance Dallas Addison Hotel
+Venue Forty|50
+### Grand Prairie
+Enchanted Event Hall
+Grand Prairie Events & Convention Center
+Lone Star Park
+Ruthe Jackson Center Clouds
+### Grapevine
+Courtyard by Marriott DFW Airport North/Grapevine
+Embassy Suites DFW Airport North
+Gaylord Texan Resort & Convention Center
+Hotel Vin
+### Across North Texas
+Aledo Community Center Aledo
+Alexis Event Venue Haltom City Clouds
+Anchors Event Center Mansfield
+Apricus Venue Corinth
+Aristide Colleyville Colleyville Clouds
+Aristide Flower Mound Flower Mound Clouds
+Arrowwood Weddings + Events Palmer
+Ashton Gardens Corinth Corinth
+Azle Deer Cove Azle
+BarnHill Vineyard Anna
+Bear Creek Golf Club DFW Airport
+Bella Woods Wedding and Event Center Midlothian Clouds
+The Belle Manor Burleson Clouds
+Bentley Station Lake Dallas
+Best Day Ever Ranch Whitewright
+Bethel Rock Wedding Venue Leonard
+Big Sky Event Hall Royse City
+The Big White Barn Decatur
+The Bowden Keller Clouds
+The Castle at Rockwall Rockwall
+Cedar Creek Country Club Kemp Clouds
+Chandelier Farms Terrell Clouds
+Chandler's Gardens Celina
+Chapel at Palacios Westlake
+Chapel at Riverwalk Flower Mound
+Chapel Creek Ranch Denton
+Chef Point Bar & Restaurant Colleyville
+The Cinnamon Barn Princeton Clouds
+Classic Oaks Wedding & Event Venue Mansfield
+Courtyard by Marriott Dallas Allen at the Event Center Allen
+Craft & Vine Roanoke
+Cross Creek Ranch Parker Clouds
+Denton Civic Center Denton
+Double S Ranch Glen Rose
+DoubleTree by Hilton Dallas Richardson Richardson
+The Eagle Historic Warehouse Hillsboro
+Elks Lodge DeSoto Clouds
+The Emerson Kaufman
+Firefly Gardens Midlothian Clouds
+Flourish Events Mesquite
+The French Farmhouse Venue Collinsville Clouds
+The Gardenia Venue Valley View Clouds
+Garland Convention & Reception Center Garland
+Genesis Ballroom Garland Clouds
+The Grand View Mansfield
+Gray Acres Country Wedding & Events Pottsboro
+Hampton Inn & Suites Dallas-Mesquite Mesquite
+The Hamptons Event Venue Red Oak Clouds
+Hawthorn Hills Krum
+The Hay Bale Wedding and Events Venue Scurry Clouds
+Herradero Ballroom Alvarado Clouds
+The Hills of Luella Sherman
+The Hillside Estate Cross Roads Clouds
+Hilton Garden Inn Dallas Lewisville Lewisville
+Hilton Richardson Dallas Richardson
+HR Ranch Terrell
+Hyatt Place Dallas/The Colony The Colony
+Iron Gables Paradise
+The Keller Roundhouse Keller
+Knotting Hill Place Little Elm Clouds
+Lone Star Mansion Burleson
+Lost Oak Winery Burleson
+Lucky Spur Ranch Retreat Justin
+Margot Hill Malakoff Clouds
+Marriott Dallas/Fort Worth Westlake Westlake
+The Milestone Krum Krum Clouds
+Montclair Colleyville Clouds
+The N at Hardway Ranch Bluff Dale
+The Nest at Ruth Farms Ponder
+The Olana Hickory Creek Clouds
+One Preston Event Venues Gunter Clouds
+The Orchard Event Venue & Retreat Azle Clouds
+Paradise Cove at Lake Grapevine Southlake
+The Pearl at Sabine Creek Royse City
+Pennington Field Bedford
+Primrose Hill Wedding and Events Van Alstyne
+Roadrunner Ranch Ferris Clouds
+Roma Palace Banquet Hall Garland
+Rough Rider Stadium Saginaw
+Rustic Grace Estate Van Alstyne
+Shady Oaks Country Club Westworth Village
+Social Oak Trophy Club
+Southfork Ranch Parker
+The Space on West Main Allen
+The Springs Event Venue, Alvarado Alvarado Clouds
+The Springs Event Venue, Anna Anna Clouds
+The Springs Event Venue, Rockwall Manor Terrell Clouds
+The Springs Event Venue, Valley View Valley View Clouds
+The Springs Event Venue, Waxahachie Waxahachie Clouds
+Stillwater Meadow Aledo
+Stoney Ridge Villa Azle Clouds
+The Texan Athens
+Texas Star Golf Course Euless
+Texoma Event Center Denison
+The Thirsty Turtle North Richland Hills
+Towering Oaks Event and Retreat Center Valley View
+The Tribute at The Colony The Colony
+The Venue at Waterstone Celina
+Waxahachie Civic Center Waxahachie Clouds
+The Westin Dallas Southlake Southlake
+The Wildflower Wedding & Special Event Venue Waxahachie
+The Wildwood Inn Denton
+New Venue
+## Booking a venue that's new to us
+We advance every new room before event day. Our crew calls the venue coordinator to confirm the load-in window, the door or dock, any elevator, and where the power is, and asks about house rules for fog, haze and sound levels. The plan for your event is built around those answers, and the certificate of insurance goes to the venue ahead of load-in.
+Then the event runs like it does at any venue on this page: we deliver, set up, test and pick up, with an on-site technician for the services that call for one. Wireless microphones run our AI-powered De-Feedback system , so toasts and speeches stay clear in rooms we are seeing for the first time.
+What We Bring
+## Services at these venues
+Sound systems and wireless microphones , event lighting and uplighting , DJ services , projectors and screens , Dancing on the Clouds , monogram projection and live streaming . See them in action on our work page and in the photo gallery .
+FAQ
+## Venue questions
+Have you worked at my venue before?
+Search the list on this page. It covers the event venues on our booking records since late 2020, grouped by city, and we have worked many more rooms since we started in 2001. If your venue is here, our crew has already loaded in, found the power and set up a show in that room.
+What if my venue is new to you?
+We will advance it before your event. We call the venue coordinator to confirm the load-in window, the door or dock, the elevator and the power, and we plan the setup around the room. New venues are part of every season for us.
+Do you send a certificate of insurance to the venue?
+Yes. Dallas Event Audio is insured, and we send a certificate of insurance to any venue that requires one, ahead of load-in.
+Can you run Dancing on the Clouds at my venue?
+Venues marked Clouds on this list have had our Dancing on the Clouds low lying fog for a first dance. For any other venue, we confirm the venue's fog policy and its smoke detector setup with the coordinator before the quote goes out.
+Do you coordinate load-in and setup with the venue?
+Yes. Our crew delivers, sets up, tests and picks up every booking, with an on-site technician for the services that call for one, and we work out the timing with the venue coordinator so the room is ready before your guests arrive.
+## Tell us the venue and the date. We'll plan the room.
+Tell us about your event and you'll hear back from us today, with a straightforward quote within 24 hours.
+Request a quote
+See our work
 
 ---
 
@@ -7688,7 +8158,6 @@ Summary: Get a quote within 24 hours for event sound, lighting and effects anywh
 Home / Contact
 Open 24/7 · Reply Within 24 Hours
 # Contact us. Tell us the date and we’ll tell you what it takes.
-Call, text, email, or send the form below. A person who works these events reads it today and comes back to you with a straightforward quote within 24 hours.
 Request a Quote
 Call
 817-210-7957
@@ -7721,6 +8190,7 @@ Reply Within 24 Hours · Fully Insured · Certificates Sent Without Being Chased
 Request a Quote
 ## The more you tell us, the more useful the quote.
 Your event date, the venue, and a rough headcount is enough to get a real quote back. Everything else makes it more accurate, and anything still undecided can stay undecided. The form takes about a minute, all of it can change later, and working out what an event needs is our job.
+Only your email, event date and event type are required. The rest helps us quote faster.
 The HoneyBook form loads here. It will not render from a file opened off disk, because the widget needs a real https origin. It appears as soon as this page is served from dallaseventaudio.com.
 The quote form needs JavaScript. Call or text 817-210-7957 , or email info@dallaseventaudio.com and we will come straight back to you.
 ### What happens next
@@ -9067,13 +9537,13 @@ A presentation projector for an office meeting, a training day or a sales kickof
 By Steve , Dallas Event Audio · Published March 18, 2026
 A business presentation lives or dies on whether the back row can read the slides. When you rent a projector for an office presentation, a client meeting, a training session or a sales kickoff in Dallas-Fort Worth, the picture has to stay sharp with the room lights up, the laptop has to connect on the first try, and the presenter has to be heard as clearly as the slides are seen.
 The presentation projector we send out most is the Epson PowerLite 700U, a laser-powered ultra short throw projector with 4,000 color lumens. Every projector rental is delivered, set up, tested and picked up by the same crew that handles our sound and lighting, with a technician available to stay through the program when the meeting calls for one. If you already know what you need, our projector and screen rental page lists the full inventory.
-## Choosing a presentation projector for a meeting room
+## Choosing a projector for presentations in a meeting room
 A conference room or a hotel meeting room asks different things of a projector than a home theater does. The room usually stays lit so people can take notes, the screen sits close to the front row, and the presenter walks back and forth in front of it.
 That is why we lean on a laser ultra short throw projector for business presentations:
 4,000 color lumens keeps slides readable with the overhead lights on
-it sits a short distance from the screen, so the presenter never walks through the beam
+it sits a short distance from the screen, so the presenter walks freely in front of the slides
 the laser light source is steady from the first slide to the last
-it takes up no table space in the middle of the room
+it leaves the middle of the room clear for tables and people
 For a larger general session, we pair the projector with a bigger screen sized to the last row of seats, and our projector and screen rental page explains how we match the two.
 ## What is an ultra short throw projector?
 An ultra short throw projector creates a large image from a very short distance away from the screen. At a meeting or training session, that keeps the light out of the presenter’s eyes, keeps shadows off the slides, and frees up the space where a cart or a ceiling mount would otherwise go.
@@ -9085,6 +9555,10 @@ At a corporate general session in a Dallas hotel ballroom this year, with the ho
 ## Connecting your laptop
 Most presentation trouble starts at the cable, so we plan the hookup before the day. Tell us what the presenters will bring, and we arrive with the right adapters for HDMI, USB-C and the common Mac and Windows ports, plus a cable run long enough to reach the lectern.
 At load-in we connect your laptop, open your slides and check that the aspect ratio, the text and any embedded video look right on the screen. The presenter walks up to a screen that already works.
+## Projector or TV for a meeting?
+For a small huddle room, a large TV on a stand is often the simpler choice: it stays bright in any light and needs no screen. Once the audience grows past the point where the back row can read a TV, a projector and screen give everyone a picture big enough to follow the numbers on a chart. Many corporate presentations use both, with the projector on the main screen and a TV on a stand as a confidence monitor facing the presenter, so they can see their slides without turning around.
+## Recording or streaming the presentation
+If part of the team joins remotely, the same feed that drives the projector can go to a live stream or a recording, with the presenter’s microphone mixed in. We plan the stream with the projector so the slides look the same in the room and on the call.
 ## Sound for the presenter and the video
 A presentation usually needs more than a picture. If the deck has video, it needs speakers, and if the room holds more than a handful of people, the presenter needs a microphone. We bring a small PA system and wireless microphones on the same truck, and our AI-powered De-Feedback system keeps the microphones clear of squeal as the presenter walks the room.
 ## Where a presentation projector fits

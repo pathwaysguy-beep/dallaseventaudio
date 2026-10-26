@@ -42,7 +42,7 @@ older one is declared dead in the message.
 ## The gates every change passes
 
 - `python3 tools/sync_chrome.py --check` must print `0 of N files drifted`
-  (84 as of 20 October 2026).
+  (85 as of 24 October 2026).
   The header, nav drawer, palette dock, fonts, analytics, widget and shared
   CSS are fragments in `tools/chrome/` and this script stamps them into every
   page. Page-local scripts go above the `<!-- chrome-sync:js -->` marker.
@@ -652,6 +652,22 @@ prompt does not list the P7 yet.
 Queued work, in Steve's order: a local SEO audit with `dea-local-seo-audit`;
 then DJ and lighting content passes, the live streaming page, and pruning
 or redirecting the old posts that earn nothing.
+
+## Venues we've worked (bundle 97, 24 October 2026)
+
+New page `/venues` (`venues.html`): 316 public event venues from Steve's
+booked HoneyBook projects (late 2020 to 24 October 2026, past events only),
+grouped by city, with a client-side search box and a Clouds tag on the 72
+venues where Dancing on the Clouds ran. Names only: no client names, job
+counts or prices. Left off on purpose: private homes, plain street addresses,
+and buildings owned by the client (company offices, schools, churches,
+hospitals). The list is generated from the booking analysis, not hand-typed;
+regenerate it rather than editing names one by one. The clouds page gained a
+"Venues where we've run Dancing on the Clouds" section (#clouds-venues) above
+#included. Linked from the header and drawer (Our Work menu), every footer's
+Company column, our-work, weddings and fort-worth. Venue guide pages wait
+until event photos are matched to venues. `sync_chrome.py --check` now covers
+85 files.
 
 ## The story pass (standing queue, started 8 September 2026)
 
