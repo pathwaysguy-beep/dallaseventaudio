@@ -729,6 +729,11 @@ combine. GA4 `venue_filter` sends `service_<token>` for service buttons. The
 section intro links the service pages and names the AI-powered De-Feedback
 system with wireless mics. No counts are shown, per the venue rules.
 
+Bundle 104 (26 October 2026): the service pills read as clutter in three
+columns, so `.vtags` became a quiet second line under each venue name: plain
+text in `--dim`, sentence case, separated by middle dots, with Clouds in the
+accent color (`.vt-clouds`). Same tokens and order as bundle 103.
+
 ## Frontiers of Flight keynote post (bundle 101, 26 October 2026)
 
 Gig post /post/product-launch-keynote-frontiers-of-flight-museum: a software company's product launch keynote in the
