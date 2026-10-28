@@ -734,6 +734,22 @@ columns, so `.vtags` became a quiet second line under each venue name: plain
 text in `--dim`, sentence case, separated by middle dots, with Clouds in the
 accent color (`.vt-clouds`). Same tokens and order as bundle 103.
 
+## Speed pass (bundle 106, 27 October 2026)
+
+PageSpeed mobile on 27 October: home 92, projector 74, clouds 66, contact 32.
+Changes: (1) /contact loads the HoneyBook form script (about 1.8 MB with
+Google reCAPTCHA) on the first scroll, tap or key press, when the form nears
+the screen, or when the URL hash starts with #quote; the noscript fallback
+is unchanged. (2) tools/chrome/analytics.html loads the Meta pixel script
+after the load event on the first interaction or after 4 seconds; init and
+PageView are still queued first, so the thank-you Lead keeps its order.
+(3) The header logo carries fetchpriority="high" (it is the largest paint on
+pages without a hero photo). (4) The clouds page reel and closing clip take
+their posters from data-poster when they come within 800px of the screen.
+(5) The projector explainer posters were resized from 1920 to 1280 wide
+(about 120 KB to 58 KB each). Local Lighthouse: clouds 84 to 93, projector
+87 to 90. Do not move the HoneyBook loader back into the page head.
+
 ## Dead clicks, quote promises and pricing (bundle 105, 27 October 2026)
 
 Clarity dead clicks showed visitors tapping things that looked tappable. The

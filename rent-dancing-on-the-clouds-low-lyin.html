@@ -1613,9 +1613,22 @@ html[data-palette="cryo"] .kicker{ letter-spacing:.14em; }
     s.src = 'https://connect.facebook.net/en_US/fbevents.js';
     document.head.appendChild(s);
   }
-  /* Loads on the load event, the same as the Google tag above. */
-  if (document.readyState === 'complete') { setTimeout(load, 0); }
-  else { window.addEventListener('load', function () { setTimeout(load, 0); }); }
+  /* Bundle 106: the pixel script is about 212 KB, so it now waits until the
+     page has loaded and then for the first scroll, tap or key press, or 4
+     seconds, whichever comes first. init and PageView are already queued
+     above, so nothing is lost; they send when the script lands. */
+  var started = false;
+  function go() {
+    if (started) return; started = true;
+    ['scroll', 'pointerdown', 'touchstart', 'keydown'].forEach(function (ev) { window.removeEventListener(ev, go, true); });
+    load();
+  }
+  function arm() {
+    setTimeout(go, 4000);
+    ['scroll', 'pointerdown', 'touchstart', 'keydown'].forEach(function (ev) { window.addEventListener(ev, go, { capture: true, passive: true, once: true }); });
+  }
+  if (document.readyState === 'complete') { arm(); }
+  else { window.addEventListener('load', arm); }
 })();
 </script>
 <script>
@@ -2008,7 +2021,7 @@ body.calm #chatPanel{ display:none; }
 
   <header>
     <nav>
-      <a class="logo" href="/" style="text-decoration:none;" aria-label="Dallas Event Audio home"><img src="/images/dea-logo.png" alt="Dallas Event Audio" width="326" height="138"></a>
+      <a class="logo" href="/" style="text-decoration:none;" aria-label="Dallas Event Audio home"><img src="/images/dea-logo.png" alt="Dallas Event Audio" width="326" height="138" fetchpriority="high"></a>
       <div class="navlinks">
         <div class="nl-item">
           <span class="nl-top" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">Events<svg class="nl-car" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -2208,12 +2221,12 @@ body.calm #chatPanel{ display:none; }
       <p class="prose" data-reveal>Every clip below is our own footage, shot on the night at a booking we ran in Dallas-Fort Worth. Six rooms, each a different kind of venue: a daylight greenhouse, a grand ballroom, a stone hall, an uplit chapel, a live band on a stage and a rustic barn. Watch what the fog does at floor level, how flat it stays while people move through it, and how the color in the room reads back out of the cloud.</p>
       <div class="reel" data-reveal>
         <div class="reel-track" id="reelTrack" tabindex="0" aria-label="Video reel of low lying fog effects at real events">
-          <figure class="vid"><span class="vtag">Greenhouse</span><video muted loop playsinline preload="none" poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-b6252e.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-6801bc.mp4" type="video/mp4"></video><figcaption>A glass-roof venue in daylight, the hardest light a low lying fog effect ever has to hold up in.</figcaption></figure>
-          <figure class="vid"><span class="vtag">Grand ballroom</span><video muted loop playsinline preload="none" poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-251206.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-6e74d0.mp4" type="video/mp4"></video><figcaption>Coffered ceiling, chandeliers, and a full-length gown moving through the layer while it stays flat on the floor.</figcaption></figure>
-          <figure class="vid"><span class="vtag">Stone hall</span><video muted loop playsinline preload="none" poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-425351.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-9034fd.mp4" type="video/mp4"></video><figcaption>Hard floors and a high ceiling. The cloud sits at knee height instead of climbing the room.</figcaption></figure>
-          <figure class="vid"><span class="vtag">Uplit room</span><video muted loop playsinline preload="none" poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-ed9ccf.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-40179f.mp4" type="video/mp4"></video><figcaption>Teal uplighting read straight back out of the fog, the color in the room becomes the color in the cloud.</figcaption></figure>
-          <figure class="vid"><span class="vtag">Live band</span><video muted loop playsinline preload="none" poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-ff57ce.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-823885.mp4" type="video/mp4"></video><figcaption>Weddings are only part of it. The same effect laid under a live band on a full stage, in a room several times the size.</figcaption></figure>
-          <figure class="vid"><span class="vtag">Barn venue</span><video muted loop playsinline preload="none" poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-e9d11f.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-49fcec.mp4" type="video/mp4"></video><figcaption>A rustic barn floor, where the layer has to hold against a great deal more open air than a ballroom.</figcaption></figure>
+          <figure class="vid"><span class="vtag">Greenhouse</span><video muted loop playsinline preload="none" data-poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-b6252e.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-6801bc.mp4" type="video/mp4"></video><figcaption>A glass-roof venue in daylight, the hardest light a low lying fog effect ever has to hold up in.</figcaption></figure>
+          <figure class="vid"><span class="vtag">Grand ballroom</span><video muted loop playsinline preload="none" data-poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-251206.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-6e74d0.mp4" type="video/mp4"></video><figcaption>Coffered ceiling, chandeliers, and a full-length gown moving through the layer while it stays flat on the floor.</figcaption></figure>
+          <figure class="vid"><span class="vtag">Stone hall</span><video muted loop playsinline preload="none" data-poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-425351.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-9034fd.mp4" type="video/mp4"></video><figcaption>Hard floors and a high ceiling. The cloud sits at knee height instead of climbing the room.</figcaption></figure>
+          <figure class="vid"><span class="vtag">Uplit room</span><video muted loop playsinline preload="none" data-poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-ed9ccf.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-40179f.mp4" type="video/mp4"></video><figcaption>Teal uplighting read straight back out of the fog, the color in the room becomes the color in the cloud.</figcaption></figure>
+          <figure class="vid"><span class="vtag">Live band</span><video muted loop playsinline preload="none" data-poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-ff57ce.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-823885.mp4" type="video/mp4"></video><figcaption>Weddings are only part of it. The same effect laid under a live band on a full stage, in a room several times the size.</figcaption></figure>
+          <figure class="vid"><span class="vtag">Barn venue</span><video muted loop playsinline preload="none" data-poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-e9d11f.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-49fcec.mp4" type="video/mp4"></video><figcaption>A rustic barn floor, where the layer has to hold against a great deal more open air than a ballroom.</figcaption></figure>
         </div>
         <div class="reel-nav">
           <button type="button" id="reelPrev" aria-label="Previous videos">&#8592;</button>
@@ -2294,7 +2307,7 @@ body.calm #chatPanel{ display:none; }
   </section>
 
   <section class="fogfilm" id="film" aria-label="Low lying fog rolling across a dance floor">
-    <video autoplay muted loop playsinline preload="none" poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-089acd.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-47fbd1.mp4" type="video/mp4"></video>
+    <video autoplay muted loop playsinline preload="none" data-poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-089acd.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-47fbd1.mp4" type="video/mp4"></video>
     <div class="wrap">
       <div class="filmcap">
         <span class="kicker">Low lying fog, running</span>
@@ -2858,6 +2871,17 @@ body.calm #chatPanel{ display:none; }
       box.innerHTML=''; box.appendChild(f);
     });
   });
+})();
+</script>
+
+<script>
+/* Bundle 106: the reel and closing clip posters (about 300 KB) load when they come near the screen. */
+(function(){
+  var vs=[].slice.call(document.querySelectorAll('video[data-poster]'));
+  function set(v){ if(v.dataset.poster){ v.setAttribute('poster', v.dataset.poster); v.removeAttribute('data-poster'); } }
+  if(!('IntersectionObserver' in window)){ vs.forEach(set); return; }
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ set(e.target); io.unobserve(e.target); } }); },{rootMargin:'800px 800px'});
+  vs.forEach(function(v){ io.observe(v); });
 })();
 </script>
 
