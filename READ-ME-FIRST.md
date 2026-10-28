@@ -734,6 +734,14 @@ columns, so `.vtags` became a quiet second line under each venue name: plain
 text in `--dim`, sentence case, separated by middle dots, with Clouds in the
 accent color (`.vt-clouds`). Same tokens and order as bundle 103.
 
+## Review count (bundle 107, 28 October 2026)
+
+Steve, 28 October: the headline review figure is 4.9 across 187 reviews,
+Google, The Knot, Yelp and WeddingWire together. The thank-you page stat now
+says so (it read "Google rating across 43 reviews"). The per-platform counts
+on the reviews page, /contact and the thank-you profile cards stay as they
+are, since each one is that platform's own number.
+
 ## Speed pass (bundle 106, 27 October 2026)
 
 PageSpeed mobile on 27 October: home 92, projector 74, clouds 66, contact 32.
