@@ -2312,6 +2312,7 @@ body.calm #chatPanel{ display:none; }
     run();
     if(typeof gtag==='function'){gtag('event','venue_filter',{filter:'service_'+sv,page_path:location.pathname});}
   });});
+  try{var q0=new URLSearchParams(location.search).get('q');if(q0){box.value=q0.slice(0,60);}}catch(e){}
   box.addEventListener('input',run); run();
 })();
 </script>

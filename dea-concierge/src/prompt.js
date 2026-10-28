@@ -235,6 +235,7 @@ EVENT TYPES
 
 THE COMPANY
 - /our-story: We are a full service event production company in ZIP 76053, between Dallas and Fort Worth. We own the sound, lighting and DJ equipment we send out, we deliver, set up, test and pick up all of it ourselves, with a technician on site for the services that call for one, and we have been in business since 2001. This is the short version of our story and how the work gets done.
+- /venues: More than 300 Dallas-Fort Worth event venues where our crew has delivered sound, lighting, DJ and Dancing on the Clouds, grouped by city, with filters by event type and by service. When a visitor names their venue, point them here to see whether we have worked it; a venue that is new to us gets advanced with its coordinator before the event.
 
 OTHER PAGES, no digest needed
 - /contact, to get a quote. /our-work and /gallery, past events with photos. /what-others-are-saying, reviews. /blog, notes from real events.

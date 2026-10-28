@@ -618,6 +618,9 @@ a.chip::after{ content:' \2192'; opacity:.55; }
   }
 .fx-card:hover{ border-color:color-mix(in srgb, var(--a2) 42%, transparent); transform:translateY(-3px); }
 .fx-card:hover::after{ opacity:.34; }
+.fx-card h3 a{ color:inherit; text-decoration:none; }
+.fx-card h3 a::before{ content:""; position:absolute; inset:0; z-index:1; }
+.fx-card h3 a:focus-visible{ outline:2px solid var(--a1); outline-offset:4px; }
 .fx-card h3{ font-family:var(--font-display); font-weight:800; font-size:1.06rem; line-height:1.3; }
 .fx-card p{ margin-top:10px; font-size:.94rem; line-height:1.66; color:var(--dim); }
 .fx-card p b{ color:var(--ink); font-weight:700; }
@@ -1753,19 +1756,19 @@ body.calm #chatPanel{ display:none; }
 
       <div class="fx-grid">
         <div class="fx-card" data-reveal>
-          <h3>Grand entrance</h3>
+          <h3><a href="/contact">Grand entrance</a></h3>
           <p>A wall of white behind a doorway, fired on the cue and cleared within a minute so the room sees the wedding party or the keynote arrive out of it.</p>
         </div>
         <div class="fx-card" data-reveal>
-          <h3>Club and concert</h3>
+          <h3><a href="/rave-and-night-club-events">Club and concert</a></h3>
           <p>Repeat bursts through a set, timed against the lighting and the drop. The reheat time is what makes that possible on a long set.</p>
         </div>
         <div class="fx-card" data-reveal>
-          <h3>Halloween and haunts</h3>
+          <h3><a href="/contact">Halloween and haunts</a></h3>
           <p>Thick, low visibility fog for a walk through attraction, held at density for hours on a timer, with your crew topping up the fluid.</p>
         </div>
         <div class="fx-card" data-reveal>
-          <h3>Photo and video</h3>
+          <h3><a href="/services-photo-and-video">Photo and video</a></h3>
           <p>A white background on demand, plus a way to hide rigging, scenic elements or a wall that has to disappear from the frame.</p>
         </div>
       </div>

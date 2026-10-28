@@ -734,6 +734,28 @@ columns, so `.vtags` became a quiet second line under each venue name: plain
 text in `--dim`, sentence case, separated by middle dots, with Clouds in the
 accent color (`.vt-clouds`). Same tokens and order as bundle 103.
 
+## Dead clicks, quote promises and pricing (bundle 105, 27 October 2026)
+
+Clarity dead clicks showed visitors tapping things that looked tappable. The
+twelve service-area chips on /contact are now links: Fort Worth goes to
+/fort-worth, every other city to `/venues?q=<city>`, and /venues reads `q`
+from the URL into its search box (capped at 60 characters). The four use
+cards on /rent-fog-machine link from their headings, with a stretched link
+covering the card (Grand entrance and Halloween and haunts to /contact, Club
+and concert to /rave-and-night-club-events, Photo and video to
+/services-photo-and-video). The remaining "same day" reply promises on
+services-dj, the clouds page and sensory-friendly (visible FAQ and schema)
+now say a quote within 24 hours; the certificate of insurance lines keep
+"same day" on purpose. The cost post
+(post/av-equipment-rental-dallas-fort-worth-cost, slug unchanged) no longer
+carries any dollar figures: the intro and the package list describe what
+goes into a quote instead, dateModified 2026-10-27. Projector screen sizes
+per Steve: 120 inch tripod, 144 inch matte white, 150 inch Elite Screens
+ultra short throw ambient light rejecting. /corporate-events links the
+Frontiers of Flight keynote post from its product launch block. The
+concierge prompt lists /venues under THE COMPANY (needs `npx wrangler
+deploy`).
+
 ## Frontiers of Flight keynote post (bundle 101, 26 October 2026)
 
 Gig post /post/product-launch-keynote-frontiers-of-flight-museum: a software company's product launch keynote in the

@@ -866,7 +866,7 @@ Rig podium mic · band or DJ system · follow spot · lighting
 Corporate event production in a ballroom means speech, music and lighting sharing one room, usually with a podium, a band or DJ and an awards run. We handle the transitions: the podium mic that has to be live the moment the walk-up music ends, the follow spot that has to find the right person, and the level change between an acceptance speech and the next music cue. At a franchise conference in a Westin ballroom this spring, the sponsor wall on the screen, the blue wash on the walls, the podium mic and the projector under the screen all came off one truck and were run from one table at the back.
 ### Product launches and activations
 Rig accent lighting · point-source sound · fast-build staging
-Brand activation AV puts higher production value in a smaller footprint, often in a space designed for something else. Lighting the product properly, keeping the sound intelligible in a hard-surfaced room, and building the whole thing inside a load-in window measured in hours rather than days.
+Brand activation AV puts higher production value in a smaller footprint, often in a space designed for something else. Lighting the product properly, keeping the sound intelligible in a hard-surfaced room, and building the whole thing inside a load-in window measured in hours rather than days. For a recent one, read how we ran a product launch keynote at the Frontiers of Flight Museum , with the presenter standing in front of an ultra short throw screen.
 ### Trade shows, panels and hybrid
 Rig localized sound · panel mics · stream feed off our mixer
 Hybrid event AV and trade show sound start with localized sound that carries to your booth or stage and stops at the aisle, microphones for panels where four people share three mics, and a streaming or recording feed taken off our mixer so the remote audience hears the room properly. See live streaming for the hybrid side.
@@ -2093,7 +2093,7 @@ We bring everything, set it up, run it, and take it away at the end. We bring ev
 Will someone from your crew stay for the whole event?
 Every sensory-friendly booking includes an on-site technician who stays through the event. The crew runs the equipment for you, and there is always someone in the room to ask.
 Can I write to you instead of calling?
-You can email us or fill in the form and skip the phone call. A person who works these events reads it and comes back to you the same day.
+You can email us or fill in the form and skip the phone call. A person who works these events reads it and comes back to you with a quote within 24 hours.
 Will there be cables taped across the floor?
 The uplights run on batteries, so they sit where you want them and leave the floor clear of cords and tape.
 Can I ask you to keep the music volume down?
@@ -5609,7 +5609,7 @@ Get a quote
 Tell us about your event and you'll hear back from us today, with a straightforward quote within 24 hours.
 ### What you get back
 1
-A real person reads it the same day and replies to you directly. If your date is already booked we will tell you straight away rather than leaving you waiting on it.
+A real person reads it and sends you a straightforward quote within 24 hours. If your date is already taken, we will tell you right away so you can plan around it.
 2
 We name the size we would bring, and why, based on the room and on how many moments you want covered.
 3
@@ -5958,8 +5958,8 @@ An ultra short throw projector on the stage at the base of an ambient light reje
 Package two
 ## Long throw projector rental for ballrooms and larger rooms
 When the room can go dark and the projector can live behind the audience or on a truss, a long throw setup gives you more placement freedom and a bigger image for the same money.
-Rig Epson Pro EX10000 · 124 or 144 inch screen · long throw
-The Epson Pro EX10000 is a 4,600 lumen Full HD laser projector with wireless and Miracast input, paired with either a 124 inch tab tensioned tripod screen or a 144 inch white matte screen depending on how far back the room lets us sit. Laser means full brightness the second it is switched on, and the same brightness at the end of a long conference day as at the start of it.
+Rig Epson Pro EX10000 · 120 or 144 inch screen · long throw
+The Epson Pro EX10000 is a 4,600 lumen Full HD laser projector with wireless and Miracast input, paired with either a 120 inch tripod screen or a 144 inch matte white screen depending on how far back the room lets us sit. Laser means full brightness the second it is switched on, and the same brightness at the end of a long conference day as at the start of it.
 This is the workhorse for hotel ballrooms, banquet rooms, general session rooms, worship spaces and any room with real seating depth. Give us the ceiling height, the throw distance and the seating layout and we will tell you which of the two screens fits, then bring the one that does. Larger rooms sometimes want two screens so both sides of the audience read the slide straight on, and we rent projectors and screens in pairs for that reason.
 Sizing
 ## What size projector screen do you need?
@@ -6712,7 +6712,7 @@ Richardson
 Hurst · Euless · Bedford
 How Booking Works
 ## From first message to last song.
-Four steps, a plain conversation, and a real answer on availability the same day you ask.
+Four steps, a plain conversation, and a straightforward quote within 24 hours.
 Step 01
 ### Tell us the date
 Date, venue and roughly how many people. If we are already booked that day we say so immediately, so you can keep moving.
@@ -7297,8 +7297,9 @@ COI
 Fully insured. Certificates sent straight to your venue before load-in
 Venues We've Worked · Wedding Venues · Hotel Ballrooms · Museums · Ranch Venues · Convention Centers · Restaurants · Breweries · Dallas · Fort Worth ·
 By City
-## Event venues we've worked, by event type and city
-Venues are grouped by city, and the smaller towns are listed together under Across North Texas. Tap an event type to see the venues where we have run that kind of event: weddings , corporate events , private parties , live music and club nights , galas, school and university events , church events and sporting events. A Clouds tag marks the venues where we have run Dancing on the Clouds . Every booking at every one of these venues was delivered, set up, tested and picked up by our crew.
+## Event venues we've worked, by event type, service and city
+Venues are grouped by city, and the smaller towns are listed together under Across North Texas. Tap an event type to see the venues where we have run that kind of event: weddings , corporate events , private parties , live music and club nights , galas, school and university events , church events and sporting events. Tap a service to see where we have delivered it: sound , DJ , wireless microphones on our AI-powered De-Feedback system, uplighting and stage lighting , projection and TVs, lasers, fog and haze , CO2, live streaming and Dancing on the Clouds . Pair a service with an event type to narrow the list. Under each venue name are the services booked there most often. Every booking at every one of these venues was delivered, set up, tested and picked up by our crew.
+Event type
 All venues
 Weddings
 Corporate events
@@ -7308,340 +7309,353 @@ Galas and fundraisers
 School and university
 Church events
 Sporting events
+Service
+All services
+Sound
+DJ
+Wireless mics
+Uplighting
+Stage lighting
+Projection
+Lasers
+Fog and haze
 Dancing on the Clouds
+CO2
+Live streaming
+TVs
 Search venues or cities
 316 venues
 That venue would be a new one for us. Tell us about your event and we will advance the room with your coordinator.
 ### Dallas
-The Adolphus
-Arlington Hall at Turtle Creek Park
+The Adolphus Sound Wireless mics Projection
+Arlington Hall at Turtle Creek Park Sound Wireless mics DJ
 Arts District Mansion
 Ballroom Surge Event Space Clouds
 The Beeman Hotel
-Brake & Clutch Warehouse Clouds
-The Carlisle Room Clouds
-Casa de Montecristo Cigar Lounge
-The Charles
-Cotton Bowl Stadium
-The Crescent Club
-Dallas Arboretum and Botanical Garden
-The Dallas Entrepreneur Center at RedBird
-Dallas Market Center
-Dallas Petroleum Club
-DEC on Dragon
-DoubleTree by Hilton Dallas Campbell Centre
-DoubleTree by Hilton Dallas Near the Galleria
+Brake & Clutch Warehouse Sound DJ Clouds
+The Carlisle Room Sound Uplighting Clouds
+Casa de Montecristo Cigar Lounge Sound Wireless mics
+The Charles DJ
+Cotton Bowl Stadium CO2
+The Crescent Club DJ Uplighting Sound
+Dallas Arboretum and Botanical Garden Sound Wireless mics DJ
+The Dallas Entrepreneur Center at RedBird Sound Wireless mics
+Dallas Market Center Sound
+Dallas Petroleum Club DJ
+DEC on Dragon DJ Sound Wireless mics
+DoubleTree by Hilton Dallas Campbell Centre Sound Wireless mics
+DoubleTree by Hilton Dallas Near the Galleria Sound Wireless mics
 Dress Up Event Hall
-El Fenix
-The Empire Room
-The Exchange Food Hall
-Fairmont Dallas Clouds
-The Filter Building
-Four Corners Brewing Company
-Frontiers of Flight Museum
-Gallery DeFi
-Gilley's Dallas
-Green Elephant
-The Hall of State
-The Hall on Dragon
-The Henry
+El Fenix Sound
+The Empire Room Sound DJ
+The Exchange Food Hall Sound
+Fairmont Dallas Sound Clouds
+The Filter Building Sound DJ Wireless mics
+Four Corners Brewing Company Sound Wireless mics
+Frontiers of Flight Museum Sound Uplighting Projection
+Gallery DeFi Sound Wireless mics
+Gilley's Dallas Sound DJ Wireless mics
+Green Elephant Sound Stage lighting Lasers
+The Hall of State DJ Sound Wireless mics
+The Hall on Dragon Sound Wireless mics Stage lighting
+The Henry Sound Wireless mics
 Hilton Anatole
-Hilton Dallas Lincoln Centre
-Hotel Crescent Court
-Hotel ZaZa Dallas Uptown
-House of Jones
-Howell and Dragon
-Hyatt Regency Dallas
-Jaxon Beer Garden
-The Joule
-Kay Bailey Hutchison Convention Center
-Kimpton Pittman Hotel
-Knife Dallas
+Hilton Dallas Lincoln Centre DJ Uplighting
+Hotel Crescent Court Sound DJ Wireless mics
+Hotel ZaZa Dallas Uptown DJ
+House of Jones DJ
+Howell and Dragon Sound Wireless mics Stage lighting
+Hyatt Regency Dallas DJ Sound Uplighting
+Jaxon Beer Garden Sound
+The Joule Sound Uplighting
+Kay Bailey Hutchison Convention Center Sound
+Kimpton Pittman Hotel Projection
+Knife Dallas Sound Wireless mics Projection
 Krimson Park Clouds
-The Landmark Prime Rib
+The Landmark Prime Rib Sound Wireless mics
 Las Almas Rotas
-Le Méridien Dallas
-LOCAL Public Eatery
-Lofty Spaces Clouds
-Lorenzo Hotel
-Loro
-Maggiano's Little Italy NorthPark
-Maguire's
-Margaret Hunt Hill Bridge
-Marie Gabrielle Restaurant and Gardens
+Le Méridien Dallas Sound DJ
+LOCAL Public Eatery DJ TVs
+Lofty Spaces Sound Uplighting Clouds
+Lorenzo Hotel Sound DJ TVs
+Loro Sound Wireless mics
+Maggiano's Little Italy NorthPark Sound Wireless mics Stage lighting
+Maguire's Sound Wireless mics TVs
+Margaret Hunt Hill Bridge Sound
+Marie Gabrielle Restaurant and Gardens Sound Wireless mics DJ
 The Mason
-Meso Maya
-Museum of Biblical Art
-Nasher Sculpture Center
-New Artisan Distillery
-Nick & Sam's
-Nobu Dallas
-Northwood Club
-Nuvo Room
-Oak Cliff Brewing
-Oak Highlands Brewery
-Ocean Prime
-The Oceanaire Seafood Room
-Omni Dallas Hotel Clouds
-Park City Club
-Park House
-Perkins Chapel
-Perot Museum of Nature and Science
-Rainbow Vomit
+Meso Maya Sound Wireless mics Live stream
+Museum of Biblical Art Projection
+Nasher Sculpture Center Sound Wireless mics
+New Artisan Distillery Uplighting Stage lighting Fog and haze
+Nick & Sam's Sound Wireless mics Uplighting
+Nobu Dallas Sound DJ Wireless mics
+Northwood Club Sound Uplighting Wireless mics
+Nuvo Room DJ
+Oak Cliff Brewing Sound Stage lighting Fog and haze
+Oak Highlands Brewery Sound Wireless mics
+Ocean Prime Sound Wireless mics Live stream
+The Oceanaire Seafood Room Sound Wireless mics
+Omni Dallas Hotel Clouds CO2 Stage lighting
+Park City Club Sound Wireless mics
+Park House Sound Wireless mics
+Perkins Chapel Sound Uplighting
+Perot Museum of Nature and Science DJ Sound Uplighting
+Rainbow Vomit Sound DJ Uplighting
 Renaissance Dallas Hotel
-River Pig Saloon
-Rosewood Mansion on Turtle Creek
+River Pig Saloon DJ TVs
+Rosewood Mansion on Turtle Creek Sound DJ
 Saint Rocco's
-Sammons Center for the Arts
-Samuel Lynne Galleries
+Sammons Center for the Arts Sound Wireless mics
+Samuel Lynne Galleries Sound DJ TVs
 SANDAGA 813
-Sheraton Dallas Hotel
-Sky Blu Rooftop Bar
-Skyline Ranch & Event Center
-Texas Discovery Gardens
-Texas Theatre
-Trinity Forest Golf Club
-Trinity Groves
-Trinity River Audubon Center
-Tru by Hilton Dallas Market Center
-The Victor
-Wellington Centre
-The Westin Dallas Downtown
-The Westin Dallas Park Central Clouds
-The Whiskey Spot
-Winfrey Point
-Y.O. Ranch Steakhouse
+Sheraton Dallas Hotel DJ Sound Wireless mics
+Sky Blu Rooftop Bar Stage lighting
+Skyline Ranch & Event Center Sound DJ Wireless mics
+Texas Discovery Gardens Sound Wireless mics Uplighting
+Texas Theatre Stage lighting
+Trinity Forest Golf Club Sound Wireless mics
+Trinity Groves DJ Projection
+Trinity River Audubon Center Sound Wireless mics
+Tru by Hilton Dallas Market Center Uplighting Stage lighting
+The Victor Sound Live stream TVs
+Wellington Centre Sound DJ
+The Westin Dallas Downtown DJ
+The Westin Dallas Park Central Sound Wireless mics Clouds
+The Whiskey Spot Sound Uplighting Wireless mics
+Winfrey Point Sound Wireless mics Projection
+Y.O. Ranch Steakhouse Sound Wireless mics
 Zuri Event Center Clouds
 ### Fort Worth
 Amon Carter Center at Lena Pope
-The Ashton Depot
-Bowie House
-C.R. Smith Museum
-City Club of Fort Worth Clouds
-Colonial Country Club Clouds
-The Crescent Hotel
-Dalmore Event Venue Clouds
-Del Frisco's Double Eagle Steakhouse
-Fort Works Art
-The Fort Worth Club
-Fort Worth Convention Center
-Fort Worth Zoo
-Gold Mountain Gallery
-Grace Manor Events
-Holiday Inn Fort Worth Alliance
-Hotel Drover
-Hyena's Comedy Night Club
-Joe T. Garcia's
-Marriott DFW Airport South
-Marty Leonard Community Chapel
-Omni Fort Worth Hotel
+The Ashton Depot Sound Wireless mics DJ
+Bowie House Uplighting Stage lighting
+C.R. Smith Museum Sound Wireless mics Projection
+City Club of Fort Worth Uplighting Clouds
+Colonial Country Club Uplighting Stage lighting Clouds
+The Crescent Hotel DJ Sound
+Dalmore Event Venue Clouds CO2
+Del Frisco's Double Eagle Steakhouse Live stream TVs
+Fort Works Art DJ
+The Fort Worth Club Sound DJ Uplighting
+Fort Worth Convention Center Sound DJ
+Fort Worth Zoo DJ
+Gold Mountain Gallery Sound Wireless mics Projection
+Grace Manor Events DJ Uplighting
+Holiday Inn Fort Worth Alliance Uplighting Stage lighting Fog and haze
+Hotel Drover Sound DJ Wireless mics
+Hyena's Comedy Night Club CO2
+Joe T. Garcia's Projection
+Marriott DFW Airport South Sound Projection Live stream
+Marty Leonard Community Chapel DJ
+Omni Fort Worth Hotel Sound Wireless mics Projection
 The Paddock at Champions Circle Clouds
 Panther Island Brewing
-Radisson Hotel Fort Worth North Fossil Creek
-Ridglea Country Club
-Ridglea Theater
+Radisson Hotel Fort Worth North Fossil Creek Live stream
+Ridglea Country Club Sound DJ Wireless mics
+Ridglea Theater CO2
 River Ranch Stockyards
 Roy Pope Grocery
-Second Rodeo Brewing
-Sheraton Fort Worth Downtown Hotel
-Texas Motor Speedway
+Second Rodeo Brewing Sound DJ
+Sheraton Fort Worth Downtown Hotel Sound Wireless mics Projection
+Texas Motor Speedway Sound Projection
 Town Talk Foods
 The Vintage Rail
 ### McKinney
 Adriatica Village Clouds
-Aristide McKinney Clouds
-Avalon Legacy Ranch
-The Backyard Venue
+Aristide McKinney Clouds Sound Wireless mics
+Avalon Legacy Ranch DJ Live stream
+The Backyard Venue DJ
 The Clubs of Stonebridge Ranch
-D'Vine Grace Vineyard Clouds
-McKinney Cotton Mill
+D'Vine Grace Vineyard Clouds DJ Sound
+McKinney Cotton Mill Live stream TVs
 McKinney Flour Mill Clouds
-The RoseMary Wedding Venue
+The RoseMary Wedding Venue Sound Stage lighting Lasers
 The Sanctuary Music and Events Clouds
-Sheraton McKinney Hotel
-Stone Crest Venue
+Sheraton McKinney Hotel Stage lighting Sound Wireless mics
+Stone Crest Venue DJ Sound Wireless mics
 ### Irving
 Curry Leaf Restaurant Bar & Banquet
-Hackberry Creek Country Club
-Hyatt House Dallas/Las Colinas
-Irving Convention Center at Las Colinas Clouds
-Marriott Dallas Las Colinas Clouds
-NYLO Las Colinas Hotel
-Omni Las Colinas Hotel
-Rayleigh Underground Clouds
-SLPS Community Center Clouds
-Toyota Music Factory
-The Westin Irving Convention Center at Las Colinas
+Hackberry Creek Country Club Projection
+Hyatt House Dallas/Las Colinas Sound Wireless mics
+Irving Convention Center at Las Colinas Sound Wireless mics Clouds
+Marriott Dallas Las Colinas Clouds Live stream
+NYLO Las Colinas Hotel Sound Wireless mics Projection
+Omni Las Colinas Hotel Sound DJ Wireless mics
+Rayleigh Underground Clouds CO2
+SLPS Community Center Uplighting Stage lighting Clouds
+Toyota Music Factory Sound DJ Wireless mics
+The Westin Irving Convention Center at Las Colinas DJ Sound Lasers
 ### Arlington
-AT&T Stadium
-Bowman Springs Park
+AT&T Stadium Sound
+Bowman Springs Park Sound Wireless mics TVs
 J. Gilligan's Bar & Grill
-Levitt Pavilion Arlington
-Live! by Loews
-National Medal of Honor Museum
-Sheraton Arlington Hotel Clouds
-The Springs Event Venue, Arlington Clouds
-Texas Live!
+Levitt Pavilion Arlington Sound DJ Wireless mics
+Live! by Loews DJ
+National Medal of Honor Museum Sound Wireless mics
+Sheraton Arlington Hotel Sound Wireless mics Clouds
+The Springs Event Venue, Arlington Clouds Sound Uplighting
+Texas Live! DJ
 ### Plano
-Crystal Banquet
+Crystal Banquet DJ Wireless mics
 Elegance Ballroom and Events Center Clouds
-Hilton Dallas/Plano Granite Park
-Italian Village
-Red Tail Pavilion
-Reflections Venue and Gardens Clouds
-Renaissance Dallas at Plano Legacy West Hotel Clouds
-Sixty Vines
-Union Bear Brewing Co.
+Hilton Dallas/Plano Granite Park Live stream Projection DJ
+Italian Village Uplighting Projection
+Red Tail Pavilion Sound DJ Wireless mics
+Reflections Venue and Gardens DJ Sound Clouds
+Renaissance Dallas at Plano Legacy West Hotel Wireless mics Sound Clouds
+Sixty Vines TVs
+Union Bear Brewing Co. Sound
 ### Aubrey
-Bella Cavalli Events
-Bliss Ranch Clouds
-Brighton Abbey Clouds
-The Grove in Aubrey
+Bella Cavalli Events Sound DJ Wireless mics
+Bliss Ranch Fog and haze Clouds
+Brighton Abbey DJ Sound Clouds
+The Grove in Aubrey Sound
 The Milestone Aubrey Clouds
-Morgan Creek Barn
+Morgan Creek Barn CO2
 Oak + Ivy Venue
-The Springs Event Venue, Aubrey Clouds
+The Springs Event Venue, Aubrey Lasers Clouds CO2
 ### Frisco
-HALL Park Hotel
+HALL Park Hotel Sound Wireless mics Projection
 Hyatt Regency Frisco
-Magnolia Terrace
-Omni Frisco Hotel
-Roughriders Stadium
+Magnolia Terrace DJ Wireless mics
+Omni Frisco Hotel Stage lighting
+Roughriders Stadium DJ
 Stonebriar Country Club
-Verona Villa Clouds
+Verona Villa Uplighting Stage lighting Clouds
 ### Weatherford
 Black Ranch Event Center at Willow Lake
-Canyon West Golf Course
-Clark Gardens
+Canyon West Golf Course Sound DJ Uplighting
+Clark Gardens Sound Wireless mics
 Diamond H3 Ranch
-Dove Ridge Vineyard
-The Hamptons of Weatherford
-The Springs Event Venue, Weatherford Clouds
+Dove Ridge Vineyard Sound
+The Hamptons of Weatherford DJ Wireless mics
+The Springs Event Venue, Weatherford DJ Clouds
 ### Carrollton
-Camera Ready Studios
+Camera Ready Studios Fog and haze
 Courtyard by Marriott Dallas Carrollton Clouds
-Dallas Palms
-Hall of Lights Clouds
+Dallas Palms Sound Stage lighting DJ
+Hall of Lights Clouds Stage lighting
 Luxor Banquet Hall Clouds
-The Windsor at Hebron Park
+The Windsor at Hebron Park Sound Projection
 ### Addison
-Arthur's Steakhouse
+Arthur's Steakhouse Sound Wireless mics
 Cavanaugh Flight Museum Clouds
-Renaissance Dallas Addison Hotel
-Venue Forty|50
+Renaissance Dallas Addison Hotel Sound
+Venue Forty|50 Sound Wireless mics Projection
 ### Grand Prairie
 Enchanted Event Hall
 Grand Prairie Events & Convention Center
-Lone Star Park
-Ruthe Jackson Center Clouds
+Lone Star Park Sound Wireless mics
+Ruthe Jackson Center Sound DJ Clouds
 ### Grapevine
-Courtyard by Marriott DFW Airport North/Grapevine
-Embassy Suites DFW Airport North
-Gaylord Texan Resort & Convention Center
-Hotel Vin
+Courtyard by Marriott DFW Airport North/Grapevine Sound Wireless mics Stage lighting
+Embassy Suites DFW Airport North DJ Sound
+Gaylord Texan Resort & Convention Center DJ Wireless mics Sound
+Hotel Vin Sound
 ### Across North Texas
-Aledo Community Center Aledo
+Aledo Community Center Aledo DJ Uplighting
 Alexis Event Venue Haltom City Clouds
-Anchors Event Center Mansfield
-Apricus Venue Corinth
-Aristide Colleyville Colleyville Clouds
-Aristide Flower Mound Flower Mound Clouds
-Arrowwood Weddings + Events Palmer
-Ashton Gardens Corinth Corinth
+Anchors Event Center Mansfield Uplighting Stage lighting
+Apricus Venue Corinth Sound Uplighting
+Aristide Colleyville Colleyville Uplighting Stage lighting Clouds
+Aristide Flower Mound Flower Mound Clouds CO2
+Arrowwood Weddings + Events Palmer DJ
+Ashton Gardens Corinth Corinth Uplighting Stage lighting
 Azle Deer Cove Azle
-BarnHill Vineyard Anna
-Bear Creek Golf Club DFW Airport
+BarnHill Vineyard Anna DJ
+Bear Creek Golf Club DFW Airport Projection Live stream
 Bella Woods Wedding and Event Center Midlothian Clouds
-The Belle Manor Burleson Clouds
+The Belle Manor Burleson Clouds Projection TVs
 Bentley Station Lake Dallas
 Best Day Ever Ranch Whitewright
-Bethel Rock Wedding Venue Leonard
+Bethel Rock Wedding Venue Leonard CO2
 Big Sky Event Hall Royse City
-The Big White Barn Decatur
-The Bowden Keller Clouds
-The Castle at Rockwall Rockwall
+The Big White Barn Decatur DJ Uplighting
+The Bowden Keller DJ Clouds CO2
+The Castle at Rockwall Rockwall Sound DJ Wireless mics
 Cedar Creek Country Club Kemp Clouds
-Chandelier Farms Terrell Clouds
+Chandelier Farms Terrell Sound DJ Clouds
 Chandler's Gardens Celina
-Chapel at Palacios Westlake
-Chapel at Riverwalk Flower Mound
+Chapel at Palacios Westlake Sound Wireless mics Uplighting
+Chapel at Riverwalk Flower Mound Sound DJ Wireless mics
 Chapel Creek Ranch Denton
-Chef Point Bar & Restaurant Colleyville
-The Cinnamon Barn Princeton Clouds
-Classic Oaks Wedding & Event Venue Mansfield
+Chef Point Bar & Restaurant Colleyville Sound Wireless mics
+The Cinnamon Barn Princeton Stage lighting Clouds
+Classic Oaks Wedding & Event Venue Mansfield Sound DJ Wireless mics
 Courtyard by Marriott Dallas Allen at the Event Center Allen
-Craft & Vine Roanoke
+Craft & Vine Roanoke Sound Wireless mics
 Cross Creek Ranch Parker Clouds
-Denton Civic Center Denton
-Double S Ranch Glen Rose
-DoubleTree by Hilton Dallas Richardson Richardson
+Denton Civic Center Denton Sound Wireless mics Projection
+Double S Ranch Glen Rose DJ
+DoubleTree by Hilton Dallas Richardson Richardson Projection
 The Eagle Historic Warehouse Hillsboro
 Elks Lodge DeSoto Clouds
 The Emerson Kaufman
-Firefly Gardens Midlothian Clouds
-Flourish Events Mesquite
-The French Farmhouse Venue Collinsville Clouds
-The Gardenia Venue Valley View Clouds
-Garland Convention & Reception Center Garland
-Genesis Ballroom Garland Clouds
-The Grand View Mansfield
-Gray Acres Country Wedding & Events Pottsboro
+Firefly Gardens Midlothian Clouds Sound DJ
+Flourish Events Mesquite DJ
+The French Farmhouse Venue Collinsville Sound Clouds
+The Gardenia Venue Valley View Clouds DJ Uplighting
+Garland Convention & Reception Center Garland Sound Wireless mics
+Genesis Ballroom Garland Uplighting Stage lighting Clouds
+The Grand View Mansfield Sound Wireless mics
+Gray Acres Country Wedding & Events Pottsboro DJ
 Hampton Inn & Suites Dallas-Mesquite Mesquite
-The Hamptons Event Venue Red Oak Clouds
+The Hamptons Event Venue Red Oak Clouds Sound Wireless mics
 Hawthorn Hills Krum
 The Hay Bale Wedding and Events Venue Scurry Clouds
 Herradero Ballroom Alvarado Clouds
-The Hills of Luella Sherman
-The Hillside Estate Cross Roads Clouds
-Hilton Garden Inn Dallas Lewisville Lewisville
-Hilton Richardson Dallas Richardson
-HR Ranch Terrell
-Hyatt Place Dallas/The Colony The Colony
-Iron Gables Paradise
-The Keller Roundhouse Keller
-Knotting Hill Place Little Elm Clouds
-Lone Star Mansion Burleson
+The Hills of Luella Sherman DJ
+The Hillside Estate Cross Roads Clouds Sound DJ
+Hilton Garden Inn Dallas Lewisville Lewisville Projection
+Hilton Richardson Dallas Richardson Sound Wireless mics Projection
+HR Ranch Terrell DJ
+Hyatt Place Dallas/The Colony The Colony Sound Wireless mics TVs
+Iron Gables Paradise DJ
+The Keller Roundhouse Keller Sound Wireless mics Live stream
+Knotting Hill Place Little Elm Sound Uplighting Clouds
+Lone Star Mansion Burleson Sound DJ Wireless mics
 Lost Oak Winery Burleson
-Lucky Spur Ranch Retreat Justin
+Lucky Spur Ranch Retreat Justin DJ Projection
 Margot Hill Malakoff Clouds
-Marriott Dallas/Fort Worth Westlake Westlake
+Marriott Dallas/Fort Worth Westlake Westlake Sound Stage lighting
 The Milestone Krum Krum Clouds
-Montclair Colleyville Clouds
+Montclair Colleyville Sound DJ Clouds
 The N at Hardway Ranch Bluff Dale
-The Nest at Ruth Farms Ponder
-The Olana Hickory Creek Clouds
+The Nest at Ruth Farms Ponder DJ Uplighting
+The Olana Hickory Creek Clouds Sound DJ
 One Preston Event Venues Gunter Clouds
-The Orchard Event Venue & Retreat Azle Clouds
-Paradise Cove at Lake Grapevine Southlake
+The Orchard Event Venue & Retreat Azle DJ Clouds
+Paradise Cove at Lake Grapevine Southlake Sound
 The Pearl at Sabine Creek Royse City
-Pennington Field Bedford
-Primrose Hill Wedding and Events Van Alstyne
+Pennington Field Bedford DJ
+Primrose Hill Wedding and Events Van Alstyne DJ
 Roadrunner Ranch Ferris Clouds
-Roma Palace Banquet Hall Garland
-Rough Rider Stadium Saginaw
+Roma Palace Banquet Hall Garland Sound
+Rough Rider Stadium Saginaw Sound Wireless mics
 Rustic Grace Estate Van Alstyne
-Shady Oaks Country Club Westworth Village
-Social Oak Trophy Club
-Southfork Ranch Parker
-The Space on West Main Allen
+Shady Oaks Country Club Westworth Village Sound Stage lighting Fog and haze
+Social Oak Trophy Club DJ
+Southfork Ranch Parker Sound Projection DJ
+The Space on West Main Allen Projection Live stream
 The Springs Event Venue, Alvarado Alvarado Clouds
-The Springs Event Venue, Anna Anna Clouds
-The Springs Event Venue, Rockwall Manor Terrell Clouds
-The Springs Event Venue, Valley View Valley View Clouds
-The Springs Event Venue, Waxahachie Waxahachie Clouds
-Stillwater Meadow Aledo
-Stoney Ridge Villa Azle Clouds
-The Texan Athens
-Texas Star Golf Course Euless
-Texoma Event Center Denison
-The Thirsty Turtle North Richland Hills
-Towering Oaks Event and Retreat Center Valley View
+The Springs Event Venue, Anna Anna DJ Sound Clouds
+The Springs Event Venue, Rockwall Manor Terrell Clouds DJ Lasers
+The Springs Event Venue, Valley View Valley View Sound DJ Clouds
+The Springs Event Venue, Waxahachie Waxahachie Sound DJ Clouds
+Stillwater Meadow Aledo CO2
+Stoney Ridge Villa Azle Clouds Uplighting Stage lighting
+The Texan Athens DJ
+Texas Star Golf Course Euless Sound Wireless mics
+Texoma Event Center Denison Uplighting Stage lighting
+The Thirsty Turtle North Richland Hills Sound
+Towering Oaks Event and Retreat Center Valley View DJ Sound Uplighting
 The Tribute at The Colony The Colony
-The Venue at Waterstone Celina
+The Venue at Waterstone Celina Sound DJ Uplighting
 Waxahachie Civic Center Waxahachie Clouds
-The Westin Dallas Southlake Southlake
-The Wildflower Wedding & Special Event Venue Waxahachie
-The Wildwood Inn Denton
+The Westin Dallas Southlake Southlake Uplighting
+The Wildflower Wedding & Special Event Venue Waxahachie DJ
+The Wildwood Inn Denton Sound Wireless mics Uplighting
 New Venue
 ## Booking a venue that's new to us
 We advance every new room before event day. Our crew calls the venue coordinator to confirm the load-in window, the door or dock, any elevator, and where the power is, and asks about house rules for fog, haze and sound levels. The plan for your event is built around those answers, and the certificate of insurance goes to the venue ahead of load-in.
@@ -8235,7 +8249,7 @@ Irving
 Denton
 Rockwall
 Waxahachie
-Holding your event outside that ring? Ask anyway. We travel for the right event and we will tell you honestly whether it makes sense.
+Tap a city to see the venues we have worked there. Holding your event outside that ring? Ask anyway. We travel for the right event and we will tell you honestly whether it makes sense.
 Before You Send It
 ## The questions we get most before an event.
 How fast will I hear back?
@@ -8440,7 +8454,7 @@ Home / Blog / AV Equipment Rental in Dallas-Fort Worth: What It Costs and What Y
 # AV Equipment Rental in Dallas-Fort Worth: What It Costs and What You Get
 What AV equipment rental costs in Dallas-Fort Worth, what a package includes, and how much sound you need for your guest count.
 By Steve , Dallas Event Audio · Published August 5, 2026
-AV equipment rental in Dallas-Fort Worth typically runs $350 to $900 for a small meeting or backyard party, $1,200 to $3,500 for a wedding or a mid-size corporate event, and $4,000 and up for a conference with multiple rooms or a live band. Three things move that number: how many people have to hear you, whether anything has to go on a screen, and whether delivery, setup and an on-site operator are part of the price. Most DFW clients book a package that covers speakers, microphones, a mixer and lighting rather than renting pieces one at a time.
+The cost of AV equipment rental in Dallas-Fort Worth comes down to three things: how many people have to hear you, whether anything has to go on a screen, and whether delivery, setup and an on-site operator are part of the rental. Every quote we send is itemized, with delivery, setup and pickup built in, and it reaches you within 24 hours. Most DFW clients book a package that covers speakers, microphones, a mixer and lighting rather than renting pieces one at a time.
 ## What is included in an AV equipment rental in DFW?
 A full-service rental arrives assembled, tested and aimed at the room before your first guest walks in. A typical Dallas Event Audio package covers:
 Powered speakers on stands, sized to the room and the guest count
@@ -8450,13 +8464,13 @@ Uplighting or dance floor lighting where the room calls for it
 Delivery, setup, and strike after the event
 We also run 6dB.ai feedback suppression on the wireless mics, which matters most in hotel ballrooms and church halls where a handheld has to walk in front of the speakers. You can see the full inventory on our sound equipment rental page .
 ## How much does AV equipment rental cost in Dallas?
-These are the ranges we quote most often in the DFW market, with delivery and setup included:
-Small meeting or party, up to 75 guests: typically $350 to $900. Two powered speakers, one or two wireless mics, a mixer.
-Wedding ceremony and reception, 100 to 250 guests: typically $1,200 to $3,500. A separate ceremony system outside, a reception system inside, wireless mics and uplighting.
-Corporate meeting with a screen, 100 to 300 attendees: typically $1,500 to $4,000. Projector, screen, podium and lapel mics, speaker support, and a technician on site all day.
-Conference with a general session plus breakouts: typically $4,000 and up, quoted per room.
+Your quote is built from the room, the guest count and the run of show. These are the packages we quote most often in the DFW market, each with delivery and setup included:
+Small meeting or party, up to 75 guests: two powered speakers, one or two wireless mics and a mixer.
+Wedding ceremony and reception, 100 to 250 guests: a separate ceremony system outside, a reception system inside, wireless mics and uplighting.
+Corporate meeting with a screen, 100 to 300 attendees: projector, screen, podium and lapel mics, speaker support, and a technician on site all day.
+Conference with a general session plus breakouts: quoted per room, so each breakout gets the sound and screen it needs.
 Live band, or any room over 400 guests: line array and subwoofers, quoted once we have the stage plot and input list.
-Delivery inside Dallas and Fort Worth is built into those numbers. Frisco, McKinney, Plano, Richardson, Southlake, Rockwall and Waxahachie are all inside our normal service area. If your venue sits further out, ask anyway and we will tell you honestly whether it works.
+Delivery inside Dallas and Fort Worth is built into every quote. Frisco, McKinney, Plano, Richardson, Southlake, Rockwall and Waxahachie are all inside our normal service area. If your venue sits further out, ask anyway and we will tell you honestly whether it works.
 ## How many speakers do I need for my guest count?
 Indoors, with a normal ceiling and carpet on the floor, this is where most DFW events land:
 Up to 75 guests: two powered speakers on stands.
@@ -8479,7 +8493,7 @@ Is the quote itemized, so you can see what each piece costs?
 ### How far in advance should I book AV equipment rental in Dallas?
 Six to eight weeks is comfortable for a wedding or a corporate event in spring or fall. December holiday parties book earliest, often by September, because every company in DFW wants the same three Fridays. We do take short-notice bookings when the gear is free, so call and ask.
 ### Do you deliver outside of Dallas?
-Yes. Fort Worth, Frisco, McKinney, Plano, Richardson, Southlake, Rockwall and Waxahachie are all part of our regular route, and delivery to those cities is included in the quoted price.
+Yes. Fort Worth, Frisco, McKinney, Plano, Richardson, Southlake, Rockwall and Waxahachie are all part of our regular route, and delivery to those cities is included in your quote.
 ### What is included in a rental?
 Delivery, setup and strike, every time. Everything goes out with our crew and comes back with our crew, from a two-speaker PA and a microphone up to a line array. It arrives set up, cabled and line checked rather than in cases, because the setup is where a system proves itself. What varies is whether our technician stays to run it or hands a working rig to your DJ.
 ### What happens if it rains at an outdoor event?
