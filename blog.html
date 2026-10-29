@@ -839,6 +839,12 @@ html{ scroll-behavior:auto; }
 
     var label = (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80);
 
+    /* With a mouse, a phone link copies the number instead of dialing (see the
+       phone script in navdrawer_js), so it is logged as phone_copy and is not
+       a call_tap key event. */
+    if (m === 'phone' && window.matchMedia &&
+        matchMedia('(hover: hover) and (pointer: fine)').matches) m = 'phone_copy';
+
     gtag('event', 'contact_click', {
       contact_method: m,
       contact_target: raw.slice(0, 100),
@@ -1289,6 +1295,13 @@ body.nav-locked{ overflow:hidden; }
 
 /* Removed, not quietened, on the sensory-friendly page. See the note above. */
 body.calm #chatPanel{ display:none; }
+
+/* Desktop phone-link note (see the phone script in navdrawer_js). */
+.tel-note{ position:fixed; left:50%; bottom:28px; transform:translate(-50%,20px); z-index:2147483000;
+  background:var(--bg-1,#111); color:var(--ink,#fff); border:1px solid var(--card-border,rgba(255,255,255,.2));
+  border-radius:12px; padding:12px 18px; font-family:var(--font-body,sans-serif); font-size:.95rem;
+  box-shadow:0 10px 30px rgba(0,0,0,.35); opacity:0; pointer-events:none; transition:opacity .2s, transform .2s; }
+.tel-note.on{ opacity:1; transform:translate(-50%,0); }
 </style>
 </head>
 <body>
@@ -1772,6 +1785,38 @@ body.calm #chatPanel{ display:none; }
         if(menu) menu.focus();
       }
     });
+  });
+})();
+/* Phone links on a computer. A tel: link does nothing on most desktops, and
+   Clarity logged those clicks as dead clicks (28 Oct 2026). With a mouse, a
+   click on any phone link copies the number and shows a short note instead.
+   Touch screens keep tap-to-call. GA4 records the desktop case as
+   contact_method phone_copy and does not send call_tap, so the Google Ads
+   call conversion stays phone taps only. */
+(function(){
+  if(!window.matchMedia || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  var note;
+  function show(msg){
+    if(!note){
+      note = document.createElement('div');
+      note.className = 'tel-note';
+      note.setAttribute('role','status');
+      document.body.appendChild(note);
+    }
+    note.textContent = msg;
+    note.classList.add('on');
+    clearTimeout(note._t);
+    note._t = setTimeout(function(){ note.classList.remove('on'); }, 4000);
+  }
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest && e.target.closest('a[href^="tel:"]');
+    if(!a) return;
+    e.preventDefault();
+    var num = '817-210-7957';
+    var done = function(){ show(num + ' copied. Call or text us anytime.'); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(num).then(done, function(){ show('Call or text us at ' + num + '.'); });
+    } else { show('Call or text us at ' + num + '.'); }
   });
 })();
 </script>

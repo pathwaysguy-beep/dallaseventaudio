@@ -141,6 +141,12 @@
 
     var label = (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80);
 
+    /* With a mouse, a phone link copies the number instead of dialing (see the
+       phone script in navdrawer_js), so it is logged as phone_copy and is not
+       a call_tap key event. */
+    if (m === 'phone' && window.matchMedia &&
+        matchMedia('(hover: hover) and (pointer: fine)').matches) m = 'phone_copy';
+
     gtag('event', 'contact_click', {
       contact_method: m,
       contact_target: raw.slice(0, 100),

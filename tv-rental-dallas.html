@@ -319,7 +319,7 @@ html{ scroll-behavior:auto; }
 }
 </style>
   <title>TV Rental Dallas | TVs on Stands | Dallas Event Audio</title>
-  <meta name="description" content="TV rental in Dallas-Fort Worth. 32, 43 and 65 inch TVs on floor stands and confidence monitors for events, delivered, set up and picked up. Request a quote today.">
+  <meta name="description" content="TV rental Dallas-Fort Worth. 32, 43, 55 and 65 inch TVs on floor stands and confidence monitors for events, delivered, set up and picked up. Request a quote today.">
   <link rel="canonical" href="https://www.dallaseventaudio.com/tv-rental-dallas">
   <meta property="og:title" content="TV Rental Dallas | TVs on Stands | Dallas Event Audio">
   <meta property="og:image" content="https://www.dallaseventaudio.com/images/tv-rental/tv-on-floor-stand-private-dining-room-dallas.jpg">
@@ -327,7 +327,7 @@ html{ scroll-behavior:auto; }
   <meta property="og:image:height" content="1080">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://www.dallaseventaudio.com/images/tv-rental/tv-on-floor-stand-private-dining-room-dallas.jpg">
-  <meta property="og:description" content="TV rental in Dallas-Fort Worth. 32, 43 and 65 inch TVs on floor stands and confidence monitors for events, delivered, set up and picked up. Request a quote today.">
+  <meta property="og:description" content="TV rental Dallas-Fort Worth. 32, 43, 55 and 65 inch TVs on floor stands and confidence monitors for events, delivered, set up and picked up. Request a quote today.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.dallaseventaudio.com/tv-rental-dallas">
 <style>
@@ -745,7 +745,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
     "name": "TV Rental in Dallas-Fort Worth",
     "serviceType": "TV and Display Rental",
     "url": "https://www.dallaseventaudio.com/tv-rental-dallas",
-    "description": "TV rental for events across Dallas-Fort Worth. 32, 43 and 65 inch flat panel televisions on rolling floor stands for registration desks, sponsor loops, breakout rooms, cocktail hour slideshows, lobbies and confidence monitor duty. Every TV rental is full-service: delivery, stand and mount, cable dressing, laptop or media player connection, testing and pickup, with an optional on-site technician.",
+    "description": "TV rental for events across Dallas-Fort Worth. 32, 43, 55 and 65 inch flat panel televisions on rolling floor stands for registration desks, sponsor loops, breakout rooms, cocktail hour slideshows, lobbies and confidence monitor duty. Every TV rental is full-service: delivery, stand and mount, cable dressing, laptop or media player connection, testing and pickup, with an optional on-site technician.",
     "category": "TV Rental",
     "provider": {
       "@type": "Organization",
@@ -771,6 +771,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
       "itemListElement": [
         {"@type":"Offer","itemOffered":{"@type":"Service","name":"32 inch TV on a stand","description":"Registration desks, menu boards, welcome loops and directional signage."}},
         {"@type":"Offer","itemOffered":{"@type":"Service","name":"43 inch TV on a stand","description":"Cocktail hour slideshows, sponsor loops, small breakouts and foyers."}},
+        {"@type":"Offer","itemOffered":{"@type":"Service","name":"55 inch TV on a stand","description":"Breakout rooms of twenty or thirty, working lunch presentations and lower-profile confidence monitors."}},
         {"@type":"Offer","itemOffered":{"@type":"Service","name":"65 inch TV on a stand","description":"Breakout room presentations, cake table slideshows, lobby feeds and confidence monitors."}},
         {"@type":"Offer","itemOffered":{"@type":"Service","name":"Confidence monitor rental","description":"A TV at the front of the stage facing the presenter, fed from the presentation switcher with slides, notes or a timer."}}
       ]
@@ -788,7 +789,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
       "name": "What size TV should I rent for my event?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A 32 inch TV covers a registration desk, a menu board or a welcome loop that people read from a few feet away. A 43 inch TV carries a slideshow or a sponsor loop in a cocktail hour, a foyer or a small breakout. A 65 inch TV is the one for breakout room presentations, a cake table slideshow, a lobby feed and confidence monitor duty, and it reads comfortably to about 40 people. Past that, one screen at the front of the room usually wants to be a projector and screen, or a pair of 65 inch TVs on either side."
+        "text": "A 32 inch TV covers a registration desk, a menu board or a welcome loop that people read from a few feet away. A 43 inch TV carries a slideshow or a sponsor loop in a cocktail hour, a foyer or a small breakout. A 55 inch TV covers a breakout of twenty or thirty people and makes a lower-profile confidence monitor. A 65 inch TV is the one for breakout room presentations, a cake table slideshow, a lobby feed and confidence monitor duty, and it reads comfortably to about 40 people. Past that, one screen at the front of the room usually wants to be a projector and screen, or a pair of 65 inch TVs on either side."
       }
     },
     {
@@ -1061,6 +1062,12 @@ a.chip::after{ content:' \2192'; opacity:.55; }
     if (!m) return;
 
     var label = (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80);
+
+    /* With a mouse, a phone link copies the number instead of dialing (see the
+       phone script in navdrawer_js), so it is logged as phone_copy and is not
+       a call_tap key event. */
+    if (m === 'phone' && window.matchMedia &&
+        matchMedia('(hover: hover) and (pointer: fine)').matches) m = 'phone_copy';
 
     gtag('event', 'contact_click', {
       contact_method: m,
@@ -1512,6 +1519,13 @@ body.nav-locked{ overflow:hidden; }
 
 /* Removed, not quietened, on the sensory-friendly page. See the note above. */
 body.calm #chatPanel{ display:none; }
+
+/* Desktop phone-link note (see the phone script in navdrawer_js). */
+.tel-note{ position:fixed; left:50%; bottom:28px; transform:translate(-50%,20px); z-index:2147483000;
+  background:var(--bg-1,#111); color:var(--ink,#fff); border:1px solid var(--card-border,rgba(255,255,255,.2));
+  border-radius:12px; padding:12px 18px; font-family:var(--font-body,sans-serif); font-size:.95rem;
+  box-shadow:0 10px 30px rgba(0,0,0,.35); opacity:0; pointer-events:none; transition:opacity .2s, transform .2s; }
+.tel-note.on{ opacity:1; transform:translate(-50%,0); }
 </style>
 </head>
 <body>
@@ -1736,8 +1750,8 @@ body.calm #chatPanel{ display:none; }
         <div class="split-copy" data-reveal>
           <span class="kicker">The short version</span>
           <h2>TV rental on a stand, in three sizes</h2>
-          <p class="spec"><span>Sizes</span> 32 in &middot; 43 in &middot; 65 in &middot; rolling floor stands</p>
-          <p>Most people searching for a TV rental in Dallas need a screen that stands on its own, works with the lights on, and plays whatever is on their laptop. That is this rental. We carry 32, 43 and 65 inch flat panel televisions, each on a rolling floor stand with the mount, the power and the cable already dressed, so the TV stands wherever the room needs it, on its own footprint.</p>
+          <p class="spec"><span>Sizes</span> 32 in &middot; 43 in &middot; 55 in &middot; 65 in &middot; rolling floor stands</p>
+          <p>Most people searching for a TV rental in Dallas need a screen that stands on its own, works with the lights on, and plays whatever is on their laptop. That is this rental. We carry 32, 43, 55 and 65 inch flat panel televisions, each on a rolling floor stand with the mount, the power and the cable already dressed, so the TV stands wherever the room needs it, on its own footprint.</p>
           <p>Every setup goes out the same way. Our crew delivers it, stands it, connects your laptop or a media player with your slideshow loaded, checks the picture from where your guests will see it, and comes back for it when the event is over. The photo beside this is a 65 inch TV on a stand in a Dallas private dining room, a slideshow running between two speakers before the guests sat down. We carry it in, set it up and carry it back out.</p>
           <div class="chips">
             <a class="chip" href="/corporate-events">Corporate AV production</a>
@@ -1775,6 +1789,13 @@ body.calm #chatPanel{ display:none; }
           <div class="room-body">
             <p class="spec"><span>Rig</span> 43 in TV &middot; rolling stand &middot; laptop feed or slideshow loaded</p>
             <p>Cocktail hours, foyers, hospitality suites and breakouts of a dozen people. A 43 inch TV carries a photo slideshow, a sponsor loop or a small presentation to a room where guests are standing and moving, and it fits through every door in the building on its stand. This is the size that lives in the corner of a rehearsal dinner playing the couple's photos.</p>
+          </div>
+        </div>
+        <div class="room" data-reveal>
+          <h3>55 inch TV<span>Mid-size breakouts and confidence monitors</span></h3>
+          <div class="room-body">
+            <p class="spec"><span>Rig</span> 55 in TV &middot; rolling stand &middot; laptop feed</p>
+            <p>Breakout rooms of twenty or thirty, a presentation over a working lunch, and a confidence monitor at the stage lip where a 65 would crowd the front of a small stage. A 55 inch TV reads comfortably to about 30 people and rolls through a standard door on its stand.</p>
           </div>
         </div>
         <div class="room" data-reveal>
@@ -1999,7 +2020,7 @@ body.calm #chatPanel{ display:none; }
       <div class="faq-list">
         <details class="faq-item" data-reveal>
           <summary>What size TV should I rent for my event?</summary>
-          <div class="ans">A 32 inch TV covers a registration desk, a menu board or a welcome loop that people read from a few feet away. A 43 inch TV carries a slideshow or a sponsor loop in a cocktail hour, a foyer or a small breakout. A 65 inch TV is the one for breakout room presentations, a cake table slideshow, a lobby feed and confidence monitor duty, and it reads comfortably to about 40 people. Past that, one screen at the front of the room usually wants to be a projector and screen, or a pair of 65 inch TVs on either side.</div>
+          <div class="ans">A 32 inch TV covers a registration desk, a menu board or a welcome loop that people read from a few feet away. A 43 inch TV carries a slideshow or a sponsor loop in a cocktail hour, a foyer or a small breakout. A 55 inch TV covers a breakout of twenty or thirty people and makes a lower-profile confidence monitor. A 65 inch TV is the one for breakout room presentations, a cake table slideshow, a lobby feed and confidence monitor duty, and it reads comfortably to about 40 people. Past that, one screen at the front of the room usually wants to be a projector and screen, or a pair of 65 inch TVs on either side.</div>
         </details>
         <details class="faq-item" data-reveal>
           <summary>Do the TVs come on stands?</summary>
@@ -2281,6 +2302,38 @@ body.calm #chatPanel{ display:none; }
         if(menu) menu.focus();
       }
     });
+  });
+})();
+/* Phone links on a computer. A tel: link does nothing on most desktops, and
+   Clarity logged those clicks as dead clicks (28 Oct 2026). With a mouse, a
+   click on any phone link copies the number and shows a short note instead.
+   Touch screens keep tap-to-call. GA4 records the desktop case as
+   contact_method phone_copy and does not send call_tap, so the Google Ads
+   call conversion stays phone taps only. */
+(function(){
+  if(!window.matchMedia || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  var note;
+  function show(msg){
+    if(!note){
+      note = document.createElement('div');
+      note.className = 'tel-note';
+      note.setAttribute('role','status');
+      document.body.appendChild(note);
+    }
+    note.textContent = msg;
+    note.classList.add('on');
+    clearTimeout(note._t);
+    note._t = setTimeout(function(){ note.classList.remove('on'); }, 4000);
+  }
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest && e.target.closest('a[href^="tel:"]');
+    if(!a) return;
+    e.preventDefault();
+    var num = '817-210-7957';
+    var done = function(){ show(num + ' copied. Call or text us anytime.'); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(num).then(done, function(){ show('Call or text us at ' + num + '.'); });
+    } else { show('Call or text us at ' + num + '.'); }
   });
 })();
 </script>

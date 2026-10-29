@@ -317,6 +317,19 @@ html{ scroll-behavior:auto; }
 .marquee-track{ animation:none; }
 .grain-overlay{ display:none; }
 }
+
+/* Bundle 108: quick quote by text on phones, and a strip of our own gear
+   photos in the hero so the equipment shows before the first scroll. */
+.text-gear-m{ display:none; }
+@media (max-width:700px){
+.text-gear-m{ display:block; position:relative; z-index:1; margin-top:12px; padding:13px 16px; border-radius:100px; text-align:center;
+  font-weight:700; font-size:.95rem; color:var(--ink); text-decoration:none; border:1px dashed var(--card-border, rgba(255,255,255,.3)); }
+}
+.gear-strip{ position:relative; z-index:1; display:flex; gap:12px; overflow-x:auto; scroll-snap-type:x mandatory; margin-top:24px; padding-bottom:6px; -webkit-overflow-scrolling:touch; }
+.gear-strip figure{ flex:0 0 200px; margin:0; scroll-snap-align:start; }
+.gear-strip img{ width:200px; height:150px; object-fit:cover; border-radius:12px; display:block; border:1px solid var(--card-border, rgba(255,255,255,.14)); }
+.gear-strip figcaption{ font-size:.8rem; font-weight:600; margin-top:6px; opacity:.85; }
+@media (max-width:700px){ .gear-strip figure{ flex-basis:150px; } .gear-strip img{ width:150px; height:112px; } }
 </style>
   <title>DJ Equipment &amp; CDJ Rental Dallas | Dallas Event Audio</title>
   <meta name="description" content="DJ equipment rental in Dallas-Fort Worth. CDJs, mixers, controllers, booths, speakers and subs, delivered, set up, sound checked with your DJ and collected after.">
@@ -928,6 +941,12 @@ a.chip::after{ content:' \2192'; opacity:.55; }
 
     var label = (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80);
 
+    /* With a mouse, a phone link copies the number instead of dialing (see the
+       phone script in navdrawer_js), so it is logged as phone_copy and is not
+       a call_tap key event. */
+    if (m === 'phone' && window.matchMedia &&
+        matchMedia('(hover: hover) and (pointer: fine)').matches) m = 'phone_copy';
+
     gtag('event', 'contact_click', {
       contact_method: m,
       contact_target: raw.slice(0, 100),
@@ -1378,6 +1397,13 @@ body.nav-locked{ overflow:hidden; }
 
 /* Removed, not quietened, on the sensory-friendly page. See the note above. */
 body.calm #chatPanel{ display:none; }
+
+/* Desktop phone-link note (see the phone script in navdrawer_js). */
+.tel-note{ position:fixed; left:50%; bottom:28px; transform:translate(-50%,20px); z-index:2147483000;
+  background:var(--bg-1,#111); color:var(--ink,#fff); border:1px solid var(--card-border,rgba(255,255,255,.2));
+  border-radius:12px; padding:12px 18px; font-family:var(--font-body,sans-serif); font-size:.95rem;
+  box-shadow:0 10px 30px rgba(0,0,0,.35); opacity:0; pointer-events:none; transition:opacity .2s, transform .2s; }
+.tel-note.on{ opacity:1; transform:translate(-50%,0); }
 </style>
 </head>
 <body>
@@ -1561,6 +1587,8 @@ body.calm #chatPanel{ display:none; }
         <a class="btn-primary" href="/contact">Request a Quote</a>
         <a class="btn-secondary" href="tel:8172107957">Call 817-210-7957</a>
       </div>
+      <a class="text-gear-m" href="sms:+18172107957?&amp;body=Hi%2C%20I%20need%20DJ%20gear.%20Date%3A%20%20Venue%3A%20%20Gear%20list%3A%20">Text us your gear list for a quick quote</a>
+      <div class="gear-strip" aria-label="Our DJ equipment"><figure><picture><source type="image/webp" srcset="/images/dj-equipment-rental/pioneer-cdj-3000-pair-dallas-booth-480w.webp"><img src="/images/dj-equipment-rental/pioneer-cdj-3000-pair-dallas-booth.jpg" alt="A pair of Pioneer DJ CDJ-3000 players linked in a booth" width="480" height="360" decoding="async"></picture><figcaption>CDJ-3000 pair</figcaption></figure><figure><picture><source type="image/webp" srcset="/images/dj-equipment-rental/pioneer-djm-900nxs2-mixer-dallas-venue-480w.webp"><img src="/images/dj-equipment-rental/pioneer-djm-900nxs2-mixer-dallas-venue.jpg" alt="A Pioneer DJ DJM-900NXS2 mixer between four players" width="480" height="360" decoding="async"></picture><figcaption>DJM-900NXS2</figcaption></figure><figure><picture><source type="image/webp" srcset="/images/dj-equipment-rental/pioneer-djm-a9-mixer-in-case-dallas-480w.webp"><img src="/images/dj-equipment-rental/pioneer-djm-a9-mixer-in-case-dallas.jpg" alt="A Pioneer DJ DJM-A9 mixer in its road case" width="480" height="360" decoding="async"></picture><figcaption>DJM-A9</figcaption></figure><figure><picture><source type="image/webp" srcset="/images/dj-equipment-rental/alphatheta-xdj-az-wedding-reception-dallas-480w.webp"><img src="/images/dj-equipment-rental/alphatheta-xdj-az-wedding-reception-dallas.jpg" alt="An AlphaTheta XDJ-AZ all-in-one system on a reception booth" width="480" height="360" decoding="async" loading="lazy"></picture><figcaption>XDJ-AZ</figcaption></figure><figure><picture><source type="image/webp" srcset="/images/dj-equipment-rental/pioneer-xdj-rx3-outdoor-reception-dfw-480w.webp"><img src="/images/dj-equipment-rental/pioneer-xdj-rx3-outdoor-reception-dfw.jpg" alt="A Pioneer DJ XDJ-RX3 all-in-one system at an outdoor reception" width="480" height="360" decoding="async" loading="lazy"></picture><figcaption>XDJ-RX3</figcaption></figure><figure><picture><source type="image/webp" srcset="/images/dj-equipment-rental/pioneer-ddj-flx6-park-pavilion-dallas-480w.webp"><img src="/images/dj-equipment-rental/pioneer-ddj-flx6-park-pavilion-dallas.jpg" alt="A Pioneer DJ DDJ-FLX6 controller under a park pavilion" width="480" height="360" decoding="async" loading="lazy"></picture><figcaption>DDJ-FLX6</figcaption></figure></div>
       <p class="sub" data-reveal>Dallas Event Audio rents CDJs and DJ equipment across Dallas-Fort Worth. Decks, mixers, controllers, DJ booths, speakers and subwoofers for weddings, clubs, corporate events, festivals and private parties. Everything arrives built, powered and line checked, so your DJ’s first move is to play music. We deliver the DJ gear, build it, line-check it and sound check it with your DJ, then come back after the gig to collect it.</p>
       <div class="hero-ctas hero-ctas-top hero-ctas-d" data-reveal>
         <a class="btn-primary" href="/contact">Request a Quote</a>
@@ -2273,6 +2301,38 @@ body.calm #chatPanel{ display:none; }
         if(menu) menu.focus();
       }
     });
+  });
+})();
+/* Phone links on a computer. A tel: link does nothing on most desktops, and
+   Clarity logged those clicks as dead clicks (28 Oct 2026). With a mouse, a
+   click on any phone link copies the number and shows a short note instead.
+   Touch screens keep tap-to-call. GA4 records the desktop case as
+   contact_method phone_copy and does not send call_tap, so the Google Ads
+   call conversion stays phone taps only. */
+(function(){
+  if(!window.matchMedia || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  var note;
+  function show(msg){
+    if(!note){
+      note = document.createElement('div');
+      note.className = 'tel-note';
+      note.setAttribute('role','status');
+      document.body.appendChild(note);
+    }
+    note.textContent = msg;
+    note.classList.add('on');
+    clearTimeout(note._t);
+    note._t = setTimeout(function(){ note.classList.remove('on'); }, 4000);
+  }
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest && e.target.closest('a[href^="tel:"]');
+    if(!a) return;
+    e.preventDefault();
+    var num = '817-210-7957';
+    var done = function(){ show(num + ' copied. Call or text us anytime.'); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(num).then(done, function(){ show('Call or text us at ' + num + '.'); });
+    } else { show('Call or text us at ' + num + '.'); }
   });
 })();
 </script>

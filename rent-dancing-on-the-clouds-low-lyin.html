@@ -330,6 +330,26 @@ html{ scroll-behavior:auto; }
 .yt iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
 .yt-note{ margin-top:10px; font-size:.84rem; color:var(--dim); }
 .yt-h{ margin-top:34px; }
+
+/* Bundle 108: phones get a clear photo of the effect in the first screen
+   instead of the dimmed background film (the film is removed on load at this
+   width, so it never downloads), plus Request a Quote and Text us. */
+.hero-shot{ display:none; }
+.hero-call-m{ display:none; }
+@media (max-width:700px){
+.hero-shot{ display:block; position:relative; z-index:1; width:100%; height:auto; aspect-ratio:720/404; object-fit:cover;
+  margin-top:16px; border-radius:16px; border:1px solid var(--card-border, rgba(255,255,255,.14)); }
+.hero-call-m{ display:block; position:relative; z-index:1; margin-top:12px; font-size:.9rem; text-align:center; }
+.hero-call-m a{ color:var(--ink); }
+}
+/* Size cards: see a floor this size, request this size. */
+.card-acts{ display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+.card-acts a{ font-size:.9rem; font-weight:700; padding:10px 16px; border-radius:100px; border:1px solid var(--card-border, rgba(255,255,255,.2)); color:var(--ink); text-decoration:none; }
+.card-acts a.see-floor{ background:color-mix(in srgb, var(--a1) 14%, transparent); }
+.card-acts a:hover{ border-color:var(--a1); }
+.card-acts .sms-only{ display:none; }
+@media (hover:none){ .card-acts .sms-only{ display:inline-block; } }
+.reel .vid.lit{ outline:3px solid var(--a1); outline-offset:3px; border-radius:14px; }
 </style>
   <title>Dancing on the Clouds, Dry Ice Fog Rental | Dallas Event Audio</title>
   <meta name="description" content="Dry ice and low lying fog machine rental in Dallas-Fort Worth. Four sizes of cloud, delivered and run by our on-site technician. Dancing on the clouds, done right.">
@@ -1552,6 +1572,12 @@ html[data-palette="cryo"] .kicker{ letter-spacing:.14em; }
 
     var label = (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80);
 
+    /* With a mouse, a phone link copies the number instead of dialing (see the
+       phone script in navdrawer_js), so it is logged as phone_copy and is not
+       a call_tap key event. */
+    if (m === 'phone' && window.matchMedia &&
+        matchMedia('(hover: hover) and (pointer: fine)').matches) m = 'phone_copy';
+
     gtag('event', 'contact_click', {
       contact_method: m,
       contact_target: raw.slice(0, 100),
@@ -2002,6 +2028,13 @@ body.nav-locked{ overflow:hidden; }
 
 /* Removed, not quietened, on the sensory-friendly page. See the note above. */
 body.calm #chatPanel{ display:none; }
+
+/* Desktop phone-link note (see the phone script in navdrawer_js). */
+.tel-note{ position:fixed; left:50%; bottom:28px; transform:translate(-50%,20px); z-index:2147483000;
+  background:var(--bg-1,#111); color:var(--ink,#fff); border:1px solid var(--card-border,rgba(255,255,255,.2));
+  border-radius:12px; padding:12px 18px; font-family:var(--font-body,sans-serif); font-size:.95rem;
+  box-shadow:0 10px 30px rgba(0,0,0,.35); opacity:0; pointer-events:none; transition:opacity .2s, transform .2s; }
+.tel-note.on{ opacity:1; transform:translate(-50%,0); }
 </style>
 </head>
 <body>
@@ -2178,6 +2211,7 @@ body.calm #chatPanel{ display:none; }
 
   <section class="hero hero-page">
     <div class="herofilm" aria-hidden="true"><video autoplay muted loop playsinline preload="metadata" poster="/images/dancing-on-the-clouds-first-dance-hero-dallas-poster.jpg"><source src="/videos/dancing-on-the-clouds-first-dance-hero-dallas.webm" type="video/webm"><source src="/videos/dancing-on-the-clouds-first-dance-hero-dallas.mp4" type="video/mp4"></video></div>
+    <script>if(window.matchMedia&&matchMedia('(max-width:700px)').matches){var hf=document.querySelector('.herofilm');if(hf){hf.parentNode.removeChild(hf);}}</script>
     <div class="beams" aria-hidden="true"><i></i><i></i></div>
     <div class="fogbed" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
     <div class="floorline" aria-hidden="true"></div>
@@ -2187,10 +2221,12 @@ body.calm #chatPanel{ display:none; }
       </div>
       <h1>Dancing on the clouds and <span class="grad-text">dry ice low lying fog</span> rental in Dallas-Fort Worth</h1>
       <p class="gear-line" data-reveal>Chauvet Nimbus &middot; Chauvet Nimbus Jr &middot; Chauvet DJ Cumulus &middot; ADJ Entour Ice</p>
+      <img class="hero-shot" src="/images/dancing-on-the-clouds-first-dance-hero-dallas-poster.jpg" width="720" height="404" fetchpriority="high" alt="A couple's first dance on a low lying dry ice cloud at a Dallas-Fort Worth reception">
       <div class="hero-ctas hero-ctas-top hero-ctas-m" data-reveal>
         <a class="btn-primary" href="/contact">Request a Quote</a>
-        <a class="btn-secondary" href="tel:8172107957">Call 817-210-7957</a>
+        <a class="btn-secondary" href="sms:+18172107957?&amp;body=Hi%2C%20I%27d%20like%20a%20quote%20for%20Dancing%20on%20the%20Clouds.%20Date%3A%20%20Venue%3A%20">Text us</a>
       </div>
+      <p class="hero-call-m">Or call <a href="tel:8172107957">817-210-7957</a></p>
       <p class="sub">Low lying fog for your wedding first dance, the dancing on the clouds effect, rented and run by our technician across Dallas-Fort Worth. The dry ice cloud stays flat on the dance floor, covers your feet without rising into the photos and lands on the first beat of your song. We own four machine sizes and bring the one your floor needs.</p>
       <div class="hero-ctas hero-ctas-top hero-ctas-d" data-reveal>
         <a class="btn-primary" href="/contact">Request a Quote</a>
@@ -2222,11 +2258,11 @@ body.calm #chatPanel{ display:none; }
       <div class="reel" data-reveal>
         <div class="reel-track" id="reelTrack" tabindex="0" aria-label="Video reel of low lying fog effects at real events">
           <figure class="vid"><span class="vtag">Greenhouse</span><video muted loop playsinline preload="none" data-poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-b6252e.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-6801bc.mp4" type="video/mp4"></video><figcaption>A glass-roof venue in daylight, the hardest light a low lying fog effect ever has to hold up in.</figcaption></figure>
-          <figure class="vid"><span class="vtag">Grand ballroom</span><video muted loop playsinline preload="none" data-poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-251206.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-6e74d0.mp4" type="video/mp4"></video><figcaption>Coffered ceiling, chandeliers, and a full-length gown moving through the layer while it stays flat on the floor.</figcaption></figure>
+          <figure class="vid" id="floor-standard"><span class="vtag">Grand ballroom</span><video muted loop playsinline preload="none" data-poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-251206.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-6e74d0.mp4" type="video/mp4"></video><figcaption>Coffered ceiling, chandeliers, and a full-length gown moving through the layer while it stays flat on the floor.</figcaption></figure>
           <figure class="vid"><span class="vtag">Stone hall</span><video muted loop playsinline preload="none" data-poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-425351.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-9034fd.mp4" type="video/mp4"></video><figcaption>Hard floors and a high ceiling. The cloud sits at knee height instead of climbing the room.</figcaption></figure>
-          <figure class="vid"><span class="vtag">Uplit room</span><video muted loop playsinline preload="none" data-poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-ed9ccf.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-40179f.mp4" type="video/mp4"></video><figcaption>Teal uplighting read straight back out of the fog, the color in the room becomes the color in the cloud.</figcaption></figure>
-          <figure class="vid"><span class="vtag">Live band</span><video muted loop playsinline preload="none" data-poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-ff57ce.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-823885.mp4" type="video/mp4"></video><figcaption>Weddings are only part of it. The same effect laid under a live band on a full stage, in a room several times the size.</figcaption></figure>
-          <figure class="vid"><span class="vtag">Barn venue</span><video muted loop playsinline preload="none" data-poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-e9d11f.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-49fcec.mp4" type="video/mp4"></video><figcaption>A rustic barn floor, where the layer has to hold against a great deal more open air than a ballroom.</figcaption></figure>
+          <figure class="vid" id="floor-wide"><span class="vtag">Uplit room</span><video muted loop playsinline preload="none" data-poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-ed9ccf.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-40179f.mp4" type="video/mp4"></video><figcaption>Teal uplighting read straight back out of the fog, the color in the room becomes the color in the cloud.</figcaption></figure>
+          <figure class="vid" id="floor-stage"><span class="vtag">Live band</span><video muted loop playsinline preload="none" data-poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-ff57ce.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-823885.mp4" type="video/mp4"></video><figcaption>Weddings are only part of it. The same effect laid under a live band on a full stage, in a room several times the size.</figcaption></figure>
+          <figure class="vid" id="floor-small"><span class="vtag">Barn venue</span><video muted loop playsinline preload="none" data-poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-e9d11f.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-49fcec.mp4" type="video/mp4"></video><figcaption>A rustic barn floor, where the layer has to hold against a great deal more open air than a ballroom.</figcaption></figure>
         </div>
         <div class="reel-nav">
           <button type="button" id="reelPrev" aria-label="Previous videos">&#8592;</button>
@@ -2331,6 +2367,7 @@ body.calm #chatPanel{ display:none; }
           <p>The compact dry ice machine. Small enough to tuck beside a sweetheart table or at the edge of a chapel aisle where every inch counts, and quiet enough to sit inside a ceremony space.</p>
           <p>An 8 lb basket is built for one defining moment, a first dance, a ceremony exit, a single reveal, done properly and at full output rather than stretched thin.</p>
           <div class="best"><em>Best for</em>Intimate floors, small chapels, tight reception rooms, and any venue where the machine has to disappear into the room.</div>
+          <div class="card-acts"><a class="see-floor" href="#floor-small" aria-label="See a small, tight dance floor in our footage">See a floor this size</a><a href="/contact">Request this size</a><a class="sms-only" href="sms:+18172107957?&amp;body=Hi%2C%20I%27m%20interested%20in%20the%20Nimbus%20Junior%20(8%20lb)%20for%20my%20event.%20Date%3A%20%20Venue%3A%20">Text us about it</a></div>
         </article>
         <article class="cloud-card" data-reveal>
           <div class="tag">Size 02 &middot; 12 lb load</div>
@@ -2338,6 +2375,7 @@ body.calm #chatPanel{ display:none; }
           <p>The workhorse, and what most of our weddings book. Half again the ice capacity of the Junior, which in practice is the difference between covering a song and covering a sequence.</p>
           <p>The longer hold is what lets it carry back-to-back dances, a first dance straight into a father-daughter dance, with the cloud still full through the end of the second one.</p>
           <div class="best"><em>Best for</em>Standard reception dance floors, first dance into parent dances, and most Dallas-Fort Worth wedding venues.</div>
+          <div class="card-acts"><a class="see-floor" href="#floor-standard" aria-label="See a standard reception floor in our footage">See a floor this size</a><a href="/contact">Request this size</a><a class="sms-only" href="sms:+18172107957?&amp;body=Hi%2C%20I%27m%20interested%20in%20the%20Nimbus%20(12%20lb)%20for%20my%20event.%20Date%3A%20%20Venue%3A%20">Text us about it</a></div>
         </article>
         <article class="cloud-card" data-reveal>
           <div class="tag">Size 03 &middot; 30 lb load &middot; DMX</div>
@@ -2345,6 +2383,7 @@ body.calm #chatPanel{ display:none; }
           <p>The largest ice load we carry and the only machine in the fleet on DMX control, which means it fires from the lighting console on a programmed cue rather than from someone reaching for a switch at the back of the room.</p>
           <p>That matters when the cue has to land inside a sequence, house lights down, spot up, cloud out, doors open. The timing is written into the show rather than reacted to.</p>
           <div class="best"><em>Best for</em>Ballrooms, long grand entrance walks, and corporate reveals where the effect is part of a lighting cue stack.</div>
+          <div class="card-acts"><a class="see-floor" href="#floor-wide" aria-label="See a wide floor covered wall to wall in our footage">See a floor this size</a><a href="/contact">Request this size</a><a class="sms-only" href="sms:+18172107957?&amp;body=Hi%2C%20I%27m%20interested%20in%20the%20ADJ%20Entour%20Ice%20(30%20lb)%20for%20my%20event.%20Date%3A%20%20Venue%3A%20">Text us about it</a></div>
         </article>
         <article class="cloud-card" data-reveal>
           <div class="tag">Size 04 &middot; continuous</div>
@@ -2352,6 +2391,7 @@ body.calm #chatPanel{ display:none; }
           <p>The ice-free option. It runs on distilled water and haze fluid, chilling the fog with an onboard system instead of a basket, and it can be topped up while it is running.</p>
           <p>Refilled while it runs, it holds a low layer of atmosphere for as long as you want it there.</p>
           <div class="best"><em>Best for</em>All-night atmosphere, photo and video shoots that need continuous takes, and venues that restrict dry ice on site.</div>
+          <div class="card-acts"><a class="see-floor" href="#floor-stage" aria-label="See a stage in a large room in our footage">See a floor this size</a><a href="/contact">Request this size</a><a class="sms-only" href="sms:+18172107957?&amp;body=Hi%2C%20I%27m%20interested%20in%20the%20Chauvet%20Cumulus%20for%20my%20event.%20Date%3A%20%20Venue%3A%20">Text us about it</a></div>
         </article>
       </div>
       <p class="prose" data-reveal>Only one of these comes to your event. The four exist so that the one we bring is the right one. If you already know which size you want, tell us. Most people describe the room and the moment instead, and we tell them which of the four we would bring and why. That conversation is included in the booking.</p>
@@ -2782,6 +2822,23 @@ body.calm #chatPanel{ display:none; }
 })();
 </script>
 
+<script>
+(function(){
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest && e.target.closest('a.see-floor');
+    if(!a) return;
+    var fig = document.getElementById(a.getAttribute('href').slice(1));
+    if(!fig) return;
+    e.preventDefault();
+    fig.scrollIntoView({behavior:'smooth', block:'center', inline:'center'});
+    document.querySelectorAll('.reel .vid.lit').forEach(function(f){ f.classList.remove('lit'); });
+    fig.classList.add('lit');
+    var v = fig.querySelector('video');
+    if(v){ if(v.preload === 'none'){ v.preload = 'auto'; v.load(); } var p = v.play(); if(p && p.catch){ p.catch(function(){}); } }
+    setTimeout(function(){ fig.classList.remove('lit'); }, 4000);
+  });
+})();
+</script>
   </main>
   <footer>
     <div class="wrap">
@@ -3050,6 +3107,38 @@ body.calm #chatPanel{ display:none; }
         if(menu) menu.focus();
       }
     });
+  });
+})();
+/* Phone links on a computer. A tel: link does nothing on most desktops, and
+   Clarity logged those clicks as dead clicks (28 Oct 2026). With a mouse, a
+   click on any phone link copies the number and shows a short note instead.
+   Touch screens keep tap-to-call. GA4 records the desktop case as
+   contact_method phone_copy and does not send call_tap, so the Google Ads
+   call conversion stays phone taps only. */
+(function(){
+  if(!window.matchMedia || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  var note;
+  function show(msg){
+    if(!note){
+      note = document.createElement('div');
+      note.className = 'tel-note';
+      note.setAttribute('role','status');
+      document.body.appendChild(note);
+    }
+    note.textContent = msg;
+    note.classList.add('on');
+    clearTimeout(note._t);
+    note._t = setTimeout(function(){ note.classList.remove('on'); }, 4000);
+  }
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest && e.target.closest('a[href^="tel:"]');
+    if(!a) return;
+    e.preventDefault();
+    var num = '817-210-7957';
+    var done = function(){ show(num + ' copied. Call or text us anytime.'); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(num).then(done, function(){ show('Call or text us at ' + num + '.'); });
+    } else { show('Call or text us at ' + num + '.'); }
   });
 })();
 </script>

@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AV Equipment Rental in Dallas-Fort Worth | Dallas Event Audio</title>
-<meta name="description" content="AV and DJ equipment rental in Dallas-Fort Worth: sound, lighting, video and effects, delivered, set up, tested and picked up by our insured crew. Since 2001.">
+<title>AV Equipment Rental Dallas-Fort Worth | Sound, Lights, Video</title>
+<meta name="description" content="Speakers, wireless mics, projectors, TVs and lighting for events, delivered, set up and tested by our crew across Dallas-Fort Worth. Quotes within 24 hours.">
 <link rel="canonical" href="https://www.dallaseventaudio.com/">
-<meta property="og:title" content="AV Equipment Rental in Dallas-Fort Worth | Dallas Event Audio">
+<meta property="og:title" content="AV Equipment Rental Dallas-Fort Worth | Sound, Lights, Video">
 <meta property="og:image" content="https://www.dallaseventaudio.com/images/og/dallas-event-audio-og.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://www.dallaseventaudio.com/images/og/dallas-event-audio-og.jpg">
-<meta property="og:description" content="AV and DJ equipment rental in Dallas-Fort Worth: sound, lighting, video and effects, delivered, set up, tested and picked up by our insured crew. Since 2001.">
+<meta property="og:description" content="Speakers, wireless mics, projectors, TVs and lighting for events, delivered, set up and tested by our crew across Dallas-Fort Worth. Quotes within 24 hours.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.dallaseventaudio.com/">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "VideoObject", "name": "Dallas Event Audio: Sound, Lighting, Video and Effects for DFW Events", "description": "Dallas Event Audio has handled sound, lighting, video and special effects for weddings, corporate events, concerts and school events across Dallas-Fort Worth since 2001.", "thumbnailUrl": ["https://i.ytimg.com/vi/UXXZR4QP1Y0/hqdefault.jpg"], "uploadDate": "2026-09-27T19:33:54-07:00", "duration": "PT47S", "embedUrl": "https://www.youtube.com/embed/UXXZR4QP1Y0", "contentUrl": "https://www.youtube.com/watch?v=UXXZR4QP1Y0", "publisher": {"@type": "Organization", "name": "Dallas Event Audio", "url": "https://www.dallaseventaudio.com/"}}</script>
@@ -707,6 +707,12 @@ html{ scroll-behavior:auto; }
 
     var label = (a.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 80);
 
+    /* With a mouse, a phone link copies the number instead of dialing (see the
+       phone script in navdrawer_js), so it is logged as phone_copy and is not
+       a call_tap key event. */
+    if (m === 'phone' && window.matchMedia &&
+        matchMedia('(hover: hover) and (pointer: fine)').matches) m = 'phone_copy';
+
     gtag('event', 'contact_click', {
       contact_method: m,
       contact_target: raw.slice(0, 100),
@@ -1157,6 +1163,13 @@ body.nav-locked{ overflow:hidden; }
 
 /* Removed, not quietened, on the sensory-friendly page. See the note above. */
 body.calm #chatPanel{ display:none; }
+
+/* Desktop phone-link note (see the phone script in navdrawer_js). */
+.tel-note{ position:fixed; left:50%; bottom:28px; transform:translate(-50%,20px); z-index:2147483000;
+  background:var(--bg-1,#111); color:var(--ink,#fff); border:1px solid var(--card-border,rgba(255,255,255,.2));
+  border-radius:12px; padding:12px 18px; font-family:var(--font-body,sans-serif); font-size:.95rem;
+  box-shadow:0 10px 30px rgba(0,0,0,.35); opacity:0; pointer-events:none; transition:opacity .2s, transform .2s; }
+.tel-note.on{ opacity:1; transform:translate(-50%,0); }
 </style>
 </head>
 <body>
@@ -1958,6 +1971,38 @@ body.calm #chatPanel{ display:none; }
         if(menu) menu.focus();
       }
     });
+  });
+})();
+/* Phone links on a computer. A tel: link does nothing on most desktops, and
+   Clarity logged those clicks as dead clicks (28 Oct 2026). With a mouse, a
+   click on any phone link copies the number and shows a short note instead.
+   Touch screens keep tap-to-call. GA4 records the desktop case as
+   contact_method phone_copy and does not send call_tap, so the Google Ads
+   call conversion stays phone taps only. */
+(function(){
+  if(!window.matchMedia || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  var note;
+  function show(msg){
+    if(!note){
+      note = document.createElement('div');
+      note.className = 'tel-note';
+      note.setAttribute('role','status');
+      document.body.appendChild(note);
+    }
+    note.textContent = msg;
+    note.classList.add('on');
+    clearTimeout(note._t);
+    note._t = setTimeout(function(){ note.classList.remove('on'); }, 4000);
+  }
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest && e.target.closest('a[href^="tel:"]');
+    if(!a) return;
+    e.preventDefault();
+    var num = '817-210-7957';
+    var done = function(){ show(num + ' copied. Call or text us anytime.'); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(num).then(done, function(){ show('Call or text us at ' + num + '.'); });
+    } else { show('Call or text us at ' + num + '.'); }
   });
 })();
 </script>

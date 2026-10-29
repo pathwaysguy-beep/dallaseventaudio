@@ -734,6 +734,14 @@ columns, so `.vtags` became a quiet second line under each venue name: plain
 text in `--dim`, sentence case, separated by middle dots, with Clouds in the
 accent color (`.vt-clouds`). Same tokens and order as bundle 103.
 
+## Phone links, clouds, TV 55 and CDJ quick quote (bundle 108, 28 October 2026)
+
+- Shared chrome (tools/chrome/navdrawer_js.html, chrome.css, analytics.html): with a mouse (hover:hover and pointer:fine), clicking any tel: link copies 817-210-7957 and shows a short note instead of dialing. Touch screens keep tap-to-call. GA4 logs the desktop click as contact_click with contact_method phone_copy and does NOT send call_tap, so the Google Ads call conversion stays phone taps only. GA4 had 0 desktop call_tap in 90 days; Clarity logged desktop phone clicks as dead clicks. davidsbridalfrisco is outside the chrome sync and unchanged.
+- Homepage title and description test, approved 28 Oct; compare Search Console CTR about 25 Nov against the 4 weeks before. Title "AV Equipment Rental Dallas-Fort Worth | Sound, Lights, Video", description names speakers, wireless mics, projectors, TVs and lighting, delivered, set up and tested, quotes within 24 hours. Old title "AV Equipment Rental in Dallas-Fort Worth | Dallas Event Audio".
+- /tv-rental-dallas: 55 inch TV added (meta and og description, Service description, OfferCatalog, the lineup sentence, hero spec line, a 55 inch sizing card, and the sizing FAQ in both the visible answer and FAQPage). Steve owns 32, 43, 55 and 65; no larger sizes.
+- /rent-dancing-on-the-clouds-low-lyin, from Clarity (28 Oct: 41% of mobile views left without scrolling; taps on the size card text; desktop phone dead clicks): on phones at 700px and under the dimmed hero film is removed before it loads and a clear photo of the effect (the hero poster) sits under the H1, with Request a Quote and Text us (sms with a prefilled body) and a call line. Each of the four size cards gets "See a floor this size" (scrolls the reel to the clip with the closest floor and plays it: Junior to Barn venue #floor-small, Nimbus to Grand ballroom #floor-standard, Entour Ice to Uplit room #floor-wide, Cumulus to Live band #floor-stage), "Request this size" (/contact) and, on touch screens, "Text us about it" naming the machine. The wording says a floor this size, not that machine; which machine ran in each clip is not known. The reel and fog film videos already lazy-load (preload none plus IntersectionObserver).
+- /rent-sound-equipment/cdj-rental-dallas: "Text us your gear list for a quick quote" (sms, phones only) under the mobile CTAs, and a scrolling strip of six of our own gear photos (480w webp) in the hero.
+
 ## Review count (bundle 107, 28 October 2026)
 
 Steve, 28 October: the headline review figure is 4.9 across 187 reviews,
