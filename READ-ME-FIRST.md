@@ -734,6 +734,22 @@ columns, so `.vtags` became a quiet second line under each venue name: plain
 text in `--dim`, sentence case, separated by middle dots, with Clouds in the
 accent color (`.vt-clouds`). Same tokens and order as bundle 103.
 
+## Speed pass two (bundle 110, 28 October 2026)
+
+Live PageSpeed mobile on 28 October: home 73, projector 75, clouds 69 (contact
+97). The lab LCP gap came from large files requested before the first paint,
+which the simulated slow phone counts against the page. Clouds page: the hero
+clip sources are data-src and attach only above 700px wide after the load
+event (phones never fetch the 464 KB clip; the inline script that removed the
+hero film on phones now also does this), and the closing fog clip lost its
+autoplay attribute (the page's own observer plays it when 20% visible; about
+376 KB no longer loads up front). Projector page: the explainer video has no
+poster attribute in the HTML; the existing script sets the portrait or
+landscape poster, so only one poster loads. Local Lighthouse mobile: home 96,
+projector 95 (was 90), clouds 91; clouds mobile page weight 1,180 KB to 348 KB.
+Cloudflare injects email-decode.min.js (Email Obfuscation) and the Web
+Analytics beacon on every page; both are Steve's dashboard settings.
+
 ## Phone links, clouds, TV 55 and CDJ quick quote (bundle 108, 28 October 2026)
 
 - Shared chrome (tools/chrome/navdrawer_js.html, chrome.css, analytics.html): with a mouse (hover:hover and pointer:fine), clicking any tel: link copies 817-210-7957 and shows a short note instead of dialing. Touch screens keep tap-to-call. GA4 logs the desktop click as contact_click with contact_method phone_copy and does NOT send call_tap, so the Google Ads call conversion stays phone taps only. GA4 had 0 desktop call_tap in 90 days; Clarity logged desktop phone clicks as dead clicks. davidsbridalfrisco is outside the chrome sync and unchanged.

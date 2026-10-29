@@ -2210,8 +2210,8 @@ body.calm #chatPanel{ display:none; }
 <div class="cloudpage">
 
   <section class="hero hero-page">
-    <div class="herofilm" aria-hidden="true"><video autoplay muted loop playsinline preload="metadata" poster="/images/dancing-on-the-clouds-first-dance-hero-dallas-poster.jpg"><source src="/videos/dancing-on-the-clouds-first-dance-hero-dallas.webm" type="video/webm"><source src="/videos/dancing-on-the-clouds-first-dance-hero-dallas.mp4" type="video/mp4"></video></div>
-    <script>if(window.matchMedia&&matchMedia('(max-width:700px)').matches){var hf=document.querySelector('.herofilm');if(hf){hf.parentNode.removeChild(hf);}}</script>
+    <div class="herofilm" aria-hidden="true"><video autoplay muted loop playsinline preload="metadata" poster="/images/dancing-on-the-clouds-first-dance-hero-dallas-poster.jpg"><source data-src="/videos/dancing-on-the-clouds-first-dance-hero-dallas.webm" type="video/webm"><source data-src="/videos/dancing-on-the-clouds-first-dance-hero-dallas.mp4" type="video/mp4"></video></div>
+    <script>/* Bundle 110: the hero clip (about 460 KB) is attached only on wider screens, after the page has loaded, so phones never fetch it and it stays out of the first paint. */(function(){var hf=document.querySelector('.herofilm');if(!hf)return;if(window.matchMedia&&matchMedia('(max-width:700px)').matches){hf.parentNode.removeChild(hf);return;}function go(){var v=hf.querySelector('video');if(!v)return;[].forEach.call(v.querySelectorAll('source[data-src]'),function(x){x.src=x.getAttribute('data-src');x.removeAttribute('data-src');});v.load();var p=v.play();if(p&&p.catch)p.catch(function(){});}if(document.readyState==='complete')go();else window.addEventListener('load',go);})();</script>
     <div class="beams" aria-hidden="true"><i></i><i></i></div>
     <div class="fogbed" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
     <div class="floorline" aria-hidden="true"></div>
@@ -2343,7 +2343,7 @@ body.calm #chatPanel{ display:none; }
   </section>
 
   <section class="fogfilm" id="film" aria-label="Low lying fog rolling across a dance floor">
-    <video autoplay muted loop playsinline preload="none" data-poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-089acd.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-47fbd1.mp4" type="video/mp4"></video>
+    <video muted loop playsinline preload="none" data-poster="/images/dancing-on-the-clouds-dry-ice-dallas-poster-089acd.jpg"><source src="/videos/dancing-on-the-clouds-dry-ice-dallas-47fbd1.mp4" type="video/mp4"></video>
     <div class="wrap">
       <div class="filmcap">
         <span class="kicker">Low lying fog, running</span>
