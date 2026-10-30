@@ -734,6 +734,15 @@ columns, so `.vtags` became a quiet second line under each venue name: plain
 text in `--dim`, sentence case, separated by middle dots, with Clouds in the
 accent color (`.vt-clouds`). Same tokens and order as bundle 103.
 
+## CDJ gear photos link to the lineup (bundle 113, 29 October 2026)
+
+Clarity showed phone visitors tapping the bundle 108 gear photo strip on
+/rent-sound-equipment/cdj-rental-dallas. Each strip photo now links to its
+card in the lineup (#unit-cdj-3000, #unit-djm-900nxs2, #unit-djm-a9,
+#unit-xdj-az, #unit-xdj-rx3, #unit-ddj-flx6). The card lands just under the
+header (scroll-margin-top 104px) and its border glows for about two seconds
+(:target animation, a plain outline with reduced motion).
+
 ## Phone contact layout and corporate title (bundle 112, 29 October 2026)
 
 Clarity (7 days to 28 Oct) showed 58% of phone visitors leaving /contact
