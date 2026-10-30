@@ -734,6 +734,24 @@ columns, so `.vtags` became a quiet second line under each venue name: plain
 text in `--dim`, sentence case, separated by middle dots, with Clouds in the
 accent color (`.vt-clouds`). Same tokens and order as bundle 103.
 
+## Phone contact layout and corporate title (bundle 112, 29 October 2026)
+
+Clarity (7 days to 28 Oct) showed 58% of phone visitors leaving /contact
+before the form, which started about three screens down. At 620px and below
+the call, text and email cards become one line each (notes hidden), the four
+review badges a 2 by 2 grid, the proof note is hidden, and the #quote section
+loses its intro paragraph and some top padding. The form card now starts at
+about 1,410 px on a 390 px phone (was 2,494). Desktop is unchanged.
+/corporate-events: about 900 impressions a week and no clicks since 27 Sep,
+with Dallas long-tail queries already at positions 5 to 10. Title
+"Corporate AV Services Dallas-Fort Worth | Dallas Event Audio" became
+"Corporate Event AV Services in Dallas | Dallas Event Audio", and the
+description now names conference sound, presenter mics on AI De-Feedback,
+projection and live streaming. The H1 still says Dallas-Fort Worth. Check
+Search Console for the page about 12 Nov and 26 Nov against the weekly
+baseline in Steve's status file. Projector and audio services already show
+Request a Quote and Call in the first phone screen, so they were left alone.
+
 ## Tag test switch (bundle 111, 29 October 2026)
 
 PageSpeed on dallaseventaudio.pages.dev (no tags) scored projector 97 and

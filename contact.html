@@ -543,6 +543,30 @@ a.proof-badge:focus-visible{ outline:2px solid var(--a1); outline-offset:3px; }
 a.proof-badge .proof-meta{ flex:1 1 auto; }
 a.proof-badge .go{ flex:0 0 auto; font-size:1rem; color:var(--dim); opacity:.55; transition:.22s; }
 a.proof-badge:hover .go{ opacity:1; color:var(--a1); transform:translateX(2px); }
+/* Bundle 112: on phones the hero ran about two screens before the form, and
+   Clarity showed 58% of phone visitors gone by then. Call, text and email
+   become one line each, the review badges a 2 by 2 grid, and the proof note
+   stays on wider screens, so the form starts on the second screen. */
+@media (max-width:620px){
+  .reach-grid{ grid-template-columns:1fr; gap:8px; margin-top:26px; }
+  .reach-card{ flex-direction:row; align-items:baseline; gap:12px; padding:13px 16px; border-radius:12px; }
+  .reach-card .lbl{ margin-bottom:0; flex:0 0 3.6em; }
+  .reach-card .val{ font-size:1.02rem; }
+  .reach-card .val-email{ font-size:.92rem; }
+  .reach-card .note{ display:none; }
+  .proof-row{ grid-template-columns:1fr 1fr; gap:8px; margin-top:16px; margin-bottom:18px; }
+  .proof-badge{ padding:10px 12px; gap:10px; }
+  .proof-mark{ width:30px; height:30px; flex:0 0 30px; font-size:.95rem; border-radius:8px; }
+  .proof-mark.w{ font-size:.72rem; }
+  .proof-meta .rate{ font-size:1rem; }
+  .proof-meta .rate .s{ font-size:.66rem; letter-spacing:0; }
+  .proof-meta .cnt{ font-size:.76rem; line-height:1.3; }
+  a.proof-badge .go{ display:none; }
+  .proof-note{ display:none; }
+  #quote{ padding-top:40px; }
+  #quote .section-head{ margin-bottom:16px; }
+  #quote .section-head p{ display:none; }
+}
 .proof-note{
     margin-top:18px; font-size:.85rem; color:var(--dim); line-height:1.65;
     font-family:ui-monospace,SFMono-Regular,Menlo,monospace; opacity:.72; max-width:760px;
