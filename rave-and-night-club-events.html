@@ -994,7 +994,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
   function gtag() { window.dataLayer.push(arguments); }
   window.gtag = gtag;
 
-  if (PROD.indexOf(location.hostname) === -1) return;
+  if (PROD.indexOf(location.hostname) === -1 || /[?&]notags=1/.test(location.search)) return;  /* ?notags=1: test-only switch (bundle 111) for PageSpeed runs without the tags */
 
   gtag('js', new Date());
   gtag('config', GA4);
@@ -1069,7 +1069,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
    Do not write literal tag syntax in this comment. */
 (function () {
   var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
-  if (PROD.indexOf(location.hostname) === -1) return;
+  if (PROD.indexOf(location.hostname) === -1 || /[?&]notags=1/.test(location.search)) return;  /* ?notags=1: test-only switch (bundle 111) for PageSpeed runs without the tags */
 
   var METHOD = { 'tel:': 'phone', 'mailto:': 'email', 'sms:': 'sms' };
 
@@ -1154,7 +1154,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
     n.push = n; n.loaded = true; n.version = '2.0'; n.queue = [];
   }
 
-  if (PROD.indexOf(location.hostname) === -1) return;
+  if (PROD.indexOf(location.hostname) === -1 || /[?&]notags=1/.test(location.search)) return;  /* ?notags=1: test-only switch (bundle 111) for PageSpeed runs without the tags */
 
   /* init and PageView queue right away so that any Lead the thank-you page
      queues later sits behind init in the queue, whenever the script lands. */
@@ -1194,7 +1194,7 @@ a.chip::after{ content:' \2192'; opacity:.55; }
 (function () {
   var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
   var ID = 'z0idn3mm8n';
-  if (PROD.indexOf(location.hostname) === -1) return;
+  if (PROD.indexOf(location.hostname) === -1 || /[?&]notags=1/.test(location.search)) return;  /* ?notags=1: test-only switch (bundle 111) for PageSpeed runs without the tags */
   window.clarity = window.clarity || function () {
     (window.clarity.q = window.clarity.q || []).push(arguments);
   };

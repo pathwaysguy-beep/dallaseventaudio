@@ -734,6 +734,16 @@ columns, so `.vtags` became a quiet second line under each venue name: plain
 text in `--dim`, sentence case, separated by middle dots, with Clouds in the
 accent color (`.vt-clouds`). Same tokens and order as bundle 103.
 
+## Tag test switch (bundle 111, 29 October 2026)
+
+PageSpeed on dallaseventaudio.pages.dev (no tags) scored projector 97 and
+home 99 while www scored 63 and 76 with the same code. To split the tags from
+Cloudflare's own additions, every hostname guard in
+tools/chrome/analytics.html (GA4 and Ads, the Ads conversion helper, the Meta
+pixel, Clarity) also returns when the URL carries ?notags=1. Only for testing:
+run PageSpeed on a www URL with ?notags=1 and compare. Normal visitors never
+have that parameter. Remove it once the speed question is settled.
+
 ## Speed pass two (bundle 110, 28 October 2026)
 
 Live PageSpeed mobile on 28 October: home 73, projector 75, clouds 69 (contact
