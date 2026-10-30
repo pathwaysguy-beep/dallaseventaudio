@@ -734,6 +734,20 @@ columns, so `.vtags` became a quiet second line under each venue name: plain
 text in `--dim`, sentence case, separated by middle dots, with Clouds in the
 accent color (`.vt-clouds`). Same tokens and order as bundle 103.
 
+## "Players" becomes CDJs (bundle 114, 29 October 2026)
+
+Steve, 29 October: nobody in the DJ world says "players" or "media players".
+Every DJ-gear use now says CDJs, or CDJs and DJ controllers where both are
+meant, on the CDJ page (visible copy, alt text, FAQ answers and their
+FAQPage schema, Service schema; the category heading is now "CDJs"), the
+private party DJ rental post, the homepage, the rave page, the sound
+equipment page, the college page and the concierge prompt (needs
+`npx wrangler deploy`). Musicians stay "players" (band and live music
+pages, "the guitar player"), as do image filenames such as
+cdj-rental-dallas-media-players-*. The SEO gate flags "players" 18 to 0 on
+the CDJ page; that is intended, and Search Console shows 3 impressions in 90
+days for any query with "player". Use CDJs in new DJ copy.
+
 ## CDJ gear photos link to the lineup (bundle 113, 29 October 2026)
 
 Clarity showed phone visitors tapping the bundle 108 gear photo strip on

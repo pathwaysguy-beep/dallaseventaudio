@@ -6,9 +6,9 @@ Every page and post on https://www.dallaseventaudio.com, in full. The short inde
 
 ---
 
-Page: AV Equipment Rental in Dallas-Fort Worth
+Page: AV Equipment Rental Dallas-Fort Worth | Sound, Lights, Video
 URL: https://www.dallaseventaudio.com
-Summary: AV and DJ equipment rental in Dallas-Fort Worth: sound, lighting, video and effects, delivered, set up, tested and picked up by our insured crew. Since 2001.
+Summary: Speakers, wireless mics, projectors, TVs and lighting for events, delivered, set up and tested by our crew across Dallas-Fort Worth. Quotes within 24 hours.
 
 Dallas Event Audio · Full-Service AV Production in Dallas-Fort Worth
 # Your Event, Fully Produced.
@@ -60,7 +60,7 @@ DJ Steve and our roster, booked with the sound, microphones and lighting from th
 Explore DJ services →
 🎛️
 ### DJ Equipment Rental
-DJ equipment rental in Dallas-Fort Worth: media players, mixers, controllers, DJ booths, speakers and subwoofers, delivered and set up by a technician.
+DJ equipment rental in Dallas-Fort Worth: CDJs, DJ controllers, mixers, DJ booths, speakers and subwoofers, delivered and set up by a technician.
 Explore DJ equipment rental →
 🎤
 ### Microphone Rental
@@ -155,7 +155,7 @@ We cover the whole Dallas-Fort Worth Metroplex: Dallas, Fort Worth, Arlington, P
 What is included in a DJ booking?
 The DJ, the sound system, the microphones and the dance-floor lighting, delivered, set up, line-checked and run by our technician from load-in to breakdown. The person and the gear come together, on one booking. The detail is on the DJ services page.
 Do you rent equipment without a DJ?
-Yes. If you have already hired your DJ, or the host is running the music themselves, we supply the rig on its own: media players, mixer, controller, DJ booth, speakers and subwoofers. It still arrives delivered, built and line-checked by our technician rather than handed over at a counter. See DJ equipment rental .
+Yes. If you have already hired your DJ, or the host is running the music themselves, we supply the rig on its own: CDJs, DJ controller, mixer, DJ booth, speakers and subwoofers. It still arrives delivered, built and line-checked by our technician rather than handed over at a counter. See DJ equipment rental .
 Do you offer DJ equipment rental in Dallas?
 We do, across the whole Metroplex. DJ equipment rental with us means the gear is delivered, set up, sound checked with your DJ and picked up after the event. Our crew brings it in, rigs it, tests it and comes back for it at the end of the night. Full list of what you can rent is on the DJ equipment rental page, and the wider audio inventory is on sound equipment rental .
 How far in advance should I book?
@@ -784,9 +784,9 @@ See our work
 
 ---
 
-Page: Corporate AV Services Dallas-Fort Worth
+Page: Corporate Event AV Services in Dallas
 URL: https://www.dallaseventaudio.com/corporate-events
-Summary: Corporate AV services in Dallas-Fort Worth: conference AV, general sessions, breakouts and galas, set up and run by our own AV technicians on site.
+Summary: Corporate event AV in Dallas-Fort Worth: conference sound, presenter mics on AI De-Feedback, projection and live streaming, run by our own technicians on site.
 
 Home / Corporate Events
 # Corporate AV services in Dallas-Fort Worth, from the general session to the last breakout room.
@@ -1555,7 +1555,7 @@ Rig PA · subwoofers · booth feed · booth monitor · our technician
 Plenty of schools already have their DJ. A student who runs the campus radio station, a Greek chapter's usual guy, a professional the alumni office has used for years. We bring the system and the technician and hand them a clean feed at the booth, with a monitor so they can hear what the floor is hearing. Send us what they play on and we will confirm the connections before the date.
 Best for Student DJs, chapter DJs, galas where the DJ is already booked.
 ### Not sure which one you need?
-Send the date, the space, the head count and whether you already have a DJ. We will tell you which setup fits and quote it. Our DJ services page covers how we work generally, and the CDJ rental page has the players and mixers a booked DJ is likely to ask for.
+Send the date, the space, the head count and whether you already have a DJ. We will tell you which setup fits and quote it. Our DJ services page covers how we work generally, and the CDJ rental page has the CDJs and mixers a booked DJ is likely to ask for.
 Bring Your Own DJ
 ## Sound setups for your school's own DJ
 This is a common booking and it deserves saying plainly: you can hire us for the sound alone. The school books the DJ, we build the system, and the two meet at the booth. It is the same arrangement we run at weddings where the couple already has someone, and it works the same way on a campus.
@@ -1585,8 +1585,8 @@ Rig Handheld · lapel · headset · podium · AI-powered De-Feedback
 Handhelds for hosts and performers, lapel or headset for a dean or a principal who moves, and a podium microphone for the name reading. All of our wireless microphone rentals run an AI-powered De-Feedback system, so a presenter can step in front of the speakers and stay intelligible. That system comes with every microphone we send out, so the microphone is ready as soon as it is placed and stays clean once the room fills. We put fresh batteries in on our own schedule, and we set the level for every microphone with a person standing where the speaker will stand.
 05
 ### DJ booth and playback
-Rig CDJ players · mixer · booth monitor · laptop input
-Whether the DJ is ours or yours, the booth is the same: CDJ players and a mixer, a monitor, and an input for a laptop or a phone when the show is running off a playlist and a running order. For talent shows we build the playback so the operator moves to the next track the moment the last act clears.
+Rig CDJs · mixer · booth monitor · laptop input
+Whether the DJ is ours or yours, the booth is the same: CDJs and a mixer, a monitor, and an input for a laptop or a phone when the show is running off a playlist and a running order. For talent shows we build the playback so the operator moves to the next track the moment the last act clears.
 06
 ### A technician for the whole event
 Rig On site AV technician · through setup, show and strike
@@ -1761,8 +1761,8 @@ Rig Line array speaker system · on stands or stacked with fills
 Once a room is deep, point source boxes make the front too loud before the back is loud enough. A line array speaker system keeps the level closer to even from the barricade to the back wall, which is what lets you run a warehouse rave at club volume while the first thirty people still enjoy it. Fills cover the corners beyond the array.
 03
 ### DJ booth and playback
-Rig CDJ players · DJM mixer · booth monitors · facade
-Guest DJs turn up with a USB stick and an expectation. We carry the Pioneer players and mixers touring DJs ask for, plus booth monitors loud enough to beatmatch against a room that is already moving, and a facade when the booth is part of how the night looks. Send us the rider and we will confirm what we have against it before the date.
+Rig CDJs · DJM mixer · booth monitors · facade
+Guest DJs turn up with a USB stick and an expectation. We carry the Pioneer CDJs and mixers touring DJs ask for, plus booth monitors loud enough to beatmatch against a room that is already moving, and a facade when the booth is part of how the night looks. Send us the rider and we will confirm what we have against it before the date.
 04
 ### Power and the room
 Rig Power path confirmed in advance · distro run by our crew
@@ -1804,7 +1804,7 @@ Music
 ## Booking a rave DJ in Dallas
 Some nights arrive with the talent already booked and only need a rig underneath them. Others need the music too. We do both, and the system is the same either way, so the decision is purely about who is playing.
 Our DJs work club and underground rooms across Dallas-Fort Worth and read a floor for what it is rather than for what the tracklist said. House, techno, bass and open format are all covered, and a warmup set that builds into a headliner is a different job from a peak time set, which is worth saying out loud when you book. If you are searching for an underground rave DJ in Dallas, tell us the room and the genre and we will put the right person in the booth.
-When the talent is yours, send the rider. We confirm the players, the mixer and the monitor situation in advance, and our engineer handles the changeovers so the floor hears one continuous night. Full DJ services cover the rest.
+When the talent is yours, send the rider. We confirm the CDJs, the mixer and the monitor situation in advance, and our engineer handles the changeovers so the floor hears one continuous night. Full DJ services cover the rest.
 DJ services
 Live music and bands
 Effects
@@ -1875,7 +1875,7 @@ Yes, and it comes with our crew. We deliver the system, stack it or stand it for
 How much sound does a rave need compared to a normal party?
 More low end and more headroom, held for longer. Electronic music puts its energy where a party rig runs out, so the subwoofer count and the amplifier headroom go up before the number of tops does. Room depth matters as much as head count, because a deep room needs a line array to stay even from front to back. Send us the venue and the genre and we will size it.
 Do you supply a rave DJ, or only the equipment?
-Both. We book DJs who work club and underground rooms across Dallas-Fort Worth in house, house, techno, bass and open format included. If your talent is already booked we run the system underneath them instead, take the rider in advance and confirm the players, mixer and booth monitors against it before the date.
+Both. We book DJs who work club and underground rooms across Dallas-Fort Worth in house, house, techno, bass and open format included. If your talent is already booked we run the system underneath them instead, take the rider in advance and confirm the CDJs, mixer and booth monitors against it before the date.
 Can you add lasers and rave visuals?
 Yes. Lasers, moving lights, strobes, haze and projected or LED visuals all get quoted on the same job as the audio and set up by the same crew. Lasers need venue approval, so we start that conversation as soon as the date is held rather than in the week of the show.
 Do you work with night clubs that already have a house system?
@@ -2343,7 +2343,7 @@ Long, tall or loud rooms: festivals, raves, night clubs, large-venue general ses
 Line array speaker systems
 06
 ### DJ equipment
-Media players, DJ mixers, all-in-one controllers, booth monitors and booth facades, for people who have already hired a DJ or who are the DJ. Rented on its own or, far more often, underneath a system we are already supplying. If your DJ has a rider, send it and we will match it.
+CDJs, DJ mixers, all-in-one DJ controllers, booth monitors and booth facades, for people who have already hired a DJ or who are the DJ. Rented on its own or, far more often, underneath a system we are already supplying. If your DJ has a rider, send it and we will match it.
 CDJ & DJ equipment rental
 Hire a DJ instead
 ### Everything connects to everything else
@@ -2412,7 +2412,7 @@ Projection & screens
 Ask about an AV rental
 DJ Equipment Rental Dallas
 ## DJ equipment rental in Dallas
-You can rent DJ equipment from us as a booth in its own right: media players, a DJ mixer, an all-in-one controller if that is what your DJ prefers, booth monitors so the person playing can hear the room, and a facade to tidy the front of it. Three kinds of people ask for a DJ setup rental. A DJ who flew in with a laptop or a thumb drive and a pair of headphones, a client whose DJ works off house equipment, and a host who is running the music from a laptop themselves. The traveling DJs are the ones we see most: they walk in, find the booth built and line-checked, plug in, sound check with our crew, and tell us afterward how good the system sounded.
+You can rent DJ equipment from us as a booth in its own right: CDJs, a DJ mixer, an all-in-one DJ controller if that is what your DJ prefers, booth monitors so the person playing can hear the room, and a facade to tidy the front of it. Three kinds of people ask for a DJ setup rental. A DJ who flew in with a laptop or a thumb drive and a pair of headphones, a client whose DJ works off house equipment, and a host who is running the music from a laptop themselves. The traveling DJs are the ones we see most: they walk in, find the booth built and line-checked, plug in, sound check with our crew, and tell us afterward how good the system sounded.
 If your DJ sent a rider, send it to us with the inquiry. Matching a rider is straightforward when we see it early and awkward when it arrives the week of the event, and it is usually the difference between a DJ walking up to familiar gear and a DJ improvising in front of your guests.
 What sits underneath the DJ gear rental matters more than the gear itself. A controller feeding an undersized PA is the common way a dance floor falls flat, so DJ sound equipment rental here is quoted with the speakers and the subwoofers that suit the room. Our BassBoss subwoofer rentals are what we put under most dance floors. Full detail on the booth itself is on the CDJ and DJ equipment rental page, and if you would rather we brought the DJ too, that is our DJ service .
 CDJ rental Dallas
@@ -2443,7 +2443,7 @@ General sessions, breakouts, panels and awards nights, with presentation audio b
 ### Raves & night clubs
 Line array, serious subwoofer arrays, DJ booth and lighting as a single production package.
 ### DJ equipment rental
-Media players, mixers, controllers and booths, for the DJ you have already hired or for you.
+CDJs, DJ controllers, mixers and booths, for the DJ you have already hired or for you.
 ### Full audio services
 Everything the company does on the sound side, including production work that goes beyond a rental.
 ### Lighting & effects
@@ -2492,7 +2492,7 @@ Yes. Every system we build accepts professional XLR audio connections, laptop an
 Do you rent audio visual equipment as well as sound?
 Yes. Most audio visual rentals we quote are one booking: speakers, microphones and a mixer for the audio, projection or a screen for the visuals, and an AV technician to run all of it on the day if you would like one. Dallas Event Audio is an event AV rental company, so we bring the equipment to your venue, build it, sound check it and take it away again. Permanent installation and building integration are a different trade, and we leave those to the firms that do them full time.
 Can I rent DJ equipment without booking a DJ?
-Yes. You can rent a DJ setup on its own: media players, a DJ mixer or an all-in-one controller, booth monitors and a facade, with the speakers and subwoofers that suit the room underneath it. It arrives delivered, set up and tuned by our crew like everything else here, we sound check it with your DJ, and we pick it up after the event. If your DJ sent a rider, send it with the inquiry and we will match the gear to it.
+Yes. You can rent a DJ setup on its own: CDJs, a DJ mixer or an all-in-one DJ controller, booth monitors and a facade, with the speakers and subwoofers that suit the room underneath it. It arrives delivered, set up and tuned by our crew like everything else here, we sound check it with your DJ, and we pick it up after the event. If your DJ sent a rider, send it with the inquiry and we will match the gear to it.
 Do you provide corporate AV sound rentals?
 Yes: conferences, business meetings, training sessions, panel discussions, seminars, product launches and company parties. Corporate work is judged on intelligibility rather than impact, so it is built around podium and lapel microphones, clean program and laptop audio and distributed coverage. Need extra low end for the evening half of the event? Ask about our BassBoss subwoofer rentals.
 Can I rent wireless microphones on their own?
@@ -5356,11 +5356,13 @@ Page: Dancing on the Clouds, Dry Ice Fog Rental
 URL: https://www.dallaseventaudio.com/rent-dancing-on-the-clouds-low-lyin
 Summary: Dry ice and low lying fog machine rental in Dallas-Fort Worth. Four sizes of cloud, delivered and run by our on-site technician. Dancing on the clouds, done right.
 
+/* Bundle 110: the hero clip (about 460 KB) is attached only on wider screens, after the page has loaded, so phones never fetch it and it stays out of the first paint. */(function(){var hf=document.querySelector('.herofilm');if(!hf)return;if(window.matchMedia&&matchMedia('(max-width:700px)').matches){hf.parentNode.removeChild(hf);return;}function go(){var v=hf.querySelector('video');if(!v)return;[].forEach.call(v.querySelectorAll('source[data-src]'),function(x){x.src=x.getAttribute('data-src');x.removeAttribute('data-src');});v.load();var p=v.play();if(p&&p.catch)p.catch(function(){});}if(document.readyState==='complete')go();else window.addEventListener('load',go);})();
 Home / Lighting Services / Dry Ice & Low Lying Fog
 # Dancing on the clouds and dry ice low lying fog rental in Dallas-Fort Worth
 Chauvet Nimbus · Chauvet Nimbus Jr · Chauvet DJ Cumulus · ADJ Entour Ice
 Request a Quote
-Call 817-210-7957
+Text us
+Or call 817-210-7957
 Low lying fog for your wedding first dance, the dancing on the clouds effect, rented and run by our technician across Dallas-Fort Worth. The dry ice cloud stays flat on the dance floor, covers your feet without rising into the photos and lands on the first beat of your song. We own four machine sizes and bring the one your floor needs.
 Request a Quote
 Call 817-210-7957
@@ -5425,21 +5427,25 @@ Size 01 · 8 lb load
 The compact dry ice machine. Small enough to tuck beside a sweetheart table or at the edge of a chapel aisle where every inch counts, and quiet enough to sit inside a ceremony space.
 An 8 lb basket is built for one defining moment, a first dance, a ceremony exit, a single reveal, done properly and at full output rather than stretched thin.
 Best for Intimate floors, small chapels, tight reception rooms, and any venue where the machine has to disappear into the room.
+See a floor this size Request this size Text us about it
 Size 02 · 12 lb load
 ### Nimbus
 The workhorse, and what most of our weddings book. Half again the ice capacity of the Junior, which in practice is the difference between covering a song and covering a sequence.
 The longer hold is what lets it carry back-to-back dances, a first dance straight into a father-daughter dance, with the cloud still full through the end of the second one.
 Best for Standard reception dance floors, first dance into parent dances, and most Dallas-Fort Worth wedding venues.
+See a floor this size Request this size Text us about it
 Size 03 · 30 lb load · DMX
 ### ADJ Entour Ice
 The largest ice load we carry and the only machine in the fleet on DMX control, which means it fires from the lighting console on a programmed cue rather than from someone reaching for a switch at the back of the room.
 That matters when the cue has to land inside a sequence, house lights down, spot up, cloud out, doors open. The timing is written into the show rather than reacted to.
 Best for Ballrooms, long grand entrance walks, and corporate reveals where the effect is part of a lighting cue stack.
+See a floor this size Request this size Text us about it
 Size 04 · continuous
 ### Chauvet Cumulus
 The ice-free option. It runs on distilled water and haze fluid, chilling the fog with an onboard system instead of a basket, and it can be topped up while it is running.
 Refilled while it runs, it holds a low layer of atmosphere for as long as you want it there.
 Best for All-night atmosphere, photo and video shoots that need continuous takes, and venues that restrict dry ice on site.
+See a floor this size Request this size Text us about it
 Only one of these comes to your event. The four exist so that the one we bring is the right one. If you already know which size you want, tell us. Most people describe the room and the moment instead, and we tell them which of the four we would bring and why. That conversation is included in the booking.
 Low lying fog machine rental · Dallas-Fort Worth
 ## Low lying fog and dry ice fog machine rental
@@ -5702,6 +5708,21 @@ try{ v.pause(); }catch(err){}
 });
 }, {threshold: 0.2});
 vids.forEach(function(v){ vo.observe(v); });
+})();
+(function(){
+document.addEventListener('click', function(e){
+var a = e.target && e.target.closest && e.target.closest('a.see-floor');
+if(!a) return;
+var fig = document.getElementById(a.getAttribute('href').slice(1));
+if(!fig) return;
+e.preventDefault();
+fig.scrollIntoView({behavior:'smooth', block:'center', inline:'center'});
+document.querySelectorAll('.reel .vid.lit').forEach(function(f){ f.classList.remove('lit'); });
+fig.classList.add('lit');
+var v = fig.querySelector('video');
+if(v){ if(v.preload === 'none'){ v.preload = 'auto'; v.load(); } var p = v.play(); if(p && p.catch){ p.catch(function(){}); } }
+setTimeout(function(){ fig.classList.remove('lit'); }, 4000);
+});
 })();
 
 ---
@@ -6094,7 +6115,7 @@ Real DFW events we've run
 
 Page: TV Rental Dallas | TVs on Stands
 URL: https://www.dallaseventaudio.com/tv-rental-dallas
-Summary: TV rental in Dallas-Fort Worth. 32, 43 and 65 inch TVs on floor stands and confidence monitors for events, delivered, set up and picked up. Request a quote today.
+Summary: TV rental Dallas-Fort Worth. 32, 43, 55 and 65 inch TVs on floor stands and confidence monitors for events, delivered, set up and picked up. Request a quote today.
 
 Home / Photo and Video / TV Rental
 # TV rental in Dallas-Fort Worth: on a stand, delivered and set up.
@@ -6114,8 +6135,8 @@ Delivery, stand, cabling, testing and pickup on every rental
 TV Rental Dallas · TV Stand Rental · Confidence Monitor Rental · 65 Inch TV Rental · Trade Show TV Stand · Breakout Rooms · Delivered And Set Up ·
 The short version
 ## TV rental on a stand, in three sizes
-Sizes 32 in · 43 in · 65 in · rolling floor stands
-Most people searching for a TV rental in Dallas need a screen that stands on its own, works with the lights on, and plays whatever is on their laptop. That is this rental. We carry 32, 43 and 65 inch flat panel televisions, each on a rolling floor stand with the mount, the power and the cable already dressed, so the TV stands wherever the room needs it, on its own footprint.
+Sizes 32 in · 43 in · 55 in · 65 in · rolling floor stands
+Most people searching for a TV rental in Dallas need a screen that stands on its own, works with the lights on, and plays whatever is on their laptop. That is this rental. We carry 32, 43, 55 and 65 inch flat panel televisions, each on a rolling floor stand with the mount, the power and the cable already dressed, so the TV stands wherever the room needs it, on its own footprint.
 Every setup goes out the same way. Our crew delivers it, stands it, connects your laptop or a media player with your slideshow loaded, checks the picture from where your guests will see it, and comes back for it when the event is over. The photo beside this is a 65 inch TV on a stand in a Dallas private dining room, a slideshow running between two speakers before the guests sat down. We carry it in, set it up and carry it back out.
 Corporate AV production
 Projector and screen rental
@@ -6131,6 +6152,9 @@ Registration desks, welcome loops, menu boards, directional signage and a sponso
 ### 43 inch TVCocktail hour and small rooms
 Rig 43 in TV · rolling stand · laptop feed or slideshow loaded
 Cocktail hours, foyers, hospitality suites and breakouts of a dozen people. A 43 inch TV carries a photo slideshow, a sponsor loop or a small presentation to a room where guests are standing and moving, and it fits through every door in the building on its stand. This is the size that lives in the corner of a rehearsal dinner playing the couple's photos.
+### 55 inch TVMid-size breakouts and confidence monitors
+Rig 55 in TV · rolling stand · laptop feed
+Breakout rooms of twenty or thirty, a presentation over a working lunch, and a confidence monitor at the stage lip where a 65 would crowd the front of a small stage. A 55 inch TV reads comfortably to about 30 people and rolls through a standard door on its stand.
 ### 65 inch TVBreakouts, lobbies and cake tables
 Rig 65 in TV · rolling stand · laptop feed · speakers when there is sound
 Breakout room presentations, a lobby feed of the general session, a cake table slideshow at a reception, and confidence monitor duty at the front of a stage. A 65 inch TV reads comfortably to about 40 people, and a pair of them on either side of a room covers a long dining room with the middle of the room left open. When there is sound with the video, we run it through our speakers rather than the TV's, because a television speaker was built for a living room.
@@ -6230,7 +6254,7 @@ Speakers, mixers and playback for the room your TV is standing in.
 Questions
 ## TV rental questions we get asked in Dallas-Fort Worth
 What size TV should I rent for my event?
-A 32 inch TV covers a registration desk, a menu board or a welcome loop that people read from a few feet away. A 43 inch TV carries a slideshow or a sponsor loop in a cocktail hour, a foyer or a small breakout. A 65 inch TV is the one for breakout room presentations, a cake table slideshow, a lobby feed and confidence monitor duty, and it reads comfortably to about 40 people. Past that, one screen at the front of the room usually wants to be a projector and screen, or a pair of 65 inch TVs on either side.
+A 32 inch TV covers a registration desk, a menu board or a welcome loop that people read from a few feet away. A 43 inch TV carries a slideshow or a sponsor loop in a cocktail hour, a foyer or a small breakout. A 55 inch TV covers a breakout of twenty or thirty people and makes a lower-profile confidence monitor. A 65 inch TV is the one for breakout room presentations, a cake table slideshow, a lobby feed and confidence monitor duty, and it reads comfortably to about 40 people. Past that, one screen at the front of the room usually wants to be a projector and screen, or a pair of 65 inch TVs on either side.
 Do the TVs come on stands?
 Yes. Every TV we rent goes out on a floor stand with the mount, the power and the cable dressed, so it stands where you want it without a table or a wall. The stands roll, which means the TV can move from the registration desk in the morning to the breakout room after lunch.
 Can you use a TV as a confidence monitor?
@@ -6829,6 +6853,13 @@ Home / Sound Equipment Rental / DJ Equipment Rental
 # DJ equipment rental in Dallas-Fort Worth, delivered, set up and checked with your DJ.
 Request a Quote
 Call 817-210-7957
+Text us your date to check availability
+CDJ-3000 pair
+DJM-900NXS2
+DJM-A9
+XDJ-AZ
+XDJ-RX3
+DDJ-FLX6
 Dallas Event Audio rents CDJs and DJ equipment across Dallas-Fort Worth. Decks, mixers, controllers, DJ booths, speakers and subwoofers for weddings, clubs, corporate events, festivals and private parties. Everything arrives built, powered and line checked, so your DJ’s first move is to play music. We deliver the DJ gear, build it, line-check it and sound check it with your DJ, then come back after the gig to collect it.
 Request a Quote
 Call 817-210-7957
@@ -6846,40 +6877,40 @@ What We Have
 CDJs, mixers, all-in-one systems and a controller, all Pioneer DJ and AlphaTheta, all from our own warehouse. Tell us which one your DJ plays and it arrives set up, linked and checked before doors.
 ### Pioneer DJ CDJ-3000Rented in pairs
 Rig 2 × CDJ-3000 · link cable · USB playback
-The flagship club media player and the one most riders name first. We rent the CDJ-3000 in pairs, linked and tested, usually with the DJM-A9 or the DJM-900NXS2 between them.
+The flagship club CDJ and the one most riders name first. We rent the CDJ-3000 in pairs, linked and tested, usually with the DJM-A9 or the DJM-900NXS2 between them.
 ### Pioneer DJ DJM-900NXS2DJ mixer
 Rig 4 channels · Sound Color FX and Beat FX · booth output
-The club mixer most Dallas booths already run and most riders accept on sight. It goes out between a pair of CDJs, or on its own between a venue’s players.
+The club mixer most Dallas booths already run and most riders accept on sight. It goes out between a pair of CDJs, or on its own between a venue’s CDJs.
 ### Pioneer DJ DJM-A9DJ mixer
 Rig 4 channels · onboard effects · booth output
-The four-channel club mixer that sits between the players. Effects on board, a booth output already set to a sensible level, and the patching done before your DJ arrives.
+The four-channel club mixer that sits between the CDJs. Effects on board, a booth output already set to a sensible level, and the patching done before your DJ arrives.
 ### AlphaTheta XDJ-AZAll-in-one system
 Rig 4-channel standalone · single unit · USB playback
 A full four-channel booth in one unit, standalone from USB, with the club layout on top. For a tight DJ position where the DJ still wants four channels.
 ### Pioneer DJ XDJ-RX3All-in-one system
 Rig 2-channel standalone · tilting touchscreen · rekordbox or Serato
-Two channels, a big tilting touchscreen, and playback from USB, rekordbox or Serato. The unit in most of our booth photos, because it does everything a two-player booth does in a fraction of the space.
+Two channels, a big tilting touchscreen, and playback from USB, rekordbox or Serato. The unit in most of our booth photos, because it does everything a two-CDJ booth does in a fraction of the space.
 ### Pioneer DJ DDJ-FLX6Controller
 Rig 4-channel controller · laptop based · rekordbox or Serato
 A four-channel controller for DJs who play from a laptop. Light, quick to set, and the right call for a house party or a small reception where a full booth would crowd the room.
 DJ Equipment Rental Dallas
 ## Rent DJ equipment.
 Most searches for DJ equipment rental in Dallas end at a counter somewhere, where someone hands over a road case and wishes you luck. We work the other way. Everything we rent is delivered to the venue, assembled, powered, line-checked and sound checked with your DJ before doors. Delivery, setup, sound check and collection are included, because the part of the job that decides whether the night sounds right happens after the gear is in the room. Your DJ takes over a rig that is already working.
-The people who book DJ gear from us usually fall into two groups. Some have already hired a DJ, or they are the DJ, and they need the players, the mixer and a system underneath it that will hold up in a room this size. Others are hosting the event themselves and need the whole thing to exist without them thinking about it. Both get the same treatment: the right rig for the room, built by someone who has built it before.
+The people who book DJ gear from us usually fall into two groups. Some have already hired a DJ, or they are the DJ, and they need the CDJs, the mixer and a system underneath it that will hold up in a room this size. Others are hosting the event themselves and need the whole thing to exist without them thinking about it. Both get the same treatment: the right rig for the room, built by someone who has built it before.
 We have been doing event audio in Dallas-Fort Worth since 2001 and we own what we send out. Every piece comes out of our own warehouse rather than a sub-rental, so the mixer that shows up is one we have already used, in rooms like yours, and we know what it does when a venue’s power is not as clean as the floor plan suggested. If you also want us to supply the person on the decks, that is our DJ service ; this page is about the equipment.
 Check your date
 All sound equipment rental
 See past events
 What A DJ Setup Rental Includes
 ## Four parts arrive as one working system.
-A DJ setup rental is a working signal chain from the player to the room. These are the four parts of it, and we would rather you understood how they fit together than picked model numbers off a list.
+A DJ setup rental is a working signal chain from the CDJs to the room. These are the four parts of it, and we would rather you understood how they fit together than picked model numbers off a list.
 Part 01
-### The players and the mixer
-Club-standard media players and a DJ mixer, cabled together the way a DJ expects to find them, with link cabling, USB where it is needed and a booth output that is already set. Everything is patched and tested before we leave. If your DJ prefers an all-in-one system or a controller instead, that is a substitution rather than a different conversation.
+### The CDJs and the mixer
+Club-standard CDJs and a DJ mixer, cabled together the way a DJ expects to find them, with link cabling, USB where it is needed and a booth output that is already set. Everything is patched and tested before we leave. If your DJ prefers an all-in-one system or a controller instead, that is a substitution rather than a different conversation.
 Why it matters A guest DJ should be able to walk up and play, not rewire.
 Part 02
 ### The speakers and subs underneath it
-Players and a mixer make no sound on their own. A DJ sound system rental means tops sized to the room, BassBoss subwoofers when the music needs low end, and a system tuned to the space rather than pointed at it. In larger rooms that becomes a line array .
+CDJs and a mixer make no sound on their own. A DJ sound system rental means tops sized to the room, BassBoss subwoofers when the music needs low end, and a system tuned to the space rather than pointed at it. In larger rooms that becomes a line array .
 Why it matters Even coverage is what stops the back of the room shouting.
 Part 03
 ### Microphones that behave
@@ -6891,10 +6922,10 @@ This is the part other rental companies leave out. Our AV technician delivers th
 Why it matters Your DJ starts on a rig that is already working.
 CDJ Rental Dallas
 ## CDJ rental and Pioneer DJ rental, for the DJs who ask by name.
-Plenty of the people who rent DJ equipment from us are professionals, and professionals ask for specifics. CDJ rental in Dallas usually means club-standard media players and a matching Pioneer-family mixer, the layout a touring DJ, a guest DJ or a wedding DJ can step onto without a briefing, because it is what is already installed in most rooms they play.
-We keep the current generation of Pioneer and AlphaTheta media players, the mixers that are normally paired with them, and all-in-one systems for setups where a smaller footprint makes more sense than a full multi-player booth. Cabling, link, stands and booth feeds come with it as a matter of course rather than as a list of extras.
+Plenty of the people who rent DJ equipment from us are professionals, and professionals ask for specifics. CDJ rental in Dallas usually means club-standard CDJs and a matching Pioneer-family mixer, the layout a touring DJ, a guest DJ or a wedding DJ can step onto without a briefing, because it is what is already installed in most rooms they play.
+We keep the current generation of Pioneer and AlphaTheta CDJs and DJ controllers, the mixers that are normally paired with them, and all-in-one systems for setups where a smaller footprint makes more sense than a full multi-CDJ booth. Cabling, link, stands and booth feeds come with it as a matter of course rather than as a list of extras.
 We spec the rig with you rather than handing over a parts list to assemble. Tell us who is playing, what they are used to, and what the room is, and we will bring the configuration that matches, then set it up so it is ready before the DJ arrives. If your DJ has a rider, send it with your inquiry and we will read it properly.
-Club-standard media players
+Club-standard CDJs
 Pioneer-family DJ mixers
 All-in-one systems
 Controller setups
@@ -6902,15 +6933,15 @@ Rider-friendly
 What You Can Rent
 ## The DJ gear, category by category.
 DJ gear rental in Dallas usually comes down to eight things. These are the pieces people ask for by name, and they are rarely rented alone, almost every booking is two or three of these built into one system, but it is easier to talk about them separately first.
-### Media playersCDJ rental
-Rig 2 club-standard media players · link cabling · USB playback
-Club-standard players for DJs who work from USB drives, in the layout they already know. Rented in pairs or larger booth configurations, always linked and tested before the DJ touches them. This is the setup most venues in Dallas and Fort Worth already have installed, which is why guest DJs ask for it.
+### CDJsCDJ rental
+Rig 2 club-standard CDJs · link cabling · USB playback
+Club-standard CDJs for DJs who work from USB drives, in the layout they already know. Rented in pairs or larger booth configurations, always linked and tested before the DJ touches them. This is the setup most venues in Dallas and Fort Worth already have installed, which is why guest DJs ask for it.
 ### DJ mixersDJ mixer rental
 Rig 1 club-standard DJ mixer · onboard effects · booth output
-The center of the booth, and the piece worth getting right. We supply mixers matched to the players, with the channel count the set needs, effects on board, and a booth output that has already been set to a sensible level so nobody has to find it in the dark. We do the send-and-return patching before your DJ arrives.
+The center of the booth, and the piece worth getting right. We supply mixers matched to the CDJs, with the channel count the set needs, effects on board, and a booth output that has already been set to a sensible level so nobody has to find it in the dark. We do the send-and-return patching before your DJ arrives.
 ### All-in-one systems and controllersDJ controller rental
 Rig 1 all-in-one system or controller · single-unit booth
-For smaller rooms, tighter booths and DJs who prefer a single unit, an all-in-one system or a controller does everything a separate-player setup does in a fraction of the space. Popular for house parties, corporate receptions and anywhere the DJ position is a compromise between the dance floor and a doorway.
+For smaller rooms, tighter booths and DJs who prefer a single unit, an all-in-one system or a controller does everything a separate CDJ setup does in a fraction of the space. Popular for house parties, corporate receptions and anywhere the DJ position is a compromise between the dance floor and a doorway.
 ### DJ booths, tables and facadesDJ booth rental
 Rig DJ booth, table or facade · cable management
 This is the part your photographs will show. A clean facade turns a folding table and a mess of cabling into part of the room, and it hides power, cases and everything else nobody needs to see. Cable management is included whether you rent a facade or not, and every run is dressed and taped down clear of the dance floor.
@@ -6943,7 +6974,7 @@ People who want to rent DJ equipment for a wedding are usually solving for a fri
 The ceremony needs quiet, even coverage and microphones that pick up vows without a hint of feedback. Dinner needs music that sits underneath conversation rather than on top of it, plus a handheld that works for toasts from wherever someone decides to stand. The dance floor needs a system with real headroom and subwoofers under it. We normally set all of it in one visit so nothing has to be torn down and rebuilt while guests are moving between rooms.
 This is also where we part company with most rental companies: wedding equipment is delivered, built, line-checked and sound checked with whoever is DJing, then collected after the reception. A wedding gets one attempt at every moment in it, so the rig is proven working long before the first guest walks in. If you would rather hand the whole evening over to one of our DJs, our wedding services page covers that version.
 ### Rent DJ equipment for a wedding
-Most couples who rent DJ equipment for a wedding have already hired their DJ, and the DJ wants a rig waiting in the room. We deliver the DJ gear to the venue, build the booth, set up the players, the mixer, the speakers and the subwoofers, and sound check all of it with your DJ before guests arrive. The DJ runs the night from there, and after the send off our crew comes back to pick everything up.
+Most couples who rent DJ equipment for a wedding have already hired their DJ, and the DJ wants a rig waiting in the room. We deliver the DJ gear to the venue, build the booth, set up the CDJs, the mixer, the speakers and the subwoofers, and sound check all of it with your DJ before guests arrive. The DJ runs the night from there, and after the send off our crew comes back to pick everything up.
 How A Rental Runs
 ## From your first message to load-out.
 Step 01
@@ -6951,7 +6982,7 @@ Step 01
 Date, venue, headcount and who is playing. If your DJ has a rider or a preferred setup, send it. That is enough for a real quote within 24 hours.
 Step 02
 ### We spec the rig
-We choose the players, mixer, tops and subs for that specific space and tell you what we are bringing and why, itemized piece by piece so you can see what is in the package.
+We choose the CDJs, mixer, tops and subs for that specific space and tell you what we are bringing and why, itemized piece by piece so you can see what is in the package.
 Step 03
 ### Delivery and setup
 We load in during your window, build the booth, run and dress the cable, aim and level the system, then line-check every input before anyone arrives.
@@ -6995,7 +7026,7 @@ Why Rent From Us
 ### Delivered, built and checked
 Every rental is delivered to the venue, built and line-checked by an AV technician, then sound checked with your DJ before doors. Delivery, setup, that check and collection after the event are part of every booking, and that is deliberate.
 ### We own what we send
-The players, mixers, speakers and subwoofers are ours, sitting in our warehouse in the mid-cities. Every piece on your quote comes from that inventory rather than a sub-rental booked the week of your event.
+The CDJs, mixers, speakers and subwoofers are ours, sitting in our warehouse in the mid-cities. Every piece on your quote comes from that inventory rather than a sub-rental booked the week of your event.
 ### De-Feedback on every mic
 Our AI-powered De-Feedback system is standard on the microphones we send out, catching the ring before a room full of people hears it.
 ### Fully insured
@@ -7011,9 +7042,9 @@ Yes. We rent DJ equipment across Dallas, Fort Worth and the surrounding DFW area
 What is included in a rental?
 Delivery, setup, sound check and collection are included in every booking. Our crew delivers the gear to the venue, assembles it, line-checks it and sound checks it with your DJ before doors, then comes back after the gig to collect it. Getting the rig built and proven working is the part that decides whether the event sounds right, and the transport and load-out are ours rather than yours.
 Do you offer CDJ rental and Pioneer DJ rental in Dallas?
-Yes. We keep current-generation club-standard media players and the Pioneer-family mixers normally paired with them, plus all-in-one systems for tighter booths. Tell us who is playing and what they are used to, or send their rider, and we will bring the configuration that matches and set it up before they arrive.
+Yes. We keep current-generation club-standard CDJs and the Pioneer-family mixers normally paired with them, plus all-in-one systems for tighter booths. Tell us who is playing and what they are used to, or send their rider, and we will bring the configuration that matches and set it up before they arrive.
 Can I rent DJ equipment and a sound system together?
-That is the normal booking. A DJ setup rental usually means players and a mixer, tops sized to the room, subwoofers under them, a booth monitor, microphones and all the cabling, delivered as one working system. Renting decks with nothing behind them is rarely what anyone needs.
+That is the normal booking. A DJ setup rental usually means CDJs and a mixer, tops sized to the room, subwoofers under them, a booth monitor, microphones and all the cabling, delivered as one working system. Renting decks with nothing behind them is rarely what anyone needs.
 Can I rent DJ equipment for a wedding?
 Regularly, and it is a common reason people call. A wedding is really three audio events (ceremony, dinner and dance floor) often across two or three spaces, so we normally set all of it in one visit and sound check each space with whoever is DJing before guests arrive, then collect after the reception. If you would rather one of our DJs ran the whole evening, that is a wedding DJ booking rather than an equipment rental.
 Do you rent DJ booths, tables and facades?
@@ -9766,7 +9797,7 @@ You are throwing a fortieth birthday in a rented hall in Plano, or a graduation 
 The short answer is that plenty of places in Dallas-Fort Worth will rent you the gear. The longer answer is the one worth having, because the difference between a party where the sound works and one where it does not has very little to do with which speakers showed up.
 ## Where you can rent DJ equipment for a private party in Dallas-Fort Worth
 There are three ways this normally goes.
-The first is that your DJ brings everything. Some do. A DJ who owns a full rig arrives with players, a mixer, speakers and a sub, and your job is to tell them the room and the head count early enough that they bring the right size.
+The first is that your DJ brings everything. Some do. A DJ who owns a full rig arrives with CDJs or a DJ controller, a mixer, speakers and a sub, and your job is to tell them the room and the head count early enough that they bring the right size.
 The second is a drop-off rental. A company leaves gear at the venue, somebody in your party assembles it, and it comes back the next day. This is the cheapest line on a quote and the one that generates the phone calls we get on Saturday afternoons.
 The third is what we do at Dallas Event Audio. We deliver the system, place it for the room, power it, sound check it with your DJ or your playlist and pick it up after the party, and a technician can stay on it for the whole party if you would like one. Our party speaker rental for private events is built that way because a party has nobody on staff whose job is the audio. The venue tech, the production manager and the band engineer are all you. If the sound needs a person, that person has to arrive with the sound.
 ## The five things that go wrong at private parties
@@ -9782,8 +9813,8 @@ Every time you double your distance from a speaker you lose about six decibels. 
 ### Someone is standing there when it goes wrong
 A cable gets kicked, a channel gets muted, a phone drops its Bluetooth connection during the father's toast. With a drop-off rental the fix is whoever is nearest and least drunk. With a technician on site the fix takes ten seconds and most of your guests never register that anything happened.
 ## What the DJ brings, and what the room still needs
-Split a DJ setup down the middle and you get two halves that get bought and rented very differently. On one side are the players and the mixer, the pieces the DJ touches. On the other side are the speakers, the subwoofer, the stands, the power and the person setting the levels.
-The first half is the DJ's instrument. DJs have preferences about players and mixers the way a guitarist has preferences about an amp, and in Dallas the requests that come up most often are Pioneer CDJ players and DJM mixers, or the all-in-one units that put both in one chassis. If your DJ asks for a specific model, match it. We keep CDJ rental in house for that reason, including the booths and facades when the DJ is part of how the room looks.
+Split a DJ setup down the middle and you get two halves that get bought and rented very differently. On one side are the CDJs and the mixer, the pieces the DJ touches. On the other side are the speakers, the subwoofer, the stands, the power and the person setting the levels.
+The first half is the DJ's instrument. DJs have preferences about CDJs and mixers the way a guitarist has preferences about an amp, and in Dallas the requests that come up most often are Pioneer CDJs and DJM mixers, or the all-in-one units that put both in one chassis. If your DJ asks for a specific model, match it. We keep CDJ rental in house for that reason, including the booths and facades when the DJ is part of how the room looks.
 The second half belongs to the room, and it gets sized by the space and the guest count rather than by the DJ. That is where most private party quotes go wrong. A DJ who owns a pair of bar-sized speakers is fully equipped for a bar and underpowered for a two hundred person reception hall, and neither of you finds out until the dance floor fills.
 So ask the specific question a month out. Does the DJ bring equipment, and which pieces? The answer is rarely all or nothing.
 If nobody is DJing and the music is coming from a playlist, that is a normal booking too. We set up a sound system with a playback input and sound check it before guests arrive, and the host controls the music from their own phone. An AV technician can stay to run it if you would like one. And if you would rather hand the whole evening to somebody, our DJ services cover the announcements and the introductions through the same microphone the toasts use.
