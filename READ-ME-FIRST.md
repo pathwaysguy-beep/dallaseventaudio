@@ -902,3 +902,12 @@ fetch origin, and ask Steve for nothing until you have read the last three
 commit messages. They are written to be read. Then read the DEA status file
 in the Claude project for the private to-do list, and keep both up to date:
 this file in the next bundle, the status file by handing Steve a new copy.
+
+## Newest Google reviews (bundle 115, 2 November 2026)
+
+/what-others-are-saying gains a "Newest on Google" section (id newest-on-google)
+between Awards and Weddings: the six Google reviews posted since the page was
+built (Raymond Davadi, Benjamin Aubrey, Kay Jenkins, Samuel Ouderkirk, Kyleigh
+Smith, Cinthia Delfin-Aguilar), quoted word for word, newest first, credited
+"Google, 2026". Platform counts on the page (43 on Google, 194 in all) were
+left as they were; Google showed 49 on 2 November. Sitemap lastmod bumped.
