@@ -2193,6 +2193,37 @@ body.calm #chatPanel{ display:none; }
 
   <div class="grain-overlay" aria-hidden="true"></div>
 
+<!-- Bundle 117: phone action bar. Ad visitors on phones often leave before
+     scrolling to a button, so after the first screen a bar with Call, Text
+     and Quote stays at the bottom. Phones only; lifts the palette dock and
+     the concierge button above it. -->
+<style>
+.mbar{display:none}
+@media (max-width:620px){
+  .mbar{position:fixed;left:0;right:0;bottom:0;z-index:150;display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:8px;
+    padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:rgba(8,9,10,.94);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1px solid var(--card-border);
+    transform:translateY(110%);transition:transform .25s ease}
+  body.mbar-on .mbar{transform:none}
+  .mbar a{display:flex;align-items:center;justify-content:center;min-height:46px;border-radius:12px;font-weight:700;
+    font-size:.95rem;text-decoration:none;color:var(--ink);border:1px solid color-mix(in srgb,var(--a1) 55%,var(--card-border));
+    background:color-mix(in srgb,var(--a1) 10%,var(--bg-2))}
+  .mbar a.q{color:#08090a;border:0;background:linear-gradient(90deg,#31ff6e,#fff21c 55%,#ff1f3d)}
+  body.mbar-on #paletteBar{bottom:84px}
+  body.mbar-on #chatBubble{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+  body.mbar-on footer{padding-bottom:84px}
+}
+</style>
+<nav class="mbar" aria-label="Call, text or request a quote">
+  <a href="tel:8172107957">Call</a>
+  <a href="sms:+18172107957?&amp;body=Hi%2C%20I%27d%20like%20a%20quote%20for%20a%20projector%20and%20screen.%20Date%3A%20%20Venue%3A%20%20">Text</a>
+  <a class="q" href="/contact#quote-form">Get a Quote</a>
+</nav>
+<script>
+(function(){var on=false;function u(){var s=window.scrollY>window.innerHeight*0.8;if(s!==on){on=s;document.body.classList.toggle('mbar-on',s);}}
+window.addEventListener('scroll',u,{passive:true});u();})();
+</script>
+
   <div id="chatBubble" role="button" tabindex="0" aria-controls="chatPanel" aria-expanded="false" aria-label="AV Concierge chat">&#10022; <span class="cb-label">AV Concierge</span><span class="cb-short" aria-hidden="true">Ask</span></div>
 <div id="chatPanel" role="dialog" aria-modal="false" aria-labelledby="chatTitle" hidden>
   <div class="cp-head">

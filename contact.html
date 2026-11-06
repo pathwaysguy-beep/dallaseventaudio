@@ -572,6 +572,13 @@ a.proof-badge:hover .go{ opacity:1; color:var(--a1); transform:translateX(2px); 
   .reach-card.reach-text .lbl::after{ content:" us"; }
   .reach-card.reach-call .val, .reach-card.reach-text .val{ font-size:.86rem; color:var(--dim); font-weight:500; }
   .reach-card:not(.reach-call):not(.reach-text){ grid-column:1 / -1; }
+  /* Bundle 117: the headline ran five lines on a phone. Smaller type and
+     tighter spacing bring the Call and Text buttons and the reviews up,
+     so the form starts closer to the second screen. Same words, same H1. */
+  .hero-page h1{ font-size:1.86rem; line-height:1.08; }
+  .hero-page .breadcrumb{ display:none; }
+  .hero-page .open-badge{ margin-bottom:14px; }
+  .hero-page .hero-ctas{ margin-top:20px; }
   .proof-row{ grid-template-columns:1fr 1fr; gap:8px; margin-top:16px; margin-bottom:18px; }
   .proof-badge{ padding:10px 12px; gap:10px; }
   .proof-mark{ width:30px; height:30px; flex:0 0 30px; font-size:.95rem; border-radius:8px; }
@@ -1595,7 +1602,7 @@ body.calm #chatPanel{ display:none; }
 
       <div class="form-layout">
         <div class="form-card" id="quote-form" data-reveal>
-          <p class="form-note">Only your email, event date and event type are required. The rest helps us quote faster.</p>
+          <p class="form-note">Only your name, email, event date and event type are required. The rest helps us quote faster.</p>
           <div class="hb-embed" id="hbForm">
             <div class="hb-p-5fa0efd5871510000d2893ba-9"></div>
             <img height="1" width="1" style="display:none" src="https://www.honeybook.com/p.png?pid=5fa0efd5871510000d2893ba" alt="">

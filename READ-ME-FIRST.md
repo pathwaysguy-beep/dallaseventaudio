@@ -931,3 +931,21 @@ call and text taps fell from 11 (23 to 29 Oct) to 1 (30 Oct to 5 Nov) after
 bundle 112 made them rows. The text link opens a message prompting date,
 venue and guests (sms:+18172107957 with a body, same form as the clouds
 page). Desktop layout unchanged.
+
+## Phone action bar and shorter contact hero (bundle 117, 5 November 2026)
+
+- Phone action bar (620px and below) on the ad landing pages: services-audio,
+  projector-screen-rental, rent-uplighting, tv-rental-dallas,
+  rent-dancing-on-the-clouds-low-lyin, rent-sound-equipment and
+  rent-sound-equipment/cdj-rental-dallas. After about one screen of scroll a
+  bar with Call, Text (prefilled with the page's service, date and venue) and
+  Get a Quote (/contact#quote-form) slides up from the bottom; the palette dock
+  and the concierge button lift above it. Self-contained block per page
+  (style, nav.mbar, script), outside the chrome sync. Desktop hides it.
+- /contact on phones: smaller H1 (same words), breadcrumb hidden, tighter
+  spacing; the form starts about 1,125 px down (1,233 after bundle 116,
+  2,494 before bundle 112).
+- Check about 19 Nov: form_submit_thankyou, call_tap and text_tap, two weeks
+  after bundles 116 and 117 against the two weeks before.
+- /contact form note now says name, email, event date and event type are
+  required (the HoneyBook form marks Name required too; checked live 5 Nov).
