@@ -554,6 +554,24 @@ a.proof-badge:hover .go{ opacity:1; color:var(--a1); transform:translateX(2px); 
   .reach-card .val{ font-size:1.02rem; }
   .reach-card .val-email{ font-size:.92rem; }
   .reach-card .note{ display:none; }
+  /* Bundle 116: Call and Text read as info rows after bundle 112, and phone
+     taps on this page fell from 11 to 1 in a week. On phones they are now
+     two side by side buttons with a verb, the text button opens a message
+     with the date and venue already prompted, and email stays one line. */
+  .reach-grid{ grid-template-columns:1fr 1fr; }
+  .reach-card.reach-call, .reach-card.reach-text{
+    flex-direction:column; align-items:center; justify-content:center; gap:2px;
+    min-height:68px; padding:12px 10px; text-align:center;
+    border-color:color-mix(in srgb, var(--a1) 55%, var(--card-border));
+    background:color-mix(in srgb, var(--a1) 10%, var(--bg-2));
+  }
+  .reach-card.reach-call .lbl, .reach-card.reach-text .lbl{ flex:none; font-size:.98rem; letter-spacing:.06em; color:var(--ink); }
+  .reach-card.reach-call .lbl::before{ content:"\260E\FE0E\00a0"; color:var(--a1); }
+  .reach-card.reach-text .lbl::before{ content:"\2709\FE0E\00a0"; color:var(--a1); }
+  .reach-card.reach-call .lbl::after{ content:" now"; }
+  .reach-card.reach-text .lbl::after{ content:" us"; }
+  .reach-card.reach-call .val, .reach-card.reach-text .val{ font-size:.86rem; color:var(--dim); font-weight:500; }
+  .reach-card:not(.reach-call):not(.reach-text){ grid-column:1 / -1; }
   .proof-row{ grid-template-columns:1fr 1fr; gap:8px; margin-top:16px; margin-bottom:18px; }
   .proof-badge{ padding:10px 12px; gap:10px; }
   .proof-mark{ width:30px; height:30px; flex:0 0 30px; font-size:.95rem; border-radius:8px; }
@@ -1406,7 +1424,7 @@ body.calm #chatPanel{ display:none; }
       </div>
       <div class="navright">
         <a class="phone" href="tel:8172107957">817-210-7957</a>
-        <a class="cta-btn" href="/contact">Get a Quote</a>
+        <a class="cta-btn" href="/contact#quote-form">Get a Quote</a>
         <button class="navburger" id="navBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer"><span></span><span></span><span></span></button>
       </div>
     </nav>
@@ -1485,7 +1503,7 @@ body.calm #chatPanel{ display:none; }
     </div>
     <div class="nd-foot">
       <a class="nd-phone" href="tel:8172107957">817-210-7957</a>
-      <a class="cta-btn" href="/contact">Get a Quote</a>
+      <a class="cta-btn" href="/contact#quote-form">Get a Quote</a>
     </div>
   </div>
 <main id="main">
@@ -1505,12 +1523,12 @@ body.calm #chatPanel{ display:none; }
       </div>
 
       <div class="reach-grid" data-reveal>
-        <a class="reach-card" href="tel:8172107957">
+        <a class="reach-card reach-call" href="tel:8172107957">
           <span class="lbl">Call</span>
           <span class="val">817-210-7957</span>
           <span class="note">Answered 24 hours a day, 7 days a week.</span>
         </a>
-        <a class="reach-card" href="sms:8172107957">
+        <a class="reach-card reach-text" href="sms:+18172107957?&amp;body=Hi%2C%20I%27m%20planning%20an%20event%20and%20would%20like%20a%20quote.%20Date%3A%20%20Venue%3A%20%20Guests%3A%20">
           <span class="lbl">Text</span>
           <span class="val">817-210-7957</span>
           <span class="note">Fastest option if you&rsquo;re mid-planning. Send the date and venue.</span>

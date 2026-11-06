@@ -911,3 +911,23 @@ built (Raymond Davadi, Benjamin Aubrey, Kay Jenkins, Samuel Ouderkirk, Kyleigh
 Smith, Cinthia Delfin-Aguilar), quoted word for word, newest first, credited
 "Google, 2026". Platform counts on the page (43 on Google, 194 in all) were
 left as they were; Google showed 49 on 2 November. Sitemap lastmod bumped.
+
+## Quote buttons go to the form (bundle 116, 5 November 2026)
+
+Clarity, 3 to 5 Nov: visitors clicked a quote button, landed on the top of
+/contact (headline plus a second Request a Quote button) and left; 25
+sessions clicked a quote button and 12 reached /thank-you. Every quote CTA
+site-wide (header and drawer Get a Quote in tools/chrome, and 431 in-body
+links such as Request a Quote, Get a quote, tell us about your event, Check
+your date) now points to /contact#quote-form, which loads the HoneyBook form
+at once and lands on it. Links that mean the page itself keep /contact:
+the nav "Contact", "Contact us", "contact page", "Contact us here",
+"certificate of insurance" and "Talk to us". JSON-LD was not touched.
+
+/contact on phones (620px and below): Call and Text are two side by side
+buttons ("Call now", "Text us", number underneath) in the first screen
+instead of info rows; email stays a full-width line. GA4: /contact phone
+call and text taps fell from 11 (23 to 29 Oct) to 1 (30 Oct to 5 Nov) after
+bundle 112 made them rows. The text link opens a message prompting date,
+venue and guests (sms:+18172107957 with a body, same form as the clouds
+page). Desktop layout unchanged.
