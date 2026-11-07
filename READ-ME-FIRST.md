@@ -817,6 +817,41 @@ says so (it read "Google rating across 43 reviews"). The per-platform counts
 on the reviews page, /contact and the thank-you profile cards stay as they
 are, since each one is that platform's own number.
 
+## Tap speed pass (bundle 118, 6 November 2026)
+
+Clarity real-user INP (time from a tap to the next frame) climbed from about
+240 ms to 450 ms, needs improvement above 200 ms. A test in Steve's desktop
+Chrome on the live home page measured chat open, chat close and a menu open
+at 120, 112 and 96 ms; with backdrop-filter switched off, 80, 80 and 32 ms;
+with that and every looping animation paused, 40, 32 and 32 ms. Even plain
+mouse-overs took about 100 ms, so the cost is drawing, not scripts. The Meta
+pixel, GA4, Ads and Clarity all loaded without long tasks in the same test,
+and the concierge code (13 KB, idle until tapped) was ruled out.
+
+Three changes, all in tools/chrome/ and synced to every page:
+(1) chrome.css: at 700px and under, backdrop-filter is off for every element
+(header, cards, badges, palette dock, phone action bar, about 40 selectors
+across the site); the header, palette toggle and phone action bar go solid (at 94% the text scrolling under the header still read through). Desktop
+keeps the glass. Lasers, fog and the hero grid were already off on phones.
+(2) navdrawer_js.html: after load, every infinite animation on the page is
+paused while its element is off screen and resumed when it returns
+(IntersectionObserver, 100px margin), including the hero effects, the city
+banner and page-specific loops.
+(3) analytics.html: Google's web-vitals 5.3.0 attribution build, self-hosted
+at /vendor/web-vitals-5.3.0.attribution.iife.js (_headers caches /vendor for a
+year, immutable), loads on the load event behind the production hostname
+guard and sends one GA4 event inp per page view: metric_value, metric_rating,
+interaction_target (CSS selector), interaction_type, input_delay,
+processing_time, presentation_delay. To report on them in GA4 the parameters
+need custom definitions (event-scoped dimensions for metric_rating,
+interaction_target and interaction_type; custom metrics in milliseconds for
+the four numbers).
+
+Both new code blocks sit inside existing script elements of their fragments.
+sync_chrome.py removes the old shared scripts by their contents (navBurger,
+the gtag loader) plus the first script after the analytics marker, so a third
+element in either fragment would stack on every sync; --check caught it.
+
 ## Speed pass (bundle 106, 27 October 2026)
 
 PageSpeed mobile on 27 October: home 92, projector 74, clouds 66, contact 32.

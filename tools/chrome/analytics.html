@@ -248,4 +248,48 @@
   if (document.readyState === 'complete') { setTimeout(load, 0); }
   else { window.addEventListener('load', function () { setTimeout(load, 0); }); }
 })();
+/* Tap speed reporter (bundle 118).
+   Clarity reported taps taking about 450 ms to show on screen (INP; good is
+   under 200 ms) without saying which tap. Google's web-vitals library,
+   version 5.3.0, self-hosted in /vendor (about 12 KB, 5 KB compressed),
+   measures the slowest tap, click or key press of each page view, and when
+   the visitor leaves or hides the page this sends one GA4 event named inp:
+   metric_value in milliseconds, metric_rating (good, needs-improvement or
+   poor), interaction_target (a short CSS selector of what was tapped, no text
+   and nothing personal), interaction_type, and the three parts of the delay:
+   input_delay (the page was busy before the tap), processing_time (our own
+   code on the tap) and presentation_delay (drawing the next frame, which is
+   where blur and animations show up). No cookies of its own. Loads on the
+   load event under the same hostname guard. Kept inside this script element
+   on purpose: tools/sync_chrome.py finds the shared scripts by what they
+   contain, and a separate element here would stack on every sync. */
+(function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  if (PROD.indexOf(location.hostname) === -1 || /[?&]notags=1/.test(location.search)) return;  /* ?notags=1: test-only switch (bundle 111) for PageSpeed runs without the tags */
+  function report(m) {
+    var a = m.attribution || {};
+    if (typeof window.gtag !== 'function') return;
+    window.gtag('event', 'inp', {
+      metric_value: Math.round(m.value),
+      metric_rating: m.rating,
+      interaction_target: String(a.interactionTarget || '').slice(0, 100),
+      interaction_type: a.interactionType || '',
+      input_delay: Math.round(a.inputDelay || 0),
+      processing_time: Math.round(a.processingDuration || 0),
+      presentation_delay: Math.round(a.presentationDelay || 0),
+      transport_type: 'beacon'
+    });
+  }
+  function load() {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '/vendor/web-vitals-5.3.0.attribution.iife.js';
+    s.onload = function () {
+      if (window.webVitals && window.webVitals.onINP) window.webVitals.onINP(report);
+    };
+    document.head.appendChild(s);
+  }
+  if (document.readyState === 'complete') { setTimeout(load, 0); }
+  else { window.addEventListener('load', function () { setTimeout(load, 0); }); }
+})();
 </script>

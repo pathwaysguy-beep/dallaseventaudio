@@ -62,6 +62,11 @@
 /videos/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Third-party code we host ourselves (bundle 118: Google's web-vitals library).
+# The version is in the filename, so an upgrade is a new file and a year is safe.
+/vendor/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # There is deliberately no catch-all Cache-Control rule here.
 #
 # Cloudflare Pages applies every rule whose pattern matches and joins repeated

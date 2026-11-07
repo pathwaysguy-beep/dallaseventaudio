@@ -932,6 +932,50 @@ section[id]{ scroll-margin-top:96px; }
   if (document.readyState === 'complete') { setTimeout(load, 0); }
   else { window.addEventListener('load', function () { setTimeout(load, 0); }); }
 })();
+/* Tap speed reporter (bundle 118).
+   Clarity reported taps taking about 450 ms to show on screen (INP; good is
+   under 200 ms) without saying which tap. Google's web-vitals library,
+   version 5.3.0, self-hosted in /vendor (about 12 KB, 5 KB compressed),
+   measures the slowest tap, click or key press of each page view, and when
+   the visitor leaves or hides the page this sends one GA4 event named inp:
+   metric_value in milliseconds, metric_rating (good, needs-improvement or
+   poor), interaction_target (a short CSS selector of what was tapped, no text
+   and nothing personal), interaction_type, and the three parts of the delay:
+   input_delay (the page was busy before the tap), processing_time (our own
+   code on the tap) and presentation_delay (drawing the next frame, which is
+   where blur and animations show up). No cookies of its own. Loads on the
+   load event under the same hostname guard. Kept inside this script element
+   on purpose: tools/sync_chrome.py finds the shared scripts by what they
+   contain, and a separate element here would stack on every sync. */
+(function () {
+  var PROD = ['www.dallaseventaudio.com', 'dallaseventaudio.com'];
+  if (PROD.indexOf(location.hostname) === -1 || /[?&]notags=1/.test(location.search)) return;  /* ?notags=1: test-only switch (bundle 111) for PageSpeed runs without the tags */
+  function report(m) {
+    var a = m.attribution || {};
+    if (typeof window.gtag !== 'function') return;
+    window.gtag('event', 'inp', {
+      metric_value: Math.round(m.value),
+      metric_rating: m.rating,
+      interaction_target: String(a.interactionTarget || '').slice(0, 100),
+      interaction_type: a.interactionType || '',
+      input_delay: Math.round(a.inputDelay || 0),
+      processing_time: Math.round(a.processingDuration || 0),
+      presentation_delay: Math.round(a.presentationDelay || 0),
+      transport_type: 'beacon'
+    });
+  }
+  function load() {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '/vendor/web-vitals-5.3.0.attribution.iife.js';
+    s.onload = function () {
+      if (window.webVitals && window.webVitals.onINP) window.webVitals.onINP(report);
+    };
+    document.head.appendChild(s);
+  }
+  if (document.readyState === 'complete') { setTimeout(load, 0); }
+  else { window.addEventListener('load', function () { setTimeout(load, 0); }); }
+})();
 </script>
 <!-- chrome-sync:css -->
 <style>
@@ -1288,6 +1332,22 @@ body.calm #chatPanel{ display:none; }
   border-radius:12px; padding:12px 18px; font-family:var(--font-body,sans-serif); font-size:.95rem;
   box-shadow:0 10px 30px rgba(0,0,0,.35); opacity:0; pointer-events:none; transition:opacity .2s, transform .2s; }
 .tel-note.on{ opacity:1; transform:translate(-50%,0); }
+/* Phones: no frosted glass (bundle 118). Every blurred panel (header, cards,
+   badges, palette dock, phone action bar) makes the browser re-blur whatever
+   sits behind it on every frame, and the header blurs while the page scrolls
+   under it. A desktop test on 6 Nov 2026 measured taps at about 110 ms with
+   the blur and 30 to 80 ms without it; phones run 3 to 5 times slower, which
+   matches the 450 ms Clarity reported. On phones the panels keep their dark
+   see-through backgrounds without the blur. The header, the palette toggle
+   and the phone action bar (.mbar, 7 pages) go solid: at 94% the page text scrolling under them still read
+   through in the QA screenshots, which looked like a glitch. Desktop keeps
+   the glass. This sheet is appended last on every page, so this rule wins. */
+@media (max-width:700px){
+  *, *::before, *::after{ -webkit-backdrop-filter:none !important; backdrop-filter:none !important; }
+  header{ background:#050605; }
+  #paletteBar .pal-toggle{ background:#08090a; }
+  body .mbar{ background:#08090a; }
+}
 </style>
 </head>
 <body>
@@ -2115,6 +2175,41 @@ body.calm #chatPanel{ display:none; }
       navigator.clipboard.writeText(num).then(done, function(){ show('Call or text us at ' + num + '.'); });
     } else { show('Call or text us at ' + num + '.'); }
   });
+})();
+/* Pause looping animations while they are off screen (bundle 118).
+   The hero grid, lasers and fog, the city banner, the chat typing dots and the
+   page-specific loops (fog drift, beams, wavefronts) all run forever, and the
+   browser keeps repainting them after the visitor has scrolled past. After
+   load, every infinite animation on the page is found once, its element is
+   watched, and the animation pauses when the element leaves the screen and
+   resumes when it comes back. Nothing looks different to a visitor. Anything
+   turned off by prefers-reduced-motion or by the phone rules has no running
+   animation, so it is skipped automatically. Kept inside this script element
+   on purpose: tools/sync_chrome.py finds the shared scripts by what they
+   contain, and a separate element here would stack on every sync. */
+(function(){
+  if(!('IntersectionObserver' in window) || !document.getAnimations) return;
+  function start(){
+    var map = new Map();
+    document.getAnimations().forEach(function(a){
+      var t = a.effect && a.effect.target;
+      var timing = a.effect && a.effect.getComputedTiming && a.effect.getComputedTiming();
+      if(!t || !timing || timing.iterations !== Infinity) return;
+      if(!map.has(t)) map.set(t, []);
+      map.get(t).push(a);
+    });
+    if(!map.size) return;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        (map.get(e.target) || []).forEach(function(a){
+          try{ if(e.isIntersecting) a.play(); else a.pause(); }catch(err){}
+        });
+      });
+    }, { rootMargin:'100px 0px' });
+    map.forEach(function(list, el){ io.observe(el); });
+  }
+  if(document.readyState === 'complete') start();
+  else window.addEventListener('load', start);
 })();
 </script>
 <script>

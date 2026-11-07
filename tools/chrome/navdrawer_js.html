@@ -82,4 +82,39 @@
     } else { show('Call or text us at ' + num + '.'); }
   });
 })();
+/* Pause looping animations while they are off screen (bundle 118).
+   The hero grid, lasers and fog, the city banner, the chat typing dots and the
+   page-specific loops (fog drift, beams, wavefronts) all run forever, and the
+   browser keeps repainting them after the visitor has scrolled past. After
+   load, every infinite animation on the page is found once, its element is
+   watched, and the animation pauses when the element leaves the screen and
+   resumes when it comes back. Nothing looks different to a visitor. Anything
+   turned off by prefers-reduced-motion or by the phone rules has no running
+   animation, so it is skipped automatically. Kept inside this script element
+   on purpose: tools/sync_chrome.py finds the shared scripts by what they
+   contain, and a separate element here would stack on every sync. */
+(function(){
+  if(!('IntersectionObserver' in window) || !document.getAnimations) return;
+  function start(){
+    var map = new Map();
+    document.getAnimations().forEach(function(a){
+      var t = a.effect && a.effect.target;
+      var timing = a.effect && a.effect.getComputedTiming && a.effect.getComputedTiming();
+      if(!t || !timing || timing.iterations !== Infinity) return;
+      if(!map.has(t)) map.set(t, []);
+      map.get(t).push(a);
+    });
+    if(!map.size) return;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        (map.get(e.target) || []).forEach(function(a){
+          try{ if(e.isIntersecting) a.play(); else a.pause(); }catch(err){}
+        });
+      });
+    }, { rootMargin:'100px 0px' });
+    map.forEach(function(list, el){ io.observe(el); });
+  }
+  if(document.readyState === 'complete') start();
+  else window.addEventListener('load', start);
+})();
 </script>

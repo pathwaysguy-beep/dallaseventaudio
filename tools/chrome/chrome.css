@@ -351,4 +351,19 @@ body.calm #chatPanel{ display:none; }
   border-radius:12px; padding:12px 18px; font-family:var(--font-body,sans-serif); font-size:.95rem;
   box-shadow:0 10px 30px rgba(0,0,0,.35); opacity:0; pointer-events:none; transition:opacity .2s, transform .2s; }
 .tel-note.on{ opacity:1; transform:translate(-50%,0); }
-
+/* Phones: no frosted glass (bundle 118). Every blurred panel (header, cards,
+   badges, palette dock, phone action bar) makes the browser re-blur whatever
+   sits behind it on every frame, and the header blurs while the page scrolls
+   under it. A desktop test on 6 Nov 2026 measured taps at about 110 ms with
+   the blur and 30 to 80 ms without it; phones run 3 to 5 times slower, which
+   matches the 450 ms Clarity reported. On phones the panels keep their dark
+   see-through backgrounds without the blur. The header, the palette toggle
+   and the phone action bar (.mbar, 7 pages) go solid: at 94% the page text scrolling under them still read
+   through in the QA screenshots, which looked like a glitch. Desktop keeps
+   the glass. This sheet is appended last on every page, so this rule wins. */
+@media (max-width:700px){
+  *, *::before, *::after{ -webkit-backdrop-filter:none !important; backdrop-filter:none !important; }
+  header{ background:#050605; }
+  #paletteBar .pal-toggle{ background:#08090a; }
+  body .mbar{ background:#08090a; }
+}
