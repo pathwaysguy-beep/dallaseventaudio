@@ -91,3 +91,10 @@
 
 /icon-512.png
   Cache-Control: public, max-age=2592000
+
+# Header search bar index (bundle 120). Rebuilt by tools/build_search_index.py
+# whenever pages change, so it is cached for an hour, and kept out of search
+# results since it is data for the search bar, not a page.
+/search-index.json
+  Cache-Control: public, max-age=3600
+  X-Robots-Tag: noindex

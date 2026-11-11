@@ -817,6 +817,50 @@ says so (it read "Google rating across 43 reviews"). The per-platform counts
 on the reviews page, /contact and the thank-you profile cards stay as they
 are, since each one is that platform's own number.
 
+## Header search bar (bundle 120, 11 November 2026)
+
+Steve wanted a search bar at the top of every page that also reaches the AV
+Concierge, alongside the chat pill, so visitors can use whichever they like.
+
+- Trigger: a button in the header (tools/chrome/header.html, id srchBtn),
+  placed before the phone number. At 1400px and wider the nav widens to
+  1360px and the button reads like a search field ("Search or ask", with a
+  "/" key hint); below that it is a 42px icon button with a gradient ring.
+  The sensory-friendly page keeps its 1180px nav, so it keeps the icon. From
+  901 to 1040px the menu items give up a little padding (and from 901 to
+  960px a little font size) so the row still fits.
+- Panel: built by script on first open and appended to the body (#srchWrap),
+  dropping in under the header with a dark scrim. Empty state shows popular
+  pages and three example questions for the concierge. Typing suggests up to
+  six pages; the last row always hands the text to the AV Concierge (left out
+  on the calm page, where the chat is hidden on purpose).
+- Index: /search-index.json, built by tools/build_search_index.py from
+  sitemap.xml (title, H1, description, category, menu label; about 28 KB).
+  Fetched the first time search opens or the button is hovered, so it costs
+  nothing on page load. _headers caches it for an hour with noindex. Rerun
+  the builder whenever a page is added, retired or retitled.
+- Ranking runs in the browser: stopwords and question words dropped, a small
+  synonym list (fog, clouds and dry ice; lights and uplighting; mics; TVs and
+  so on), title and menu-label matches weighted over descriptions, posts and
+  info pages weighted down, weak matches cut at half the best score.
+- Enter follows the highlighted row. A short search highlights the best page;
+  anything that reads like a question (a question mark, four or more words,
+  or a question word first) or finds no page highlights the concierge row.
+  Arrow keys move, Escape closes, "/" opens from anywhere.
+- Handoff: tools/chrome/widget_js.html now exposes window.deaConcierge.ask(text),
+  which opens the chat panel and sends the text as the visitor's message, so
+  the search question lands in the same conversation the pill opens. The
+  concierge prompt gained one line telling the model to answer a search-style
+  first message directly instead of asking the persona question first (needs
+  `npx wrangler deploy`).
+- GA4: search_open; search_result_click (search_term, link_url, position);
+  search_ask (search_term); chat_open now carries source (bubble, search or
+  link). Search terms are trimmed to 100 characters with email addresses and
+  phone-like numbers replaced before they are sent.
+- The search code lives inside the existing widget_js script element and the
+  styles at the end of chrome.css, for the same reason as bundle 118: a new
+  script element in a fragment would stack on every sync.
+
 ## Tap speed pass (bundle 118, 6 November 2026)
 
 Clarity real-user INP (time from a tap to the next frame) climbed from about

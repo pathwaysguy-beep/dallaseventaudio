@@ -1166,6 +1166,121 @@ body.calm #chatPanel{ display:none; }
   #paletteBar .pal-toggle{ background:#08090a; }
   body .mbar{ background:#08090a; }
 }
+/* Header search bar (bundle 120).
+   One field for both ways people look for things: it suggests matching pages
+   as they type, from /search-index.json (built by tools/build_search_index.py,
+   fetched the first time search opens), and its last row hands the question
+   to the AV Concierge, the same conversation the chat button opens. The
+   trigger sits in the header on every page: a pill that reads like a search
+   field where the header has room (1400px and up, where the nav widens to
+   make that room), a gradient-ringed icon button everywhere else. The panel
+   drops in under the header. Nothing in it animates, in keeping with the tap
+   speed work in bundle 118. */
+.srch-btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:9px;
+    width:42px; height:42px; padding:0; flex:0 0 auto;
+    border:1.5px solid transparent; border-radius:11px; cursor:pointer;
+    background:linear-gradient(var(--bg-0),var(--bg-0)) padding-box, var(--grad) border-box;
+    color:var(--ink); font-family:var(--font-body); font-size:.94rem;
+    transition:box-shadow .15s ease;
+  }
+.srch-btn svg{ width:19px; height:19px; flex:0 0 auto; }
+.srch-btn:hover{ box-shadow:0 0 22px -6px var(--glow); }
+.srch-btn:focus-visible{ outline:2px solid var(--ink); outline-offset:3px; }
+.srch-btn .srch-label, .srch-btn .srch-kbd{ display:none; }
+@media (min-width:1400px){
+  nav{ max-width:1360px; }
+  .srch-btn{ width:auto; min-width:210px; justify-content:flex-start; padding:0 10px 0 14px; border-radius:100px; color:var(--dim); }
+  .srch-btn .srch-label{ display:inline; flex:1 1 auto; text-align:left; }
+  .srch-btn .srch-kbd{
+      display:inline-flex; align-items:center; justify-content:center;
+      min-width:22px; height:22px; border-radius:6px; font-size:.8rem;
+      border:1px solid var(--card-border); color:var(--dim);
+    }
+  .srch-btn:hover{ color:var(--ink); }
+}
+/* 901 to 1040px: the menu and the new button share a tight row, so the menu
+   items give up a little padding. The sensory-friendly page keeps its nav at
+   1180px, so it keeps the icon button rather than the wide pill. */
+@media (min-width:901px) and (max-width:1040px){
+  .nl-top{ padding:10px 6px; }
+  header nav .navright{ gap:12px; }
+}
+@media (min-width:901px) and (max-width:960px){
+  .navlinks{ font-size:.9rem; }
+  .nl-top{ padding:10px 4px; }
+  header nav{ padding-left:20px; padding-right:20px; }
+}
+@media (min-width:1400px){
+  body.calm .srch-btn{ width:42px; min-width:0; padding:0; justify-content:center; border-radius:11px; }
+  body.calm .srch-btn .srch-label, body.calm .srch-btn .srch-kbd{ display:none; }
+}
+#srchWrap{ position:fixed; inset:0; z-index:300; }
+#srchWrap[hidden]{ display:none; }
+.srch-scrim{ position:absolute; inset:0; background:rgba(0,0,0,.62); }
+.srch-box{
+    position:absolute; left:50%; transform:translateX(-50%);
+    width:min(720px, calc(100vw - 24px));
+    display:flex; flex-direction:column; overflow:hidden;
+    border:1.5px solid transparent; border-radius:18px;
+    background:linear-gradient(var(--bg-1),var(--bg-1)) padding-box, var(--grad) border-box;
+    box-shadow:0 30px 80px -20px rgba(0,0,0,.85), 0 0 46px -14px var(--glow);
+    font-family:var(--font-body); color:var(--ink);
+  }
+.srch-field{ display:flex; align-items:center; gap:12px; padding:4px 10px 4px 18px; border-bottom:1px solid var(--card-border); }
+.srch-field svg{ width:21px; height:21px; flex:0 0 auto; color:var(--a1); }
+.srch-input{
+    flex:1 1 auto; min-width:0; padding:17px 0; border:0; outline:0; background:transparent;
+    color:var(--ink); font-family:var(--font-body); font-size:1.12rem;
+  }
+.srch-input::placeholder{ color:var(--dim); opacity:.85; }
+.srch-close{
+    flex:0 0 auto; height:32px; padding:0 10px; border-radius:8px; cursor:pointer;
+    background:transparent; border:1px solid var(--card-border); color:var(--dim);
+    font-family:var(--font-body); font-size:.8rem;
+  }
+.srch-close:hover{ color:var(--ink); }
+.srch-close .k-mob{ display:none; }
+.srch-input::-webkit-search-cancel-button, .srch-input::-webkit-search-decoration{ -webkit-appearance:none; appearance:none; }
+.srch-list{ overflow-y:auto; padding:8px; -webkit-overflow-scrolling:touch; }
+.srch-sec{ padding:10px 12px 6px; font-size:.74rem; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); }
+.srch-row{
+    display:flex; align-items:center; gap:12px; width:100%;
+    padding:11px 12px; border-radius:12px; border:0; background:transparent;
+    color:var(--ink); text-decoration:none; text-align:left; cursor:pointer;
+    font-family:var(--font-body); font-size:1rem;
+  }
+.srch-row[aria-selected="true"], .srch-row:hover{ background:rgba(255,255,255,.07); }
+.srch-txt{ flex:1 1 auto; min-width:0; display:flex; flex-direction:column; gap:2px; }
+.srch-t{ font-weight:600; line-height:1.3; }
+.srch-d{ color:var(--dim); font-size:.86rem; line-height:1.35; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.srch-c{
+    flex:0 0 auto; font-size:.7rem; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--dim); border:1px solid var(--card-border); border-radius:100px; padding:3px 8px;
+  }
+.srch-enter{ flex:0 0 auto; display:none; font-size:.76rem; color:var(--dim); }
+.srch-row[aria-selected="true"] .srch-enter{ display:inline; }
+.srch-ask{ margin-top:4px; border:1px solid var(--card-border); }
+.srch-ask .srch-spark{ flex:0 0 auto; width:30px; height:30px; border-radius:100px; display:flex; align-items:center; justify-content:center; background:var(--grad); color:#0a0a0a; font-size:.95rem; }
+.srch-ask .srch-t{ background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.srch-chips{ display:flex; flex-wrap:wrap; gap:8px; padding:4px 12px 10px; }
+.srch-chip{
+    padding:8px 13px; border-radius:100px; cursor:pointer; text-decoration:none;
+    border:1px solid var(--card-border); background:rgba(255,255,255,.03);
+    color:var(--ink); font-family:var(--font-body); font-size:.9rem;
+  }
+.srch-chip:hover{ border-color:var(--a1); }
+.srch-chip.q{ color:var(--dim); }
+.srch-chip.q::before{ content:"\2726  "; color:var(--a1); }
+.srch-foot{ padding:9px 18px 12px; border-top:1px solid var(--card-border); color:var(--dim); font-size:.8rem; }
+@media (max-width:700px){
+  .srch-box{ width:calc(100vw - 16px); border-radius:16px; }
+  .srch-input{ font-size:1.05rem; padding:15px 0; }
+  .srch-c, .srch-enter, .srch-foot, .srch-close .k-desk{ display:none !important; }
+  .srch-close .k-mob{ display:inline; }
+  .srch-d{ white-space:normal; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+}
+body.srch-locked{ overflow:hidden; }
 </style>
 </head>
 <body>
@@ -1253,6 +1368,7 @@ body.calm #chatPanel{ display:none; }
         <a class="nl-top nl-solo" href="/contact">Contact</a>
       </div>
       <div class="navright">
+        <button class="srch-btn" id="srchBtn" type="button" aria-label="Search the site or ask the AV Concierge" aria-haspopup="dialog" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M15.5 15.5L20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><span class="srch-label">Search or ask</span><span class="srch-kbd" aria-hidden="true">/</span></button>
         <a class="phone" href="tel:8172107957">817-210-7957</a>
         <a class="cta-btn" href="/contact#quote-form">Get a Quote</a>
         <button class="navburger" id="navBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer"><span></span><span></span><span></span></button>
@@ -1994,7 +2110,11 @@ body.calm #chatPanel{ display:none; }
 
   var lastFocus = null;
 
-  function open() {
+  /* src says what opened the chat, for GA4: the pill (bubble), the header
+     search bar (search) or a followed chat link (link). Click handlers pass
+     an event object, which counts as the pill. */
+  function open(src) {
+    var source = typeof src === 'string' ? src : 'bubble';
     lastFocus = document.activeElement;
     panel.hidden = false;
     bubble.setAttribute('data-open', '1');
@@ -2005,7 +2125,7 @@ body.calm #chatPanel{ display:none; }
     /* No automatic focus on a phone: it pops the keyboard over the greeting
        and its choices before anyone has read them. */
     if (!ended && window.innerWidth > 520) input.focus();
-    track('chat_open', { event_category: 'concierge' });
+    track('chat_open', { event_category: 'concierge', source: source });
   }
 
   function shut() {
@@ -2034,7 +2154,23 @@ body.calm #chatPanel{ display:none; }
   /* A visitor who followed a link inside the chat lands with it open. */
   var follow = null;
   try { follow = sessionStorage.getItem(FOLLOW); sessionStorage.removeItem(FOLLOW); } catch (e) {}
-  if (follow === '1') open();
+  if (follow === '1') open('link');
+
+  /* The header search bar (bundle 120) hands a question over here, so the
+     visitor lands in the same conversation the pill opens, with the question
+     already sent. Returns false when the chat has ended or is busy, so the
+     search bar can leave the question in place. */
+  window.deaConcierge = {
+    ask: function (text) {
+      text = String(text || '').trim();
+      if (!text) return false;
+      open('search');
+      if (busy || ended) return false;
+      input.value = text;
+      submit();
+      return true;
+    }
+  };
 
   /* ---- sending ---- */
 
@@ -2101,6 +2237,321 @@ body.calm #chatPanel{ display:none; }
         }
       });
   }
+})();
+/* Header search bar (bundle 120).
+
+   One field, two jobs. As the visitor types, it suggests matching pages from
+   /search-index.json (built by tools/build_search_index.py from sitemap.xml:
+   title, H1, description, category and menu label, about 28 KB, fetched the
+   first time search opens or the button is hovered). The last row hands the
+   question to the AV Concierge through window.deaConcierge, so it lands in
+   the same conversation the chat pill opens.
+
+   Enter follows the highlighted row. Short searches ("uplighting", "cdj")
+   highlight the best page; anything that reads like a question, or finds no
+   page, highlights the concierge row. Arrow keys move the highlight, Escape
+   closes, and the slash key opens search from anywhere on the page.
+
+   GA4: search_open; search_result_click (search_term, link_url, position);
+   search_ask (search_term). Search terms are trimmed to 100 characters with
+   email addresses and phone-like numbers replaced, so nothing personal goes
+   to Analytics. Kept inside this script element on purpose: sync_chrome.py
+   finds the shared scripts by what they contain, and a separate element here
+   would stack on every sync. */
+(function () {
+  'use strict';
+  var btn = document.getElementById('srchBtn');
+  if (!btn) return;
+
+  var CALM = document.body && document.body.classList.contains('calm');
+  var EXAMPLES = ['Search pages or ask a question',
+    'Low fog for a first dance?', 'Projector for 200 people?',
+    'How many speakers for a wedding?', 'Uplighting in our colors?',
+    'CDJ-3000 rental'];
+  var POPULAR = [['Dancing on the Clouds', '/rent-dancing-on-the-clouds-low-lyin'],
+    ['Projector and Screen', '/projector-screen-rental'], ['Sound Rental', '/rent-sound-equipment'],
+    ['Uplighting', '/rent-uplighting'], ['DJ Services', '/services-dj'],
+    ['Venues We\'ve Worked', '/venues']];
+  var ASK_IDEAS = ['How many speakers do I need for 200 guests?',
+    'Can you do low fog for our first dance?',
+    'What do I need for a corporate presentation?'];
+  var STOP = { a: 1, an: 1, the: 1, and: 1, or: 1, for: 1, of: 1, to: 1, in: 1, on: 1,
+    my: 1, our: 1, me: 1, i: 1, we: 1, you: 1, do: 1, does: 1, can: 1, is: 1, are: 1,
+    rent: 1, rental: 1, rentals: 1, dallas: 1, fort: 1, worth: 1, dfw: 1, near: 1,
+    how: 1, what: 1, which: 1, who: 1, when: 1, where: 1, why: 1, will: 1, would: 1,
+    should: 1, could: 1, need: 1, needs: 1, get: 1, have: 1, has: 1, much: 1, many: 1,
+    it: 1, its: 1, be: 1, with: 1, at: 1, from: 1, any: 1, some: 1, people: 1, guests: 1,
+    guest: 1, event: 1, events: 1, help: 1, please: 1, us: 1, your: 1, about: 1 };
+  var SYN = {
+    fog: ['fog', 'haze', 'clouds', 'dry ice'], cloud: ['clouds', 'dry ice', 'fog'],
+    ice: ['dry ice', 'clouds'], smoke: ['fog', 'haze'], haze: ['haze', 'fog'],
+    light: ['lighting', 'uplighting'], uplight: ['uplighting'], uplighting: ['uplighting'],
+    sound: ['sound', 'speaker', 'audio'], speaker: ['speaker', 'sound'], pa: ['sound', 'speaker'],
+    audio: ['audio', 'sound'], sub: ['subwoofer', 'bassboss'], bass: ['subwoofer', 'bassboss'],
+    projector: ['projector', 'screen'], screen: ['screen', 'projector'], projection: ['projector'],
+    tv: ['tv'], television: ['tv'], mic: ['microphone'], microphone: ['microphone'],
+    dj: ['dj'], cdj: ['cdj'], turntable: ['cdj', 'dj'], laser: ['laser'],
+    wedding: ['wedding'], bride: ['wedding'], corporate: ['corporate'], conference: ['corporate', 'conference'],
+    meeting: ['corporate', 'meeting'], stream: ['streaming'], streaming: ['streaming'],
+    livestream: ['streaming'], party: ['private', 'party'], band: ['band', 'live music'],
+    rave: ['rave', 'club'], club: ['club', 'rave'], monogram: ['monogram'], gobo: ['monogram'],
+    spotlight: ['follow spot'], spot: ['follow spot'], venue: ['venues', 'venue'],
+    quote: ['quote', 'contact'], price: ['quote', 'contact'], cost: ['cost', 'quote'],
+    review: ['reviews'], photo: ['photo', 'gallery'], video: ['video', 'projector', 'streaming'],
+    school: ['college', 'school'], college: ['college', 'university'], graduation: ['college', 'school']
+  };
+  var QWORDS = /^(how|what|which|who|when|where|why|can|could|do|does|did|is|are|will|would|should|need|i|we|my|our)\b/i;
+
+  var wrap = null, input = null, list = null, rows = [], sel = -1, index = null, loading = null;
+  var phTimer = null, phIdx = 0, lastFocus = null, locked = false;
+
+  function track(name, params) {
+    try { if (typeof window.gtag === 'function') window.gtag('event', name, params || {}); } catch (e) {}
+  }
+  function term(q) {
+    return String(q || '').replace(/\S+@\S+/g, '[email]')
+      .replace(/\+?\d[\d\s().-]{6,}\d/g, '[number]').trim().slice(0, 100);
+  }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function load() {
+    if (index) return Promise.resolve(index);
+    if (loading) return loading;
+    loading = fetch('/search-index.json').then(function (r) { return r.json(); })
+      .then(function (d) {
+        index = (Array.isArray(d) ? d : []).map(function (p) {
+          return { u: p.u, t: p.t || '', d: p.d || '', c: p.c || '',
+            lead: [p.k, p.t].join(' ').toLowerCase(),
+            hay: [p.t, p.h, p.k, p.d, p.u.replace(/[\/-]/g, ' ')].join(' ').toLowerCase(),
+            top: [p.t, p.k, p.u.replace(/[\/-]/g, ' ')].join(' ').toLowerCase() };
+        });
+        return index;
+      })
+      .catch(function () { loading = null; index = null; return []; });
+    return loading;
+  }
+
+  function tokens(q) {
+    return q.toLowerCase().replace(/[^a-z0-9\s-]/g, ' ').split(/\s+/).filter(function (w) {
+      return w && !STOP[w] && !/^\d+$/.test(w);
+    });
+  }
+  function terms(w) {
+    var base = w.length > 3 && /s$/.test(w) ? w.slice(0, -1) : w;
+    return (SYN[base] || SYN[w] || []).concat([w, base]);
+  }
+  function rank(q) {
+    if (!index) return [];
+    var ws = tokens(q);
+    if (!ws.length) return [];
+    var scored = index.map(function (p) {
+      var s = 0, hits = 0;
+      ws.forEach(function (w) {
+        var best = 0;
+        terms(w).forEach(function (t) {
+          if (t.length < 2) return;
+          var re = new RegExp('(^|[^a-z0-9])' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+          var lead = new RegExp('^' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+          if (lead.test(p.lead) || lead.test(p.t.toLowerCase())) best = Math.max(best, t === w ? 8 : 7);
+          else if (re.test(p.top)) best = Math.max(best, t === w ? 6 : 5);
+          else if (re.test(p.hay)) best = Math.max(best, t === w ? 3 : 2);
+        });
+        if (best) { hits++; s += best; }
+      });
+      if (!s) return null;
+      s = s * (0.6 + 0.4 * hits / ws.length);
+      if (p.c === 'Guide') s *= 0.7;
+      else if (p.c === 'Info') s *= 0.85;
+      return { p: p, s: s };
+    }).filter(Boolean).sort(function (a, b) { return b.s - a.s; });
+    if (!scored.length) return [];
+    var cut = scored[0].s * 0.5;
+    return scored.filter(function (x) { return x.s >= cut; }).slice(0, 6).map(function (x) { return x.p; });
+  }
+  function isQuestion(q) {
+    return /\?/.test(q) || q.trim().split(/\s+/).length >= 4 || QWORDS.test(q.trim());
+  }
+
+  function build() {
+    if (wrap) return;
+    wrap = document.createElement('div');
+    wrap.id = 'srchWrap';
+    wrap.hidden = true;
+    wrap.innerHTML =
+      '<div class="srch-scrim"></div>' +
+      '<div class="srch-box" role="dialog" aria-modal="true" aria-label="Search or ask">' +
+      '<div class="srch-field"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M15.5 15.5L20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>' +
+      '<input class="srch-input" id="srchInput" type="search" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="srchList" autocomplete="off" spellcheck="false" enterkeyhint="go" aria-label="Search the site or ask the AV Concierge">' +
+      '<button type="button" class="srch-close" aria-label="Close search"><span class="k-desk">Esc</span><span class="k-mob">Close</span></button></div>' +
+      '<div class="srch-list" id="srchList" role="listbox" aria-label="Suggestions"></div>' +
+      '<div class="srch-foot">Pick a page, or ask the AV Concierge anything about your event.</div>' +
+      '</div>';
+    document.body.appendChild(wrap);
+    input = wrap.querySelector('.srch-input');
+    list = wrap.querySelector('.srch-list');
+    wrap.querySelector('.srch-scrim').addEventListener('click', shut);
+    wrap.querySelector('.srch-close').addEventListener('click', shut);
+    input.addEventListener('input', function () { render(); });
+    input.addEventListener('keydown', key);
+    list.addEventListener('mousemove', function (e) {
+      var r = e.target.closest ? e.target.closest('[data-i]') : null;
+      if (r) select(+r.getAttribute('data-i'));
+    });
+    list.addEventListener('click', function (e) {
+      var r = e.target.closest ? e.target.closest('[data-i],[data-ask]') : null;
+      if (!r) return;
+      if (r.hasAttribute('data-ask')) { e.preventDefault(); ask(r.getAttribute('data-ask')); return; }
+      go(+r.getAttribute('data-i'), e);
+    });
+  }
+
+  function select(i) {
+    sel = i;
+    rows.forEach(function (r, n) { r.el.setAttribute('aria-selected', n === i ? 'true' : 'false'); });
+    if (rows[i]) {
+      input.setAttribute('aria-activedescendant', rows[i].el.id);
+      if (rows[i].el.scrollIntoView) rows[i].el.scrollIntoView({ block: 'nearest' });
+    } else {
+      input.removeAttribute('aria-activedescendant');
+    }
+  }
+
+  function render() {
+    var q = input.value.trim();
+    rows = [];
+    var html = '';
+    if (!q) {
+      html += '<div class="srch-sec">Popular pages</div><div class="srch-chips">' +
+        POPULAR.map(function (p) { return '<a class="srch-chip" href="' + p[1] + '" data-pop="1">' + esc(p[0]) + '</a>'; }).join('') + '</div>';
+      if (!CALM) {
+        html += '<div class="srch-sec">Or ask the AV Concierge</div><div class="srch-chips">' +
+          ASK_IDEAS.map(function (a) { return '<button type="button" class="srch-chip q" data-ask="' + esc(a) + '">' + esc(a) + '</button>'; }).join('') + '</div>';
+      }
+      list.innerHTML = html;
+      select(-1);
+      return;
+    }
+    var found = rank(q);
+    found.forEach(function (p, i) {
+      html += '<a class="srch-row" role="option" id="srchOpt' + i + '" data-i="' + i + '" href="' + esc(p.u) + '">' +
+        '<span class="srch-txt"><span class="srch-t">' + esc(p.t) + '</span><span class="srch-d">' + esc(p.d) + '</span></span>' +
+        '<span class="srch-c">' + esc(p.c) + '</span><span class="srch-enter" aria-hidden="true">Enter</span></a>';
+    });
+    if (!found.length && !index) html += '<div class="srch-sec">Loading pages</div>';
+    else if (!found.length) html += '<div class="srch-sec">No page matches that yet</div>';
+    if (!CALM) {
+      var n = found.length;
+      html += '<button type="button" class="srch-row srch-ask" role="option" id="srchOpt' + n + '" data-i="' + n + '" data-askrow="1">' +
+        '<span class="srch-spark" aria-hidden="true">&#10022;</span>' +
+        '<span class="srch-txt"><span class="srch-t">Ask the AV Concierge</span><span class="srch-d">&ldquo;' + esc(q) + '&rdquo;</span></span>' +
+        '<span class="srch-enter" aria-hidden="true">Enter</span></button>';
+    }
+    list.innerHTML = html;
+    Array.prototype.forEach.call(list.querySelectorAll('[data-i]'), function (el) {
+      rows.push({ el: el, ask: el.hasAttribute('data-askrow'), u: el.getAttribute('href') });
+    });
+    var askIdx = CALM ? -1 : found.length;
+    select(found.length && !isQuestion(q) ? 0 : (askIdx >= 0 ? askIdx : 0));
+  }
+
+  function key(e) {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      if (!rows.length) return;
+      e.preventDefault();
+      var n = sel + (e.key === 'ArrowDown' ? 1 : -1);
+      if (n < 0) n = rows.length - 1;
+      if (n >= rows.length) n = 0;
+      select(n);
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      var q = input.value.trim();
+      if (!q) return;
+      if (rows[sel]) go(sel);
+      else if (!CALM) ask(q);
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      shut();
+    }
+  }
+
+  function go(i, e) {
+    var r = rows[i];
+    if (!r) return;
+    if (r.ask) { if (e) e.preventDefault(); ask(input.value.trim()); return; }
+    track('search_result_click', { search_term: term(input.value), link_url: r.u, position: i + 1, transport_type: 'beacon' });
+    if (!e) location.href = r.u;
+  }
+
+  function ask(q) {
+    q = String(q || '').trim();
+    if (!q) return;
+    track('search_ask', { search_term: term(q) });
+    shut(true);
+    if (window.deaConcierge && window.deaConcierge.ask(q)) return;
+    location.href = '/contact#quote-form';
+  }
+
+  function cycle() {
+    clearInterval(phTimer);
+    phIdx = 0;
+    input.placeholder = EXAMPLES[0];
+    phTimer = setInterval(function () {
+      if (input.value) return;
+      phIdx = (phIdx + 1) % EXAMPLES.length;
+      input.placeholder = EXAMPLES[phIdx];
+    }, 2600);
+  }
+
+  function place() {
+    var h = document.querySelector('header');
+    var top = h ? Math.max(0, h.getBoundingClientRect().bottom) : 0;
+    var box = wrap.querySelector('.srch-box');
+    box.style.top = (top + 10) + 'px';
+    list.style.maxHeight = Math.max(200, window.innerHeight - top - 150) + 'px';
+  }
+
+  function openSearch() {
+    build();
+    lastFocus = document.activeElement;
+    wrap.hidden = false;
+    btn.setAttribute('aria-expanded', 'true');
+    if (!document.body.classList.contains('nav-locked')) {
+      document.body.classList.add('srch-locked');
+      locked = true;
+    }
+    place();
+    render();
+    cycle();
+    input.focus();
+    track('search_open', {});
+    load().then(function () { if (!wrap.hidden) render(); });
+  }
+
+  function shut(keepFocus) {
+    if (!wrap || wrap.hidden) return;
+    wrap.hidden = true;
+    clearInterval(phTimer);
+    btn.setAttribute('aria-expanded', 'false');
+    if (locked) { document.body.classList.remove('srch-locked'); locked = false; }
+    if (keepFocus !== true && lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+
+  btn.addEventListener('click', openSearch);
+  btn.addEventListener('pointerenter', load);
+  btn.addEventListener('focus', load);
+  window.addEventListener('resize', function () { if (wrap && !wrap.hidden) place(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== '/' || e.metaKey || e.ctrlKey || e.altKey) return;
+    var t = e.target, tag = t && t.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (t && t.isContentEditable)) return;
+    if (wrap && !wrap.hidden) return;
+    e.preventDefault();
+    openSearch();
+  });
 })();
 </script>
 </body>
