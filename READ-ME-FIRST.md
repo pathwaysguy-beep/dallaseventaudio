@@ -1058,3 +1058,27 @@ From the 9 November site audit and Steve's calls on 11 November.
   prices are allowed there).
 - The SEO diff fails one gate on /wedding-av-rental-dallas: "floor" 18 to 14.
   That drop is the floor monogram wording and is intended.
+
+## Corporate tightening pass and three titles (bundle 122, 11 November 2026)
+
+- /corporate-events is 6% shorter (5,127 to 4,808 words by the SEO diff's
+  count). Only repeated material came out: the second and third statements of
+  "the technician who builds it runs it", the duplicate De-Feedback line, the
+  gear list repeated inside two FAQ answers, and several closing one-liners.
+  FAQ answers were edited in the visible copy and the FAQPage schema together
+  and still match word for word. Title, description, H1, headings and all 47
+  internal links are unchanged. The title from bundle 112 stays until its
+  Search Console read.
+- Keyword Planner, 11 November: "corporate av services" has about 10 searches
+  a month in the Dallas-Fort Worth DMA and about 40 in the whole United
+  States, so most of its Search Console impressions are not local buyers.
+  "event technology services" (110 a month in DFW), "audio visual company"
+  (90) and "av company dallas" (70) are the terms with real local volume; the
+  pass keeps every use of them.
+- New titles and descriptions on three page-one pages that drew no clicks:
+  /what-others-are-saying ("Dallas Event Audio Reviews | 4.9 Stars From DFW
+  Clients"), the wedding audio mistakes post ("10 Common Wedding Audio
+  Mistakes and How To Avoid Them", H1, breadcrumb, schema headline and the
+  blog card with it) and the large venues post ("Sound Quality in Large
+  Venues: How To Fix Echo and Dead Spots"; H1 unchanged). Each post's hero
+  line and BlogPosting description carry the new description.
