@@ -1028,3 +1028,33 @@ page). Desktop layout unchanged.
   after bundles 116 and 117 against the two weeks before.
 - /contact form note now says name, email, event date and event type are
   required (the HoneyBook form marks Name required too; checked live 5 Nov).
+
+## Audit fixes, post links and De-Feedback (bundle 121, 11 November 2026)
+
+From the 9 November site audit and Steve's calls on 11 November.
+
+- Every post now ends with a `p.post-more` line inside `.post-body`: "Keep
+  reading" with three related posts and one link up to the matching service
+  page. The posts are grouped into four rings (weddings, corporate, sound,
+  lighting and DJ) so each post receives three links from other posts. The fog
+  post has no `.post-body`, so its line sits in its own section above the final
+  CTA. A new post joins a ring by adding its own line and swapping one link in
+  a neighbor.
+- Fifteen posts that discuss microphones at length gained one sentence naming
+  the AI-powered De-Feedback system, linked to
+  /post/what-is-de-feedback-for-live-events. /gallery names it beside the
+  corporate microphones.
+- The two "discounts" sentences are gone from the outdoor AV equipment post and
+  the corporate event audio services post.
+- Floor monogram wording removed from /weddings, /services-lighting and
+  /wedding-av-rental-dallas (visible copy and FAQ schema). Monograms go on a
+  wall or the ceiling. "Sparkler exits" on /rent-dj-lighting reads "grand
+  exits".
+- /contact no longer fires `contact_us_pageview`. The Google Ads conversion
+  action of that name was removed on 11 November; call_tap and text_tap are
+  Primary conversions now.
+- Left as written on Steve's call: "There is no pickup option" on
+  /services-lighting, the review counts, and /davidsbridalfrisco (QR code page;
+  prices are allowed there).
+- The SEO diff fails one gate on /wedding-av-rental-dallas: "floor" 18 to 14.
+  That drop is the floor monogram wording and is intended.

@@ -2014,13 +2014,7 @@ body.srch-locked{ overflow:hidden; }
   })();
   </script>
   <script>
-  /* Google Ads imports a GA4 conversion action named contact_us_pageview.
-     It read Inactive because nothing was firing it. Pairing it with
-     form_submit_thankyou is what makes the view to submit ratio measurable. */
   (function(){
-    if (typeof gtag === 'function') {
-      gtag('event', 'contact_us_pageview', { 'page_location': 'https://www.dallaseventaudio.com/contact' });
-    }
     /* On this page the header Get a Quote button would only reload the page,
        so point it at the form instead. The drawer copy is left alone so the
        drawer keeps its own close behavior. */
