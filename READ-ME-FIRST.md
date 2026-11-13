@@ -1082,3 +1082,31 @@ From the 9 November site audit and Steve's calls on 11 November.
   blog card with it) and the large venues post ("Sound Quality in Large
   Venues: How To Fix Echo and Dead Spots"; H1 unchanged). Each post's hero
   line and BlogPosting description carry the new description.
+
+## HDR glow logo (bundle 123, 13 November 2026)
+
+- Built by another chat; noted here in bundle 124 because the commit did not
+  touch this file. HDR screens get a Rec.2020 PQ AVIF logo through a picture
+  element with media (dynamic-range: high) in the header, the drawer and the
+  homepage hero; every other screen keeps the PNG and WebP. The vector master
+  is images/brand/dea-logo.svg.
+
+## "AV company" title on /corporate-events (bundle 124, 13 November 2026)
+
+- Title is now "Dallas AV Company for Corporate Events | Dallas Event Audio"
+  (was "Corporate Event AV Services in Dallas", set 29 October). The
+  description opens with "AV company in Dallas-Fort Worth. Corporate event
+  AV:", and the first H2 carries "A Dallas AV company for corporate
+  events" so the title's head phrase is in a heading. H1 and URL unchanged.
+- Why: the 29 October title moved the page from about position 24.5 to about
+  17 in US search (15 to 28 October against 29 October to 11 November) with 0
+  clicks either side. The corporate terms it targeted run about 10 searches a
+  month in the Dallas-Fort Worth DMA; "av companies near me" runs 110, "av
+  company" 90, "audio visual company" 90 and "av company dallas" 70.
+- "AV company" searches were split over three URLs: the home page, this page
+  and the post why-av-production-matters-for-corporate-events. That post now
+  links to /corporate-events on "AV company for corporate events in
+  Dallas-Fort Worth" so the page gets the signal.
+- Baseline for the recheck around 2 December: "av companies in dallas" 30
+  impressions at 16.3 (29 October to 11 November), "av company" 119
+  impressions at 42 over 90 days (landing on the post).
