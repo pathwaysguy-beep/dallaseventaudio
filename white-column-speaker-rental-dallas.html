@@ -742,6 +742,11 @@ a.chip::after{ content:' \2192'; opacity:.55; }
     width:100%; height:100%; object-fit:cover;
   }
 
+.hero-top{ display:grid; grid-template-columns:minmax(0,1fr) 180px; gap:56px; align-items:center; }
+.hero-col img, .hero-col-m img{ display:block; width:100%; height:auto; }
+.hero-col-m{ display:none; }
+.hero-copy::after{ content:""; display:block; clear:both; }
+@media (max-width:860px){ .hero-top{ display:block; } .hero-col{ display:none; } .hero-col-m{ display:block; float:right; width:78px; margin:6px 0 10px 18px; } }
 .split-vis.col-fig{ aspect-ratio:2/3; max-height:800px; justify-self:center; width:100%; }
 .split-vis.col-fig img{ object-fit:contain; padding:30px 0; box-sizing:border-box; }
 </style>
@@ -1976,6 +1981,8 @@ body.srch-locked{ overflow:hidden; }
 <section class="hero hero-page">
     <div class="hero-grid" aria-hidden="true"></div>
     <div class="wrap">
+      <div class="hero-top">
+      <div class="hero-copy">
       <div class="breadcrumb" data-reveal>
         <a href="/">Home</a><span class="sep">/</span><a href="/services-audio">Audio Services</a><span class="sep">/</span><span class="here">White Column Speaker Rental</span>
       </div>
@@ -1985,10 +1992,14 @@ body.srch-locked{ overflow:hidden; }
         <a class="btn-primary" href="/contact#quote-form">Request a Quote</a>
         <a class="btn-secondary" href="tel:8172107957">Call 817-210-7957</a>
       </div>
+      <div class="hero-col-m" aria-hidden="true"><picture><source type="image/avif" srcset="/images/white-column-speakers/electro-voice-evolve-30m-g2-white-column-speaker-200w.avif 200w, /images/white-column-speakers/electro-voice-evolve-30m-g2-white-column-speaker-400w.avif 400w, /images/white-column-speakers/electro-voice-evolve-30m-g2-white-column-speaker-800w.avif 800w" sizes="78px"><source type="image/webp" srcset="/images/white-column-speakers/electro-voice-evolve-30m-g2-white-column-speaker-200w.webp 200w, /images/white-column-speakers/electro-voice-evolve-30m-g2-white-column-speaker-400w.webp 400w, /images/white-column-speakers/electro-voice-evolve-30m-g2-white-column-speaker-800w.webp 800w" sizes="78px"><img src="/images/white-column-speakers/electro-voice-evolve-30m-g2-white-column-speaker.png" alt="" width="400" height="1600"></picture></div>
       <p class="sub" data-reveal>White column speaker rental in Dallas-Fort Worth for the events where the room is part of the experience: wedding ceremonies, corporate dinners, fundraisers and galas. We own a matched pair of Electro-Voice EVOLVE 30M G2 column array speakers in white. Our crew delivers them, places them, tunes them to the room and sound checks them with your microphones and your music.</p>
       <div class="hero-ctas hero-ctas-top hero-ctas-d" data-reveal>
         <a class="btn-primary" href="/contact#quote-form">Request a Quote</a>
         <a class="btn-secondary" href="tel:8172107957">Call 817-210-7957</a>
+      </div>
+      </div>
+      <div class="hero-col" data-reveal><picture><source type="image/avif" srcset="/images/white-column-speakers/electro-voice-evolve-30m-g2-white-column-speaker-200w.avif 200w, /images/white-column-speakers/electro-voice-evolve-30m-g2-white-column-speaker-400w.avif 400w, /images/white-column-speakers/electro-voice-evolve-30m-g2-white-column-speaker-800w.avif 800w" sizes="180px"><source type="image/webp" srcset="/images/white-column-speakers/electro-voice-evolve-30m-g2-white-column-speaker-200w.webp 200w, /images/white-column-speakers/electro-voice-evolve-30m-g2-white-column-speaker-400w.webp 400w, /images/white-column-speakers/electro-voice-evolve-30m-g2-white-column-speaker-800w.webp 800w" sizes="180px"><img src="/images/white-column-speakers/electro-voice-evolve-30m-g2-white-column-speaker.png" alt="White Electro-Voice EVOLVE 30M G2 column speaker shown at full height" width="400" height="1600"></picture></div>
       </div>
 
       <div class="stat-row" data-reveal>
