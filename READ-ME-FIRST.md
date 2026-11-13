@@ -1110,3 +1110,32 @@ From the 9 November site audit and Steve's calls on 11 November.
 - Baseline for the recheck around 2 December: "av companies in dallas" 30
   impressions at 16.3 (29 October to 11 November), "av company" 119
   impressions at 42 over 90 days (landing on the post).
+
+## Home phone picker, grid and chat tap speed, audit cleanup (bundle 125, 13 November 2026)
+
+- Home page on phones (700px and under): a "Popular rentals" picker sits under
+  the Get Your Quote and Call buttons, six links in two columns (Sound
+  Systems, Projector & Screen, TV Rental, Event Lighting, DJ Equipment,
+  Microphones). div.hero-pick in index.html, hidden on desktop. Why: Clarity
+  showed phone visitors use the home page to pick a service (menu and service
+  links took the taps, Get Your Quote took none) and 26% never scrolled.
+  Baseline for the recheck, week to 13 November: 26% never scroll, 48% pass
+  15% of the page. Read the taps in the Clarity phone heatmap.
+- Hero floor grid, 85 pages: the scroll now animates transform (rotateX plus
+  translateY 0 to 136px) with will-change, in place of background-position,
+  which repainted the whole grid every frame. The fade mask moved from
+  .hero-grid::before to .hero-grid so it stays still while the plane moves.
+  Measured live in Steve's Chrome on the home page: a click on a header menu
+  took 72 ms to paint before, 32 to 40 ms after, the same as with the grid
+  removed. Phones and reduced motion keep the grid still, as before. Keep the
+  keyframes on transform; a background-position animation here costs every
+  tap on the page.
+- Chat open (tools/chrome/widget_js.html): open() shows the panel and the
+  greeting, then afterPaint() runs the scroll, the keyboard fit, the focus and
+  the chat_open GA4 event once that frame has painted. Clarity had the chat
+  open on the clouds page at 512 ms of processing on a phone.
+- /blog has BreadcrumbList schema (Home, Blog). Every indexable page has one
+  now.
+- _headers: X-Robots-Tag noindex for dallaseventaudio.pages.dev and its
+  branch previews, by host name, so www is untouched. After any change to
+  _headers, check that www still returns no X-Robots-Tag on a normal page.

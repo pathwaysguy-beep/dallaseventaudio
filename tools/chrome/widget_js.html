@@ -268,12 +268,25 @@
     bubble.setAttribute('data-open', '1');
     bubble.setAttribute('aria-expanded', 'true');
     if (!log.childNodes.length) restore();
-    log.scrollTop = log.scrollHeight;
-    fit();
-    /* No automatic focus on a phone: it pops the keyboard over the greeting
-       and its choices before anyone has read them. */
-    if (!ended && window.innerWidth > 520) input.focus();
-    track('chat_open', { event_category: 'concierge', source: source });
+    /* Tap speed (bundle 125): the panel is on screen at this point. The
+       measuring, the focus and the GA4 event wait until that frame has
+       painted, so a slow phone shows the chat first and does the rest after. */
+    afterPaint(function () {
+      if (panel.hidden) return;
+      log.scrollTop = log.scrollHeight;
+      fit();
+      /* No automatic focus on a phone: it pops the keyboard over the greeting
+         and its choices before anyone has read them. */
+      if (!ended && window.innerWidth > 520) input.focus();
+    });
+    afterPaint(function () {
+      track('chat_open', { event_category: 'concierge', source: source });
+    });
+  }
+
+  function afterPaint(fn) {
+    var raf = window.requestAnimationFrame || function (f) { return setTimeout(f, 16); };
+    raf(function () { setTimeout(fn, 0); });
   }
 
   function shut() {

@@ -175,6 +175,8 @@ a{color:inherit; text-decoration:none;}
 .hero-grid{
     position:absolute; left:0; right:0; bottom:-10%; height:70%;
     perspective:400px; overflow:hidden; pointer-events:none; z-index:0;
+    mask-image:linear-gradient(to top, black 0%, transparent 75%);
+    -webkit-mask-image:linear-gradient(to top, black 0%, transparent 75%);
   }
 .hero-grid::before{
     content:''; position:absolute; inset:-50% -50% 0 -50%;
@@ -185,10 +187,9 @@ a{color:inherit; text-decoration:none;}
     transform-origin:bottom;
     animation: gridScroll 9s linear infinite;
     opacity:.55;
-    mask-image:linear-gradient(to top, black 0%, transparent 75%);
-    -webkit-mask-image:linear-gradient(to top, black 0%, transparent 75%);
+    will-change:transform;
   }
-@keyframes gridScroll{ from{ background-position:0 0; } to{ background-position:0 136px; } }
+@keyframes gridScroll{ from{ transform:rotateX(62deg) translateY(0); } to{ transform:rotateX(62deg) translateY(136px); } }
 .hero-lasers{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
 .laser{
     position:absolute; top:-10%; width:2px; height:130%;
@@ -249,7 +250,18 @@ a{color:inherit; text-decoration:none;}
   }
 .hero-ctas{ display:flex; gap:16px; margin-top:36px; flex-wrap:wrap; position:relative; z-index:1; }
 .hero-ctas-m{ display:none; }
+/* Phone service picker (bundle 125): phone visitors use the home page to pick
+   a service, so the six most-requested rentals sit under the two buttons. */
+.hero-pick{ display:none; }
 @media (max-width:700px){
+.hero-pick{ display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:20px; position:relative; z-index:1; }
+.hero-pick .hp-label{ grid-column:1 / -1; font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--dim); }
+.hero-pick a{
+    display:flex; align-items:center; justify-content:center; min-height:46px; padding:8px 10px;
+    border:1px solid var(--card-border); border-radius:12px; background:rgba(255,255,255,.04);
+    color:var(--ink); font-size:.92rem; font-weight:600; text-align:center; line-height:1.2;
+  }
+.hero-pick a:active{ background:rgba(255,255,255,.1); }
 .hero-ctas-m{ display:flex; flex-wrap:nowrap; margin-top:22px; gap:10px; }
 .hero-ctas-d{ display:none; }
 .hero-ctas-m a{ flex:1 1 0; min-width:0; text-align:center; white-space:nowrap; padding:14px 8px; font-size:.95rem; }
@@ -1541,6 +1553,15 @@ body.srch-locked{ overflow:hidden; }
         <a class="btn-primary" href="/contact#quote-form">Get Your Quote</a>
         <a class="btn-secondary" href="tel:8172107957">Call 817-210-7957</a>
       </div>
+      <div class="hero-pick" role="navigation" aria-label="Popular rentals">
+        <span class="hp-label">Popular rentals</span>
+        <a href="/rent-sound-equipment">Sound Systems</a>
+        <a href="/projector-screen-rental">Projector &amp; Screen</a>
+        <a href="/tv-rental-dallas">TV Rental</a>
+        <a href="/services-lighting">Event Lighting</a>
+        <a href="/rent-sound-equipment/cdj-rental-dallas">DJ Equipment</a>
+        <a href="/feedback-free-microphone-rentals">Microphones</a>
+      </div>
       <p class="sub">Dallas Event Audio has provided AV rental in Dallas-Fort Worth since 2001: audio visual equipment rental for sound, lighting, video, effects and DJ gear, white glove and turnkey. Our insured crew delivers, sets up, tests and picks up every booking, with an AV technician on site for the services that call for it. All you have to do is show up.</p>
       <div class="hero-ctas hero-ctas-d">
         <a class="btn-primary" href="/contact#quote-form">Get Your Quote</a>
@@ -2488,12 +2509,25 @@ body.srch-locked{ overflow:hidden; }
     bubble.setAttribute('data-open', '1');
     bubble.setAttribute('aria-expanded', 'true');
     if (!log.childNodes.length) restore();
-    log.scrollTop = log.scrollHeight;
-    fit();
-    /* No automatic focus on a phone: it pops the keyboard over the greeting
-       and its choices before anyone has read them. */
-    if (!ended && window.innerWidth > 520) input.focus();
-    track('chat_open', { event_category: 'concierge', source: source });
+    /* Tap speed (bundle 125): the panel is on screen at this point. The
+       measuring, the focus and the GA4 event wait until that frame has
+       painted, so a slow phone shows the chat first and does the rest after. */
+    afterPaint(function () {
+      if (panel.hidden) return;
+      log.scrollTop = log.scrollHeight;
+      fit();
+      /* No automatic focus on a phone: it pops the keyboard over the greeting
+         and its choices before anyone has read them. */
+      if (!ended && window.innerWidth > 520) input.focus();
+    });
+    afterPaint(function () {
+      track('chat_open', { event_category: 'concierge', source: source });
+    });
+  }
+
+  function afterPaint(fn) {
+    var raf = window.requestAnimationFrame || function (f) { return setTimeout(f, 16); };
+    raf(function () { setTimeout(fn, 0); });
   }
 
   function shut() {

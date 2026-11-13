@@ -62,6 +62,16 @@
 /videos/*
   Cache-Control: public, max-age=31536000, immutable
 
+# ─── PERMANENT ────────────────────────────────────────────────────────────
+# The Pages preview host serves the whole site a second time. Canonicals point
+# at www, and this rule closes it properly: nothing on pages.dev is indexed.
+# It names the host, so it never touches www (bundle 125).
+https://dallaseventaudio.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:branch.dallaseventaudio.pages.dev/*
+  X-Robots-Tag: noindex
+
 # Third-party code we host ourselves (bundle 118: Google's web-vitals library).
 # The version is in the filename, so an upgrade is a new file and a year is safe.
 /vendor/*
