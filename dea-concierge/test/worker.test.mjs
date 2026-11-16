@@ -285,3 +285,55 @@ test("the model is told which page the visitor is on", async () => {
   const bare = calls.find((x) => x.url.includes("anthropic")).body;
   assert.doesNotMatch(bare.system[1].text, /right now/);
 });
+
+test("chat runs on the configured model at low effort and falls back once", async () => {
+  const e = env({ MODEL: "claude-sonnet-5-5", FALLBACK_MODEL: "claude-sonnet-4-5" });
+  const c = ctx();
+  const seen = [];
+  globalThis.fetch = async (url, init) => {
+    const body = JSON.parse(init.body);
+    if (String(url).includes("anthropic")) {
+      seen.push(body);
+      if (body.model === "claude-sonnet-5-5") {
+        return new Response(JSON.stringify({ error: { type: "not_found_error" } }), { status: 404 });
+      }
+      return new Response(JSON.stringify({ content: [{ type: "text", text: "From the fallback." }] }), { status: 200 });
+    }
+    return new Response(JSON.stringify({ id: "email_1" }), { status: 200 });
+  };
+  const res = await worker.fetch(chat({ sid: "6666666666666666", page: "/", history: [{ role: "user", content: "hi" }] }), e, c);
+  await c.settle();
+  assert.equal(res.status, 200);
+  assert.equal((await res.json()).reply, "From the fallback.");
+  assert.equal(seen.length, 2);
+  assert.deepEqual(seen[0].output_config, { effort: "low" });
+  assert.equal(seen[0].max_tokens, 4096);
+  assert.equal(seen[1].model, "claude-sonnet-4-5");
+  assert.equal(seen[1].output_config, undefined);
+  assert.equal(seen[1].max_tokens, 1024);
+});
+
+test("thinking blocks are dropped and an empty reply falls back", async () => {
+  const e = env({ MODEL: "claude-sonnet-5-5", FALLBACK_MODEL: "claude-sonnet-4-5" });
+  const c = ctx();
+  let n = 0;
+  globalThis.fetch = async (url, init) => {
+    if (String(url).includes("anthropic")) {
+      n += 1;
+      const body = JSON.parse(init.body);
+      if (body.messages[0].content === "empty") {
+        return new Response(JSON.stringify({ stop_reason: "max_tokens", content: [{ type: "thinking", thinking: "..." }] }), { status: 200 });
+      }
+      return new Response(JSON.stringify({ content: [{ type: "thinking", thinking: "hmm" }, { type: "text", text: "Clean answer." }] }), { status: 200 });
+    }
+    return new Response(JSON.stringify({ id: "email_1" }), { status: 200 });
+  };
+  const ok = await worker.fetch(chat({ history: [{ role: "user", content: "hello" }] }), e, c);
+  assert.equal((await ok.json()).reply, "Clean answer.");
+  assert.equal(n, 1);
+  n = 0;
+  const bad = await worker.fetch(chat({ history: [{ role: "user", content: "empty" }] }), e, c);
+  await c.settle();
+  assert.equal(bad.status, 502);
+  assert.equal(n, 2);
+});

@@ -27,7 +27,11 @@
     "DAILY_CAP": "400",
     "LEAD_FROM": "concierge@dallaseventaudio.com",
     "LEAD_TO": "steve@dallaseventaudio.com",
-    "MODEL": "claude-sonnet-4-5",
+    // Bundle 131: chat runs on Sonnet 5.5 at low effort. If that call fails
+    // or comes back empty the Worker retries once on FALLBACK_MODEL, so a
+    // model problem never shows a visitor the error reply.
+    "MODEL": "claude-sonnet-5-5",
+    "FALLBACK_MODEL": "claude-sonnet-4-5",
     "DIGEST_MODEL": "claude-opus-5-5"
   },
   "ratelimits": [

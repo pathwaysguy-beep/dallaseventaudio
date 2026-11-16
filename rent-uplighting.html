@@ -3470,16 +3470,22 @@ window.addEventListener('scroll',u,{passive:true});u();})();
    model output rather than authored markup, so nothing in it can become a live
    element or attribute.
 
-   The conversation is kept in sessionStorage so moving between pages does not
-   restart it. It is per tab and it disappears when the tab closes, which is
-   the right lifetime for a sales chat.
+   The conversation is kept in localStorage so moving between pages does not
+   restart it, and since bundle 131 neither does closing the tab: a visitor
+   who comes back within 24 hours of their last message, in a new tab or
+   after a restart, finds the same conversation and the bot still knows what
+   they told it. (A visitor on 17 October answered the bot's question from a
+   new tab ninety seconds later and was asked to start over.) After 24 hours
+   the stored chat is dropped and the next visit starts fresh. sessionStorage
+   is the fallback where localStorage is blocked, and is still read once so a
+   chat begun before bundle 131 carries on.
 
    Since bundle 62 each conversation carries a random id, made on the first
    message and kept with the history, and each turn also names the page path
    it was sent from. The Worker keeps the conversation under that id so Steve
    gets a morning digest of what people asked and where they stopped. The id
-   is not a cookie, is never reused across tabs, and the path is sent without
-   its query string. */
+   is not a cookie, lives and expires with the stored conversation, and the
+   path is sent without its query string. */
 (function () {
   'use strict';
 
@@ -3629,17 +3635,26 @@ window.addEventListener('scroll',u,{passive:true});u();})();
     }
   }
 
+  var KEEP_MS = 24 * 60 * 60 * 1000;   /* a stored chat lives a day past its last message */
+
   function save() {
-    try { sessionStorage.setItem(STORE, JSON.stringify({ history: history, ended: ended, sid: sid })); }
-    catch (e) {}
+    var v = JSON.stringify({ history: history, ended: ended, sid: sid, t: Date.now() });
+    try { localStorage.setItem(STORE, v); }
+    catch (e) { try { sessionStorage.setItem(STORE, v); } catch (e2) {} }
   }
 
   function restore() {
     var raw = null;
-    try { raw = sessionStorage.getItem(STORE); } catch (e) {}
+    try { raw = localStorage.getItem(STORE); } catch (e) {}
+    if (!raw) { try { raw = sessionStorage.getItem(STORE); } catch (e) {} }
     if (raw) {
       try {
         var d = JSON.parse(raw);
+        if (d && typeof d.t === 'number' && Date.now() - d.t > KEEP_MS) {
+          d = null;
+          try { localStorage.removeItem(STORE); } catch (e) {}
+          try { sessionStorage.removeItem(STORE); } catch (e) {}
+        }
         if (d && Array.isArray(d.history) && d.history.length) {
           history = d.history;
           ended = !!d.ended;

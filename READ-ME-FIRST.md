@@ -1178,3 +1178,43 @@ Steve's own tests). Worker files only; no page of the site changed. Needs
   expiry is a chrome change across every page. The chat model is still
   claude-sonnet-4-5 (wrangler.jsonc MODEL); a newer Sonnet is a one line
   change once Steve approves it.
+
+## Chat survives a closed tab, chat model on Sonnet 5.5 (bundle 131, 15 November 2026)
+
+- tools/chrome/widget_js.html: the conversation (history, id, ended flag and
+  the time of the last message) is now kept in localStorage in place of
+  sessionStorage. A visitor who comes back within 24 hours of their last
+  message, in a new tab or after closing the browser, finds the same
+  conversation under the same id. Older than 24 hours it is removed and the
+  next visit starts fresh. sessionStorage is the fallback where localStorage
+  is blocked and is read once so a chat begun before this bundle carries on.
+  The follow flag for links inside the chat stays in sessionStorage. Why: on
+  17 October a visitor answered the bot's question from a new tab ninety
+  seconds later and the bot asked them to start over.
+- /privacy: the sentence about the conversation id now says it is kept in the
+  browser's storage and clears itself 24 hours after the last message (it
+  said the chat ends when the tab closes). Keep the two in step: if KEEP_MS
+  in the widget changes, change that sentence.
+- dea-concierge: MODEL is claude-sonnet-5-5 (was claude-sonnet-4-5), with
+  FALLBACK_MODEL claude-sonnet-4-5 in wrangler.jsonc. src/index.js has
+  callChatModel: Claude 5 models think before they answer and the thinking
+  counts toward max_tokens, so they are sent output_config effort low and
+  max_tokens 4096, and only text blocks are kept. If the primary call fails
+  or returns no text the Worker retries once on the fallback before the
+  visitor ever sees the error reply; the log line is "CHAT primary model
+  failed". The digest's fallback path uses the same rule. Needs `npx wrangler
+  deploy`. After the deploy, send one test question and check the Worker log
+  for that line; if it appears, Sonnet 5.5 is being refused and the chat is
+  running on the fallback.
+- Tests: 10 of 10 (two new: effort and fallback, thinking blocks dropped).
+  Headless: 89 pages at 1440 and 390, 0 overflow, 0 404s, 0 JS errors; a chat
+  started on /contact is still there in a new tab on /rent-uplighting with
+  the same id, and is gone 25 hours later.
+- Bundle 131 replaces bundle 129, which was built against bundle 128 and
+  never pushed. Bundle 130 (column speaker photos) landed on origin first, so
+  129 was rebuilt on top of it. Delete dea-bundle129.zip.
+- Prompt v9.1, from a live test of v9 in Steve's Chrome on 15 November: the
+  page awareness, price, rush, seven day delivery and internet answers all
+  came back as written. Two misses fixed here: the colored smoke answer named
+  the Geyser with no link, and the Tyler test asked where the event was but
+  named the service area in the same breath.

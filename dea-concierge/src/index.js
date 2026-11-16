@@ -285,11 +285,41 @@ visitor messages: ${r.turns}, ended by bot: ${r.ended ? "yes" : "no"}, lead capt
   return out.join("\n");
 }
 __name(digestPack, "digestPack");
+function thinks(model) {
+  return /^claude-(opus|sonnet|haiku|fable|mythos)-5/.test(String(model || ""));
+}
+__name(thinks, "thinks");
+async function callChatModel(env, model, system, messages) {
+  const body = {
+    model,
+    // Claude 5 models think before they answer and the thinking counts toward
+    // max_tokens, so they get headroom and run at low effort to stay quick.
+    max_tokens: thinks(model) ? 4096 : MAX_TOKENS,
+    system,
+    messages
+  };
+  if (thinks(model)) body.output_config = { effort: "low" };
+  const res = await fetch(ANTHROPIC_URL, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      "x-api-key": env.ANTHROPIC_API_KEY,
+      "anthropic-version": ANTHROPIC_VERSION
+    },
+    body: JSON.stringify(body)
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error("anthropic " + res.status + " " + (data && data.error && data.error.type));
+  const text = (data.content || []).filter((b) => b.type === "text").map((b) => b.text || "").join("").trim();
+  if (!text) throw new Error("empty reply from " + model + " (stop_reason " + (data.stop_reason || "?") + ")");
+  return text;
+}
+__name(callChatModel, "callChatModel");
 async function callDigestModel(env, model, useEffort, userText) {
   const body = {
     model,
-    // Opus 5.5 always thinks and its thinking counts toward max_tokens, so
-    // leave room above the roughly 800 words of digest.
+    // Claude 5 models always think and the thinking counts toward
+    // max_tokens, so leave room above the roughly 800 words of digest.
     max_tokens: useEffort ? 6e3 : 1500,
     system: DIGEST_SYSTEM,
     messages: [{ role: "user", content: userText }]
@@ -326,12 +356,13 @@ ${digestPack(rows)}
   const primary = env.DIGEST_MODEL || "";
   if (primary) {
     try {
-      return await callDigestModel(env, primary, /^claude-opus-5-5/.test(primary), userText);
+      return await callDigestModel(env, primary, thinks(primary), userText);
     } catch (e) {
       console.error("DIGEST primary model failed, falling back", primary, String(e));
     }
   }
-  return await callDigestModel(env, env.MODEL || "claude-sonnet-4-5", false, userText);
+  const chatModel = env.MODEL || "claude-sonnet-5-5";
+  return await callDigestModel(env, chatModel, thinks(chatModel), userText);
 }
 __name(summarizeDay, "summarizeDay");
 function digestHtml(day, rows, summary) {
@@ -519,32 +550,24 @@ var index_default = {
       { type: "text", text: DEA_SYSTEM_PROMPT, cache_control: { type: "ephemeral" } },
       { type: "text", text: `Today's date is ${todayInDallas()}.` + (page ? ` The visitor is on this page of the site right now: ${page}` : "") }
     ];
-    let data;
+    // Bundle 131: MODEL first, then FALLBACK_MODEL once if that call fails
+    // or returns no text.
+    const primary = env.MODEL || "claude-sonnet-5-5";
+    const backup = env.FALLBACK_MODEL || "claude-sonnet-4-5";
+    let raw = null;
     try {
-      const res = await fetch(ANTHROPIC_URL, {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-          "x-api-key": env.ANTHROPIC_API_KEY,
-          "anthropic-version": ANTHROPIC_VERSION
-        },
-        body: JSON.stringify({
-          model: env.MODEL || "claude-sonnet-4-5",
-          max_tokens: MAX_TOKENS,
-          system,
-          messages: checked.history
-        })
-      });
-      data = await res.json();
-      if (!res.ok) {
-        console.error("anthropic error", res.status, data && data.error && data.error.type);
-        data = null;
-      }
+      raw = await callChatModel(env, primary, system, checked.history);
     } catch (e) {
-      console.error("anthropic fetch failed", String(e));
-      data = null;
+      console.error("CHAT primary model failed", primary, String(e));
+      if (backup && backup !== primary) {
+        try {
+          raw = await callChatModel(env, backup, system, checked.history);
+        } catch (e2) {
+          console.error("CHAT fallback model failed", backup, String(e2));
+        }
+      }
     }
-    if (!data || !Array.isArray(data.content)) {
+    if (!raw) {
       ctx.waitUntil(
         storeConversation(env, {
           sid, page, history: checked.history, reply: FRIENDLY_ERROR, errored: true
@@ -552,7 +575,6 @@ var index_default = {
       );
       return json({ reply: FRIENDLY_ERROR }, 502, cors);
     }
-    const raw = data.content.map((b) => b.text || "").join("").trim();
     const { reply: cleaned, ended, abusive, lead, leadMalformed } = parseSignals(raw);
     let reply = cleaned;
     if (leadMalformed) console.error("lead json did not parse");
