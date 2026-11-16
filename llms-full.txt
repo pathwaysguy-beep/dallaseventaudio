@@ -3402,6 +3402,9 @@ Corporate event AV
 Microphone rental
 Projector and screen rental
 Luxury events
+Jolie Ballroom in Hickory Creek: our two white EVOLVE 30M G2 columns, two Shure SLX-D wireless microphones running AI-powered De-Feedback, and an Epson 700U projector for the presentation.
+The first event for our white pair: a corporate dinner at the National Medal of Honor Museum in Arlington, with one column at each end of the stage.
+On its own base the column reaches the height of the microphones on a raised stage, so the sound carries over seated guests.
 How it works
 ## What a column array speaker is, and why it looks different
 A conventional event speaker is a box on a tripod: one large driver and a horn, raised to head height on three legs. A column array takes a different shape. Six small drivers are stacked in a slim vertical column, the column sits on a single pole, and the pole rises out of a compact subwoofer that doubles as the base.
@@ -7550,7 +7553,7 @@ CO2
 Live streaming
 TVs
 Search venues or cities
-316 venues
+317 venues
 That venue would be a new one for us. Tell us about your event and we will advance the room with your coordinator.
 ### Dallas
 The Adolphus Sound Wireless mics Projection
@@ -7838,6 +7841,7 @@ Hilton Richardson Dallas Richardson Sound Wireless mics Projection
 HR Ranch Terrell DJ
 Hyatt Place Dallas/The Colony The Colony Sound Wireless mics TVs
 Iron Gables Paradise DJ
+Jolie Ballroom Hickory Creek Sound Wireless mics Projection
 The Keller Roundhouse Keller Sound Wireless mics Live stream
 Knotting Hill Place Little Elm Sound Uplighting Clouds
 Lone Star Mansion Burleson Sound DJ Wireless mics
