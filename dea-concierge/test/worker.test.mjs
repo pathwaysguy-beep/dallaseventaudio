@@ -337,3 +337,11 @@ test("thinking blocks are dropped and an empty reply falls back", async () => {
   assert.equal(bad.status, 502);
   assert.equal(n, 2);
 });
+
+test("the prompt carries the white column speakers", async () => {
+  const { DEA_SYSTEM_PROMPT } = await import("../src/prompt.js");
+  assert.ok(DEA_SYSTEM_PROMPT.includes("Electro-Voice EVOLVE 30M G2 in white"));
+  assert.ok(DEA_SYSTEM_PROMPT.includes("- /white-column-speaker-rental-dallas:"));
+  assert.ok(DEA_SYSTEM_PROMPT.includes("## White column speakers"));
+  assert.equal(/[–—]/.test(DEA_SYSTEM_PROMPT), false);
+});

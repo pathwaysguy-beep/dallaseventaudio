@@ -1218,3 +1218,20 @@ Steve's own tests). Worker files only; no page of the site changed. Needs
   came back as written. Two misses fixed here: the colored smoke answer named
   the Geyser with no link, and the Tyler test asked where the event was but
   named the service area in the same breath.
+
+## Concierge prompt v10: white column speakers (bundle 132, 15 November 2026)
+
+The white Electro-Voice EVOLVE 30M G2 pair went on the site in bundles 126,
+127 and 130 (page `/white-column-speaker-rental-dallas`, photos from the
+first two events, Jolie Ballroom on the venue list), and prompt v9 and v9.1 shipped
+between them without it. Worker files only; no page of the site changed.
+Needs `npx wrangler deploy` from dea-concierge/ to go live.
+
+- src/prompt.js v10: the pair is in the INVENTORY allowlist under SPEAKERS,
+  the page has its digest in WHAT EACH PAGE SAYS (the page's own sentences),
+  and a new SPECIAL HANDLING section, White column speakers, covers how to
+  describe them to hosts and to performers, that DEA owns one pair so the
+  date is for the team to confirm, the maker's rating of up to 150 guests per
+  system, and the handoff to a larger system for big rooms and dance floors.
+- test/worker.test.mjs: one new test, that the prompt carries the pair, the
+  page digest and the section, with no em or en dash. 11 of 11 pass.
