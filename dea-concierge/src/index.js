@@ -250,6 +250,8 @@ Write plain text, no markdown symbols, in this shape:
 2. One short paragraph per conversation, in order, each starting with the page it began on. Say who the visitor seemed to be, what they asked, how the bot handled it, and where it stopped: lead captured, visitor left after the bot asked for contact details, visitor left after a pricing answer, still open, or ended by the bot. Quote a short phrase of the visitor's own words when it helps. If a conversation looks like a real job worth Steve following up on, say so and say why. Skip conversations that are clearly Steve or a developer testing the widget, and say how many you skipped.
 3. A closing paragraph headed Patterns: the questions that came up more than once, any answer the bot gave that was wrong, unhelpful or pushed people away, and one concrete change to the bot's prompt that the day's chats argue for. If nothing stands out, say so in one sentence.
 
+Facts about Dallas Event Audio, so you judge the bot's answers correctly. These are all true and the bot is right to say them: every microphone rental runs through DEA's own AI-powered De-Feedback feedback suppression; DEA books its own DJs as well as renting DJ equipment; every rental is delivered, set up and picked up by the crew, with no customer pickup; DEA delivers seven days a week; the bot never quotes prices, by design, and quotes are promised within 24 hours, or a call as soon as possible for a rush job; DEA does not offer cold sparks, photo booths, hotspots or internet service; colored smoke requests are answered with the Geyser P7 LED fog jets. Do not flag any of these as a mistake or as invented.
+
 Keep the whole digest under 500 words. Write in Texas English with no em dashes or en dashes. Never quote or invent prices.`;
 function digestPack(rows) {
   const MAX_ONE = 6e3;
@@ -509,10 +511,13 @@ var index_default = {
       return json({ reply: FRIENDLY_ERROR }, 500, cors);
     }
     // The static prompt goes first and is cached across requests; the date
-    // rides in a second block so it never breaks the cache.
+    // rides in a second block so it never breaks the cache. Bundle 128: the
+    // page the visitor is on rides there too, so the model can tell a visitor
+    // they are already on the page that answers them (prompt rule 11).
+    // cleanPage has already reduced it to a bare path.
     const system = [
       { type: "text", text: DEA_SYSTEM_PROMPT, cache_control: { type: "ephemeral" } },
-      { type: "text", text: `Today's date is ${todayInDallas()}.` }
+      { type: "text", text: `Today's date is ${todayInDallas()}.` + (page ? ` The visitor is on this page of the site right now: ${page}` : "") }
     ];
     let data;
     try {

@@ -1139,3 +1139,42 @@ From the 9 November site audit and Steve's calls on 11 November.
 - _headers: X-Robots-Tag noindex for dallaseventaudio.pages.dev and its
   branch previews, by host name, so www is untouched. After any change to
   _headers, check that www still returns no X-Robots-Tag on a normal page.
+
+## Concierge prompt v9 and page awareness (bundle 128, 15 November 2026)
+
+Built after a read of every stored conversation in the dea-leads D1 database
+(table conversations, 26 rows from 23 September to 14 November, two of them
+Steve's own tests). Worker files only; no page of the site changed. Needs
+`npx wrangler deploy` from dea-concierge/ to go live.
+
+- What the chats showed: about half the real chats ended at the bot's next
+  qualifying question, before it asked how to reach the visitor. Price
+  questions got "I don't quote prices" and the visitor left. Five chats were
+  for events one to five days out and got the normal intake and "within 24
+  hours". A visitor writing from Tyler about a Dallas event was turned away on
+  service area. A visitor on the line array page asked which page has the
+  DV12 and was linked to the page they were on.
+- src/index.js: the second system block now carries the page the visitor is
+  on ("The visitor is on this page of the site right now: /path") next to the
+  date. The static prompt stays the cached first block. The digest prompt
+  gained a facts paragraph (De-Feedback is real, DEA books DJs, no pickup,
+  seven day delivery, no prices by design) so the morning digest stops
+  flagging correct answers as mistakes.
+- src/prompt.js v9: rule 11 uses the page; the quote is offered at the first
+  buying signal and asked for twice at most; new PRICE QUESTIONS, RUSH JOBS
+  and SALES PITCHES sections; the event city is confirmed before service area
+  comes up; a skipped question is never repeated word for word; replies run
+  about 60 words with one question.
+- Facts from Steve, 15 November: DEA delivers seven days a week. DEA has no
+  hotspots and supplies no internet connection. Colored smoke requests are
+  answered with the Chauvet DJ Geyser P7 and linked to
+  /rent-fog-machine#geyser-fog-jet. On a rush job the bot says "the team will
+  call you as soon as they can" in place of "within 24 hours".
+- test/worker.test.mjs: one new test, that the page reaches the model and the
+  static prompt is still the cached block. 8 of 8 pass.
+- Left for a later bundle: the widget keeps the conversation in
+  sessionStorage, so a visitor who reopens the site in a new tab starts a new
+  chat (seen once, 17 October). Moving it to localStorage with a one day
+  expiry is a chrome change across every page. The chat model is still
+  claude-sonnet-4-5 (wrangler.jsonc MODEL); a newer Sonnet is a one line
+  change once Steve approves it.

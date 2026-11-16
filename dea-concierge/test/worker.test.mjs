@@ -264,3 +264,24 @@ test("digest runs on DIGEST_MODEL at low effort, fences transcripts, falls back 
   assert.deepEqual(models, ["claude-opus-5-5", "claude-sonnet-4-5"]);
   assert.equal(calls.filter((k) => k.url.includes("anthropic"))[1].body.output_config, undefined);
 });
+
+test("the model is told which page the visitor is on", async () => {
+  const e = env();
+  const c = ctx();
+  stubFetch("You're on that page now.");
+  await worker.fetch(chat({
+    sid: "5555555555555555", page: "/rent-line-array-speaker-system?gclid=1",
+    history: [{ role: "user", content: "What page has the dv12" }]
+  }), e, c);
+  await c.settle();
+  const sent = calls.find((x) => x.url.includes("anthropic")).body;
+  assert.equal(sent.system.length, 2);
+  assert.ok(sent.system[0].cache_control, "the static prompt stays the cached block");
+  assert.match(sent.system[1].text, /right now: \/rent-line-array-speaker-system$/);
+
+  stubFetch("Hello.");
+  await worker.fetch(chat({ history: [{ role: "user", content: "hi" }] }), e, c);
+  await c.settle();
+  const bare = calls.find((x) => x.url.includes("anthropic")).body;
+  assert.doesNotMatch(bare.system[1].text, /right now/);
+});
