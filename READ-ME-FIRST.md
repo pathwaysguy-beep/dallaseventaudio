@@ -1235,3 +1235,23 @@ Needs `npx wrangler deploy` from dea-concierge/ to go live.
   system, and the handoff to a larger system for big rooms and dance floors.
 - test/worker.test.mjs: one new test, that the prompt carries the pair, the
   page digest and the section, with no em or en dash. 11 of 11 pass.
+
+## Contact page: the technician is asked for, not assumed (bundle 133, 16 November 2026)
+
+- Steve, 16 November: some rental clients expected the crew to stay when the
+  booking was delivery, setup and pickup. The contact page said it correctly
+  but put "An insured technician on-site, start to strike" inside the "What's
+  always included" list, with the qualifier at the end of the line.
+- That line is out of the list. Under the list the card now says: "Want
+  someone to stay and run it? Ask for an on-site technician and we'll include
+  one in your quote." (class assure-note). Use this sentence as the model
+  wherever a page lists what every booking includes.
+- The FAQ answer on /contact (visible copy and FAQPage schema, edited
+  together) no longer lists corporate bookings among those that come with a
+  technician for the whole event; it names DJ, live sound and streaming, then
+  gives the same ask-for-one sentence.
+- The same day, in HoneyBook (not in the repo): the contact form lost its
+  "What services are you interested in" question, "Project notes" became "Tell
+  us about your event and what you need", and four event types were added
+  (Equipment Rental Only, Conference or Meeting, Festival or Community Event,
+  Holiday Party). The page's required-fields note is unchanged and still true.
