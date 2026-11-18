@@ -67,7 +67,7 @@ DJ Steve and our roster, booked with the sound, microphones and lighting from th
 Explore DJ services →
 🎛️
 ### DJ Equipment Rental
-DJ equipment rental in Dallas-Fort Worth: CDJs, DJ controllers, mixers, DJ booths, speakers and subwoofers, delivered and set up by a technician.
+DJ equipment rental in Dallas-Fort Worth: CDJs, DJ controllers, mixers, a DJ table and facade, speakers and subwoofers, delivered and set up by a technician.
 Explore DJ equipment rental →
 🎤
 ### Microphone Rental
@@ -2352,7 +2352,7 @@ Long, tall or loud rooms: festivals, raves, night clubs, large-venue general ses
 Line array speaker systems
 06
 ### DJ equipment
-CDJs, DJ mixers, all-in-one DJ controllers, booth monitors and booth facades, for people who have already hired a DJ or who are the DJ. Rented on its own or, far more often, underneath a system we are already supplying. If your DJ has a rider, send it and we will match it.
+CDJs, DJ mixers, all-in-one DJ controllers, booth monitors, a DJ table and a black facade, for people who have already hired a DJ or who are the DJ. Rented on its own or, far more often, underneath a system we are already supplying. If your DJ has a rider, send it and we will match it.
 CDJ & DJ equipment rental
 Hire a DJ instead
 ### Everything connects to everything else
@@ -2421,7 +2421,7 @@ Projection & screens
 Ask about an AV rental
 DJ Equipment Rental Dallas
 ## DJ equipment rental in Dallas
-You can rent DJ equipment from us as a booth in its own right: CDJs, a DJ mixer, an all-in-one DJ controller if that is what your DJ prefers, booth monitors so the person playing can hear the room, and a facade to tidy the front of it. Three kinds of people ask for a DJ setup rental. A DJ who flew in with a laptop or a thumb drive and a pair of headphones, a client whose DJ works off house equipment, and a host who is running the music from a laptop themselves. The traveling DJs are the ones we see most: they walk in, find the booth built and line-checked, plug in, sound check with our crew, and tell us afterward how good the system sounded.
+You can rent DJ equipment from us as a setup in its own right: CDJs, a DJ mixer, an all-in-one DJ controller if that is what your DJ prefers, booth monitors so the person playing can hear the room, and a facade to tidy the front of it. Three kinds of people ask for a DJ setup rental. A DJ who flew in with a laptop or a thumb drive and a pair of headphones, a client whose DJ works off house equipment, and a host who is running the music from a laptop themselves. The traveling DJs are the ones we see most: they walk in, find the booth built and line-checked, plug in, sound check with our crew, and tell us afterward how good the system sounded.
 If your DJ sent a rider, send it to us with the inquiry. Matching a rider is straightforward when we see it early and awkward when it arrives the week of the event, and it is usually the difference between a DJ walking up to familiar gear and a DJ improvising in front of your guests.
 What sits underneath the DJ gear rental matters more than the gear itself. A controller feeding an undersized PA is the common way a dance floor falls flat, so DJ sound equipment rental here is quoted with the speakers and the subwoofers that suit the room. Our BassBoss subwoofer rentals are what we put under most dance floors. Full detail on the booth itself is on the CDJ and DJ equipment rental page, and if you would rather we brought the DJ too, that is our DJ service .
 CDJ rental Dallas
@@ -2452,7 +2452,7 @@ General sessions, breakouts, panels and awards nights, with presentation audio b
 ### Raves & night clubs
 Line array, serious subwoofer arrays, DJ booth and lighting as a single production package.
 ### DJ equipment rental
-CDJs, DJ controllers, mixers and booths, for the DJ you have already hired or for you.
+CDJs, DJ controllers, mixers, a DJ table and facade, for the DJ you have already hired or for you.
 ### Full audio services
 Everything the company does on the sound side, including production work that goes beyond a rental.
 ### Lighting & effects
@@ -3811,7 +3811,7 @@ Microphone rental
 Corporate & conference AV
 Category 06
 ## DJ equipment
-Club-standard players, mixers and all-in-one systems, plus the booths, tables and facades that go around them. Book it with a DJ from us or bring your own and use our rig. Detail on CDJ and DJ equipment rental in Dallas .
+Club-standard players, mixers and all-in-one systems, plus the DJ table and black facade that go around them. Book it with a DJ from us or bring your own and use our rig. Detail on CDJ and DJ equipment rental in Dallas .
 01
 ### Pioneer CDJ-3000
 Spec 9 in HD touchscreen · 96 kHz / 32-bit · Pro DJ Link · rekordbox Cloud · 8 hot cues
@@ -3836,15 +3836,16 @@ Built on the same DNA as the CDJ and DJM pair, in a compact self-contained unit.
 ### Pioneer DDJ-FLX6
 Spec 4-channel controller · rekordbox + Serato DJ Pro · Merge FX · Jog Cutter · USB bus-powered
 The lightweight laptop-based controller for smaller events, with Merge FX and Jog Cutter for DJs who want performance tools in a rig that fits behind a bar.
-### Booths, tables and facades
-The furniture around the DJ comes from us as well: booths, tables, plain black and white scrim facades, and booth monitors so the DJ hears the room the way the room hears it. It arrives on the same truck as the speakers, which removes the conversation about whose gear caused a problem. See DJ services if you want the DJ as well as the equipment.
+### DJ table and facade
+The furniture around the DJ comes from us as well: a DJ table, a plain black facade, and booth monitors so the DJ hears the room the way the room hears it. It arrives on the same truck as the speakers, which removes the conversation about whose gear caused a problem. See DJ services if you want the DJ as well as the equipment.
 Category 07
 ## Event lighting
 Uplighting, dance floor lighting, follow spot, monogram projection and lasers, programmed and set up on the same booking as the audio, with a lighting operator for follow spot, lasers and complex shows. Overview on event lighting services .
 ### Uplighting
 Battery powered RGBAW-UV fixtures on wireless DMX. The amber, white and UV diodes reach true whites, warm ambers and rich pastels beyond the reach of a plain RGB uplight, so we can match linens, florals and brand colors properly. They run on batteries, so they go in corners, on columns and outdoors. On request, an ADJ WMX1 MK3 WOLFMIX controller runs the looks live, in time with the music.
 ### Dance floor lighting
-Moving head wash, spot and beam fixtures, effect lights, strobes and blinders, rigged on 4 ft or 8 ft truss totems or on truss depending on what the venue allows. Programmed to the night rather than left on an auto setting. Moving heads, strobes and blinders are a design conversation, so contact us for a custom lighting quote and we will set up a consultation with our lighting design team.
+Spec Chauvet DJ Intimidator Spot 360QD · 220W RGBL LED · 7 rotating gobos · 2 rotating prisms · motorized focus
+Moving head wash, spot and beam fixtures, effect lights, strobes and blinders, rigged on 4 ft or 8 ft truss totems or on truss depending on what the venue allows. Programmed to the night rather than left on an auto setting. Moving heads, strobes and blinders are a design conversation, so contact us for a custom lighting quote and we will set up a consultation with our lighting design team. Our moving head spot is the Chauvet DJ Intimidator Spot 360QD, which mixes red, green, blue and lime for saturated color and clean white.
 ### Follow spot
 Chauvet DJ LED Followspot 75ST, with an operator. For grand entrances, first dances, award presentations and any moment where the room needs to know where to look.
 ### Monogram and gobo projection
@@ -4617,7 +4618,7 @@ What DJ Lighting Is
 “DJ lighting” usually gets pictured as a couple of fixtures on sticks either side of a booth, flashing to the beat. That is the version most people have seen, and it is also the version that makes a room look smaller than it is. Real dance floor lighting is a rig aimed at a specific piece of floor, in a specific room, with the fixtures chosen for the ceiling height and the crowd size in front of them.
 The difference is easy to see and hard to describe in a quote line. A designed rig has layers: something covering the floor in color, something cutting through the air above it, something adding texture on the walls, and haze to make any of it visible. Take one layer away and the whole thing flattens out. Add all four and a hotel ballroom stops looking like a hotel ballroom.
 How the rig gets run depends on what is in it. DJ lighting is set up, aimed, tested and put into sound reactive mode or patched to your DJ's controller, so the fixtures follow the music all night and your DJ runs the looks. We deliver, place, aim, set the mode, and come back after the gig to strike. If you would rather have the looks run by hand, ask for a lighting engineer and we will put one on the job to run them live. For more involved lighting, moving heads and anything cued to a show, we recommend that engineer on a lighting console.
-We build the rig around your floor either way. It is part of the wider event lighting we do, and it works whether we are your DJ or your DJ is somebody else entirely.
+Call it DJ lighting or lights for a dance floor, we build the rig around your floor either way. It is part of the wider event lighting we do, and it works whether we are your DJ or your DJ is somebody else entirely.
 All lighting services
 See past events
 Ask about your room
@@ -4640,7 +4641,7 @@ Soft-edged, wide-output moving fixtures that put color onto the floor and the pe
 Best for Every event. This is the foundation layer.
 Layer Two
 ### Moving head spot & beam
-Hard-edged, tight-output heads that throw a visible shaft of light instead of a soft pool. These are what produce the sweeping, crossing beams over a crowd, the aerial fans, and the sharp pattern work on floors and walls. They are also what most people are picturing when they say they want the room to look like a concert.
+Hard-edged, tight-output heads that throw a visible shaft of light instead of a soft pool. These are what produce the sweeping, crossing beams over a crowd, the aerial fans, and the sharp pattern work on floors and walls. They are also what most people are picturing when they say they want the room to look like a concert. Our moving head spot is the Chauvet DJ Intimidator Spot 360QD. Its 220 W LED engine mixes red, green, blue and lime for saturated color and clean white, seven rotating gobos and two rotating prisms spread patterns across the dance floor, and motorized focus keeps them sharp from across the room.
 Best for Receptions after dinner, school dances, club nights, live bands, reveals.
 Layer Three
 ### Static color wash & uplighting
@@ -4666,6 +4667,12 @@ Structure
 ### Truss, totems & rigging
 Fixtures need to be up in the air to do anything useful, and how they get there changes with every venue. Ground-supported truss, uprights and totem stands cover most rooms while leaving the building untouched, which is what churches, historic venues and most hotels require. Cable is routed and taped, and every guest path stays clear.
 Best for Everywhere. This is the part nobody thinks about until load-in.
+### The Intimidator Spot 360QD at work
+Flower gobo in white
+Linear prism in blue
+Linear prism in lime
+Round prism in pink
+Demo stills courtesy of Payze Reviews.
 ### Knowing which of these you want is our job
 Most people arrive knowing what they want the room to feel like and not which fixtures produce it. That is the normal starting point. Send a photo of the room, a link to the venue, or a picture off Instagram of a dance floor you liked. That is more useful than a fixture list, and we will work backwards to the rig from there. Start at our quote form .
 Designing To The Room
@@ -4706,7 +4713,7 @@ Nightlife
 Here the lighting is the show, and it is expected to be run live to the music rather than programmed and left. Heavy on beam fixtures, haze, strobe and, where it fits, lasers. This is the hardest version of a dance floor rig to run, and it goes out on a lighting console with a technician on it all night.
 Best for Club nights, raves, EDM events, festival stages, after-parties.
 Live Music
-### Bands, concerts & live shows
+### Stage and concert lighting for bands and live shows
 A band needs the stage lit before it needs the room lit, front wash so faces read, then color and beam work behind and above for the show. Moving heads cover both from one rig. Where a solo needs picking out of the band, that is a follow spot job and we run those too.
 Best for Live bands, concerts, tribute nights, album releases, festivals.
 Weddings
@@ -7048,7 +7055,7 @@ Call or Text 817-210-7957
 
 Page: DJ Equipment & CDJ Rental Dallas
 URL: https://www.dallaseventaudio.com/rent-sound-equipment/cdj-rental-dallas
-Summary: DJ equipment rental in Dallas-Fort Worth. CDJs, mixers, controllers, booths, speakers and subs, delivered, set up, sound checked with your DJ and collected after.
+Summary: DJ equipment rental in Dallas-Fort Worth. CDJs, mixers, controllers, DJ table, speakers and subs, delivered, set up, sound checked with your DJ and collected after.
 
 Home / Sound Equipment Rental / DJ Equipment Rental
 # DJ equipment rental in Dallas-Fort Worth, delivered, set up and checked with your DJ.
@@ -7061,7 +7068,7 @@ DJM-A9
 XDJ-AZ
 XDJ-RX3
 DDJ-FLX6
-Dallas Event Audio rents CDJs and DJ equipment across Dallas-Fort Worth. Decks, mixers, controllers, DJ booths, speakers and subwoofers for weddings, clubs, corporate events, festivals and private parties. Everything arrives built, powered and line checked, so your DJ’s first move is to play music. We deliver the DJ gear, build it, line-check it and sound check it with your DJ, then come back after the gig to collect it.
+Dallas Event Audio rents CDJs and DJ equipment across Dallas-Fort Worth. Decks, mixers, controllers, a DJ table and facade, speakers and subwoofers for weddings, clubs, corporate events, festivals and private parties. Everything arrives built, powered and line checked, so your DJ’s first move is to play music. We deliver the DJ gear, build it, line-check it and sound check it with your DJ, then come back after the gig to collect it.
 Request a Quote
 Call 817-210-7957
 2001
@@ -7072,7 +7079,7 @@ Cables you touch, every rental is set up for you
 Delivery radius around Dallas-Fort Worth
 COI
 Fully insured, certificates sent to your venue
-DJ Equipment Rental Dallas · Rent DJ Equipment · DJ Setup Rental · CDJ Rental · Pioneer DJ Rental · DJ Mixer Rental · DJ Controller Rental · DJ Booth Rental · DJ Speaker Rental · Subwoofer Rental · Delivered & Set Up · Insured Since 2001 ·
+DJ Equipment Rental Dallas · Rent DJ Equipment · DJ Setup Rental · CDJ Rental · Pioneer DJ Rental · DJ Mixer Rental · DJ Controller Rental · DJ Table Rental · DJ Speaker Rental · Subwoofer Rental · Delivered & Set Up · Insured Since 2001 ·
 What We Have
 ## The DJ equipment lineup.
 CDJs, mixers, all-in-one systems and a controller, all Pioneer DJ and AlphaTheta, all from our own warehouse. Tell us which one your DJ plays and it arrives set up, linked and checked before doors.
@@ -7143,9 +7150,9 @@ The center of the booth, and the piece worth getting right. We supply mixers mat
 ### All-in-one systems and controllersDJ controller rental
 Rig 1 all-in-one system or controller · single-unit booth
 For smaller rooms, tighter booths and DJs who prefer a single unit, an all-in-one system or a controller does everything a separate CDJ setup does in a fraction of the space. Popular for house parties, corporate receptions and anywhere the DJ position is a compromise between the dance floor and a doorway.
-### DJ booths, tables and facadesDJ booth rental
-Rig DJ booth, table or facade · cable management
-This is the part your photographs will show. A clean facade turns a folding table and a mess of cabling into part of the room, and it hides power, cases and everything else nobody needs to see. Cable management is included whether you rent a facade or not, and every run is dressed and taped down clear of the dance floor.
+### DJ table and facadeDJ table rental
+Rig DJ table · black facade · cable management
+This is the part your photographs will show. Our black facade turns the DJ table and a mess of cabling into part of the room, and it hides power, cases and everything else nobody needs to see. Cable management is included whether you rent a facade or not, and every run is dressed and taped down clear of the dance floor.
 ### Speakers for a DJDJ speaker rental
 Rig 2 powered tops on stands · larger system for bigger rooms
 Powered tops on stands for most rooms, scaled up to a larger system when the guest count or the ceiling demands it. Placement decides the result more than quantity does: a pair aimed correctly covers a room better than four boxes placed badly, and every rental is aimed and leveled as part of the setup.
@@ -7248,8 +7255,8 @@ Can I rent DJ equipment and a sound system together?
 That is the normal booking. A DJ setup rental usually means CDJs and a mixer, tops sized to the room, subwoofers under them, a booth monitor, microphones and all the cabling, delivered as one working system. Renting decks with nothing behind them is rarely what anyone needs.
 Can I rent DJ equipment for a wedding?
 Regularly, and it is a common reason people call. A wedding is really three audio events (ceremony, dinner and dance floor) often across two or three spaces, so we normally set all of it in one visit and sound check each space with whoever is DJing before guests arrive, then collect after the reception. If you would rather one of our DJs ran the whole evening, that is a wedding DJ booking rather than an equipment rental.
-Do you rent DJ booths, tables and facades?
-Yes. A facade turns a folding table and a bundle of cabling into something that belongs in your photographs, and it hides power, cases and everything else nobody needs to see. Cable management is part of every setup whether you rent a facade or not.
+Do you rent a DJ booth?
+Yes. Our DJ booth setup is a DJ table with a black facade. The facade turns the table and a bundle of cabling into something that belongs in your photographs, and it hides power, cases and everything else nobody needs to see. Cable management is part of every setup whether you rent a facade or not.
 Can I add speakers and subwoofers to a DJ rental?
 Yes, and most bookings do. We pair DJ equipment with powered tops, BassBoss subwoofers, booth monitors, wireless microphones and, in larger rooms, a line array. Lighting can go on the same booking and the same load-in, which is simpler than running a second vendor into the same room.
 What if I have already hired my own DJ?
@@ -10148,7 +10155,7 @@ Every time you double your distance from a speaker you lose about six decibels. 
 A cable gets kicked, a channel gets muted, a phone drops its Bluetooth connection during the father's toast. With a drop-off rental the fix is whoever is nearest and least drunk. With a technician on site the fix takes ten seconds and most of your guests never register that anything happened.
 ## What the DJ brings, and what the room still needs
 Split a DJ setup down the middle and you get two halves that get bought and rented very differently. On one side are the CDJs and the mixer, the pieces the DJ touches. On the other side are the speakers, the subwoofer, the stands, the power and the person setting the levels.
-The first half is the DJ's instrument. DJs have preferences about CDJs and mixers the way a guitarist has preferences about an amp, and in Dallas the requests that come up most often are Pioneer CDJs and DJM mixers, or the all-in-one units that put both in one chassis. If your DJ asks for a specific model, match it. We keep CDJ rental in house for that reason, including the booths and facades when the DJ is part of how the room looks.
+The first half is the DJ's instrument. DJs have preferences about CDJs and mixers the way a guitarist has preferences about an amp, and in Dallas the requests that come up most often are Pioneer CDJs and DJM mixers, or the all-in-one units that put both in one chassis. If your DJ asks for a specific model, match it. We keep CDJ rental in house for that reason, including the DJ table and black facade when the DJ is part of how the room looks.
 The second half belongs to the room, and it gets sized by the space and the guest count rather than by the DJ. That is where most private party quotes go wrong. A DJ who owns a pair of bar-sized speakers is fully equipped for a bar and underpowered for a two hundred person reception hall, and neither of you finds out until the dance floor fills.
 So ask the specific question a month out. Does the DJ bring equipment, and which pieces? The answer is rarely all or nothing.
 If nobody is DJing and the music is coming from a playlist, that is a normal booking too. We set up a sound system with a playback input and sound check it before guests arrive, and the host controls the music from their own phone. An AV technician can stay to run it if you would like one. And if you would rather hand the whole evening to somebody, our DJ services cover the announcements and the introductions through the same microphone the toasts use.

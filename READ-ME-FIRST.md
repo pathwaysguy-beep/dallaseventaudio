@@ -1293,3 +1293,31 @@ shopping center; the DJ is unnamed and appears in no photo.
 - Bundle 134 was the same work with Bvlgari left off /venues; it was never
   pushed and 135 replaces it.
 - Blog index, sitemap, _pages.json, llms.txt and llms-full.txt updated.
+
+## DJ table and black facade, not DJ booths (bundle 138, 17 November 2026)
+
+Steve, 17 November: DEA does not own a DJ booth. The DJ furniture is a DJ
+table and a black facade. There is no white facade.
+
+- Never write that DEA rents or supplies "DJ booths", "booths" as furniture,
+  or a white or scrim facade. Say "a DJ table and black facade".
+- "Booth" stays where it means the place the DJ stands or a signal path:
+  booth monitor, booth output, "build the booth", "tighter booths", trade show
+  booths.
+- Reworded on /equipment-list (Offer schema, category 06 intro, the add-on
+  card), the home page DJ equipment card, /rent-sound-equipment (Offer schema,
+  card 06, the DJ setup paragraph, the related card),
+  /rent-sound-equipment/cdj-rental-dallas (meta and og description, Service
+  and Offer schema, hero sub, marquee, the room card, the FAQ) and the private
+  party DJ equipment post.
+- The CDJ page earns a few "dj booth rental" searches (about 45 impressions
+  and 3 clicks in 90 days). The phrase is kept once, in the FAQ "Do you rent a
+  DJ booth?", whose answer says the booth setup is a DJ table with a black
+  facade. Visible answer and FAQPage schema match.
+- /rent-dj-lighting: the live music card heading is now "Stage and concert
+  lighting for bands and live shows" and the opening section says "lights for
+  a dance floor", the wording Keyword Planner shows people use in DFW (about
+  20 searches a month each). No lighting term in DFW is above 40 a month; the
+  larger "LED dance floor" searches are for light-up floor panels, which DEA
+  does not rent, so the page does not chase them.
+- Sitemap lastmod, llms.txt, llms-full.txt and search-index.json updated.
