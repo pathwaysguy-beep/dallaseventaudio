@@ -435,6 +435,14 @@ a.chip::after{ content:' \2192'; opacity:.55; }
 @media (max-width:860px){
 .room{ grid-template-columns:1fr; gap:12px; }
 }
+.fx-shots{ margin-top:28px; }
+.fx-shots h3{ font-family:var(--font-display); font-size:1.16rem; font-weight:800; }
+.fx-shots-grid{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:14px; margin-top:16px; }
+.fx-shots figure{ margin:0; }
+.fx-shots img{ display:block; width:100%; height:auto; aspect-ratio:4/3; object-fit:cover; border-radius:14px; border:1px solid var(--card-border); }
+.fx-shots figcaption{ margin-top:8px; font-size:.86rem; color:var(--dim); }
+.fx-credit{ margin-top:12px; font-size:.8rem; color:var(--dim); }
+@media (max-width:760px){ .fx-shots-grid{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
 .addon{
     margin-top:24px; padding:28px 30px; border-radius:18px;
     border:1px dashed color-mix(in srgb, var(--a1) 32%, var(--card-border));
@@ -1878,7 +1886,7 @@ body.srch-locked{ overflow:hidden; }
         <div class="dj-card" data-reveal>
           <div class="tag">Layer Two</div>
           <h3>Moving head spot &amp; beam</h3>
-          <p>Hard-edged, tight-output heads that throw a visible shaft of light instead of a soft pool. These are what produce the sweeping, crossing beams over a crowd, the aerial fans, and the sharp pattern work on floors and walls. They are also what most people are picturing when they say they want the room to look like a concert.</p>
+          <p>Hard-edged, tight-output heads that throw a visible shaft of light instead of a soft pool. These are what produce the sweeping, crossing beams over a crowd, the aerial fans, and the sharp pattern work on floors and walls. They are also what most people are picturing when they say they want the room to look like a concert. Our moving head spot is the Chauvet DJ Intimidator Spot 360QD. Its 220 W LED engine mixes red, green, blue and lime for saturated color and clean white, seven rotating gobos and two rotating prisms spread patterns across the dance floor, and motorized focus keeps them sharp from across the room.</p>
           <div class="best"><em>Best for</em> Receptions after dinner, school dances, club nights, live bands, reveals.</div>
         </div>
 
@@ -1923,6 +1931,17 @@ body.srch-locked{ overflow:hidden; }
           <p>Fixtures need to be up in the air to do anything useful, and how they get there changes with every venue. Ground-supported truss, uprights and totem stands cover most rooms while leaving the building untouched, which is what churches, historic venues and most hotels require. Cable is routed and taped, and every guest path stays clear.</p>
           <div class="best"><em>Best for</em> Everywhere. This is the part nobody thinks about until load-in.</div>
         </div>
+      </div>
+
+      <div class="fx-shots" data-reveal>
+        <h3>The Intimidator Spot 360QD at work</h3>
+        <div class="fx-shots-grid">
+          <figure><picture><source type="image/avif" srcset="/images/dj-lighting/chauvet-intimidator-spot-360qd-flower-gobo-white-480w.avif 480w, /images/dj-lighting/chauvet-intimidator-spot-360qd-flower-gobo-white-768w.avif 768w, /images/dj-lighting/chauvet-intimidator-spot-360qd-flower-gobo-white-1200w.avif 1200w" sizes="(max-width: 640px) 46vw, 269px"><source type="image/webp" srcset="/images/dj-lighting/chauvet-intimidator-spot-360qd-flower-gobo-white-480w.webp 480w, /images/dj-lighting/chauvet-intimidator-spot-360qd-flower-gobo-white-768w.webp 768w, /images/dj-lighting/chauvet-intimidator-spot-360qd-flower-gobo-white-1200w.webp 1200w" sizes="(max-width: 640px) 46vw, 269px"><img src="/images/dj-lighting/chauvet-intimidator-spot-360qd-flower-gobo-white.jpg" alt="A Chauvet DJ Intimidator Spot 360QD on a white totem throwing a white flower pattern onto a concrete floor through haze" loading="lazy" width="800" height="600"></picture><figcaption>Flower gobo in white</figcaption></figure>
+          <figure><picture><source type="image/avif" srcset="/images/dj-lighting/chauvet-intimidator-spot-360qd-linear-prism-blue-480w.avif 480w, /images/dj-lighting/chauvet-intimidator-spot-360qd-linear-prism-blue-768w.avif 768w, /images/dj-lighting/chauvet-intimidator-spot-360qd-linear-prism-blue-1200w.avif 1200w" sizes="(max-width: 640px) 46vw, 269px"><source type="image/webp" srcset="/images/dj-lighting/chauvet-intimidator-spot-360qd-linear-prism-blue-480w.webp 480w, /images/dj-lighting/chauvet-intimidator-spot-360qd-linear-prism-blue-768w.webp 768w, /images/dj-lighting/chauvet-intimidator-spot-360qd-linear-prism-blue-1200w.webp 1200w" sizes="(max-width: 640px) 46vw, 269px"><img src="/images/dj-lighting/chauvet-intimidator-spot-360qd-linear-prism-blue.jpg" alt="A Chauvet DJ Intimidator Spot 360QD projecting a row of blue loops through its linear prism, the beam visible in haze" loading="lazy" width="800" height="600"></picture><figcaption>Linear prism in blue</figcaption></figure>
+          <figure><picture><source type="image/avif" srcset="/images/dj-lighting/chauvet-intimidator-spot-360qd-linear-prism-lime-480w.avif 480w, /images/dj-lighting/chauvet-intimidator-spot-360qd-linear-prism-lime-768w.avif 768w, /images/dj-lighting/chauvet-intimidator-spot-360qd-linear-prism-lime-1200w.avif 1200w" sizes="(max-width: 640px) 46vw, 269px"><source type="image/webp" srcset="/images/dj-lighting/chauvet-intimidator-spot-360qd-linear-prism-lime-480w.webp 480w, /images/dj-lighting/chauvet-intimidator-spot-360qd-linear-prism-lime-768w.webp 768w, /images/dj-lighting/chauvet-intimidator-spot-360qd-linear-prism-lime-1200w.webp 1200w" sizes="(max-width: 640px) 46vw, 269px"><img src="/images/dj-lighting/chauvet-intimidator-spot-360qd-linear-prism-lime.jpg" alt="A Chauvet DJ Intimidator Spot 360QD projecting a row of lime green loops onto the floor, the beam split into fine shafts" loading="lazy" width="800" height="600"></picture><figcaption>Linear prism in lime</figcaption></figure>
+          <figure><picture><source type="image/avif" srcset="/images/dj-lighting/chauvet-intimidator-spot-360qd-round-prism-pink-480w.avif 480w, /images/dj-lighting/chauvet-intimidator-spot-360qd-round-prism-pink-768w.avif 768w, /images/dj-lighting/chauvet-intimidator-spot-360qd-round-prism-pink-1200w.avif 1200w" sizes="(max-width: 640px) 46vw, 269px"><source type="image/webp" srcset="/images/dj-lighting/chauvet-intimidator-spot-360qd-round-prism-pink-480w.webp 480w, /images/dj-lighting/chauvet-intimidator-spot-360qd-round-prism-pink-768w.webp 768w, /images/dj-lighting/chauvet-intimidator-spot-360qd-round-prism-pink-1200w.webp 1200w" sizes="(max-width: 640px) 46vw, 269px"><img src="/images/dj-lighting/chauvet-intimidator-spot-360qd-round-prism-pink.jpg" alt="A Chauvet DJ Intimidator Spot 360QD covering a floor in overlapping pink rings through its round prism" loading="lazy" width="800" height="600"></picture><figcaption>Round prism in pink</figcaption></figure>
+        </div>
+        <p class="fx-credit">Demo stills courtesy of Payze Reviews.</p>
       </div>
 
       <div class="addon" data-reveal>
