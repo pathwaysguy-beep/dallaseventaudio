@@ -1255,3 +1255,41 @@ Needs `npx wrangler deploy` from dea-concierge/ to go live.
   us about your event and what you need", and four event types were added
   (Equipment Rental Only, Conference or Meeting, Festival or Community Event,
   Holiday Party). The page's required-fields note is unchanged and still true.
+
+## Bvlgari gig post and column speaker photos (bundle 135, 17 November 2026)
+
+Steve's notes and three photos (no EXIF, so no date in the copy): a private
+jewelry showing at Bvlgari in Highland Park Village, with a DJ and model from
+California playing house music on Pioneer CDJ-3000s and a DJM-A9, the white
+Electro-Voice EVOLVE 30M G2 pair on either side of the booth and an
+Electro-Voice ZLX-8P as the booth monitor. Steve named the brand and the
+shopping center; the DJ is unnamed and appears in no photo.
+
+- New gig post /post/private-jewelry-event-bvlgari-highland-park-village,
+  built from the Frontiers of Flight post. It points up to
+  /white-column-speaker-rental-dallas and links the CDJ, luxury events, private
+  events and DJ speaker pages. It joined the DJ ring: its own post-more line,
+  and the private party DJ equipment post now links it in place of the
+  questions-before-booking post (which the new post links, so that post still
+  receives three).
+- /white-column-speaker-rental-dallas: three more figures in the corporate
+  section gallery (the room at 16:9, the column beside the booth, the
+  subwoofer base). The first caption links the post. The two 4:3 photos are
+  crops of one portrait phone photo sent through chat, 1450 px wide, so they
+  top out at the 1200 tier.
+- Photos: five stems, three in images/white-column-speakers (shared by the
+  page and the post) and two in images/blog (the room at 4:3 and the
+  storefront at night).
+- /venues: stores are listed from now on, on Steve's call, 17 November ("we do
+  a lot of retail rentals ... I'd like them added just for reference"). This
+  widens the venue page rules: a store where we ran an event counts as a
+  venue. Eight added from booked, past HoneyBook jobs, all tagged corporate:
+  Alice + Olivia, Bvlgari, Chanel and Lela Rose at Highland Park Village and
+  Avenue Road Showroom (Dallas list), Living Spaces (Farmers Branch) and Ulta
+  Beauty in Flower Mound and Southlake (Across North Texas). Only Bvlgari
+  carries service tags (Sound, DJ); the others were found by name and address,
+  with no line items read. Count 317 to 325. Roy Pope Grocery, Park House and
+  Casa de Montecristo were already listed.
+- Bundle 134 was the same work with Bvlgari left off /venues; it was never
+  pushed and 135 replaces it.
+- Blog index, sitemap, _pages.json, llms.txt and llms-full.txt updated.
