@@ -1343,3 +1343,39 @@ table and a black facade. There is no white facade.
   sends the original.
 - The og:image is unchanged. No title, description, heading, link or schema
   change. Sitemap lastmod and llms-full.txt updated.
+
+## Positive wording pass across the site (bundle 140, 19 November 2026)
+
+Steve, 19 November 2026: "I want a positive vibe on the whole site." The
+negative scan found 291 negatively framed body sentences on 67 pages. Bundle
+140 rewrote them to say what the client gets, on 59 pages, and the scan now
+reads 52 body sentences. No title, description, H1, H2, slug, link, image or
+schema name changed; the SEO head snapshot shows 0 changes on 90 pages and the
+SEO diff passes on all 59.
+
+- How it was done: eight parallel agents, one batch of pages each, working
+  from a written brief and a per-page gate; the main session then read the
+  flagged rewrites and put back nine that had changed real information.
+- Left negative on purpose, so do not "fix" them again:
+  - FAQ questions in the customer's words ("Can I rent DJ equipment without a
+    DJ?") and their schema names. People search those words.
+  - The "mistakes" posts keep "mistake" in titles, headings and anchors that
+    link to them. Those posts rank for the word.
+  - Customer testimonials, always.
+  - Real information with no positive form: "it never strobes or flashes"
+    (sensory page), "no photographs taken and nothing posted from the room"
+    (celebrity page), "We do not carry inflatable screens" (equipment list),
+    the smoke detector answer on the clouds page, the amplifier rack and
+    21 inch subwoofer statements.
+  - /privacy is a legal page and is not part of any copy pass.
+- Pricing answers: "We do not publish prices" became "Every quote is built for
+  the event" on the CDJ, fog machine, DJ services, sound equipment and extras
+  pages. No price is stated or implied.
+- "No ringing out is involved" became "setup goes straight to setting levels"
+  wherever the De-Feedback system is described.
+- "Worst" is reworded everywhere in body copy (Steve, 19 November 2026). The
+  only remaining hit is a code comment in the chrome script.
+- The copy checker bundled with dea-copy-standards missed contractions and
+  several British spellings until 19 November 2026; the fixed script was
+  handed to Steve to re-save into the skill.
+- Sitemap lastmod, llms.txt, llms-full.txt and search-index.json rebuilt.
