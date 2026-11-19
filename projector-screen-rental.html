@@ -361,6 +361,25 @@ section[id]{ scroll-margin-top:96px; }
     font-size:1.18rem; color:var(--dim); max-width:720px; margin-top:24px;
     position:relative; z-index:1;
   }
+.hero-split{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,400px); gap:52px; align-items:center; }
+.hero-split .hero-copy{ min-width:0; }
+.hero-split h1{ font-size:clamp(2.1rem, 3.5vw, 3.05rem); }
+.hero-shot{ margin:0; position:relative; z-index:1; }
+.hero-shot picture{ display:block; border-radius:20px; overflow:hidden; border:1px solid var(--card-border); background:var(--bg-2); aspect-ratio:3/4; box-shadow:0 24px 60px rgba(0,0,0,.35); }
+.hero-shot img{ display:block; width:100%; height:100%; object-fit:cover; object-position:50% 62%; }
+.hero-shot figcaption{ margin-top:12px; font-size:.86rem; line-height:1.45; color:var(--dim); }
+@media (max-width:860px){
+.hero-split{ display:flex; flex-direction:column; gap:0; align-items:stretch; }
+.hero-split .hero-copy{ display:contents; }
+.hero-split .breadcrumb{ order:1; }
+.hero-split h1{ order:2; }
+.hero-split .gear-line{ order:3; }
+.hero-split .hero-ctas-m{ order:4; }
+.hero-shot{ order:5; margin-top:24px; }
+.hero-shot picture{ aspect-ratio:4/3; }
+.hero-split .sub{ order:6; }
+.hero-split .hero-ctas-d{ order:7; }
+}
 .stat-row{
     display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:14px;
     margin-top:40px; position:relative; z-index:1;
@@ -1862,7 +1881,8 @@ body.srch-locked{ overflow:hidden; }
 <section class="hero hero-page">
     <div class="hero-grid" aria-hidden="true"></div>
     <div class="arr-fx" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-    <div class="wrap">
+    <div class="wrap hero-split">
+      <div class="hero-copy">
       <div class="breadcrumb" data-reveal>
         <a href="/">Home</a><span class="sep">/</span><a href="/services-photo-and-video">Photo and Video</a><span class="sep">/</span><span class="here">Projector and Screen Rental</span>
       </div>
@@ -1877,27 +1897,11 @@ body.srch-locked{ overflow:hidden; }
         <a class="btn-primary" href="/contact#quote-form">Request a Quote</a>
         <a class="btn-secondary" href="tel:8172107957">Call 817-210-7957</a>
       </div>
-
-      <div class="throw" aria-hidden="true"><i class="pj"></i><i class="cone"></i><i class="scr"></i></div>
-
-      <div class="stat-row" data-reveal>
-        <div class="stat">
-          <div class="num">2001</div>
-          <div class="lbl">Running audio and video for Dallas-Fort Worth events since 2001</div>
-        </div>
-        <div class="stat">
-          <div class="num">150 in</div>
-          <div class="lbl">Largest projector screen in our rental inventory</div>
-        </div>
-        <div class="stat">
-          <div class="num">40 mi</div>
-          <div class="lbl">Delivery radius around Dallas and Fort Worth</div>
-        </div>
-        <div class="stat">
-          <div class="num">Full-service</div>
-          <div class="lbl">Delivery, setup, image tuning and pickup on every rental</div>
-        </div>
       </div>
+      <figure class="hero-shot">
+        <picture><source type="image/avif" srcset="/images/ultra-short-throw-projector-rental-dallas-480w.avif 480w, /images/ultra-short-throw-projector-rental-dallas-768w.avif 768w, /images/ultra-short-throw-projector-rental-dallas-1200w.avif 1200w, /images/ultra-short-throw-projector-rental-dallas-1920w.avif 1920w" sizes="(max-width: 860px) calc(100vw - 56px), 420px"><source type="image/webp" srcset="/images/ultra-short-throw-projector-rental-dallas-480w.webp 480w, /images/ultra-short-throw-projector-rental-dallas-768w.webp 768w, /images/ultra-short-throw-projector-rental-dallas-1200w.webp 1200w, /images/ultra-short-throw-projector-rental-dallas-1920w.webp 1920w" sizes="(max-width: 860px) calc(100vw - 56px), 420px"><img src="/images/ultra-short-throw-projector-rental-dallas.jpg" alt="An ultra short throw projector on a draped table at the base of an ambient light rejecting screen showing a bright yellow slide in an aircraft hangar, with the hangar door open to daylight" width="1200" height="1600" fetchpriority="high" decoding="async"></picture>
+        <figcaption>Our ultra short throw projector and ambient light rejecting screen in an aircraft hangar, with the door open to daylight.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -1925,8 +1929,8 @@ body.srch-locked{ overflow:hidden; }
           </div>
         </div>
         <div class="split-vis" data-reveal>
-          <picture><source type="image/avif" srcset="/images/alr-projector-screen-audience-dallas-event-480w.avif 480w, /images/alr-projector-screen-audience-dallas-event-768w.avif 768w, /images/alr-projector-screen-audience-dallas-event-1200w.avif 1200w, /images/alr-projector-screen-audience-dallas-event-1920w.avif 1920w" sizes="(max-width: 640px) 332px, 511px"><source type="image/webp" srcset="/images/alr-projector-screen-audience-dallas-event-480w.webp 480w, /images/alr-projector-screen-audience-dallas-event-768w.webp 768w, /images/alr-projector-screen-audience-dallas-event-1200w.webp 1200w, /images/alr-projector-screen-audience-dallas-event-1920w.webp 1920w" sizes="(max-width: 640px) 332px, 511px"><img src="/images/alr-projector-screen-audience-dallas-event.jpg" alt="A seated audience facing a large projection screen in a room with an exposed ceiling" loading="lazy" width="1200" height="675"></picture>
-          <span class="visually-hidden">A projector and ambient light rejecting screen running video for a seated audience at a Dallas private event.</span>
+          <picture><source type="image/avif" srcset="/images/lighting/corporate-general-session-stage-lighting-dallas-480w.avif 480w, /images/lighting/corporate-general-session-stage-lighting-dallas-768w.avif 768w, /images/lighting/corporate-general-session-stage-lighting-dallas-1200w.avif 1200w, /images/lighting/corporate-general-session-stage-lighting-dallas-1920w.avif 1920w" sizes="(max-width: 640px) 332px, 511px"><source type="image/webp" srcset="/images/lighting/corporate-general-session-stage-lighting-dallas-480w.webp 480w, /images/lighting/corporate-general-session-stage-lighting-dallas-768w.webp 768w, /images/lighting/corporate-general-session-stage-lighting-dallas-1200w.webp 1200w, /images/lighting/corporate-general-session-stage-lighting-dallas-1920w.webp 1920w" sizes="(max-width: 640px) 332px, 511px"><img src="/images/lighting/corporate-general-session-stage-lighting-dallas.jpg" alt="An ultra short throw projector at the base of an ambient light rejecting screen on a hotel ballroom stage, the sponsor slide bright with the chandeliers on and blue uplighting on the walls" loading="lazy" width="1920" height="1440"></picture>
+          <span class="visually-hidden">An ultra short throw projector and ambient light rejecting screen on the stage of a Dallas hotel ballroom general session, with the house lights on.</span>
         </div>
       </div>
       <div class="vid-lead" data-reveal>
@@ -2087,7 +2091,7 @@ body.srch-locked{ overflow:hidden; }
           </div>
         </div>
         <div class="split-vis" data-reveal>
-          <picture><source type="image/avif" srcset="/images/corporate-projector-rental-dallas-conference-480w.avif 480w, /images/corporate-projector-rental-dallas-conference-768w.avif 768w, /images/corporate-projector-rental-dallas-conference-1200w.avif 1200w, /images/corporate-projector-rental-dallas-conference-1920w.avif 1920w" sizes="(max-width: 640px) 332px, 511px"><source type="image/webp" srcset="/images/corporate-projector-rental-dallas-conference-480w.webp 480w, /images/corporate-projector-rental-dallas-conference-768w.webp 768w, /images/corporate-projector-rental-dallas-conference-1200w.webp 1200w, /images/corporate-projector-rental-dallas-conference-1920w.webp 1920w" sizes="(max-width: 640px) 332px, 511px"><img src="/images/corporate-projector-rental-dallas-conference.jpg" alt="A projection screen and a speaker on a stand set up in front of an aircraft in a hangar" loading="lazy" width="1200" height="675"></picture>
+          <picture><source type="image/avif" srcset="/images/alr-projector-screen-hangar-daylight-dallas-480w.avif 480w, /images/alr-projector-screen-hangar-daylight-dallas-768w.avif 768w" sizes="(max-width: 640px) 332px, 511px"><source type="image/webp" srcset="/images/alr-projector-screen-hangar-daylight-dallas-480w.webp 480w, /images/alr-projector-screen-hangar-daylight-dallas-768w.webp 768w" sizes="(max-width: 640px) 332px, 511px"><img src="/images/alr-projector-screen-hangar-daylight-dallas.jpg" alt="An ultra short throw projector at the base of an ambient light rejecting screen in a hangar with a wall of windows, showing a presentation slide beside a vintage airliner, with a speaker on a stand" loading="lazy" width="768" height="576"></picture>
           <span class="visually-hidden">A corporate presentation on an ambient light rejecting screen beside a vintage American Airlines aircraft, with a DEA speaker on a stand alongside.</span>
         </div>
       </div>

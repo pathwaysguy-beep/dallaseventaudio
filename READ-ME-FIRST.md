@@ -1321,3 +1321,25 @@ table and a black facade. There is no white facade.
   larger "LED dance floor" searches are for light-up floor panels, which DEA
   does not rent, so the page does not chase them.
 - Sitemap lastmod, llms.txt, llms-full.txt and search-index.json updated.
+
+## Bundle 139 (19 Nov 2026): projector page hero photo
+
+- /projector-screen-rental hero: the stat row (2001, 150 in, 40 mi,
+  Full-service) and the small throw graphic are out. Clarity showed a week of
+  dead clicks on those tiles. In their place the hero is a two column
+  layout (class hero-split) with the hangar photo of the ultra short throw
+  projector and ambient light rejecting screen (the yellow slide,
+  /images/ultra-short-throw-projector-rental-dallas, already in the repo and
+  unused since bundle 101) and a one line caption. On phones the photo sits
+  under the Request a Quote and Call buttons, cropped to 4:3, above the
+  intro paragraph. The image is not lazy and carries fetchpriority high,
+  because it is now the largest element on first paint.
+- "The short version" section now shows the hotel ballroom general session
+  photo (/images/lighting/corporate-general-session-stage-lighting-dallas)
+  in place of the dim seated-audience shot.
+- Corporate section: a wider angle of the same hangar setup
+  (/images/alr-projector-screen-hangar-daylight-dallas). The source was a
+  chat copy 1182 px wide, so the ladder stops at 768w; re-export if Steve
+  sends the original.
+- The og:image is unchanged. No title, description, heading, link or schema
+  change. Sitemap lastmod and llms-full.txt updated.

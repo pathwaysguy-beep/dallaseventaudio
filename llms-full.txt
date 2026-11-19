@@ -6130,14 +6130,7 @@ Call 817-210-7957
 Projector and screen rental in Dallas and Fort Worth , from an ultra short throw projector that sits right at the base of the screen to a long throw laser projector for a ballroom. We pair each projector with the right screen for the light in your room, run the cable, focus the image and pick it all up after the event.
 Request a Quote
 Call 817-210-7957
-2001
-Running audio and video for Dallas-Fort Worth events since 2001
-150 in
-Largest projector screen in our rental inventory
-40 mi
-Delivery radius around Dallas and Fort Worth
-Full-service
-Delivery, setup, image tuning and pickup on every rental
+Our ultra short throw projector and ambient light rejecting screen in an aircraft hangar, with the door open to daylight.
 Projector Rental Dallas · Projector And Screen Rental DFW · Ultra Short Throw · Ambient Light Rejecting Screens · Corporate Meetings · Weddings · Delivered And Set Up ·
 The short version
 ## Projector and screen rental, matched as one package
@@ -6148,7 +6141,7 @@ Live streaming
 Monogram projection
 TV rental
 Screens up to 150 inches
-A projector and ambient light rejecting screen running video for a seated audience at a Dallas private event.
+An ultra short throw projector and ambient light rejecting screen on the stage of a Dallas hotel ballroom general session, with the house lights on.
 /* Two cuts of the same piece, picked by width before anything loads, and
 attached only when the clip is one viewport away. */
 (function () {
