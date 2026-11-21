@@ -1,0 +1,15 @@
+<script>
+/* Phone action bar (bundle 141, site-wide; first built per page in bundle 117).
+   After about one screen of scroll the body gets the class mbar-on and the bar
+   slides up. A page can set its own text message with a meta tag named dea-sms;
+   without one the bar keeps the general message in the markup. Pages listed in
+   NO_MBAR in tools/sync_chrome.py carry no bar, and this script then does nothing. */
+(function(){
+  var b = document.getElementById('mbar'); if (!b) return;
+  var m = document.querySelector('meta[name="dea-sms"]'), t = b.querySelector('a[href^="sms:"]');
+  if (m && t && m.content) t.setAttribute('href', 'sms:+18172107957?&body=' + encodeURIComponent(m.content));
+  var on = false;
+  function u(){ var s = window.scrollY > window.innerHeight * 0.8; if (s !== on){ on = s; document.body.classList.toggle('mbar-on', s); } }
+  window.addEventListener('scroll', u, {passive:true}); u();
+})();
+</script>

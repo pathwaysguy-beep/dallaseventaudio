@@ -43,6 +43,8 @@ ANALYT  = io.open(SRC + '/analytics.html',    encoding='utf-8').read().rstrip()
 WIDGET  = io.open(SRC + '/widget.html',       encoding='utf-8').read().rstrip()
 WIDGJS  = io.open(SRC + '/widget_js.html',    encoding='utf-8').read().rstrip()
 FONTS   = io.open(SRC + '/fonts.html',        encoding='utf-8').read().rstrip()
+MBAR    = io.open(SRC + '/mbar.html',         encoding='utf-8').read().rstrip()
+MBARJS  = io.open(SRC + '/mbar_js.html',      encoding='utf-8').read().rstrip()
 
 MARK_CSS  = '<!-- chrome-sync:css -->'
 MARK_JS   = '<!-- chrome-sync:js -->'
@@ -57,7 +59,13 @@ GOOGLE_LINK = re.compile(
 FONT_FACE = re.compile(r'[ \t]*@font-face\s*\{[^{}]*\}[ \t]*\n?')
 
 STYLE_BLOCK = MARK_CSS + '\n<style>\n' + CSS + '\n</style>\n'
-JS_BLOCK    = MARK_JS + '\n' + PALJS + '\n' + NAVJS + '\n' + WIDGJS + '\n'
+JS_BLOCK    = MARK_JS + '\n' + PALJS + '\n' + NAVJS + '\n' + WIDGJS + '\n' + MBARJS + '\n'
+
+# Pages that carry no phone action bar (bundle 141). /contact already has its
+# own Call now and Text us buttons and the form; the other three are utility
+# pages; the sensory-friendly page keeps floating elements to a minimum.
+NO_MBAR = {'contact.html', 'thank-you.html', 'privacy.html', '404.html',
+           'sensory-friendly-event-services.html'}
 # Analytics goes in <head>, not with the other scripts before </body>: the
 # per-page conversion events on /contact and /thank-you sit in the body and call
 # gtag, so gtag has to exist before them or those events silently stop firing.
@@ -227,9 +235,10 @@ def sync(path, write=True):
     s, rep['old_widget']  = drop_element(s, r'<div id="chatPanel"', 'div')
     s, n_pill             = drop_element(s, r'<div id="chatBubble"', 'div')
     rep['old_widget'] += n_pill
+    s, rep['old_mbar']    = drop_element(s, r'<nav class="mbar"', 'nav')
     s, rep['old_js']      = drop_scripts(
         s, ['navBurger', 'paletteBar', "getElementById('palToggle')",
-            'dea-chat-v1'])
+            'dea-chat-v1', 'mbar-on'])
     # the page's own copy of the tag: the loader and the config block only.
     # Never the per-page conversion events, which contain gtag('event', ...)
     # and are the reason the Ads numbers move.
@@ -271,7 +280,8 @@ def sync(path, write=True):
     # The widget goes last in the body, after the footer, because it is a
     # floating overlay: last in source order means nothing later can sit on
     # top of it, and a screen reader reaches it after the page content.
-    s = s.replace('</body>', '\n  ' + WIDGET + '\n' + JS_BLOCK + '</body>', 1)
+    has_mbar = os.path.relpath(path, SITE).replace('\\', '/') not in NO_MBAR
+    s = s.replace('</body>', '\n  ' + (MBAR + '\n\n  ' if has_mbar else '') + WIDGET + '\n' + JS_BLOCK + '</body>', 1)
 
     # --- 3. sanity --------------------------------------------------------
     for tok, want in [(MARK_AN, 1), ('G-5SVH2Y4BDS', 1), ('AW-966108887', 1),
@@ -281,6 +291,7 @@ def sync(path, write=True):
                       ('class="pal-toggle"', 1), (MARK_CSS, 1), (MARK_JS, 1),
                       ('id="chatBubble"', 1), ('id="chatPanel"', 1),
                       ('dea-chat-v1', 1),
+                      ('id="mbar"', 1 if has_mbar else 0),
                       # Every page ends with one set of the ten faces and no
                       # request to Google. A page that kept a link would be a
                       # page whose markup this script did not understand, which

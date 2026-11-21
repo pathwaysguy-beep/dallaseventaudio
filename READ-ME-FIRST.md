@@ -1379,3 +1379,27 @@ SEO diff passes on all 59.
   several British spellings until 19 November 2026; the fixed script was
   handed to Steve to re-save into the skill.
 - Sitemap lastmod, llms.txt, llms-full.txt and search-index.json rebuilt.
+
+## Phone action bar on every page (bundle 141, 21 November 2026)
+
+- Steve, 21 November 2026: put the Call, Text and Get a Quote bar on all mobile
+  pages; leave it off the David's Bridal page. It was on seven ad landing pages
+  since bundle 117.
+- The bar is now part of the shared chrome: `tools/chrome/mbar.html` (markup),
+  `tools/chrome/mbar_js.html` (script) and a block in `tools/chrome/chrome.css`.
+  `tools/sync_chrome.py` injects it before the concierge widget. The seven
+  per-page copies from bundle 117 are removed.
+- Pages with no bar: contact, thank-you, privacy, 404 and
+  sensory-friendly-event-services (the `NO_MBAR` set in `sync_chrome.py`), plus
+  davidsbridalfrisco, which is standalone and never synced. 84 of 90 pages carry it.
+- Text message: the general one is "Hi, I'd like a quote for my event. Date:
+  Venue:". A page sets its own with a meta tag named `dea-sms` in the head; the
+  seven ad pages keep the messages they had.
+- Tracking: the bar's id is `mbar`, so GA4 `contact_click`, `call_tap` and
+  `text_tap` from the bar carry `link_section` "mbar". Bar taps can now be read
+  apart from the in-page buttons.
+- Why: Clarity, projector page, phones, 14 days to 21 November: 6 of 25 taps
+  were on the bar's three buttons. GA4, 5 to 20 November, phones: 9 call and
+  text taps on the seven bar pages from about 184 views, against 3 from about
+  250 views on pages with no bar.
+- No copy, title, description, heading, link or schema change.
