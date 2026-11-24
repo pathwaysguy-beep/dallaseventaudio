@@ -427,7 +427,10 @@ a.service-card .learn{ margin-top:auto; }
 .audio-demo-copy p{ margin:0; color:var(--dim); line-height:1.7; }
 .audio-demo-copy .spec{ display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; margin:0 0 14px; padding-bottom:12px; border-bottom:1px solid var(--card-border); font-family:var(--font-body); font-size:.92rem; color:var(--ink); line-height:1.5; }
 .audio-demo-copy .spec span{ font-family:var(--font-display); font-weight:900; font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; color:var(--a1); flex:0 0 auto; }
+.audio-demo-photo{ grid-template-columns:minmax(0,.72fr) minmax(0,1fr); }
+.audio-demo-photo img{ width:100%; height:auto; display:block; aspect-ratio:2/3; object-fit:cover; border-radius:20px; border:1px solid var(--card-border); }
 @media (max-width:860px){ .audio-demo{ grid-template-columns:1fr; gap:18px; } }
+@media (max-width:860px){ .audio-demo-photo img{ max-width:420px; margin:0 auto; } }
 .step-list{ counter-reset:step; display:grid; gap:14px; margin-top:26px; }
 .step{
     display:flex; gap:16px; align-items:flex-start;
@@ -1810,6 +1813,15 @@ body.srch-locked{ overflow:hidden; }
           <h3>An outdoor ceremony from the seats</h3>
           <p class="spec"><span>Rig</span> 2 lapel microphones on De-Feedback &middot; 2 EV ZLX speakers &middot; condenser over the string quartet</p>
           <p>A downtown Dallas garden, open air on every side, recorded on a phone from the guest chairs. This is what the rows hear: the officiant and the vows at conversation level, the quartet underneath, and the microphones open the whole time with the feedback suppression doing its work.</p>
+        </div>
+      </div>
+      <div class="audio-demo audio-demo-photo" data-reveal>
+        <picture><source type="image/avif" srcset="/images/white-column-speakers/white-column-speaker-outdoor-wedding-ceremony-aisle-480w.avif 480w, /images/white-column-speakers/white-column-speaker-outdoor-wedding-ceremony-aisle-768w.avif 768w, /images/white-column-speakers/white-column-speaker-outdoor-wedding-ceremony-aisle-1200w.avif 1200w" sizes="(max-width: 860px) calc(100vw - 56px), 400px"><source type="image/webp" srcset="/images/white-column-speakers/white-column-speaker-outdoor-wedding-ceremony-aisle-480w.webp 480w, /images/white-column-speakers/white-column-speaker-outdoor-wedding-ceremony-aisle-768w.webp 768w, /images/white-column-speakers/white-column-speaker-outdoor-wedding-ceremony-aisle-1200w.webp 1200w" sizes="(max-width: 860px) calc(100vw - 56px), 400px"><img src="/images/white-column-speakers/white-column-speaker-outdoor-wedding-ceremony-aisle.jpg" alt="A white Electro-Voice EVOLVE column speaker standing on its subwoofer base at the edge of an outdoor wedding ceremony, with rows of wooden chairs and a floral arbor under tall trees behind it" loading="lazy" width="1200" height="1800"></picture>
+        <div class="audio-demo-copy">
+          <span class="kicker">A recent ceremony</span>
+          <h3>A white column at the edge of the aisle</h3>
+          <p class="spec"><span>Rig</span> White EVOLVE column speaker &middot; DJI Mic Mini lapel microphones on De-Feedback</p>
+          <p>An outdoor ceremony under the trees, photographed before guests arrived. The <a href="/white-column-speaker-rental-dallas">white column speaker</a> stands on its own base beside the seating, and the lapel microphones run our AI-powered De-Feedback system, so the officiant and the vows carry to the last row over open air.</p>
         </div>
       </div>
     </div>

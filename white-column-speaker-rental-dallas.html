@@ -750,6 +750,9 @@ a.chip::after{ content:' \2192'; opacity:.55; }
 @media (max-width:860px){ .hero-top{ display:block; } .hero-col{ display:none; } .hero-col-m{ display:block; float:right; width:78px; margin:6px 0 10px 18px; } }
 .sub-gallery figure.wide{ grid-column:1/-1; }
 .sub-gallery figure.wide img{ aspect-ratio:16/9; }
+.split-vis.photo-tall{ aspect-ratio:2/3; max-height:820px; justify-self:center; width:100%; }
+#wedding-ceremony .split{ align-items:start; }
+#wedding-ceremony .chips{ margin-top:22px; }
 .split-vis.col-fig{ aspect-ratio:2/3; max-height:800px; justify-self:center; width:100%; }
 .split-vis.col-fig img{ object-fit:contain; padding:30px 0; box-sizing:border-box; }
 </style>
@@ -2109,19 +2112,25 @@ body.srch-locked{ overflow:hidden; }
 
   <section class="section alt" id="wedding-ceremony">
     <div class="wrap">
-      <div class="section-head" data-reveal style="max-width:900px;">
+      <div class="split" data-reveal>
+      <div class="split-copy">
         <span class="kicker">Weddings</span>
         <h2>White speaker rental for wedding ceremonies</h2>
         <p class="spec"><span>Rig</span> 2 white columns &middot; lapel microphone for the officiant &middot; optional vow microphone &middot; processional music</p>
         <p>A ceremony is the quietest and most photographed half hour of the day. The sound has to carry soft voices to the back row, and the equipment has to stay out of a hundred photographs of the aisle. That is the case for white speakers at a wedding. A white column beside white drapery, a floral arch or a tent wall reads as part of the setting.</p>
         <p>The column is slim and it stands on its own base, so the floor around it stays clear for the wedding party, the photographer and the guests finding their seats. Its drivers are angled slightly down toward a seated audience, which keeps the vows on the guests and off the ceiling or the open sky.</p>
         <p>Every wireless microphone we bring to a ceremony runs our AI-powered De-Feedback system. It listens for the frequencies about to ring and pulls them down early, so a quiet officiant can be turned up enough to be heard over wind or a reverberant chapel. Music for the prelude, the processional and the recessional plays from the same system, tested with your playlist or your musicians before guests arrive.</p>
+        <p>The photograph is one of our outdoor ceremonies before guests arrived: a white column at the edge of the seating, and DJI Mic Mini lapel microphones running AI-powered De-Feedback for the officiant and the vows.</p>
         <div class="chips">
           <a class="chip" href="/weddings">Wedding AV services</a>
           <a class="chip" href="/wedding-av-rental-dallas">Wedding AV rental</a>
           <a class="chip" href="/feedback-free-microphone-rentals">Wireless microphone rental</a>
           <a class="chip" href="/rent-uplighting">Uplighting</a>
         </div>
+      </div>
+      <div class="split-vis photo-tall">
+        <picture><source type="image/avif" srcset="/images/white-column-speakers/white-column-speaker-outdoor-wedding-ceremony-aisle-480w.avif 480w, /images/white-column-speakers/white-column-speaker-outdoor-wedding-ceremony-aisle-768w.avif 768w, /images/white-column-speakers/white-column-speaker-outdoor-wedding-ceremony-aisle-1200w.avif 1200w" sizes="(max-width: 860px) calc(100vw - 56px), 513px"><source type="image/webp" srcset="/images/white-column-speakers/white-column-speaker-outdoor-wedding-ceremony-aisle-480w.webp 480w, /images/white-column-speakers/white-column-speaker-outdoor-wedding-ceremony-aisle-768w.webp 768w, /images/white-column-speakers/white-column-speaker-outdoor-wedding-ceremony-aisle-1200w.webp 1200w" sizes="(max-width: 860px) calc(100vw - 56px), 513px"><img src="/images/white-column-speakers/white-column-speaker-outdoor-wedding-ceremony-aisle.jpg" alt="A white Electro-Voice EVOLVE column speaker standing on its subwoofer base at the edge of an outdoor wedding ceremony, with rows of wooden chairs and a floral arbor under tall trees behind it" loading="lazy" width="1200" height="1800"></picture>
+      </div>
       </div>
     </div>
   </section>
