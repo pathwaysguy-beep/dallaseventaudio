@@ -1,7 +1,7 @@
 # Read me first: where the rebuild stands, and how to pick it up cold
 
 Written 7 September 2026, with this opening brought up to date on 25 November
-2026 (bundle 144) so that any new session, on any machine, can resume without
+2026 (bundle 145) so that any new session, on any machine, can resume without
 the chat that got us here. Everything that matters lives in one of
 three places: this repo, the `dea-*` skills saved in Steve's Claude account
 (eleven of them as of 12 October), and the Cloudflare account. The private
@@ -13,7 +13,7 @@ repo is public. Nothing important lives only in a chat.
 
 dallaseventaudio.com is live on Cloudflare Pages, as static HTML in this repo,
 and has been since the cutover on 20 September 2026. Wix is retired: nothing is
-ever published there. 90 pages as of 25 November 2026: 45 at the top level, 44
+ever published there. 87 pages as of 25 November 2026: 45 at the top level, 41
 posts under `post/` and one page under `rent-sound-equipment/`. Every URL from
 the Wix site survived byte for byte because Google Ads campaigns point at them;
 no slug with impressions, clicks or an Ads final URL ever changes.
@@ -1442,3 +1442,31 @@ SEO diff passes on all 59.
   on the microphone page, and the home page sections.
 - No title, description, H1, heading or link change. Sitemap lastmod on the two
   pages and llms-full.txt rebuilt.
+
+## Three posts retired and the outdoor sound post rewritten (bundle 145, 25 November 2026)
+
+- Why: Search Console's page indexing report (read 25 November) listed four
+  posts as "Crawled, currently not indexed". Three have had no search
+  impressions in over a year and repeat a stronger post on the same subject.
+  The fourth still shows for outdoor sound questions, so it keeps its slug.
+- Retired with a 301 in `_redirects` (plain, trailing slash and `.html` forms):
+  /post/event-audio-101-essential-tips-for-event-planners to
+  /post/a-beginners-guide-to-sound-equipment-rentals;
+  /post/making-your-wedding-day-unique-with-av-services to
+  /post/top-av-services-couples-should-consider-for-their-big-day;
+  /post/the-ultimate-checklist-for-renting-audio-visual-equipment to
+  /post/ultimate-guide-to-ensuring-a-seamless-av-setup. Each is out of the
+  sitemap, the blog index cards and its ItemList, llms.txt, llms-full.txt,
+  search-index.json and tools/imgsizes.json.
+- The "Keep reading" rings were closed up: nine posts each swapped their link
+  to a retired post for another post in the same ring, so no post links to a
+  redirect.
+- /post/how-to-manage-sound-at-your-next-outdoor-event rewritten in place: same
+  slug, title, H1 and nine of its section headings. The body now says how DEA
+  plans outdoor sound, using facts already on the service pages (open air
+  coverage, placement, the power path, battery powered speakers, wind
+  screening, the weather plan) and links the sound, line array, subwoofer,
+  microphone and DJ speaker pages and the plane post. New meta description,
+  BlogPosting description and dateModified, an "Updated" date beside the
+  published date, and a new blog card excerpt.
+- Recheck in about four weeks: whether Search Console indexes the outdoor post.

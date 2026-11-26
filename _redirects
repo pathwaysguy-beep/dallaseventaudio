@@ -124,3 +124,14 @@
 /rent-cold-sparks       /services-extra  301
 /rent-cold-sparks/      /services-extra  301
 /rent-cold-sparks.html  /services-extra  301
+
+# Bundle 145 (25 Nov 2026): three posts Google crawled and left out of the index, folded into the closest post
+/post/event-audio-101-essential-tips-for-event-planners  /post/a-beginners-guide-to-sound-equipment-rentals  301
+/post/event-audio-101-essential-tips-for-event-planners/  /post/a-beginners-guide-to-sound-equipment-rentals  301
+/post/event-audio-101-essential-tips-for-event-planners.html  /post/a-beginners-guide-to-sound-equipment-rentals  301
+/post/making-your-wedding-day-unique-with-av-services  /post/top-av-services-couples-should-consider-for-their-big-day  301
+/post/making-your-wedding-day-unique-with-av-services/  /post/top-av-services-couples-should-consider-for-their-big-day  301
+/post/making-your-wedding-day-unique-with-av-services.html  /post/top-av-services-couples-should-consider-for-their-big-day  301
+/post/the-ultimate-checklist-for-renting-audio-visual-equipment  /post/ultimate-guide-to-ensuring-a-seamless-av-setup  301
+/post/the-ultimate-checklist-for-renting-audio-visual-equipment/  /post/ultimate-guide-to-ensuring-a-seamless-av-setup  301
+/post/the-ultimate-checklist-for-renting-audio-visual-equipment.html  /post/ultimate-guide-to-ensuring-a-seamless-av-setup  301
