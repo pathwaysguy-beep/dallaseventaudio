@@ -1,8 +1,8 @@
 # Read me first: where the rebuild stands, and how to pick it up cold
 
-Written 7 September 2026 and brought up to date on 12 October 2026 (bundle 81)
-so that any new session, on any machine, can resume without the chat that got
-us here. Everything that matters lives in one of
+Written 7 September 2026, with this opening brought up to date on 25 November
+2026 (bundle 144) so that any new session, on any machine, can resume without
+the chat that got us here. Everything that matters lives in one of
 three places: this repo, the `dea-*` skills saved in Steve's Claude account
 (eleven of them as of 12 October), and the Cloudflare account. The private
 side (leads, analytics figures, the open to-do list) lives in the "Dallas Event
@@ -11,15 +11,21 @@ repo is public. Nothing important lives only in a chat.
 
 ## The shape of the project
 
-dallaseventaudio.com is moving off Wix onto Cloudflare Pages, page by page,
-as static HTML in this repo. 40 top-level pages plus 38 posts under `post/`.
-Every live URL survives byte for byte because Google Ads campaigns point at
-them; no slug with impressions, clicks or an Ads final URL ever changes.
+dallaseventaudio.com is live on Cloudflare Pages, as static HTML in this repo,
+and has been since the cutover on 20 September 2026. Wix is retired: nothing is
+ever published there. 90 pages as of 25 November 2026: 45 at the top level, 44
+posts under `post/` and one page under `rent-sound-equipment/`. Every URL from
+the Wix site survived byte for byte because Google Ads campaigns point at them;
+no slug with impressions, clicks or an Ads final URL ever changes.
 
-The preview is https://dallaseventaudio.pages.dev, deployed from `main` on
-every push. It is kept out of Google by the staging block in `_headers` and
-the `Disallow: /` in `robots.txt`, both of which come out in the same commit
-as the DNS switch. The live site is still Wix until that day.
+Production is https://www.dallaseventaudio.com (the apex redirects to www),
+deployed from `main` on every push. https://dallaseventaudio.pages.dev serves
+the same build. The staging block in `_headers` and the `Disallow: /` in
+`robots.txt` came out at go-live (bundle 57).
+
+Sections further down that speak of the site moving off Wix, the preview being
+kept out of Google, or steps to take at cutover are history from before 20
+September 2026. They are kept as a record and describe nothing still to do.
 
 ## How work gets delivered
 
@@ -1417,3 +1423,22 @@ SEO diff passes on all 59.
   for each form, so the gain is small.
 - No title, description, H1, link or schema change. Sitemap lastmod,
   llms-full.txt and search-index.json rebuilt.
+
+## Quote timing, the microphone FAQ and this file's opening (bundle 144, 25 November 2026)
+
+- `/contact`, FAQ on reply time, visible answer and FAQPage schema together:
+  "A person replies within 24 hours with your quote, and often much sooner."
+  now ends at "your quote." The quote promise is within 24 hours and nothing
+  earlier, the same rule the concierge prompt holds.
+- `/feedback-free-microphone-rentals`, FAQ "Can I rent just a microphone?",
+  visible answer and schema together: "Bundling them is also what lets us
+  guarantee it works when the room fills" is now "Bundling them is also why it
+  holds up when the room fills". The word "guarantee" is off the page.
+- The opening of this file said the live site was still Wix. It now says
+  Cloudflare Pages has been live since 20 September 2026 and marks the older
+  cutover sections as history.
+- Left as they are, on Steve's call: the chat panel line "Answers come from an
+  assistant" (the panel is titled AV Concierge), the other De-Feedback sentences
+  on the microphone page, and the home page sections.
+- No title, description, H1, heading or link change. Sitemap lastmod on the two
+  pages and llms-full.txt rebuilt.

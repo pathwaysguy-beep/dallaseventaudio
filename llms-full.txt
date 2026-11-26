@@ -3691,7 +3691,7 @@ Get a quote
 Questions
 ## What people ask before they book microphones.
 Can I rent just a microphone on its own?
-We quote it as a speaker and microphone rental, because microphones go out as part of a full sound system. The speaker, the mixer and the setup are what make a voice louder, and the microphone feeds them. Bundling them is also what lets us guarantee it works when the room fills, because we tuned the whole chain together. More on sound system rental .
+We quote it as a speaker and microphone rental, because microphones go out as part of a full sound system. The speaker, the mixer and the setup are what make a voice louder, and the microphone feeds them. Bundling them is also why it holds up when the room fills, because we tuned the whole chain together. More on sound system rental .
 What kinds of microphones do you carry?
 Wireless handhelds, lapel and lavalier microphones on bodypacks, over-the-ear headsets, gooseneck podium and lectern microphones, push-to-talk tabletop microphones for conference and board rooms, and instrument, choir and overhead microphones for bands and worship teams. Most events use a combination, and working out that combination is part of the quote.
 What is the AI De-Feedback system?
@@ -8520,7 +8520,7 @@ Tap a city to see the venues we have worked there. Holding your event outside th
 Before You Send It
 ## The questions we get most before an event.
 How fast will I hear back?
-A person replies within 24 hours with your quote, and often much sooner. If you text us a date and a venue you’ll usually have an answer on whether we’re open within the hour, and if we’re already booked for your date we’ll say so straight away. On a show day the reply may come late in the evening.
+A person replies within 24 hours with your quote. If you text us a date and a venue you’ll usually have an answer on whether we’re open within the hour, and if we’re already booked for your date we’ll say so straight away. On a show day the reply may come late in the evening.
 I don’t know what equipment I need. Is that a problem?
 That is most people, and working it out is our job. Tell us the room, the headcount, and what is supposed to happen during the event, and we will come back with what it takes. You can book us and leave the difference between a line array and a point source to us.
 What is included in a rental?
