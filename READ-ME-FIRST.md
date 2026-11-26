@@ -1403,3 +1403,17 @@ SEO diff passes on all 59.
   text taps on the seven bar pages from about 184 views, against 3 from about
   250 views on pages with no bar.
 - No copy, title, description, heading, link or schema change.
+
+## Pro audio heading on the sound equipment page (bundle 143, 25 November 2026)
+
+- One heading on `/rent-sound-equipment`: "Audio equipment and sound system
+  rental across Dallas-Fort Worth" is now "Pro audio, audio equipment and sound
+  system rental across Dallas-Fort Worth". The section text already used the
+  phrase "pro audio rental"; the heading did not.
+- Why: Search Console, 90 days to 25 November: for "pro audio rental" the home
+  page shows at position 7 (67 impressions) and this page at 51 (50); for "pro
+  audio rentals" 13 (59) against 71 (25). No clicks on either. The aim is for
+  Google to pick the equipment page. DFW volume is about 10 searches a month
+  for each form, so the gain is small.
+- No title, description, H1, link or schema change. Sitemap lastmod,
+  llms-full.txt and search-index.json rebuilt.
